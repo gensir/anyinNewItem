@@ -9,10 +9,11 @@ require('../store/store.js')
 window.reqres.request(  'global', 'current-user' );
 $('body').prepend(tpl({
     list: [
-        { url: 'home/', name: 'Home' },
-        { url: 'stat/', name: 'Stat' }
+        { url: 'homess/', name: 'Homes' },
+        { url: 'stat/', name: 'Statsssss' }
     ]
 }));
+alert(123)
 window.S = {};
 S.router = new Router();
 Backbone.history.start({
@@ -21,6 +22,6 @@ Backbone.history.start({
 //测试代理;
 service.serverTest().done(function (data) {
     console.log(data); 
-    console.log("测试代理成功")
+    console.log("测试代理成功122")
 })
 console.log("index")

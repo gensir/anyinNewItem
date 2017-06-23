@@ -1,13 +1,14 @@
 var path = require('path'),
     webpack = require('webpack'),
     glob = require('glob');
-    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+ExtractTextPlugin = require("extract-text-webpack-plugin"),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     AssetsPlugin = require('assets-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
-    entries='';
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
+    entries = '';
 var config = {
-    entry:entries,
+    entry: entries,
     output: {
         path: path.join(__dirname, 'build/public'),
         filename: '[name].[chunkhash].js',
@@ -33,8 +34,8 @@ var config = {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=]+)?$/,
                 loader: 'file-loader'
             },
-            { 
-                test: /\.scss$/, 
+            {
+                test: /\.scss$/,
                 loader: 'style!css!autoprefixer?{browsers:["last 2 versions", "> 5%","ie <= 9","Firefox <= 20"]}!sass'
             },
             {
@@ -61,26 +62,34 @@ var config = {
                 warnings: false
             },
             mangle: {
-                screw_ie8:false
+                screw_ie8: false
             }
         }),
         new webpack.ProvidePlugin({
             Backbone: 'backbone',
-            _:'underscore',
-            'backbone.wreqr':'backbone.wreqr'
+            _: 'underscore',
+            'backbone.wreqr': 'backbone.wreqr'
         }),
         new ExtractTextPlugin('[name].[chunkhash].css'),
         new AssetsPlugin({
             prettyPrint: true
         }),
         new CleanWebpackPlugin(
-            ['build/public/*.js','build/public/*.css',],　 //匹配删除的文件
+            ['build/public/*.js', 'build/public/*.css', 'build/lib'],　 //匹配删除的文件
             {
                 root: __dirname,       　　　　　　　　　　//根目录
-                verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
-                dry:      false        　　　　　　　　　　//启用删除文件
+                verbose: true,        　　　　　　　　　　//开启在控制台输出信息
+                dry: false        　　　　　　　　　　//启用删除文件
             }
-        )
+        ),
+        new CopyWebpackPlugin([{
+            from: __dirname + '/asset/lib',
+            to: __dirname + '/build/lib'
+        }]),
+        new CopyWebpackPlugin([{
+            from: __dirname + '/asset/basic.min.js',
+            to: __dirname + '/build/'
+        }]),
     ]
 };
 
@@ -105,20 +114,20 @@ function getEntry(globPath) {
             basename = path.basename(entry, path.extname(entry));
             //if (entry.split('/').length === 5) {
             config.plugins.push(new HtmlWebpackPlugin({
-            filename: '../'+basename+'.html',
-            template: 'asset/tpl/'+basename+'.html'
-        }));    
+                filename: '../' + basename + '.html',
+                template: 'asset/tpl/' + basename + '.html'
+            }));
             entries[basename] = ['babel-polyfill', entry];
             //}
         });
     });
-    var elseIn={
-        vendor: [ 'backbone','underscore','backbone.wreqr']
+    var elseIn = {
+        vendor: ['backbone', 'underscore', 'backbone.wreqr']
     };
-    Object.assign(entries,elseIn);
-    config.entry=entries;
+    Object.assign(entries, elseIn);
+    config.entry = entries;
 };
-getEntry([__dirname+'/app/page/*/entry/*.js'])
+getEntry([__dirname + '/app/page/*/entry/*.js'])
 // /* end for multiple pages */
 
 
