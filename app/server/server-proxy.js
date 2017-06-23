@@ -9,7 +9,7 @@ var config={
     hot: true,
     inline: true,
     progress: true,
-    port: 80,
+    port:10086 ,
     //contentBase:"./app/page/index",
     proxy: {	
         '/api': {
@@ -19,7 +19,7 @@ var config={
         }
     },
     pro:{
-    port:8080
+    port:10088
     }
 
  }

@@ -6,7 +6,7 @@ var Router = require('../Router');
 var Util = require('../../../publicFun/Util');
 var tpl = require('../../../../asset/tpl/main.html');
 require('../store/store.js')
-window.reqres.request(  'global', 'current-user' );
+reqres.request(  'global', 'current-user' );
 $('body').prepend(tpl({
     list: [
         { url: 'homess/', name: 'Homes' },
