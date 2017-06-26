@@ -90,6 +90,10 @@ var config = {
             from: __dirname + '/asset/basic.min.js',
             to: __dirname + '/build/'
         }]),
+                new CopyWebpackPlugin([{
+            from: __dirname + '/asset/img',
+            to: __dirname + '/build/asset/img/'
+        }]),
     ]
 };
 
