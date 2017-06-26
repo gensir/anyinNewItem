@@ -1,9 +1,11 @@
 import '../../../../asset/css/index.css';
-import {add} from '../../../publicFun/Util'
+import '../../../../asset/lib/jquery-placeholder.js';
+import {add} from '../../../publicFun/public'
 console.log(add())
 var service=require('../../../server/service').default;
 var Router = require('../Router');
-var Util = require('../../../publicFun/Util');
+var Util = require('../../../publicFun/public');
+
 var tpl = require('../../../view/login/tpl/main.html');
 require('../store/store.js')
 window.reqres.request(  'global', 'current-user' );

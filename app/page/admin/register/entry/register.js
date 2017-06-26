@@ -1,9 +1,9 @@
 import '../../../../asset/css/index.css';
-import {add} from '../../../publicFun/Util'
+import {add} from '../../../publicFun/public'
 console.log(add())
 
 var Router = require('../Router');
-var Util = require('../../../publicFun/Util');
+var Util = require('../../../publicFun/public');
 var tpl = require('../../../../asset/tpl/main.html');
 
 $('body').prepend(tpl({

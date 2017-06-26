@@ -1,7 +1,7 @@
 import '../../../../asset/css/admin.css';
 
 var Router = require('../Router');
-var Util = require('../../../publicFun/Util');
+var Util = require('../../../publicFun/public');
 var tpl = require('../../../../asset/tpl/main.html');
 
 $('body').prepend(tpl({
