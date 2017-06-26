@@ -6,6 +6,7 @@ var step1 = Backbone.View.extend({
     el: '.container',
     initialize(){
     },
+    
     render: function (query) {
         this.$el.html(tpl);
     },

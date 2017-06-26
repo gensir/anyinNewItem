@@ -3,11 +3,10 @@ var Router = Backbone.Router.extend({
         '': 'home',
         'stat/': 'stat',
         'stat/:query': 'substat',
-        '/step1':'step1',
-        '/step2':'step2',
-        '/step3':'step3',
-        '/step4':'step4',
-        
+        'step1':'step1',
+        'step2':'step2',
+        'step3':'step3',
+        'step4':'step4',
     },
     initialize: function() {
         S.main = null;
@@ -59,6 +58,7 @@ var Router = Backbone.Router.extend({
             });
         }, 'Stat');
     },
+    
     step1:function(query){
         var me=this;
         require.ensure([],function(require){

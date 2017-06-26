@@ -13,7 +13,7 @@ $('body').prepend(tpl({
         {url: '', name: 'Home'},
         {url: 'stat/', name: 'Stat'},
         {url: 'login', name: 'login'},
-        {url: '/step1', name: 'register'}
+        {url: 'step1', name: 'register'}
     ]
 }));
 
