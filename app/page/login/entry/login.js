@@ -1,6 +1,7 @@
 import '../../../../asset/css/index.css';
-import '../../../../asset/lib/jquery-placeholder.js';
+require('../../../../asset/lib/jquery-placeholder');
 import {add} from '../../../publicFun/public'
+import {imgModalBig} from '../../../publicFun/public'
 console.log(add())
 var service=require('../../../server/service').default;
 var Router = require('../Router');

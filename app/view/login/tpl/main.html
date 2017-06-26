@@ -10,26 +10,47 @@
             </div>
         </div>
         <div class="mainbody">
-            <div class="ukey active">
+            <div class="ukey">
                 <h2>欢迎<span>登录</span></h2>
-                <div>
-                    <div><input type="text" value="请输入用户名"></div>
-                    <div><input type="password" value="密码" placeholder="请输入密码"></div>
+                <ul>
+                    <li class="active">
+                        <div><input id="userName" type="text" placeholder="请输入用户名"></div>
+                        <div><input id="passwd" type="password" placeholder="请输入密码"></div>
+                    </li>
+                    <li>
+                        <div class="phoneTab">
+                            <div>
+                                <!--<input id="userName" type="text" placeholder="请输入用户名">-->
+                                <select name="" id="seleBook">
+                                    <option value="">-------------------<b>选择证书</b>-------------------</option>
+                                    <option value="">证一</option>
+                                    <option value="">证二</option>
+                                    <option value="">证三</option>
+                                </select>
+                                
+                            </div>
+                            <div><input id="pinwd" type="password" placeholder="PIN码"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="buttonTab">
+                    <button class="" id="login">立即登录</button>
+                    <button class="" id="goregister">注册账号</button>
                 </div>
-                <div>
-                    <button class="btn">立即登录</button>
-                    <button>注册账号</button>
+                <div class="btnA">
+                    <a href="#" class="drive">驱动中心</a>
+                    <a href="#" class="help">帮助中心</a>
                 </div>
             </div>
-            <div class="phoneTab">2</div>
+
         </div>
     </div>
-<script>
-    $(".head div.but").on("click","span",function(){
-        $(this).addClass("active").siblings().removeClass("active");
-        $(".mainbody>div").eq($(this).index()).addClass("active").siblings().removeClass("active");
-    })
-</script>
+    <script>
+        $(".head div.but").on("click", "span", function () {
+            $(this).addClass("active").siblings().removeClass("active");
+            $(".mainbody ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
+        })
+    </script>
 </div>
 <style>
     html,
@@ -57,7 +78,7 @@
     .wrapper .main .head {
         border-bottom: 4px solid #48BAF1;
         height: 101px;
-        }
+    }
 
     .wrapper .main .head .logo {
         float: left;
@@ -70,38 +91,117 @@
         float: right;
         margin: 64px 22px 0 0;
     }
-    .wrapper .main .head .but span{
+
+    .wrapper .main .head .but span {
         cursor: pointer;
         margin-left: 40px;
         font-size: 16px;
         font-family: "微软雅黑";
         font-weight: bold;
-        
+
         display: inline-block;
         height: 37px;
         width: 112px;
         text-align: center;
     }
-    .wrapper .main .head .but span.active{
+
+    .wrapper .main .head .but span.active {
         cursor: default;
-        border-bottom:6px solid #0cabfd;
-        color:#0cabfd;
+        border-bottom: 6px solid #0cabfd;
+        color: #0cabfd;
     }
-    .mainbody>div{display: none;text-align: center}
-    .mainbody>div.active{display: block}
-    .mainbody .ukey h2{
+
+    .mainbody li {
+        display: none;
+        text-align: center
+    }
+
+    .mainbody li.active {
+        display: block
+    }
+
+    .mainbody .ukey h2 {
         font-size: 37px;
-        color:#00acff;
+        color: #00acff;
         text-align: center;
         letter-spacing: 12px;
-        margin: 36px 0 30px 0 ;
+        margin: 36px 0 30px 0;
     }
-    .mainbody .ukey h2 span{color: #333}
-    .mainbody .ukey  input{
-        border:0;border-bottom:1px solid #b2b2b2;
-        width:370px;
-        padding:3px 0 3px 20px;
-        margin-bottom: 18px;  }
+
+    .mainbody .ukey h2 span {
+        color: #333
+    }
+
+    .mainbody .ukey input {
+        border: 0;
+        border-bottom: 1px solid #b2b2b2;
+        width: 370px;
+        padding: 12px 0 12px 38px;
+        margin-bottom: 18px;
+    }
+    .phoneTab select{
+        border: 0;
+        border-bottom: 1px solid #b2b2b2;
+        width: 370px;
+        padding: 12px 0 12px 38px;
+        margin-bottom: 18px;
+}
+.phoneTab select option span{padding: 0 10px;}
+    .mainbody #seleBook {
+        background: url('../../../../asset/img/login3.png') no-repeat -2px 6px;
+    }
+    .mainbody #userName {
+        background: url('../../../../asset/img/login3.png') no-repeat -2px -82px;
+    }
+
+    .mainbody #passwd,#pinwd {
+        background: url('../../../../asset/img/login3.png') no-repeat -2px -43px;
+    }
+
+    .buttonTab {
+        width: 370px;
+        margin: 20px auto 0;
+        overflow: hidden;
+    }
+
+    .mainbody .ukey #login {
+        height: 46px;
+        line-height: 46px;
+        width: 180px;
+        background: #0cabfd;
+        color: #fff;
+        border: 0;
+        float: left;
+    }
+
+    .mainbody .ukey #goregister {
+        height: 46px;
+        line-height: 46px;
+        width: 180px;
+        background: #d5dcf1;
+        color: #989898;
+        border: 0;
+        float: right;
+    }
+
+    .btnA {
+        width: 370px;
+        margin: 63px auto 0;
+    }
+
+    .btnA a:hover {
+        text-decoration: none;
+    }
+
+    .btnA .drive {
+        float: left;
+        color: #666;
+    }
+
+    .btnA .help {
+        float: right;
+        color: #00acff;
+    }
 </style>
 
 <!--<div class="wrapper">
