@@ -19,8 +19,8 @@ Backbone.history.start({
     root: ''
 });
 //测试代理;
-service.serverTest().done(function (data) {
-    console.log(data); 
-    console.log("测试代理成功122")
-})
-console.log("index")
+// service.serverTest().done(function (data) {
+//     console.log(data); 
+//     console.log("测试代理成功122")
+// })
+// console.log("index")

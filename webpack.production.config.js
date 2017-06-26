@@ -117,7 +117,7 @@ function getEntry(globPath) {
                 filename: '../' + basename + '.html',
                 template: 'asset/tpl/' + basename + '.html'
             }));
-            entries[basename] = ['babel-polyfill', entry];
+            entries[basename] = [entry];
             //}
         });
     });

@@ -8,11 +8,18 @@ var Router = Backbone.Router.extend({
         S.main = null;
     },
     viewUnmount:function(){
+        console.log(this.events);
+        console.log(this)
+        debugger;
         this.undelegateEvents();
+        console.log(this.events);
+        console.log(this)
         this.$el.empty();
+        debugger;
     },
     startRout: function(View, queryObj, sub) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
+
         S.main = new View();
         S.main.viewUnmount=this.viewUnmount;
         S.main.sub=null
@@ -30,7 +37,7 @@ var Router = Backbone.Router.extend({
     home: function(query) {
         var me = this;
         require.ensure([], function(require) {
-            var View = require('../../view/home/Home')
+            var View = require('../../view/login/Home')
             me.startRout(View, {query:query});
         }, 'Home');
     },

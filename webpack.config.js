@@ -1,14 +1,13 @@
 var path = require('path'),
     webpack = require('webpack'),
-    proxy=require('./app/server/server-proxy').dev,
+    proxy = require('./app/server/server-proxy').dev,
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     glob = require('glob'),//add
-    HtmlWebpackPlugin = require('html-webpack-plugin'),//add
-    entries=getEntry([__dirname+'/app/page/*/entry/*.js']);
-
-
+    HtmlWebpackPlugin = require('html-webpack-plugin')//add
 var config = {
-    entry: entries,
+    entry: {
+         vendor: ['backbone', 'underscore','backbone.wreqr']
+    },
     output: {
         filename: '[name].js',
         chunkFilename: '[name].js',
@@ -61,7 +60,7 @@ var config = {
         new webpack.ProvidePlugin({
             Backbone: 'backbone',
             _: 'underscore',
-            'backbone.wreqr':'backbone.wreqr'
+            'backbone.wreqr': 'backbone.wreqr'
         }),
         new ExtractTextPlugin('[name].css')
     ]
@@ -76,25 +75,24 @@ var config = {
 //     }
 // }
 // entry.init();
+getEntry([__dirname + '/app/page/*/entry/*.js']);
 function getEntry(globPath) {
     var entries = {},
         basename, tmp, pathname;
     if (typeof (globPath) != "object") {
         globPath = [globPath]
     }
-    globPath.forEach((itemPath) => {
-        glob.sync(itemPath).forEach(function (entry) {
-            basename = path.basename(entry, path.extname(entry));
-            //if (entry.split('/').length === 5) {
-                entries[basename] = ['babel-polyfill', entry];
-            //}
-        });
-    });
-    var elseIn={
-        vendor: [ 'backbone','underscore','backbone.wreqr']
-    };
-    Object.assign(entries,elseIn);
-    return entries;
+        for (var i in globPath) {
+            var itemPath=globPath[i];
+            if (globPath.hasOwnProperty(i)) {
+                for (var i = 0; i < (glob.sync(itemPath)).length; i++) {
+                    var entry = (glob.sync(itemPath))[i];
+                    basename = path.basename(entry, path.extname(entry));
+                    config.entry[basename] = [entry];
+                };
+                //config.entry["vendor"] = ['backbone', 'underscore', 'backbone.wreqr']
+            }
+        }
 }
 
 
