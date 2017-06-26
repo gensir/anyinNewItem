@@ -13,7 +13,6 @@ $('body').prepend(tpl({
         { url: 'stat/', name: 'Statsssss' }
     ]
 }));
-alert(123)
 window.S = {};
 S.router = new Router();
 Backbone.history.start({
