@@ -1,3 +1,192 @@
-<div>这里是step3</div>
-<a id="" href="/app/register.html#step2">上一步</a>
-<a id="goStep2" href="/app/register.html#step4">下一步</a>
+<div class="step3">
+	<div class="Message">
+		<div class="mainTitle">
+			企业证照上传
+		</div>
+		<div class="legalSubstance">
+			<div class="flex">
+				<div class="flexCon">
+					<div class="unitPhotoTitle">
+						上传单位证件照片：
+					</div>
+					<div class="form">
+						<span class="nothing"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">企业法人营业执照</div>
+					<div class="form">
+						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo"></span>
+							<input type="file" />
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">企业法人营业执照</div>
+					<div class="form">
+						<span class="businessLicense photo"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mainTitle countMessage">法人证照上传</div>
+		<div class="mainSubstance">
+			<div class="flex">
+				<div class="flexCon">
+					<div class="unitPhotoTitle">
+						上传单位法人身份证照：
+					</div>
+					<div class="form">
+						<span class="nothing"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证正面</div>
+					<div class="form">
+						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo"></span>
+							<input type="file" />
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证正面</div>
+					<div class="form">
+						<span class="frontPhoto photo"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证反面</div>
+					<div class="form">
+						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo"></span>
+							<input type="file" />
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证反面</div>
+					<div class="form">
+						<span class="backPhoto photo"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="go">
+		<a class="fl" id="goStep2" href="/app/register.html#step2">上一步</a>
+		<a class="fr" id="goStep4" href="/app/register.html#step4">提交</a>
+	</div>
+</div>
+<style>
+	.fl {
+		float: left;
+	}
+	
+	.fr {
+		float: right;
+	}
+	
+	.step3 {
+		width: 1100px;
+		/*height: 460px;*/
+		margin: 40px auto 0;
+	}
+	
+	.step3 .Message {
+		border: 1px solid #333333;
+		border-radius: 5px;
+	}
+	
+	.step3 .mainTitle {
+		height: 35px;
+		line-height: 35px;
+		border-bottom: 1px solid #666666;
+		padding-left: 30px;
+		font-size: 16px;
+		font-weight: 700;
+	}
+	
+	.step3 .mainSubstance {
+		margin-top: 15px;
+	}
+	.step3 .flex{
+		margin-bottom: 20px;
+	}
+	.step3 .flex .flexCon {
+		width: 216px;
+		display: inline-block;
+		text-align: center;
+	}
+	
+	.step3 .flex .flexCon .unitPhotoTitle {
+		text-align: center;
+		margin-top: -10px;
+	}
+	
+	.step3 .flex .flexCon .form {
+		position: relative;
+	}
+	
+	.step3 .flex .flexCon .title {
+		width: 170px;
+		margin: 10px 0px 20px;
+	}
+	.step3 .flex .flexCon .photo{
+		display: inline-block;
+		width: 163px;
+		height: 112px;
+	}
+	.step3 .flex .flexCon .licence {
+		background: url(../../../../asset/img/bg-all.png) no-repeat 0 -150px;
+	}
+	.step3 .flex .flexCon .businessLicense{
+		background: url(../../../../asset/img/bg-all.png) no-repeat 0 -279px;
+	}
+	.step3 .flex .flexCon .frontPhoto{
+		background: url(../../../../asset/img/bg-all.png) no-repeat -350px -143px;
+	}
+	.step3 .flex .flexCon .backPhoto{
+		background: url(../../../../asset/img/bg-all.png) no-repeat -350px -255px;
+	}
+	.step3 .flex .flexCon .nothing{
+		display: inline-block;
+		width: 163px;
+		height: 50px;
+	}
+	.step3 .flex .flexCon input {
+		position: absolute;
+		width: 163px;
+		height: 112px;
+		opacity: 0;
+		left: 28px;
+		top: 0;
+	}
+	
+	.step3 .go {
+		height: 35px;
+		width: 375px;
+		margin: 25px auto 0px;
+	}
+	
+	.step3 .go a {
+		display: inline-block;
+		height: 35px;
+		width: 170px;
+		text-align: center;
+		line-height: 35px;
+		font-size: 12px;
+		text-decoration: none;
+	}
+	
+	.step3 .go a#goStep2 {
+		color: #666666;
+		background: #eaedef;
+	}
+	
+	.step3 .go a#goStep4 {
+		color: #ffffff;
+		background: #00acff;
+	}
+</style>

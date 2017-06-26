@@ -1,3 +1,159 @@
-<div>这里是step2</div>
-<a id="" href="/app/register.html#step1">上一步</a>
-<a id="goStep2" href="/app/register.html#step3">下一步</a>
+<div class="step2">
+	<div class="Message">
+		<div class="mainTitle">
+			主体信息
+		</div>
+		<div class="mainSubstance">
+			<div class="unitMessage form-group">
+				<div class="col-sm-3 Name">单位名称：</div>
+				<div class="col-sm-9 Content">深圳市安印科技有限公司</div>
+			</div>
+			<div class="unitMessage form-group">
+				<div class="col-sm-3 Name">单位地址：</div>
+				<div class="col-sm-9 Content">深圳市南山区粤海街道科技园科技中一路创业印章大厦</div>
+			</div>
+			<div class="unitMessage form-group">
+				<div class="col-sm-3 Name">营业执照号：</div>
+				<div class="col-sm-9 Content">440301112242166</div>
+			</div>
+			<div class="unitMessage form-group">
+				<div class="col-sm-3 Name">统一社会信用代码：</div>
+				<div class="col-sm-9 Content">91440300326535080A</div>
+			</div>
+			<div class="unitMessage form-group">
+				<div class="col-sm-3 Name">法定代表人：</div>
+				<div class="col-sm-9 Content">杨瑞香</div>
+			</div>
+		</div>
+		<div class="mainTitle countMessage">账号信息</div>
+		<form class="form-horizontal">
+			<div class="form-group form-bottom">
+				<label class="col-sm-3 control-label">账号名：</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control countPhone" placeholder="请输入11位手机号" maxlength="11">
+				</div>
+				<div class="col-sm-3 phoneErrTip">请输入正确的手机号码</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">验证码：</label>
+				<div class="col-sm-5">
+					<input type="text" placeholder="请输入验证码" class="form-control countCode fl">
+					<input type="button" class="btn btn-primary findPasswordCodeBtn fl" value="获取验证码" />
+				</div>
+				<div class="col-sm-3 codeErrTip">短信验证码不正确</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">法人身份证号：</label>
+				<div class="col-sm-5">
+					<input type="text" placeholder="请输入验证码" class="form-control legalID fl">
+				</div>
+				<div class="col-sm-3 legalIDErrTip">法人身份证号不正确</div>
+			</div>
+		</form>
+	</div>
+	<div class="go">
+		<a class="fl" id="goStep1" href="/app/register.html#step1">上一步</a>
+		<a class="fr" id="goStep3" href="/app/register.html#step3">下一步</a>
+	</div>
+</div>
+<style>
+	.fl {
+		float: left;
+	}
+	
+	.fr {
+		float: right;
+	}
+	
+	.step2 {
+		width: 1100px;
+		/*height: 460px;*/
+		margin: 40px auto 0;
+	}
+	.step2 .Message{
+		border: 1px solid #333333;
+		border-radius: 5px;
+	}
+	
+	.step2 .mainTitle {
+		height: 35px;
+		line-height: 35px;
+		border-bottom: 1px solid #666666;
+		padding-left: 30px;
+		font-size: 16px;
+		font-weight: 700;
+	}
+	
+	.step2 .mainSubstance {
+		margin-top: 15px;
+	}
+	
+	.step2 .Message .unitMessage {
+		height: 35px;
+		line-height: 35px;
+		font-size: 14px;
+		color: #666;
+		margin-bottom: 0px;
+	}
+	
+	.step2 .Message .unitMessage .Name {
+		text-align: right;
+		color: #333;
+		font-weight: 700;
+	}
+	
+	.step2 .countMessage {
+		margin-top: 20px;
+	}
+	
+	.step2 .form-horizontal {
+		margin: 20px 0 40px;
+	}
+	
+	.step2 .countCode {
+		width: 60%;
+	}
+	
+	.step2 .findPasswordCodeBtn {
+		width: 40%;
+	}
+	
+	.step2 .phoneErrTip {
+		/*display: none;*/
+		color: red;
+	}
+	
+	.step2 .codeErrTip {
+		/*display: none;*/
+		color: red;
+	}
+	
+	.step2 .legalIDErrTip {
+		/*display: none;*/
+		color: red;
+	}
+	.step2 .go{
+		height: 35px;
+		width: 375px;
+		margin: 25px auto 0px;
+	}
+	.step2 .go a{
+		display: inline-block;
+		height: 35px;
+		width: 170px;
+		text-align: center;
+		line-height: 35px;
+		font-size: 12px;
+		text-decoration: none;
+	}
+	.step2 .go a#goStep1{
+		color: #666666;
+		background: #eaedef;
+		
+	}
+	.step2 .go a#goStep3{
+		color: #ffffff;
+		background: #00acff;
+		
+	}
+</style>
