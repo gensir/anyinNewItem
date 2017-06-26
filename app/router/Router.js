@@ -3,6 +3,11 @@ var Router = Backbone.Router.extend({
         '': 'home',
         'stat/': 'stat',
         'stat/:query': 'substat',
+        'login': 'login',
+        'register/step1':'step1',
+        'register/step2':'step2',
+        'register/step3':'step3',
+        'register/step4':'step4',
     },
     initialize: function() {
         S.main = null;
@@ -53,7 +58,42 @@ var Router = Backbone.Router.extend({
                 query:query
             });
         }, 'Stat');
-    }
+    },
+    login: function(query) {
+        var me = this;
+        require.ensure([], function(require) {
+            var View = require('../view/login/login')
+            me.startRout(View, {query:query});
+        }, 'login');
+    },
+    step1:function(query){
+        var me=this;
+        require.ensure([],function(require){
+            var View=require('../view/register/step1')
+            me.startRout(View,{query:query});
+        },'step1')
+    },
+    step2:function(query){
+        var me=this;
+        require.ensure([],function(require){
+            var View=require('../view/register/step2')
+            me.startRout(View,{query:query});
+        },'step2')
+    },
+    step3:function(query){
+        var me=this;
+        require.ensure([],function(require){
+            var View=require('../view/register/step3')
+            me.startRout(View,{query:query});
+        },'step3')
+    },
+    step4:function(query){
+        var me=this;
+        require.ensure([],function(require){
+            var View=require('../view/register/step4')
+            me.startRout(View,{query:query});
+        },'step4')
+    },
 });
 
 module.exports = Router;

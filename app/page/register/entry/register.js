@@ -11,7 +11,9 @@ var tpl = require('../../../../asset/tpl/main.html');
 $('body').prepend(tpl({
     list: [
         {url: '', name: 'Home'},
-        {url: 'stat/', name: 'Stat'}
+        {url: 'stat/', name: 'Stat'},
+        {url: 'login', name: 'login'},
+        {url: '/step1', name: 'register'}
     ]
 }));
 
