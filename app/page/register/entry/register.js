@@ -1,4 +1,3 @@
-import '../../../../asset/css/index.css';
 import '../../../../asset/css/register.css';
 import {add} from '../../../publicFun/public';
 require('../store/store.js');
