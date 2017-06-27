@@ -44,24 +44,21 @@ var step3 = Backbone.View.extend({
 		reader.readAsDataURL(file.files[0]);
 		reader.onload = function(e) {
 			var image = new Image();
-			var show1 = false;
+			image.src = this.result;
 			image.onload = function() {
 				var height = image.height;
 				var width = image.width;
 				console.log(height, width)
-				if(height / width < 112 / 163) {
-					show1 = true;
+				if((height/width) > (112/163)) {
+					$("#photo" + num).css("background-size", "auto 112px");
+				}else{
+					$("#photo" + num).css("background-size", "163px auto");
 				}
 			};
-			image.src = this.result;
+			
 			$("#file0").height(24);
 			$("#ajaxForm0 a").show()
 			$("#photo" + num).css("background", "url(" + this.result + ") no-repeat center center");
-			if(show1){
-				$("#photo" + num).css("background-size", "163px auto");
-			}else{
-				$("#photo" + num).css("background-size", "auto 112px");
-			}
 		}
 		//		}
 	}
