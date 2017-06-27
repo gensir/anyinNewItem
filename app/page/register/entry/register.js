@@ -1,5 +1,6 @@
 import '../../../../asset/css/register.css';
 import {add} from '../../../publicFun/public';
+import '../../../../asset/lib/jquery-placeholder.js';
 require('../store/store.js');
 window.reqres.request(  'global', 'current-user' );
 console.log(add())
