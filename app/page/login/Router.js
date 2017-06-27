@@ -1,6 +1,6 @@
 var Router = Backbone.Router.extend({
     routes: {
-        '': 'home',
+        '': 'login',
         'stat/': 'stat',
         'stat/:query': 'substat',
     },
@@ -40,6 +40,12 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/login/Home')
             me.startRout(View, {query:query});
         }, 'Home');
+    },
+    login(){
+        require.ensure([], function(require) {
+            require('../../view/login/main.js')
+        })
+        
     },
     stat: function(query) {
         console.log(query)

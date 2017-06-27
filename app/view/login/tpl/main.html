@@ -22,7 +22,7 @@
                             <div>
                                 <!--<input id="userName" type="text" placeholder="请输入用户名">-->
                                 <select name="" id="seleBook">
-                                    <option value="">-------------------<b>选择证书</b>-------------------</option>
+                                    <option value="">------------------- <span> 选择证书 </span> -------------------</option>
                                     <option value="">证一</option>
                                     <option value="">证二</option>
                                     <option value="">证三</option>
@@ -45,21 +45,18 @@
 
         </div>
     </div>
-    <script>
-        $(".head div.but").on("click", "span", function () {
-            $(this).addClass("active").siblings().removeClass("active");
-            $(".mainbody ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
-        })
-    </script>
+    {{include './footer.html'}}
 </div>
 <style>
     html,
     body {
         height: 100%;
         font-family: "微软雅黑";
+        font-size: 14px;
     }
-
+    input,select{outline:none;}
     .wrapper {
+        position: relative;
         width: 100%;
         min-height: 700px;
         height: 100%;
@@ -73,6 +70,7 @@
         margin: 0 auto;
         position: relative;
         top: 140px;
+        overflow: hidden;
     }
 
     .wrapper .main .head {
@@ -150,6 +148,7 @@
     .mainbody #seleBook {
         background: url('../../../../asset/img/login3.png') no-repeat -2px 6px;
     }
+    .mainbody #seleBook option span{margin: 0 5px}
     .mainbody #userName {
         background: url('../../../../asset/img/login3.png') no-repeat -2px -82px;
     }
@@ -202,34 +201,17 @@
         float: right;
         color: #00acff;
     }
+
+    /*bootbox弹窗*/
+    .realName .modal-dialog{margin-top:200px; }
+    .realName .modal-header{border:0;background:#f2f2f2;padding: 11px;border-radius: 4px;color:#333;}
+    .realName .modal-header .title{font-size: 16px;font-weight: bolder;}
+    .realName .modal-body{padding-left: 100px;}
+    .realName .modal-body .message{margin: 0 auto;color:#333;font-size:14px;padding:20px 0 20px 70px; 
+    background:url('../../../../asset/img/login3.png') no-repeat 0 -168px; }
+    .realName .modal-footer{margin: 0 auto;text-align: center;}
+    .realName .modal-footer button{padding: 0;margin: 0 10px;border: 0;width: 80px;height: 30px;}
+    .realName .modal-footer button.btn1,.realName .modal-footer button a.return{color:#333;background: #ebebeb;}
+    .realName .modal-footer button.btn2,.realName .modal-footer button a.continue{color:#fff;background: #00acff;}
+    .realName .modal-footer button a{text-decoration: none;display: inline;zoom:1;display: inline-block;zoom:1;*display: inline;width: 80px;height: 30px;line-height: 30px;}
 </style>
-
-<!--<div class="wrapper">
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Brand</a>
-        </div>
-
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-          {{each list}}
-            <li>
-              <a href="#{{$value.url}}">{{$value.name}}
-              </a>
-            </li>
-          {{/each}}
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="container"></div>
-</div>-->
