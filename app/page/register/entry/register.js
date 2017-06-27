@@ -3,7 +3,7 @@ import {add} from '../../../publicFun/public';
 import '../../../../asset/lib/jquery-placeholder.js';
 require('../store/store.js');
 window.reqres.request(  'global', 'current-user' );
-console.log(add())
+//console.log(add())
 
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');
@@ -25,4 +25,4 @@ S.router = new Router();
 Backbone.history.start({
     root : ''
 });
-console.log("register")
+//console.log("register")
