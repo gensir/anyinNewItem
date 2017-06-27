@@ -1,3 +1,7 @@
+
+// 密码验证（数字，字母，中文标点符号）
+var chrnum = /^([^(\s|\u3002|\uff1f|\uff01|\uff0c|\u3001|\uff1b|\uff1a|\u201c|\u201d|\u2018|\u2019|\uff08|\uff09|\u300a|\u300b|\u3008|\u3009|\u3010|\u3011|\u300e|\u300f|\u300c|\u300d|\ufe43|\ufe44|\u3014|\u3015|\u2026|\u2014|\uff5e|\ufe4f|\uffe5)]|\w){6,}$/;
+
 var verify = {
     synError: function (key1, key2, unbindItem) {//内部对象类型（字符串）；input元素的id（字符串） ；input元素
         var key1Item = this.validateLog[key1],
@@ -43,46 +47,46 @@ var verify = {
     },
     validateLog: {
         login: {
-            login_user: {
+            // login_user: {
+            //     validateFun: function () {
+            //         var loginUser = verify.validateLog.login.login_user;
+            //         var elem = $("#login_user");
+            //         if (!/^1[34578]\d{9}$/.test(elem.val())) {
+            //             loginUser.errorLog = '请输入正确的手机号码';
+            //         }
+            //     },
+            //     errorLog: null,
+            //     errorElem: '#login_user-error'
+            // },
+            pinwd: {
                 validateFun: function () {
-                    var loginUser = verify.validateLog.login.login_user;
-                    var elem = $("#login_user");
-                    if (!/^1[34578]\d{9}$/.test(elem.val())) {
-                        loginUser.errorLog = '请输入正确的手机号码';
-                    }
-                },
-                errorLog: null,
-                errorElem: '#login_user-error'
-            },
-            login_password: {
-                validateFun: function () {
-                    var loginPassword = verify.validateLog.login.login_password;
-                    var elem = $("#login_password"),
+                    var loginPassword = verify.validateLog.login.pinwd;
+                    var elem = $("#pinwd"),
                         elemVal = elem.val();
                     if (!chrnum.test(elemVal)) {
                         loginPassword.errorLog = '请输入6-18位字母、数字、特殊符号';
                     }
                 },
                 errorLog: null,
-                errorElem: '#login_password-error'
-            },
-            login_idcode: {
-                validateFun: function () {
-                    var loginIdCode = verify.validateLog.login.login_idcode;
-                    var needToValidate = !$('.hideIdCode').is(':hidden');
-                    if (!needToValidate) {
-                        loginIdCode.errorLog = null;
-                        return;
-                    }
-                    var elem = $("#login_idcode"),
-                        elemVal = elem.val();
-                    if (elemVal.length === 0) {
-                        loginIdCode.errorLog = '请输入验证码';
-                    }
-                },
-                errorLog: null,
-                errorElem: '#login_idcode-error' //TODO
+                errorElem: '#pinwd-error'
             }
+            // login_idcode: {
+            //     validateFun: function () {
+            //         var loginIdCode = verify.validateLog.login.login_idcode;
+            //         var needToValidate = !$('.hideIdCode').is(':hidden');
+            //         if (!needToValidate) {
+            //             loginIdCode.errorLog = null;
+            //             return;
+            //         }
+            //         var elem = $("#login_idcode"),
+            //             elemVal = elem.val();
+            //         if (elemVal.length === 0) {
+            //             loginIdCode.errorLog = '请输入验证码';
+            //         }
+            //     },
+            //     errorLog: null,
+            //     errorElem: '#login_idcode-error' //TODO
+            // }
         },
         msgLogin: {
             loginPhone: {
@@ -196,3 +200,4 @@ var verify = {
         }
     }
 };
+// module.exports=verify;

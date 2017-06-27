@@ -14,10 +14,6 @@
                 <h2>欢迎<span>登录</span></h2>
                 <ul>
                     <li class="active">
-                        <div><input id="userName" type="text" placeholder="请输入用户名"></div>
-                        <div><input id="passwd" type="password" placeholder="请输入密码"></div>
-                    </li>
-                    <li>
                         <div class="phoneTab">
                             <div>
                                 <!--<input id="userName" type="text" placeholder="请输入用户名">-->
@@ -27,11 +23,26 @@
                                     <option value="">证二</option>
                                     <option value="">证三</option>
                                 </select>
-                                
+                                <div id="seleBook-error" class="error">请输入正确的手机号码</div>
                             </div>
-                            <div><input id="pinwd" type="password" placeholder="PIN码"></div>
+                            <div>
+                                <input id="pinwd" type="password" placeholder="PIN码">
+                                <div id="pinwd-error" class="error">请输入6-18位字母、数字、特殊符号</div>
+                            </div>
                         </div>
                     </li>
+                    <li>
+                        <div>
+                            <input id="userName" type="text" placeholder="请输入用户名">
+                            <!--<label id="userName-error" class="error" for="login_user">必须填写手机号</label>-->
+                            <div id="userName-error" class="error">请输入正确的手机号码</div>
+                        </div>
+                        <div>
+                            <input id="passwd" type="password" placeholder="请输入密码">
+                            <div id="passwd-error" class="error">请输入6-18位字母、数字、特殊符号</div>
+                        </div>
+                    </li>
+
                 </ul>
                 <div class="buttonTab">
                     <button class="" id="login">立即登录</button>
@@ -48,13 +59,28 @@
     {{include './footer.html'}}
 </div>
 <style>
+   .error
+ {
+        color: red;
+        text-align: left;
+        padding-left: 230px;
+        height: 20px;
+        position: relative;
+        top: -16px;
+    }
+
     html,
     body {
         height: 100%;
         font-family: "微软雅黑";
         font-size: 14px;
     }
-    input,select{outline:none;}
+
+    input,
+    select {
+        outline: none;
+    }
+
     .wrapper {
         position: relative;
         width: 100%;
@@ -137,23 +163,33 @@
         padding: 12px 0 12px 38px;
         margin-bottom: 18px;
     }
-    .phoneTab select{
+
+    .phoneTab select {
         border: 0;
         border-bottom: 1px solid #b2b2b2;
         width: 370px;
         padding: 12px 0 12px 38px;
         margin-bottom: 18px;
-}
-.phoneTab select option span{padding: 0 10px;}
+    }
+
+    .phoneTab select option span {
+        padding: 0 10px;
+    }
+
     .mainbody #seleBook {
         background: url('../../../../asset/img/login3.png') no-repeat -2px 6px;
     }
-    .mainbody #seleBook option span{margin: 0 5px}
+
+    .mainbody #seleBook option span {
+        margin: 0 5px
+    }
+
     .mainbody #userName {
         background: url('../../../../asset/img/login3.png') no-repeat -2px -82px;
     }
 
-    .mainbody #passwd,#pinwd {
+    .mainbody #passwd,
+    #pinwd {
         background: url('../../../../asset/img/login3.png') no-repeat -2px -43px;
     }
 
@@ -201,17 +237,71 @@
         float: right;
         color: #00acff;
     }
-
     /*bootbox弹窗*/
-    .realName .modal-dialog{margin-top:200px; }
-    .realName .modal-header{border:0;background:#f2f2f2;padding: 11px;border-radius: 4px;color:#333;}
-    .realName .modal-header .title{font-size: 16px;font-weight: bolder;}
-    .realName .modal-body{padding-left: 100px;}
-    .realName .modal-body .message{margin: 0 auto;color:#333;font-size:14px;padding:20px 0 20px 70px; 
-    background:url('../../../../asset/img/login3.png') no-repeat 0 -168px; }
-    .realName .modal-footer{margin: 0 auto;text-align: center;}
-    .realName .modal-footer button{padding: 0;margin: 0 10px;border: 0;width: 80px;height: 30px;}
-    .realName .modal-footer button.btn1,.realName .modal-footer button a.return{color:#333;background: #ebebeb;}
-    .realName .modal-footer button.btn2,.realName .modal-footer button a.continue{color:#fff;background: #00acff;}
-    .realName .modal-footer button a{text-decoration: none;display: inline;zoom:1;display: inline-block;zoom:1;*display: inline;width: 80px;height: 30px;line-height: 30px;}
+
+    .realName .modal-dialog {
+        margin-top: 200px;
+    }
+
+    .realName .modal-header {
+        border: 0;
+        background: #f2f2f2;
+        padding: 11px;
+        border-radius: 4px;
+        color: #333;
+    }
+
+    .realName .modal-header .title {
+        font-size: 16px;
+        font-weight: bolder;
+    }
+
+    .realName .modal-body {
+        padding-left: 100px;
+    }
+
+    .realName .modal-body .message {
+        margin: 0 auto;
+        color: #333;
+        font-size: 14px;
+        padding: 20px 0 20px 70px;
+        background: url('../../../../asset/img/login3.png') no-repeat 0 -168px;
+    }
+
+    .realName .modal-footer {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .realName .modal-footer button {
+        padding: 0;
+        margin: 0 10px;
+        border: 0;
+        width: 80px;
+        height: 30px;
+    }
+
+    .realName .modal-footer button.btn1,
+    .realName .modal-footer button a.return {
+        color: #333;
+        background: #ebebeb;
+    }
+
+    .realName .modal-footer button.btn2,
+    .realName .modal-footer button a.continue {
+        color: #fff;
+        background: #00acff;
+    }
+
+    .realName .modal-footer button a {
+        text-decoration: none;
+        display: inline;
+        zoom: 1;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+    }
 </style>

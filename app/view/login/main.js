@@ -2,15 +2,20 @@ var main = Backbone.View.extend({
     el: ".wrapper",
     initialize() {
         this.toggleTab();
+        verify.action("login", self.loginaccount, login)
     },
     events: {
-        'click #login': 'hint'
+        'click #login': 'hint',
+        'click #goregister':'goregister'
     },
     toggleTab() {
         $(".head div.but").on("click", "span", function () {
             $(this).addClass("active").siblings().removeClass("active");
             $(".mainbody ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
         })
+    },
+    goregister(){
+      window.open('register.html#step1','_self')  
     },
     hint() {
         bootbox.dialog({
@@ -30,4 +35,4 @@ var main = Backbone.View.extend({
         })
     }
 })
-new main();
+module.exports=main;
