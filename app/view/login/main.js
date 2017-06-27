@@ -2,7 +2,7 @@ var main = Backbone.View.extend({
     el: ".wrapper",
     initialize() {
         this.toggleTab();
-        verify.action("login", self.loginaccount, login)
+        //verify.action("login", self.loginaccount, login)
     },
     events: {
         'click #login': 'hint',
