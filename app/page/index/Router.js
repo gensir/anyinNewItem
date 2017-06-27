@@ -28,6 +28,7 @@ var Router = Backbone.Router.extend({
         S.main.sub.render(typeof queryObj == 'undefined' ? '' : queryObj);
     },
     home: function(query) {
+        console.log(query,"query")
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/home/Home')
@@ -35,7 +36,6 @@ var Router = Backbone.Router.extend({
         }, 'Home');
     },
     stat: function(query) {
-        console.log(query)
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/stat/Stat')
@@ -43,10 +43,14 @@ var Router = Backbone.Router.extend({
         }, 'Stat');
     },
     substat: function(query) {
+        console.log(query,"yy")
         var me = this;
         if(!S.main||!S.main.sub=="substat"){
+            alert("刷新")
             me.stat();
+            debugger;
         }
+        debugger;
         require.ensure([], function(require) {
             var View = require('../../view/stat/substat')
             me.starSubroute(View, {

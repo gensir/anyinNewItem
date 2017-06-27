@@ -18,6 +18,9 @@ S.router = new Router();
 Backbone.history.start({
     root: ''
 });
+
+
+
 //测试代理;
 // service.serverTest().done(function (data) {
 //     console.log(data); 
