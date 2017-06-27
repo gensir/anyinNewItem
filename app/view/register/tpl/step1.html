@@ -16,22 +16,22 @@
             <div class="id-type">
                 <div class="left">证件类型：</div>
                 <div class="idname">
-                    <div class="hang"><label><input id="idcode1" name="idcode1" type="radio" checked>多证合一营业执照</label></div>
-                    <div class="hang"><label><input id="idcode1" name="idcode1" type="radio">普通营业执照</label></div>
+                    <div class="hang"><label><input id="idcode1" name="idcode" type="radio" checked>多证合一营业执照</label></div>
+                    <div class="hang"><label><input id="idcode2" name="idcode" type="radio">普通营业执照</label></div>
                 </div>
             </div>
             
             <div class="checkin-box">
                 <div class="left">统一社会信用代码：</div>
                 <div class="input-text">
-                    <input name="xy-code" type="text" class="reginput form-control" id="xy-code" placeholder="请输入18位统一社会信用代码" value="" maxlength="18">
+                    <input name="xy-code" type="text" class="reginput form-control" id="idcode" placeholder="请输入18位统一社会信用代码" value="" maxlength="18">
                     <div class="regtip">请输入统一社会信用代码</div>
                 </div>
             </div>
             <div class="checkin-box">
                 <div class="left">验证码：</div>
                 <div class="input-text">
-                    <input name="yzm-code" type="text" class="code form-control" id="yzm-code" placeholder="" value="" maxlength="4">
+                    <input name="yzm-code" type="text" class="code form-control" id="yzmcode" placeholder="" value="" maxlength="4">
                     <img class="codeimg" id="codeimg" src="/asset/img/codeimg.png" width="78" height="36" >
                     <span class="upcodeimg">看不清，<a href="javascript:;">换一换</a></span>
                     <div class="regtip">请输入验证码</div>
@@ -39,11 +39,11 @@
             </div>
             
             <div class="xieyi">
-                <label><input type="checkbox">我同意并遵守</label>
+                <label><input id="xieyi" name="xieyi" type="checkbox">我同意并遵守</label>
                 <a href="javascript:;">《安印电子印章用户守则》</a>
             </div>
             
-            <div class="subform"><button class="btn btn-ay" id="reguser" type="button" onClick="location='register.html#step2'">注册</button></div>
+            <div class="subform"><button class="btn btn-ay" id="reguser" type="button" >注册</button></div>
             
         </div>
         
