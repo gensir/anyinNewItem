@@ -1,6 +1,6 @@
 {{include "./header.html"}}
 <div class="page-kd">
-	<!-- 注册进度 -->
+    <!-- 注册进度 -->
 	<div class="jd-list">
 		<ul>
 			<li class="last ok"><span class="yuan">1</span>单位信息确认</li>
@@ -30,8 +30,8 @@
 					<div class="title">企业法人营业执照</div>
 					<div class="form">
 						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
-							<span id="photo0" class="licence photo"></span>
-							<input id='file0' type="file" />
+							<span class="licence photo" id="photo0"></span>
+							<input  id='file0' size="0" maxlength="0" type="file" />
 							<a href="javascript:">
 								<span>重新选择</span>
 							</a>
@@ -61,8 +61,8 @@
 					<div class="title">法人身份证正面</div>
 					<div class="form">
 						<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
-							<span id="photo1" class="licence photo"></span>
-							<input id='file1' type="file" />
+							<span class="licence photo" id="photo1" ></span>
+							<input id='file1' size="0" maxlength="0" type="file" />
 							<a href="javascript:">
 								<span>重新选择</span>
 							</a>
@@ -79,8 +79,8 @@
 					<div class="title">法人身份证反面</div>
 					<div class="form">
 						<form id="ajaxForm2" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
-							<span id="photo2" class="licence photo"></span>
-							<input id='file2' type="file" />
+							<span class="licence photo" id="photo2"></span>
+							<input id='file2' size="0" maxlength="0" type="file" />
 							<a href="javascript:">
 								<span>重新选择</span>
 							</a>
@@ -97,8 +97,8 @@
 		</div>
 	</div>
 	<div class="go">
-		<a class="fl" id="goStep2" href="register.html#step2">上一步</a>
-		<a class="fr" id="goStep4" href="register.html#step4">提交</a>
+		<a class="btn btn-default fl" id="goStep2" href="register.html#step2">上一步</a>
+		<a class="btn btn-ay fr" id="goStep4" href="register.html#step4">提交</a>
 	</div>
 </div>
 <style>
@@ -120,30 +120,25 @@
 		width: 163px;
 		height: 112px;
 	}
-	
-	.step3 .Message {
-		border: 1px solid #333333;
-		border-radius: 5px;
-		background: #fff;
+	.step3 .Message{
+		margin-top: 30px; padding-bottom: 30px; background: #fff; border-radius: 4px; box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
 	}
 	
 	.step3 .mainTitle {
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #666666;
+		height: 42px;
+		line-height: 42px;
+		border-bottom: 1px solid #dedede;
 		padding-left: 30px;
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 700;
 	}
 	
 	.step3 .mainSubstance {
-		margin-top: 15px;
+		margin-top: 0;
 	}
-	
-	.step3 .flex {
+	.step3 .flex{
 		margin-bottom: 20px;
 	}
-	
 	.step3 .flex .flexCon {
 		width: 216px;
 		display: inline-block;
@@ -152,58 +147,49 @@
 	
 	.step3 .flex .flexCon .unitPhotoTitle {
 		text-align: center;
-		margin-top: -10px;
 	}
 	
 	.step3 .flex .flexCon .form {
 		position: relative;
+        overflow: hidden;
 	}
 	
 	.step3 .flex .flexCon .title {
 		width: 170px;
-		margin: 10px 0px 20px;
+		margin: 30px 0px 20px;
 	}
-	
-	.step3 .flex .flexCon .photo {
+	.step3 .flex .flexCon .photo{
 		display: inline-block;
 		width: 163px;
 		height: 112px;
-		border: 1px dashed #999;
 	}
-	
 	.step3 .flex .flexCon .licence {
 		background: url(../../../../asset/img/upload.jpg) no-repeat;
 		background-size: 163px 112px;
-		
 	}
-	
-	.step3 .flex .flexCon .businessLicense {
+	.step3 .flex .flexCon .businessLicense{
 		background: url(../../../../asset/img/lince.jpg) no-repeat center center;
 		background-size: auto 112px;
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg',sizingMethod='scale');
 		-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg',sizingMethod='scale'); 
 	}
-	
-	.step3 .flex .flexCon .frontPhoto {
+	.step3 .flex .flexCon .frontPhoto{
 		background: url(../../../../asset/img/ID-front.png) no-repeat;
 		background-size: 163px 112px;
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png',sizingMethod='scale');
 		-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png',sizingMethod='scale');
 	}
-	
-	.step3 .flex .flexCon .backPhoto {
+	.step3 .flex .flexCon .backPhoto{
 		background: url(../../../../asset/img/ID-back.png) no-repeat;
 		background-size: 163px 112px;
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png',sizingMethod='scale');
 		-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png',sizingMethod='scale');
 	}
-	
-	.step3 .flex .flexCon .nothing {
+	.step3 .flex .flexCon .nothing{
 		display: inline-block;
 		width: 163px;
 		height: 50px;
 	}
-	
 	.step3 .flex .flexCon input {
 		position: absolute;
 		width: 163px;
@@ -228,28 +214,25 @@
 	}
 	
 	.step3 .go {
-		height: 35px;
+		height: 36px;
 		width: 375px;
 		margin: 25px auto 0px;
 	}
 	
 	.step3 .go a {
 		display: inline-block;
-		height: 35px;
+		height: 36px;
 		width: 170px;
 		text-align: center;
-		line-height: 35px;
-		font-size: 12px;
+		font-size: 14px;
 		text-decoration: none;
 	}
 	
 	.step3 .go a#goStep2 {
 		color: #666666;
-		background: #eaedef;
 	}
 	
 	.step3 .go a#goStep4 {
 		color: #ffffff;
-		background: #00acff;
 	}
 </style>
