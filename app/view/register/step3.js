@@ -3,6 +3,7 @@
  */
 import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
+var picture = [];
 var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -10,6 +11,9 @@ var step3 = Backbone.View.extend({
 		'change #file0': 'changeImg0',
 		'change #file1': 'changeImg1',
 		'change #file2': 'changeImg2',
+		'click #photo0': 'imageModal0',
+		'click #photo1': 'imageModal1',
+		'click #photo2': 'imageModal2',
 	},
 	render: function(query) {
 		this.$el.html(tpl);
@@ -45,22 +49,28 @@ var step3 = Backbone.View.extend({
 		reader.onload = function(e) {
 			var image = new Image();
 			image.src = this.result;
+			picture[num] = this.result;
 			image.onload = function() {
 				var height = image.height;
 				var width = image.width;
-				console.log(height, width)
-				if((height/width) > (112/163)) {
+				if((height / width) > (112 / 163)) {
 					$("#photo" + num).css("background-size", "auto 112px");
-				}else{
+				} else {
 					$("#photo" + num).css("background-size", "163px auto");
 				}
 			};
-			
-			$("#file0").height(24);
-			$("#ajaxForm0 a").show()
+			$("#file" + num).height(24);
+			$(".reset" + num).show()
 			$("#photo" + num).css("background", "url(" + this.result + ") no-repeat center center");
 		}
 		//		}
+	},
+	imageModal0: function() {
+		var num = 0;
+		this.imageModal(num);
+	},
+	imageModal: function(num) {
+		imgModalBig('#photo' + num, { 'width': 500, 'src': picture[num] });
 	}
 });
 
