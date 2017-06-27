@@ -1,7 +1,52 @@
-<div class="step1">这里是step1</div>
-<a id="goStep2" href="/app/register.html#step2">下一步</a>
-<style lang="scss">
-    .step1{
-        color: pink;
-    }
-</style>
+{{include "./header.html"}}
+<div class="page-kd">
+    <!-- 注册进度 -->
+    <div class="jd-list">
+        <ul>
+            <li class="last ok"><span class="yuan">1</span>单位信息确认</li>
+            <li class="middle"><span class="yuan">2</span>单位信息确认</li>
+            <li class="middle"><span class="yuan">3</span>证照信息上传</li>
+            <li class="first"><span class="yuan">4</span>等待审核</li>
+        </ul>
+        <!-- 已完成或当前步骤的li里添加OK样式 -->
+    </div>
+    <div class="reg-content">
+        <div class="idcode">
+            <div class="tip-content">每个单位仅能注册一个账户</div>
+            <div class="id-type">
+                <div class="left">证件类型：</div>
+                <div class="idname">
+                    <div class="hang"><label><input id="idcode1" name="idcode1" type="radio" checked>多证合一营业执照</label></div>
+                    <div class="hang"><label><input id="idcode1" name="idcode1" type="radio">普通营业执照</label></div>
+                </div>
+            </div>
+            
+            <div class="checkin-box">
+                <div class="left">统一社会信用代码：</div>
+                <div class="input-text">
+                    <input name="xy-code" type="text" class="reginput form-control" id="xy-code" placeholder="请输入18位统一社会信用代码" value="" maxlength="18">
+                    <div class="regtip">请输入统一社会信用代码</div>
+                </div>
+            </div>
+            <div class="checkin-box">
+                <div class="left">验证码：</div>
+                <div class="input-text">
+                    <input name="yzm-code" type="text" class="code form-control" id="yzm-code" placeholder="" value="" maxlength="4">
+                    <img class="codeimg" id="codeimg" src="/asset/img/codeimg.png" width="78" height="36" >
+                    <span class="upcodeimg">看不清，<a href="javascript:;">换一换</a></span>
+                    <div class="regtip">请输入验证码</div>
+                </div>
+            </div>
+            
+            <div class="xieyi">
+                <label><input type="checkbox">我同意并遵守</label>
+                <a href="javascript:;">《安印电子印章用户守则》</a>
+            </div>
+            
+            <div class="subform"><button class="btn btn-ay" id="reguser" type="button" onClick="location='/app/register.html#step2'">注册</button></div>
+            
+        </div>
+        
+        <div class="login-text">已有帐号?<a href="">直接登录</a></div>
+    </div>
+</div>

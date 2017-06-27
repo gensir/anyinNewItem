@@ -1,4 +1,5 @@
 import '../../../../asset/css/index.css';
+import '../../../../asset/css/register.css';
 import {add} from '../../../publicFun/public';
 require('../store/store.js');
 window.reqres.request(  'global', 'current-user' );
@@ -6,7 +7,7 @@ console.log(add())
 
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');
-var tpl = require('../../../../asset/tpl/main.html');
+var tpl = require('../../../view/register/tpl/main.html');
 
 $('body').prepend(tpl({
     list: [

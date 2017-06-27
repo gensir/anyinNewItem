@@ -1,2 +1,20 @@
-<div>这里是step4</div>
-<a id="goStep2" href="/app/register.html#step3">上一步</a>
+{{include "./header.html"}}
+<div class="page-kd">
+    <!-- 注册进度 -->
+	<div class="jd-list">
+		<ul>
+			<li class="last ok"><span class="yuan">1</span>单位信息确认</li>
+			<li class="middle ok"><span class="yuan">2</span>单位信息确认</li>
+			<li class="middle ok"><span class="yuan">3</span>证照信息上传</li>
+			<li class="first ok"><span class="yuan">4</span>等待审核</li>
+		</ul>
+		<!-- 已完成或当前步骤的li里添加OK样式 -->
+	</div>
+	
+	<div class="reg-content">
+		<div class="regok">
+			<div class="title"><em></em>恭喜您注册成功！</div>
+			<div class="text">感谢您的注册！先进入审核阶段，审核通过后将短信通知您审核结果，请留意！</div>
+		</div>		
+	</div>
+</div>
