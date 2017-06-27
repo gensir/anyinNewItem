@@ -31,7 +31,7 @@
 					<div class="form">
 						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
 							<span class="licence photo"></span>
-							<input type="file" />
+							<input size="0" maxlength="0" type="file" />
 						</form>
 					</div>
 				</div>
@@ -59,7 +59,7 @@
 					<div class="form">
 						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
 							<span class="licence photo"></span>
-							<input type="file" />
+							<input size="0" maxlength="0" type="file" />
 						</form>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 					<div class="form">
 						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
 							<span class="licence photo"></span>
-							<input type="file" />
+							<input size="0" maxlength="0" type="file" />
 						</form>
 					</div>
 				</div>
@@ -88,8 +88,8 @@
 		</div>
 	</div>
 	<div class="go">
-		<a class="fl" id="goStep2" href="register.html#step2">上一步</a>
-		<a class="fr" id="goStep4" href="register.html#step4">提交</a>
+		<a class="btn btn-default fl" id="goStep2" href="register.html#step2">上一步</a>
+		<a class="btn btn-ay fr" id="goStep4" href="register.html#step4">提交</a>
 	</div>
 </div>
 <style>
@@ -107,23 +107,21 @@
 		margin: 40px auto 0;
 	}
 	
-	.step3 .Message {
-		border: 1px solid #333333;
-		border-radius: 5px;
-		background: #fff;
+	.step3 .Message{
+		margin-top: 30px; padding-bottom: 30px; background: #fff; border-radius: 4px; box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
 	}
 	
 	.step3 .mainTitle {
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #666666;
+		height: 42px;
+		line-height: 42px;
+		border-bottom: 1px solid #dedede;
 		padding-left: 30px;
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 700;
 	}
 	
 	.step3 .mainSubstance {
-		margin-top: 15px;
+		margin-top: 0;
 	}
 	.step3 .flex{
 		margin-bottom: 20px;
@@ -136,16 +134,16 @@
 	
 	.step3 .flex .flexCon .unitPhotoTitle {
 		text-align: center;
-		margin-top: -10px;
 	}
 	
 	.step3 .flex .flexCon .form {
 		position: relative;
+        overflow: hidden;
 	}
 	
 	.step3 .flex .flexCon .title {
 		width: 170px;
-		margin: 10px 0px 20px;
+		margin: 30px 0px 20px;
 	}
 	.step3 .flex .flexCon .photo{
 		display: inline-block;
@@ -174,33 +172,32 @@
 		width: 163px;
 		height: 112px;
 		opacity: 0;
+        filter: alpha(opacity=0);
 		left: 28px;
 		top: 0;
+        font-size: 48px;
 	}
 	
 	.step3 .go {
-		height: 35px;
+		height: 36px;
 		width: 375px;
 		margin: 25px auto 0px;
 	}
 	
 	.step3 .go a {
 		display: inline-block;
-		height: 35px;
+		height: 36px;
 		width: 170px;
 		text-align: center;
-		line-height: 35px;
-		font-size: 12px;
+		font-size: 14px;
 		text-decoration: none;
 	}
 	
 	.step3 .go a#goStep2 {
 		color: #666666;
-		background: #eaedef;
 	}
 	
 	.step3 .go a#goStep4 {
 		color: #ffffff;
-		background: #00acff;
 	}
 </style>
