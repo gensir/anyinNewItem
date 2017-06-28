@@ -23,31 +23,35 @@
                                     <option value="">证二</option>
                                     <option value="">证三</option>
                                 </select>
-                                <div id="seleBook-error" class="error">请输入正确的手机号码</div>
+                                <div id="seleBook-error" class="error"></div>
                             </div>
                             <div>
                                 <input id="pinwd" type="password" placeholder="PIN码">
-                                <div id="pinwd-error" class="error">请输入6-18位字母、数字、特殊符号</div>
+                                <div id="pinwd-error" class="error"></div>
                             </div>
+                        </div>
+                                                <div class="buttonTab">
+                            <button class="login" id="login" data-id="login">立即登录</button>
+                            <button class="goregister">注册账号</button>
                         </div>
                     </li>
                     <li>
                         <div>
                             <input id="userName" type="text" placeholder="请输入用户名">
                             <!--<label id="userName-error" class="error" for="login_user">必须填写手机号</label>-->
-                            <div id="userName-error" class="error">请输入正确的手机号码</div>
+                            <div id="userName-error" class="error"></div>
                         </div>
                         <div>
                             <input id="passwd" type="password" placeholder="请输入密码">
-                            <div id="passwd-error" class="error">请输入6-18位字母、数字、特殊符号</div>
+                            <div id="passwd-error" class="error"></div>
+                        </div>
+                        <div class="buttonTab">
+                            <button class="login" id="ukeyLogin" data-id="ukeyLogin">立即登录</button>
+                            <button class="goregister">注册账号</button>
                         </div>
                     </li>
 
                 </ul>
-                <div class="buttonTab">
-                    <button class="" id="login">立即登录</button>
-                    <button class="" id="goregister">注册账号</button>
-                </div>
                 <div class="btnA">
                     <a href="#" class="drive">驱动中心</a>
                     <a href="#" class="help">帮助中心</a>
@@ -59,8 +63,7 @@
     {{include './footer.html'}}
 </div>
 <style>
-   .error
- {
+    .error {
         color: red;
         text-align: left;
         padding-left: 230px;
@@ -91,7 +94,7 @@
 
     .wrapper .main {
         width: 796px;
-        height: 509px;
+        height: 532px;
         background: #fff;
         margin: 0 auto;
         position: relative;
@@ -199,7 +202,7 @@
         overflow: hidden;
     }
 
-    .mainbody .ukey #login {
+    .mainbody .ukey .login {
         height: 46px;
         line-height: 46px;
         width: 180px;
@@ -209,7 +212,7 @@
         float: left;
     }
 
-    .mainbody .ukey #goregister {
+    .mainbody .ukey .goregister {
         height: 46px;
         line-height: 46px;
         width: 180px;

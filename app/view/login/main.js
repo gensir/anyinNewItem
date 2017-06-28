@@ -5,8 +5,8 @@ var main = Backbone.View.extend({
         //verify.action("login", self.loginaccount, login)
     },
     events: {
-        'click #login': 'hint',
-        'click #goregister':'goregister'
+        'click .login': 'hint',
+        'click .goregister': 'goregister'
     },
     toggleTab() {
         $(".head div.but").on("click", "span", function () {
@@ -14,25 +14,38 @@ var main = Backbone.View.extend({
             $(".mainbody ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
         })
     },
-    goregister(){
-      window.open('register.html#step1','_self')  
+    goregister() {
+        window.open('register.html#step1', '_self')
     },
-    hint() {
-        bootbox.dialog({
-            className: "realName",
-            title: "<div class='title'>未实名提示</div>",
-            message: "<div class='message'>您尚未创建企业账号</br>以下将引导您创建企业账号，并与当前UKEY绑定</div>",
-            buttons: {
-                cancel: {
-                    label: "返回",
-                    className:"btn1"
-                },
-                confirm: {
-                    label: "继续",
-                    className:"btn2"
-                }
-            }
-        })
+    hint(event) {
+        // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
+        this.model.set({"clickEle":$(event.target).data('id')})
+        this.model.isValid()
+        // bootbox.dialog({
+        //     closeButton: false,
+        //     className: "realName",
+        //     title: "<div class='title'>未实名提示</div>",
+        //     message: "<div class='message'>您尚未创建企业账号</br>以下将引导您创建企业账号，并与当前UKEY绑定</div>",
+        //     buttons: {
+        //         cancel: {
+        //             label: "返回",
+        //             className: "btn1"
+        //         },
+        //         confirm: {
+        //             label: "继续",
+        //             className: "btn2",
+
+        //             callback: function () {
+        //                 $(this).find(".message").html(123);
+        //                 console.log($(this).find(".message").html())
+        //                 if (i = 5) {
+        //                     return false;
+        //                 }
+
+        //             }
+        //         }
+        //     }
+        // })
     }
 })
-module.exports=main;
+module.exports = main;
