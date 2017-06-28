@@ -11,9 +11,6 @@ var step3 = Backbone.View.extend({
 		'change #file0': 'changeImg0',
 		'change #file1': 'changeImg1',
 		'change #file2': 'changeImg2',
-		'click #photo0': 'imageModal0',
-		'click #photo1': 'imageModal1',
-		'click #photo2': 'imageModal2',
 	},
 	render: function(query) {
 		this.$el.html(tpl);
@@ -36,6 +33,27 @@ var step3 = Backbone.View.extend({
 	changeImg: function(num) {
 		var preview = document.getElementById('photo' + num);
 		var file = document.getElementById("file" + num);
+		var regImage, imageType;
+		if(!file.files) {
+			var ret = file.value.split('\\');
+			var imageName = ret[ret.length - 1];
+			imageType = imageName.split('.');
+			imageType = imageType[imageType.length - 1];
+			regImage = /(png|jpe?g|gif|svg)(\?.*)?$/;
+
+		} else {
+			imageType = file.files[0].type;
+			regImage = /image\/\w+/;
+			if(file.files[0].size > 2 * 1024 * 1024) {
+				alert("大于2M了")
+				return false;
+			}
+		}
+		if(!regImage.test(imageType)) {
+			alert("请选择图片")
+			return false;
+		}
+
 		//		if(typeof FileReader == 'undefined') {
 		//			//			_self.img[num] = file.value;
 		//			//			$(_eve.target).select();
@@ -62,16 +80,11 @@ var step3 = Backbone.View.extend({
 			$("#file" + num).height(24);
 			$(".reset" + num).show()
 			$("#photo" + num).css("background", "url(" + this.result + ") no-repeat center center");
+			imgModalBig('#photo' + num, { 'width': 500, 'src': picture[num] });
 		}
 		//		}
 	},
-	imageModal0: function() {
-		var num = 0;
-		this.imageModal(num);
-	},
-	imageModal: function(num) {
-		imgModalBig('#photo' + num, { 'width': 500, 'src': picture[num] });
-	}
+
 });
 
 module.exports = step3;
