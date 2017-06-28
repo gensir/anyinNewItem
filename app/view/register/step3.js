@@ -40,20 +40,26 @@ var step3 = Backbone.View.extend({
 			imageType = imageName.split('.');
 			imageType = imageType[imageType.length - 1];
 			regImage = /(png|jpe?g|gif|svg)(\?.*)?$/;
-
 		} else {
 			imageType = file.files[0].type;
 			regImage = /image\/\w+/;
 			if(file.files[0].size > 2 * 1024 * 1024) {
-				alert("大于2M了")
+				bootbox.dialog({
+					className: "realName",
+					title: "<div class='title'></div>",
+					message: "<div class='message'>图片大小不要超过2M</div>",
+				})
 				return false;
 			}
 		}
 		if(!regImage.test(imageType)) {
-			alert("请选择图片")
+			bootbox.dialog({
+				className: "realName",
+				title: "<div class='title'></div>",
+				message: "<div class='message'>请上传图片格式的文件</div>",
+			})
 			return false;
 		}
-
 		//		if(typeof FileReader == 'undefined') {
 		//			//			_self.img[num] = file.value;
 		//			//			$(_eve.target).select();
