@@ -25,7 +25,7 @@
                 <div class="left">统一社会信用代码：</div>
                 <div class="input-text">
                     <input name="xy-code" type="text" class="reginput form-control" id="idcode" placeholder="请输入18位统一社会信用代码" value="" maxlength="18">
-                    <div class="regtip">请输入统一社会信用代码</div>
+                    <div class="regtip" id="idcodetip"></div>
                 </div>
             </div>
             <div class="checkin-box">
@@ -34,16 +34,16 @@
                     <input name="yzm-code" type="text" class="code form-control" id="yzmcode" placeholder="" value="" maxlength="4">
                     <img class="codeimg" id="codeimg" src="/asset/img/codeimg.png" width="78" height="36" >
                     <span class="upcodeimg">看不清，<a href="javascript:;">换一换</a></span>
-                    <div class="regtip">请输入验证码</div>
+                    <div class="regtip" id="yzmcodetip"></div>
                 </div>
             </div>
             
             <div class="xieyi">
-                <label><input id="xieyi" name="xieyi" type="checkbox">我同意并遵守</label>
+                <label><input id="xieyi" name="xieyi" type="checkbox" value="1">我同意并遵守</label>
                 <a href="javascript:;">《安印电子印章用户守则》</a>
             </div>
             
-            <div class="subform"><button class="btn btn-ay" id="reguser" type="button" >注册</button></div>
+            <div class="subform"><button class="btn btn-ay" id="reguser" type="button" disabled>注册</button></div>
             
         </div>
         
