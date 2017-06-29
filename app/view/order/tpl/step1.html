@@ -1,7 +1,174 @@
-<div class="step1">这里是step1</div>
-<a id="goStep2" href="order.html#step2">下一步</a>
-<style lang="scss">
-    .step1{
-        color: pink;
-    }
+<div class="step1">
+	<div class="title">
+		新办电子印章
+	</div>
+	<div class="center">
+		<div class="Message">
+			<div class="mainTitle">
+				主体信息
+			</div>
+			<table class="table table-bordered">
+				<tr>
+					<td class="name">单位名称</td>
+					<td class="container1">深圳市安印科技有限公司</td>
+					<td class="name">单位地址</td>
+					<td class="container2">深圳市南山区粤海街道科技园科技中一路创业印章大厦二楼</td>
+				</tr>
+				<tr>
+					<td class="name">营业执照</td>
+					<td class="container1">440301112242166</td>
+					<td class="name">统一社会信用代码</td>
+					<td class="container2">91440330326535080A</td>
+				</tr>
+				<tr>
+					<td class="name">法定代表人</td>
+					<td class="container1">杨瑞香</td>
+					<td class="name"></td>
+					<td class="container2"></td>
+				</tr>
+			</table>
+			<div class="mainTitle countMessage">可办理的电子印章</div>
+			<div class="sealStyle">
+				<span>财务章</span>
+				<span>行政章</span>
+				<span>发票章</span>
+			</div>
+			<div class="mainTitle countMessage">经办人信息</div>
+			<form class="form-horizontal">
+				<div class="form-group form-bottom">
+					<label class="col-sm-2 control-label">经办人是否为法人</label>
+					<div class="col-sm-5">
+						<label class="radio-inline">
+  							<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 是
+						</label>
+						<label class="radio-inline">
+  							<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 否
+						</label>
+						<span class="sealTips"> 经办人需要完成后续的取章业务</span>
+					</div>
+				</div>
+				<div class="form-group form-bottom">
+					<label class="col-sm-2 control-label">经办人姓名：</label>
+					<div class="col-sm-3">
+						<input type="text" placeholder="" class="form-control countCode fl">
+					</div>
+					<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+				</div>
+				<div class="form-group form-bottom">
+					<label class="col-sm-2 control-label">经办人身份证：</label>
+					<div class="col-sm-3">
+						<input type="text" placeholder="" class="form-control legalID fl">
+					</div>
+					<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+				</div>
+			</form>
+		</div>
+		<div class="go">
+			<a class="btn btn-ay fr" id="goStep3" href="order.html#step2">继续</a>
+		</div>
+
+	</div>
+</div>
+<style>
+	.step {
+		color: pink;
+	}
+	
+	.step1 {
+		width: 1100px;
+		margin: 0 auto;
+	}
+	
+	.step1 .title {
+		height: 20px;
+		margin: 17px 0 20px;
+		padding-left: 15px;
+		font-size: 16px;
+		font-weight: 600;
+		border-left: 6px solid #0073bd;
+	}
+	
+	.step1 .Message {
+		margin-top: 30px;
+		padding-bottom: 30px;
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+	}
+	
+	.step1 .center .mainTitle {
+		height: 42px;
+		line-height: 42px;
+		border-bottom: 1px solid #dedede;
+		padding-left: 30px;
+		font-size: 14px;
+		font-weight: 700;
+	}
+	/*表格*/
+	
+	.step1 table {
+		margin: 25px;
+		width: 1050px;
+	}
+	
+	.step1 table .name {
+		width: 190px;
+		padding-left: 50px;
+		background: #f8f8f8;
+		vertical-align: middle !important;
+	}
+	
+	.step1 table .container1 {
+		width: 335px;
+		vertical-align: middle !important;
+	}
+	
+	.step1 .sealStyle {
+		margin: 30px 0 30px 20px;
+	}
+	
+	.step1 .sealStyle span {
+		width: 115px;
+		height: 40px;
+		display: inline-block;
+		line-height: 40px;
+		text-align: center;
+		font-size: 16px;
+		border: 1px solid #dedede;
+		margin-left: 20px;
+		cursor: pointer;
+	}
+	
+	.step1 .sealStyle span.choice {
+		color: #00acff;
+		border: 1px solid #00acff;
+	}
+	.step1 form{
+		margin: 20px 40px;
+	}
+	.step1 form .control-label{
+		font-weight: 500;
+		text-align: left;
+	}
+	.step1 form .sealTips{
+		margin-left: 30px;
+		color: #00acff;
+		vertical-align: sub;
+	}
+	.step1 .go{
+		height: 36px;
+		width: 170px;
+		margin: 25px auto 0px;
+	}
+	.step1 .go .btn-ay{
+		color: #FFF;
+		display: inline-block;
+		height: 36px;
+		width: 170px;
+		text-align: center;
+		font-size: 14px;
+		text-decoration: none;
+		background-color: #00acff;
+    	border-color: #00acff;
+	}
 </style>

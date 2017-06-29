@@ -1,3 +1,254 @@
-<div>这里是step3</div>
-<a id="" href="order.html#step2">上一步</a>
-<a id="goStep2" href="order.html#step4">下一步</a>
+<div class="step3">
+	<div class="title">
+		新办电子印章- <span>提交资料、门店选择</span>
+	</div>
+	<div class="Message">
+		<div class="mainTitle">
+			企业证照
+		</div>
+		<div class="flex">
+			<div class="photo digitalScan">
+				<div class="flexTitle">
+					《数字证书及电子印章申请表及用户责任书》扫描件
+				</div>
+				<div class="scanPhoto">
+					<div class="picture digitalUpload"></div>
+					<div class="exampleScan"></div>
+				</div>
+			</div>
+			<div class="photo legalScan">
+				<div class="flexTitle">
+					《法人授权书》扫描件
+				</div>
+				<div class="scanPhoto">
+					<div class="picture legalUpload"></div>
+					<div class="exampleScan"></div>
+				</div>
+			</div>
+			<div class="downLoad">
+				<a class="example">申请书模板下载</a>
+				<div class="tips">请填写完毕并打印加盖公章，拍照上传</div>
+			</div>
+		</div>
+		<div class="mainTitle">
+			刻章店选择
+		</div>
+		<div class="sealMessage">
+			<div class="title">
+				<dd>选择区域</dd>
+				<div class="public">
+					<select name="" class="search_input">
+						<option value="0">广东省</option>
+					</select>
+					<select name="" class="search_input">
+						<option value="0">深圳市</option>
+					</select>
+					<select id="area" class="search_input">
+						<option>南山区</option>
+					</select>
+				</div>
+				<div class="current">
+					<dd>当前选择：</dd>
+					<span class="cuur-choice">深圳市创业印章南山公安分局</span>
+				</div>
+			</div>
+			<div class="result">
+				<table class="table table-striped">
+					<tr>
+						<th style="padding-left:10px;width:80px"></th>
+						<th>印章店名称</th>
+						<th>印章店地址</th>
+						<th>联系方式</th>
+					</tr>
+					<tr>
+						<td></td>
+						<td>深圳市创业印章南山公安局分店</td>
+						<td>深圳市南山区南辛店198号</td>
+						<td>025-889956454</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>深圳市创业印章南山公安局分店</td>
+						<td>深圳市南山区南辛店198号</td>
+						<td>025-889956454</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>深圳市创业印章南山公安局分店</td>
+						<td>深圳市南山区南辛店198号</td>
+						<td>025-889956454</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>深圳市创业印章南山公安局分店</td>
+						<td>深圳市南山区南辛店198号</td>
+						<td>025-889956454</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="go">
+			<a class="btn btn-default fl" id="goStep2" href="order.html#step2">上一步</a>
+			<a class="btn btn-ay fr" id="goStep4" href="order.html#step4">提交</a>
+		</div>
+	</div>
+</div>
+<style>
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+	.step3>.title {
+		height: 20px;
+		margin: 17px 0 20px;
+		padding-left: 15px;
+		font-size: 16px;
+		font-weight: 600;
+		border-left: 6px solid #0073bd;
+	}
+	
+	.step3 .title span {
+		font-weight: 500;
+	}
+	
+	.step3 .Message {
+		margin-top: 30px;
+		padding-bottom: 30px;
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+	}
+	
+	.step3 .mainTitle {
+		height: 42px;
+		line-height: 42px;
+		border-bottom: 1px solid #dedede;
+		padding-left: 30px;
+		font-size: 14px;
+		font-weight: 700;
+	}
+	
+	.step3 .flex {
+		height: 210px;
+	}
+	
+	.step3 .flex .photo {
+		width: 420px;
+		float: left;
+		padding: 20px 20px 20px 40px;
+	}
+	
+	.step3 .flex .downLoad {
+		width: 260px;
+		float: left;
+	}
+	
+	.step3 .flex .scanPhoto {
+		width: 350px;
+		height: 113px;
+		margin-top: 20px;
+	}
+	
+	.step3 .flex .picture {
+		width: 162px;
+		height: 112px;
+		background: url(../../../../asset/img/c-1-6-3_04.jpg) no-repeat;
+		float: left;
+	}
+	
+	.step3 .flex .scanPhoto .exampleScan {
+		width: 162px;
+		height: 112px;
+		background: url(../../../../asset/img/c-1-6-3_04.jpg) no-repeat;
+		float: right;
+	}
+	
+	.step3 .flex .downLoad {
+		margin-top: 90px;
+	}
+	
+	.step3 .sealMessage {
+		padding: 20px 40px;
+	}
+	/*刻章店选择*/
+	
+	.step3 .sealMessage .title {
+		height: 60px;
+	}
+	
+	.step3 .sealMessage dd {
+		font-size: 14px;
+		color: #666;
+		width: auto;
+		text-align: center;
+		padding-top: 5px;
+		margin-left: 30px;
+		font-weight: bold;
+		display: inline-block;
+	}
+	
+	.step3 .sealMessage .search_input {
+		font-size: 14px;
+		padding: 4px 8px;
+		border: 1px solid #CCC;
+		border-radius: 5px;
+		padding-right: 20px;
+		font-weight: 100;
+	}
+	
+	.step3 .sealMessage .public {
+		display: inline-block;
+	}
+	
+	.step3 .sealMessage .current {
+		display: inline-block;
+		margin-left: 30px;
+	}
+	
+	.step3 .sealMessage .area {
+		margin-top: 20px;
+		height: 40px;
+	}
+	
+	.step3 .sealMessage table tr:hover {
+		background: #99c6ff;
+	}
+	
+	.step3 .sealMessage table th {
+		border-top: 1px solid #FCA768;
+		background: #F5F5F5;
+		height: 40px;
+		text-align: left;
+	}
+	
+	.step3 .sealMessage table th tr {
+		height: 40px;
+	}
+	.step3 .go {
+		height: 36px;
+		width: 375px;
+		margin: 25px auto 0px;
+	}
+	
+	.step3 .go a {
+		display: inline-block;
+		height: 36px;
+		width: 170px;
+		text-align: center;
+		font-size: 14px;
+		text-decoration: none;
+	}
+	
+	.step3 .go a#goStep2 {
+		color: #666666;
+	}
+	
+	.step3 .go a.btn-ay {
+		color: #ffffff;
+		background-color: #00acff;
+		border-color: #00acff;
+	}
+	
+</style>

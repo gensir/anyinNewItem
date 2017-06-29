@@ -1,3 +1,329 @@
-<div>这里是step2</div>
-<a id="" href="order.html#step1">上一步</a>
-<a id="goStep2" href="order.html#step3">下一步</a>
+<div class="step2">
+	<div class="title">
+		新办电子印章- <span>资料提交</span>
+	</div>
+	<div class="Message">
+		<div class="mainTitle">
+			企业证照上传
+		</div>
+		<div class="legalSubstance">
+			<div class="flex">
+				<div class="flexCon">
+					<div class="unitPhotoTitle">
+						上传单位证件照片：
+					</div>
+					<div class="form">
+						<span class="nothing"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">企业法人营业执照</div>
+					<div class="form">
+						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo" id="photo0"></span>
+							<input id='file0' size="0" maxlength="0" type="file" />
+							<a class="reset0" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">企业法人营业执照</div>
+					<div class="form">
+						<span class="businessLicense photo"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--法人证照信息-->
+		<div class="mainTitle countMessage">法人证照上传</div>
+		<div class="mainSubstance">
+			<div class="flex">
+				<div class="flexCon">
+					<div class="unitPhotoTitle">
+						上传单位法人身份证照：
+					</div>
+					<div class="form">
+						<span class="nothing"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证正面</div>
+					<div class="form">
+						<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo" id="photo1"></span>
+							<input id='file1' size="0" maxlength="0" type="file" />
+							<a class="reset1" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证正面</div>
+					<div class="form">
+						<span class="frontPhoto photo"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证反面</div>
+					<div class="form">
+						<form id="ajaxForm2" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo" id="photo2"></span>
+							<input id='file2' size="0" maxlength="0" type="file" />
+							<a class="reset2" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">法人身份证反面</div>
+					<div class="form">
+						<span class="backPhoto photo"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--经办人证照信息-->
+		<div class="mainTitle countMessage">经办人证照上传</div>
+		<div class="mainSubstance">
+			<div class="flex">
+				<div class="flexCon">
+					<div class="unitPhotoTitle">
+						上传经办人身份证照：
+					</div>
+					<div class="form">
+						<span class="nothing"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">经办人身份证正面</div>
+					<div class="form">
+						<form id="ajaxForm3" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo" id="photo3"></span>
+							<input id='file3' size="0" maxlength="0" type="file" />
+							<a class="reset3" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">经办人身份证正面</div>
+					<div class="form">
+						<span class="frontPhoto photo"></span>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">经办人身份证反面</div>
+					<div class="form">
+						<form id="ajaxForm4" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="licence photo" id="photo4"></span>
+							<input id='file4' size="0" maxlength="0" type="file" />
+							<a class="reset4" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+				</div>
+				<div class="flexCon">
+					<div class="title">经办人身份证反面</div>
+					<div class="form">
+						<span class="backPhoto photo"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="go">
+		<a class="btn btn-default fl" id="goStep1" href="order.html#step1">上一步</a>
+		<a class="btn btn-ay fr" id="goStep3" href="order.html#step3">提交</a>
+	</div>
+</div>
+<style>
+	.fl {
+		float: left;
+	}
+	
+	.fr {
+		float: right;
+	}
+	.step2>.title {
+		height: 20px;
+		margin: 17px 0 20px;
+		padding-left: 15px;
+		font-size: 16px;
+		font-weight: 600;
+		border-left: 6px solid #0073bd;
+	}
+	.step2 .title span{
+		font-weight: 500;
+	}
+	.step2 {
+		width: 1100px;
+		/*height: 460px;*/
+		margin: 0 auto;
+	}
+	
+	.step2 .form form span img {
+		width: 163px;
+		height: 112px;
+	}
+	
+	.step2 .Message {
+		margin-top: 30px;
+		padding-bottom: 30px;
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+	}
+	
+	.step2 .mainTitle {
+		height: 42px;
+		line-height: 42px;
+		border-bottom: 1px solid #dedede;
+		padding-left: 30px;
+		font-size: 14px;
+		font-weight: 700;
+	}
+	
+	.step2 .mainSubstance {
+		margin-top: 0;
+	}
+	
+	.step2 .flex {
+		margin-bottom: 20px;
+	}
+	
+	.step2 .flex .flexCon {
+		width: 216px;
+		display: inline-block;
+		text-align: center;
+	}
+	
+	.step2 .flex .flexCon .unitPhotoTitle {
+		text-align: center;
+	}
+	
+	.step2 .flex .flexCon .form {
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.step2 .flex .flexCon .title {
+		width: 170px;
+		margin: 30px 0px 20px;
+	}
+	
+	.step2 .flex .flexCon .photo {
+		display: inline-block;
+		width: 163px;
+		height: 112px;
+		border: 1px dashed #999;
+		cursor: pointer;
+	}
+	
+	.step2 .flex .flexCon .licence {
+		background: url(../../../../asset/img/upload.jpg) no-repeat;
+		background-size: 163px 112px;
+	}
+	
+	.step2 .flex .flexCon .businessLicense {
+		background: url(../../../../asset/img/lince.jpg) no-repeat center center;
+		background-size: auto 112px;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg', sizingMethod='scale');
+	}
+	
+	.step2 .flex .flexCon .frontPhoto {
+		background: url(../../../../asset/img/ID-front.png) no-repeat;
+		background-size: 163px 112px;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png', sizingMethod='scale');
+	}
+	
+	.step2 .flex .flexCon .backPhoto {
+		background: url(../../../../asset/img/ID-back.png) no-repeat;
+		background-size: 163px 112px;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png', sizingMethod='scale');
+	}
+	
+	.step2 .flex .flexCon .nothing {
+		display: inline-block;
+		width: 163px;
+		height: 50px;
+	}
+	
+	.step2 .flex .flexCon input {
+		position: absolute;
+		font-size: 46px;
+		width: 163px;
+		height: 112px;
+		opacity: 0;
+		filter: Alpha(opacity=0);
+		left: 26px;
+		bottom: 5px;
+		z-index: 999;
+		cursor: pointer;
+	}
+	
+	.step2 .flex .flexCon a {
+		height: 24px;
+		position: absolute;
+		bottom: 5px;
+		left: 26px;
+		width: 163px;
+		height: 24px;
+		text-align: center;
+		color: #FFFFFF;
+		background: #999;
+		display: none;
+	}
+	
+	.step2 .go {
+		height: 36px;
+		width: 375px;
+		margin: 25px auto 0px;
+	}
+	
+	.step2 .go a {
+		display: inline-block;
+		height: 36px;
+		width: 170px;
+		text-align: center;
+		font-size: 14px;
+		text-decoration: none;
+	}
+	
+	.step2 .go a#goStep2 {
+		color: #666666;
+	}
+	
+	.step2 .go a#goStep3 {
+		color: #ffffff;
+		background-color: #00acff;
+		border-color: #00acff;
+	}
+	/*bootbox弹窗*/
+	
+	.realName .modal-dialog {
+		margin-top: 200px;
+	}
+	
+	.realName .modal-header {
+		border: 0;
+		background: #f2f2f2;
+		padding: 11px;
+		border-radius: 4px;
+		color: #333;
+	}
+	
+	.realName .modal-body .message {
+		text-align: center;
+		font-size: 16px;
+		padding: 10px 0;
+	}
+</style>

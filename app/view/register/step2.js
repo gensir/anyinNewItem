@@ -34,5 +34,4 @@ var step2 = Backbone.View.extend({
 		this.$el.html(tpl);
 	},
 });
-
 module.exports = step2;
