@@ -1,13 +1,15 @@
 import '../../../../asset/css/register.css';
+import '../../../../asset/css/footer.css';
 import {add} from '../../../publicFun/public';
 import '../../../../asset/lib/jquery-placeholder.js';
 require('../store/store.js');
+//require('../store/model.js');
 window.reqres.request(  'global', 'current-user' );
 //console.log(add())
 
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');
-var tpl = require('../../../view/register/tpl/main.html');
+var tpl = require('../../../view/pub/tpl/main.html');
 
 $('body').prepend(tpl({
     list: [
