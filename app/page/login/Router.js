@@ -44,8 +44,8 @@ var Router = Backbone.Router.extend({
     login(){
         require.ensure([], function(require) {
             var main=require('../../view/login/main.js');
-            var model=require('./store/model.js')
-            var main=new main({model:model});
+            var model=require('./store/model.js');
+            new main({model:model});
         })
         
     },

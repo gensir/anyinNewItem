@@ -3,13 +3,16 @@ var loginModel = Backbone.Model.extend({
         'verify': require('../../../publicFun/validate'),
         "wang": "t",
         pinwdError: '',
-
     },
     validate: function (attrs) {
         //验证规则
         if (attrs.clickEle == 'ukeyLogin') {
-            $.verify("#userName", "phone");
-            $.verify("#passwd", "passwd");
+            // $.verify("#userName", "phone");
+            $.verifyEach({"phone":"#userName","passwd":"#passwd"},function(){
+                alert("验证通过，执行请求！");
+                $.verify("passwd","#passwd","123");
+            })
+            
         };
         if (attrs.clickEle == 'login') {
             $.verify("#pinwd", "passwd");
