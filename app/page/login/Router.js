@@ -43,17 +43,13 @@ var Router = Backbone.Router.extend({
     },
     login(){
         require.ensure([], function(require) {
-            require('../../publicFun/validate')
-           // console.log(verify)
             var main=require('../../view/login/main.js');
-            new main();
-            
-            
+            var model=require('./store/model.js');
+            new main({model:model});
         })
         
     },
     stat: function(query) {
-        console.log(query)
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/stat/Stat')
