@@ -12,7 +12,7 @@
 					<span class="serial">1</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
 				</div>
 				<div class="order">
-					<span class="serial">1</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
+					<span class="serial">2</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
 				</div>
 			</div>
 			<div class="orderYear">
@@ -47,7 +47,7 @@
 					<div class="form-group form-bottom downLine">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-4">
-							<div class="billTips">该订单仅提供电子发票。<a href="#">什么是电子发票？</a></div>
+							<div class="billTips">该订单仅提供电子发票。<a href="order.html#step4#">什么是电子发票？</a></div>
 						</div>
 						<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
 					</div>
@@ -65,17 +65,14 @@
 				</form>
 			</div>
 		</div>
-
-		<div class="go">
-			<a class="btn btn-default fl" id="goStep2" href="order.html#step2">上一步</a>
-			<a class="btn btn-ay fr" id="goStep4" href="order.html#step4">提交</a>
-		</div>
+	</div>
+	<div class="gopay">
+		<div class="fr">
+			<span class="realPay">实付金额：</span> <span class="money">360000元</span> <span class="account">去结算</span>
+		</div>	
 	</div>
 </div>
-
-<div>这里是step3</div>
-<a id="" href="order.html#step2">上一步</a>
-<a id="goStep2" href="order.html#step4">下一步</a>
+<a class="btn btn-ay fr" href="order.html#step3">上一步</a>
 <style>
 	.fl {
 		float: left;
@@ -100,7 +97,7 @@
 	
 	.step4 .Message {
 		margin-top: 30px;
-		padding-bottom: 30px;
+		padding-bottom: 15px;
 		background: #fff;
 		border-radius: 4px;
 		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
@@ -207,6 +204,49 @@
 	}
 	.step4 form .control-label{
 		text-align: left;
+	}
+	.step4 form .pay div{
+		height: 42px;
+		width: 154px;
+		display: inline-block;
+		border: 1px solid #dedede;
+		margin-right: 10px;
+	}
+	.step4 form .pay div.wepay{
+		background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat;
+	}
+	.step4 form .pay div.alipay{
+		background: url(../../../../asset/img/c-1-6-4_12.jpg) no-repeat;
+	}
+	.step4 form .pay div.unionpay{
+		background: url(../../../../asset/img/c-1-6-4_14.jpg) no-repeat;
+	}
+	.step4 .gopay{
+		height: 56px;
+		background: #ddd;
+		margin-bottom: 50px;
+	}
+	.step4 .gopay .realPay{
+		font-size: 16px;
+		font-weight: 600;
+		margin-right: 10px;
+	}
+	.step4 .gopay .money{
+		font-size: 20px;
+		font-weight: 600;
+		color: #03adff;
+		margin-right: 20px;
+	}
+	.step4 .gopay .account{
+		display: inline-block;
+		width: 170px;
+		height: 100%;
+		background: #03adff;
+		color: #fff;
+		line-height: 56px;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
 	}
 	
 	

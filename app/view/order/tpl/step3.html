@@ -12,8 +12,17 @@
 					《数字证书及电子印章申请表及用户责任书》扫描件
 				</div>
 				<div class="scanPhoto">
-					<div class="picture digitalUpload"></div>
-					<div class="exampleScan"></div>
+					<!--<div class="picture digitalUpload"></div>-->
+					<div class="form">
+						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="digitalUpload" id="photo0"></span>
+							<input id='file0' size="0" maxlength="0" type="file" />
+							<a class="reset0" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+					<div class="digitalExample"></div>
 				</div>
 			</div>
 			<div class="photo legalScan">
@@ -21,7 +30,17 @@
 					《法人授权书》扫描件
 				</div>
 				<div class="scanPhoto">
-					<div class="picture legalUpload"></div>
+					<!--<div class="picture legalUpload"></div>-->
+					<div class="form">
+						<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+							<span class="digitalUpload" id="photo1"></span>
+							<input id='file1' size="0" maxlength="0" type="file" />
+							<a class="reset1" href="javascript:">
+								<span>重新选择</span>
+							</a>
+						</form>
+					</div>
+					
 					<div class="exampleScan"></div>
 				</div>
 			</div>
@@ -87,10 +106,11 @@
 				</table>
 			</div>
 		</div>
-		<div class="go">
-			<a class="btn btn-default fl" id="goStep2" href="order.html#step2">上一步</a>
-			<a class="btn btn-ay fr" id="goStep4" href="order.html#step4">提交</a>
-		</div>
+		
+	</div>
+	<div class="go">
+		<a class="btn btn-default fl" id="goStep2" href="order.html#step2">上一步</a>
+		<a class="btn btn-ay fr" id="goStep4" href="order.html#step4">提交</a>
 	</div>
 </div>
 <style>
@@ -151,20 +171,65 @@
 		margin-top: 20px;
 	}
 	
-	.step3 .flex .picture {
+	.step3 .flex .form {
 		width: 162px;
 		height: 112px;
-		background: url(../../../../asset/img/c-1-6-3_04.jpg) no-repeat;
 		float: left;
+		border: 1px dashed #dedede;
+		position: relative;
+		overflow: hidden;
+	}
+	.step3 .flex .form input{
+		position: absolute;
+		font-size: 46px;
+		width: 163px;
+		height: 112px;
+		opacity: 0;
+		bottom: 0;
+		filter: Alpha(opacity=0);
+		z-index: 999;
+		cursor: pointer;
+	}
+	.step3 .flex .form .digitalUpload{
+		display: inline-block;
+		width: 163px;
+		height: 112px;
+		background: url(../../../../asset/img/c-1-6-3_04.jpg) no-repeat;
+	}
+	
+	.step3 .flex .form a {
+		height: 24px;
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		width: 163px;
+		height: 24px;
+		text-align: center;
+		color: #FFFFFF;
+		background: #999;
+		display: none;
 	}
 	
 	.step3 .flex .scanPhoto .exampleScan {
 		width: 162px;
 		height: 112px;
-		background: url(../../../../asset/img/c-1-6-3_04.jpg) no-repeat;
+		background: url(../../../../asset/img/proxy.jpg) no-repeat center;
+		background-size: auto 112px;
 		float: right;
+		border: 1px dashed #DEDEDE;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/proxy.jpg', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/proxy.jpg', sizingMethod='scale');
 	}
-	
+	.step3 .flex .scanPhoto .digitalExample{
+		width: 162px;
+		height: 112px;
+		float: right;
+		border: 1px dashed #DEDEDE;
+		background: url(../../../../asset/img/apply.jpg) no-repeat center;
+		background-size: auto 112px;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/apply.jpg', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/apply.jpg', sizingMethod='scale');
+	}
 	.step3 .flex .downLoad {
 		margin-top: 90px;
 	}
