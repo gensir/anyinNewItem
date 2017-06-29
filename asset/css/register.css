@@ -1,5 +1,4 @@
 @charset "utf-8";
-.page-kd { width: 1100px; margin: 0 auto; }
 /* 头部*/
 .header { height: 100px; padding-top: 15px; }
 .header .top-logo { background: url(../img/ay-logo.png) no-repeat; height: 54px; width: 143px; display: block; margin: 0 50px 30px; }
@@ -50,12 +49,6 @@
 .reg-content .idcode .subform .btn { width: 170px; height:36px;  }
 .reg-content .login-text { text-align: center; margin-left: 640px; padding-top: 160px; font-size: 16px; }
 .reg-content .login-text a { margin-left:6px; color: #00acff; }
-/* 底部 */
-.reg-bottom { background: #424242; height: 46px; padding: 16px 0; margin-top: 60px; font-size: 14px; color: #fff; width: 100%; min-width: 1100px; }
-.reg-bottom .link { float: left; line-height:14px; }
-.reg-bottom .link a { letter-spacing: 1px; margin-right: 20px; margin-left: 20px; line-height: 14px; color: #fff; font-size: 14px; }
-.reg-bottom .link em { font-style: normal; background: #fff; height: 14px; width: 1px; display: inline-block; vertical-align: -2px; }
-.reg-bottom .copyright { text-align: right; line-height:14px; margin-right: 20px; }
 /* 注册成功 */
 .reg-content .regok .title { height: 48px; font-size: 20px; color: #0073bd; text-align: center; line-height: 48px; margin-top: 50px; }
 .reg-content .regok .title em { background: url(../img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }

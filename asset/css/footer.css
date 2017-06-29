@@ -1,0 +1,7 @@
+/* 底部 */
+.page-kd { width: 1100px; margin: 0 auto; }
+.reg-bottom { background: #424242; height: 46px; padding: 16px 0; margin-top: 60px; font-size: 14px; color: #fff; width: 100%; min-width: 1100px; }
+.reg-bottom .link { float: left; line-height:14px; }
+.reg-bottom .link a { letter-spacing: 1px; margin-right: 20px; margin-left: 20px; line-height: 14px; color: #fff; font-size: 14px; }
+.reg-bottom .link em { font-style: normal; background: #fff; height: 14px; width: 1px; display: inline-block; vertical-align: -2px; }
+.reg-bottom .copyright { text-align: right; line-height:14px; margin-right: 20px; }
