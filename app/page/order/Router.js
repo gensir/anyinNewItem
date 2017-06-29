@@ -43,7 +43,9 @@ var Router = Backbone.Router.extend({
         var me = this;
         require.ensure([], function (require) {
             var View = require('../../view/order/list')
-            me.startRout(View, { query: query });
+            var model=require('./store/model')
+            new View({model:model})
+            //me.startRout(View, { query: query });
         }, 'list');
     },
     stat: function (query) {
