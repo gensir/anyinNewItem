@@ -43,30 +43,30 @@
 			<div class="form-group form-bottom">
 				<label class="col-sm-3 control-label">账号名：</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control countPhone" placeholder="请输入11位手机号" maxlength="11" value="18614951286">
+					<input type="text" class="form-control countPhone" placeholder="请输入11位手机号" maxlength="11">
 				</div>
-				<div class="col-sm-3 phoneErrTip errTip">请输入正确的手机号码</div>
+				<div class="col-sm-3 countPhone-error phoneErrTip errTip"></div>
 			</div>
 			<div class="form-group form-bottom">
 				<label class="col-sm-3 control-label">验证码：</label>
 				<div class="col-sm-5">
-					<input type="text" placeholder="请输入验证码" class="form-control countCode fl">
+					<input type="text" maxlength="6" placeholder="请输入验证码" class="form-control countCode fl">
 					<input type="button" class="btn btn-primary findPasswordCodeBtn fl" value="获取验证码" />
 				</div>
-				<div class="col-sm-3 codeErrTip errTip">短信验证码不正确</div>
+				<div class="col-sm-3 findPasswordCodeBtn-error  codeErrTip errTip"></div>
 			</div>
 			<div class="form-group form-bottom">
 				<label class="col-sm-3 control-label">法人身份证号：</label>
 				<div class="col-sm-5">
 					<input type="text" placeholder="请输入验证码" class="form-control legalID fl">
 				</div>
-				<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>
+				<div class="col-sm-3 legalID-error legalIDErrTip errTip"></div>
 			</div>
 		</form>
 	</div>
 	<div class="go">
 		<a class="btn btn-default fl" id="goStep1" href="register.html#step1">上一步</a>
-		<a class="btn btn-ay fr" id="goStep3" href="register.html#step3">下一步</a>
+		<a class="btn btn-ay fr" data-id='goStep3' id="goStep3" >下一步</a>
 	</div>
    
 </div>

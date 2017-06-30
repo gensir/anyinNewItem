@@ -4,9 +4,12 @@
 import tpl from './tpl/step2.html'
 var step2 = Backbone.View.extend({
 	el: '.container',
-	initialize() {},
+	initialize() {
+		this.render();
+	},
 	events: {
-		'click .findPasswordCodeBtn': 'phoneCode'
+		'click .findPasswordCodeBtn': 'phoneCode',
+		'click #goStep3':'goStep3'
 	},
 	phoneCode: function() {
 		var countdown = 60;
@@ -29,6 +32,10 @@ var step2 = Backbone.View.extend({
 		};
 		settime();
 		return false;
+	},
+	goStep3:function(event){
+		this.model.set({"clickEle":$(event.target).data('id')})
+        this.model.isValid()
 	},
 	render: function(query) {
 		this.$el.html(tpl);
