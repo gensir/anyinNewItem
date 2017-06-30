@@ -29,9 +29,9 @@
 			</table>
 			<div class="mainTitle countMessage">可办理的电子印章</div>
 			<div class="sealStyle">
-				<span>财务章</span>
-				<span>行政章</span>
-				<span>发票章</span>
+				<span class="finance">财务章</span>
+				<span class="admin">行政章</span>
+				<span class="receipt">发票章</span>
 			</div>
 			<div class="mainTitle countMessage">经办人信息</div>
 			<form class="form-horizontal">
@@ -52,21 +52,20 @@
 					<div class="col-sm-3">
 						<input type="text" placeholder="" class="form-control countCode fl">
 					</div>
-					<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+					<div class="col-sm-3 countCode-error legalIDErrTip errTip"></div>
 				</div>
 				<div class="form-group form-bottom">
 					<label class="col-sm-2 control-label">经办人身份证：</label>
 					<div class="col-sm-3">
 						<input type="text" placeholder="" class="form-control legalID fl">
 					</div>
-					<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+					<div class="col-sm-3 legalID-error legalIDErrTip errTip"></div>
 				</div>
 			</form>
 		</div>
 		<div class="go">
-			<a class="btn btn-ay fr" id="goStep3" href="order.html#step2">继续</a>
+			<a class="btn btn-ay fr" data-id='goStep2' id="goStep2">继续</a>
 		</div>
-
 	</div>
 </div>
 <style>
@@ -142,6 +141,7 @@
 	.step1 .sealStyle span.choice {
 		color: #00acff;
 		border: 1px solid #00acff;
+		background: url(../../../../asset/img/1111.png)no-repeat right bottom;
 	}
 	.step1 form{
 		margin: 20px 40px;
@@ -155,6 +155,15 @@
 		color: #00acff;
 		vertical-align: sub;
 	}
+	.step1 form .errTip{
+		padding-top: 5px;
+		color: red;
+	}
+	.step1 .sealStyle .current{
+		
+	}
+	
+	
 	.step1 .go{
 		height: 36px;
 		width: 170px;
@@ -171,4 +180,13 @@
 		background-color: #00acff;
     	border-color: #00acff;
 	}
+	.alert .modal-footer{
+		display: none;
+	}
+	.alert .bootbox-body{
+		text-align: center;
+		padding: 10px 0;
+		font-size: 16px;
+	}
+	
 </style>
