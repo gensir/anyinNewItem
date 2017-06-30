@@ -10,7 +10,8 @@ var list = Backbone.View.extend({
     events: {
         'click .eseallist .list>.nav': 'toggleList',
         'click .eseallist .list>.nav .loss': 'loss',
-        'click .eseallist .list>.nav .unfreeze': 'unfreeze'
+        'click .eseallist .list>.nav .unfreeze': 'unfreeze',
+        'click .eseallist .list>.nav .logout': 'logout'
     },
     render: function (query) {
         this.$el.prepend(tpl);
@@ -128,6 +129,10 @@ var list = Backbone.View.extend({
                 }
             }
         })
+        return false;
+    },
+    logout(){
+        alert(123);
         return false;
     }
 });

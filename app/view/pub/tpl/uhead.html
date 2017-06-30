@@ -1,20 +1,43 @@
 <!-- 用户头部 -->
 <div class="u-head">
-	<div class="page-kd">
-		<h1 class="top-logo hide-text">电子印章管理平台</h1>
-		<div class="rightbox">
-			<ul class="menu">
-				<li><a class="active" href="index.html" title="首页">首页</a></li>
-				<li><a class="" href="order.html" title="印章管理">印章管理</a></li>
-				<li><a class="" href="order.html" title="订单中心">订单中心</a></li>
-				<li><a class="" href="logs.html" title="日志记录">日志记录</a></li>
-			</ul>
-			<ul class="utool">
-				<li><a class="locked hide-text" id="" href="javascript:;" title="锁定"><span>锁定</span></a></li>
-				<li><a class="tools hide-text" id="" href="javascript:;" title="设置"><span>工具</span></a></li>
-				<li><a class="logout" id="" href="javascript:;" title="退出系统">退出</a></li>
-			</ul>
-		</div>
-		
-	</div>
+    <div class="page-kd">
+        <h1 class="top-logo hide-text">电子印章管理平台</h1>
+        <div class="rightbox">
+            <ul class="menu">
+                <li><a class="active nav1" href="index.html" title="首页">首页</a></li>
+                <li><a class="nav2" href="order.html" title="印章管理">印章管理</a></li>
+                <li><a class="nav3" href="ordercenter.html" title="订单中心">订单中心</a></li>
+                <li><a class="nav4" href="logs.html" title="日志记录">日志记录</a></li>
+            </ul>
+            <ul class="utool">
+                <li><a class="locked hide-text" id="" href="javascript:;" title="锁定"><span>锁定</span></a></li>
+                <li><a class="tools hide-text" id="" href="javascript:;" title="设置"><span>工具</span></a></li>
+                <li><a class="logout" id="" href="javascript:;" title="退出系统">退出</a></li>
+            </ul>
+        </div>
+
+    </div>
 </div>
+<script>
+    var header = {
+        init: function () {
+            this.nav();
+        },
+        arrPath: location.pathname.split(/\//),
+        nav() {
+            function toggle(ele){$(".u-head .menu a").removeClass("active").parent("li").find(ele).addClass("active");}
+            for (var i = 0; i < this.arrPath.length; i++) {
+                if (/.html/.test(this.arrPath[i])) {
+                    switch (this.arrPath[i]) {
+                        case "index.html":toggle(".nav1") ; break;
+                        case "order.html": toggle(".nav2"); break;
+                        case "ordercenter.html": toggle(".nav3"); break;
+                        case "logs.html": toggle(".nav4"); break;
+                    }
+                }
+            }
+        }
+
+    }
+header.init();
+</script>
