@@ -1,6 +1,6 @@
 import tpl from './tpl/list.html'
 var list = Backbone.View.extend({
-    el: '.wrapper',
+    el: '.container',
     initialize() {
         this.render();
         this.lossBox();
