@@ -13,6 +13,8 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
+		picture = [0, 0];
+		flag = true;
 		imgModalBig('.digitalExample', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
 		imgModalBig('.exampleScan', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 	},

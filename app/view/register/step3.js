@@ -16,6 +16,8 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
+		picture = [0, 0, 0];
+		flag = [1, , 2];
 		imgModalBig('.businessLicense', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.frontPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.backPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
@@ -93,7 +95,7 @@ var step3 = Backbone.View.extend({
 		//		}
 	},
 	goStep4: function() {
-		for(var i=0;i<picture.length;i++){
+		for(var i = 0; i < picture.length; i++) {
 			if(picture[i] == 0) {
 				var dialog = bootbox.alert({
 					className: "uploadPhoto",
