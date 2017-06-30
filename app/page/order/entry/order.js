@@ -1,4 +1,4 @@
-import '../../../../asset/css/footer.css';
+import '../../../../asset/css/style.css';
 import {add} from '../../../publicFun/public';
 require('../store/store.js');
 window.reqres.request(  'global', 'current-user' );

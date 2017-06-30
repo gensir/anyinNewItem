@@ -1,5 +1,5 @@
 import '../../../../asset/css/register.css';
-import '../../../../asset/css/footer.css';
+import '../../../../asset/css/style.css';
 import {add} from '../../../publicFun/public';
 import '../../../../asset/lib/jquery-placeholder.js';
 require('../store/store.js');

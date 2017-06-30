@@ -1,0 +1,42 @@
+@charset "utf-8";
+body { background: #f6f6f6; }
+ul { list-style: none; padding: 0; margin: 0; }
+.page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
+.boxshow { background: #fff; border-radius: 4px; box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.05); }
+/* 按钮*/
+.btn-ay { color: #fff; background-color: #00acff; border-color: #00acff; }
+.btn-ay:hover { color: #fff; background-color: #009bfe; border-color: #009bfe; }
+.btn-ay.focus,
+.btn-ay:focus { color: #fff; background-color: #0095fe; border-color: #0095fe; }
+.btn.btn-ay[disabled] { border:1px solid #bdbdbd; background-color: #ccc; color:#7f7f7f; }
+
+/* 底部 */
+.wrapper { min-height: 100%; }
+.reg-bottom { margin-top: -46px; }
+.reg-bottom { background: #424242; height: 46px; padding: 16px 0; font-size: 14px; color: #fff; width: 100%; min-width: 1100px; }
+.reg-bottom .link { float: left; line-height:14px; }
+.reg-bottom .link a { letter-spacing: 1px; margin-right: 20px; margin-left: 20px; line-height: 14px; color: #fff; font-size: 14px; }
+.reg-bottom .link em { font-style: normal; background: #fff; height: 14px; width: 1px; display: inline-block; vertical-align: -2px; }
+.reg-bottom .copyright { text-align: right; line-height:14px; margin-right: 20px; }
+
+/* 用户后台管理头部菜单*/
+.u-head { background: #0073bd; height: 80px; width: 100%; min-width: 1100px; padding-top:12px; }
+.u-head .page-kd { position: relative; }
+.u-head .top-logo { background: url(../img/ay-logo.png) no-repeat 0 -60px; height: 54px; width: 143px; display: block; margin: 0px; }
+.u-head .hide-text { overflow: hidden; text-indent: 100%; white-space: nowrap; font-size: 14px; }
+.u-head .rightbox { position: absolute; top: 12px; right: 0; height: 32px; z-index: 1; text-align: right; left: 200px; display: block; overflow: hidden; }
+.u-head .rightbox ul { list-style: none; display: inline-block; font-size: 0px; margin: 0; padding: 0; vertical-align: top; }
+.u-head .rightbox ul li { display: inline-block; font-size: 0px; vertical-align: top; }
+.u-head .rightbox ul li a { font-size: 14px; color: #fff; text-decoration: none; display: block; -webkit-transition: all .3s; transition: all .3s; }
+.u-head .rightbox .menu li { margin-right: 24px; }
+.u-head .rightbox .menu li a { line-height: 30px; height: 32px; width: 102px; display: block; text-align: center; }
+.u-head .rightbox .menu li a:hover { background: #0095fe; border-radius: 6px; }
+.u-head .rightbox .menu li a.active { background: #0466a4; border-radius: 6px; }
+.u-head .rightbox .utool { margin-left: -20px; }
+.u-head .rightbox .utool li { margin-left: 38px; }
+.u-head .rightbox .utool li a.locked span { width: 24px; height: 24px; background: url(../img/bg-all.png) no-repeat 0 -266px; display: block; margin: 4px 6px; }
+.u-head .rightbox .utool li a.tools span { width: 24px; height: 24px; background: url(../img/bg-all.png) no-repeat -24px -266px; display: block; margin: 4px 6px;}
+.u-head .rightbox .utool li a.logout { width: 62px; height: 28px; border: solid 1px #fff; border-radius: 4px; text-align: center; line-height: 26px; margin-top: 2px; margin-left: 10px; }
+.u-head .rightbox .utool li a:hover { background: #0466a4; }
+.u-head .rightbox .utool li a:hover.locked,
+.u-head .rightbox .utool li a:hover.tools { border-radius: 4px; }

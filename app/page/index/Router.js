@@ -1,8 +1,6 @@
 var Router = Backbone.Router.extend({
     routes: {
-        '': 'home',
-        'stat/': 'stat',
-        'stat/:query': 'substat',
+        '': 'index',
     },
     initialize: function() {
         S.main = null;
@@ -27,37 +25,13 @@ var Router = Backbone.Router.extend({
         S.main.sub.viewUnmount = this.viewUnmount;
         S.main.sub.render(typeof queryObj == 'undefined' ? '' : queryObj);
     },
-    home: function(query) {
-        console.log(query,"query")
+    index: function(query) {
         var me = this;
         require.ensure([], function(require) {
-            var View = require('../../view/home/Home')
+            var View = require('../../view/index/index')
             me.startRout(View, {query:query});
-        }, 'Home');
+        }, 'index');
     },
-    stat: function(query) {
-        var me = this;
-        require.ensure([], function(require) {
-            var View = require('../../view/stat/Stat')
-            me.startRout(View, {query:query},"substat");
-        }, 'Stat');
-    },
-    substat: function(query) {
-        console.log(query,"yy")
-        var me = this;
-        if(!S.main||!S.main.sub=="substat"){
-            alert("刷新")
-            me.stat();
-            debugger;
-        }
-        debugger;
-        require.ensure([], function(require) {
-            var View = require('../../view/stat/substat')
-            me.starSubroute(View, {
-                query:query
-            });
-        }, 'Stat');
-    }
 });
 
 module.exports = Router;
