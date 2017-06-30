@@ -24,15 +24,15 @@
             this.nav();
         },
         arrPath: location.pathname.split(/\//),
-        nav() {
+        nav:function() {
             function toggle(ele){$(".u-head .menu a").removeClass("active").parent("li").find(ele).addClass("active");}
             for (var i = 0; i < this.arrPath.length; i++) {
                 if (/.html/.test(this.arrPath[i])) {
                     switch (this.arrPath[i]) {
-                        case "index.html":toggle(".nav1") ; break;
-                        case "order.html": toggle(".nav2"); break;
-                        case "ordercenter.html": toggle(".nav3"); break;
-                        case "logs.html": toggle(".nav4"); break;
+                        case "index.html" : toggle(".nav1") ; break;
+                        case "order.html" : toggle(".nav2"); break;
+                        case "ordercenter.html" : toggle(".nav3"); break;
+                        case "logs.html" : toggle(".nav4"); break;
                     }
                 }
             }
