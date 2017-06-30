@@ -1,14 +1,16 @@
-
 var tpl = require('./tpl/index.html');
 var uhead = require('../pub/tpl/uhead.html');
-//var dialog = require('./tpl/dialog.html');
+import dialog from './tpl/dialog.html'
+var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
     initialize(){
-        $(".wrapper").prepend(uhead)
+        $(".wrapper").prepend(uhead);
+        this.render();
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
+        'click #test': 'load',
     },
     Toggleshow(event) {
         var _this = event.currentTarget
@@ -24,7 +26,30 @@ var index = Backbone.View.extend({
             toggle.slideUp();
             $(int).removeClass('active');
         };
-    },    
+    },
+    
+    load() {
+        //var numInd = this.model.get("numInd")
+        bootbox.dialog({
+            backdrop: true,
+            closeButton: false,
+            className: "realName",
+            title: dialogs.find(".lossEseal .title")[0].outerHTML,
+            message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
+            buttons: {
+                cancel: {
+                    label: "返回",
+                    className: "btn1",
+                    callback: function (result) {
+                        //console.log(result, "cancel")
+                        result.cancelable = false;
+                    }
+                },
+            }
+        })
+        return false;
+    },
+
     render: function (query) {
         this.$el.html(tpl);
     },
