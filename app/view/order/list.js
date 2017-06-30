@@ -1,50 +1,22 @@
 import tpl from './tpl/list.html'
+import dialog from './tpl/dialog.html'
+//var dialogs=$(dialog()).prop("outerHTML");
+var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
         this.render();
-        this.lossBox();
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
-        'click .eseallist .list>.nav .loss': 'loss' ,
-        'click .eseallist .list>.nav .unfreeze': 'unfreeze' 
+        'click .eseallist .list>.nav .loss': 'loss',
+        'click .eseallist .list>.nav .unfreeze': 'unfreeze'
     },
     render: function (query) {
         this.$el.prepend(tpl);
     },
-    lossBox(){
-        $.extend({
-            lossBox:function(callback,topic,msg){
-                topic=topic||"<div class='title'>预挂失电子印章提示</div>",
-                msg=msg|| "<div class='megLoss1'>您选择预挂失“电子印章样品专用章（01）”</br>该电子印章相关功能将暂停使用</div>"
-                var lossAlert=bootbox.dialog({
-                    backdrop:true,
-            //closeButton: false,
-            className: "realName",
-            title:topic ,
-            message:msg,
-            buttons: {
-                cancel: {
-                    label: "返回",
-                    className: "btn1",
-                    callback:function(result){
-                        console.log(result,"cancel")
-                        result.cancelable=false;
-                    }
-                },
-                confirm: {
-                    label: "继续",
-                    className: "btn2",
-                    callback:callback
-                }
-            }
-        })
-            }
-        })
-    },
     toggleList(event) {
-        var _this=event.currentTarget
+        var _this = event.currentTarget
         var ind = $(_this).parent(".list").index();
         $(".eseallist .list .toggle").slideUp();
         var toggle = $(_this).parent(".list").find(".toggle");
@@ -54,52 +26,108 @@ var list = Backbone.View.extend({
             toggle.slideUp();
         }
     },
-    loss(){
-        var numInd=this.model.get("numInd")
-        $.lossBox( function (event) {
-                        numInd++;                
-                        if(numInd ==1){
-                            var msg2='<div class="megLoss2"><div class="input-group">'+
-                            '<input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">'+
-                            '<span class="input-group-addon" id="basic-addon1">重新发送</span></div>'+
-                            '<p>验证码已通过短信发送到登录帐号上，5分钟内有效</p>'
-                            '</div>'
+    loss() {
+        var numInd = this.model.get("numInd")
+        bootbox.dialog({
+            backdrop: true,
+            //closeButton: false,
+            className: "realName",
+            title: dialogs.find(".lossEseal .title")[0].outerHTML,
+            message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
+            buttons: {
+                cancel: {
+                    label: "返回",
+                    className: "btn1",
+                    callback: function (result) {
+                        console.log(result, "cancel")
+                        result.cancelable = false;
+                    }
+                },
+                confirm: {
+                    label: "继续",
+                    className: "btn2",
+                    callback: function (event) {
+                        numInd++;
+                        if (numInd == 1) {
+                            var msg2 = dialogs.find(".msg2")[0].outerHTML
                             //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
-                            
                             $(this).find(".bootbox-body").html(msg2);
-                        }else if(numInd==2){
-                            var msg3="<div class='megLoss3'>已成功预挂失“电子印章样品专用章（01）”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>"
+                        } else if (numInd == 2) {
+                            var msg3 = dialogs.find(".msg3")[0].outerHTML
                             $(this).find(".modal-footer .btn2").hide();
                             $(this).find(".bootbox-body").html(msg3);
-                        }else{
+                        } else {
                             this.modal('hide');
                         }
                         return false;
-                    })
-                    return false;
-    },
-    unfreeze(){
-         var numInd=this.model.get("numInd");
-        $.lossBox( function (event) {
-                numInd++;                
-                if(numInd ==1){
-                    var msg2='<div class="megLoss2"><div class="input-group">'+
-                    '<input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">'+
-                    '<span class="input-group-addon" id="basic-addon1">重新发送</span></div>'+
-                    '<p>验证码已通过短信发送到登录帐号上，5分钟内有效</p>'
-                    '</div>'
-                    //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
-                    
-                    $(this).find(".bootbox-body").html(msg2);
-                }else if(numInd==2){
-                    var msg3="<div class='megLoss3'>已成功预挂失“电子印章样品专用章（01）”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>"
-                    $(this).find(".modal-footer .btn2").hide();
-                    $(this).find(".bootbox-body").html(msg3);
-                }else{
-                    this.modal('hide');
+                    }
                 }
-                return false;
-        },"<div class='title'>解冻电子印章提示</div>",)
+            }
+        })
+        return false;
+    },
+    unfreeze() {
+        var numInd = this.model.get("numInd");
+        var unfreezeEseal = dialogs.find(".unfreezeEseal")
+        bootbox.dialog({
+            backdrop: true,
+            //closeButton: false,
+            className: "realName unfreezeEseal",
+            title: unfreezeEseal.find(".title")[0].outerHTML,
+            message: unfreezeEseal.find(".msg1")[0].outerHTML,
+            buttons: {
+                cancel: {
+                    label: "返回",
+                    className: "btn1",
+                    callback: function (result) {
+                        console.log(result, "cancel")
+                        result.cancelable = false;
+                    }
+                },
+                confirm: {
+                    label: "继续",
+                    className: "btn2",
+                    callback: function (event) {
+                        numInd++;
+                        var _this=this;
+                        if (numInd == 1) {
+                            var msg2 = unfreezeEseal.find(".msg2")[0].outerHTML
+                            //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
+                            $(this).find(".bootbox-body").html(msg2);
+                            $(this).find(".btn1,.btn2").hide();
+                            setTimeout(function () {
+                                var data = { a: 2,b:4 }
+                                if (data.a == 1) {
+                                    var msg3 = unfreezeEseal.find(".msg3")[0].outerHTML
+                                    $(_this).find(".bootbox-body").html(msg3);
+                                    $(_this).find(".btn1").show();
+                                    $(_this).find(".btn2").show().html("重试");
+                                }else if(data.b==2){
+                                    var msg4 = unfreezeEseal.find(".msg4")[0].outerHTML
+                                    $(_this).find(".bootbox-body").html(msg4);
+                                    $(_this).find(".btn1").show();
+                                    $(_this).find(".btn2").show().html("重试");
+                                }else if(data.b==3){
+                                    var msg5 = unfreezeEseal.find(".msg5")[0].outerHTML
+                                    $(_this).find(".bootbox-body").html(msg5);
+                                    $(_this).find(".btn1").show();
+                                    $(_this).find(".btn2").show().html("重试");
+                                }else if(data.b==4){
+                                    var msg6 = unfreezeEseal.find(".msg6")[0].outerHTML
+                                    $(_this).find(".bootbox-body").html(msg6);
+                                    $(_this).find(".btn1,.btn2").hide();
+                                    setTimeout(function () {_this.modal('hide');},2000)
+                                }
+
+                            }, 1000)
+                        } 
+                            //this.modal('hide');
+                        
+                        return false;
+                    }
+                }
+            }
+        })
         return false;
     }
 });
