@@ -10,6 +10,7 @@ var step1 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	goStep2: function() {
 		if($('.sealStyle span').hasClass('choice')) {

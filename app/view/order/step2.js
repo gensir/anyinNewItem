@@ -17,6 +17,8 @@ var step2 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
+		picture = [0, 0, 0, 0, 0];
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.businessLicense', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.frontPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.backPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
