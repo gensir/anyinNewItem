@@ -8,6 +8,7 @@ var step3 = Backbone.View.extend({
     events: {
 		'change #file0': 'changeImg0',
 		'change #file1': 'changeImg1',
+		'click tr':'choice'
 	},
     render: function (query) {
         this.$el.html(tpl);
@@ -82,6 +83,14 @@ var step3 = Backbone.View.extend({
 		}
 		//		}
 	},
+	choice:function(event){
+		var ele=event.target;
+		$('.step3 tr').css({'background':'#fff'})
+		$('.step3 .right').removeClass('currentRight');
+		$(ele).parent().css({'background':'#00acff'})
+		$(ele).parent().find('.right').addClass('currentRight');
+		$(".curr-choice").html($(ele).parent().find('.sealName').html());
+	}
 });
 
 module.exports = step3;

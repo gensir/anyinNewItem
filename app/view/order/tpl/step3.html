@@ -40,7 +40,7 @@
 							</a>
 						</form>
 					</div>
-					
+
 					<div class="exampleScan"></div>
 				</div>
 			</div>
@@ -68,7 +68,7 @@
 				</div>
 				<div class="current">
 					<dd>当前选择：</dd>
-					<span class="cuur-choice">深圳市创业印章南山公安分局</span>
+					<span class="curr-choice"></span>
 				</div>
 			</div>
 			<div class="result">
@@ -80,33 +80,45 @@
 						<th>联系方式</th>
 					</tr>
 					<tr>
-						<td></td>
-						<td>深圳市创业印章南山公安局分店</td>
-						<td>深圳市南山区南辛店198号</td>
-						<td>025-889956454</td>
+						<td class="right"></td>
+						<td class="sealName">深圳市创业印章南山公安局分店1</td>
+						<td class="address">深圳市南山区南辛店198号</td>
+						<td class="telPhone">025-889956454</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td>深圳市创业印章南山公安局分店</td>
-						<td>深圳市南山区南辛店198号</td>
-						<td>025-889956454</td>
+						<td class="right"></td>
+						<td class="sealName">深圳市创业印章南山公安局分店2</td>
+						<td class="address">深圳市南山区南辛店198号</td>
+						<td class="telPhone">025-889956454</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td>深圳市创业印章南山公安局分店</td>
-						<td>深圳市南山区南辛店198号</td>
-						<td>025-889956454</td>
+						<td class="right"></td>
+						<td class="sealName">深圳市创业印章南山公安局分店3</td>
+						<td class="address">深圳市南山区南辛店198号</td>
+						<td class="telPhone">025-889956454</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td>深圳市创业印章南山公安局分店</td>
-						<td>深圳市南山区南辛店198号</td>
-						<td>025-889956454</td>
+						<td class="right"></td>
+						<td class="sealName">深圳市创业印章南山公安局分店4</td>
+						<td class="address">深圳市南山区南辛店198号</td>
+						<td class="telPhone">025-889956454</td>
+					</tr>
+					<tr>
+						<td class="right"></td>
+						<td class="sealName">深圳市创业印章南山公安局分店5</td>
+						<td class="address">深圳市南山区南辛店198号</td>
+						<td class="telPhone">025-889956454</td>
+					</tr>
+					<tr>
+						<td class="right"></td>
+						<td class="sealName">深圳市创业印章南山公安局分店6</td>
+						<td class="address">深圳市南山区南辛店198号</td>
+						<td class="telPhone">025-889956454</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		
+
 	</div>
 	<div class="go">
 		<a class="btn btn-default fl" id="goStep2" href="order.html#step2">上一步</a>
@@ -114,12 +126,14 @@
 	</div>
 </div>
 <style>
-	.fl{
+	.fl {
 		float: left;
 	}
-	.fr{
+	
+	.fr {
 		float: right;
 	}
+	
 	.step3>.title {
 		height: 20px;
 		margin: 17px 0 20px;
@@ -179,7 +193,8 @@
 		position: relative;
 		overflow: hidden;
 	}
-	.step3 .flex .form input{
+	
+	.step3 .flex .form input {
 		position: absolute;
 		font-size: 46px;
 		width: 163px;
@@ -190,7 +205,8 @@
 		z-index: 999;
 		cursor: pointer;
 	}
-	.step3 .flex .form .digitalUpload{
+	
+	.step3 .flex .form .digitalUpload {
 		display: inline-block;
 		width: 163px;
 		height: 112px;
@@ -220,7 +236,8 @@
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/proxy.jpg', sizingMethod='scale');
 		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/proxy.jpg', sizingMethod='scale');
 	}
-	.step3 .flex .scanPhoto .digitalExample{
+	
+	.step3 .flex .scanPhoto .digitalExample {
 		width: 162px;
 		height: 112px;
 		float: right;
@@ -230,6 +247,7 @@
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/apply.jpg', sizingMethod='scale');
 		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/apply.jpg', sizingMethod='scale');
 	}
+	
 	.step3 .flex .downLoad {
 		margin-top: 90px;
 	}
@@ -277,10 +295,23 @@
 		height: 40px;
 	}
 	
+	.step3 .sealMessage table tr td.currentRight {
+		height: 32px;
+		width: 32px;
+		margin-left:10px;
+		background: url(../../../../asset/img/currentRight.png) no-repeat center;
+	}
+	
 	.step3 .sealMessage table tr:hover {
 		background: #99c6ff;
 	}
 	
+	.step3 .table-striped>tbody>tr:nth-of-type(odd) {
+		background-color:#FFF;
+	}
+	.step3 tbody{
+		border-bottom: 1px solid #ddd;
+	}
 	.step3 .sealMessage table th {
 		border-top: 1px solid #FCA768;
 		background: #F5F5F5;
@@ -291,6 +322,7 @@
 	.step3 .sealMessage table th tr {
 		height: 40px;
 	}
+	
 	.step3 .go {
 		height: 36px;
 		width: 375px;
@@ -315,5 +347,4 @@
 		background-color: #00acff;
 		border-color: #00acff;
 	}
-	
 </style>
