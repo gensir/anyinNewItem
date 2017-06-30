@@ -3,7 +3,8 @@
  */
 import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
-var picture = [];
+var picture = [0, 0, 0];
+var flag = [1, , 2];
 var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -11,6 +12,7 @@ var step3 = Backbone.View.extend({
 		'change #file0': 'changeImg0',
 		'change #file1': 'changeImg1',
 		'change #file2': 'changeImg2',
+		'click #goStep4': 'goStep4'
 	},
 	render: function(query) {
 		this.$el.html(tpl);
@@ -90,6 +92,18 @@ var step3 = Backbone.View.extend({
 		}
 		//		}
 	},
+	goStep4: function() {
+		for(var i=0;i<picture.length;i++){
+			if(picture[i] == 0) {
+				var dialog = bootbox.alert({
+					className: "uploadPhoto",
+					message: "请上传全部图片",
+				})
+				return;
+			}
+		};
+		window.open('register.html#step4', '_self');
+	}
 
 });
 
