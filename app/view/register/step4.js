@@ -8,6 +8,7 @@ var step4 = Backbone.View.extend({
     },
     render: function (query) {
         this.$el.html(tpl);
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
 });
 
