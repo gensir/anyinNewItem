@@ -11,7 +11,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 .btn.btn-ay[disabled] { border:1px solid #bdbdbd; background-color: #ccc; color:#7f7f7f; }
 
 /* 底部 */
-.wrapper { min-height: 100%; }
+.wrapper { min-height: 100%; padding-bottom: 80px; }
 .reg-bottom { margin-top: -46px; }
 .reg-bottom { background: #424242; height: 46px; padding: 16px 0; font-size: 14px; color: #fff; width: 100%; min-width: 1100px; }
 .reg-bottom .link { float: left; line-height:14px; }
