@@ -1,21 +1,22 @@
 import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
-var picture = [];
+var picture = [0, 0];
+var flag = true;
 var step3 = Backbone.View.extend({
-    el: '.container',
-    initialize(){
-    }, 
-    events: {
+	el: '.container',
+	initialize() {},
+	events: {
 		'change #file0': 'changeImg0',
 		'change #file1': 'changeImg1',
-		'click tr':'choice'
+		'click tr': 'choice',
+		'click #goStep4': 'goStep4',
 	},
-    render: function (query) {
-        this.$el.html(tpl);
-        imgModalBig('.digitalExample', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
+	render: function(query) {
+		this.$el.html(tpl);
+		imgModalBig('.digitalExample', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
 		imgModalBig('.exampleScan', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
-    },
-    changeImg0: function() {
+	},
+	changeImg0: function() {
 		var num = 0;
 		this.changeImg(num);
 	},
@@ -83,13 +84,39 @@ var step3 = Backbone.View.extend({
 		}
 		//		}
 	},
-	choice:function(event){
-		var ele=event.target;
-		$('.step3 tr').css({'background':'#fff'})
+	choice: function(event) {
+		flag=false;
+		var ele = event.target;
+		$('.step3 tr').css({ 'background': '#fff' })
 		$('.step3 .right').removeClass('currentRight');
-		$(ele).parent().css({'background':'#00acff'})
+		$(ele).parent().css({ 'background': '#00acff' })
 		$(ele).parent().find('.right').addClass('currentRight');
 		$(".curr-choice").html($(ele).parent().find('.sealName').html());
+	},
+	goStep4: function() {
+		if(picture[0] == 0) {
+			var dialog = bootbox.alert({
+				className: "uploadPhoto",
+				message: "请上传《数字证书及电子印章申请表及用户责任书》扫描件",
+			})
+			return;
+		};
+		if(picture[1] == 0) {
+			var dialog = bootbox.alert({
+				className: "uploadPhoto",
+				message: "请上传《法人授权书》扫描件",
+			})
+			return;
+		};
+		console.log(flag);
+		if(flag){
+			var dialog = bootbox.alert({
+				className: "uploadPhoto",
+				message: "请选择刻章店",
+			})
+			return;
+		};
+		window.open('order.html#step4','_self');
 	}
 });
 
