@@ -27,7 +27,6 @@ var step1 = Backbone.View.extend({
         "click #reguser":"reguser",
     },
     
-    
     regsava:function(){
         if($('#xieyi').is(':checked')) {
             $('#reguser').prop("disabled", false);
@@ -35,20 +34,18 @@ var step1 = Backbone.View.extend({
             $('#reguser').prop("disabled", true);
         }
     },
-    
-    
-    reguser:function(){
 
+    reguser:function(){
         var idcode= $("#idcode").val();
         var yzmcode= $("#yzmcode").val();
 
         if(idcode.length < 15) {
-            $('#idcodetip').html('请输入18位社会信用代码').show();
+            $('#idcode-error').html('请输入18位社会信用代码').show();
             $("#idcode").focus();
             return false;
         };
         if(yzmcode.length < 4) {
-            $('#yzmcodetip').html('请输入4位验证码').show();
+            $('#yzmcode-error').html('请输入4位验证码').show();
             $("#yzmcode").focus();
             return false;
         }
@@ -59,7 +56,6 @@ var step1 = Backbone.View.extend({
     },
 
     addOnePerson:function(model){
-
         console.log ( model.get('idcode') + model.get('yzmcode') )
         
     },

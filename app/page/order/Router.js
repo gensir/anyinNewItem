@@ -8,8 +8,8 @@ var Router = Backbone.Router.extend({
         'step2': 'step2',
         'step3': 'step3',
         'step4': 'step4',
-        'pay': 'pay',
-        'update': 'update',
+        'pay_ok': 'pay_ok',
+        'update_key': 'update_key',
         'renew': 'renew'
     },
     initialize: function () {
@@ -110,20 +110,20 @@ var Router = Backbone.Router.extend({
             me.startRout(View, { query: query });
         }, 'step4')
     },
-    pay: function (query) {
+    pay_ok: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/pay')
+            var View = require('../../view/order/pay_ok')
             me.startRout(View, { query: query });
-        }, 'pay')
+        }, 'payo_k')
     },
-    update: function (query) {
+    update_key: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/update')
+            var View = require('../../view/order/update_key')
             me.startRout(View, { query: query });
-        }, 'update')
-    },
+        }, 'update_key')
+    },  
 
 });
 

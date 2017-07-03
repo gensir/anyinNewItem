@@ -1,5 +1,5 @@
-import tpl from './tpl/update.html'
-var update = Backbone.View.extend({
+import tpl from './tpl/update_key.html'
+var update_key = Backbone.View.extend({
     el: '.container',
     initialize(){
     },
@@ -9,4 +9,4 @@ var update = Backbone.View.extend({
     },
 });
 
-module.exports = update;
+module.exports = update_key;

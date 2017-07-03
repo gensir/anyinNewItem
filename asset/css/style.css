@@ -24,9 +24,9 @@ ul { list-style: none; padding: 0; margin: 0; }
 .u-head .page-kd { position: relative; }
 .u-head .top-logo { background: url(../img/ay-logo.png) no-repeat 0 -60px; height: 54px; width: 143px; display: block; margin: 0px; }
 .u-head .hide-text { overflow: hidden; text-indent: 100%; white-space: nowrap; font-size: 14px; }
-.u-head .rightbox { position: absolute; top: 12px; right: 0; height: 32px; z-index: 1; text-align: right; left: 200px; display: block; overflow: hidden; }
-.u-head .rightbox ul { list-style: none; display: inline-block; font-size: 0px; margin: 0; padding: 0; vertical-align: top; }
-.u-head .rightbox ul li { display: inline-block; font-size: 0px; vertical-align: top; }
+.u-head .rightbox { position: absolute; top: 12px; right: 0; height: 32px; z-index: 1; text-align: right; display: block; overflow: hidden; }
+.u-head .rightbox ul { list-style: none; display: inline-block; font-size: 0px; margin: 0; padding: 0; vertical-align: top; *float: left; }
+.u-head .rightbox ul li { display: inline-block; font-size: 0px; vertical-align: top; *float: left; }
 .u-head .rightbox ul li a { font-size: 14px; color: #fff; text-decoration: none; display: block; -webkit-transition: all .3s; transition: all .3s; }
 .u-head .rightbox .menu li { margin-right: 24px; }
 .u-head .rightbox .menu li a { line-height: 30px; height: 32px; width: 102px; display: block; text-align: center; }

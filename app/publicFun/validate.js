@@ -46,7 +46,9 @@ var verify = {
 		phone: '请输入正确的手机号码',
 		passwd: '请输入6-18位字母、数字、特殊符号',
 		valId: '法人身份证号不正确',
-		space: '经办人姓名不能为空'
+		space: '经办人姓名不能为空',
+		idcode: '请输入18位社会信用代码',
+		yzmcode: '请输入4位验证码'
 	},
 	istrue: {
 		phone: function(ele) {
@@ -62,7 +64,15 @@ var verify = {
 			return reg.test($(ele).val())
 		},
 		space :function(ele){
-			var reg =  /\S/;
+			var reg = /\S/;
+			return reg.test($(ele).val())
+		},
+		idcode :function(ele){
+			var reg = /(^\d{18}$)/
+			return reg.test($(ele).val())
+		},
+		yzmcode :function(ele){
+			var reg = /(^\d{4}$)/
 			return reg.test($(ele).val())
 		}
 	}
