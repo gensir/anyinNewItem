@@ -6,12 +6,14 @@ var index = Backbone.View.extend({
     el: '.container',
     initialize(){
         //$(".wrapper").prepend(uhead);
+        this.load();
         this.render();
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
         'click #test': 'load',
     },
+    //签章记录弹出详细记录
     Toggleshow(event) {
         var _this = event.currentTarget
         var ind = $(_this).parent(".jilulist ul li").index();
