@@ -45,7 +45,7 @@ var Router = Backbone.Router.extend({
     renew: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/renew')
+            var View = require('../../view/admin/renew')
             var model = require('./store/model')
             new View({ model: model })
             //me.startRout(View, { query: query });
@@ -54,7 +54,7 @@ var Router = Backbone.Router.extend({
     list: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/list')
+            var View = require('../../view/admin/list')
             var model = require('./store/model')
             new View({ model: model })
             //me.startRout(View, { query: query });
@@ -85,42 +85,42 @@ var Router = Backbone.Router.extend({
         var model = require('./store/model.js');
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/step1')
+            var View = require('../../view/admin/step1')
             new View({ model: model });
         }, 'step1')
     },
     step2: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/step2')
+            var View = require('../../view/admin/step2')
             me.startRout(View, { query: query });
         }, 'step2')
     },
     step3: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/step3')
+            var View = require('../../view/admin/step3')
             me.startRout(View, { query: query });
         }, 'step3')
     },
     step4: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/step4')
+            var View = require('../../view/admin/step4')
             me.startRout(View, { query: query });
         }, 'step4')
     },
     pay_ok: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/pay_ok')
+            var View = require('../../view/admin/pay_ok')
             me.startRout(View, { query: query });
         }, 'payo_k')
     },
     update_key: function (query) {
         var me = this;
         require.ensure([], function (require) {
-            var View = require('../../view/order/update_key')
+            var View = require('../../view/admin/update_key')
             me.startRout(View, { query: query });
         }, 'update_key')
     },  
