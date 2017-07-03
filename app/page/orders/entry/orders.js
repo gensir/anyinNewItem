@@ -1,4 +1,3 @@
-import '../../../../asset/css/admin.css';
 
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');
