@@ -1,7 +1,7 @@
 var uglifyConfig = [
-    'build/lib/jquery/jquery.min.js',
-    'build/lib/bootstrap/js/bootstrap.min.js',
-    'build/lib/bootbox/bootbox.min.js',
+    'asset/lib/jquery/jquery.min.js',
+    'asset/lib/bootstrap/js/bootstrap.min.js',
+    'asset/lib/bootbox/bootbox.min.js',
 ]
 module.exports = function(grunt){
 
@@ -17,7 +17,7 @@ module.exports = function(grunt){
             },
             biuldAll: {//任务四：合并压缩a.js和b.js
                 files: {
-                    'build/basic.min.js': uglifyConfig
+                    'asset/basic.min.js': uglifyConfig
                 }
             }
         }
