@@ -9,10 +9,6 @@ var step2 = Backbone.View.extend({
 	initialize() {},
 	events: {
 		'change #file0,#file1,#file2,#file3,#file4': 'changeImg',
-//		'change ': 'changeImg1',
-//		'change #file2': 'changeImg2',
-//		'change #file3': 'changeImg3',
-//		'change #file4': 'changeImg4',
 		'click #goStep3': 'goStep3',
 	},
 	render: function(query) {
@@ -25,8 +21,6 @@ var step2 = Backbone.View.extend({
 	},
 	changeImg: function(event) {
 		var num = $(event.target).data('id');
-		alert(num)
-		return;
 		var preview = document.getElementById('photo' + num);
 		var file = document.getElementById("file" + num);
 		var regImage, imageType;
@@ -56,38 +50,39 @@ var step2 = Backbone.View.extend({
 			})
 			return false;
 		}
-		//		if(typeof FileReader == 'undefined') {
-		//			//			_self.img[num] = file.value;
-		//			//			$(_eve.target).select();
-		//			//			$(_eve.target).blur()
-		//			var path = document.selection.createRange().text;
-		//			// preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
-		//			document.getElementById('photo' + num).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";
-		//		} else {
-		var reader = new FileReader();
-		reader.readAsDataURL(file.files[0]);
-		reader.onload = function(e) {
-			var image = new Image();
-			image.src = this.result;
-			picture[num] = this.result;
-			image.onload = function() {
-				var height = image.height;
-				var width = image.width;
-				if((height / width) > (112 / 163)) {
-					$("#photo" + num).css("background-size", "auto 112px");
-				} else {
-					$("#photo" + num).css("background-size", "163px auto");
-				}
-			};
+		if(typeof FileReader == 'undefined') {
 			$("#file" + num).height(24);
 			$(".reset" + num).show()
-			$("#photo" + num).css("background", "url(" + this.result + ") no-repeat center center");
-			imgModalBig('#photo' + num, { 'width': 500, 'src': picture[num] });
+			file.select();			
+			file.blur();
+			var path = document.selection.createRange().text;
+//			preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+			document.getElementById('photo' + num).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";
+		} else {
+			var reader = new FileReader();
+			reader.readAsDataURL(file.files[0]);
+			reader.onload = function(e) {
+				var image = new Image();
+				image.src = this.result;
+				picture[num] = this.result;
+				image.onload = function() {
+					var height = image.height;
+					var width = image.width;
+					if((height / width) > (112 / 163)) {
+						$("#photo" + num).css("background-size", "auto 112px");
+					} else {
+						$("#photo" + num).css("background-size", "163px auto");
+					}
+				};
+				$("#file" + num).height(24);
+				$(".reset" + num).show()
+				$("#photo" + num).css("background", "url(" + this.result + ") no-repeat center center");
+				imgModalBig('#photo' + num, { 'width': 500, 'src': picture[num] });
+			}
 		}
-		//		}
 	},
 	goStep3: function() {
-		for(var i=0;i<picture.length;i++){
+		for(var i = 0; i < picture.length; i++) {
 			if(picture[i] == 0) {
 				var dialog = bootbox.alert({
 					className: "uploadPhoto",

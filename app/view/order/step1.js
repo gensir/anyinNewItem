@@ -13,7 +13,11 @@ var step1 = Backbone.View.extend({
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	goStep2: function() {
+		alert(222)
+		this.model.set({ "clickEle": $(event.target).data('id') })
+			this.model.isValid()
 		if($('.sealStyle span').hasClass('choice')) {
+			alert(1)
 			this.model.set({ "clickEle": $(event.target).data('id') })
 			this.model.isValid()
 		} else {
@@ -21,7 +25,7 @@ var step1 = Backbone.View.extend({
 				className: "alert",
 				message: "请选择要办理的电子印章类型",
 			})
-			return;
+
 		}
 	},
 	choice: function(event) {
