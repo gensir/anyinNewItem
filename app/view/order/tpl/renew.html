@@ -1,0 +1,259 @@
+<div class="step4">
+    <div class="title">
+        订单确认-<span>电子印章续费</span>
+    </div>
+    <div class="Message">
+        <div class="mainTitle">
+            订单信息
+        </div>
+        <div class="orderMessage">
+            <div class="unit">
+                <span class="norm">标准单价：</span><span class="priceUnit">100元/年</span>
+            </div>
+            <div class="valid">
+                <span class="norm">有效时常：</span><span class="time active">电子印章续费2年</span><span class="time">电子印章续费3年</span>
+            </div>
+            <div class="indate">
+                <span class="norm">有效期为：</span><span class="date">2017/02/02            至            2018/02/02</span>
+            </div>
+
+            <!--html .bill from payment template-->
+        </div>
+    </div>
+    <!--html .gopay from payment template-->
+</div>
+<style>
+    .Message .valid {
+        padding: 28px 0;
+        margin-bottom: 28px;
+        border-bottom: 1px dashed #999;
+        border-top: 1px dashed #999;
+    }
+
+    .Message .unit,
+    .Message .indate {
+        margin-bottom: 28px;
+    }
+
+    .Message .norm {
+        display: inline-block;
+        width: 125px;
+        text-align: left;
+    }
+
+    .Message .unit .priceUnit {
+        color: #00acff;
+        font-weight: bold;
+    }
+
+    .Message .valid .time.active {
+        display: inline-block;
+        padding: 8px 16px;
+        border: 1px solid #00acff;
+        margin-right: 60px;
+        border-radius: 4px;
+        color: #00acff;
+        font-size: 12px;
+    }
+
+    .Message .valid .time {
+        display: inline-block;
+        padding: 8px 16px;
+        border: 1px solid #dedede;
+        margin-right: 60px;
+        border-radius: 4px;
+        color: #999;
+        font-size: 12px;
+    }
+    .Message .indate .date{
+        white-space:pre;
+        color:#666;
+    }
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .step4>.title {
+        height: 20px;
+        margin: 17px 0 20px;
+        padding-left: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        border-left: 6px solid #0073bd;
+    }
+
+    .step4 .title span {
+        font-weight: 500;
+    }
+
+    .step4 .Message {
+        margin-top: 30px;
+        padding-bottom: 15px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+    }
+
+    .step4 .mainTitle {
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #dedede;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .step4 .orderMessage {
+        width: 1000px;
+        margin: 0 auto;
+        padding-top: 28px;
+    }
+
+    .step4 .orderMessage .orderList {
+        display: inline-block;
+    }
+
+    .step4 .orderMessage .order {
+        width: 496px;
+        height: 60px;
+        margin-bottom: 40px;
+        border: 1px dashed #e0e0e0;
+        margin-bottom: 28px;
+    }
+
+    .step4 .orderMessage .order span {
+        margin-top: 15px;
+    }
+
+    .step4 .orderMessage .order .serial {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 1px solid #e0e0e0;
+        border-radius: 15px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 22px;
+    }
+
+    .step4 .orderMessage .order .sealName {
+        color: #333333;
+        margin-left: 22px;
+    }
+
+    .step4 .orderMessage .order .service {
+        margin-left: 38px;
+        height: 24px;
+        width: 94px;
+        border: 1px solid #00acff;
+        color: #00acff;
+        text-align: center;
+        line-height: 24px;
+        padding: 7px 15px;
+    }
+
+    .step4 .orderMessage .order .price {
+        margin-left: 48px;
+        color: #00acff;
+        font-size: 16px;
+    }
+
+    .step4 .orderYear {
+        width: 280px;
+        height: 110px;
+        float: right;
+        border-left: 1px solid #dedede;
+    }
+
+    .step4 .orderYear .year {
+        width: 100px;
+        height: 45px;
+        margin: 25px auto;
+    }
+
+    .step4 .orderYear .year .licence {
+        color: #00acff;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .step4 .orderYear .year .dateline {
+        text-align: center;
+    }
+
+    .step4 .orderTips {
+        height: 30px;
+        color: #999999;
+    }
+    /*弹框*/
+
+    .errorTips .title {
+        font-weight: 600;
+    }
+
+    .errorTips .clear {
+        clear: both;
+    }
+
+    .errorTips .message .icon {
+        width: 25%;
+        height: 110px;
+        float: left;
+        padding-left: 48px;
+    }
+
+    .errorTips .message .icon span {
+        display: inline-block;
+        height: 46px;
+        width: 46px;
+        margin-top: 32px;
+        background: url(../../../../asset/img/login3.png) no-repeat left bottom;
+    }
+
+    .errorTips .message .errorOrderTips {
+        width: 75%;
+        float: left;
+    }
+
+    .errorTips .message .errorOrderTitle {
+        font-size: 16px;
+        margin: 10px;
+    }
+
+    .errorTips .message .errorOrderSeal span {
+        display: inline-block;
+        border: 1px dashed #ddd;
+        margin: 0px 10px 10px 10px;
+        padding: 10px;
+    }
+
+    .errorTips .message .errorOrderRed {
+        margin-left: 10px;
+        color: #f27272;
+        font-size: 16px;
+    }
+
+    .errorTips .modal-footer {
+        border: none;
+        text-align: center;
+        padding: 15px 0 30px;
+    }
+
+    .errorTips .modal-footer .btn1 {
+        width: 90px;
+        height: 32px;
+    }
+
+    .errorTips .modal-footer .btn2,
+    .errorTips .modal-footer .btn3 {
+        width: 100px;
+        height: 32px;
+        color: #fff;
+        background: #00acff;
+        margin-left: 15px;
+    }
+</style>

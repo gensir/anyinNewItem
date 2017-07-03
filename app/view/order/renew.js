@@ -1,8 +1,10 @@
-import tpl from './tpl/step4.html'
+import tpl from './tpl/renew.html'
 import payment from './tpl/payment.html'
 var step4 = Backbone.View.extend({
 	el: '.container',
-	initialize() {},
+	initialize() {
+        this.render()
+    },
 	events: {
 		'click .pay div': 'paystyle',
 		'click .account': 'gopay'

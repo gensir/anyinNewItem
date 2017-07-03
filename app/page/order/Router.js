@@ -10,6 +10,7 @@ var Router = Backbone.Router.extend({
         'step4': 'step4',
         'pay': 'pay',
         'update': 'update',
+        'renew': 'renew'
     },
     initialize: function () {
         S.main = null;
@@ -41,12 +42,21 @@ var Router = Backbone.Router.extend({
             me.startRout(View, { query: query });
         }, 'Home');
     },
+    renew: function (query) {
+        var me = this;
+        require.ensure([], function (require) {
+            var View = require('../../view/order/renew')
+            var model = require('./store/model')
+            new View({ model: model })
+            //me.startRout(View, { query: query });
+        }, 'renew');
+    },
     list: function (query) {
         var me = this;
         require.ensure([], function (require) {
             var View = require('../../view/order/list')
-            var model=require('./store/model')
-            new View({model:model})
+            var model = require('./store/model')
+            new View({ model: model })
             //me.startRout(View, { query: query });
         }, 'list');
     },
@@ -72,11 +82,11 @@ var Router = Backbone.Router.extend({
     },
 
     step1: function (query) {
-    	var model = require('./store/model.js');
+        var model = require('./store/model.js');
         var me = this;
         require.ensure([], function (require) {
             var View = require('../../view/order/step1')
-            new View({model:model});
+            new View({ model: model });
         }, 'step1')
     },
     step2: function (query) {
@@ -113,8 +123,8 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/order/update')
             me.startRout(View, { query: query });
         }, 'update')
-    },    
-        
+    },
+
 });
 
 module.exports = Router;
