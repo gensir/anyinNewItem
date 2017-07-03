@@ -3,7 +3,7 @@ var Util = {
 };
 
 //域名键值对调用
-function GetQueryString(name, elseUrl) {
+export function GetQueryString(name, elseUrl) {
 
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     if (elseUrl !== undefined) {
@@ -14,7 +14,7 @@ function GetQueryString(name, elseUrl) {
     if (r != null) return decodeURIComponent(r[2]); return null;
 }
 
-function SetQueryString(obj) {
+export function SetQueryString(obj) {
     var tempAry = [];
     for (var i in obj) {
         tempAry.push(i + "=" + encodeURIComponent(obj[i]));
