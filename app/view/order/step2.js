@@ -58,6 +58,7 @@ var step2 = Backbone.View.extend({
 			var path = document.selection.createRange().text;
 //			preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
 			document.getElementById('photo' + num).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";
+			picture[num] = 1;
 		} else {
 			var reader = new FileReader();
 			reader.readAsDataURL(file.files[0]);
