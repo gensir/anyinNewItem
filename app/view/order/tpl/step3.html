@@ -118,7 +118,20 @@
 				</table>
 			</div>
 		</div>
-
+		<nav aria-label="Page navigation">
+			<ul class="pagination" id="pageLimit">
+				<li class="PreviousPage">
+					<a aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li class="appendPage NextPage">
+					<a aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 	<div class="go">
 		<a class="btn btn-default fl" id="goStep2" href="order.html#step2">上一步</a>
@@ -149,7 +162,6 @@
 	
 	.step3 .Message {
 		margin-top: 30px;
-		padding-bottom: 30px;
 		background: #fff;
 		border-radius: 4px;
 		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
@@ -178,9 +190,11 @@
 		width: 260px;
 		float: left;
 	}
-	.step3 .flex .downLoad a{
+	
+	.step3 .flex .downLoad a {
 		cursor: pointer;
 	}
+	
 	.step3 .flex .scanPhoto {
 		width: 350px;
 		height: 113px;
@@ -255,7 +269,7 @@
 	}
 	
 	.step3 .sealMessage {
-		padding: 20px 40px;
+		padding: 20px 40px 0px;
 	}
 	/*刻章店选择*/
 	
@@ -296,11 +310,13 @@
 		margin-top: 20px;
 		height: 40px;
 	}
-	
+	.step3 .sealMessage table{
+		margin-bottom: 0px;
+	}
 	.step3 .sealMessage table tr td.currentRight {
 		height: 32px;
 		width: 32px;
-		margin-left:10px;
+		margin-left: 10px;
 		background: url(../../../../asset/img/currentRight.png) no-repeat center;
 	}
 	
@@ -309,11 +325,13 @@
 	}
 	
 	.step3 .table-striped>tbody>tr:nth-of-type(odd) {
-		background-color:#FFF;
+		background-color: #FFF;
 	}
-	.step3 tbody{
+	
+	.step3 tbody {
 		border-bottom: 1px solid #ddd;
 	}
+	
 	.step3 .sealMessage table th {
 		border-top: 1px solid #FCA768;
 		background: #F5F5F5;
@@ -323,6 +341,9 @@
 	
 	.step3 .sealMessage table th tr {
 		height: 40px;
+	}
+	.step3 nav{
+		text-align: center;
 	}
 	
 	.step3 .go {
@@ -349,10 +370,12 @@
 		background-color: #00acff;
 		border-color: #00acff;
 	}
-	.uploadPhoto .modal-footer{
+	
+	.uploadPhoto .modal-footer {
 		display: none;
 	}
-	.uploadPhoto .bootbox-body{
+	
+	.uploadPhoto .bootbox-body {
 		text-align: center;
 		padding: 10px 0;
 		font-size: 16px;
