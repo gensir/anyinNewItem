@@ -4,10 +4,10 @@ ul { list-style: none; padding: 0; margin: 0; }
 .page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
 .boxshow { background: #fff; border-radius: 4px; box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.05); }
 /* 按钮*/
-.btn-ay { color: #fff; background-color: #00acff; border-color: #00acff; }
-.btn-ay:hover { color: #fff; background-color: #009bfe; border-color: #009bfe; }
-.btn-ay.focus,
-.btn-ay:focus { color: #fff; background-color: #0095fe; border-color: #0095fe; }
+.btn.btn-ay { color: #fff; background-color: #00acff; border-color: #00acff; }
+.btn.btn-ay:hover { color: #fff; background-color: #009bfe; border-color: #009bfe; }
+.btn.btn-ay.focus,
+.btn.btn-ay:focus { color: #fff; background-color: #0095fe; border-color: #0095fe; }
 .btn.btn-ay[disabled] { border:1px solid #bdbdbd; background-color: #ccc; color:#7f7f7f; }
 
 /* 底部 */

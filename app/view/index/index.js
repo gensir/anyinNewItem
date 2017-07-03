@@ -1,11 +1,11 @@
 var tpl = require('./tpl/index.html');
-var uhead = require('../pub/tpl/uhead.html');
+//var uhead = require('../pub/tpl/uhead.html');
 import dialog from './tpl/dialog.html'
 var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
     initialize(){
-        $(".wrapper").prepend(uhead);
+        //$(".wrapper").prepend(uhead);
         this.render();
     },
     events: {
