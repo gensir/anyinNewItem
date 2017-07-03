@@ -53,11 +53,12 @@ var step3 = Backbone.View.extend({
 			return false;
 		}
 		if(typeof FileReader == 'undefined') {
-			//			_self.img[num] = file.value;
-			//			$(_eve.target).select();
-			//			$(_eve.target).blur()
+			$("#file" + num).height(24);
+			$(".reset" + num).show()
+			file.select();			
+			file.blur();
 			var path = document.selection.createRange().text;
-			// preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+//			preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
 			document.getElementById('photo' + num).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";
 		} else {
 			var reader = new FileReader();
