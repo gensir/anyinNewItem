@@ -1,7 +1,8 @@
-import tpl from './tpl/step5.html'
-var step5 = Backbone.View.extend({
+import tpl from './tpl/pay.html'
+var pay = Backbone.View.extend({
     el: '.container',
     initialize(){
+        window.setTimeout("window.location='#update'",5000); 
     },
     render: function (query) {
         this.$el.html(tpl);
@@ -9,4 +10,4 @@ var step5 = Backbone.View.extend({
     },
 });
 
-module.exports = step5;
+module.exports = pay;
