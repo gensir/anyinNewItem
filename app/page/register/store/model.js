@@ -10,6 +10,10 @@ var registerModel = Backbone.Model.extend({
 				window.open('register.html#step3', '_self')
             })
 		}
+		if(attrs.clickEle == 'findPasswordCodeBtn'){
+			return $.verifyEach({"phone":".countPhone"},function(){
+            })
+		}
 	}
 });
 var registerVerify = new registerModel();

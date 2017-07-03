@@ -24,7 +24,7 @@ var verify = {
 					};
 				});
 				if(isverify && typeof callback === "function") {
-					callback();
+					return callback();
 				}
 			}
 		});

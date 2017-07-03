@@ -9,10 +9,7 @@ var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
 	events: {
-		'change #file0': 'changeImg0',
-		'change #file1': 'changeImg1',
-		'change #file2': 'changeImg2',
-		'click #goStep4': 'goStep4'
+		'change #file0,#file1,#file2': 'changeImg',
 	},
 	render: function(query) {
 		this.$el.html(tpl);
@@ -23,19 +20,8 @@ var step3 = Backbone.View.extend({
 		imgModalBig('.frontPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.backPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
 	},
-	changeImg0: function() {
-		var num = 0;
-		this.changeImg(num);
-	},
-	changeImg1: function() {
-		var num = 1;
-		this.changeImg(num);
-	},
-	changeImg2: function() {
-		var num = 2;
-		this.changeImg(num);
-	},
-	changeImg: function(num) {
+	changeImg: function(event) {
+		var num = $(event.target).data('id');
 		var preview = document.getElementById('photo' + num);
 		var file = document.getElementById("file" + num);
 		var regImage, imageType;
