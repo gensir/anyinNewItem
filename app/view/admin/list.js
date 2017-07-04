@@ -17,7 +17,8 @@ var list = Backbone.View.extend({
         'click .license .accordion .nav .open': 'open'
     },
     render: function (query) {
-        this.$el.prepend(tpl);
+        $(".container").empty();
+                this.$el.prepend(tpl);
     },
     toggleList(event) {
         var _this = event.currentTarget
