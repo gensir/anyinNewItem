@@ -9,6 +9,7 @@ var config = {
          vendor: ['backbone', 'underscore','backbone.wreqr']
     },
     output: {
+        path: path.join(__dirname, '/dist/'),
         filename: '[name].js',
         chunkFilename: '[name].js',
         publicPath: '/dist/',

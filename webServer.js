@@ -106,9 +106,9 @@ webSvr.on("error", function (error) {
 });
 
 //开始侦听4000端口 
-webSvr.listen(80, function () {
+webSvr.listen(8088, function () {
     //向控制台输出服务启动的信息 
-    console.log('WebServer running at http://127.0.0.1:3838/');
+    console.log('WebServer running at http://127.0.0.1:8088/');
     
     //关闭服务启动计时器
     console.timeEnd('start WebServer need time');
