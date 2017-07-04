@@ -1,4 +1,15 @@
 <div id="dialog">
+    <!--dialog样式统一start-->
+    <!--common为统一的风格;按钮风格也统一在common下控制
+msg1模板warning
+msg2模板短信
+msg3双行文本；
+msg4单行无按钮；
+msg5单行有按钮
+msg6 有input的单行；
+-->
+
+    <!--dialog样式统一end-->
     <div class="lossEseal">
         <div class='title'>预挂失电子印章提示</div>
         <div class='msg1'>您选择预挂失“电子印章样品专用章（01）”</br>该电子印章相关功能将暂停使用</div>
@@ -15,11 +26,11 @@
     <div class="unfreezeEseal">
         <div class='title'>解冻电子印章提示</div>
         <div class='msg1'>您选择解冻“电子印章样品专用章（01）”</br>请插入相对应的电子印章后点击“继续”</div>
-        <div class='msg2'>正在读取UKEY,请稍后......</div>
+        <div class='msg4'>正在读取UKEY,请稍后......</div>
         <div class='msg3'>未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
-        <div class='msg4'>您插入的UKEY与所选UKEY不符，请重新插入</a>
+        <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</a>
         </div>
-        <div class="msg5">
+        <div class="msg6">
             <div class="input-group">
                 <label for="">请输入PIN码</label>
                 <input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
@@ -27,7 +38,7 @@
             </div>
             <p>PIN码不正确，请重试</p>
         </div>
-        <div class="msg6">已成功解冻“电子印章样品专用章（01）”正在读取UKEY,请稍后......</div>
+        <div class="msg5">已成功解冻“电子印章样品专用章（01）”正在读取UKEY,请稍后......</div>
     </div>
 
     <div class="logoutEseal">
@@ -66,11 +77,11 @@
 
         </div>
         <div class='msg1'>您选择注销“电子印章样品专用章（01）”</br>请插入有权限的电子印章后点击“继续”</div>
-        <div class='msg2'>正在读取UKEY,请稍后......</div>
-        <div class='msg3'>未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
-        <div class='msg4'>您插入的UKEY与所选UKEY不符，请重新插入</a>
+        <div class='msg4'>正在读取UKEY,请稍后......</div>
+        <div class='msg5'>未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
+        <div class='msg5'>您插入的UKEY与所选UKEY不符，请重新插入</a>
         </div>
-        <div class="msg5">
+        <div class="msg6">
             <div class="input-group">
                 <label for="">请输入PIN码</label>
                 <input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
@@ -78,13 +89,53 @@
             </div>
             <p>PIN码不正确，请重试</p>
         </div>
-        <div class="msg6">已成功注销“电子印章样品专用章（01）”</div>
-        <div class="msg7">
+        <div class="msg4">已成功注销“电子印章样品专用章（01）”</div>
+        <div class="msg2">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <span class="input-group-addon" id="basic-addon1">重新发送</span>
             </div>
             <p>验证码已通过短信发送到登录帐号上，5分钟内有效</p>
         </div>
+    </div>
+
+
+    <div class="closeAllow">
+        <div class='title'>关闭登录权限提示</div>
+        <div class='msg1'>最后一枚电子印章的登录权限不允许关闭</div>
+        <div class='msg1'>您选择关闭“电子印章样品专用章（01）”的登录权限</br>请插入相对应的电子印章后点击“继续”</div>
+        <div class='msg4'>正在读取UKEY,请稍后......</div>
+        <div class='msg3'>未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
+        <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</a>
+        </div>
+        <div class="msg6">
+            <div class="input-group">
+                <label for="">请输入PIN码</label>
+                <input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
+            </div>
+            <p>PIN码不正确，请重试</p>
+        </div>
+        <div class="msg4">已成功关闭“电子印章样品专用章（01）”的登录权限</div>
+    </div>
+
+    
+    <div class="openAllow">
+        <div class='title'>开启登录权限提示</div>
+        <!--<div class='msg1'>最后一枚电子印章的登录权限不允许关闭</div>-->
+        <div class='msg1'>您选择开启“电子印章样品专用章（01）”的登录权限</br>请插入相对应的电子印章后点击“继续”</div>
+        <div class='msg4'>正在读取UKEY,请稍后......</div>
+        <div class='msg3'>未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
+        <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</a>
+        </div>
+        <div class="msg6">
+            <div class="input-group">
+                <label for="">请输入PIN码</label>
+                <input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
+            </div>
+            <p>PIN码不正确，请重试</p>
+        </div>
+        <div class="msg4">已成功开启“电子印章样品专用章（01）”的登录权限</div>
     </div>
 </div>

@@ -218,6 +218,7 @@
         display: inline-block;
         height: 56px;
         line-height: 56px;
+        cursor: pointer;
     }
 
     .topseal h3 span.active {
@@ -391,12 +392,12 @@
     }
     /*bootbox弹窗*/
 
-    .realName .modal-dialog {
+    .common .modal-dialog {
 
         margin-top: 200px;
     }
 
-    .realName .modal-header {
+    .common .modal-header {
         border: 0;
         background: #f2f2f2;
         padding: 11px;
@@ -404,37 +405,68 @@
         color: #333;
     }
 
-    .realName .modal-header .title {
+    .common .modal-header .title {
         font-size: 16px;
         font-weight: bolder;
     }
 
-    .realName .modal-dialog {
+    .common .modal-dialog {
         width: 544px;
     }
 
-    .realName .modal-content {
+    .common .modal-content {
         height: 250px;
     }
 
-    .realName.bigLogout .modal-dialog {
+    .common .modal-body {
+        height: 130px;
+    }
+    .common .modal-footer button {
+        padding: 0;
+        margin: 0 10px;
+        border: 0;
+        width: 80px;
+        height: 30px;
+    }
+
+    .common .modal-footer button.btn1,
+    .common .modal-footer button a.return {
+        color: #333;
+        background: #ebebeb;
+    }
+
+    .common .modal-footer button.btn2,
+    .common .modal-footer button a.continue {
+        color: #fff;
+        background: #00acff;
+    }
+
+    .common .modal-footer button a {
+        text-decoration: none;
+        display: inline;
+        zoom: 1;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+    }
+        .bigLogout .modal-dialog {
         width: 975px;
         margin-top: 80px;
     }
 
-    .realName.bigLogout .modal-content {
+    .bigLogout .modal-content {
         height: 633px;
     }
 
-    .realName.bigLogout .modal-body {
+    .bigLogout .modal-body {
         height: auto;
     }
 
-    .realName .modal-body {
-        height: 130px;
-    }
 
-    .realName.bigLogout .log1 {
+    .bigLogout .log1 {
         margin: 0 auto;
         width: 861px;
         height: 455px;
@@ -446,7 +478,7 @@
         overflow-y: auto;
     }
 
-    .realName.bigLogout .log1 h3 {
+    .bigLogout .log1 h3 {
         font-size: 18px;
         color: #333;
         font-weight: bolder;
@@ -454,45 +486,41 @@
         overflow-y: auto
     }
 
-    .realName.bigLogout .log1 p.agree {
+    .bigLogout .log1 p.agree {
         text-align: center
     }
 
-    .realName.bigLogout .log1 p.agree label {
+    .bigLogout .log1 p.agree label {
         font-size: 14px;
         font-weight: normal;
         margin-left: 10px;
         color: #333;
     }
 
-    .realName.bigLogout .log1 p.agree span {
+    .bigLogout .log1 p.agree span {
         margin-left: -83px;
     }
 
-    .realName .modal-body .msg1 {
-        margin: 0 65px 0 75px;
+    .common .modal-body .msg1 {
+        margin: 0 58px 0 64px;
         color: #333;
         font-size: 14px;
         padding: 30px 0 30px 70px;
         background: url('../../../../asset/img/login3.png') no-repeat 0 -160px;
     }
-
-    .realName .modal-body .msg2,
-    .logoutEseal .msg7 {
+    .common .modal-body .msg2{
         margin: 0 18%;
         color: #999;
         position: relative;
         top: 14px;
     }
 
-    .realName .modal-body .msg2 input,
-    .logoutEseal .msg7 input {
+    .common .modal-body .msg2 input{
         border-right: 0;
         height: 40px;
     }
 
-    .realName .modal-body .msg2 span,
-    .logoutEseal .msg7 span {
+    .common .modal-body .msg2 span,{
         cursor: pointer;
         background: #00acff;
         color: #fff;
@@ -500,78 +528,31 @@
         border: 0;
     }
 
-    .realName .modal-body .msg2 p,
-    .logoutEseal .msg7 p {
+    .common .modal-body .msg2 p{
         margin: 10px 0 25px;
         font-size: 12px;
     }
 
-    .realName .modal-body .msg3 {
+    .common .modal-body .msg3 {
         font-size: 14px;
         color: #999;
         margin: 0 11%;
-        padding: 15px 0;
+        padding: 30px 0;
     }
-
-    .realName .modal-footer {
-        margin: 0 auto;
-        text-align: center;
-        border: 0;
-    }
-
-    .realName .modal-footer button {
-        padding: 0;
-        margin: 0 10px;
-        border: 0;
-        width: 80px;
-        height: 30px;
-    }
-
-    .realName .modal-footer button.btn1,
-    .realName .modal-footer button a.return {
-        color: #333;
-        background: #ebebeb;
-    }
-
-    .realName .modal-footer button.btn2,
-    .realName .modal-footer button a.continue {
-        color: #fff;
-        background: #00acff;
-    }
-
-    .realName .modal-footer button a {
-        text-decoration: none;
-        display: inline;
-        zoom: 1;
-        display: inline-block;
-        zoom: 1;
-        *display: inline;
-        width: 80px;
-        height: 30px;
-        line-height: 30px;
-    }
-
-    .realName.unfreezeEseal .msg2 {
-        padding: 35px 0;
+    .common .msg4 {
+        padding: 68px 0;
         text-align: center;
     }
-
-    .realName.unfreezeEseal .msg3,
-    .realName.unfreezeEseal .msg4 {
-        margin: 32px 0;
+    .common .msg5 {
+        padding: 52px 0;
         text-align: center;
         color: #666;
     }
-
-    .realName.unfreezeEseal .msg4 {
-        line-height: 58px;
-    }
-
-    .realName.unfreezeEseal .msg5 {
+    .common .msg6 {
         padding: 31px 96px;
     }
 
-    .realName.unfreezeEseal .msg5 label {
+    .common .msg6 label {
         display: table-cell;
         vertical-align: middle;
         padding-right: 20px;
@@ -580,16 +561,20 @@
         font-weight: normal;
     }
 
-    .realName.unfreezeEseal .msg5 p {
+    .common .msg6 p {
         padding-left: 102px;
         margin-top: 8px;
         font-size: 12px;
         color: #ef3434;
     }
 
-    .realName.unfreezeEseal .msg6 {
-        padding: 60px 0;
+
+    .common .modal-footer {
+        margin: 0 auto;
         text-align: center;
-        color: #666;
+        border: 0;
     }
+
+
+
 </style>
