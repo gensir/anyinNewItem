@@ -1,4 +1,123 @@
-<div>
-    substat here!
-    <p>params:{{query}}</p>
+<div class="intnav">
+	<div class="page-kd">
+        <ul>
+            <li><a href="logs.html">签章日志</a></li>
+            <li><a class="active" href="#logs2">操作日志</a></li>
+        </ul>
+    </div>
 </div>
+
+<div class="page-kd">
+	<h2 class="m-title">操作日志</h2>
+    <div class="mainbox">
+        <div class="jilulist boxshow">
+            <div class="listtitle">
+                <span class="title col1">操作时间</span>
+                <span class="title col2">操作类型</span>
+                <span class="title col3">IP地址</span>
+                <span class="title col4">参考地点</span>
+            </div>
+            <ul class="listtext">
+                <li>
+                    <div class="file">
+                        <span class="text col1">2017/02/02  12：21：45</span>
+                        <span class="text col2 hide-text">登录系统</span>
+                        <span class="text col3">210.210.210.210</span>
+                        <span class="text col4">广东省 深圳市 福田区</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="file">
+                        <span class="text col1">2017/02/02  12：21：45</span>
+                        <span class="text col2 hide-text">登录系统</span>
+                        <span class="text col3">210.210.210.210</span>
+                        <span class="text col4">广东省 深圳市 福田区</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="file">
+                        <span class="text col1">2017/02/02  12：21：45</span>
+                        <span class="text col2 hide-text">登录系统</span>
+                        <span class="text col3">210.210.210.210</span>
+                        <span class="text col4">广东省 深圳市 福田区</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="file">
+                        <span class="text col1">2017/02/02  12：21：45</span>
+                        <span class="text col2 hide-text">登录系统</span>
+                        <span class="text col3">210.210.210.210</span>
+                        <span class="text col4">广东省 深圳市 福田区</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="file">
+                        <span class="text col1">2017/02/02  12：21：45</span>
+                        <span class="text col2 hide-text">登录系统</span>
+                        <span class="text col3">210.210.210.210</span>
+                        <span class="text col4">广东省 深圳市 福田区</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="file">
+                        <span class="text col1">2017/02/02  12：21：45</span>
+                        <span class="text col2 hide-text">登录系统</span>
+                        <span class="text col3">210.210.210.210</span>
+                        <span class="text col4">广东省 深圳市 福田区</span>
+                    </div>
+                </li>
+
+
+            </ul>
+
+            <nav class="pagelist" aria-label="Page navigation">
+                <ul class="pagination" id="pageLimit">
+                    <li class="PreviousPage">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li class="appendPage NextPage">
+                        <a aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </div>
+</div>
+
+<style>
+/* 内部的导航菜单*/
+.intnav { min-width: 1100px; height: 56px; border-bottom: solid 1px #dedede; background: #fff; }
+.intnav ul { width: 1100px; margin: 0; }
+.intnav ul li { float: left; height: 56px; margin-right: 60px; }
+.intnav ul li a { display: block; height: 56px; line-height: 56px; color: #999; padding-left: 12px; padding-right: 12px; text-decoration: none; }
+.intnav ul li a:hover { color: #333; }
+.intnav ul li a.active { border-bottom: solid 2px #00acff; color: #333; }
+/*签章列表 */
+.m-title { height: 20px; margin-top: 14px; margin-bottom: 14px; margin-left: 6px; font-size: 16px; line-height: 20px; font-weight: 600; border-left: 6px solid #0073bd; padding-left: 24px; }
+.jilulist { padding: 20px; }
+.jilulist .listtitle { height: 40px; width: 100%; line-height: 20px; padding-left: 30px; padding-right: 30px; }
+.jilulist .listtitle .title { font-size: 16px; }
+.jilulist .listtext .text { font-size: 14px; color: #666; }
+.jilulist .col1 { width: 25%; display: block; float: left; }
+.jilulist .col2 { width: 20%; display: block; float: left; }
+.jilulist .col3 { width: 30%; display: block; float: left; text-align: center; }
+.jilulist .col4 { width: 25%; display: block; float: left; padding-left: 20px; }
+.jilulist .col5 { width: 0%; display: block; float: left; text-align: right; padding-right: 20px; }
+
+.jilulist ul.listtext { margin-bottom: -20px; }
+.jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
+.jilulist ul.listtext li { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
+.jilulist ul.listtext li:hover,
+.jilulist ul.listtext li.active { background: #ddd; }
+.jilulist ul.listtext li .file { padding: 15px 30px; overflow: hidden; cursor: default; border-radius: 4px; }
+/* 分页 */
+.pagelist { margin-top: 30px; text-align: right; }
+.pagelist ul { margin: 20px; }
+.pagelist ul li a { cursor: pointer; }
+</style>

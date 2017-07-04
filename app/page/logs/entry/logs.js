@@ -1,5 +1,6 @@
 import '../../../../asset/css/style.css';
 import {add} from '../../../publicFun/public';
+import '../../../../asset/lib/jquery-placeholder.js';
 require('../store/store.js');
 //require('../store/model.js');
 window.reqres.request(  'global', 'current-user' );
