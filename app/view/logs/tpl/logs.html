@@ -84,7 +84,7 @@
                         <dl class="signet help">
                             <dt>需要帮助？</dt>
                             <dd>新办理的电子印章无法使用，<a class="color1" href="#">了解详情</a></dd>
-                            <dd>电子印章常用问题，或<a class="color2" href="#">联系客服</a></dd>
+                            <dd><a class="color2" href="#">电子印章常用问题</a>，或 <a class="color2" href="#">联系客服</a></dd>
                         </dl>
                         <dl class="computer">
                             <dt>设备信息</dt>
@@ -97,7 +97,7 @@
                         </dl>
                     </div>
                 </li>
-                <li class="">
+                <li>
                     <div class="file" title="点击展开详情信息">
                         <span class="text col1">2017/02/02 12:21:45</span>
                         <span class="text col2 hide-text">深圳市安印科技销售合同书pdf</span>
@@ -125,7 +125,7 @@
                         <dl class="signet help">
                             <dt>需要帮助？</dt>
                             <dd>新办理的电子印章无法使用，<a class="color1" href="#">了解详情</a></dd>
-                            <dd>电子印章常用问题，或<a class="color2" href="#">联系客服</a></dd>
+                            <dd><a class="color2" href="#">电子印章常用问题</a>，或 <a class="color2" href="#">联系客服</a></dd>
                         </dl>
                         <dl class="computer">
                             <dt>设备信息</dt>
@@ -138,7 +138,7 @@
                         </dl>
                     </div>
                 </li>
-                <li class="">
+                <li>
                     <div class="file" title="点击展开详情信息">
                         <span class="text col1">2017/02/02 12:21:45</span>
                         <span class="text col2 hide-text">深圳市安印科技销售合同书pdf</span>
@@ -166,7 +166,7 @@
                         <dl class="signet help">
                             <dt>需要帮助？</dt>
                             <dd>新办理的电子印章无法使用，<a class="color1" href="#">了解详情</a></dd>
-                            <dd>电子印章常用问题，或<a class="color2" href="#">联系客服</a></dd>
+                            <dd><a class="color2" href="#">电子印章常用问题</a>，或 <a class="color2" href="#">联系客服</a></dd>
                         </dl>
                         <dl class="computer">
                             <dt>设备信息</dt>
@@ -248,16 +248,21 @@
 
 .jilulist li .details { background: #fff; padding: 30px 30px 20px; overflow: hidden; display: none; margin-left: 30px; margin-right: 30px; border-radius: 2px; margin-bottom: 30px; }
 .jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
-.details dl { float: left; width: 35%; margin: 0px; padding: 0 10px 0 0; }
+.details dl { float: left; margin: 0px; padding: 0; }
 .details dt { font-size: 14px; line-height: 20px; padding-bottom: 12px; }
 .details dl dd { font-size: 12px; line-height: 14px; padding-bottom: 10px; color: #666; }
 .details dl dd span { color: #666; }
-.details .help,
+.details .signet.help,
 .details .computer dd.help { width: 30%; }
+.details .signet { width: 35%; padding-right: 10px; }
 .details .signet .state { display: inline-block; padding-left: 12px; padding-right: 12px; height: 20px; margin-left: 100px; background: #08c34e; color: #fff; font-weight: 400; border-radius: 2px; }
-.details .computer { width: 100%;  }
-.details .computer dt { padding-top: 12px;}
-.details .computer dd { width: 35%; float: left; }
+.details .computer { width: 100%; }
+.details .computer dt { padding-top: 12px; }
+.details .computer dd { width: 35%; float: left; padding-right: 10px; }
+.details .signet.help .color1 { color: #00acff; text-decoration: none; }
+.details .signet.help .color1:hover { color: #0073bd; }
+.details .signet.help .color2 { color: #999; text-decoration: none; }
+.details .signet.help .color2:hover { color: #666;}
 /* 分页 */
 .pagelist { margin-top: 30px; text-align: right; }
 .pagelist ul { margin: 20px; }
