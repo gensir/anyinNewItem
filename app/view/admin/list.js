@@ -3,7 +3,7 @@ import dialog from './tpl/dialog.html'
 //var dialogs=$(dialog()).prop("outerHTML");
 var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
-    el: '.container',
+    el: '.contents',
     initialize() {
         this.render();
     },
