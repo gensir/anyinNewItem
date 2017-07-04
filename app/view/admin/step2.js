@@ -92,7 +92,7 @@ var step2 = Backbone.View.extend({
 				return;
 			}
 		};
-		window.open('order.html#step3', '_self');
+		window.open('admin.html#step3', '_self');
 	}
 
 });

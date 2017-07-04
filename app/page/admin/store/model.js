@@ -20,7 +20,7 @@ var orderModel = Backbone.Model.extend({
 		if(attrs.clickEle == 'goStep2') {
 			// $.verify("#userName", "phone");
 			$.verifyEach({ "space": ".countCode", "valId": ".legalID" }, function() {
-				window.open('order.html#step2','_self')
+				window.open('admin.html#step2','_self')
 			})
 		};
 	}

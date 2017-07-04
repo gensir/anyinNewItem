@@ -12,12 +12,8 @@ var step1 = Backbone.View.extend({
 		this.$el.html(tpl);
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
-	goStep2: function() {
-		alert(222)
-		this.model.set({ "clickEle": $(event.target).data('id') })
-			this.model.isValid()
+	goStep2: function(event) {
 		if($('.sealStyle span').hasClass('choice')) {
-			alert(1)
 			this.model.set({ "clickEle": $(event.target).data('id') })
 			this.model.isValid()
 		} else {
