@@ -1,6 +1,6 @@
 import tpl from './tpl/logs.html'
 var logs = Backbone.View.extend({
-    el: '.container',
+    el: '.contents',
     initialize(){
     },
     render: function(query) {
