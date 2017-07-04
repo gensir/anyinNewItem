@@ -17,8 +17,8 @@ var list = Backbone.View.extend({
     toggleList(event) {
         var _this = event.currentTarget
         var ind = $(_this).parent(".list").index();
-        $(".eseallist .list .toggle").slideUp();
-        var toggle = $(_this).parent(".list").find(".toggle");
+        $(".eseallist .list .showHide").slideUp();
+        var toggle = $(_this).parent(".list").find(".showHide");
         if (toggle.is(":hidden")) {
             toggle.slideDown();
         } else {
