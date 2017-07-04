@@ -12,6 +12,9 @@ var list = Backbone.View.extend({
         'click .eseallist .list>.nav .loss': 'loss',
         'click .eseallist .list>.nav .unfreeze': 'unfreeze',
         'click .eseallist .list>.nav .logout': 'logout',
+        'click .topseal .boxmodel span': 'toggleTab',
+        'click .license .accordion .nav .shut': 'shut',
+        'click .license .accordion .nav .open': 'open'
     },
     render: function (query) {
         this.$el.prepend(tpl);
@@ -26,6 +29,17 @@ var list = Backbone.View.extend({
         } else {
             toggle.slideUp();
         }
+    },
+    toggleTab(event) {
+        var _this = event.currentTarget;
+        $(_this).addClass("active").siblings().removeClass("active");
+        $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
+    },
+    shut(){
+
+    },
+    open(){
+
     },
     loss() {
         var numInd = this.model.get("numInd")
@@ -156,16 +170,16 @@ var list = Backbone.View.extend({
                         var _this = this;
                         if (numInd == 1) {
                             var msg1 = logoutEseal.find(".msg1")[0].outerHTML
-                             var msg2 = logoutEseal.find(".msg2")[0].outerHTML
-                             var msg7 = logoutEseal.find(".msg7")[0].outerHTML
+                            var msg2 = logoutEseal.find(".msg2")[0].outerHTML
+                            var msg7 = logoutEseal.find(".msg7")[0].outerHTML
                             $(this).removeClass("bigLogout ")
                             //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                             $(this).find(".bootbox-body").html(msg7);
                             // $(this).find(".btn1,.btn2").hide();
                             setTimeout(function () {
-                                var data = { a: 2, b: 4,c:5 }
-                                if(data.c==5){
-                                }else if (data.a == 1) {
+                                var data = { a: 2, b: 4, c: 5 }
+                                if (data.c == 5) {
+                                } else if (data.a == 1) {
                                     var msg3 = logoutEseal.find(".msg3")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg3);
                                     $(_this).find(".btn1").show();
