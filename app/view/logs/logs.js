@@ -6,6 +6,7 @@ var logs = Backbone.View.extend({
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
         'click #search': 'searchshow',
+        'click #search_submit': 'nosearch',
     },
     //签章记录弹出详细记录
     Toggleshow(event) {
@@ -25,7 +26,9 @@ var logs = Backbone.View.extend({
     }, 
     searchshow() {
         $(".search .more").show()
-
+    },
+    nosearch() {
+        $(".search .nosearch").show()
     },
 
     render: function(query) {
