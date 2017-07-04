@@ -17,7 +17,8 @@ module.exports = function(grunt){
             },
             biuldAll: {//任务四：合并压缩a.js和b.js
                 files: {
-                    'asset/basic.min.js': uglifyConfig
+                    'asset/basic.min.js': uglifyConfig,
+                    'asset/vendor.min.js':'asset/lib/vendor/vendor.min.js'
                 }
             }
         }

@@ -57,14 +57,14 @@ var config = {
             filename: 'manifest.[chunkhash].js',
             chunks: ['vendor']
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            mangle: {
-                screw_ie8: false
-            }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     mangle: {
+        //         screw_ie8: false
+        //     }
+        // }),
         new webpack.ProvidePlugin({
             Backbone: 'backbone',
             _: 'underscore',
@@ -87,10 +87,14 @@ var config = {
             to: __dirname + '/build/lib'
         }]),
         new CopyWebpackPlugin([{
+            from: __dirname + '/asset/vendor.min.js',
+            to: __dirname + '/build/'
+        }]),
+        new CopyWebpackPlugin([{
             from: __dirname + '/asset/basic.min.js',
             to: __dirname + '/build/'
         }]),
-                new CopyWebpackPlugin([{
+        new CopyWebpackPlugin([{
             from: __dirname + '/asset/img',
             to: __dirname + '/build/asset/img/'
         }]),
