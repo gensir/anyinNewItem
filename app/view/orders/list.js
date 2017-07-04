@@ -1,11 +1,9 @@
 import tpl from './tpl/list.html'
-import dialog from './tpl/dialog.html'
 //var dialogs=$(dialog()).prop("outerHTML");
-var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
-        this.render();
+//      this.render();
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
