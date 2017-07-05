@@ -1,7 +1,9 @@
 import tpl from './tpl/step1.html'
+var sealstyle = [];
 var step1 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
+		
 		this.render();
 	},
 	events: {
@@ -9,9 +11,12 @@ var step1 = Backbone.View.extend({
 		'click .sealStyle span': 'choice'
 	},
 	render: function(query) {
-        $(".contents").empty();
+		$(".contents").empty();
+		
 		this.$el.html(tpl);
-		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		sealstyle = [];
+		document.body.scrollTop = document.documentElement.scrollTop = 0;	
+		
 	},
 	goStep2: function(event) {
 		if($('.sealStyle span').hasClass('choice')) {
@@ -22,10 +27,11 @@ var step1 = Backbone.View.extend({
 				className: "alert",
 				message: "请选择要办理的电子印章类型",
 			})
-
 		}
 	},
 	choice: function(event) {
+		sealstyle.push($(event.target).data('id'));
+//		alert(1);
 		var ele = event.target
 		if($(ele).hasClass('choice')) {
 			$(ele).removeClass('choice')
