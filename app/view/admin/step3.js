@@ -41,18 +41,16 @@ var step3 = Backbone.View.extend({
 			imageType = file.files[0].type;
 			regImage = /image\/\w+/;
 			if(file.files[0].size > 2 * 1024 * 1024) {
-				bootbox.dialog({
-					className: "realName",
-					title: "<div class='title'></div>",
+				bootbox.alert({
+					className: "uploadPhoto",
 					message: "<div class='message'>图片大小不要超过2M</div>",
 				})
 				return false;
 			}
 		}
 		if(!regImage.test(imageType)) {
-			bootbox.dialog({
-				className: "realName",
-				title: "<div class='title'></div>",
+			bootbox.alert({
+				className: "uploadPhoto",
 				message: "<div class='message'>请上传图片格式的文件</div>",
 			})
 			return false;
