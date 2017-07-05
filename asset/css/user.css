@@ -45,7 +45,7 @@
 .content .jilu { margin-left: 380px; }
 .jilulist { padding: 20px 20px 20px; }
 .jilulist ul { margin-bottom: -20px; }
-.jilulist ul li { background: #f5f5f5; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+.jilulist ul li { background: #f5f5f5; border-radius: 4px; margin-bottom: 20px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
 .jilulist ul li:hover,
 .jilulist ul li.active { background: #ddd; }
 .jilulist ul li .file { padding: 15px 15px; overflow: hidden; cursor: pointer; border-radius: 4px; }

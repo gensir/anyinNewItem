@@ -1,6 +1,9 @@
 import '../../../../asset/css/style.css';
+import '../../../../asset/lib/datetimepicker/bootstrap-datetimepicker.css';
 import {add} from '../../../publicFun/public';
 import '../../../../asset/lib/jquery-placeholder.js';
+//require('../../../../asset/lib/datetimepicker/bootstrap-datetimepicker.js');
+//import '../../../../asset/lib/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js';
 require('../store/store.js');
 //require('../store/model.js');
 window.reqres.request(  'global', 'current-user' );
@@ -17,4 +20,4 @@ S.router = new Router();
 Backbone.history.start({
     root : ''
 });
-console.log("logs")
+//console.log("logs")

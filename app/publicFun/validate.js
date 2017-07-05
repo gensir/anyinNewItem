@@ -68,11 +68,11 @@ var verify = {
 			return reg.test($(ele).val())
 		},
 		idcode :function(ele){
-			var reg = /(^\d{18}$)/
+			var reg = /^[0-9a-zA-Z]{18}$/;
 			return reg.test($(ele).val())
 		},
 		yzmcode :function(ele){
-			var reg = /(^\d{4}$)/
+			var reg = /^[A-Za-z0-9]{4}$/;
 			return reg.test($(ele).val())
 		}
 	}

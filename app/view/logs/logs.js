@@ -5,10 +5,40 @@ var logs = Backbone.View.extend({
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
-        'click #search': 'searchshow',
-        'click #search_submit': 'nosearch',
+        'focus #search': 'searchmore',
+        'click #search_submit': 'searchs',
+        'click #close': 'close',
+        'mouseleave .more': 'blur',
     },
-    //签章记录弹出详细记录
+    //选取日期
+    form_date1() {
+        $('#date1').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            format: 'yyyy-mm-dd',
+            forceParse: 0
+        });
+    },
+    form_date2() {
+        $('#date2').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            format: 'yyyy-mm-dd',
+            forceParse: 0
+        });
+    },
+
+    //签章记录显示详细记录
     Toggleshow(event) {
         var _this = event.currentTarget
         var ind = $(_this).parent(".jilulist ul li").index();
@@ -24,15 +54,36 @@ var logs = Backbone.View.extend({
             $(int).removeClass('active');
         };
     }, 
-    searchshow() {
+    //显示详细搜索
+    searchmore() {
         $(".search .more").show()
     },
+    //提交搜索
+    searchs() {
+        var search= $("#search").val();
+        if(search.length == '') {
+            this.nosearch();
+        }
+    },
+    blur() {
+        $('.more').blur(function() {
+            $(".more").hide();
+        })
+    },
+    //禁用搜索提示
     nosearch() {
         $(".search .nosearch").show()
+    },
+    //关闭更多搜索
+    close() {
+        $(".search .nosearch").hide();
+        $(".search .more").hide();
     },
 
     render: function(query) {
         this.$el.html(tpl);
+        this.form_date1();
+        this.form_date2();
     },
 });
 
