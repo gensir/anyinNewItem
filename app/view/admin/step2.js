@@ -19,7 +19,11 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.frontPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.backPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
 	},
-	changeImg: function(event) {
+	changeImg: function(event) {	
+		var fileVal = $(event.target).val();
+		if(!fileVal) {
+			return;
+		}
 		var num = $(event.target).data('id');
 		var preview = document.getElementById('photo' + num);
 		var file = document.getElementById("file" + num);
@@ -53,10 +57,10 @@ var step2 = Backbone.View.extend({
 		if(typeof FileReader == 'undefined') {
 			$("#file" + num).height(24);
 			$(".reset" + num).show()
-			file.select();			
+			file.select();
 			file.blur();
 			var path = document.selection.createRange().text;
-//			preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+			//			preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
 			document.getElementById('photo' + num).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";
 			picture[num] = 1;
 		} else {
