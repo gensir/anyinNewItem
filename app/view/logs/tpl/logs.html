@@ -5,12 +5,12 @@
             <li><a href="#logs2">操作日志</a></li>
         </ul>
         <div class="search">
-            <form>
+
 				<div class="inputbox">
 					<input class="search-input form-control" id="search" name="search" type="text" placeholder="请输入搜索关键字">
 					<button class="submit" id="search_submit" type="button" ><em></em></button>
 				</div>
-				<div class="more">
+				<div class="more" tabindex="-1">
 					<div class="state">
 						<span class="labelname">状态：</span>
 						<span class="select-box">
@@ -35,11 +35,11 @@
 					<div class="date">
 						<span class="labelname">日期：</span>
 						<input class="date-input form-control" id="date1" name="date1" type="text"> - 
-						<input class="date-input form-control" id="date1" name="date1" type="text">
+						<input class="date-input form-control" id="date2" name="date2" type="text">
 					</div>
 				</div>
-                <div class="nosearch"><em></em>解密信息后可使用搜索功能</div>
-			</form>
+                <div class="nosearch"><em></em><i class="glyphicon glyphicon-remove" id="close" title="关闭"></i>解密信息后可使用搜索功能</div>
+
         </div>
     </div>
 </div>
@@ -212,13 +212,13 @@
 .intnav ul li a.active { border-bottom: solid 2px #00acff; color: #333; }
 /* 搜索 */
 .intnav .page-kd { position: relative; }
-.intnav .search { position: relative; float: right; padding-top: 13px; }
-.intnav .inputbox { margin-left: 15px; width: 310px; position: relative; }
-.intnav .search .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; z-index: 2; position: relative; }
-.intnav .search .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: #fff; border-width: 0px; text-align: center; padding: 0px 12px; width: auto; z-index: 2; outline: none; }
+.intnav .search { position: absolute; right: 0; top: 0;  width: 310px; }
+.intnav .inputbox { position: relative; margin-top: 13px; }
+.intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; z-index: 2; position: relative; }
+.intnav .search .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: #fff; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }
 .intnav .search .submit em { background: url(../../../../asset/img/bg-all.png) no-repeat -80px -290px; display: inline-block; height: 24px; width: 24px; vertical-align: middle; }
 .intnav .search .submit:hover em { background: url(../../../../asset/img/bg-all.png) no-repeat -104px -290px; }
-.intnav .search .more { position: absolute; z-index: 1; right: -15px; top: 0px; width: 340px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; }
+.intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; outline: none; }
 .intnav .search .more .state { float: left; margin-right: 20px; }
 .intnav .search .more .labelname { font-size: 12px; color: #666; display: inline-block; float: left; line-height: 28px; }
 .select-box { width: 90px; height: 28px; line-height: 28px; font-size: 12px; border: solid 1px #dedede; position: relative; z-index: 1; background: #fff; overflow: hidden; min-width: 44px; max-width: 120px; padding-right: 20px; display: inline-block; vertical-align: middle; } 
@@ -228,6 +228,8 @@
 .intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block;  border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
 .intnav .search .nosearch { position: absolute; z-index: 4; right: -15px; top: 0px; width: 340px; height: 160px; padding-top: 65px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; text-align: center; color: #666; }
 .intnav .search .nosearch em { width: 32px; height: 32px; display: inline-block; margin-right: 15px; background: #fff url(../../../../asset/img/bg-all.png) no-repeat 0 -314px; vertical-align: middle;}
+.intnav .search .nosearch i { font-size: 9px; color: #dedede; position: absolute; top: 12px; right: 12px; z-index: 4; cursor: pointer; padding: 2px; border: 2px solid #dedede; border-radius: 50%; }
+.intnav .search .nosearch i:hover { color: #999; border-color: #999; }
 /*签章列表 */
 .m-title { height: 20px; margin-top: 14px; margin-bottom: 14px; margin-left: 6px; font-size: 16px; line-height: 20px; font-weight: 600; border-left: 6px solid #0073bd; padding-left: 24px; }
 .jilulist { padding: 20px; }
@@ -241,7 +243,7 @@
 .jilulist .col5 { width: 10%; display: block; float: left; text-align: right; padding-right: 20px; }
 
 .jilulist ul.listtext { margin-bottom: -20px; }
-.jilulist ul.listtext li { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
+.jilulist ul.listtext li { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
 .jilulist ul.listtext li:hover,
 .jilulist ul.listtext li.active { background: #ddd; }
 .jilulist ul.listtext li .file { padding: 15px 30px; overflow: hidden; cursor: pointer; border-radius: 4px; }

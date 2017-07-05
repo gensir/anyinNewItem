@@ -1,6 +1,6 @@
 var Router = Backbone.Router.extend({
     routes: {
-        '': 'home',
+        '': 'step1',
         'stat/': 'stat',
         'stat/:query': 'substat',
         'step1':'step1',
@@ -39,7 +39,7 @@ var Router = Backbone.Router.extend({
         }, 'Home');
     },
     stat: function(query) {
-        console.log(query)
+        //console.log(query)
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/stat/Stat')
@@ -60,10 +60,11 @@ var Router = Backbone.Router.extend({
     },
     
     step1:function(query){
+        var model = require('./store/model.js');
         var me=this;
         require.ensure([],function(require){
             var View=require('../../view/register/step1')
-            me.startRout(View,{query:query});
+            new View({model:model});
         },'step1')
     },
     step2:function(query){
