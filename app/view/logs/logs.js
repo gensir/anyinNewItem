@@ -11,8 +11,8 @@ var logs = Backbone.View.extend({
         'mouseleave .more': 'blur',
     },
     //选取日期
-    form_date1() {
-        $('#date1').datetimepicker({
+    form_date() {
+        $('#date1,#date2').datetimepicker({
             language:  'zh-CN',
             weekStart: 1,
             todayBtn:  1,
@@ -24,19 +24,7 @@ var logs = Backbone.View.extend({
             forceParse: 0
         });
     },
-    form_date2() {
-        $('#date2').datetimepicker({
-            language:  'zh-CN',
-            weekStart: 1,
-            todayBtn:  1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            format: 'yyyy-mm-dd',
-            forceParse: 0
-        });
-    },
+
 
     //签章记录显示详细记录
     Toggleshow(event) {
@@ -82,8 +70,8 @@ var logs = Backbone.View.extend({
 
     render: function(query) {
         this.$el.html(tpl);
-        this.form_date1();
-        this.form_date2();
+        this.form_date();
+        //this.form_date2();
     },
 });
 
