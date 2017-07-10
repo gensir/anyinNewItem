@@ -17,6 +17,7 @@ var registerModel = Backbone.Model.extend({
 		}
 		if(attrs.clickEle == 'findPasswordCodeBtn'){
 			return $.verifyEach({"phone":".countPhone"},function(){
+				return 123;
             })
 		}
 	}

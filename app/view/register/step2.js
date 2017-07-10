@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/6/20 0020.
  */
-import tpl from './tpl/step2.html'
+import tpl from './tpl/step2.html';
+var service=require('../../server/service').default;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
@@ -15,8 +16,12 @@ var step2 = Backbone.View.extend({
 	phoneCode: function() {
 		this.model.set({ "clickEle": $(event.target).data('id') })
 		this.model.isValid()
-//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {
+		//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {
 		if(!this.model.isValid()) {
+			service.getSMSVerifCode().done(function(data) {
+				console.log(data);
+				console.log("测试代理成功")
+			})
 			var countdown = 60;
 			var ele = $(".findPasswordCodeBtn");
 
@@ -45,8 +50,10 @@ var step2 = Backbone.View.extend({
 		this.model.isValid()
 	},
 	checkCode: function() {
-		if($('.countCode').val().length==6){
-			alert($('.countCode').val())
+		if($('.countCode').val().length == 6) {
+			$('.codeErrTip').html($('.countCode').val());
+		}else{
+			$('.codeErrTip').html('');
 		}
 	},
 	render: function(query) {

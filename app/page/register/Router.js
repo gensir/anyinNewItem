@@ -17,7 +17,8 @@ var Router = Backbone.Router.extend({
     },
     startRout: function(View, queryObj, sub) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
-        S.main = new View();
+        var model = require('./store/model.js');
+        S.main = new View({model:model});
         S.main.viewUnmount=this.viewUnmount;
         S.main.sub=null
         if(sub){
@@ -68,11 +69,10 @@ var Router = Backbone.Router.extend({
         },'step1')
     },
     step2:function(query){
-      	var model = require('./store/model.js');
         var me=this;
         require.ensure([],function(require){
             var View=require('../../view/register/step2')
-            new View({model:model});
+            me.startRout(View,{query:query});
         },'step2')
     },
     step3:function(query){
