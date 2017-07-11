@@ -83,6 +83,23 @@ router.get('/management_platform/eseal/list/1/10', function(req, res, next) {
 		}
 	})
 });
+//获取短信验证码
+router.get('/standard_server/common/getSMSVerifCode', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": "347112"
+	})
+});
+//校验短信验证码
+router.get('/management_platform/common/checkSmsCode',function(req, res, next){
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+	})
+})
+
+
 
 
 router.get('/setcookie', function (req, res, next) {
@@ -303,8 +320,6 @@ router.get('/sealnet/visitorsList', function (req, res, next) {
     //res.render('index', { title: 'Express' });
 });
 
-router.all('*', function (req, res, next) {
-    res.json({ code: 0 });
-});
+
 
 module.exports = router;

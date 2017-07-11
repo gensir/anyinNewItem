@@ -48,5 +48,8 @@ export default {
 	},
 	getEsealList(pageNum,pageSize) {
 		return ajaxCall({ url: domain + baseUrl + "management_platform/eseal/list/1/10" });
+	},
+	checkSmsCode(){
+		return ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
 	}
 }

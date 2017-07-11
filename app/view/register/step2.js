@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/6/20 0020.
  */
 import tpl from './tpl/step2.html';
-var service=require('../../server/service').default;
+var service = require('../../server/service').default;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
@@ -19,30 +19,30 @@ var step2 = Backbone.View.extend({
 		//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {
 		if(!this.model.isValid()) {
 			service.getSMSVerifCode().done(function(data) {
-				console.log(data);
-				console.log("测试代理成功")
-			})
-			var countdown = 60;
-			var ele = $(".findPasswordCodeBtn");
+				if(data.code == 0) {
+					var countdown = 60;
+					var ele = $(".findPasswordCodeBtn");
 
-			function settime() {
-				if(countdown == 0) {
-					ele.removeAttr("disabled");
-					ele.val("获取验证码");
-					countdown = 60;
-					clearTimeout(ele[0].settimes);
+					function settime() {
+						if(countdown == 0) {
+							ele.removeAttr("disabled");
+							ele.val("获取验证码");
+							countdown = 60;
+							clearTimeout(ele[0].settimes);
+							return false;
+						} else {
+							ele.attr("disabled", true);
+							ele.val("重新发送(" + countdown + ")");
+							countdown--;
+						}
+						ele[0].settimes = setTimeout(function() {
+							settime(ele)
+						}, 1000)
+					};
+					settime();
 					return false;
-				} else {
-					ele.attr("disabled", true);
-					ele.val("重新发送(" + countdown + ")");
-					countdown--;
 				}
-				ele[0].settimes = setTimeout(function() {
-					settime(ele)
-				}, 1000)
-			};
-			settime();
-			return false;
+			})
 		}
 	},
 	goStep3: function(event) {
@@ -51,8 +51,14 @@ var step2 = Backbone.View.extend({
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
-			$('.codeErrTip').html($('.countCode').val());
-		}else{
+			service.checkSmsCode().done(function(data){
+				if(data.code==0){
+					$(".codeErrTip").html(data.msg).css({"color":"#08c34e"});
+				}else{
+					$(".codeErrTip").html(data.msg).css({"color":"red"});
+				}
+			})
+		} else {
 			$('.codeErrTip').html('');
 		}
 	},
