@@ -11,6 +11,80 @@ function md5(text) {
     return crypto.createHash('md5').update(text).digest('hex');
 };
 
+//获取电子印章列表
+router.get('/management_platform/eseal/list/1/10', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": {
+			"totalRows": 1,
+			"totalPages": 1,
+			"pageNum": 1,
+			"pageSize": 10,
+			"curPageSize": 1,
+			"list": [{
+				"id": 10000000,
+				"version": "1",
+				"vid": "1212",
+				"esealCode": "1235678",
+				"esealType": 1,
+				"esealName": 4,
+				"esealFullName": "好章",
+				"easalId": "0622",
+				"esealStatus": 1314,
+				"esealCreateTime": "Jul 3, 2017 4:55:23 PM",
+				"recordStatus": 0,
+				"recordTime": "Jul 3, 2017 4:55:23 PM",
+				"validStart": "Jul 3, 2017 4:55:23 PM",
+				"validEnd": "Jul 3, 2017 4:55:23 PM",
+				"picType": "BMP",
+				"picData": "2",
+				"picWidth": 0,
+				"picHeight": 1,
+				"oid": "1223456",
+				"enterpriseCodeType": 500,
+				"enterpriseCode": "123456",
+				"enterpriseName": "12456",
+				"firmId": "nihao",
+				"isDelete": 0,
+				"createTime": "Jul 3, 2017 4:55:23 PM",
+				"updateTime": "Jul 3, 2017 4:55:23 PM",
+				"certStatus": [0, 1, 1]
+			},{
+				"id": 10000000,
+				"version": "1",
+				"vid": "1212",
+				"esealCode": "1235678",
+				"esealType": 1,
+				"esealName": 6666,
+				"esealFullName": "好章",
+				"easalId": "0622",
+				"esealStatus": 1314,
+				"esealCreateTime": "Jul 3, 2017 4:55:23 PM",
+				"recordStatus": 0,
+				"recordTime": "Jul 3, 2017 4:55:23 PM",
+				"validStart": "Jul 3, 2017 4:55:23 PM",
+				"validEnd": "Jul 3, 2017 4:55:23 PM",
+				"picType": "BMP",
+				"picData": "2",
+				"picWidth": 0,
+				"picHeight": 1,
+				"oid": "1223456",
+				"enterpriseCodeType": 500,
+				"enterpriseCode": "123456",
+				"enterpriseName": "12456",
+				"firmId": "nihao",
+				"isDelete": 0,
+				"createTime": "Jul 3, 2017 4:55:23 PM",
+				"updateTime": "Jul 3, 2017 4:55:23 PM",
+				"certStatus": [0, 1, 1]
+			}
+			]
+		}
+	})
+});
+
+
 router.get('/setcookie', function (req, res, next) {
     var postData = 'username=13570852872&password=' + md5('123456');
     //postData = JSON.stringify(postData);
