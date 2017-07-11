@@ -1,7 +1,66 @@
-.test{
-    color:#0f0;
-}
-body{
-    font-size: 18px;
-}
-/*wang*/
+/* 内部的导航菜单*/
+.intnav { min-width: 1100px; height: 56px; border-bottom: solid 1px #dedede; background: #fff; }
+.intnav ul { width: 1100px; margin: 0; }
+.intnav ul li { float: left; height: 56px; margin-right: 60px; }
+.intnav ul li a { display: block; height: 56px; line-height: 56px; color: #999; padding-left: 12px; padding-right: 12px; text-decoration: none; }
+.intnav ul li a:hover { color: #333; }
+.intnav ul li a.active { border-bottom: solid 2px #00acff; color: #333; }
+/* 搜索 */
+.intnav .page-kd { position: relative; }
+.intnav .search { position: absolute; right: 0; top: 0;  width: 310px; }
+.intnav .inputbox { position: relative; margin-top: 13px; }
+.intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; z-index: 2; position: relative; }
+.intnav .search .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: #fff; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }
+.intnav .search .submit em { background: url(../img/bg-all.png) no-repeat -80px -290px; display: inline-block; height: 24px; width: 24px; vertical-align: middle; }
+.intnav .search .submit:hover em { background: url(../img/bg-all.png) no-repeat -104px -290px; }
+.intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; outline: none; }
+.intnav .search .more .state { float: left; margin-right: 20px; }
+.intnav .search .more .labelname { font-size: 12px; color: #666; display: inline-block; float: left; line-height: 28px; }
+.select-box { width: 90px; height: 28px; line-height: 28px; font-size: 12px; border: solid 1px #dedede; position: relative; z-index: 1; background: #fff; overflow: hidden; min-width: 44px; max-width: 120px; padding-right: 20px; display: inline-block; vertical-align: middle; } 
+.select-box .selecticon { display: block; height: 28px; width: 20px; overflow: hidden; position: absolute; z-index: 2; top: 0px; right: 0px; background: #fff url(../img/bg-all.png) no-repeat -134px -289px; pointer-events: none; margin: 0; }
+.select-box select { border: 0; padding-left: 6px; color: #666; background: #fff; -webkit-appearance: none; width: 150%; outline: none; }
+.intnav .search .more .date { padding-top: 20px; color: #666; }
+.intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block; vertical-align: top; border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
+.intnav .search .nosearch { position: absolute; z-index: 4; right: -15px; top: 0px; width: 340px; height: 160px; padding-top: 65px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; text-align: center; color: #666; }
+.intnav .search .nosearch em { width: 32px; height: 32px; display: inline-block; margin-right: 15px; background: #fff url(../img/bg-all.png) no-repeat 0 -314px; vertical-align: middle;}
+.intnav .search .nosearch i { font-size: 9px; color: #dedede; position: absolute; top: 12px; right: 12px; z-index: 4; cursor: pointer; padding: 2px; border: 2px solid #dedede; border-radius: 50%; }
+.intnav .search .nosearch i:hover { color: #999; border-color: #999; }
+/*签章列表 */
+.m-title { height: 20px; margin-top: 14px; margin-bottom: 14px; margin-left: 6px; font-size: 16px; line-height: 20px; font-weight: 600; border-left: 6px solid #0073bd; padding-left: 24px; }
+.jilulist { padding: 20px; }
+.jilulist .listtitle { height: 40px; width: 100%; line-height: 20px; padding-left: 30px; padding-right: 30px; }
+.jilulist .listtitle .title { font-size: 16px; }
+.jilulist .listtext .text { font-size: 14px; color: #666; }
+.jilulist .col1 { width: 20%; display: block; float: left; }
+.jilulist .col2 { width: 40%; display: block; float: left; }
+.jilulist .col3 { width: 15%; display: block; float: left; text-align: center; }
+.jilulist .col4 { width: 15%; display: block; float: left; text-align: center; }
+.jilulist .col5 { width: 10%; display: block; float: left; text-align: right; padding-right: 20px; }
+
+.jilulist ul.listtext { margin-bottom: -20px; }
+.jilulist ul.listtext li { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
+.jilulist ul.listtext li:hover,
+.jilulist ul.listtext li.active { background: #ddd; }
+.jilulist ul.listtext li .file { padding: 15px 30px; overflow: hidden; cursor: pointer; border-radius: 4px; }
+
+.jilulist li .details { background: #fff; padding: 30px 30px 20px; overflow: hidden; display: none; margin-left: 30px; margin-right: 30px; border-radius: 2px; margin-bottom: 30px; }
+.jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
+.details dl { float: left; margin: 0px; padding: 0; }
+.details dt { font-size: 14px; line-height: 20px; padding-bottom: 12px; }
+.details dl dd { font-size: 12px; line-height: 14px; padding-bottom: 10px; color: #666; }
+.details dl dd span { color: #666; }
+.details .signet.help,
+.details .computer dd.help { width: 30%; }
+.details .signet { width: 35%; padding-right: 10px; }
+.details .signet .state { display: inline-block; padding-left: 12px; padding-right: 12px; height: 20px; margin-left: 100px; background: #08c34e; color: #fff; font-weight: 400; border-radius: 2px; }
+.details .computer { width: 100%; }
+.details .computer dt { padding-top: 12px; }
+.details .computer dd { width: 35%; float: left; padding-right: 10px; }
+.details .signet.help .color1 { color: #00acff; text-decoration: none; }
+.details .signet.help .color1:hover { color: #0073bd; }
+.details .signet.help .color2 { color: #999; text-decoration: none; }
+.details .signet.help .color2:hover { color: #666;}
+/* 分页 */
+.pagelist { margin-top: 30px; text-align: right; }
+.pagelist ul { margin: 20px; }
+.pagelist ul li a { cursor: pointer; }
