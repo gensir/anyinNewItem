@@ -2,7 +2,7 @@ const domain = "";
 const baseUrl = "/api/";
 const anyin = "";
 const anyinUrl = "http://192.168.1.159:9500";
-const jsl="http://192.168.4.94:8082"
+const jsl = "http://192.168.4.94:8082"
 //const oldBaseUrl = "/";
 var commonAjaxSetting = {
 	'get': {
@@ -44,6 +44,9 @@ export default {
 		return ajaxCall({ url: domain + baseUrl + "sealnet/visitorsList" });
 	},
 	getSMSVerifCode() {
-		return ajaxCall({ url: domain + anyinUrl + "/standard_server/common/getSMSVerifCode" });
+		return ajaxCall({ url: domain + baseUrl + "standard_server/common/getSMSVerifCode" });
+	},
+	getEsealList(pageNum,pageSize) {
+		return ajaxCall({ url: domain + baseUrl + "management_platform/eseal/list/1/10" });
 	}
 }

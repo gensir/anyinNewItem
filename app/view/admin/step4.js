@@ -53,7 +53,7 @@ var step4 = Backbone.View.extend({
                     label: "新建订单",
                     className: "btn3",
                     callback: function () {
-                        window.location.href = "order.html#step1";
+                        window.location.href = "admin.html#step1";
                     }
                 }
             }
