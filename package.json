@@ -21,7 +21,8 @@
         "build": "webpack --config webpack.production.config.js",
         "dev": "webpack-dev-server --hot --inline --progress --colors --devtool eval",
         "pro": "node server",
-        "postbuild": "grunt postbuild"
+        "postbuild": "grunt postbuild",
+        "start": "node ./mockServer/bin/www"
     },
     "dependencies": {
         "babel-polyfill": "^6.23.0",
