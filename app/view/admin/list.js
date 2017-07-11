@@ -1,7 +1,6 @@
 import tpl from './tpl/list.html'
-import dialog from './tpl/dialog.html'
+import dialog from '../pub/tpl/dialog.html'
 var service=require('../../server/service').default;
-//var dialogs=$(dialog()).prop("outerHTML");
 var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
 	el: '.contents',

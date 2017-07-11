@@ -1,11 +1,9 @@
 var tpl = require('./tpl/index.html');
-//var uhead = require('../pub/tpl/uhead.html');
-import dialog from './tpl/dialog.html'
+import dialog from '../pub//tpl/dialog.html';
 var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
     initialize(){
-        //$(".wrapper").prepend(uhead);
         this.load();
         this.render();
     },
@@ -31,13 +29,12 @@ var index = Backbone.View.extend({
     },
     
     load() {
-        //var numInd = this.model.get("numInd")
-        bootbox.dialog({
+        bootbox.dialog ({
             backdrop: true,
             closeButton: false,
-            className: "realName",
-            title: dialogs.find(".lossEseal .title")[0].outerHTML,
-            message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
+            className: "common realname",
+            title: dialogs.find(".realname .title")[0].outerHTML,
+            message: dialogs.find(".realname .msg1")[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
