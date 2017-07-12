@@ -6,16 +6,8 @@ import {imgModalBig} from '../../../publicFun/public'
 var service=require('../../../server/service').default;
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');
-
-var tpl = require('../../../view/login/tpl/main.html');
 require('../store/store.js')
 window.reqres.request(  'global', 'current-user' );
-$('body').prepend(tpl({
-    list: [
-        { url: 'home/', name: 'Home' },
-        { url: 'stat/', name: 'Stat' }
-    ]
-}));
 window.S = {};
 S.router = new Router();
 Backbone.history.start({

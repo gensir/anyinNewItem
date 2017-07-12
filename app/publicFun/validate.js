@@ -5,6 +5,7 @@ var verify = {
 		var _this = this;
 		$.extend({
 			verify: function(log, ele, text) {
+                _this.result = true;
 				if(!(_this.istrue[log])(ele) || text) {
 					var text = text || _this.log[log]
 					$(ele + "-error").html(text)
@@ -13,6 +14,7 @@ var verify = {
 				if($(ele + "-error").html()) {
 					_this.result = false;
 				};
+                return _this.result;
 			},
 			verifyEach: function(obj, callback) {
 				var isverify = true,
@@ -24,8 +26,9 @@ var verify = {
 					};
 				});
 				if(isverify && typeof callback === "function") {
-					return callback();
+					 callback();
 				}
+                return isverify;
 			}
 		});
 

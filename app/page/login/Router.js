@@ -8,31 +8,24 @@ var Router = Backbone.Router.extend({
         S.main = null;
     },
     viewUnmount:function(){
-        console.log(this.events);
-        console.log(this)
-        debugger;
         this.undelegateEvents();
-        console.log(this.events);
-        console.log(this)
         this.$el.empty();
-        debugger;
     },
-    startRout: function(View, queryObj, sub) {
+    startRout: function(View, queryObj, sub,model) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
-
-        S.main = new View();
+        S.main = new View({model:model});
         S.main.viewUnmount=this.viewUnmount;
         S.main.sub=null
         if(sub){
             S.main.sub=sub;
         }
-        S.main.render(typeof queryObj == 'undefined' ? '' : queryObj);
+        //S.main.render(typeof queryObj == 'undefined' ? '' : queryObj);
     },
     starSubroute:function(View,queryObj){
         S.main.sub && S.main.sub.viewUnmount && S.main.sub.viewUnmount();
         S.main.sub = new View();
         S.main.sub.viewUnmount = this.viewUnmount;
-        S.main.sub.render(typeof queryObj == 'undefined' ? '' : queryObj);
+        //S.main.sub.render(typeof queryObj == 'undefined' ? '' : queryObj);
     },
     home: function(query) {
         var me = this;
@@ -42,10 +35,12 @@ var Router = Backbone.Router.extend({
         }, 'Home');
     },
     login(){
+        var me = this;
         require.ensure([], function(require) {
             var main=require('../../view/login/main.js');
             var model=require('./store/model.js');
-            new main({model:model});
+            //new main({model:model});
+            me.startRout(main,undefined,undefined,model);
         })
         
     },

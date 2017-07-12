@@ -19,9 +19,9 @@
                                 <!--<input id="userName" type="text" placeholder="请输入用户名">-->
                                 <select name="" id="seleBook">
                                     <option value="">------------------- <span> 选择证书 </span> -------------------</option>
-                                    <option value="">证一</option>
-                                    <option value="">证二</option>
-                                    <option value="">证三</option>
+                                     {{each list as value i}}
+                                        <option>{{value}}</option>
+                                    {{/each}}
                                 </select>
                                 <div id="seleBook-error" class="error"></div>
                             </div>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                                                 <div class="buttonTab">
-                            <button class="login" id="login" data-id="login">立即登录</button>
+                            <button class="login" id="ukeyLogin" data-id="ukeyLogin">立即登录</button>
                             <button class="goregister">注册账号</button>
                         </div>
                     </li>
@@ -46,7 +46,7 @@
                             <div id="passwd-error" class="error"></div>
                         </div>
                         <div class="buttonTab">
-                            <button class="login" id="ukeyLogin" data-id="ukeyLogin">立即登录</button>
+                            <button class="login" id="phoneLogin" data-id="phoneLogin">立即登录</button>
                             <button class="goregister">注册账号</button>
                         </div>
                     </li>

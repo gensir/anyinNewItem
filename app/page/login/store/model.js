@@ -6,16 +6,17 @@ var loginModel = Backbone.Model.extend({
     },
     validate: function (attrs) {
         //验证规则
-        if (attrs.clickEle == 'ukeyLogin') {
+        if (attrs.clickEle == 'phoneLogin') {
             // $.verify("#userName", "phone");
-            $.verifyEach({"phone":"#userName","passwd":"#passwd"},function(){
+            var result=$.verifyEach({"phone":"#userName","passwd":"#passwd"},function(){
                 alert("验证通过，执行请求！");
                 $.verify("passwd","#passwd","123");
             })
-            
+            return result;
         };
-        if (attrs.clickEle == 'login') {
-            $.verify("#pinwd", "passwd");
+        if (attrs.clickEle == 'ukeyLogin') {
+            var result=$.verify("passwd", "#pinwd");
+            return result;
         }
     }
 });
