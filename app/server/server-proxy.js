@@ -13,6 +13,10 @@ var config = {
 		port: 10086,
 		//contentBase:"./app/page/index",
 		proxy: {
+            '/api/sealnet': {
+				target: proxy.dev, //pathRewrite: {'^/column' : '/column'},
+				changeOrigin: true
+			},
 			'/api': {
 				target: proxy.jsl, //pathRewrite: {'^/column' : '/column'},
 				changeOrigin: true
