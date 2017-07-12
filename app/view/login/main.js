@@ -1,4 +1,5 @@
 var tpl = require('./tpl/main.html');
+var service = require('../../server/service').default;
 var main = Backbone.View.extend({
     el: "body",
     initialize() {
@@ -23,6 +24,13 @@ var main = Backbone.View.extend({
         this.toggleTab();
     },
     ukey() {
+        var data=JSON.stringify({
+            a:1
+        })
+        service.userlogin(data).done(function (data) {
+            console.log(data);
+            console.log("测试代理成功sss");
+        })
         // 这里就是注册表中CLSID文件夹根目录的文件夹名称
         window.ukey = null;
         var _this = this;
