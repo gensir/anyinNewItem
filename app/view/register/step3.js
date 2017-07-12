@@ -16,9 +16,9 @@ var step3 = Backbone.View.extend({
 		this.$el.html(tpl);
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-		imgModalBig('.businessLicense', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
-		imgModalBig('.frontPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
-		imgModalBig('.backPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
+		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
+		imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
+		imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
 	},
 	changeImg: function(event) {
 		var fileVal = $(event.target).val();
