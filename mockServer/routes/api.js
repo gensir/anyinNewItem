@@ -113,7 +113,15 @@ router.post('/mp/file', function(req, res, next) {
 		}
 	})
 })
-
+//ukey和phone登录
+router.post('/management_platform/sys/login', function(req, res, next) {
+    
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": "347112"
+	})
+});
 router.get('/setcookie', function(req, res, next) {
 	var postData = 'username=13570852872&password=' + md5('123456');
 	//postData = JSON.stringify(postData);
