@@ -41,6 +41,8 @@ var step2 = Backbone.View.extend({
 					};
 					settime();
 					return false;
+				}else{
+					$(".phoneErrTip").html(data.msg).show();
 				}
 			})
 		}

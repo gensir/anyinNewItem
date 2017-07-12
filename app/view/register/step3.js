@@ -3,8 +3,8 @@
  */
 import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
-var picture = [0, 0, 0];
-var flag = [1, , 2];
+//var picture = [];
+var pictureFlag = [0, 0, 0];
 var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -14,8 +14,7 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
-		picture = [0, 0, 0];
-		flag = [1, , 2];
+		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.businessLicense', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.frontPhoto', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
@@ -56,40 +55,80 @@ var step3 = Backbone.View.extend({
 			})
 			return false;
 		}
-		if(typeof FileReader == 'undefined') {
-			$("#file" + num).height(24);
-			$(".reset" + num).show()
-			file.select();
-			file.blur();
-			var path = document.selection.createRange().text;
-			//			preview.innerHTML = '<div class="img" style="width:127px;height: 87px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
-			document.getElementById('photo' + num).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")";
-		} else {
-			var reader = new FileReader();
-			reader.readAsDataURL(file.files[0]);
-			reader.onload = function(e) {
-				var image = new Image();
-				image.src = this.result;
-				picture[num] = this.result;
-				image.onload = function() {
-					var height = image.height;
-					var width = image.width;
-					if((height / width) > (112 / 163)) {
-						$("#photo" + num).css("background-size", "auto 112px");
-					} else {
-						$("#photo" + num).css("background-size", "163px auto");
+		var randomPercent = Math.floor(Math.random() * 19 + 80);
+        var percentVal = 0;
+		$("#ajaxForm" + num).ajaxSubmit({
+			url: '/api/mp/file',
+			type: "post",
+			dataType: "json",
+			ContentType: "multipart/form-data",
+			beforeSend: function() {
+				$(".formPub").remove();
+				$(event.target).parent().addClass("form");
+				var div = $("<div/>");
+				div.attr('class', 'formPub');
+				div.appendTo($(event.target).parent());
+				var progress = $("<div/>");
+				progress.attr('class', 'progress');
+				progress.appendTo($(".formPub"))
+			},
+			uploadProgress: function(event, position, total, percentComplete) {
+				if (percentComplete < randomPercent) {
+                    percentVal = percentComplete;
+                } else {
+                    percentVal = randomPercent;
+                }
+                $(".progress").css({ "width": percentVal + '%' });
+			},
+			success: function(data) {
+				if(data.code == 0) {
+					var data = data.data.fullUrl;
+					pictureFlag[num] = data;
+					$("#photo" + num).css("background", "url(" + data + ") no-repeat center");
+					var reader = new FileReader();
+					reader.readAsDataURL(file.files[0]);
+					reader.onload = function(e) {
+						var image = new Image();
+						image.src = this.result;
+						image.onload = function() {
+							var height = image.height;
+							var width = image.width;
+							if((height / width) > (112 / 163)) {
+								$("#photo" + num).css("background-size", "auto 112px");
+							} else {
+								$("#photo" + num).css("background-size", "163px auto");
+							}
+						};
+						$(".reset" + num).show();
+						$("#file" + num).height(24);
+						imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
 					}
-				};
-				$("#file" + num).height(24);
-				$(".reset" + num).show()
-				$("#photo" + num).css("background", "url(" + this.result + ") no-repeat center center");
-				imgModalBig('#photo' + num, { 'width': 500, 'src': picture[num] });
-			}
-		}
+				} else {
+					var dialog = bootbox.alert({
+						className: "uploadPhoto",
+						message: data.msg,
+					})
+					return;
+				}
+			},
+			error: function(data) {
+				var dialog = bootbox.alert({
+					className: "uploadPhoto",
+					message: (data.msg || "网络异常，请稍后再试"),
+				})
+				return;
+			},
+			complete: function() {
+				setTimeout(function () {
+                    $(event.target).parent().removeClass("form");
+                    $(".formPub").remove();
+                }, 100);
+			},
+		})
 	},
 	goStep4: function() {
-		for(var i = 0; i < picture.length; i++) {
-			if(picture[i] == 0) {
+		for(var i = 0; i < pictureFlag.length; i++) {
+			if(pictureFlag[i] == 0) {
 				var dialog = bootbox.alert({
 					className: "uploadPhoto",
 					message: "请上传全部图片",

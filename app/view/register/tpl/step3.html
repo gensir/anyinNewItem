@@ -29,7 +29,7 @@
 				<div class="flexCon">
 					<div class="title">企业法人营业执照</div>
 					<div class="form">
-						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+						<form id="ajaxForm0" accept-charset="utf-8" enctype="multipart/form-data">
 							<span class="licence photo" id="photo0"></span>
 							<input data-id='0' id='file0' size="0" maxlength="0" type="file" />
 							<a class="reset0" href="javascript:">
@@ -60,7 +60,7 @@
 				<div class="flexCon">
 					<div class="title">法人身份证正面</div>
 					<div class="form">
-						<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+						<form id="ajaxForm1" accept-charset="utf-8" enctype="multipart/form-data">
 							<span class="licence photo" id="photo1"></span>
 							<input data-id='1' id='file1' size="0" maxlength="0" type="file" />
 							<a class="reset1" href="javascript:">
@@ -78,7 +78,7 @@
 				<div class="flexCon">
 					<div class="title">法人身份证反面</div>
 					<div class="form">
-						<form id="ajaxForm2" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+						<form id="ajaxForm2" accept-charset="utf-8" enctype="multipart/form-data">
 							<span class="licence photo" id="photo2"></span>
 							<input data-id='2' id='file2' size="0" maxlength="0" type="file" />
 							<a class="reset2" href="javascript:">
@@ -274,12 +274,33 @@
 		font-size: 16px;
 		padding: 10px 0;
 	}
-	.uploadPhoto .modal-footer{
+	
+	.uploadPhoto .modal-footer {
 		display: none;
 	}
-	.uploadPhoto .bootbox-body{
+	
+	.uploadPhoto .bootbox-body {
 		text-align: center;
 		padding: 10px 0;
 		font-size: 16px;
+	}
+	
+	form .formPub {
+		height: 10px;
+		width: 163px;
+		/*background: #000;*/
+		border: 2px solid #3d94ff;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -82px;
+		margin-top: -5px;
+		border-radius: 10px;
+		padding: 1px;
+	}
+	
+	form .formPub .progress {
+		height: 4px;
+		background: #3d94ff;
 	}
 </style>
