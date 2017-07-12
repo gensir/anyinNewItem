@@ -24,13 +24,6 @@ var main = Backbone.View.extend({
         this.toggleTab();
     },
     ukey() {
-        var data=JSON.stringify({
-            a:1
-        })
-        service.userlogin(data).done(function (data) {
-            console.log(data);
-            console.log("测试代理成功sss");
-        })
         // 这里就是注册表中CLSID文件夹根目录的文件夹名称
         window.ukey = null;
         var _this = this;
@@ -94,15 +87,57 @@ var main = Backbone.View.extend({
         }
         // alert(checkResult);
         if (checkResult) {
-            bootbox.alert("PIN码正确,发送登录请求！");
+            var randomNum;
+            service.loginCaptcha().done(function (data) {
+                randomNum = data.msg
+            })
+            var data = {
+                "captcha": "jskx",
+                "loginType": 2,
+                "esealCode": window.ukey.GetCertInfo(3),
+                "codeError": "0",
+                "entryptCert": window.ukey.GetCertData(1),
+                "randomNum": randomNum,
+                "signature": window.ukey.Signature(getPwd, getPwd.length)
+
+            }
+            service.userlogin(data).done(function (data) {
+                if (data.code == 0) {
+                    $.verify("passwd", "#passwd");
+                } else if (data.code == 4) {
+                    $.verify("passwd", "#passwd", "后台返回error");
+                }
+
+                window.open("index.html", "_self")
+            })
         } else {
             bootbox.alert("请检测证书或PIN码是否正确！");
         }
+
     },
     phoneLogin(event) {
         // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
         this.model.set({ "clickEle": $(event.target).data('id') })
         var isValid = this.model.isValid();
+        if (isValid) {
+            return;
+        }
+        var data = {
+            "mobile": "13527761888",
+            "password": "123456",
+            "captcha": "jskx",
+            "loginType": 1
+        }
+
+        service.userlogin(data).done(function (data) {
+            if (data.code == 0) {
+                $.verify("passwd", "#passwd");
+            } else if (data.code == 4) {
+                $.verify("passwd", "#passwd", "后台返回error");
+            }
+
+            window.open("index.html", "_self")
+        })
         // bootbox.dialog({
         //     closeButton: false,
         //     className: "realName",

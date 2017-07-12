@@ -74,7 +74,10 @@ export default {
     checkSmsCode() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
     },
-    userlogin(data){
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login",data:data},"post");
+    userlogin(data) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login", data: data }, "post");
+    },
+    loginCaptcha() {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     }
 }

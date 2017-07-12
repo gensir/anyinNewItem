@@ -190,13 +190,29 @@ router.post('/mp/file', function(req, res, next) {
 	})
 });
 //ukey和phone登录
-router.post('/management_platform/sys/login', function(req, res, next) {
-    
-	res.json({
-		"code": 0,
-		"msg": "请求成功",
-		"data": "347112"
-	})
+router.post('/management_platform/sys/login', function (req, res, next) {
+    if (req.body) {
+        res.json({
+            "code": 0,
+            "msg": "请求成功",
+            "data": "347112"
+        })
+    } else {
+        res.json({
+            "code": 1,
+            "msg": "请求失败",
+            "data": "347112"
+        })
+    }
+});
+//ukey登录随机数
+router.all('/management_platform/captcha', function (req, res, next) {
+        res.json({
+            "code": 0,
+            "msg": "/api/images/login1.png",
+            "data": "347112"
+        })
+
 });
 router.get('/setcookie', function(req, res, next) {
 	var postData = 'username=13570852872&password=' + md5('123456');

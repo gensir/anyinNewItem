@@ -9,8 +9,6 @@ var loginModel = Backbone.Model.extend({
         if (attrs.clickEle == 'phoneLogin') {
             // $.verify("#userName", "phone");
             var result=$.verifyEach({"phone":"#userName","passwd":"#passwd"},function(){
-                alert("验证通过，执行请求！");
-                $.verify("passwd","#passwd","123");
             })
             return result;
         };
