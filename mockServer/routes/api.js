@@ -104,7 +104,9 @@ router.post('/mp/file', function(req, res, next) {
 		"msg": "请求成功",
 		"data": {
 			"fileId": "group1/M00/00/05/wKgwMllXWimADq2lAAACRjEL_RY068.png",
-			"fullUrl": "http://i.dimg.cc/3f/90/7a/f7/2d/71/1c/f3/4a/39/37/2f/f1/44/d4/70.jpg",
+			
+			"fullUrl": "http://img.kumi.cn/photo/75/06/16/7506167878647fe8_610x455.jpg?1225",
+			//http://i.dimg.cc/3f/90/7a/f7/2d/71/1c/f3/4a/39/37/2f/f1/44/d4/70.jpg
 			"fileSize": 582,
 			"createTime": "Jul 1, 2017 4:15:38 PM",
 			"fileName": "支付成功不跳转更新证书界面.png"
