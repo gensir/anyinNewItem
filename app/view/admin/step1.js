@@ -3,7 +3,7 @@ var sealstyle = [];
 var step1 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
-		
+
 		this.render();
 	},
 	events: {
@@ -12,13 +12,18 @@ var step1 = Backbone.View.extend({
 	},
 	render: function(query) {
 		$(".contents").empty();
-		
 		this.$el.html(tpl);
 		sealstyle = [];
-		document.body.scrollTop = document.documentElement.scrollTop = 0;	
-		
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	goStep2: function(event) {
+		var hh = $('input:radio:checked').val();
+		
+		window.reqres.setHandler("foo", function() {
+			return hh;
+		});
+		
+		
 		if($('.sealStyle span').hasClass('choice')) {
 			this.model.set({ "clickEle": $(event.target).data('id') })
 			this.model.isValid()
@@ -31,7 +36,6 @@ var step1 = Backbone.View.extend({
 	},
 	choice: function(event) {
 		sealstyle.push($(event.target).data('id'));
-//		alert(1);
 		var ele = event.target
 		if($(ele).hasClass('choice')) {
 			$(ele).removeClass('choice')
