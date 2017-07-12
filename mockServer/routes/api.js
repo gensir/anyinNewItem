@@ -82,6 +82,82 @@ router.get('/management_platform/eseal/list/1/10', function(req, res, next) {
 		}
 	})
 });
+//获取签章日志列表
+router.get('/management_platform/logs/list/1/5', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": {
+			"totalRows": 1,
+			"totalPages": 1,
+			"pageNum": 1,
+			"pageSize": 10,
+			"curPageSize": 1,
+			"list": [{
+				"id": 001,
+                "version": "1",
+                "fileName": "深圳市安印科技销售合同书1.pdf",//文档名称
+                "signDate": "2017-2-2 12:12:11",//签章时间
+                "fileSize": "2.4M",//文档大小
+                "fileHash": "a518d940152480ac1800ad9f9902025e",//文档哈希值
+                "sealnetType": "骑缝签章",//签章类型
+                "signname": "电子行政章",//印章名称
+                "sealCode": "e4403071111231",//印章编码
+                "esealCreateTime": "2017-2-1 14:12:54",//制作日期
+                "validitybefore": "2016/12/12", //有效期起
+                "validityafter":"2018/12/12", //有效期止
+                "clientIp": "210.210.210.210", //
+                "clientMac": "5D-21-D5-E1-28-6D", //
+                "clientAdd": "中国广东省深圳市南山区",
+                "clientName": "电脑名称",
+                "clientsSystem":"windows7",
+                "sealtype": "安印PDF客户端 v2.0.1.3",
+                "Status": "1"
+            },{
+				"id": 002,
+                "version": "1",
+                "fileName": "深圳市安印科技销售合同书2.pdf",//文档名称
+                "signDate": "2017-2-2 12:25:41",//签章时间
+                "fileSize": "2.4M",//文档大小
+                "fileHash": "a518d940152480ac1800ad9f9902025e",//文档哈希值
+                "sealnetType": "骑缝签章",//签章类型
+                "signname": "电子行政章",//印章名称
+                "sealCode": "e4403071111231",//印章编码
+                "esealCreateTime": "2017-2-1 14:12:54",//制作日期
+                "validitybefore": "2016/12/12", //有效期起
+                "validityafter":"2018/12/12", //有效期止
+                "clientIp": "210.210.210.210", //
+                "clientMac": "5D-21-D5-E1-28-6D", //
+                "clientAdd": "中国广东省深圳市南山区",
+                "clientName": "电脑名称",
+                "clientsSystem":"windows7",
+                "sealtype": "安印PDF客户端 v2.0.1.3",
+                "Status": 2
+           },{
+				"id": 003,
+                "version": "1",
+                "fileName": "深圳市安印科技销售合同书3.pdf",//文档名称
+                "signDate": "2017-2-2 12:22:06",//签章时间
+                "fileSize": "2.4M",//文档大小
+                "fileHash": "a518d940152480ac1800ad9f9902025e",//文档哈希值
+                "sealnetType": "骑缝签章",//签章类型
+                "signname": "电子行政章",//印章名称
+                "sealCode": "e4403071111231",//印章编码
+                "esealCreateTime": "2017-2-1 14:12:54",//制作日期
+                "validitybefore": "2016/12/12", //有效期起
+                "validityafter":"2018/12/12", //有效期止
+                "clientIp": "210.210.210.210", //
+                "clientMac": "5D-21-D5-E1-28-6D", //
+                "clientAdd": "中国广东省深圳市南山区",
+                "clientName": "电脑名称",
+                "clientsSystem":"windows7",
+                "sealtype": "安印PDF客户端 v2.0.1.3",
+                "Status": "1"
+            }]
+		}
+	})
+});
+
 //获取短信验证码
 router.get('/standard_server/common/getSMSVerifCode', function(req, res, next) {
 	res.json({
@@ -96,7 +172,7 @@ router.get('/management_platform/common/checkSmsCode', function(req, res, next) 
 		"code": 0,
 		"msg": "请求成功",
 	})
-})
+});
 //文件上传
 router.post('/mp/file', function(req, res, next) {
 	res.json({
@@ -112,7 +188,7 @@ router.post('/mp/file', function(req, res, next) {
 			"fileName": "支付成功不跳转更新证书界面.png"
 		}
 	})
-})
+});
 //ukey和phone登录
 router.post('/management_platform/sys/login', function(req, res, next) {
     

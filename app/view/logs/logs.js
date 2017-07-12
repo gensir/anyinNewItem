@@ -1,4 +1,5 @@
-import tpl from './tpl/logs.html'
+import tpl from './tpl/logs.html';
+var service=require('../../server/service').default;
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize(){
@@ -71,7 +72,16 @@ var logs = Backbone.View.extend({
     render: function(query) {
         this.$el.html(tpl);
         this.form_date();
-        //this.form_date2();
+		service.getLogsList(1,5).done(res=>{
+			var obj;
+			if(res.code != 0){
+                obj = {}
+			}else {
+                obj = res.data.list;
+			}
+			this.$el.html(tpl({data:obj}));
+		})
+
     },
 });
 

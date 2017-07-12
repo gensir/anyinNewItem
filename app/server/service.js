@@ -63,8 +63,13 @@ export default {
     getSMSVerifCode() {
         return this.ajaxCall({ url: domain + baseUrl + "standard_server/common/getSMSVerifCode" });
     },
+    //印章管理
     getEsealList(pageNum, pageSize) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/eseal/list/1/10" });
+    },
+    //日志记录
+    getLogsList(pageNum, pageSize) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5" });
     },
     checkSmsCode() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
