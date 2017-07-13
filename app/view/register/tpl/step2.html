@@ -62,6 +62,24 @@
 				</div>
 				<div class="col-sm-3 legalID-error legalIDErrTip errTip"></div>
 			</div>
+			<div class="form-group form-bottom passwdForm">
+				<label class="col-sm-3 control-label">密码：</label>
+				<div class="col-sm-5">
+					<input type="password" maxlength="18" placeholder="请输入密码" class="form-control passwd fl">
+					<div class="tip">✲ 密码为6-18位数字、字母、特殊符号</div>
+				</div>
+				<div class="col-sm-3 passwd-error passwdErrTip errTip">
+					<div class="pswErrTip"></div>
+					<div class="weak">弱</div><div class="pswMiddle">中</div><div class="pswStrong">强</div>
+				</div>
+			</div>
+			<div class="form-group form-bottom">
+				<label class="col-sm-3 control-label">请再次输入密码：</label>
+				<div class="col-sm-5">
+					<input type="password" maxlength="18" placeholder="请确认密码" class="form-control checkPasswd fl">
+				</div>
+				<div class="col-sm-3 checkPasswd-error checkPasswdErrTip errTip"></div>
+			</div>
 		</form>
 	</div>
 	<div class="go">
@@ -157,7 +175,47 @@
 		/*display: none;*/
 		color: red;
 	}
-	
+	.step2 form .form-bottom.passwdForm{
+		margin-bottom: 10px;
+	}
+	.step2 .tip{
+		margin-top: 40px;
+		color: #ff9c3a;
+		padding-left: 10px;
+	}
+	.step2 form .checkPasswdErrTip{
+		color: red;
+	}
+	.step2 .passwdErrTip div{
+		float: left;
+		height: 18px;
+		width: 60px;
+		text-align: center;
+		line-height: 18px;
+		color: white;
+		margin-top: 3px;
+		display: none;
+	}
+	.step2 .passwdErrTip div.pswErrTip{
+		width: 100%;
+		text-align: left;
+	}
+	.step2 .passwdErrTip div.weak{
+		border-radius: 10px 0 0 10px;
+		background: #EF3333;
+		border-right: none;
+		border: 1px solid #EF3333;
+	}
+	.step2 .passwdErrTip div.pswMiddle{
+		background: #ecc734;
+		border: 1px solid #ecc734;
+	}
+	.step2 .passwdErrTip div.pswStrong{
+		border-left: none;
+		border-radius: 0 10px 10px 0;
+		background: #28d915;
+		border: 1px solid #28d915;
+	}
 	.step2 .legalIDErrTip {
 		/*display: none;*/
 		color: red;

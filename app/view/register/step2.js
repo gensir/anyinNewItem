@@ -12,6 +12,7 @@ var step2 = Backbone.View.extend({
 		'click .findPasswordCodeBtn': 'phoneCode',
 		'click #goStep3': 'goStep3',
 		'keyup .countCode': 'checkCode',
+		'keyup .passwd': 'passwd',
 	},
 	phoneCode: function() {
 		this.model.set({ "clickEle": $(event.target).data('id') })
@@ -41,23 +42,35 @@ var step2 = Backbone.View.extend({
 					};
 					settime();
 					return false;
-				}else{
+				} else {
 					$(".phoneErrTip").html(data.msg).show();
 				}
 			})
 		}
 	},
 	goStep3: function(event) {
+		if($(".passwd").val().length==0){
+			$(".pswErrTip").html("请输入您的密码").css("color","red").show();
+		}
+		if($(".passwd").val()!=$(".checkPasswd").val()){
+			console.log($(".passwd").val(),$(".checkPasswd").val())
+			$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写");
+			return;
+		}
 		this.model.set({ "clickEle": $(event.target).data('id') })
 		this.model.isValid()
+		if(!this.model.isValid()) {
+			//提交账号信息给后台
+			window.open('register.html#step3', '_self')
+		}
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
-			service.checkSmsCode().done(function(data){
-				if(data.code==0){
-					$(".codeErrTip").html(data.msg).css({"color":"#08c34e"});
-				}else{
-					$(".codeErrTip").html(data.msg).css({"color":"red"});
+			service.checkSmsCode().done(function(data) {
+				if(data.code == 0) {
+					$(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
+				} else {
+					$(".codeErrTip").html(data.msg).css({ "color": "red" });
 				}
 			})
 		} else {
@@ -68,5 +81,27 @@ var step2 = Backbone.View.extend({
 		this.$el.html(tpl);
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
+	passwd: function() {
+		$(".pswErrTip").hide();
+		var $test1 = /^(?:\d+|[a-zA-Z]+|[!@#$%^&*<>/?,.]+){6,18}$/; //  弱：纯数字，纯字母，纯特殊字符
+		var $test2 = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$/; //中：字母+数字，字母+特殊字符，数字+特殊字符
+		var $test3 = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$/; //强：字母+数字+特殊字符
+		if($test1.test($('.passwd').val())) { //满足弱
+			$(".weak").show();
+			if($test2.test($('.passwd').val())) { //满足中
+				$(".pswMiddle").show();
+				if($test3.test($('.passwd').val())) {
+					$(".pswStrong").show();
+				}
+			} else {
+				$(".pswStrong").hide();
+				$(".pswMiddle").hide();
+			}
+		} else {
+			$(".weak").hide();
+			$(".pswMiddle").hide();
+			$(".pswStrong").hide();		
+		}
+	}
 });
 module.exports = step2;

@@ -11,8 +11,8 @@ var registerModel = Backbone.Model.extend({
             })
 		}
 		if(attrs.clickEle == 'goStep3') {
-			$.verifyEach({"phone":".countPhone","valId":".legalID"},function(){
-				window.open('register.html#step3', '_self')
+			return $.verifyEach({"phone":".countPhone","valId":".legalID"},function(){
+				return 123;
             })
 		}
 		if(attrs.clickEle == 'findPasswordCodeBtn'){
