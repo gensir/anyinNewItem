@@ -24,7 +24,7 @@ var step4 = Backbone.View.extend({
 	gopay: function() {
 		bootbox.dialog({
 			className: "errorTips",
-			title: "<div class='title'>未实名提示</div>",
+			title: "<div class='title'>新办电子印章提示</div>",
 			message: "<div class='message'>"+
 			"<div class='icon'><span></span></div>"+
 			"<div class='errorOrderTips'>"+
