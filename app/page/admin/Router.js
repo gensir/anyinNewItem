@@ -19,9 +19,8 @@ var Router = Backbone.Router.extend({
         this.undelegateEvents();
         this.$el.empty();
     },
-    startRout: function (View, queryObj, sub) {
+    startRout: function (View, queryObj, sub,model) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
-        var model = require('./store/model.js');
         S.main = new View({model:model});
         S.main.viewUnmount = this.viewUnmount;
         S.main.sub = null
@@ -48,8 +47,8 @@ var Router = Backbone.Router.extend({
         require.ensure([], function (require) {
             var View = require('../../view/admin/renew')
             var model = require('./store/model')
-            new View({ model: model })
-            //me.startRout(View, { query: query });
+            //new View({ model: model })
+            me.startRout(View, { query: query },undefined,model);
         }, 'renew');
     },
     list: function (query) {
@@ -57,8 +56,8 @@ var Router = Backbone.Router.extend({
         require.ensure([], function (require) {
             var View = require('../../view/admin/list')
             var model = require('./store/model')
-            new View({ model: model })
-            //me.startRout(View, { query: query });
+            //new View({ model: model })
+            me.startRout(View, { query: query },undefined,model);
         }, 'list');
     },
     stat: function (query) {

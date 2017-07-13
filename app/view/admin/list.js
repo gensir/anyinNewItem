@@ -14,7 +14,8 @@ var list = Backbone.View.extend({
 		'click .eseallist .list>.nav .logout': 'logout',
 		'click .topseal .boxmodel span': 'toggleTab',
 		'click .license .accordion .nav .shut': 'shut',
-		'click .license .accordion .nav .open': 'open'
+        'click .license .accordion .nav .open': 'open',
+        'click .common.loss .sureLoss.btn': 'sureLoss'
 	},
 	render: function(query) {
 		$(".container").empty();
@@ -129,7 +130,7 @@ var list = Backbone.View.extend({
 		bootbox.dialog({
 			backdrop: true,
 			//closeButton: false,
-			className: "realName common",
+			className: "realName common loss",
 			title: dialogs.find(".lossEseal .title")[0].outerHTML,
 			message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
 			buttons: {
@@ -143,7 +144,7 @@ var list = Backbone.View.extend({
 				},
 				confirm: {
 					label: "继续",
-					className: "btn2",
+					className: "btn2 sureLoss",
 					callback: function(event) {
 						numInd++;
 						if(numInd == 1) {
@@ -163,7 +164,10 @@ var list = Backbone.View.extend({
 			}
 		})
 		return false;
-	},
+    },
+    sureLoss(){
+        alert(1)
+    },
 	unfreeze() {
 		var numInd = this.model.get("numInd");
 		var unfreezeEseal = dialogs.find(".unfreezeEseal")
