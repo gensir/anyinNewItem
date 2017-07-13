@@ -233,6 +233,82 @@ router.post('/mp/file', function(req, res, next) {
 		}
 	})
 });
+//订单列表
+router.get('/management_platform/mpEsealOrder/queryOrderList/1/10',function(req, res, next){
+	res.json({
+    "code": 0,
+    "msg": "请求成功",
+    "data": {
+        "totalRows": 1,
+        "totalPages": 1,
+        "pageNum": 1,
+        "pageSize": 5,
+        "curPageSize": 1,
+        "list": [
+            {
+                "id": 100000000,
+                "orderNo": "123456789",
+                "firmId": "12323",
+                "orderOrigin": 12,
+                "orderAmount": 10,
+                "discountAmount": 0,
+                "actualAmount": 10,
+                "privilegeScheme": 1,
+                "businessType": 0,
+                "payType": 2,
+                "orderStatus": 1,
+                "payTime": "Jul 12, 2017 11:39:58 AM",
+                "enterpriseCode": "123456",
+                "enterpriseName": "dianziyzhang",
+                "transactionId": "125",
+                "operateStep": 4,
+                "linkMan": "范冰冰",
+                "linkManCertificateType": 1,
+                "linkManCertificateNumber": "123456",
+                "shopName": "安印",
+                "shopAddress": "shenzheng",
+                "shopTel": "1085656233",
+                "shopNo": "1681681",
+                "applicationCode": "468524565",
+                "isRefund": 100,
+                "isDelete": 0,
+                "createTime": "Jul 12, 2017 11:39:58 AM",
+                "updateTime": "Jul 12, 2017 11:39:58 AM"
+            },
+            {
+                "id": 100000001,
+                "orderNo": "123456790",
+                "firmId": "12323",
+                "orderOrigin": 12,
+                "orderAmount": 10,
+                "discountAmount": 0,
+                "actualAmount": 10,
+                "privilegeScheme": 1,
+                "businessType": 0,
+                "payType": 2,
+                "orderStatus": 1,
+                "payTime": "Jul 12, 2017 11:39:58 AM",
+                "enterpriseCode": "123456",
+                "enterpriseName": "dianziyzhang",
+                "transactionId": "125",
+                "operateStep": 4,
+                "linkMan": "范冰冰",
+                "linkManCertificateType": 1,
+                "linkManCertificateNumber": "123456",
+                "shopName": "安印",
+                "shopAddress": "shenzheng",
+                "shopTel": "1085656233",
+                "shopNo": "1681681",
+                "applicationCode": "468524565",
+                "isRefund": 100,
+                "isDelete": 0,
+                "createTime": "Jul 12, 2017 11:39:58 AM",
+                "updateTime": "Jul 12, 2017 11:39:58 AM"
+            }
+        ]
+    }
+})
+})
 //ukey和phone登录
 router.post('/management_platform/sys/login', function (req, res, next) {
     if (req.body) {
@@ -258,6 +334,7 @@ router.all('/management_platform/captcha', function (req, res, next) {
         })
 
 });
+
 router.get('/setcookie', function(req, res, next) {
 	var postData = 'username=13570852872&password=' + md5('123456');
 	//postData = JSON.stringify(postData);

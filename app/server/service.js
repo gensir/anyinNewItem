@@ -97,5 +97,9 @@ export default {
     //操作日志
     Operationlog (pageNum, pageSize) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/Operationlog/list/1/10" });
-    }
+    },
+    //获取订单中心列表
+    queryOrderList(pageNum,pageSize){
+    	return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/1/10" });
+    },
 }

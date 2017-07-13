@@ -12,33 +12,34 @@
 				<li class="nav4">支付方式</li>
 				<li class="nav5">状态</li>
 			</ul>
+			{{each data as value i}}
 			<div class="eseallist">
 				<div class="list">
 					<ul class="nav">
-						<li class="nav0">5145123451</li>
-						<li class="nav1">2017/02/02 12:15:24</li>
-						<li class="nav2">电子印章办理</li>
-						<li class="nav3">3600元</li>
-						<li class="nav4">线上支付</li>
-						<li class="nav5">已完成</li>
+						<li class="nav0">{{data[i].orderNo}}</li>
+						<li class="nav1">{{data[i].payTime}}</li>
+						<li class="nav2">{{data[i].businessType}}</li>
+						<li class="nav3">{{data[i].actualAmount}}</li>
+						<li class="nav4">{{data[i].payType}}</li>
+						<li class="nav5">{{data[i].orderStatus}}</li>
 					</ul>
 					<div class="showHide">
 						<div class="toggle">
 							<ul class="nav">
 								<li class="n1">
 									<p class="top f14">业务详情</p>
-									<p>业务类型：<span>电子印章办理</span></p>
-									<p>流水号：<span>5145123451</span></p>
-									<p>订单时间：<span>2017/2/1 14:12:50</span></p>
-									<p>订单状态： <span>已完成</span></p>
-									<p>经办人： <span>马萌萌</span></p>
+									<p>业务类型：<span>{{data[i].businessType}}</span></p>
+									<p>流水号：<span>{{data[i].orderNo}}</span></p>
+									<p>订单时间：<span>{{data[i].payTime}}</span></p>
+									<p>订单状态： <span>{{data[i].orderStatus}}</span></p>
+									<p>经办人： <span>{{data[i].linkMan}}</span></p>
 								</li>
 								<li class="n2">
 									<p class="f14">支付信息</p>
-									<p>支付方式：<span>门店支付</span></p>
-									<p>受理门店： <span>创业印章总部店</span></p>
-									<p>支付单号：<span>123456789123456789</span></p>
-									<p>支付时间：<span>2017/2/1 14:12:50</span></p>
+									<p>支付方式：<span>{{data[i].payType}}</span></p>
+									<p>受理门店： <span>{{data[i].shopName}}</span></p>
+									<p>支付单号：<span>{{data[i].transactionId}}</span></p>
+									<p>支付时间：<span>{{data[i].payTime}}</span></p>
 								</li>
 								<li class="n3">
 									<p class="f14">电子印章信息</p>
@@ -78,71 +79,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="eseallist">
-				<div class="list">
-					<ul class="nav">
-						<li class="nav0">5145123451</li>
-						<li class="nav1">2017/02/02 12:15:24</li>
-						<li class="nav2">电子印章办理</li>
-						<li class="nav3">3600元</li>
-						<li class="nav4">线上支付</li>
-						<li class="nav5">已完成</li>
-					</ul>
-					<div class="showHide">
-						<div class="toggle">
-							<ul class="nav">
-								<li class="n1">
-									<p class="top f14">业务详情</p>
-									<p>业务类型：<span>电子印章办理</span></p>
-									<p>流水号：<span>5145123451</span></p>
-									<p>订单时间：<span>2017/2/1 14:12:50</span></p>
-									<p>订单状态： <span>已完成</span></p>
-									<p>经办人： <span>马萌萌</span></p>
-								</li>
-								<li class="n2">
-									<p class="f14">支付信息</p>
-									<p>支付方式：<span>门店支付</span></p>
-									<p>受理门店： <span>创业印章总部店</span></p>
-									<p>支付单号：<span>123456789123456789</span></p>
-									<p>支付时间：<span>2017/2/1 14:12:50</span></p>
-								</li>
-								<li class="n3">
-									<p class="f14">电子印章信息</p>
-									<p>印章名：<span>电子印章样品专用章（01）</span></p>
-									<p>印章编号： <span>e4451231541021</span></p>
-									<p>制作日期：<span>2017/2/1 14:12:50</span></p>
-									<p>印章生效期：<span>2017/2/2 14:12:50</span></p>
-									<p>印章失效期：<span>2019/2/2 14:12:50</span></p>
-								</li>
-							</ul>
-						</div>
-						<div class="orderHelp">
-							<ul class="nav">
-								<li class="n1">
-									<p class="top f14">订单内容</p>
-									<p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p>
-									<p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥200</span></p>
-								</li>
-								<li class="n2">
-									<p class="f14">订单发票</p>
-									<p><span>您已申请电子发票，</span>
-										<a>点击下载</a>
-									</p>
-								</li>
-								<li class="n3">
-									<p class="f14">需要帮助？</p>
-									<p><span>新办理的电子印章无法使用，</span>
-										<a>了解详情</a>
-									</p>
-									<p><span>电子印章常见问题，或</span>
-										<a>联系客服</a>
-									</p>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+			{{/each}}
 		</div>
 	</div>
 	<!--分页
