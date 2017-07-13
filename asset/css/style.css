@@ -43,18 +43,20 @@ ul { list-style: none; padding: 0; margin: 0; }
 
 /*bootbox弹窗*/
 .common .modal-dialog { margin-top: 200px; }
-.common .modal-header { border: 0; background: #f2f2f2; padding: 11px; border-radius: 4px; color: #333; }
-.common .modal-header .title { font-size: 16px; font-weight: bolder; }
-.common .modal-dialog { width: 544px; }
-.common .modal-content { height: 250px; }
-.common .modal-body { height: 130px; }
+.common .modal-header { border: 0; background: #f2f2f2; padding: 10px 15px; border-radius: 4px; color: #333; }
+.common .modal-header .title { font-size: 18px; font-weight: 400; }
+.common .modal-dialog { width: 540px; }
+.common .modal-content { /*height: 250px;*/ }
+.common .modal-body { /*height: 130px;*/ }
 .common .modal-footer button { padding: 0; margin: 0 10px; border: 0; width: 80px; height: 30px; }
 .common .modal-footer button.btn1,
 .common .modal-footer button a.return { color: #333; background: #ebebeb; }
 .common .modal-footer button.btn2,
 .common .modal-footer button a.continue { color: #fff; background: #00acff; }
 .common .modal-footer button a { text-decoration: none; display: inline-block; zoom: 1; width: 80px; height: 30px; line-height: 30px; }
-.common .modal-body .msg1 { margin: 0 58px 0 64px; color: #333; font-size: 14px; padding: 30px 0 30px 70px; background: url('../img/login3.png') no-repeat 0 -160px; }
+.common .modal-body .msgcenter { margin: 20px 60px; color: #333; font-size: 16px; font-weight: 400; text-align: center; }
+.common .modal-body .msgcenter em { display: inline-block; height: 43px; width: 43px;  background: url('../img/login3.png') no-repeat 0 -188px; margin-right: 30px; vertical-align: middle; }
+.common .modal-body .msg1 { margin: 0 60px 0 60px; color: #333; font-size: 14px; padding: 30px 0 30px 70px; background: url('../img/login3.png') no-repeat 0 -160px; }
 .common .modal-body .msg2 { margin: 0 18%; color: #999; position: relative; top: 14px; }
 .common .modal-body .msg2 input { border-right: 0; height: 40px; }
 .common .modal-body .msg2 span { cursor: pointer; background: #00acff; color: #fff; height: 0; border: 0; }
@@ -65,7 +67,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 .common .msg6 { padding: 31px 96px; }
 .common .msg6 label { display: table-cell; vertical-align: middle; padding-right: 20px; color: #666; font-size: 14px; font-weight: normal; }
 .common .msg6 p { padding-left: 102px; margin-top: 8px; font-size: 12px; color: #ef3434; }
-.common .modal-footer { margin: 0 auto; text-align: center; border: 0; }
+.common .modal-footer { margin: 0 auto; text-align: center; border: 0; padding-bottom: 20px; }
 .bigLogout .modal-dialog { width: 975px; margin-top: 80px; }
 .bigLogout .modal-content { height: 633px; }
 .bigLogout .modal-body { height: auto; }

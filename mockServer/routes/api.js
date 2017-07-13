@@ -132,7 +132,7 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
                 "clientName": "电脑名称",
                 "clientsSystem":"windows7",
                 "sealtype": "安印PDF客户端 v2.0.1.3",
-                "Status": 2
+                "Status": "2"
            },{
 				"id": 003,
                 "version": "1",
@@ -157,7 +157,51 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
 		}
 	})
 });
-
+//获取签章日志列表
+router.get('/management_platform/Operationlog/list/1/10', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": {
+			"totalRows": 1,
+			"totalPages": 1,
+			"pageNum": 1,
+			"pageSize": 10,
+			"curPageSize": 1,
+			"list": [{
+                "id": "1",
+                "time": '2017/02/02 12:21:45',
+                "type": "登录系统1",
+                "ip": "210.210.210.210",
+                "add": "广东省 深圳市 福田区",
+            },{
+                "id": "2",
+                "time": '2017/02/02 12:21:45',
+                "type": "登录系统2",
+                "ip": "210.210.210.210",
+                "add": "广东省 深圳市 福田区",
+            },{
+                "id": "3",
+                "time": '2017/02/02 12:21:45',
+                "type": "登录系统3",
+                "ip": "210.210.210.210",
+                "add": "广东省 深圳市 福田区",
+            },{
+                "id": "4",
+                "time": '2017/02/02 12:21:45',
+                "type": "登录系统4",
+                "ip": "210.210.210.210",
+                "add": "广东省 深圳市 福田区",
+            },{
+                "id": "5",
+                "time": '2017/02/02 12:21:45',
+                "type": "登录系统5",
+                "ip": "210.210.210.210",
+                "add": "广东省 深圳市 福田区",
+            }]
+		}
+	})
+});
 //获取短信验证码
 router.get('/standard_server/common/getSMSVerifCode', function(req, res, next) {
 	res.json({

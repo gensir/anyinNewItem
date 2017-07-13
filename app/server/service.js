@@ -53,7 +53,21 @@ export default {
     ajaxCall(setting, type) {
         var xhr = autoAjaxCall(setting, type);
         xhr.fail(() => {
-            bootbox.alert("请求失败")
+            bootbox.dialog ({
+                //closeButton: 'true',
+                className: 'common',
+                title: '接口提示',
+                onEscape: 'true',
+                message: '<div class="msgcenter"><em></em>接口异常，请求数据失败！</div>',
+                buttons: {
+                    cancel: {
+                        label: "确定",
+                        className: "btn2",
+                    },
+                }
+            });
+
+            //bootbox.alert("请求失败")
         });
         return xhr;
     },
@@ -67,7 +81,7 @@ export default {
     getEsealList(pageNum, pageSize) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/eseal/list/1/10" });
     },
-    //日志记录
+    //签章日志记录
     getLogsList(pageNum, pageSize) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5" });
     },
@@ -79,5 +93,9 @@ export default {
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
+    },
+    //操作日志
+    Operationlog() {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/Operationlog/list/1/10", async: false });
     }
 }
