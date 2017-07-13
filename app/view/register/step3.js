@@ -3,6 +3,7 @@
  */
 import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
+var service = require('../../server/service').default;
 //var picture = [];
 var pictureFlag = [0, 0, 0];
 var step3 = Backbone.View.extend({
@@ -56,7 +57,16 @@ var step3 = Backbone.View.extend({
 			return false;
 		}
 		var randomPercent = Math.floor(Math.random() * 19 + 80);
-        var percentVal = 0;
+		var percentVal = 0;
+		if(pictureFlag[num] != 0) {
+			service.deletePhoto().done(function(data) {
+				if(data.code == 0) {
+					console.log(data.msg);
+				} else {
+					console.log(data.msg);
+				}
+			});
+		}
 		$("#ajaxForm" + num).ajaxSubmit({
 			url: '/api/mp/file',
 			type: "post",
@@ -73,12 +83,12 @@ var step3 = Backbone.View.extend({
 				progress.appendTo($(".formPub"))
 			},
 			uploadProgress: function(event, position, total, percentComplete) {
-				if (percentComplete < randomPercent) {
-                    percentVal = percentComplete;
-                } else {
-                    percentVal = randomPercent;
-                }
-                $(".progress").css({ "width": percentVal + '%' });
+				if(percentComplete < randomPercent) {
+					percentVal = percentComplete;
+				} else {
+					percentVal = randomPercent;
+				}
+				$(".progress").css({ "width": percentVal + '%' });
 			},
 			success: function(data) {
 				if(data.code == 0) {
@@ -119,10 +129,10 @@ var step3 = Backbone.View.extend({
 				return;
 			},
 			complete: function() {
-				setTimeout(function () {
-                    $(event.target).parent().removeClass("form");
-                    $(".formPub").remove();
-                }, 100);
+				setTimeout(function() {
+					$(event.target).parent().removeClass("form");
+					$(".formPub").remove();
+				}, 100);
 			},
 		})
 	},

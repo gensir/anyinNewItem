@@ -95,65 +95,65 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
 			"curPageSize": 1,
 			"list": [{
 				"id": 001,
-                "version": "1",
-                "fileName": "深圳市安印科技销售合同书1.pdf",//文档名称
-                "signDate": "2017-2-2 12:12:11",//签章时间
-                "fileSize": "2.4M",//文档大小
-                "fileHash": "a518d940152480ac1800ad9f9902025e",//文档哈希值
-                "sealnetType": "骑缝签章",//签章类型
-                "signname": "电子行政章",//印章名称
-                "sealCode": "e4403071111231",//印章编码
-                "esealCreateTime": "2017-2-1 14:12:54",//制作日期
-                "validitybefore": "2016/12/12", //有效期起
-                "validityafter":"2018/12/12", //有效期止
-                "clientIp": "210.210.210.210", //
-                "clientMac": "5D-21-D5-E1-28-6D", //
-                "clientAdd": "中国广东省深圳市南山区",
-                "clientName": "电脑名称",
-                "clientsSystem":"windows7",
-                "sealtype": "安印PDF客户端 v2.0.1.3",
-                "Status": "1"
-            },{
+				"version": "1",
+				"fileName": "深圳市安印科技销售合同书1.pdf", //文档名称
+				"signDate": "2017-2-2 12:12:11", //签章时间
+				"fileSize": "2.4M", //文档大小
+				"fileHash": "a518d940152480ac1800ad9f9902025e", //文档哈希值
+				"sealnetType": "骑缝签章", //签章类型
+				"signname": "电子行政章", //印章名称
+				"sealCode": "e4403071111231", //印章编码
+				"esealCreateTime": "2017-2-1 14:12:54", //制作日期
+				"validitybefore": "2016/12/12", //有效期起
+				"validityafter": "2018/12/12", //有效期止
+				"clientIp": "210.210.210.210", //
+				"clientMac": "5D-21-D5-E1-28-6D", //
+				"clientAdd": "中国广东省深圳市南山区",
+				"clientName": "电脑名称",
+				"clientsSystem": "windows7",
+				"sealtype": "安印PDF客户端 v2.0.1.3",
+				"Status": "1"
+			}, {
 				"id": 002,
-                "version": "1",
-                "fileName": "深圳市安印科技销售合同书2.pdf",//文档名称
-                "signDate": "2017-2-2 12:25:41",//签章时间
-                "fileSize": "2.4M",//文档大小
-                "fileHash": "a518d940152480ac1800ad9f9902025e",//文档哈希值
-                "sealnetType": "骑缝签章",//签章类型
-                "signname": "电子行政章",//印章名称
-                "sealCode": "e4403071111231",//印章编码
-                "esealCreateTime": "2017-2-1 14:12:54",//制作日期
-                "validitybefore": "2016/12/12", //有效期起
-                "validityafter":"2018/12/12", //有效期止
-                "clientIp": "210.210.210.210", //
-                "clientMac": "5D-21-D5-E1-28-6D", //
-                "clientAdd": "中国广东省深圳市南山区",
-                "clientName": "电脑名称",
-                "clientsSystem":"windows7",
-                "sealtype": "安印PDF客户端 v2.0.1.3",
-                "Status": "2"
-           },{
+				"version": "1",
+				"fileName": "深圳市安印科技销售合同书2.pdf", //文档名称
+				"signDate": "2017-2-2 12:25:41", //签章时间
+				"fileSize": "2.4M", //文档大小
+				"fileHash": "a518d940152480ac1800ad9f9902025e", //文档哈希值
+				"sealnetType": "骑缝签章", //签章类型
+				"signname": "电子行政章", //印章名称
+				"sealCode": "e4403071111231", //印章编码
+				"esealCreateTime": "2017-2-1 14:12:54", //制作日期
+				"validitybefore": "2016/12/12", //有效期起
+				"validityafter": "2018/12/12", //有效期止
+				"clientIp": "210.210.210.210", //
+				"clientMac": "5D-21-D5-E1-28-6D", //
+				"clientAdd": "中国广东省深圳市南山区",
+				"clientName": "电脑名称",
+				"clientsSystem": "windows7",
+				"sealtype": "安印PDF客户端 v2.0.1.3",
+				"Status": "2"
+			}, {
 				"id": 003,
-                "version": "1",
-                "fileName": "深圳市安印科技销售合同书3.pdf",//文档名称
-                "signDate": "2017-2-2 12:22:06",//签章时间
-                "fileSize": "2.4M",//文档大小
-                "fileHash": "a518d940152480ac1800ad9f9902025e",//文档哈希值
-                "sealnetType": "骑缝签章",//签章类型
-                "signname": "电子行政章",//印章名称
-                "sealCode": "e4403071111231",//印章编码
-                "esealCreateTime": "2017-2-1 14:12:54",//制作日期
-                "validitybefore": "2016/12/12", //有效期起
-                "validityafter":"2018/12/12", //有效期止
-                "clientIp": "210.210.210.210", //
-                "clientMac": "5D-21-D5-E1-28-6D", //
-                "clientAdd": "中国广东省深圳市南山区",
-                "clientName": "电脑名称",
-                "clientsSystem":"windows7",
-                "sealtype": "安印PDF客户端 v2.0.1.3",
-                "Status": "1"
-            }]
+				"version": "1",
+				"fileName": "深圳市安印科技销售合同书3.pdf", //文档名称
+				"signDate": "2017-2-2 12:22:06", //签章时间
+				"fileSize": "2.4M", //文档大小
+				"fileHash": "a518d940152480ac1800ad9f9902025e", //文档哈希值
+				"sealnetType": "骑缝签章", //签章类型
+				"signname": "电子行政章", //印章名称
+				"sealCode": "e4403071111231", //印章编码
+				"esealCreateTime": "2017-2-1 14:12:54", //制作日期
+				"validitybefore": "2016/12/12", //有效期起
+				"validityafter": "2018/12/12", //有效期止
+				"clientIp": "210.210.210.210", //
+				"clientMac": "5D-21-D5-E1-28-6D", //
+				"clientAdd": "中国广东省深圳市南山区",
+				"clientName": "电脑名称",
+				"clientsSystem": "windows7",
+				"sealtype": "安印PDF客户端 v2.0.1.3",
+				"Status": "1"
+			}]
 		}
 	})
 });
@@ -169,36 +169,36 @@ router.get('/management_platform/Operationlog/list/1/10', function(req, res, nex
 			"pageSize": 10,
 			"curPageSize": 1,
 			"list": [{
-                "id": "1",
-                "time": '2017/02/02 12:21:45',
-                "type": "登录系统1",
-                "ip": "210.210.210.210",
-                "add": "广东省 深圳市 福田区",
-            },{
-                "id": "2",
-                "time": '2017/02/02 12:21:45',
-                "type": "登录系统2",
-                "ip": "210.210.210.210",
-                "add": "广东省 深圳市 福田区",
-            },{
-                "id": "3",
-                "time": '2017/02/02 12:21:45',
-                "type": "登录系统3",
-                "ip": "210.210.210.210",
-                "add": "广东省 深圳市 福田区",
-            },{
-                "id": "4",
-                "time": '2017/02/02 12:21:45',
-                "type": "登录系统4",
-                "ip": "210.210.210.210",
-                "add": "广东省 深圳市 福田区",
-            },{
-                "id": "5",
-                "time": '2017/02/02 12:21:45',
-                "type": "登录系统5",
-                "ip": "210.210.210.210",
-                "add": "广东省 深圳市 福田区",
-            }]
+				"id": "1",
+				"time": '2017/02/02 12:21:45',
+				"type": "登录系统1",
+				"ip": "210.210.210.210",
+				"add": "广东省 深圳市 福田区",
+			}, {
+				"id": "2",
+				"time": '2017/02/02 12:21:45',
+				"type": "登录系统2",
+				"ip": "210.210.210.210",
+				"add": "广东省 深圳市 福田区",
+			}, {
+				"id": "3",
+				"time": '2017/02/02 12:21:45',
+				"type": "登录系统3",
+				"ip": "210.210.210.210",
+				"add": "广东省 深圳市 福田区",
+			}, {
+				"id": "4",
+				"time": '2017/02/02 12:21:45',
+				"type": "登录系统4",
+				"ip": "210.210.210.210",
+				"add": "广东省 深圳市 福田区",
+			}, {
+				"id": "5",
+				"time": '2017/02/02 12:21:45',
+				"type": "登录系统5",
+				"ip": "210.210.210.210",
+				"add": "广东省 深圳市 福田区",
+			}]
 		}
 	})
 });
@@ -224,7 +224,7 @@ router.post('/mp/file', function(req, res, next) {
 		"msg": "请求成功",
 		"data": {
 			"fileId": "group1/M00/00/05/wKgwMllXWimADq2lAAACRjEL_RY068.png",
-			
+
 			"fullUrl": "http://img.kumi.cn/photo/75/06/16/7506167878647fe8_610x455.jpg?1225",
 			//http://i.dimg.cc/3f/90/7a/f7/2d/71/1c/f3/4a/39/37/2f/f1/44/d4/70.jpg
 			"fileSize": 582,
@@ -234,104 +234,111 @@ router.post('/mp/file', function(req, res, next) {
 	})
 });
 //订单列表
-router.get('/management_platform/mpEsealOrder/queryOrderList/1/10',function(req, res, next){
+router.get('/management_platform/mpEsealOrder/queryOrderList/1/10', function(req, res, next) {
 	res.json({
-    "code": 0,
-    "msg": "请求成功",
-    "data": {
-        "totalRows": 1,
-        "totalPages": 1,
-        "pageNum": 1,
-        "pageSize": 5,
-        "curPageSize": 1,
-        "list": [
-            {
-                "id": 100000000,
-                "orderNo": "123456789",
-                "firmId": "12323",
-                "orderOrigin": 12,
-                "orderAmount": 10,
-                "discountAmount": 0,
-                "actualAmount": 10,
-                "privilegeScheme": 1,
-                "businessType": 0,
-                "payType": 2,
-                "orderStatus": 1,
-                "payTime": "Jul 12, 2017 11:39:58 AM",
-                "enterpriseCode": "123456",
-                "enterpriseName": "dianziyzhang",
-                "transactionId": "125",
-                "operateStep": 4,
-                "linkMan": "范冰冰",
-                "linkManCertificateType": 1,
-                "linkManCertificateNumber": "123456",
-                "shopName": "安印",
-                "shopAddress": "shenzheng",
-                "shopTel": "1085656233",
-                "shopNo": "1681681",
-                "applicationCode": "468524565",
-                "isRefund": 100,
-                "isDelete": 0,
-                "createTime": "Jul 12, 2017 11:39:58 AM",
-                "updateTime": "Jul 12, 2017 11:39:58 AM"
-            },
-            {
-                "id": 100000001,
-                "orderNo": "123456790",
-                "firmId": "12323",
-                "orderOrigin": 12,
-                "orderAmount": 10,
-                "discountAmount": 0,
-                "actualAmount": 10,
-                "privilegeScheme": 1,
-                "businessType": 0,
-                "payType": 2,
-                "orderStatus": 1,
-                "payTime": "Jul 12, 2017 11:39:58 AM",
-                "enterpriseCode": "123456",
-                "enterpriseName": "dianziyzhang",
-                "transactionId": "125",
-                "operateStep": 4,
-                "linkMan": "范冰冰",
-                "linkManCertificateType": 1,
-                "linkManCertificateNumber": "123456",
-                "shopName": "安印",
-                "shopAddress": "shenzheng",
-                "shopTel": "1085656233",
-                "shopNo": "1681681",
-                "applicationCode": "468524565",
-                "isRefund": 100,
-                "isDelete": 0,
-                "createTime": "Jul 12, 2017 11:39:58 AM",
-                "updateTime": "Jul 12, 2017 11:39:58 AM"
-            }
-        ]
-    }
+		"code": 0,
+		"msg": "请求成功",
+		"data": {
+			"totalRows": 1,
+			"totalPages": 1,
+			"pageNum": 1,
+			"pageSize": 5,
+			"curPageSize": 1,
+			"list": [{
+					"id": 100000000,
+					"orderNo": "123456789",
+					"firmId": "12323",
+					"orderOrigin": 12,
+					"orderAmount": 10,
+					"discountAmount": 0,
+					"actualAmount": 10,
+					"privilegeScheme": 1,
+					"businessType": 0,
+					"payType": 2,
+					"orderStatus": 1,
+					"payTime": "Jul 12, 2017 11:39:58 AM",
+					"enterpriseCode": "123456",
+					"enterpriseName": "dianziyzhang",
+					"transactionId": "125",
+					"operateStep": 4,
+					"linkMan": "范冰冰",
+					"linkManCertificateType": 1,
+					"linkManCertificateNumber": "123456",
+					"shopName": "安印",
+					"shopAddress": "shenzheng",
+					"shopTel": "1085656233",
+					"shopNo": "1681681",
+					"applicationCode": "468524565",
+					"isRefund": 100,
+					"isDelete": 0,
+					"createTime": "Jul 12, 2017 11:39:58 AM",
+					"updateTime": "Jul 12, 2017 11:39:58 AM"
+				},
+				{
+					"id": 100000001,
+					"orderNo": "123456790",
+					"firmId": "12323",
+					"orderOrigin": 12,
+					"orderAmount": 10,
+					"discountAmount": 0,
+					"actualAmount": 10,
+					"privilegeScheme": 1,
+					"businessType": 0,
+					"payType": 2,
+					"orderStatus": 1,
+					"payTime": "Jul 12, 2017 11:39:58 AM",
+					"enterpriseCode": "123456",
+					"enterpriseName": "dianziyzhang",
+					"transactionId": "125",
+					"operateStep": 4,
+					"linkMan": "范冰冰",
+					"linkManCertificateType": 1,
+					"linkManCertificateNumber": "123456",
+					"shopName": "安印",
+					"shopAddress": "shenzheng",
+					"shopTel": "1085656233",
+					"shopNo": "1681681",
+					"applicationCode": "468524565",
+					"isRefund": 100,
+					"isDelete": 0,
+					"createTime": "Jul 12, 2017 11:39:58 AM",
+					"updateTime": "Jul 12, 2017 11:39:58 AM"
+				}
+			]
+		}
+	})
 })
+//图片删除
+router.get('/mp/file', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": 0
+	})
 })
 //ukey和phone登录
-router.post('/management_platform/sys/login', function (req, res, next) {
-    if (req.body) {
-        res.json({
-            "code": 0,
-            "msg": "请求成功",
-            "data": "347112"
-        })
-    } else {
-        res.json({
-            "code": 1,
-            "msg": "请求失败",
-            "data": "347112"
-        })
-    }
+router.post('/management_platform/sys/login', function(req, res, next) {
+	if(req.body) {
+		res.json({
+			"code": 0,
+			"msg": "请求成功",
+			"data": "347112"
+		})
+	} else {
+		res.json({
+			"code": 1,
+			"msg": "请求失败",
+			"data": "347112"
+		})
+	}
 });
 //ukey登录随机数
-router.all('/management_platform/captcha', function (req, res, next) {
-        res.json({
-            "code": 0,
-            "msg": "/api/images/login1.png",
-            "data": "347112"
-        })
+router.all('/management_platform/captcha', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "/api/images/login1.png",
+		"data": "347112"
+	})
 
 });
 

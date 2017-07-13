@@ -1,5 +1,6 @@
 import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
+var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
 var step3 = Backbone.View.extend({
@@ -55,6 +56,15 @@ var step3 = Backbone.View.extend({
 		}
 		var randomPercent = Math.floor(Math.random() * 19 + 80);
         var percentVal = 0;
+        if(pictureFlag[num] != 0) {
+			service.deletePhoto().done(function(data) {
+				if(data.code == 0) {
+					console.log(data.msg);
+				} else {
+					console.log(data.msg);
+				}
+			});
+		}
 		$("#ajaxForm" + num).ajaxSubmit({
 			url: '/api/mp/file',
 			type: "post",

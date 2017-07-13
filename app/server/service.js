@@ -102,4 +102,8 @@ export default {
     queryOrderList(pageNum,pageSize){
     	return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/1/10" });
     },
+    //上传图片时删除之前的图片
+    deletePhoto(){
+    	return this.ajaxCall({ url: domain + baseUrl + "mp/file" });
+    }
 }
