@@ -42,26 +42,7 @@ var Router = Backbone.Router.extend({
             me.startRout(View, {query:query});
         }, 'logs2');
     },
-    // stat: function(query) {
-    //     console.log(query)
-    //     var me = this;
-    //     require.ensure([], function(require) {
-    //         var View = require('../../view/stat/Stat')
-    //         me.startRout(View, {query:query},"substat");
-    //     }, 'Stat');
-    // },
-    // substat: function(query) {
-    //     var me = this;
-    //     if(!S.main||!S.main.sub=="substat"){
-    //         me.stat();
-    //     }
-    //     require.ensure([], function(require) {
-    //         var View = require('../../view/stat/substat')
-    //         me.starSubroute(View, {
-    //             query:query
-    //         });
-    //     }, 'Stat');
-    // }
+
 });
 
 module.exports = Router;

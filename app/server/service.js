@@ -95,7 +95,7 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
     //操作日志
-    Operationlog() {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/Operationlog/list/1/10", async: false });
+    Operationlog (pageNum, pageSize) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/Operationlog/list/1/10" });
     }
 }

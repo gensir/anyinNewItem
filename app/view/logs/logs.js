@@ -3,6 +3,7 @@ var service=require('../../server/service').default;
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize(){
+        this.render();
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
@@ -68,20 +69,26 @@ var logs = Backbone.View.extend({
         $(".search .nosearch").hide();
         $(".search .more").hide();
     },
-
-    render: function(query) {
-        this.$el.html(tpl);
-        this.form_date();
-		service.getLogsList(1,5).done(res=>{
-			var obj;
-			if(res.code != 0){
+    //获取数据
+    serverdata() {
+        var _this=this;
+        service.getLogsList(1,5).done(function(res) {
+            var obj;
+            if(res.code != 0){
                 obj = {}
-			}else {
+            }else {
                 obj = res.data.list;
-			}
-			this.$el.html(tpl({data:obj}));
-		})
-
+            }
+            _this.$el.html(tpl({data:obj}));
+            _this.form_date();
+        });
+    }, 
+        
+    render: function() {
+        //this.$el.html(tpl);
+        this.serverdata();
+        
+        
     },
 });
 

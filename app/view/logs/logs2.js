@@ -4,17 +4,24 @@ var logs2 = Backbone.View.extend({
     el: '.contents',
     initialize(){
     },
-    render: function(query) {
-        this.$el.html(tpl);
-        service.Operationlog(1,10).done(res=>{
-			var obj;
-			if(res.code != 0){
+
+    //获取数据
+    serverdata() {
+        var _this=this;
+        service.Operationlog(1,10).done(function(res) {
+            var obj;
+            if(res.code != 0){
                 obj = {}
-			}else {
+            }else {
                 obj = res.data.list;
-			}
-			this.$el.html(tpl({data:obj}));
-		})
+            }
+            _this.$el.html(tpl({data:obj}));
+        });
+    },     
+    render: function(query) {
+        //this.$el.html(tpl);
+        this.serverdata()
+        
     },
 });
 
