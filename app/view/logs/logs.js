@@ -3,14 +3,15 @@ var service=require('../../server/service').default;
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize(){
-        this.render();
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
-        'focus #search': 'searchmore',
+        'focus #keyword': 'MoreSearch',
         'click #search_submit': 'searchs',
         'click #close': 'close',
         'mouseleave .more': 'blur',
+        "change #s_state": "SelectState",
+        "change #s_type": "SelectType",
     },
     //选取日期
     form_date() {
@@ -26,7 +27,6 @@ var logs = Backbone.View.extend({
             forceParse: 0
         });
     },
-
 
     //签章记录显示详细记录
     Toggleshow(event) {
@@ -45,15 +45,48 @@ var logs = Backbone.View.extend({
         };
     }, 
     //显示详细搜索
-    searchmore() {
+    MoreSearch() {
         $(".search .more").show()
+    },
+    //选择状态
+    SelectState(event) {
+        var selected = $(event.currentTarget).find("option:selected").index() || "";
+        switch (parseInt(selected)) {
+            case 1: selected = 1; break;
+            case 2: selected = 2; break;
+        }
+        this.SelectState = selected;
+        console.log(this.SelectState);
+    },
+    //选择业务类型
+    SelectType(event) {
+        var selected = $(event.currentTarget).find("option:selected").index() || "";
+        switch (parseInt(selected)) {
+            case 1: selected = "行政章"; break;
+            case 2: selected = "财务章"; break;
+        }
+        this.SelectType = selected;
+        console.log(this.SelectType);
     },
     //提交搜索
     searchs() {
-        var search= $("#search").val();
-        if(search.length == '') {
+        var keyword= $("#keyword").val();
+        var sTime = $("#date1").val();
+        var eTime = $("#date2").val();
+        if (eTime !== "" & eTime < sTime) {
+            alert("结束日期不能少于开始日期");
+            $("#date2").focus();
+            return false;
+        } else if (keyword == "") {
+            alert("请输入搜索关键字");
+            console.log ("请输入搜索关键字");
+            $("#keyword").focus();
+            return false;
             this.nosearch();
-        }
+        } else {
+            console.log ("开始搜索");
+            this.logslist({ keyword: $("#keyword").val(), sTime: $("#date1").val(), eTime: $("#date2").val() });
+        };
     },
     blur() {
         $('.more').blur(function() {
@@ -69,8 +102,9 @@ var logs = Backbone.View.extend({
         $(".search .nosearch").hide();
         $(".search .more").hide();
     },
+
     //获取数据
-    serverdata() {
+    logslist() {
         var _this=this;
         service.getLogsList(1,5).done(function(res) {
             var obj;
@@ -83,12 +117,10 @@ var logs = Backbone.View.extend({
             _this.form_date();
         });
     }, 
-        
     render: function() {
         //this.$el.html(tpl);
-        this.serverdata();
-        
-        
+        this.logslist();
+                
     },
 });
 
