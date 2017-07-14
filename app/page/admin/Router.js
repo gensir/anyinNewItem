@@ -47,9 +47,8 @@ var Router = Backbone.Router.extend({
         var me = this;
         require.ensure([], function (require) {
             var View = require('../../view/admin/renew')
-            var model = require('./store/model')
             //new View({ model: model })
-            me.startRout(View, { query: query },undefined,model);
+            me.startRout(View, { query: query });
         }, 'renew');
     },
     list: function (query) {
@@ -58,7 +57,7 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/admin/list')
             var model = require('./store/model')
             //new View({ model: model })
-            me.startRout(View, { query: query },undefined,model);
+            me.startRout(View, { query: query });
         }, 'list');
     },
     stat: function (query) {
