@@ -21,6 +21,7 @@ var Router = Backbone.Router.extend({
     },
     startRout: function (View, queryObj, sub,model) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
+        var model = require('./store/model.js');
         S.main = new View({model:model});
         S.main.viewUnmount = this.viewUnmount;
         S.main.sub = null

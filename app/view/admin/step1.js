@@ -22,8 +22,6 @@ var step1 = Backbone.View.extend({
 		window.reqres.setHandler("foo", function() {
 			return hh;
 		});
-		
-		
 		if($('.sealStyle span').hasClass('choice')) {
 			this.model.set({ "clickEle": $(event.target).data('id') })
 			this.model.isValid()

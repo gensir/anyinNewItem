@@ -3,6 +3,7 @@
  */
 import tpl from './tpl/step2.html'
 import { imgModalBig } from '../../publicFun/public'
+var service = require('../../server/service').default;
 var pictureFlag ;
 var step2 = Backbone.View.extend({
 	el: '.container',
