@@ -4,11 +4,10 @@ var logs2 = Backbone.View.extend({
     el: '.contents',
     initialize(){
     },
-
     //获取数据
     serverdata() {
         var _this=this;
-        service.Operationlog(1,10).done(function(res) {
+        service.Operationlog(1,5).done(function(res) {
             var obj;
             if(res.code != 0){
                 obj = {}

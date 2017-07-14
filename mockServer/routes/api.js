@@ -91,7 +91,7 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
 			"totalRows": 1,
 			"totalPages": 1,
 			"pageNum": 1,
-			"pageSize": 10,
+			"pageSize": 5,
 			"curPageSize": 1,
 			"list": [{
 				"id": 001,
@@ -117,7 +117,7 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
 				"id": 002,
 				"version": "1",
 				"fileName": "深圳市安印科技销售合同书2.pdf", //文档名称
-				"signDate": "2017-2-2 12:25:41", //签章时间
+				"signDate": "2017-2-3 12:25:41", //签章时间
 				"fileSize": "2.4M", //文档大小
 				"fileHash": "a518d940152480ac1800ad9f9902025e", //文档哈希值
 				"sealnetType": "骑缝签章", //签章类型
@@ -137,7 +137,7 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
 				"id": 003,
 				"version": "1",
 				"fileName": "深圳市安印科技销售合同书3.pdf", //文档名称
-				"signDate": "2017-2-2 12:22:06", //签章时间
+				"signDate": "2017-2-4 12:22:06", //签章时间
 				"fileSize": "2.4M", //文档大小
 				"fileHash": "a518d940152480ac1800ad9f9902025e", //文档哈希值
 				"sealnetType": "骑缝签章", //签章类型
@@ -157,14 +157,14 @@ router.get('/management_platform/logs/list/1/5', function(req, res, next) {
 		}
 	})
 });
-//获取签章日志列表
-router.get('/management_platform/Operationlog/list/1/10', function(req, res, next) {
+//获取操作日志列表
+router.get('/management_platform/Operationlog/list/1/5', function(req, res, next) {
 	res.json({
 		"code": 0,
 		"msg": "请求成功",
 		"data": {
 			"totalRows": 1,
-			"totalPages": 1,
+			"totalPages": 2,
 			"pageNum": 1,
 			"pageSize": 10,
 			"curPageSize": 1,
@@ -198,6 +198,12 @@ router.get('/management_platform/Operationlog/list/1/10', function(req, res, nex
 				"type": "登录系统5",
 				"ip": "210.210.210.210",
 				"add": "广东省 深圳市 福田区",
+			}, {
+                		"id": "6",
+                		"time": '2017/02/02 12:21:45',
+                		"type": "登录系统6",
+                		"ip": "210.210.210.210",
+                		"add": "广东省 深圳市 福田区",
 			}]
 		}
 	})
