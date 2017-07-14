@@ -16,27 +16,28 @@
 						<span class="select-box">
 							<label class="selecticon" for="state"></label>
 							<select id="s_state">
-								<option value="0">全部</option>
-								<option value="1">完成</option>
+								<option>全部</option>
+								<option value="1">成功</option>
 								<option value="2">失败</option>
 							</select>
 						</span>
 					</div>
 					<div class="type">
-						<span class="labelname">业务类型：</span>
+						<span class="labelname">签章类型：</span>
 						<span class="select-box">
 							<label class="selecticon" for="type"></label>
 							<select id="s_type">
 								<option>全部</option>
-								<option>行政章</option>
-								<option>财务章</option>
+								<option>单页签章</option>
+								<option>骑缝签章</option>
 							</select>
 						</span>
 					</div>
 					<div class="date">
 						<span class="labelname">日期：</span>
-						<input class="date-input form-control" id="date1" name="date1" type="text" placeholder="请选择开始日期"> - 
-						<input class="date-input form-control" id="date2" name="date2" type="text" placeholder="请选择结束日期">
+                        <span class="datebox"><input class="date-input form-control" id="date1" name="date1" type="text" placeholder="请选择开始日期"><em class="glyphicon glyphicon-calendar" title="清空日期"></em></span>
+                        <span class="xian">-</span>
+						<span class="datebox"><input class="date-input form-control" id="date2" name="date2" type="text" placeholder="请选择结束日期"><em class="glyphicon glyphicon-calendar" title="清空日期"></em></span>
 					</div>
 				</div>
                 <div class="nosearch"><em></em><i class="glyphicon glyphicon-remove" id="close" title="关闭"></i>解密信息后可使用搜索功能</div>
@@ -65,8 +66,8 @@
                         <span class="text col3">{{data[i].signname}}</span>
                         <span class="text col4">{{data[i].sealnetType}}</span>
                         <span class="text col5">
-                            {{if data[i].Status == 1}}成功{{/if}}
-                            {{if data[i].Status == 2}}失败{{/if}}
+                            {{if data[i].Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}
+                            {{if data[i].Status == 2}}<span style="color:#f00">失败</span>{{/if}}</span>
                         </span>
                     </div>
                     <div class="details">

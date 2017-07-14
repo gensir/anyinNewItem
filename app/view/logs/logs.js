@@ -12,11 +12,14 @@ var logs = Backbone.View.extend({
         'mouseleave .more': 'blur',
         "change #s_state": "SelectState",
         "change #s_type": "SelectType",
+        'click #date1+em': 'remove_date',
+        'click #date2+em': 'remove_date2',
     },
-    //选取日期
+    //调取日期控件
     form_date() {
         $('#date1,#date2').datetimepicker({
             language:  'zh-CN',
+            //clearBtn:true,
             weekStart: 1,
             todayBtn:  1,
             autoclose: 1,
@@ -24,8 +27,15 @@ var logs = Backbone.View.extend({
             startView: 2,
             minView: 2,
             format: 'yyyy-mm-dd',
-            forceParse: 0
+            forceParse: 0,
+            
         });
+    },
+    remove_date() {
+        $('#date1').val("");
+    },
+    remove_date2() {
+        $('#date2').val("");
     },
 
     //签章记录显示详细记录
@@ -62,8 +72,8 @@ var logs = Backbone.View.extend({
     SelectType(event) {
         var selected = $(event.currentTarget).find("option:selected").index() || "";
         switch (parseInt(selected)) {
-            case 1: selected = "行政章"; break;
-            case 2: selected = "财务章"; break;
+            case 1: selected = "单页签章"; break;
+            case 2: selected = "骑缝签章"; break;
         }
         this.SelectType = selected;
         console.log(this.SelectType);
@@ -78,14 +88,13 @@ var logs = Backbone.View.extend({
             $("#date2").focus();
             return false;
         } else if (keyword == "") {
-            alert("请输入搜索关键字");
             console.log ("请输入搜索关键字");
             $("#keyword").focus();
-            return false;
             this.nosearch();
+            return false;
         } else {
             console.log ("开始搜索");
-            this.logslist({ keyword: $("#keyword").val(), sTime: $("#date1").val(), eTime: $("#date2").val() });
+            this.logslist({ keyword: $("#keyword").val(), sTime: $("#date1").val(), eTime: $("#date2").val(), SelectType: this.SelectType, SelectState: this.SelectState });
         };
     },
     blur() {
