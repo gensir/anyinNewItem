@@ -53,7 +53,8 @@ export default {
     ajaxCall(setting, type) {
         var xhr = autoAjaxCall(setting, type);
         xhr.fail(() => {
-            bootbox.dialog ({
+            bootbox.hideAll();
+            var dialog=bootbox.dialog ({
                 //closeButton: 'true',
                 className: 'common',
                 title: '接口提示',
@@ -66,6 +67,7 @@ export default {
                     },
                 }
             });
+
 
             //bootbox.alert("请求失败")
         });

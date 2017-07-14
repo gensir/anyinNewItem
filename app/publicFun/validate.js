@@ -13,7 +13,7 @@ var verify = {
 				};
 				if($(ele + "-error").html()) {
 					_this.result = false;
-				};
+                };
                 return _this.result;
 			},
 			verifyEach: function(obj, callback) {

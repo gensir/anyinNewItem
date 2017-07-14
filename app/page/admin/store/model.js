@@ -5,6 +5,13 @@ var orderModel = Backbone.Model.extend({
 		pinwdError: '',
 	},
 	validate: function(attrs) {
+        if(attrs.clickEle=="lossCheck"){
+            if(attrs.verify.istrue.yzmcode($(".checkSmsCode"))){
+                return true;
+            }else{
+                return false;
+            }
+        }
 		if(attrs.clickEle == 'goStep2') {
 			// $.verify("#userName", "phone");
 			$.verifyEach({ "space": ".countCode", "valId": ".legalID" }, function() {
