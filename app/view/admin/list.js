@@ -6,6 +6,7 @@ var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
+        this.ukey();
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
@@ -27,6 +28,37 @@ var list = Backbone.View.extend({
             }
             this.$el.html(tpl({ data: tempObj }));
         })
+    },
+    ukey() {
+        // 这里就是注册表中CLSID文件夹根目录的文件夹名称
+        window.ukey = null;
+        var _this = this;
+        try {
+            window.ukey = new ActiveXObject("IYIN_SIGNACTIVE.IYIN_SignActiveCtrl.1");
+            //alert(util);
+        } catch (e) {
+            _this.availableUkey = true;
+            //alert("****" + e.message);
+        }
+        if (!window.ukey) {
+            return false;
+        }
+        var nCount = window.ukey.GetCertCount();
+        console.log(JSON.stringify(this.model))
+        for (var i = 0; i < nCount; i++) {
+            window.ukey.SetCertIndex(i);//获取第几个ukey
+            this.model.get("ukeyName").push(window.ukey.GetCertInfo(0));
+            // alert("第" + (i + 1) + "个证书信息如下：\n" +
+            //     //"获取签名证书：\n"+ ukey.GetCertData(0) +
+            //     //"获取加密证书：\n"+ ukey.GetCertData(1) +
+            //     "获取证书名称：" + window.ukey.GetCertInfo(0) + "\n" +
+            //     "获取证书OID： " + window.ukey.GetCertInfo(1) + "\n" +
+            //     "获取证书类型:" + (window.ukey.GetCertInfo(2) == "0" ? "创业KEY" : "ODC-KEY") + "\n" +
+            //     "获取印章编码：" + window.ukey.GetCertInfo(3)
+            // );
+
+        }
+        console.log(JSON.stringify(this.model.get("ukeyName")))
     },
     toggleList(event) {
         var _this = event.currentTarget
@@ -125,7 +157,7 @@ var list = Backbone.View.extend({
         return false;
     },
     loss() {
-        var _this=this;
+        var _this = this;
         var numInd = this.model.get("numInd")
         var dialog = bootbox.dialog({
             backdrop: true,
@@ -159,19 +191,17 @@ var list = Backbone.View.extend({
                                 service.getSMSVerifCode().done(res => {
                                 })
                             })
-                            $(this).find("#sureLoss").unbind().click(res => {
-                            })
                         } else if (numInd == 2) {
-                            let ele=$(this).find(".sureLoss");
-                            ele.attr("data-id","lossCheck")
+                            let ele = $(this).find(".sureLoss");
+                            ele.attr("data-id", "lossCheck")
                             _this.model.set({ "clickEle": ele.data('id') })
                             var isValid = _this.model.isValid();
                             if (isValid) {
                                 numInd--
-                                $(".checkSmsCode").css({"border-color":"red"})
+                                $(".checkSmsCode").css({ "border-color": "red" })
                                 return false;
-                            }else{
-                                $(".checkSmsCode").css({"border-color":"#ccc"})
+                            } else {
+                                $(".checkSmsCode").css({ "border-color": "#ccc" })
                             }
                             service.checkSmsCode().done(res => {
                                 if (res.code == 0) {
@@ -202,6 +232,7 @@ var list = Backbone.View.extend({
 
     },
     unfreeze() {
+        var _outthis = this;
         var numInd = this.model.get("numInd");
         var unfreezeEseal = dialogs.find(".unfreezeEseal")
         bootbox.dialog({
@@ -226,10 +257,25 @@ var list = Backbone.View.extend({
                         numInd++;
                         var _this = this;
                         if (numInd == 1) {
-                            var msg6 = unfreezeEseal.find(".msg6")[0].outerHTML
+                            var msg4 = unfreezeEseal.find(".msg4")[0].outerHTML
                             //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
-                            $(this).find(".bootbox-body").html(msg6);
-                            //$(this).find(".btn1,.btn2").hide();
+                            $(this).find(".bootbox-body").html(msg4);
+                            $(this).find(".btn1,.btn2").hide();
+                            setTimeout(function () {
+                                if (!_outthis.model.get("ukeyName").length) {
+                                    numInd = 0;
+                                    var msg3 = unfreezeEseal.find(".msg3")[0].outerHTML
+                                    $(_this).find(".bootbox-body").html(msg3);
+                                    $(_this).find(".btn1,.btn2").show();
+                                    $(_this).find(".btn2").show().html("重试");
+                                } else {
+                                    var msg6 = unfreezeEseal.find(".msg6")[0].outerHTML
+                                    $(_this).find(".bootbox-body").html(msg6);
+                                    $(_this).find(".btn1,.btn2").show();
+                                    $(_this).find(".btn2").show().html("继续");
+
+                                }
+                            }, 1000)
                             // var msg6 = unfreezeEseal.find(".msg6")[0].outerHTML
                             // $(_this).find(".bootbox-body").html(msg6);
                             // setTimeout(function () {
@@ -257,6 +303,26 @@ var list = Backbone.View.extend({
                             //     }
 
                             // }, 1000)
+                        } else if (numInd == 2) {
+                            // 验证KEY密码
+                            var checkResult = null;
+                            var getPwd = $("#unfreezeCode").val();
+                            if (getPwd) {
+                                window.ukey.SetCertIndex(0);
+                                checkResult = window.ukey.SetCertPin(getPwd);
+                            }
+                            if (checkResult) {
+                                var success = unfreezeEseal.find(".success")[0].outerHTML
+                                $(_this).find(".bootbox-body").html(success);
+                                $(_this).find(".btn1,.btn2").hide();
+                                setTimeout(function(){
+                                    _this.modal('hide');
+                                },1200)
+                            } else {
+                                numInd = 1;
+                                $(_this).find("#unfreezeCode-error").html("PIN码不正确，请重试")
+                                $(_this).find(".btn2").show().html("重试");
+                            }
                         }
                         //this.modal('hide');
 

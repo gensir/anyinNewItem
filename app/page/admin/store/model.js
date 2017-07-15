@@ -1,7 +1,8 @@
 var orderModel = Backbone.Model.extend({
 	defaults: {
 		'verify': require('../../../publicFun/validate'),
-		"numInd": 0,
+        "numInd": 0,
+        ukeyName:[],
 		pinwdError: '',
 	},
 	validate: function(attrs) {
