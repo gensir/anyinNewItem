@@ -79,8 +79,8 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "standard_server/common/getSMSVerifCode" });
     },
     //印章管理
-    getEsealList(pageNum, pageSize) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/eseal/list/1/10" });
+    getEsealList(pageNum, pageSize,data) {
+        return this.ajaxCall({ url: domain + anyin + "/mp/eseal/list/"+pageNum+"/"+pageSize,data:data });
     },
     //签章日志记录
     getLogsList(pageNum, pageSize) {

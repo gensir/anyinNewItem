@@ -21,7 +21,10 @@ var list = Backbone.View.extend({
     },
     render: function (query) {
         $(".container").empty();
-        service.getEsealList(1, 10).done(res => {
+        var querydata = {
+            "firmId": "nihao"
+        }
+        service.getEsealList(1, 10, querydata).done(res => {
             var tempObj;
             if (res.code != 0) {
                 tempObj = {}
