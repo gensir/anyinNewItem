@@ -3,14 +3,14 @@
 	<dl class="userinfo">
 		<dt><span class="tximg"></span></dt>
 		<dd class="name">欢迎您，<span id="gsname" title="深圳市创业印章科技有限公司">深圳市创业印章科技有限公司深圳市创业印章科技有限公司</span></dd>
-		<dd class="renzheng"><span class="rzinfo ok"></span></dd>
+		<dd class="renzheng"><span class="rzinfo"></span></dd>
 		<dd class="logintime">上次登录：2017-06-28</dd>
 	</dl>
 	
 	<ul class="actionlist">
 		<li><a href="admin.html#step1"><em class="a-icon-1"></em>新办电子印章</a></li>
 		<li><a href="admin.html"><em class="a-icon-2"></em>电子印章续费</a></li>
-		<li><a href="admin.html"><em class="a-icon-3"></em>登录权限设置</a></li>
+		<li><a href="admin.html?page=license"><em class="a-icon-3"></em>登录权限设置</a></li>
 	</ul>
 
 </div>
@@ -21,9 +21,15 @@
 		<div class="xufei">
 			<div class="t-title"><h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
 			<ul class="blist boxshow">
-				<li><span class="name">电子行政章</span><span class="date">已过期</span><span class="operate"><a href="">立即续费></a></span></li>
-				<li><span class="name">电子财务章</span><span class="date">3个月</span><span class="operate"><a href="">立即续费></a></span></li>
-				<li><span class="name">电子合同章</span><span class="date">23个月</span><span class="operate"><a href="">立即续费></a></span></li>
+                {{each esealValid as value i}}
+				<li>
+                    <span class="name">{{esealValid[i].esealName}}</span>
+                    <span class="date">{{esealValid[i].validEnd}}</span>
+                    <span class="operate"><a href="admin.html">立即续费></a></span>
+                </li>
+                {{/each}}
+                <!--li><span class="name">电子财务章</span><span class="date">3个月</span><span class="operate"><a href="admin.html">立即续费></a></span></li>
+				<li-><span class="name">电子合同章</span><span class="date">23个月</span><span class="operate"><a href="admin.html">立即续费></a></span></li-->
 			</ul>
 		</div>
 		
@@ -52,7 +58,7 @@
 					<div class="details">
 						<dl class="signet">
 							<dt>操作信息</dt>
-							<dd>操作时间：<span>2016-12-12 12:12:12</span></dd>
+							<dd>操作时间：<span>{{data[i].signDate}}</span></dd>
 							<dd>签章应用：<span>{{data[i].sealtype}}</span></dd>
                             <dd>操作状态：
                                 {{if data[i].Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}

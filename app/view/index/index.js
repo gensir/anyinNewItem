@@ -1,11 +1,11 @@
 var tpl = require('./tpl/index.html');
-var service=require('../../server/service').default;
+var service = require('../../server/service').default;
 import dialog from '../pub//tpl/dialog.html';
 var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
-    initialize(){
-        this.load();
+    initialize() {
+        //this.load();
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
@@ -20,15 +20,15 @@ var index = Backbone.View.extend({
         var toggle = $(_this).parent(".jilulist ul li").find(".details");
         if (toggle.is(":hidden")) {
             toggle.slideDown();
-            $(int).addClass('active');	
+            $(int).addClass('active');
         } else {
             toggle.slideUp();
             $(int).removeClass('active');
         };
     },
-    
+
     load() {
-        bootbox.dialog ({
+        bootbox.dialog({
             backdrop: true,
             closeButton: false,
             className: "common realname",
@@ -50,21 +50,38 @@ var index = Backbone.View.extend({
 
     //获取签章记录数据
     logslist() {
-        var _this=this;
-        service.getLogsList(1,5).done(function(res) {
+        var _this = this
+        service.getLogsList(1, 5).done(res => {
             var obj;
-            if(res.code != 0){
+            if (res.code != 0) {
                 obj = {}
-            }else {
+            } else {
                 obj = res.data.list;
             }
-            _this.$el.html(tpl({data:obj}));
+            this.model.get("tpl").data = obj
+            this.$el.html(tpl(this.model.get("tpl")));
         });
-    }, 
-    render: function() {
+    },
+    //获取印章数据
+    getEsealList() {
+        var data = {
+            "firmId": "nihao"
+        }
+        service.getEsealList(this.model.get("pageNum"), this.model.get("pageSize"), data).done(res => {
+            var Esealobj;
+            if (res.code != 0) {
+                Esealobj = {}
+            } else {
+                Esealobj = res.data.list;
+            }
+            this.model.get("tpl").esealValid = Esealobj
+            this.$el.html(tpl(this.model.get("tpl")));
+        });
+    },
+    render: function () {
         //this.$el.html(tpl);
+        this.getEsealList();
         this.logslist();
-                
     },
 });
 

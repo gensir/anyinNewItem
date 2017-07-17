@@ -1,8 +1,8 @@
 import tpl from './tpl/logs.html';
-var service=require('../../server/service').default;
+var service = require('../../server/service').default;
 var logs = Backbone.View.extend({
     el: '.contents',
-    initialize(){
+    initialize() {
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
@@ -18,17 +18,17 @@ var logs = Backbone.View.extend({
     //调取日期控件
     form_date() {
         $('#date1,#date2').datetimepicker({
-            language:  'zh-CN',
+            language: 'zh-CN',
             //clearBtn:true,
             weekStart: 1,
-            todayBtn:  1,
+            todayBtn: 1,
             autoclose: 1,
             todayHighlight: 1,
             startView: 2,
             minView: 2,
             format: 'yyyy-mm-dd',
             forceParse: 0,
-            
+
         });
     },
     remove_date() {
@@ -48,12 +48,12 @@ var logs = Backbone.View.extend({
         var toggle = $(_this).parent(".jilulist ul li").find(".details");
         if (toggle.is(":hidden")) {
             toggle.slideDown();
-            $(int).addClass('active');	
+            $(int).addClass('active');
         } else {
             toggle.slideUp();
             $(int).removeClass('active');
         };
-    }, 
+    },
     //显示详细搜索
     MoreSearch() {
         $(".search .more").show()
@@ -80,7 +80,7 @@ var logs = Backbone.View.extend({
     },
     //提交搜索
     searchs() {
-        var keyword= $("#keyword").val();
+        var keyword = $("#keyword").val();
         var sTime = $("#date1").val();
         var eTime = $("#date2").val();
         if (eTime !== "" & eTime < sTime) {
@@ -88,17 +88,17 @@ var logs = Backbone.View.extend({
             $("#date2").focus();
             return false;
         } else if (keyword == "") {
-            console.log ("请输入搜索关键字");
+            console.log("请输入搜索关键字");
             $("#keyword").focus();
             this.nosearch();
             return false;
         } else {
-            console.log ("开始搜索");
+            console.log("开始搜索");
             this.logslist({ keyword: $("#keyword").val(), sTime: $("#date1").val(), eTime: $("#date2").val(), SelectType: this.SelectType, SelectState: this.SelectState });
         };
     },
     blur() {
-        $('.more').blur(function() {
+        $('.more').blur(function () {
             $(".more").hide();
         })
     },
@@ -114,22 +114,21 @@ var logs = Backbone.View.extend({
 
     //获取数据
     logslist() {
-        var _this=this;
-        service.getLogsList(1,5).done(function(res) {
+        service.getLogsList(1, 5).done(res => {
             var obj;
-            if(res.code != 0){
+            if (res.code != 0) {
                 obj = {}
-            }else {
+            } else {
                 obj = res.data.list;
             }
-            _this.$el.html(tpl({data:obj}));
-            _this.form_date();
+            this.$el.html(tpl({ data: obj }));
+            this.form_date();
         });
-    }, 
-    render: function() {
+    },
+    render: function () {
         //this.$el.html(tpl);
         this.logslist();
-                
+
     },
 });
 

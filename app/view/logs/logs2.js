@@ -1,26 +1,25 @@
 import tpl from './tpl/logs2.html';
-var service=require('../../server/service').default;
+var service = require('../../server/service').default;
 var logs2 = Backbone.View.extend({
     el: '.contents',
-    initialize(){
+    initialize() {
     },
     //获取数据
     serverdata() {
-        var _this=this;
-        service.Operationlog(1,5).done(function(res) {
+        service.Operationlog(1, 5).done(res => {
             var obj;
-            if(res.code != 0){
+            if (res.code != 0) {
                 obj = {}
-            }else {
+            } else {
                 obj = res.data.list;
             }
-            _this.$el.html(tpl({data:obj}));
+            this.$el.html(tpl({ data: obj }));
         });
-    },     
-    render: function(query) {
+    },
+    render: function (query) {
         //this.$el.html(tpl);
         this.serverdata()
-        
+
     },
 });
 
