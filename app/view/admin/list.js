@@ -33,7 +33,7 @@ var list = Backbone.View.extend({
             }
             this.$el.html(tpl({ data: tempObj }));
             if (GetQueryString("page") == "license") {
-                this.toggleTab()
+                this.toggleTab(event,$("#loginset"))
             }
         })
 
@@ -80,12 +80,8 @@ var list = Backbone.View.extend({
             toggle.slideUp();
         }
     },
-    toggleTab(event) {
-        if (GetQueryString("page") == "license") {
-            var _this = $("#loginset")
-        } else {
-            var _this = event.currentTarget;
-        }
+    toggleTab(event,license) {
+        var _this =license||event.currentTarget;
         $(_this).addClass("active").siblings().removeClass("active");
         $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
     },
