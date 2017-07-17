@@ -16,6 +16,14 @@ var commonAjaxSetting = {
         },
         data: {},
         cache: false
+    },
+    'delete':{
+    	dataType: "json",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {},
+        cache: false
     }
 };
 
@@ -79,8 +87,8 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "standard_server/common/getSMSVerifCode" });
     },
     //印章管理
-    getEsealList(pageNum, pageSize) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/eseal/list/1/10" });
+    getEsealList(pageNum, pageSize,data) {
+        return this.ajaxCall({ url: domain + anyin + "/mp/eseal/list/"+pageNum+"/"+pageSize,data:data });
     },
     //签章日志记录
     getLogsList(pageNum, pageSize) {
@@ -104,8 +112,8 @@ export default {
     	return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/1/10" });
     },
     //上传图片时删除之前的图片
-    deletePhoto(){
-    	return this.ajaxCall({ url: domain + baseUrl + "mp/file" });
+    deletePhoto(data){
+    	return this.ajaxCall({ url: domain + anyin + "/mp/file" ,data: data}, "delete");
     },
     //检查信用代码
     checkidCode(data) {
@@ -118,5 +126,9 @@ export default {
     //检查随机验证码
     checkyzmCode(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkyzmCode", data: data });
-    },    
+    },
+    //企业附件信息上传
+    attach(data){
+    	return this.ajaxCall({ url: domain + anyin + "/mp/attach" ,data: data}, "post");
+    }
 }
