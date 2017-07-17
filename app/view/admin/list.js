@@ -1,6 +1,7 @@
 import tpl from './tpl/list.html'
 import dialog from '../pub/tpl/dialog.html'
 import { sendmsg } from '../../publicFun/public.js'
+import { GetQueryString } from '../../publicFun/public.js'
 var service = require('../../server/service').default;
 var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
@@ -10,6 +11,7 @@ var list = Backbone.View.extend({
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
+        'click .eseallist .list>.nav .renew': 'renew',
         'click .eseallist .list>.nav .loss': 'loss',
         'click .eseallist .list>.nav .unfreeze': 'unfreeze',
         'click .eseallist .list>.nav .logout': 'logout',
@@ -27,7 +29,11 @@ var list = Backbone.View.extend({
                 tempObj = res.data.list;
             }
             this.$el.html(tpl({ data: tempObj }));
+            if (GetQueryString("page") == "license") {
+                this.toggleTab()
+            }
         })
+
     },
     ukey() {
         // 这里就是注册表中CLSID文件夹根目录的文件夹名称
@@ -72,7 +78,11 @@ var list = Backbone.View.extend({
         }
     },
     toggleTab(event) {
-        var _this = event.currentTarget;
+        if (GetQueryString("page") == "license") {
+            var _this = $("#loginset")
+        } else {
+            var _this = event.currentTarget;
+        }
         $(_this).addClass("active").siblings().removeClass("active");
         $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
     },
@@ -228,9 +238,6 @@ var list = Backbone.View.extend({
         });
         return false;
     },
-    sureLoss() {
-
-    },
     unfreeze() {
         var _outthis = this;
         var numInd = this.model.get("numInd");
@@ -315,9 +322,9 @@ var list = Backbone.View.extend({
                                 var success = unfreezeEseal.find(".success")[0].outerHTML
                                 $(_this).find(".bootbox-body").html(success);
                                 $(_this).find(".btn1,.btn2").hide();
-                                setTimeout(function(){
+                                setTimeout(function () {
                                     _this.modal('hide');
-                                },1200)
+                                }, 1200)
                             } else {
                                 numInd = 1;
                                 $(_this).find("#unfreezeCode-error").html("PIN码不正确，请重试")
@@ -404,6 +411,10 @@ var list = Backbone.View.extend({
             }
         })
         return false;
+    },
+    renew() {
+        window.open("admin.html#renew", "_self")
+        return false
     }
 });
 
