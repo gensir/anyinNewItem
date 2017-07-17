@@ -2,7 +2,7 @@
     <div class="topseal">
         <h3 class="boxmodel">
             <span class="active">电子印章列表</span>
-            <span>登录权限设置</span>
+            <span id="loginset">登录权限设置</span>
         </h3>
     </div>
     <div>
@@ -23,12 +23,12 @@
                 	{{each data as value i}}
                     <div class="list">
                         <ul class="nav">
-                            <li class="nav1">{{data[i].esealName}}</li>
+                            <li class="nav1">{{data[i].esealFullName}}</li>
                             <li class="nav2">{{data[i].esealCode}}</li>
-                            <li class="nav3">{{data[i].createTime}}</li>
-                            <li class="nav4">{{data[i].validStart}}至</li><!--{{data[i].validEnd}}-->
+                            <li class="nav3">{{data[i].esealCreateTime}}</li>
+                            <li class="nav4">{{data[i].validEnd}}</li><!--{{data[i].validEnd}}-->
                             <li class="nav5">
-                                <span>续费</span>
+                                <span class="renew">续费</span>
                                 <span class="unfreeze">解冻</span>
                                 <span class="logout">注销</span>
                                 <span class="loss">预挂失</span>
@@ -38,7 +38,7 @@
                             <ul class="nav">
                                 <li class="n1">
                                     <p class="top f14">电子印章信息<span>正常</span></p>
-                                    <p>印章名：<span>{{data[i].esealName}}</span></p>
+                                    <p>印章名：<span>{{data[i].esealFullName}}</span></p>
                                     <p>印章编号：<span>{{data[i].esealCode}}</span></p>
                                     <p>制作日期: <span>{{data[i].esealCreateTime}}</span></p>
                                     <p>印章生效期: <span>{{data[i].validStart}}</span></p>
@@ -47,12 +47,12 @@
                                 <li class="n2">
                                     <p class="f14">企业信息</p>
                                     <p>企业名称：<span>{{data[i].enterpriseName}}</span></p>
-                                    <p>机构代码： <span>  421315123123</span></p>
+                                    <p>机构代码： <span>  {{data[i].enterpriseCode}}</span></p>
                                     <p>统一社会信用代码：<span>5465451274112135121X</span></p>
                                 </li>
                                 <li class="n3">
                                     <p>需要帮助？</p>
-                                    <p><span>我的电子印章快过有效期了，</span><a href="#">马上续费</a></p>
+                                    <p><span>我的电子印章快过有效期了，</span><a href="admin.html#renew">马上续费</a></p>
                                     <p><span>我的电子印章可能遗失或被人盗用，</span><a href="#">马上冻结</a></p>
                                     <p><span>我不需要继续使用的电子印章，</span><a href="#">马上注销</a></p>
                                     <p><span>电子印章常用问题，或</span><a href="#">联系客服</a></p>
