@@ -322,6 +322,43 @@ router.get('/mp/file', function(req, res, next) {
 		"data": 0
 	})
 })
+//信用代码查询
+router.post('/management_platform/sys/checkidCode', function(req, res, next) {
+    if (req.body) {
+        res.json({
+            "code": 0,
+            "data": "",
+            "msg": "该企业可以注册"
+        })
+    } else {
+        res.json({
+            "code": 3,
+            "data": "123456789012345678",
+            "msg": "当前企业已注册"
+
+        })
+    }
+});
+//检查随机验证码
+router.get('/management_platform/sys/checkyzmCode', function(req, res, next) {
+    res.json({
+        "code": 0,
+        "data": "1234",
+        "msg": "验证码正确"
+    })
+});
+//获取验证码
+router.post('/management_platform/method=getvercode', function(req, res, next) {
+	res.json({
+		"code": 0,
+		"msg": "请求成功",
+		"data": {
+            "captchaHash": "sealnet_pic_captcha_98428620d2f9e3b9e89a805418984e9d92291484acbf9d094b6c015916736063",
+            "image": "",
+            "fileId": "/asset/img/codeimg.png",
+		}
+	})
+});
 //ukey和phone登录
 router.post('/management_platform/sys/login', function(req, res, next) {
 	if(req.body) {

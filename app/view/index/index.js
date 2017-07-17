@@ -1,15 +1,14 @@
 var tpl = require('./tpl/index.html');
+var service=require('../../server/service').default;
 import dialog from '../pub//tpl/dialog.html';
 var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
     initialize(){
         this.load();
-        this.render();
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
-        'click #test': 'load',
     },
     //签章记录弹出详细记录
     Toggleshow(event) {
@@ -49,8 +48,23 @@ var index = Backbone.View.extend({
         return false;
     },
 
-    render: function (query) {
-        this.$el.html(tpl);
+    //获取签章记录数据
+    logslist() {
+        var _this=this;
+        service.getLogsList(1,5).done(function(res) {
+            var obj;
+            if(res.code != 0){
+                obj = {}
+            }else {
+                obj = res.data.list;
+            }
+            _this.$el.html(tpl({data:obj}));
+        });
+    }, 
+    render: function() {
+        //this.$el.html(tpl);
+        this.logslist();
+                
     },
 });
 

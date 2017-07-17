@@ -65,7 +65,8 @@ var Router = Backbone.Router.extend({
         var me=this;
         require.ensure([],function(require){
             var View=require('../../view/register/step1')
-            new View({model:model});
+            me.startRout(View,{query:query});
+            //new View({model:model});
         },'step1')
     },
     step2:function(query){

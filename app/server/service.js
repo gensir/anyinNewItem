@@ -53,7 +53,8 @@ export default {
     ajaxCall(setting, type) {
         var xhr = autoAjaxCall(setting, type);
         xhr.fail(() => {
-            bootbox.dialog ({
+            bootbox.hideAll();
+            var dialog=bootbox.dialog ({
                 //closeButton: 'true',
                 className: 'common',
                 title: '接口提示',
@@ -105,5 +106,17 @@ export default {
     //上传图片时删除之前的图片
     deletePhoto(){
     	return this.ajaxCall({ url: domain + baseUrl + "mp/file" });
-    }
+    },
+    //检查信用代码
+    checkidCode(data) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkidCode", data: data }, "post");
+    },
+    //获取随机码
+    yzmCode(data) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/method=getvercode"}, "post");
+    },
+    //检查随机验证码
+    checkyzmCode(data) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkyzmCode", data: data });
+    },    
 }
