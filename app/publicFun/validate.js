@@ -11,7 +11,7 @@ var verify = {
 					$(ele + "-error").html(text)
 					_this.synError(ele);
 				};
-				if($(ele + "-error").html()) {
+				if($(ele + "-error").html() && /#f00|rgb\(255, 0, 0\)|red/.test($(ele + "-error").css("color"))) {
 					_this.result = false;
                 };
                 return _this.result;
@@ -20,8 +20,8 @@ var verify = {
 				var isverify = true,
 					obj = obj || {};
 				$.each(obj, function(func, ele) {
-					$.verify(func, ele);
-					if($(ele + "-error").html()) {
+                    $.verify(func, ele);
+					if($(ele + "-error").html() && /#f00|rgb\(255, 0, 0\)|red/.test($(ele + "-error").css("color"))) {
 						isverify = false;
 					};
 				});
