@@ -78,6 +78,7 @@ var step2 = Backbone.View.extend({
 		}
 	},
 	render: function(query) {
+		var result = reqres.request("IDCode");
 		this.$el.html(tpl);
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},

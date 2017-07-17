@@ -59,7 +59,10 @@ var step3 = Backbone.View.extend({
 		var randomPercent = Math.floor(Math.random() * 19 + 80);
 		var percentVal = 0;
 		if(pictureFlag[num] != 0) {
-			service.deletePhoto().done(function(data) {
+			var data={
+        		"fullUrl":pictureFlag[num]
+        	}
+			service.deletePhoto(data).done(function(data) {
 				if(data.code == 0) {
 					console.log(data.msg);
 				} else {
@@ -88,7 +91,7 @@ var step3 = Backbone.View.extend({
 				} else {
 					percentVal = randomPercent;
 				}
-				$(".progress").css({ "width": percentVal + '%' });
+				$(".progress").css({ "width": percentComplete + '%' });
 			},
 			success: function(data) {
 				if(data.code == 0) {
@@ -146,9 +149,21 @@ var step3 = Backbone.View.extend({
 				return;
 			}
 		};
-		window.open('register.html#step4', '_self');
+		console.log(pictureFlag);
+		var data={
+			"bizType": 1,
+    		"enterprise": "233434344344" ,
+    		"esealCode": "2132323232" ,
+    		"urls": pictureFlag
+		}
+		service.attach(data).done(function(data){
+			if(data.code==0){
+				window.open('register.html#step4', '_self');
+			}else{
+				console.log(data.msg)
+			}
+		})		
 	}
-
 });
 
 module.exports = step3;

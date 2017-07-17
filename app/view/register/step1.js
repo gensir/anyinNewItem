@@ -66,6 +66,11 @@ var step1 = Backbone.View.extend({
         });
     },
     reguser: function (event) {
+    	var IDCode = $("#idcode").val();
+		window.reqres.setHandler("IDCode", function() {
+			return IDCode;
+		});
+		
         this.model.set({ "clickEle": $(event.target).data('id') });
         this.model.isValid();
         if (!this.model.isValid()) {
