@@ -57,7 +57,10 @@ var step3 = Backbone.View.extend({
 		var randomPercent = Math.floor(Math.random() * 19 + 80);
         var percentVal = 0;
         if(pictureFlag[num] != 0) {
-			service.deletePhoto().done(function(data) {
+        	var data={
+        		"fullUrl":pictureFlag[num]
+        	}
+			service.deletePhoto(data).done(function(data) {
 				if(data.code == 0) {
 					console.log(data.msg);
 				} else {
