@@ -72,7 +72,6 @@ var step1 = Backbone.View.extend({
 		});
 		
         this.model.set({ "clickEle": $(event.target).data('id') });
-        this.model.isValid();
         if (!this.model.isValid()) {
             window.open('#step2', '_self')
         }

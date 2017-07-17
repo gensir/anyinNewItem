@@ -6,8 +6,8 @@ var registerModel = Backbone.Model.extend({
 	validate: function(attrs) {
 		//验证规则
 		if(attrs.clickEle == 'reguser') {
-			$.verifyEach({"idcode":"#idcode","yzmcode":"#yzmcode"},function(){
-                return true;
+		return $.verifyEach({"idcode":"#idcode","yzmcode":"#yzmcode"},function(){
+                //return true;
                 //window.open('#step2', '_self')
             })
 		}
