@@ -3,6 +3,7 @@ var proxy = {
 	wang: 'http://192.168.4.17',
     jsl: 'http://192.168.4.94:8086',
     local:'http://localhost:8086',
+    anyinUrl:'http://192.168.1.159:9500'
 }
 var config = {
 	dev: {
@@ -21,6 +22,11 @@ var config = {
 			},
 			'/api': {
                 target: proxy.local, //pathRewrite: {'^/column' : '/column'},
+                secure: false
+				//changeOrigin: true
+			},
+			'/mp':{
+				target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false
 				//changeOrigin: true
 			}

@@ -68,7 +68,7 @@ var step3 = Backbone.View.extend({
 			});
 		}
 		$("#ajaxForm" + num).ajaxSubmit({
-			url: '/api/mp/file',
+			url: '/mp/file',
 			type: "post",
 			dataType: "json",
 			ContentType: "multipart/form-data",
