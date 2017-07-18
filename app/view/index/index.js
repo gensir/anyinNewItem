@@ -6,6 +6,7 @@ var index = Backbone.View.extend({
     el: '.container',
     initialize() {
         //this.load();
+        this.datecalc()
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
@@ -62,6 +63,18 @@ var index = Backbone.View.extend({
             this.$el.html(tpl(this.model.get("tpl")));
         });
     },
+    datecalc() {
+        var date1 = new Date();
+        var date2 = new Date('2018-01-01');
+        var date = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
+        if (date < 0) {
+            console.log("已过期")
+            //alert("已过期");
+        } else {
+            console.log(parseInt(date) + '天')
+            //alert(parseInt(date) + '天');
+        }
+    },
     //获取印章数据
     getEsealList() {
         var data = {
@@ -74,7 +87,7 @@ var index = Backbone.View.extend({
             } else {
                 Esealobj = res.data.list;
             }
-            this.model.get("tpl").esealValid = Esealobj
+            this.model.get("tpl").esealValid = Esealobj;
             this.$el.html(tpl(this.model.get("tpl")));
         });
     },

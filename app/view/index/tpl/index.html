@@ -23,9 +23,9 @@
 			<ul class="blist boxshow">
                 {{each esealValid as value i}}
 				<li>
-                    <span class="name">{{esealValid[i].esealFullName}}</span>
+                    <span class="name" title="{{esealValid[i].esealFullName}}">{{esealValid[i].esealFullName}}</span>
                     <span class="date">{{esealValid[i].validEnd}}</span>
-                    <span class="operate"><a href="admin.html">立即续费></a></span>
+                    <span class="operate"><a href="admin.html#renew">立即续费></a></span>
                 </li>
                 {{/each}}
                 <!--li><span class="name">电子财务章</span><span class="date">3个月</span><span class="operate"><a href="admin.html">立即续费></a></span></li>

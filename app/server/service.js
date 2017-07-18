@@ -91,8 +91,8 @@ export default {
         return this.ajaxCall({ url: domain + anyin + "/mp/eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    getLogsList(pageNum, pageSize) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5" });
+    getLogsList(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
     },
     checkSmsCode() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
@@ -113,7 +113,7 @@ export default {
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + anyin + "/mp/file?fileUrl="+data }, "delete");
+        return this.ajaxCall({ url: domain + anyin + "/mp/file", data: data }, "delete");
     },
     //检查信用代码
     checkidCode(data) {

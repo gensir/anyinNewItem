@@ -32,10 +32,10 @@
 .t-title .more:hover { color: #666; }
 .blist { padding: 20px 38px 38px; }
 .blist li { height: 50px; padding: 18px 0; line-height: 14px; border-bottom: dashed 1px #dedede; }
-.xufei .blist li span { display: inline-block; }
+.xufei .blist li span { display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .xufei .name { width: 33%; }
 .xufei .date { width: 33%; text-align: center; }
-.xufei .operate { width: 34%; text-align: right; }
+.xufei .operate { text-align: right; float: right; }
 .xufei .operate a { color: #00acff; } 
 .help { margin-top: 15px; }
 .help .blist li a { color: #666; text-decoration: none; }
