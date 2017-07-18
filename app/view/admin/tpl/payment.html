@@ -1,148 +1,175 @@
 <div class="payment step4">
-    <div class="bill">
-        <form class="form-horizontal">
-            <div class="form-group form-bottom">
-                <label class="col-sm-2 control-label">是否开具发票：</label>
-                <div class="col-sm-5">
-                    <label class="radio-inline">
-  								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 是
-							</label>
-                    <label class="radio-inline">
-  								<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 否
-							</label>
-                </div>
-            </div>
-            <div class="form-group form-bottom">
-                <label class="col-sm-2 control-label"></label>
-                <div class="col-sm-4">
-                    <input type="text" placeholder="发票抬头填写个人/单位名称" class="form-control countCode fl">
-                </div>
-                <!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
-            </div>
-            <div class="form-group form-bottom downLine">
-                <label class="col-sm-2 control-label"></label>
-                <div class="col-sm-4">
-                    <div class="billTips">该订单仅提供电子发票。<a href="order.html#step4#">什么是电子发票？</a></div>
-                </div>
-                <!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
-            </div>
-            <div class="form-group form-bottom">
-                <label class="col-sm-2 control-label">付款方式：</label>
-                <div class="col-sm-10">
-                    <div class="pay">
-                        <div class="wepay"></div>
-                        <div class="alipay"></div>
-                        <div class="unionpay"></div>
-                    </div>
-                </div>
-                <!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
-            </div>
-        </form>
-    </div>
+	<div class="bill">
+		<form class="form-horizontal">
+			<div class="form-group form-bottom">
+				<label class="col-sm-2 control-label">是否开具发票：</label>
+				<div class="col-sm-5">
+					<label class="radio-inline">
+  						<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" checked="checked"> 个人发票
+					</label>
+					<label class="radio-inline">
+  						<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2"> 企业发票
+					</label>
+					<label class="radio-inline">
+  						<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3"> 无需开具发票
+					</label>
+				</div>
+			</div>
+			<div class="form-group form-bottom taxBox">
+				<div class="person">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-4">
+						<input type="text" id="user" placeholder="发票抬头填写个人名称" class="form-control countCode fl">
+					</div>
+				</div>
+				<div class="company">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-4">
+						<input type="text" id="company" placeholder="发票抬头填写企业名称" class="form-control countCode fl">
+						<input type="text" id="taxpayer" placeholder="请填写纳税人识别号" class="form-control countCode fl">
+						<div class="taxTips">
+							请输入15、18或20位的纳税人识别号！
+						</div>
+					</div>
+				</div>
+				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+			</div>
+			<div class="form-group form-bottom downLine">
+				<label class="col-sm-2 control-label"></label>
+				<div class="col-sm-4">
+					<div class="billTips">该订单仅提供电子发票。
+						<a href="order.html#step4#">什么是电子发票？</a>
+					</div>
+				</div>
+				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+			</div>
+			<div class="form-group form-bottom">
+				<label class="col-sm-2 control-label">付款方式：</label>
+				<div class="col-sm-10">
+					<div class="pay">
+						<div class="wepay"></div>
+						<div class="alipay"></div>
+						<div class="unionpay"></div>
+					</div>
+				</div>
+				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
+			</div>
+		</form>
+	</div>
 
-    <div class="gopay">
-        <div class="fr">
-            <span class="realPay">实付金额：</span> <span class="money">360000元</span> <span class="account">去结算</span>
-        </div>
-    </div>
+	<div class="gopay">
+		<div class="fr">
+			<span class="realPay">实付金额：</span> <span class="money">360000元</span> <span class="account">去结算</span>
+		</div>
+	</div>
 
-
-    <div class="paymentStyle">
-        <style>
-            .step4 form {
-                border-top: 1px dashed #999999;
-                padding-top: 20px;
-            }
-
-            .step4 .bill .form-horizontal .form-group {
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .step4 form .downLine {
-                padding-bottom: 20px;
-                border-bottom: 1px dashed #999999;
-            }
-
-            .step4 form .control-label {
-                text-align: left;
-            }
-
-            .step4 form .pay div {
-                height: 42px;
-                width: 154px;
-                display: inline-block;
-                border: 1px solid #dedede;
-                margin-right: 10px;
-                cursor: pointer;
-            }
-
-            .step4 form .pay div.wepay {
-                background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat;
-            }
-
-            .step4 form .pay div.alipay {
-                background: url(../../../../asset/img/c-1-6-4_12.jpg) no-repeat;
-            }
-
-            .step4 form .pay div.unionpay {
-                background: url(../../../../asset/img/c-1-6-4_14.jpg) no-repeat;
-            }
-
-            .step4 .gopay {
-                height: 56px;
-                background: #ddd;
-            }
-
-            .step4 .gopay .realPay {
-                font-size: 16px;
-                font-weight: 600;
-                margin-right: 10px;
-            }
-
-            .step4 .gopay .money {
-                font-size: 20px;
-                font-weight: 600;
-                color: #03adff;
-                margin-right: 20px;
-            }
-
-            .step4 .gopay .account {
-                display: inline-block;
-                width: 170px;
-                height: 100%;
-                background: #03adff;
-                color: #fff;
-                line-height: 56px;
-                text-align: center;
-                font-size: 16px;
-                cursor: pointer;
-            }
-
-            .step4 .go {
-                height: 36px;
-                width: 375px;
-                margin: 25px auto 0px;
-            }
-
-            .step4 .go a {
-                display: inline-block;
-                height: 36px;
-                width: 170px;
-                text-align: center;
-                font-size: 14px;
-                text-decoration: none;
-            }
-
-            .step4 .go a#goStep2 {
-                color: #666666;
-            }
-
-            .step4 .go a.btn-ay {
-                color: #ffffff;
-                background-color: #00acff;
-                border-color: #00acff;
-            }
-        </style>
-    </div>
+	<div class="paymentStyle">
+		<style>
+			.step4 form {
+				border-top: 1px dashed #999999;
+				padding-top: 20px;
+			}
+			
+			.step4 .bill .form-horizontal .form-group {
+				margin-left: 0;
+				margin-right: 0;
+			}
+			
+			.step4 form .downLine {
+				padding-bottom: 20px;
+				border-bottom: 1px dashed #999999;
+			}
+			
+			.step4 form .control-label {
+				text-align: left;
+			}
+			
+			.step4 form .pay div {
+				height: 42px;
+				width: 154px;
+				display: inline-block;
+				border: 1px solid #dedede;
+				margin-right: 10px;
+				cursor: pointer;
+			}
+			
+			.step4 form .pay div.wepay {
+				background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat;
+			}
+			
+			.step4 form .pay div.alipay {
+				background: url(../../../../asset/img/c-1-6-4_12.jpg) no-repeat;
+			}
+			
+			.step4 form .pay div.unionpay {
+				background: url(../../../../asset/img/c-1-6-4_14.jpg) no-repeat;
+			}
+			.step4 form .taxBox{
+				height: 118px;
+			}
+			.step4 form .company{
+				display: none;
+			}
+			.step4 form .company input{
+				margin-bottom: 15px;
+			}
+			.step4 form .company .taxTips{
+				color: red;
+			}
+			.step4 .gopay {
+				height: 56px;
+				background: #ddd;
+			}
+			
+			.step4 .gopay .realPay {
+				font-size: 16px;
+				font-weight: 600;
+				margin-right: 10px;
+			}
+			
+			.step4 .gopay .money {
+				font-size: 20px;
+				font-weight: 600;
+				color: #03adff;
+				margin-right: 20px;
+			}
+			
+			.step4 .gopay .account {
+				display: inline-block;
+				width: 170px;
+				height: 100%;
+				background: #03adff;
+				color: #fff;
+				line-height: 56px;
+				text-align: center;
+				font-size: 16px;
+				cursor: pointer;
+			}
+			
+			.step4 .go {
+				height: 36px;
+				width: 375px;
+				margin: 25px auto 0px;
+			}
+			
+			.step4 .go a {
+				display: inline-block;
+				height: 36px;
+				width: 170px;
+				text-align: center;
+				font-size: 14px;
+				text-decoration: none;
+			}
+			
+			.step4 .go a#goStep2 {
+				color: #666666;
+			}
+			
+			.step4 .go a.btn-ay {
+				color: #ffffff;
+				background-color: #00acff;
+				border-color: #00acff;
+			}
+		</style>
+	</div>
 </div>

@@ -31,6 +31,7 @@ var step3 = Backbone.View.extend({
 	choice: function(event) {
 		flag = false;
 		var ele = event.target;
+		var ind = $(ele).parent("tr").index();
 		$('.step3 tr').css({ 'background': '#fff' })
 		$('.step3 .right').removeClass('currentRight');
 		$(ele).parent().css({ 'background': '#00acff' })
