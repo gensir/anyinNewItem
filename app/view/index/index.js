@@ -76,11 +76,13 @@ var index = Backbone.View.extend({
         }
     },
     //获取印章数据
-    getEsealList() {
+    getEsealList(pageNum, pageSize, data) {
         var data = {
             "firmId": "nihao"
         }
-        service.getEsealList(this.model.get("pageNum"), this.model.get("pageSize"), data).done(res => {
+        pageNum = 1;
+        pageSize = 3;
+        service.getEsealList(pageNum, pageSize, data).done(res => {
             var Esealobj;
             if (res.code != 0) {
                 Esealobj = {}

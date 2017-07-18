@@ -1,9 +1,11 @@
 var orderModel = Backbone.Model.extend({
 	defaults: {
         'verify': require('../../../publicFun/validate'),
-        pageNum: '1',
-        pageSize: '2',
-        firmId:'nihao',
+        pageNum: '',
+        pageSize: '',
+        totalPages:'',
+        firmId:'',
+        pinwdError: '',
         tpl:{}
 	},
 	validate: function(attrs) {
