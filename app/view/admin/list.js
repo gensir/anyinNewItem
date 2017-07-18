@@ -17,25 +17,14 @@ var list = Backbone.View.extend({
         'click .eseallist .list>.nav .logout': 'logout',
         'click .topseal .boxmodel span': 'toggleTab',
         'click .license .accordion .nav .shut': 'shut',
-        'click .license .accordion .nav .open': 'open'
+        'click .license .accordion .nav .open': 'open',
+        'click .PreviousPage': 'PreviousPage',
+        'click .NextPage': 'NextPage',
+        'click nav li.index': 'currentPapge'
     },
     render: function (query) {
         $(".container").empty();
-        var querydata = {
-            "firmId": "nihao"
-        }
-        service.getEsealList(1, 10, querydata).done(res => {
-            var tempObj;
-            if (res.code != 0) {
-                tempObj = {}
-            } else {
-                tempObj = res.data.list;
-            }
-            this.$el.html(tpl({ data: tempObj }));
-            if (GetQueryString("page") == "license") {
-                this.toggleTab(event,$("#loginset"))
-            }
-        })
+        this.listPage();
 
     },
     ukey() {
@@ -80,8 +69,8 @@ var list = Backbone.View.extend({
             toggle.slideUp();
         }
     },
-    toggleTab(event,license) {
-        var _this =license||event.currentTarget;
+    toggleTab(event, license) {
+        var _this = license || event.currentTarget;
         $(_this).addClass("active").siblings().removeClass("active");
         $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
     },
@@ -414,6 +403,86 @@ var list = Backbone.View.extend({
     renew() {
         window.open("admin.html#renew", "_self")
         return false
+    },
+    listPage(querydata, pageNum, pageSize) {
+        pageNum = pageNum || 1;
+        pageSize = pageSize || 2;
+        querydata = querydata || { "firmId": "nihao" }
+        service.getEsealList(pageNum, pageSize, querydata).done(res => {
+            var tempObj;
+            if (res.code != 0) {
+                tempObj = {}
+            } else {
+                tempObj = res.data;
+            }
+            this.model.set("totalPages", res.data.totalPages)
+            this.model.get("tplhtml").data = tempObj;
+            this.$el.html(tpl(this.model.get("tplhtml")));
+            this.pagination(res.data.pageNum, res.data.totalPages)
+            if (GetQueryString("page") == "license") {
+                this.toggleTab(event, $("#loginset"))
+            }
+        })
+    },
+    // 点击上一页、下一页
+    pagediv(val, totalPages) {
+        if (val < 1) {
+            val = 1;
+            return;
+        }
+        if (val > totalPages) {
+            val = totalPages;
+            return;
+        }
+        if (val === this.current) {
+            return;
+        }
+        var _that = this;
+        var obj = {
+            "firmId": "nihao"
+        }
+        this.listPage(obj, val)
+    },
+    //pagination
+    pagination: function (pageNumber, totalPages) {
+        $("#pageLimit li.index").remove();
+        var firstShowPage, maxShowPage = 5
+        if (pageNumber <= 3) {
+            firstShowPage = 1
+        } else {
+            firstShowPage = pageNumber - 2;
+        }
+        var lastShowPage = maxShowPage + firstShowPage - 1;
+        if (lastShowPage > totalPages) {
+            lastShowPage = totalPages;
+        }
+        this.model.get("tplhtml").count = [];
+        for (var i = firstShowPage; i <= lastShowPage; i++) {
+            var pageIndex = '<li class="index"><a>' + i + '</a></li>';
+            $(".appendPage").before(pageIndex)
+        };
+        if (!this.active) {
+            this.active = $("#pageLimit .index").eq(0)
+        } else {
+            if (isNaN(this.active.find('a').text())) {
+                this.active = $("#pageLimit .index").eq(0)
+            }
+            this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
+        }
+        this.active.addClass("active").siblings().removeClass("active")
+    },
+    currentPapge(e) {
+        this.active = $(e.currentTarget);
+        var pageNum = this.active.find("a").text()
+        this.pagediv(pageNum, this.model.get("totalPages"))
+    },
+    PreviousPage() {
+        this.active = "";
+        this.pagediv(1, this.model.get("totalPages"))
+    },
+    NextPage(e) {
+        this.active = $(e.currentTarget).prev();
+        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
     }
 });
 

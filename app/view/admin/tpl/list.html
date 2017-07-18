@@ -20,13 +20,13 @@
                     <li class="nav5">管理操作</li>
                 </ul>
                 <div class="eseallist">
-                	{{each data as value i}}
+                    {{each data.list as value i}}
                     <div class="list">
                         <ul class="nav">
-                            <li class="nav1">{{data[i].esealFullName}}</li>
-                            <li class="nav2">{{data[i].esealCode}}</li>
-                            <li class="nav3">{{data[i].esealCreateTime}}</li>
-                            <li class="nav4">{{data[i].validEnd}}</li><!--{{data[i].validEnd}}-->
+                            <li class="nav1">{{value.esealFullName}}</li>
+                            <li class="nav2">{{value.esealCode}}</li>
+                            <li class="nav3">{{value.esealCreateTime}}</li>
+                            <li class="nav4">{{value.validEnd}}</li>
                             <li class="nav5">
                                 <span class="renew">续费</span>
                                 <span class="unfreeze">解冻</span>
@@ -38,16 +38,16 @@
                             <ul class="nav">
                                 <li class="n1">
                                     <p class="top f14">电子印章信息<span>正常</span></p>
-                                    <p>印章名：<span>{{data[i].esealFullName}}</span></p>
-                                    <p>印章编号：<span>{{data[i].esealCode}}</span></p>
-                                    <p>制作日期: <span>{{data[i].esealCreateTime}}</span></p>
-                                    <p>印章生效期: <span>{{data[i].validStart}}</span></p>
-                                    <p>印章失效期： <span>{{data[i].validEnd}}</span></p>
+                                    <p>印章名：<span>{{value.esealFullName}}</span></p>
+                                    <p>印章编号：<span>{{value.esealCode}}</span></p>
+                                    <p>制作日期: <span>{{value.esealCreateTime}}</span></p>
+                                    <p>印章生效期: <span>{{value.validStart}}</span></p>
+                                    <p>印章失效期： <span>{{value.validEnd}}</span></p>
                                 </li>
                                 <li class="n2">
                                     <p class="f14">企业信息</p>
-                                    <p>企业名称：<span>{{data[i].enterpriseName}}</span></p>
-                                    <p>机构代码： <span>  {{data[i].enterpriseCode}}</span></p>
+                                    <p>企业名称：<span>{{value.enterpriseName}}</span></p>
+                                    <p>机构代码： <span>  {{value.enterpriseCode}}</span></p>
                                     <p>统一社会信用代码：<span>5465451274112135121X</span></p>
                                 </li>
                                 <li class="n3">
@@ -62,6 +62,26 @@
                     </div>
                     {{/each}}
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" id="pageLimit">
+                        <li class="PreviousPage">
+                            <a aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!-- {{each count as value i}}
+                        <li class="index"><a>{{value}}</a></li>
+                         {{/each}} -->
+                        <li class="appendPage NextPage">
+                            <a aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <!-- <li class="gopage">
+                            <label>前往<input type="text">页</label>
+                        </li> -->
+                    </ul>
+                </nav>
             </div>
         </div>
 
@@ -108,6 +128,11 @@
     html,
     body {
         height: 100%;
+    }
+nav
+    {
+        text-align: center;
+        cursor: pointer;
     }
 
     body {
@@ -269,13 +294,15 @@
         cursor: pointer;
     }
 
-    .listview .accordion .nav li.nav5 span{
+    .listview .accordion .nav li.nav5 span {
         display: inline-block;
         line-height: 48px;
     }
-    .license .accordion .nav li{
+
+    .license .accordion .nav li {
         min-width: auto;
     }
+
     .license .accordion .nav .nav1 {
 
         width: 36%;
@@ -307,5 +334,4 @@
     .license .accordion .nav .open {
         cursor: pointer;
     }
-
 </style>

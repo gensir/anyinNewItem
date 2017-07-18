@@ -3,7 +3,9 @@ var orderModel = Backbone.Model.extend({
 		'verify': require('../../../publicFun/validate'),
         "numInd": 0,
         ukeyName:[],
-		pinwdError: '',
+        pinwdError: '',
+        tplhtml:{},
+        totalPages:''
 	},
 	validate: function(attrs) {
         if(attrs.clickEle=="lossCheck"){
