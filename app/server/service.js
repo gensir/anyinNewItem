@@ -113,7 +113,7 @@ export default {
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + anyin + "/mp/file", data: data }, "delete");
+        return this.ajaxCall({ url: domain + anyin + "/mp/file?fileUrl="+data }, "delete");
     },
     //检查信用代码
     checkidCode(data) {
