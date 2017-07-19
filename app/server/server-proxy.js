@@ -17,18 +17,18 @@ var config = {
 		proxy: {
             '/api/sealnet': {
                 target: proxy.local, //pathRewrite: {'^/column' : '/column'},
-                secure: false
-				//changeOrigin: true
+                secure: false,
+				changeOrigin: true
 			},
 			'/api': {
                 target: proxy.local, //pathRewrite: {'^/column' : '/column'},
-                secure: false
-				//changeOrigin: true
+                secure: false,
+				changeOrigin: true
 			},
 			'/mp':{
 				target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
-                secure: false
-				//changeOrigin: true
+                secure: false,
+				changeOrigin: true
 			}
 		}
 	},
