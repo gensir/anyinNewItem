@@ -7,7 +7,7 @@
 .intnav ul li a.active { border-bottom: solid 2px #00acff; color: #333; }
 /* 搜索 */
 .intnav .page-kd { position: relative; }
-.intnav .search { position: absolute; right: 0; top: 0;  width: 310px; }
+.intnav .search { position: absolute; right: 0; top: 0; width: 310px; }
 .intnav .inputbox { position: relative; margin-top: 13px; }
 .intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; z-index: 2; position: relative; }
 .intnav .search .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: #fff; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }
@@ -17,9 +17,10 @@
 .intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; outline: none; }
 .intnav .search .more .state { float: left; margin-right: 20px; }
 .intnav .search .more .labelname { font-size: 12px; color: #666; display: inline-block; float: left; line-height: 28px; }
-.select-box { width: 90px; height: 28px; line-height: 28px; font-size: 12px; border: solid 1px #dedede; position: relative; z-index: 1; background: #fff; overflow: hidden; min-width: 44px; max-width: 120px; padding-right: 20px; display: inline-block; vertical-align: middle; } 
-.select-box .selecticon { display: block; height: 28px; width: 20px; overflow: hidden; position: absolute; z-index: 2; top: 0px; right: 0px; background: #fff url(../img/bg-all.png) no-repeat -134px -289px; pointer-events: none; margin: 0; }
+.select-box { width: 90px; height: 28px; line-height: 28px; font-size: 12px; border: solid 1px #dedede; position: relative; z-index: 1; background: #fff; overflow: hidden; min-width: 44px; max-width: 120px; padding-right: 20px; display: inline-block; vertical-align: middle;  } 
+.select-box .selecticon { display: block; height: 28px; width: 20px; overflow: hidden; position: absolute; z-index: 2; top: 0px; right: 0px; background: #fff url(../img/bg-all.png) no-repeat -132px -287px; pointer-events: none; margin: 0; }
 .select-box select { border: 0; padding-left: 6px; color: #666; background: #fff; -webkit-appearance: none; width: 150%; outline: none; }
+/* 内部菜单 */
 .intnav .search .more .date { padding-top: 20px; color: #666; }
 .intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block; vertical-align: middle; border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
 .intnav .search .more .date span { position: relative; float: left; display: inline-block; }
@@ -47,7 +48,7 @@
 .jilulist ul.listtext li { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
 .jilulist ul.listtext li:hover,
 .jilulist ul.listtext li.active { background: #ddd; }
-.jilulist ul.listtext li .file { padding: 15px 30px; overflow: hidden; cursor: pointer; border-radius: 4px; }
+.jilulist ul.listtext li .file { padding: 14px 30px; overflow: hidden; cursor: pointer; border-radius: 4px; }
 
 .jilulist li .details { background: #fff; padding: 30px 30px 20px; overflow: hidden; display: none; margin-left: 30px; margin-right: 30px; border-radius: 2px; margin-bottom: 30px; }
 .jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
