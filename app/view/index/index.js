@@ -1,6 +1,6 @@
 var tpl = require('./tpl/index.html');
 var service = require('../../server/service').default;
-import dialog from '../pub//tpl/dialog.html';
+import dialog from '../pub/tpl/dialog.html';
 var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
