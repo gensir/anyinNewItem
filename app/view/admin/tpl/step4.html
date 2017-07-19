@@ -8,11 +8,13 @@
 		</div>
 		<div class="orderMessage">
 			<div class="orderList">
-				<div class="order">
-					<span class="serial">1</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
-				</div>
-				<div class="order">
-					<span class="serial">2</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
+				<div class="orders">
+					<div class="order">
+						<span class="serial">1</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
+					</div>
+					<div class="order">
+						<span class="serial">2</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
+					</div>
 				</div>
 				<div class="orderTips">
 					<span>注：赠送2年保修</span><span class="total">总计：</span><span class="totalM">720</span>
@@ -75,11 +77,12 @@
 	}
 	
 	.step4 .orderMessage .orderList {
-		min-height: 150px;
 		display: inline-block;
 		position: relative;
 	}
-	
+	.step4 .orderMessage .orderList .orders{
+		min-height: 110px;
+	}
 	.step4 .orderMessage .order {
 		width: 496px;
 		padding: 15px 0;
