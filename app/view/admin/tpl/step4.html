@@ -14,6 +14,9 @@
 				<div class="order">
 					<span class="serial">2</span><span class="sealName">安印电子行政章</span><span class="service">2年服务费</span> <span class="price">360元</span>
 				</div>
+				<div class="orderTips">
+					<span>注：赠送2年保修</span><span class="total">总计：</span><span class="totalM">720</span>
+				</div>
 			</div>
 			<div class="orderYear">
 				<div class="year">
@@ -21,9 +24,7 @@
 					<div class="dateline">电子印章有效期</div>
 				</div>
 			</div>
-			<div class="orderTips">
-				注：赠送2年保修
-			</div>
+			
 			<!--html .bill from payment template-->
 		</div>
 	</div>
@@ -71,34 +72,24 @@
 	.step4 .orderMessage {
 		width: 1000px;
 		margin: 0 auto;
-		padding-top: 28px;
 	}
 	
 	.step4 .orderMessage .orderList {
+		min-height: 150px;
 		display: inline-block;
+		position: relative;
 	}
 	
 	.step4 .orderMessage .order {
 		width: 496px;
-		height: 60px;
-		margin-bottom: 40px;
-		border: 1px dashed #e0e0e0;
-		margin-bottom: 28px;
-	}
-	
-	.step4 .orderMessage .order span {
-		margin-top: 15px;
+		padding: 15px 0;
+		border-bottom: 1px dashed #e0e0e0;
 	}
 	
 	.step4 .orderMessage .order .serial {
 		display: inline-block;
 		width: 30px;
-		height: 30px;
-		border: 1px solid #e0e0e0;
-		border-radius: 15px;
 		text-align: center;
-		line-height: 30px;
-		margin-left: 22px;
 	}
 	
 	.step4 .orderMessage .order .sealName {
@@ -110,7 +101,6 @@
 		margin-left: 38px;
 		height: 24px;
 		width: 94px;
-		border: 1px solid #00acff;
 		color: #00acff;
 		text-align: center;
 		line-height: 24px;
@@ -126,6 +116,7 @@
 	.step4 .orderYear {
 		width: 280px;
 		height: 110px;
+		margin: 20px 0;
 		float: right;
 		border-left: 1px solid #dedede;
 	}
@@ -140,74 +131,32 @@
 		color: #00acff;
 		font-size: 20px;
 		text-align: center;
+		height: 50px;
+		width: 50px;
+		line-height: 50px;
+		margin-left: 25px;
+		border-radius: 25px;
+		background: #eee;
 	}
 	
 	.step4 .orderYear .year .dateline {
 		text-align: center;
+		margin-top: 10px;
 	}
 	
 	.step4 .orderTips {
-		height: 30px;
+		height: 40px;
+		line-height: 40px;
 		color: #999999;
-		
 	}
+	.step4 .orderTips .total{
+		margin-left: 200px;
+	}
+    .step4 .orderTips .totalM{
+    	font-size: 20px;
+    	color: #00acff;
+    }
 
 
-
-	/*弹框*/
-	.errorTips .title{
-		font-weight: 600;
-	}
-	.errorTips .clear{
-		clear: both;
-	}
-	.errorTips .message .icon{
-		width: 25%;
-		height: 110px;
-		float: left;
-		padding-left: 48px;
-	}
-	.errorTips .message .icon span{
-		display: inline-block;
-		height: 46px;
-		width: 46px;
-		margin-top: 32px;
-		background: url(../../../../asset/img/login3.png) no-repeat left bottom;
-	}
-	.errorTips .message .errorOrderTips{
-		width: 75%;
-		float: left;
-	}
-	.errorTips .message .errorOrderTitle{
-		font-size: 16px;
-		margin: 10px;
-	}
-	.errorTips .message .errorOrderSeal span{
-		display: inline-block;
-		border: 1px dashed #ddd;
-		margin: 0px 10px 10px 10px;
-		padding: 10px;
-	}
-	.errorTips .message .errorOrderRed{
-		margin-left: 10px;
-		color: #f27272;
-		font-size: 16px;
-	}
-	.errorTips .modal-footer{
-		border: none;
-		text-align: center;
-		padding: 15px 0 30px;
-	}
-	.errorTips .modal-footer .btn1{
-		width: 90px;
-		height: 32px;
-	}
-	.errorTips .modal-footer .btn2,
-	.errorTips .modal-footer .btn3{
-		width: 100px;
-		height: 32px;
-		color: #fff;
-		background: #00acff;
-		margin-left: 15px;
-	}
+	
 </style>

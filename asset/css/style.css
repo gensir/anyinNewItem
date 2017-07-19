@@ -1,5 +1,5 @@
 @charset "utf-8";
-body { background: #f6f6f6; overflow-y: scroll; }
+body { background: #f6f8fc; overflow-y: scroll; }
 ul { list-style: none; padding: 0; margin: 0; }
 .page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
 .boxshow { background: #fff; border-radius: 4px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.05); }
