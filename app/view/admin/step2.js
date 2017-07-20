@@ -47,7 +47,19 @@ var step2 = Backbone.View.extend({
 				return;
 			}
 		};
-		window.open('admin.html#step3', '_self');
+		var data = {
+			"bizType": 4,
+			"enterprise": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
+			"urls": pictureFlag,
+			"esealCode":"2132323232" ,
+		}
+		service.attach(data).done(function(data) {
+			if(data.code == 0) {
+				window.open('admin.html#step3', '_self');
+			} else {
+				console.log(data.msg)
+			}
+		})		
 	}
 });
 

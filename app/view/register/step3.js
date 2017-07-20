@@ -42,9 +42,8 @@ var step3 = Backbone.View.extend({
 		};
 		console.log(pictureFlag);
 		var data = {
-			"bizType": 1,
-			"enterprise": "233434344344",
-			"esealCode": "2132323232",
+			"bizType": 4,
+			"enterprise": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
 			"urls": pictureFlag
 		}
 		service.attach(data).done(function(data) {
