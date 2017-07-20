@@ -246,7 +246,7 @@ router.get('/management_platform/mpEsealOrder/queryOrderList/1/10', function (re
         "msg": "请求成功",
         "data": {
             "totalRows": 1,
-            "totalPages": 1,
+            "totalPages": 10,
             "pageNum": 1,
             "pageSize": 5,
             "curPageSize": 1,
