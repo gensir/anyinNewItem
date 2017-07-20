@@ -9,11 +9,16 @@ var logs = Backbone.View.extend({
         'focus #keyword': 'MoreSearch',
         'click #search_submit': 'searchs',
         'click #close': 'close',
-        'mouseleave .more': 'blur',
+        //'mouseleave .more': 'mouseleave',
+        'blur .more': 'blur',
         "change #s_state": "SelectState",
         "change #s_type": "SelectType",
         'click #date1+em': 'remove_date',
         'click #date2+em': 'remove_date2',
+
+        'click .PreviousPage': 'PreviousPage',
+        'click .NextPage': 'NextPage',
+        'click nav li.index': 'currentPapge'        
     },
     //调取日期控件
     form_date() {
@@ -58,25 +63,46 @@ var logs = Backbone.View.extend({
     MoreSearch() {
         $(".search .more").show()
     },
-    //选择状态
-    SelectState(event) {
-        var selected = $(event.currentTarget).find("option:selected").index() || "";
-        switch (parseInt(selected)) {
-            case 1: selected = 1; break;
-            case 2: selected = 2; break;
-        }
-        this.SelectState = selected;
-        console.log(this.SelectState);
+    //关闭详细搜索
+    blur() {
+        $('.more').blur(function () {
+            $(".more").hide();
+        })
     },
-    //选择业务类型
-    SelectType(event) {
+    //关闭详细搜索
+    mouseleave() {
+        $('.more').mouseleave(function () {
+            $(".more").hide();
+        })
+    },
+    //禁用搜索提示
+    nosearch() {
+        $(".search .nosearch").show()
+    },
+    //关闭更多搜索
+    close() {
+        $(".search .nosearch").hide();
+        $(".search .more").hide();
+    },
+    //选择状态
+    operateStatus(event) {
         var selected = $(event.currentTarget).find("option:selected").index() || "";
         switch (parseInt(selected)) {
-            case 1: selected = "单页签章"; break;
-            case 2: selected = "骑缝签章"; break;
+            case 1: selected = 0; break;
+            case 2: selected = 1; break;
         }
-        this.SelectType = selected;
-        console.log(this.SelectType);
+        this.operateStatus = selected;
+        console.log(this.operateStatus);
+    },
+    //选择签章类型
+    esealType(event) {
+        var selected = $(event.currentTarget).find("option:selected").index() || "";
+        switch (parseInt(selected)) {
+            case 1: selected = "1"; break;
+            case 2: selected = "2"; break;
+        }
+        this.esealType = selected;
+        console.log(this.esealType);
     },
     //提交搜索
     searchs() {
@@ -94,37 +120,100 @@ var logs = Backbone.View.extend({
             return false;
         } else {
             console.log("开始搜索");
-            this.logslist({ keyword: $("#keyword").val(), sTime: $("#date1").val(), eTime: $("#date2").val(), SelectType: this.SelectType, SelectState: this.SelectState });
+            this.logslist({ keyword: $("#keyword").val(), sTime: $("#date1").val(), eTime: $("#date2").val(), operateStatus: this.operateStatus, esealType: this.esealType });
         };
-    },
-    blur() {
-        $('.more').blur(function () {
-            $(".more").hide();
-        })
-    },
-    //禁用搜索提示
-    nosearch() {
-        $(".search .nosearch").show()
-    },
-    //关闭更多搜索
-    close() {
-        $(".search .nosearch").hide();
-        $(".search .more").hide();
     },
 
     //获取数据
-    logslist() {
-        service.getLogsList(1, 5).done(res => {
-            var obj;
+    logslist(pageNum, pageSize, data) {
+        pageNum = pageNum || 1;
+        pageSize = pageSize || 5;
+        var data = {
+            "operateStatus": "",
+            "esealType": "",
+            "keyword": "",
+            "signTime": "",            
+        }
+        service.getLogsList1(pageNum, pageSize,data).done(res => {
+            var logsObj;
             if (res.code != 0) {
-                obj = {}
+                logsObj = {}
             } else {
-                obj = res.data.list;
+                logsObj = res.data;
             }
-            this.$el.html(tpl({ data: obj }));
+            this.model.set("totalPages", res.data.totalPages)
+            this.model.get("tplhtml").data = logsObj;
+            this.$el.html(tpl(this.model.get("tplhtml")));
+            this.pagination(res.data.pageNum, res.data.totalPages)
+            
+            
             this.form_date();
         });
     },
+    // 点击上一页、下一页
+    pagediv(val, totalPages) {
+        if (val < 1) {
+            val = 1;
+            return;
+        }
+        if (val > totalPages) {
+            val = totalPages;
+            return;
+        }
+        if (val === this.current) {
+            return;
+        }
+        var _that = this;
+        var data = {
+            "operateStatus": "",
+            "esealType": "",
+            "keyword": "",
+            "signTime": "",
+        }
+        this.logslist(data, val)
+    },
+    //pagination
+    pagination: function (pageNumber, totalPages) {
+        $("#pageLimit li.index").remove();
+        var firstShowPage, maxShowPage = 5
+        if (pageNumber <= 3) {
+            firstShowPage = 1
+        } else {
+            firstShowPage = pageNumber - 2;
+        }
+        var lastShowPage = maxShowPage + firstShowPage - 1;
+        if (lastShowPage > totalPages) {
+            lastShowPage = totalPages;
+        }
+        this.model.get("tplhtml").count = [];
+        for (var i = firstShowPage; i <= lastShowPage; i++) {
+            var pageIndex = '<li class="index"><a>' + i + '</a></li>';
+            $(".appendPage").before(pageIndex)
+        };
+        if (!this.active) {
+            this.active = $("#pageLimit .index").eq(0)
+        } else {
+            if (isNaN(this.active.find('a').text())) {
+                this.active = $("#pageLimit .index").eq(0)
+            }
+            this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
+        }
+        this.active.addClass("active").siblings().removeClass("active")
+    },
+    currentPapge(e) {
+        this.active = $(e.currentTarget);
+        var pageNum = this.active.find("a").text()
+        this.pagediv(pageNum, this.model.get("totalPages"))
+    },
+    PreviousPage(e) {
+        this.active = "";
+        this.pagediv(1, this.model.get("totalPages"))
+    },
+    NextPage(e) {
+        this.active = $(e.currentTarget).prev();
+        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
+    },
+
     render: function () {
         //this.$el.html(tpl);
         this.logslist();

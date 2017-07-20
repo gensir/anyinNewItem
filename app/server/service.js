@@ -91,8 +91,16 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    getLogsList(pageNum, pageSize, data) {
+    getLogsList1(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
+    },
+    //签章日志记录
+    getLogsList(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
+    },
+    //系统操作日志
+    Operationlog(pageNum, pageSize) {
+        return this.ajaxCall({ url: domain + basemp + "operateLog/list/" + pageNum + "/" + pageSize });
     },
     checkSmsCode() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
@@ -105,10 +113,6 @@ export default {
     },
     getRandomNum(){
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
-    },
-    //操作日志
-    Operationlog(pageNum, pageSize) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/Operationlog/list/1/5" });
     },
     //获取订单中心列表
     queryOrderList(pageNum, pageSize) {

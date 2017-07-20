@@ -58,37 +58,37 @@
                 <span class="title col5">状态</span>
             </div>
             <ul class="listtext">
-                {{each data as value i}}
+                {{each data.list as value i}}
                 <li class="">
                     <div class="file">
-                        <span class="text col1">{{data[i].signDate}}</span>
-                        <span class="text col2 hide-text" title="{{data[i].fileName}}">{{data[i].fileName}}</span>
-                        <span class="text col3">{{data[i].signname}}</span>
-                        <span class="text col4">{{data[i].sealnetType}}</span>
+                        <span class="text col1">{{value.signDate}}</span>
+                        <span class="text col2 hide-text" title="{{value.fileName}}">{{value.fileName}}</span>
+                        <span class="text col3">{{value.signname}}</span>
+                        <span class="text col4">{{value.sealnetType}}</span>
                         <span class="text col5">
-                            {{if data[i].Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}
-                            {{if data[i].Status == 2}}<span style="color:#f00">失败</span>{{/if}}</span>
+                            {{if value.Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}
+                            {{if value.Status == 2}}<span style="color:#f00">失败</span>{{/if}}</span>
                         </span>
                     </div>
                     <div class="details">
                         <dl class="signet">
                             <dt>文档信息
-                                {{if data[i].Status == 1}}<span class="state">正常</span>{{/if}}
-                                {{if data[i].Status == 2}}<span class="state no">异常</span>{{/if}}
+                                {{if value.Status == 1}}<span class="state">正常</span>{{/if}}
+                                {{if value.Status == 2}}<span class="state no">异常</span>{{/if}}
                             </dt>
-                            <dd class="hide-text">文档名称：<span>{{data[i].fileName}}</span></dd>
-                            <dd>签章时间：<span>{{data[i].signDate}}</span></dd>
-                            <dd>文档大小：<span>{{data[i].fileSize}}</span></dd>
-                            <dd>文档哈希值：<span>{{data[i].fileHash}}</span></dd>
-                            <dd>签章类型：<span>{{data[i].sealnetType}}</span></dd>
+                            <dd class="hide-text">文档名称：<span>{{value.fileName}}</span></dd>
+                            <dd>签章时间：<span>{{value.signDate}}</span></dd>
+                            <dd>文档大小：<span>{{value.fileSize}}</span></dd>
+                            <dd>文档哈希值：<span>{{value.fileHash}}</span></dd>
+                            <dd>签章类型：<span>{{value.sealnetType}}</span></dd>
                         </dl>
                         <dl class="signet">
                             <dt>印章信息</dt>
-                            <dd>印章名称：<span>{{data[i].signname}}</span></dd>
-                            <dd>印章编码：<span>{{data[i].sealCode}}</span></dd>
-                            <dd>制作日期：<span>{{data[i].esealCreateTime}}</span></dd>
-                            <dd>生效期：<span>{{data[i].validitybefore}}</span></dd>
-                            <dd>失效期：<span>{{data[i].validityafter}}</span></dd>
+                            <dd>印章名称：<span>{{value.signname}}</span></dd>
+                            <dd>印章编码：<span>{{value.sealCode}}</span></dd>
+                            <dd>制作日期：<span>{{value.esealCreateTime}}</span></dd>
+                            <dd>生效期：<span>{{value.validitybefore}}</span></dd>
+                            <dd>失效期：<span>{{value.validityafter}}</span></dd>
                         </dl>
                         <dl class="signet help">
                             <dt>需要帮助？</dt>
@@ -97,12 +97,12 @@
                         </dl>
                         <dl class="computer">
                             <dt>设备信息</dt>
-                            <dd>设备IP：<span>{{data[i].clientIp}}</span></dd>
-                            <dd>MAC地址：：<span>{{data[i].clientMac}}</span></dd>
-                            <dd class="help">IP来源：<span>{{data[i].clientAdd}}</span></dd>
-                            <dd>设备名称：<span>{{data[i].clientName}}</span></dd>
-                            <dd>操作系统：<span>{{data[i].clientsSystem}}</span></dd>
-                            <dd class="help">签章应用：<span>{{data[i].sealtype}}</span></dd>
+                            <dd>设备IP：<span>{{value.clientIp}}</span></dd>
+                            <dd>MAC地址：：<span>{{value.clientMac}}</span></dd>
+                            <dd class="help">IP来源：<span>{{value.clientAdd}}</span></dd>
+                            <dd>设备名称：<span>{{value.clientName}}</span></dd>
+                            <dd>操作系统：<span>{{value.clientsSystem}}</span></dd>
+                            <dd class="help">签章应用：<span>{{value.sealtype}}</span></dd>
                         </dl>
                     </div>
                 </li>
@@ -159,6 +159,7 @@
                             <span aria-hidden="true">«</span>
                         </a>
                     </li>
+                    <li class="index"><a>{{value}}</a></li>
                     <li class="appendPage NextPage">
                         <a aria-label="Next">
                             <span aria-hidden="true">»</span>

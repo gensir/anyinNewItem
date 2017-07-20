@@ -2,8 +2,6 @@ var Router = Backbone.Router.extend({
     routes: {
         '': 'logs',
         'logs2': 'logs2',
-        //'stat/': 'stat',
-        //'stat/:query': 'substat',
     },
     initialize: function() {
         S.main = null;
@@ -12,17 +10,18 @@ var Router = Backbone.Router.extend({
         this.undelegateEvents();
         this.$el.empty();
     },
-    startRout: function(View, queryObj, sub) {
+    startRout: function (View, queryObj, sub,model) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
-        S.main = new View();
-        S.main.viewUnmount=this.viewUnmount;
-        S.main.sub=null
-        if(sub){
-            S.main.sub=sub;
+        var model = require('./store/model.js');
+        S.main = new View({model:model});
+        S.main.viewUnmount = this.viewUnmount;
+        S.main.sub = null
+        if (sub) {
+            S.main.sub = sub;
         }
         S.main.render(typeof queryObj == 'undefined' ? '' : queryObj);
     },
-    starSubroute:function(View,queryObj){
+    starSubroute: function (View, queryObj) {
         S.main.sub && S.main.sub.viewUnmount && S.main.sub.viewUnmount();
         S.main.sub = new View();
         S.main.sub.viewUnmount = this.viewUnmount;
@@ -32,6 +31,7 @@ var Router = Backbone.Router.extend({
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/logs/logs')
+            var model = require('./store/model')
             me.startRout(View, {query:query});
         }, 'logs');
     },
@@ -39,6 +39,7 @@ var Router = Backbone.Router.extend({
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/logs/logs2')
+            var model = require('./store/model')
             me.startRout(View, {query:query});
         }, 'logs2');
     },

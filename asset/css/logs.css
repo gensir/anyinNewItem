@@ -7,7 +7,7 @@
 .intnav ul li a.active { border-bottom: solid 2px #00acff; color: #333; }
 /* 搜索 */
 .intnav .page-kd { position: relative; }
-.intnav .search { position: absolute; right: 0; top: 0; width: 310px; }
+.intnav .search { position: absolute; right: 0; top: 0; width: 310px; outline: none; }
 .intnav .inputbox { position: relative; margin-top: 13px; }
 .intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; z-index: 2; position: relative; }
 .intnav .search .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: #fff; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }

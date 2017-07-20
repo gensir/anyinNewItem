@@ -18,13 +18,13 @@
                 <span class="title col4">参考地点</span>
             </div>
             <ul class="listtext">
-                {{each data as value i}}
+                {{each data.list as value i}}
                 <li>
                     <div class="file">
-                        <span class="text col1">{{data[i].time}}</span>
-                        <span class="text col2">{{data[i].type}}</span>
-                        <span class="text col3">{{data[i].ip}}</span>
-                        <span class="text col4 hide-text">{{data[i].add}}</span>
+                        <span class="text col1">{{value.bizOperateTime}}</span>
+                        <span class="text col2">{{value.bizOperateType}}</span>
+                        <span class="text col3">{{value.bizOperateIp}}</span>
+                        <span class="text col4 hide-text">{{value.bizOperateLocation}}</span>
                     </div>
                 </li>
                 {{/each}}
@@ -46,6 +46,7 @@
                             <span aria-hidden="true">«</span>
                         </a>
                     </li>
+                    <li class="index"><a>{{value}}</a></li>
                     <li class="appendPage NextPage">
                         <a aria-label="Next">
                             <span aria-hidden="true">»</span>
@@ -61,6 +62,7 @@
 
 <style>
 /*签章列表 */
+.jilulist ul.listtext li .file { cursor: default; }
 .jilulist .col1 { width: 25%; }
 .jilulist .col2 { width: 20%; }
 .jilulist .col3 { width: 30%; text-align: center; }
