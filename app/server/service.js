@@ -91,11 +91,11 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    getLogsList1(pageNum, pageSize, data) {
+    commSignetLog1(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
     },
     //签章日志记录
-    getLogsList(pageNum, pageSize, data) {
+    commSignetLog(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
     },
     //系统操作日志
@@ -119,8 +119,8 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
     },
     //获取订单中心列表
-    queryOrderList(pageNum,pageSize,enterpriseCode) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize});
+    queryOrderList(pageNum, pageSize) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/1/10" });
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {

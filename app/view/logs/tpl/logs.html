@@ -2,12 +2,12 @@
 	<div class="page-kd">
         <ul>
             <li><a class="active" href="logs.html">签章日志</a></li>
-            <li><a href="#logs2">操作日志</a></li>
+            <li><a href="#operateLog">操作日志</a></li>
         </ul>
         <div class="search">
 
 				<div class="inputbox">
-					<input class="search-input form-control" id="keyword" name="keyword" type="text" placeholder="请输入搜索关键字">
+					<input class="search-input form-control" id="keyword" name="keyword" type="text" placeholder="请输入文档名/印章名">
 					<button class="submit" id="search_submit" type="button" ><em></em></button>
 				</div>
 				<div class="more" tabindex="-1">
@@ -98,7 +98,7 @@
                         <dl class="computer">
                             <dt>设备信息</dt>
                             <dd>设备IP：<span>{{value.clientIp}}</span></dd>
-                            <dd>MAC地址：：<span>{{value.clientMac}}</span></dd>
+                            <dd>MAC地址：<span>{{value.clientMac}}</span></dd>
                             <dd class="help">IP来源：<span>{{value.clientAdd}}</span></dd>
                             <dd>设备名称：<span>{{value.clientName}}</span></dd>
                             <dd>操作系统：<span>{{value.clientsSystem}}</span></dd>
