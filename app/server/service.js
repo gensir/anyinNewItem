@@ -1,6 +1,6 @@
 const domain = "";
 const baseUrl = "/api/";
-const anyin = "";
+const basemp = "/mp/";
 const anyinUrl = "http://192.168.1.159:9500";
 const jsl = "http://192.168.4.94:8082"
 //const oldBaseUrl = "/";
@@ -88,7 +88,7 @@ export default {
     },
     //印章管理
     getEsealList(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + anyin + "/mp/eseal/list/" + pageNum + "/" + pageSize, data: data });
+        return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
     getLogsList(pageNum, pageSize, data) {
@@ -103,6 +103,9 @@ export default {
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
+    getRandomNum(){
+        return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
+    },
     //操作日志
     Operationlog(pageNum, pageSize) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/Operationlog/list/1/5" });
@@ -113,7 +116,7 @@ export default {
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + anyin + "/mp/file", data: data }, "delete");
+        return this.ajaxCall({ url: domain + basemp + "file", data: data }, "delete");
     },
     //检查信用代码
     checkidCode(data) {
@@ -129,6 +132,6 @@ export default {
     },
     //企业附件信息上传
     attach(data) {
-        return this.ajaxCall({ url: domain + anyin + "/mp/attach", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "attach", data: data }, "post");
     }
 }

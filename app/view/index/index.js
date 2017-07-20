@@ -1,10 +1,14 @@
 var tpl = require('./tpl/index.html');
 var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
+import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
 var index = Backbone.View.extend({
     el: '.container',
     initialize() {
+        //console.log(ukeys.ukeyName())
+        //alert(ukeys.PIN("123456",0))
+        console.log(ukeys.dSignature())
         //this.load();
         this.datecalc()
     },
