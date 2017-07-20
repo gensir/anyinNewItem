@@ -8,7 +8,7 @@ var index = Backbone.View.extend({
     initialize() {
         //console.log(ukeys.ukeyName())
         //alert(ukeys.PIN("123456",0))
-        console.log(ukeys.dSignature())
+        //ukeys.dSignature()
         //this.load();
         this.datecalc()
     },
@@ -31,7 +31,6 @@ var index = Backbone.View.extend({
             $(int).removeClass('active');
         };
     },
-
     load() {
         bootbox.dialog({
             backdrop: true,
