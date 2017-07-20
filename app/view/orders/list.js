@@ -93,14 +93,16 @@ var list = Backbone.View.extend({
         var pageNum = this.active.find("a").text()
         this.pagediv(pageNum, this.model.get("totalPages"))
     },
-    PreviousPage() {
-        this.active = "";
-        this.pagediv(1, this.model.get("totalPages"))
+    PreviousPage(e) {
+        this.active = $(e.currentTarget);
+        var pageNum = this.active.find("a").text()
+        this.pagediv(pageNum, this.model.get("totalPages"))
     },
     NextPage(e) {
-        this.active = $(e.currentTarget).prev();
-        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
-    }
+        this.active = $(e.currentTarget);
+        var pageNum = this.active.find("a").text()
+        this.pagediv(pageNum, this.model.get("totalPages"))
+    },
 });
 
 module.exports = list;
