@@ -12,34 +12,34 @@
 				<li class="nav4">支付方式</li>
 				<li class="nav5">状态</li>
 			</ul>
-			{{each data as value i}}
+			{{each data.list as value i}}
 			<div class="eseallist">
 				<div class="list">
 					<ul class="nav">
-						<li class="nav0">{{data[i].orderNo}}</li>
-						<li class="nav1">{{data[i].payTime}}</li>
-						<li class="nav2">{{data[i].businessType}}</li>
-						<li class="nav3">{{data[i].actualAmount}}</li>
-						<li class="nav4">{{data[i].payType}}</li>
-						<li class="nav5">{{data[i].orderStatus}}</li>
+						<li class="nav0">{{value.orderNo}}</li>
+						<li class="nav1">{{value.payTime}}</li>
+						<li class="nav2">{{value.businessType}}</li>
+						<li class="nav3">{{value.actualAmount}}</li>
+						<li class="nav4">{{value.payType}}</li>
+						<li class="nav5">{{value.orderStatus}}</li>
 					</ul>
 					<div class="showHide">
 						<div class="toggle">
 							<ul class="nav">
 								<li class="n1">
 									<p class="top f14">业务详情</p>
-									<p>业务类型：<span>{{data[i].businessType}}</span></p>
-									<p>流水号：<span>{{data[i].orderNo}}</span></p>
-									<p>订单时间：<span>{{data[i].payTime}}</span></p>
-									<p>订单状态： <span>{{data[i].orderStatus}}</span></p>
-									<p>经办人： <span>{{data[i].linkMan}}</span></p>
+									<p>业务类型：<span>{{value.businessType}}</span></p>
+									<p>流水号：<span>{{value.orderNo}}</span></p>
+									<p>订单时间：<span>{{value.payTime}}</span></p>
+									<p>订单状态： <span>{{value.orderStatus}}</span></p>
+									<p>经办人： <span>{{value.linkMan}}</span></p>
 								</li>
 								<li class="n2">
 									<p class="f14">支付信息</p>
-									<p>支付方式：<span>{{data[i].payType}}</span></p>
-									<p>受理门店： <span>{{data[i].shopName}}</span></p>
-									<p>支付单号：<span>{{data[i].transactionId}}</span></p>
-									<p>支付时间：<span>{{data[i].payTime}}</span></p>
+									<p>支付方式：<span>{{value.payType}}</span></p>
+									<p>受理门店： <span>{{value.shopName}}</span></p>
+									<p>支付单号：<span>{{value.transactionId}}</span></p>
+									<p>支付时间：<span>{{value.payTime}}</span></p>
 								</li>
 								<li class="n3">
 									<p class="f14">电子印章信息</p>
@@ -82,21 +82,27 @@
 			{{/each}}
 		</div>
 	</div>
-	<!--分页
+	<!--分页-->
 	<nav aria-label="Page navigation">
-		<ul class="pagination" id="pageLimit">
-			<li class="PreviousPage">
-				<a aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			<li class="appendPage NextPage">
-				<a aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</nav>-->
+        <ul class="pagination" id="pageLimit">
+            <li class="PreviousPage">
+                <a aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <!-- {{each count as value i}}
+            <li class="index"><a>{{value}}</a></li>
+             {{/each}} -->
+            <li class="appendPage NextPage">
+                <a aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <!-- <li class="gopage">
+                <label>前往<input type="text">页</label>
+            </li> -->
+        </ul>
+    </nav>
 </div>
 
 <style>
@@ -297,5 +303,11 @@
 	
 	.eseallist .list .orderHelp a {
 		cursor: pointer;
+	}
+	nav{
+	    text-align: center;
+	}
+	nav ul.pagination li a{
+		cursor: pointer !important;
 	}
 </style>
