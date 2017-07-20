@@ -2,9 +2,9 @@ import tpl from './tpl/step1.html'
 var sealstyle = [];
 var step1 = Backbone.View.extend({
 	el: '.container',
-	initialize() {
-
+	initialize() {	
 //		this.render();
+
 	},
 	events: {
 		'click #goStep2': 'goStep2',

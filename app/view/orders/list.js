@@ -13,7 +13,7 @@ var list = Backbone.View.extend({
         'click nav li.index': 'currentPapge'
     },
     render: function (query) {
-    	this.listPage();
+    	this.listPage(1,10,123456);
     },
     toggleList(event) {
         var _this = event.currentTarget;
@@ -27,10 +27,10 @@ var list = Backbone.View.extend({
         }
     },
     
-    listPage(querydata, pageNum, pageSize) {	   	
+    listPage( pageNum, pageSize,enterpriseCode) {	   	
         pageNum = pageNum || 1;
-        pageSize = pageSize || 5;
-        service.queryOrderList(pageNum, pageSize).done(res => {
+        pageSize = pageSize || 10;
+        service.queryOrderList(pageNum, pageSize,enterpriseCode).done(res => {
             var tempObj;
             if (res.code != 0) {
                 tempObj = {}
@@ -40,7 +40,7 @@ var list = Backbone.View.extend({
             this.model.set("totalPages", res.data.totalPages)
             this.model.get("tplhtml").data = tempObj;
             this.$el.html(tpl(this.model.get("tplhtml")));
-            this.pagination(res.data.pageNum, res.data.totalPages)
+            this.pagination( pageNum, res.data.totalPages)
         })
     },
     // 点击上一页、下一页
@@ -56,22 +56,24 @@ var list = Backbone.View.extend({
         if (val === this.current) {
             return;
         }
-        var _that = this;
-        
-        this.listPage()
+//      console.log(val,totalPages)
+        this.listPage(val)
     },
     //pagination
     pagination: function (pageNumber, totalPages) {
         $("#pageLimit li.index").remove();
-        var firstShowPage, maxShowPage = 5
-        if (pageNumber <= 3) {
-            firstShowPage = 1
-        } else {
-            firstShowPage = pageNumber - 2;
+        var maxShowPage = 5
+        var firstShowPage = pageNumber - 2;
+        if (firstShowPage <= 0) {
+            firstShowPage = 1;
         }
         var lastShowPage = maxShowPage + firstShowPage - 1;
         if (lastShowPage > totalPages) {
             lastShowPage = totalPages;
+        }
+        if (lastShowPage - firstShowPage + 1 < maxShowPage) {
+            firstShowPage = lastShowPage - maxShowPage + 1;
+            firstShowPage = Math.max(firstShowPage, 1);
         }
         this.model.get("tplhtml").count = [];
         for (var i = firstShowPage; i <= lastShowPage; i++) {
@@ -81,9 +83,11 @@ var list = Backbone.View.extend({
         if (!this.active) {
             this.active = $("#pageLimit .index").eq(0)
         } else {
-            if (isNaN(this.active.find('a').text())) {
-                this.active = $("#pageLimit .index").eq(0)
+        	console.log(isNaN(this.active.find('a').text()))
+            if (isNaN(this.active.find('a').text())) {  //上下页   true
+                this.active = $("#pageLimit .index").eq(pageNumber)
             }
+            console.log($("#pageLimit a:contains(" + this.active.find('a').text() + ")"))
             this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
         }
         this.active.addClass("active").siblings().removeClass("active")
@@ -93,14 +97,16 @@ var list = Backbone.View.extend({
         var pageNum = this.active.find("a").text()
         this.pagediv(pageNum, this.model.get("totalPages"))
     },
-    PreviousPage(e) {
-        this.active = $(e.currentTarget);
-        var pageNum = this.active.find("a").text()
+    PreviousPage(e) {	
+        var pageNum = $(".pagination .active a").text();
+        console.log(pageNum+"pre")
         this.pagediv(pageNum, this.model.get("totalPages"))
     },
     NextPage(e) {
-        this.active = $(e.currentTarget);
-        var pageNum = this.active.find("a").text()
+    	this.active = $(e.currentTarget);
+//      var pageNum = this.active.find("a").text()
+        var pageNum = $(".pagination .active a").text();
+        console.log(pageNum+"pre")
         this.pagediv(pageNum, this.model.get("totalPages"))
     },
 });
