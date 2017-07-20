@@ -7,6 +7,7 @@ import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 //var picture = [];
 var pictureFlag = [0, 0, 0];
+var enterpriseCode;
 var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -16,6 +17,7 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
+		enterpriseCode = reqres.request("IDCode");
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
@@ -40,10 +42,9 @@ var step3 = Backbone.View.extend({
 				return;
 			}
 		};
-		console.log(pictureFlag);
 		var data = {
 			"bizType": 4,
-			"enterprise": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
+			"enterprise": enterpriseCode,  //组织机构代码 或 统一社会信用代码（优先）
 			"urls": pictureFlag
 		}
 		service.attach(data).done(function(data) {

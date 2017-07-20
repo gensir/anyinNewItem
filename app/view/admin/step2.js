@@ -48,7 +48,7 @@ var step2 = Backbone.View.extend({
 			}
 		};
 		var data = {
-			"bizType": 4,
+			"bizType": 2,
 			"enterprise": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
 			"urls": pictureFlag,
 			"esealCode":"2132323232" ,
