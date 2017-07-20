@@ -107,11 +107,11 @@ var logs = Backbone.View.extend({
     //提交搜索
     searchs(data) {
         var keyword = $("#keyword").val();
-        var sTime = $("#date1").val();
-        var eTime = $("#date2").val();
+        var signTimeStart = $("#date1").val();
+        var signTimeEnd = $("#date2").val();
         this.keyword = $("#keyword").val();
-        this.signTime = $("#date1").val();        
-        if (eTime !== "" & eTime < sTime) {
+        this.signTimeEnd = $("#date1").val();        
+        if (signTimeEnd !== "" & signTimeEnd < signTimeStart) {
             alert("结束日期不能少于开始日期");
             $("#date2").focus();
             return false;
@@ -125,7 +125,8 @@ var logs = Backbone.View.extend({
                 keyword:this.keyword,
                 operateStatus:this.operateStatus,
                 esealType:this.esealType,
-                signTime:this.signTime,
+                signTimeStart:this.signTimeStart,
+                signTimeEnd:this.signTimeEnd,
             };
             this.logslist(data);
             console.log(data);
@@ -137,10 +138,11 @@ var logs = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
         var data = {
+            "keyword": "",
             "operateStatus": "",
             "esealType": "",
-            "keyword": "",
-            "signTime": "",
+            "signTimeStart": "",
+            "signTimeEnd": "",
         }
         service.commSignetLog1(pageNum, pageSize, data).done(res => {
             var logsObj;
@@ -172,10 +174,11 @@ var logs = Backbone.View.extend({
         }
         var _that = this;
         var data = {
-            "operateStatus": "test",
-            "esealType": "0",
-            "keyword": "1",
-            "signTime": "2017-04-01",
+            "keyword": "",
+            "operateStatus": "",
+            "esealType": "",
+            "signTimeStart": "",
+            "signTimeEnd": "",
         }
         this.logslist(data, val)
     },

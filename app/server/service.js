@@ -96,7 +96,7 @@ export default {
     },
     //签章日志记录
     commSignetLog(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
+        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data }, "post");
     },
     //系统操作日志
     Operationlog(pageNum, pageSize) {
@@ -137,6 +137,10 @@ export default {
     //检查随机验证码
     checkyzmCode(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkyzmCode", data: data });
+    },
+    //获取随机码
+    captcha() {
+        return this.ajaxCall({ url: domain + basemp + "captcha.jpg"}, "post");
     },
     //企业附件信息上传
     attach(data) {
