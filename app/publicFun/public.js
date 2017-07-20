@@ -1,7 +1,6 @@
 var Util = {
 
 };
-var service = require('../server/service').default;
 //域名键值对调用
 export function GetQueryString(name, elseUrl) {
 
@@ -191,63 +190,4 @@ export function fileUp(service, event, pictureFlag, num) {
             },
         })
     }, 200)
-}
-
-export function ukeys() {
-    return {
-        randomNum() {
-            return service.getRandomNum().done(function (data) {
-                //console.log(JSON.stringify(data))
-            })
-        },
-        data:{
-            ukey:null,
-            availableUkey:false,
-            ukeyName:[],
-            PINResult:null,
-            wang:1
-        },
-        ukeyInit(){
-            // 这里就是注册表中CLSID文件夹根目录的文件夹名称
-            try {
-            //window.ukey=new ActiveXObject("IYIN_SIGNACTIVE.IYIN_SignActiveCtrl.1");
-                this.data.ukey = new ActiveXObject("IYIN_SIGNACTIVE.IYIN_SignActiveCtrl.1");
-                console.log(JSON.stringify(this),123)
-            } catch (e) {
-                this.data.availableUkey = true;
-            //alert("****" + e.message);
-            }
-            if (!this.data.ukey) {
-                return false;
-            }
-        },
-        ukeyName() {
-            this.ukeyInit();
-            this.data.wang=3
-            alert(this.data.wang)
-            var nCount = this.data.ukey.GetCertCount();
-            for (var i = 0; i < nCount; i++) {
-                this.data.ukey.SetCertIndex(i);//获取第几个ukey
-                this.data.ukeyName.push(this.data.ukey.GetCertInfo(0));
-                // alert("第" + (i + 1) + "个证书信息如下：\n" +
-                //     //"获取签名证书：\n"+ ukey.GetCertData(0) +
-                //     //"获取加密证书：\n"+ ukey.GetCertData(1) +
-                //     "获取证书名称：" + window.ukey.GetCertInfo(0) + "\n" +
-                //     "获取证书OID： " + window.ukey.GetCertInfo(1) + "\n" +
-                //     "获取证书类型:" + (window.ukey.GetCertInfo(2) == "0" ? "创业KEY" : "ODC-KEY") + "\n" +
-                //     "获取印章编码：" + window.ukey.GetCertInfo(3)
-                // );
-            }
-            return this.data.ukeyName
-        },
-        PIN(val,selectukeyInd){
-            alert(this.data.wang)
-        // 验证KEY密码
-        if (val) {console.log(JSON.stringify(this),123)
-            //this.ukeyInit();
-            this.data.ukey.SetCertIndex(selectukeyInd);
-            return this.data.ukey.SetCertPin(val);
-        }
-        }
-    }
 }
