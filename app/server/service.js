@@ -105,13 +105,17 @@ export default {
     checkSmsCode() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
     },
+    //登录权限控制
+    loginLicense(data) {
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/updateKey", data: data }, "post");
+    },
     userlogin(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login", data: data }, "post");
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
-    getRandomNum(){
+    getRandomNum() {
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
     },
     //获取订单中心列表

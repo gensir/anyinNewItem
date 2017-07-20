@@ -54,7 +54,7 @@ var ukeys = {
             this.tip("请在IE浏览器下使用ukey");
             return false;
         }
-        var randomNum = this.randomNum()
+        var randomNum =this.randomNum();//"111111";// 
         if (randomNum) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.Signature(randomNum, randomNum.length);

@@ -39,6 +39,7 @@ var main = Backbone.View.extend({
         }
         var selectedUkey=$("#seleBook option:selected").index() - 1
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
+        console.log(JSON.stringify(ukeys.dSignature(selectedUkey)))
         if (checkResult) {
             var data = {
                 "captcha": "jskx",
