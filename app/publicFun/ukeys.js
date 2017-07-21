@@ -22,60 +22,49 @@ var ukeys = {
             callback: function () { /* your callback code */ }
         })
     },
+    issupport() {
+        if (!this.data.isAvailableUkey) {
+            this.tip("请在IE浏览器下使用ukey");
+            return false;
+        }
+        return true;
+    },
     randomNum() {//获取随机数
         return service.getRandomNum().done(function (data) {
         }).responseJSON.data
     },
     ukeyName() {//获取所有ukey名（数组）
-        if (!this.data.isAvailableUkey) {
-            this.tip("请在IE浏览器下使用ukey");
-            return false;
+        if (this.issupport()) {
+            var nCount = this.data.ukey.GetCertCount();
+            this.data.ukeyName = [];
+            for (var i = 0; i < nCount; i++) {
+                this.data.ukey.SetCertIndex(i);//获取第几个ukey
+                this.data.ukeyName.push(this.data.ukey.GetCertInfo(0));
+            }
+            return this.data.ukeyName
         }
-        var nCount = this.data.ukey.GetCertCount();
-        this.data.ukeyName = [];
-        for (var i = 0; i < nCount; i++) {
-            this.data.ukey.SetCertIndex(i);//获取第几个ukey
-            this.data.ukeyName.push(this.data.ukey.GetCertInfo(0));
-        }
-        return this.data.ukeyName
     },
     PIN(val, selectukeyInd) {// 验证PIN密码
-        if (!this.data.isAvailableUkey) {
-            this.tip("请在IE浏览器下使用ukey");
-            return false;
-        }
-        if (val) {
+        if (val && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.SetCertPin(val);//Boolean
         }
     },
     dSignature(selectukeyInd) {//客服端数字签名；
-        if (!this.data.isAvailableUkey) {
-            this.tip("请在IE浏览器下使用ukey");
-            return false;
-        }
-        var randomNum =this.randomNum();//"111111";// 
-        if (randomNum) {
+        var randomNum = this.randomNum();//"111111";// 
+        if (randomNum && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.Signature(randomNum, randomNum.length);
         }
     },
     Dcertificate(selectukeyInd) {//数字证书；
-        if (!this.data.isAvailableUkey) {
-            this.tip("请在IE浏览器下使用ukey");
-            return false;
-        }
-        if (selectukeyInd !== undefined) {
+        if (selectukeyInd !== undefined && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertInfo(1)
         }
     },
     esealCode(selectukeyInd) {//印章编码
-        if (!this.data.isAvailableUkey) {
-            this.tip("请在IE浏览器下使用ukey");
-            return false;
-        }
-        if (selectukeyInd !== undefined) {
+        if (selectukeyInd !== undefined && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertInfo(3)
         }
