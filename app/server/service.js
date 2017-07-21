@@ -123,7 +123,7 @@ export default {
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + anyinUrl + "file", data: data }, "delete");
+        return this.ajaxCall({ url: domain + basemp + "file?fileUrl="+data }, "delete");
     },
     //检查信用代码
     checkidCode(data) {
@@ -148,5 +148,9 @@ export default {
     //获取行政区
     queryCodeArea(data){
     	return this.ajaxCall({ url: domain + baseUrl + "codeArea/queryCodeArea?area_code="+data});
+    },
+    //提交账号和密码
+    registerUser(data){
+    	return this.ajaxCall({ url: domain + basemp + "common/registerUser", data: data }, "post");
     }
 }
