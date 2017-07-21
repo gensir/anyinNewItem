@@ -2,8 +2,9 @@ var proxy = {
 	dev: 'http://192.168.1.135:9282',
 	wang: 'http://192.168.4.17',
     jsl: 'http://192.168.4.94:8086',
-    local:'http://localhost:8086',
-    anyinUrl:'http://192.168.1.159:9500'
+    local:'http://192.168.1.136',
+    anyinUrl:'http://192.168.1.159:9500',
+    sealShop:'http://192.168.48.50:9133'
 }
 var config = {
 	dev: {
@@ -17,6 +18,11 @@ var config = {
 		proxy: {
             '/api/sealnet': {
                 target: proxy.local, //pathRewrite: {'^/column' : '/column'},
+                secure: false,
+				changeOrigin: true
+			},
+			'/api/sealShops':{
+                target: proxy.sealShop, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
 				changeOrigin: true
 			},

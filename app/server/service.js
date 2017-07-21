@@ -1,4 +1,5 @@
 const domain = "";
+const sealShop="/api/sealShops/";
 const baseUrl = "/api/";
 const basemp = "/mp/";
 const anyinUrl = "http://192.168.1.159:9500";
@@ -91,12 +92,12 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    commSignetLog1(pageNum, pageSize, data) {
+    getLogsList1(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
     },
     //签章日志记录
-    commSignetLog(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data }, "post");
+    getLogsList(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
     },
     //系统操作日志
     Operationlog(pageNum, pageSize) {
@@ -105,26 +106,22 @@ export default {
     checkSmsCode() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
     },
-    //登录权限控制
-    loginLicense(data) {
-        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/updateKey", data: data }, "post");
-    },
     userlogin(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login", data: data }, "post");
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
-    getRandomNum() {
+    getRandomNum(){
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
     },
     //获取订单中心列表
-    queryOrderList(pageNum, pageSize, enterpriseCode) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/" + pageNum + "/" + pageSize });
+    queryOrderList(pageNum,pageSize,enterpriseCode) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize});
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + basemp + "file", data: data }, "delete");
+        return this.ajaxCall({ url: domain + anyinUrl + "file", data: data }, "delete");
     },
     //检查信用代码
     checkidCode(data) {
@@ -138,12 +135,20 @@ export default {
     checkyzmCode(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkyzmCode", data: data });
     },
-    //获取随机码
-    captcha() {
-        return this.ajaxCall({ url: domain + basemp + "captcha.jpg"}, "post");
-    },
     //企业附件信息上传
     attach(data) {
         return this.ajaxCall({ url: domain + basemp + "attach", data: data }, "post");
+    },
+    //刻章店查询
+    getSealShop(areacode,pageNum,pageSize){
+    	return this.ajaxCall({ url: domain + sealShop + "queryPageSealShopsByAreacode?areacode="+areacode+"&page="+pageNum+"&size="+pageSize });
+    },
+    //根据公司名查询公司所在地区
+    getCompanyAreaNumber(data){
+    	return this.ajaxCall({ url: domain + baseUrl + "esealapply/getCompanyAreaNumber", data: data }, "post");
+    },
+    //获取行政区
+    getBigDataZoneCode(data){
+    	return this.ajaxCall({ url: domain + baseUrl + "esealapply/getBigDataZoneCode", data: data }, "post");
     }
 }

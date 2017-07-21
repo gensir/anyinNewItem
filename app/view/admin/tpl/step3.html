@@ -63,7 +63,9 @@
 						<option value="0">深圳市</option>
 					</select>
 					<select id="area" class="search_input">
-						<option>南山区</option>
+						{{each zone as value i}}
+							<option value={{zone[i].areaCode}}>{{zone[i].name}}</option>
+						{{/each}}
 					</select>
 				</div>
 				<div class="current">
@@ -79,42 +81,14 @@
 						<th>印章店地址</th>
 						<th>联系方式</th>
 					</tr>
+					{{each sealShop as value i }}
 					<tr>
 						<td class="right"></td>
-						<td class="sealName">深圳市创业印章南山公安局分店1</td>
-						<td class="address">深圳市南山区南辛店198号</td>
-						<td class="telPhone">025-889956454</td>
+						<td class="sealName">{{sealShop[i].name}}</td>
+						<td class="address">{{sealShop[i].address}}</td>
+						<td class="telPhone">{{sealShop[i].phone}}</td>
 					</tr>
-					<tr>
-						<td class="right"></td>
-						<td class="sealName">深圳市创业印章南山公安局分店2</td>
-						<td class="address">深圳市南山区南辛店198号</td>
-						<td class="telPhone">025-889956454</td>
-					</tr>
-					<tr>
-						<td class="right"></td>
-						<td class="sealName">深圳市创业印章南山公安局分店3</td>
-						<td class="address">深圳市南山区南辛店198号</td>
-						<td class="telPhone">025-889956454</td>
-					</tr>
-					<tr>
-						<td class="right"></td>
-						<td class="sealName">深圳市创业印章南山公安局分店4</td>
-						<td class="address">深圳市南山区南辛店198号</td>
-						<td class="telPhone">025-889956454</td>
-					</tr>
-					<tr>
-						<td class="right"></td>
-						<td class="sealName">深圳市创业印章南山公安局分店5</td>
-						<td class="address">深圳市南山区南辛店198号</td>
-						<td class="telPhone">025-889956454</td>
-					</tr>
-					<tr>
-						<td class="right"></td>
-						<td class="sealName">深圳市创业印章南山公安局分店6</td>
-						<td class="address">深圳市南山区南辛店198号</td>
-						<td class="telPhone">025-889956454</td>
-					</tr>
+					{{/each}}
 				</table>
 			</div>
 		</div>
