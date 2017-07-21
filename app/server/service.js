@@ -91,12 +91,12 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    getLogsList1(pageNum, pageSize, data) {
+    commSignetLog1(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
     },
     //签章日志记录
-    getLogsList(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
+    commSignetLog(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data }, "post");
     },
     //系统操作日志
     Operationlog(pageNum, pageSize) {
@@ -119,8 +119,8 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
     },
     //获取订单中心列表
-    queryOrderList(pageNum,pageSize,enterpriseCode) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize});
+    queryOrderList(pageNum, pageSize, enterpriseCode) {
+        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/" + pageNum + "/" + pageSize });
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
@@ -137,6 +137,10 @@ export default {
     //检查随机验证码
     checkyzmCode(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkyzmCode", data: data });
+    },
+    //获取随机码
+    captcha() {
+        return this.ajaxCall({ url: domain + basemp + "captcha.jpg"}, "post");
     },
     //企业附件信息上传
     attach(data) {

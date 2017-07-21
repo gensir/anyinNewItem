@@ -1,7 +1,7 @@
 var Router = Backbone.Router.extend({
     routes: {
         '': 'logs',
-        'logs2': 'logs2',
+        'operateLog': 'operateLog',
     },
     initialize: function() {
         S.main = null;
@@ -35,13 +35,13 @@ var Router = Backbone.Router.extend({
             me.startRout(View, {query:query});
         }, 'logs');
     },
-     logs2: function(query) {
+     operateLog: function(query) {
         var me = this;
         require.ensure([], function(require) {
             var View = require('../../view/logs/logs2')
             var model = require('./store/model')
             me.startRout(View, {query:query});
-        }, 'logs2');
+        }, 'operateLog');
     },
 
 });

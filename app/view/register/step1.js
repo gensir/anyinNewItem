@@ -3,14 +3,13 @@ var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
     initialize() {
-        this.render();
     },
     events: {
         'click #xieyi': 'rules',
         'click #reguser': 'reguser',
         'keyup #idcode': 'checkidCode',
-        'keyup #yzmcode': 'checkyzmCode',
-        'click #up_yzmcode': 'yzmcode',
+        //'keyup #yzmcode': 'checkyzmCode',
+        'click #up_yzmcode': 'captcha',
     },
 
     rules: function () {
@@ -59,12 +58,18 @@ var step1 = Backbone.View.extend({
         var captchaProperties = {
             captchaHash: ''
         };
-        service.yzmCode().done(function (data) {
+        service.yzmcode().done(function (data) {
             // $('#codeimg').html('<img class="codeimg" src="data:image/png;base64,' + result.data.data.image + '" />');
             // captchaProperties.captchaHash = result.data.data.captchaHash;
             $('#codeimg').html('<img class="codeimg" src="' + data.data.fileId + '" />');
-        });
+        })
     },
+    captcha() {
+        service.captcha().done(function (data) {}).complete(()=>{
+            $(".codeimg").attr("src","/mp/captcha.jpg");
+        })
+
+    },    
     reguser: function (event) {
     	var IDCode = $("#idcode").val();
 		window.reqres.setHandler("IDCode", function() {
@@ -79,6 +84,7 @@ var step1 = Backbone.View.extend({
 
     render: function (query) {
         this.$el.html(tpl);
+        this.captcha();
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
 });
