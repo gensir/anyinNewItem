@@ -3,6 +3,7 @@
  */
 import tpl from './tpl/step2.html';
 var service = require('../../server/service').default;
+var IDNo;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
@@ -14,16 +15,22 @@ var step2 = Backbone.View.extend({
 		'keyup .countCode': 'checkCode',
 		'keyup .passwd': 'passwd',
 	},
+	render: function(query) {
+		IDNo="111111111111111111"
+		var result = reqres.request("IDCode");
+		this.$el.html(tpl);
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+	},
 	phoneCode: function() {
 		this.model.set({ "clickEle": $(event.target).data('id') })
 		this.model.isValid()
 		//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {
 		if(!this.model.isValid()) {
-			service.getSMSVerifCode().done(function(data) {
+			var phone=$(".countPhone").val();
+			service.getSMSVerifCode(phone).done(function(data) {
 				if(data.code == 0) {
 					var countdown = 60;
 					var ele = $(".findPasswordCodeBtn");
-
 					function settime() {
 						if(countdown == 0) {
 							ele.removeAttr("disabled");
@@ -49,6 +56,9 @@ var step2 = Backbone.View.extend({
 		}
 	},
 	goStep3: function(event) {
+		console.log(IDNo)
+		this.model.set({ "clickEle": $(event.target).data('id') })
+		this.model.isValid()
 		if($(".passwd").val().length==0){
 			$(".pswErrTip").html("请输入您的密码").css("color","red").show();
 		}
@@ -57,16 +67,26 @@ var step2 = Backbone.View.extend({
 			$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写");
 			return;
 		}
-		this.model.set({ "clickEle": $(event.target).data('id') })
-		this.model.isValid()
+		if($(".legalID").val()!=IDNo){
+			$(".legalIDErrTip").html("法人身份证号不正").css({ "color": "red" });
+			return;
+		}
 		if(!this.model.isValid()) {
-			//提交账号信息给后台
-			window.open('register.html#step3', '_self')
+			var data={
+				mobile:$(".countPhone").val(),
+				password:$(".passwd").val()
+			}
+			service.registerUser(data).done(res=>{
+				if(res.code==0){
+					window.open('register.html#step3', '_self')
+				}
+			})
 		}
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
-			service.checkSmsCode().done(function(data) {
+			var code=$(".countCode").val();
+			service.checkSmsCode(code).done(function(data) {
 				if(data.code == 0) {
 					$(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
 				} else {
@@ -76,11 +96,6 @@ var step2 = Backbone.View.extend({
 		} else {
 			$('.codeErrTip').html('');
 		}
-	},
-	render: function(query) {
-		var result = reqres.request("IDCode");
-		this.$el.html(tpl);
-		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	passwd: function() {
 		$(".pswErrTip").hide();

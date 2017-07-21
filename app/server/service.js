@@ -84,8 +84,9 @@ export default {
     serverTest() {
         return this.ajaxCall({ url: domain + baseUrl + "sealnet/visitorsList" });
     },
-    getSMSVerifCode() {
-        return this.ajaxCall({ url: domain + baseUrl + "standard_server/common/getSMSVerifCode" });
+    //手机验证码
+    getSMSVerifCode(data) {
+        return this.ajaxCall({ url: domain + basemp + "common/getSMSVerifCode?mobilePhoneNo="+data });
     },
     //印章管理
     getEsealList(pageNum, pageSize, data) {
@@ -103,8 +104,9 @@ export default {
     Operationlog(pageNum, pageSize) {
         return this.ajaxCall({ url: domain + basemp + "operateLog/list/" + pageNum + "/" + pageSize });
     },
-    checkSmsCode() {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/common/checkSmsCode" });
+    //校验短信
+    checkSmsCode(data) {
+        return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode?smsCode="+data });
     },
     userlogin(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login", data: data }, "post");
@@ -117,7 +119,7 @@ export default {
     },
     //获取订单中心列表
     queryOrderList(pageNum,pageSize,enterpriseCode) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize});
+        return this.ajaxCall({ url: domain + basemp + "management_platform/mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize+"?enterpriseCode="+enterpriseCode});
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
