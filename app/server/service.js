@@ -4,6 +4,7 @@ const baseUrl = "/api/";
 const basemp = "/mp/";
 const anyinUrl = "http://192.168.1.159:9500";
 const jsl = "http://192.168.4.94:8082"
+
 //const oldBaseUrl = "/";
 var commonAjaxSetting = {
     'get': {
@@ -93,11 +94,15 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    getLogsList1(pageNum, pageSize, data) {
+    commSignetLog1(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
     },
     //签章日志记录
-    getLogsList(pageNum, pageSize, data) {
+    commSignetLog(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
+    },
+    //签章日志记录
+    commSignetLog2(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
     },
     //系统操作日志

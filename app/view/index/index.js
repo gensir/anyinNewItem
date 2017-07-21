@@ -53,19 +53,43 @@ var index = Backbone.View.extend({
     },
 
     //获取签章记录数据
-    logslist() {
-        var _this = this
-        service.getLogsList(1, 5).done(res => {
-            var obj;
+    logslist(pageNum, pageSize) {
+        pageNum = pageNum || 1;
+        pageSize = pageSize || 5;
+        var data = {
+            "keyword": "",
+            "operateStatus": "",
+            "esealType": "",
+            "signTimeStart": "",
+            "signTimeEnd": "",
+        }
+        service.commSignetLog1(pageNum, pageSize, data).done(res => {
+            var logsObj;
             if (res.code != 0) {
-                obj = {}
+                logsObj = {}
             } else {
-                obj = res.data.list;
+                logsObj = res.data;
             }
-            this.model.get("tpl").data = obj
+            //this.model.set("totalPages", res.data.totalPages)
+            this.model.get("tpl").data = logsObj;
             this.$el.html(tpl(this.model.get("tpl")));
         });
-    },
+    },    
+    //获取签章记录数据
+    // logslist() {
+    //     var _this = this
+    //     service.getLogsList(1, 5).done(res => {
+    //         var obj;
+    //         if (res.code != 0) {
+    //             obj = {}
+    //         } else {
+    //             obj = res.data.list;
+    //         }
+    //         this.model.get("tpl").data = obj
+    //         this.$el.html(tpl(this.model.get("tpl")));
+    //     });
+    // },
+
     datecalc() {
         var date1 = new Date();
         var date2 = new Date('2018-01-01');

@@ -2,7 +2,7 @@
 <div class="page-kd actions">
 	<dl class="userinfo">
 		<dt><span class="tximg"></span></dt>
-		<dd class="name">欢迎您，<span id="gsname" title="深圳市创业印章科技有限公司">深圳市创业印章科技有限公司深圳市创业印章科技有限公司</span></dd>
+		<dd class="name">欢迎您，<span id="gsname" title="">深圳市创业印章科技有限公司深圳市创业印章科技有限公司</span></dd>
 		<dd class="renzheng"><span class="rzinfo"></span></dd>
 		<dd class="logintime">上次登录：2017-06-28</dd>
 	</dl>
@@ -48,35 +48,35 @@
 		<div class="t-title"><h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
 		<div class="jilulist boxshow">
 			<ul>
-                {{each data as value i}}
+                {{each data.list as value i}}
                 <li>
 					<div class="file">
-						<div class="date">{{data[i].signDate}}</div>
-						<p class="gsname">{{data[i].fileName}}</p>
-						<p class="yzinfo"><span class="name">{{data[i].signname}}</span><span class="type">{{data[i].sealnetType}}</span></p>
+						<div class="date">{{value.signDate}}</div>
+						<p class="gsname">{{value.fileName}}</p>
+						<p class="yzinfo"><span class="name">{{value.signname}}</span><span class="type">{{value.sealnetType}}</span></p>
 					</div>
 					<div class="details">
 						<dl class="signet">
 							<dt>操作信息</dt>
-							<dd>操作时间：<span>{{data[i].signDate}}</span></dd>
-							<dd>签章应用：<span>{{data[i].sealtype}}</span></dd>
+							<dd>操作时间：<span>{{value.signDate}}</span></dd>
+							<dd>签章应用：<span>{{value.sealtype}}</span></dd>
                             <dd>操作状态：
-                                {{if data[i].Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}
-                                {{if data[i].Status == 2}}<span style="color:#f00">失败</span>{{/if}}</span>
+                                {{if value.Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}
+                                {{if value.Status == 2}}<span style="color:#f00">失败</span>{{/if}}</span>
                             </dd>
 						</dl>
 						<dl class="signet">
 							<dt>印章信息</dt>
-							<dd>印章名称：<span>{{data[i].signname}}</span></dd>
-							<dd>印章编码：<span>{{data[i].sealCode}}</span></dd>
-							<dd>有效期：<span>{{data[i].validitybefore}}至{{data[i].validityafter}}</span></dd>
+							<dd>印章名称：<span>{{value.signname}}</span></dd>
+							<dd>印章编码：<span>{{value.sealCode}}</span></dd>
+							<dd>有效期：<span>{{value.validitybefore}}至{{value.validityafter}}</span></dd>
 						</dl>
 						<dl class="computer">
 							<dt>设备信息</dt>
-							<dd>设备IP：<span>{{data[i].clientIp}}</span></dd>
-							<dd>MAC地址：<span>{{data[i].clientMac}}</span></dd>
-							<dd>IP来源：<span>{{data[i].clientAdd}}</span></dd>
-							<dd>操作系统：<span>{{data[i].clientsSystem}}</span></dd>
+							<dd>设备IP：<span>{{value.clientIp}}</span></dd>
+							<dd>MAC地址：<span>{{value.clientMac}}</span></dd>
+							<dd>IP来源：<span>{{value.clientAdd}}</span></dd>
+							<dd>操作系统：<span>{{value.clientsSystem}}</span></dd>
 						</dl>
 					</div>
                 </li>

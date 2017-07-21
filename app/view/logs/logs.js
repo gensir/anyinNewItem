@@ -110,7 +110,7 @@ var logs = Backbone.View.extend({
         var signTimeStart = $("#date1").val();
         var signTimeEnd = $("#date2").val();
         this.keyword = $("#keyword").val();
-        this.signTimeEnd = $("#date1").val();        
+        this.signTimeEnd = $("#date1").val();
         if (signTimeEnd !== "" & signTimeEnd < signTimeStart) {
             alert("结束日期不能少于开始日期");
             $("#date2").focus();
@@ -122,11 +122,11 @@ var logs = Backbone.View.extend({
             return false;
         } else {
             var data = {
-                keyword:this.keyword,
-                operateStatus:this.operateStatus,
-                esealType:this.esealType,
-                signTimeStart:this.signTimeStart,
-                signTimeEnd:this.signTimeEnd,
+                keyword: this.keyword,
+                operateStatus: this.operateStatus,
+                esealType: this.esealType,
+                signTimeStart: this.signTimeStart,
+                signTimeEnd: this.signTimeEnd,
             };
             this.logslist(data);
             console.log(data);
@@ -138,13 +138,16 @@ var logs = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
         var data = {
+            //"enterpriseCode" : "enterpriseCode",
+            "esealCode" : "ff",
+            "PKCS7": "",
             "keyword": "",
-            "operateStatus": "",
-            "esealType": "",
-            "signTimeStart": "",
-            "signTimeEnd": "",
+            // "operateStatus": "",
+            // "esealType": "",
+            // "signTimeStart": "",
+            // "signTimeEnd": "",
         }
-        service.commSignetLog1(pageNum, pageSize, data).done(res => {
+        service.commSignetLog2(pageNum, pageSize, data).done(res => {
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
@@ -174,6 +177,9 @@ var logs = Backbone.View.extend({
         }
         var _that = this;
         var data = {
+            "enterpriseCode" : "enterpriseCode",
+            "esealCode" : "",
+            "PKCS7": "",
             "keyword": "",
             "operateStatus": "",
             "esealType": "",

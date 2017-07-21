@@ -4,7 +4,8 @@ var proxy = {
     jsl: 'http://192.168.4.94:8086',
     local:'http://192.168.1.136',
     anyinUrl:'http://192.168.1.159:9500',
-    sealShop:'http://192.168.48.50:9133'
+    sealShop:'http://192.168.48.50:9133',
+    logs:'http://192.168.4.60:8080',
 }
 var config = {
 	dev: {
@@ -33,6 +34,11 @@ var config = {
 			},
 			'/mp':{
 				target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
+                secure: false,
+				changeOrigin: true
+			},
+			'/mp/commSignetLog':{
+				target: proxy.logs, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
 				changeOrigin: true
 			}
