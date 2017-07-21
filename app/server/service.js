@@ -143,12 +143,8 @@ export default {
     getSealShop(areacode,pageNum,pageSize){
     	return this.ajaxCall({ url: domain + sealShop + "queryPageSealShopsByAreacode?areacode="+areacode+"&page="+pageNum+"&size="+pageSize });
     },
-    //根据公司名查询公司所在地区
-    getCompanyAreaNumber(data){
-    	return this.ajaxCall({ url: domain + baseUrl + "esealapply/getCompanyAreaNumber", data: data }, "post");
-    },
     //获取行政区
-    getBigDataZoneCode(data){
-    	return this.ajaxCall({ url: domain + baseUrl + "esealapply/getBigDataZoneCode", data: data }, "post");
+    queryCodeArea(data){
+    	return this.ajaxCall({ url: domain + baseUrl + "codeArea/queryCodeArea?area_code="+data});
     }
 }

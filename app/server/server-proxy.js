@@ -27,7 +27,7 @@ var config = {
 				changeOrigin: true
 			},
 			'/api': {
-                target: proxy.local, //pathRewrite: {'^/column' : '/column'},
+                target: proxy.sealShop, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
 				changeOrigin: true
 			},

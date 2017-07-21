@@ -5,11 +5,7 @@ var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
 var areaNumber;
-var that,company,sealShop;
-var zone = {
-	zone_type: 3,
-	zone_code: 440300
-}
+var that,company,sealShop,zone;
 var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -23,11 +19,8 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		that=this;
-		company={
-			"companyName":"深圳市安印科技有限公司"
-		};
-		company=JSON.stringify(company);
-
+		areaNumber=440305;
+		zone=440300;
 		//查询公司所在区域编码
 		this.sealList();
 		this.$el.html(tpl);
@@ -80,27 +73,18 @@ var step3 = Backbone.View.extend({
 		window.open('admin.html#step4', '_self');
 	},
 	sealList:function(pageNumber,pageSize){
-		service.getCompanyAreaNumber(company).done(function(data) {
-			if(data.code == 0) {
-				var pageNumber=pageNumber||1;
-				var pageSize=pageSize||1
-				areaNumber=data.data.areaNumber;	
-				//查询行政区
-				service.getBigDataZoneCode(zone).done(res=>{
-		    		var tempObj ;
-					if(res.code != 0){
-		                tempObj = {}
-					}else {
-		                tempObj = res.data;
-					}
-					that.model.get("tplhtml").zone=tempObj
-					that.sealShop(areaNumber,pageNumber,pageSize);
-		        })
-							
-			} else {
-				console.log(data.msg)
+		//查询行政区
+		service.queryCodeArea(zone).done(res=>{
+    		var tempObj ;
+			if(res.length==0){
+                tempObj = {}
+			}else {
+                tempObj = res;
 			}
-		});
+			console.log(res);
+			that.model.get("tplhtml").zoneArea=tempObj
+			that.sealShop(areaNumber,pageNumber,pageSize);
+        })
 	},
 	// 点击上一页、下一页
     pagediv(val, totalPages) {
@@ -168,8 +152,7 @@ var step3 = Backbone.View.extend({
         this.pagediv(pageNum,this.model.get("totalPages"))
     },	
     sealShop(areaNumber,pageNumber,pageSize){
-    	//获取印章店
-    	
+    	//获取印章店 	
     	var pageNumber=pageNumber||1;
 		var pageSize=pageSize||1		
 		service.getSealShop(areaNumber,pageNumber,pageSize).done(res=> {

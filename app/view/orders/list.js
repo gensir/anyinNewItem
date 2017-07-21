@@ -13,6 +13,7 @@ var list = Backbone.View.extend({
         'click nav li.index': 'currentPapge'
     },
     render: function (query) {
+    	
     	this.listPage(1,10,123456);
     },
     toggleList(event) {
