@@ -6,6 +6,7 @@ import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag ;
+var result;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -21,7 +22,7 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
 		
-		var result = reqres.request("foo");
+		result = reqres.request("foo");
 		if(result==1){
 			$(".operate").hide();
 			pictureFlag=[0,0,0]
@@ -47,9 +48,14 @@ var step2 = Backbone.View.extend({
 				return;
 			}
 		};
+		if(result==1){
+			pictureFlag="["+pictureFlag[0]+","+pictureFlag[1]+","+pictureFlag[2]+"]";
+		}else{
+			pictureFlag="["+pictureFlag[0]+","+pictureFlag[1]+","+pictureFlag[2]+","+pictureFlag[3]+","+pictureFlag[4]+"]";
+		}
 		var data = {
 			"bizType": 2,
-			"enterprise": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
+			"enterpriseCode": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
 			"urls": pictureFlag,
 			"esealCode":"2132323232" ,
 		}

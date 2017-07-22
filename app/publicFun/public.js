@@ -145,6 +145,7 @@ export function fileUp(service, event, pictureFlag, num) {
                 $(".progress").css({ "width": percentComplete + '%' });
             },
             success: function (data) {
+            	var data=JSON.parse(data);
                 if (data.code == 0) {
                     var data = data.data.fullUrl;
                     pictureFlag[num] = data;
