@@ -70,6 +70,18 @@ var step3 = Backbone.View.extend({
 			})
 			return;
 		};
+		var data = {
+			"bizType": 2,
+			"enterpriseCode": "233434344344",  //组织机构代码 或 统一社会信用代码（优先）
+			"urls": "["+pictureFlag[0]+","+pictureFlag[1]+"]"
+		}
+		service.attach(data).done(function(data) {
+			if(data.code == 0) {
+				
+			} else {
+				console.log(data.msg)
+			}
+		})
 		window.open('admin.html#step4', '_self');
 	},
 	sealList:function(pageNumber,pageSize){
