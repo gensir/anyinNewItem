@@ -2,9 +2,7 @@ const domain = "";
 const sealShop="/api/sealShops/";
 const baseUrl = "/api/";
 const basemp = "/mp/";
-const anyinUrl = "http://192.168.1.159:9500";
-const jsl = "http://192.168.4.94:8082"
-
+//const basemps = "/mps/";
 //const oldBaseUrl = "/";
 var commonAjaxSetting = {
     'get': {
@@ -144,7 +142,7 @@ export default {
     },
     //企业附件信息上传
     attach(data) {
-        return this.ajaxCall({ url: domain + basemp + "attach", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemps + "attach", data: data }, "post");
     },
     //刻章店查询
     getSealShop(areacode,pageNum,pageSize){
@@ -155,7 +153,7 @@ export default {
     	return this.ajaxCall({ url: domain + baseUrl + "codeArea/queryCodeArea?area_code="+data});
     },
     //提交账号和密码
-    registerUser(data){
-    	return this.ajaxCall({ url: domain + basemp + "common/registerUser", data: data }, "post");
+    registerUser(mobile,passwd){
+    	return this.ajaxCall({ url: domain + basemps + "common/registerUser?mobile="+mobile+"&password="+passwd});
     }
 }

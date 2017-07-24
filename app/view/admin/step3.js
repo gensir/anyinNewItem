@@ -234,7 +234,6 @@ var step3 = Backbone.View.extend({
 	},
 	//pagination
 	pagination: function(pageNumber, totalPages) {
-		console.log(pageNumber);
 		$("#pageLimit li.index").remove();
 		var maxShowPage = 5
 		var firstShowPage = pageNumber - 2;
@@ -254,38 +253,36 @@ var step3 = Backbone.View.extend({
 			var pageIndex = '<li class="index"><a>' + i + '</a></li>';
 			$(".appendPage").before(pageIndex)
 		};
-		if(!this.active) {
-			this.active = $("#pageLimit .index").eq(0)
-		} else {
-			if(isNaN(this.active.find('a').text())) { //上下页   true
-				alert("aaa")
-				this.active = $("#pageLimit .index").eq(pageNumber)
-			}
-			this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
-		}
-		this.active.addClass("active").siblings().removeClass("active")
+		 if (!this.active) {
+            this.active = $("#pageLimit .index").eq(0)
+        } else {
+            if (isNaN(this.active.find('a').text())) {
+                this.active = $("#pageLimit .index").eq(0)
+            }
+            this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
+        }
+        this.active.addClass("active").siblings().removeClass("active")
 	},
 	currentPapge(e) {
-		this.active = $(e.currentTarget);
-		var pageNum = this.active.find("a").text()
-		this.pagediv(pageNum, this.model.get("totalPages"))
-	},
-	PreviousPage(e) {
-		this.active = $(e.currentTarget);
-		var pageNum = this.active.find("a").text() - 1
-		this.pagediv(pageNum, this.model.get("totalPages"))
-	},
-	NextPage(e) {
-		//      this.active = $(e.currentTarget);
-		//      var pageNum = this.active.find("a").text()
-		var pageNum = $(".active").find("a").text() - 0 + 1
-		//      alert(next)
-		this.pagediv(pageNum, this.model.get("totalPages"))
-	},
+        this.active = $(e.currentTarget);
+        var pageNum = this.active.find("a").text()
+        this.pagediv(pageNum, this.model.get("totalPages"))
+    },
+    PreviousPage() {
+        this.active = "";
+        this.pagediv(1, this.model.get("totalPages"))
+    },
+    NextPage(e) {
+        this.active = $(e.currentTarget).prev();
+        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
+    },
 	sealShop(areaNumber, pageNumber, pageSize) {
 		//获取印章店 	
+		if($.trim(pageNumber)=="«"){
+			pageNumber=1;
+		}
 		var pageNumber = pageNumber || 1;
-		var pageSize = pageSize || 1
+		var pageSize = pageSize || 2
 		service.getSealShop(areaNumber, pageNumber, pageSize).done(res => {
 			var temp;
 			if(res.count == 0) {

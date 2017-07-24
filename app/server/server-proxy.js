@@ -37,6 +37,12 @@ var config = {
                 secure: false,
 				changeOrigin: true
 			},
+			'/mps':{
+				target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
+                secure: false,
+				changeOrigin: true
+			},
+			
 			'/mp/commSignetLog':{
 				target: proxy.logs, //pathRewrite: {'^/column' : '/column'},
                 secure: false,

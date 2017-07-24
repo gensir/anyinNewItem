@@ -127,6 +127,18 @@ var step3 = Backbone.View.extend({
 								imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
 							}
 						}	
+						var obj = {
+							"bizType": 5,
+							"enterpriseCode": "233434344344", //组织机构代码 或 统一社会信用代码（优先）
+							"urls": "["+data+"]"
+						}
+						service.attach(obj).done(function(data) {
+							if(data.code == 0) {
+								pictureFlag==1
+							} else {
+								console.log(data.msg)
+							}
+						})
 					} else {
 						var dialog = bootbox.alert({
 							className: "uploadPhoto",
@@ -161,19 +173,7 @@ var step3 = Backbone.View.extend({
 				return;
 			}
 		};
-		console.log(pictureFlag)
-		var data = {
-			"bizType": 5,
-			"enterpriseCode": "233434344344", //组织机构代码 或 统一社会信用代码（优先）
-			"urls": "[" + pictureFlag[0] + "," + pictureFlag[1] + "," + pictureFlag[2] + "]"
-		}
-		service.attach(data).done(function(data) {
-			if(data.code == 0) {
-				window.open('register.html#step4', '_self');
-			} else {
-				console.log(data.msg)
-			}
-		})
+		window.open('register.html#step4', '_self');
 	}
 });
 
