@@ -67,7 +67,7 @@ export default {
                 className: 'common',
                 title: '接口提示',
                 onEscape: 'true',
-                message: '<div class="msgcenter"><em></em>接口异常，请求数据失败！</div>',
+                message: '<div class="msgcenter"><em></em>  ！</div>',
                 buttons: {
                     cancel: {
                         label: "确定",
@@ -112,7 +112,7 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode?smsCode="+data });
     },
     userlogin(data) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "sys/login", data: data }, "post");
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
