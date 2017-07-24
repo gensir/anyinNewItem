@@ -101,25 +101,32 @@ var step3 = Backbone.View.extend({
 					if(data.code == 0) {
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
-						$("#photo" + num).css("background", "url(" + data + ") no-repeat center");
-						var reader = new FileReader();
-						reader.readAsDataURL(file.files[0]);
-						reader.onload = function(e) {
-							var image = new Image();
-							image.src = this.result;
-							image.onload = function() {
-								var height = image.height;
-								var width = image.width;
-								if((height / width) > (112 / 163)) {
-									$("#photo" + num).css("background-size", "auto 112px");
-								} else {
-									$("#photo" + num).css("background-size", "163px auto");
-								}
-							};
-							$(".reset" + num).show();
+						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
+    						$("#photo" + num).css("background", "url(" + data + ") no-repeat");
+    						$(".reset" + num).show();
 							$("#file" + num).height(24);
 							imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
-						}
+						}else{
+							$("#photo" + num).css("background", "url(" + data + ") no-repeat center");
+							var reader = new FileReader();
+							reader.readAsDataURL(file.files[0]);
+							reader.onload = function(e) {
+								var image = new Image();
+								image.src = this.result;
+								image.onload = function() {
+									var height = image.height;
+									var width = image.width;
+									if((height / width) > (112 / 163)) {
+										$("#photo" + num).css("background-size", "auto 112px");
+									} else {
+										$("#photo" + num).css("background-size", "163px auto");
+									}
+								};
+								$(".reset" + num).show();
+								$("#file" + num).height(24);
+								imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
+							}
+						}	
 					} else {
 						var dialog = bootbox.alert({
 							className: "uploadPhoto",
