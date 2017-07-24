@@ -1,87 +1,88 @@
 <!-- 操作区域 -->
 <div class="page-kd actions">
-	<dl class="userinfo">
-		<dt><span class="tximg"></span></dt>
-		<dd class="name">欢迎您，<span id="gsname" title="">深圳市创业印章科技有限公司深圳市创业印章科技有限公司</span></dd>
-		<dd class="renzheng"><span class="rzinfo"></span></dd>
-		<dd class="logintime">上次登录：2017-06-28</dd>
-	</dl>
-	
-	<ul class="actionlist">
-		<li><a href="admin.html#step1"><em class="a-icon-1"></em>新办电子印章</a></li>
-		<li><a href="admin.html"><em class="a-icon-2"></em>电子印章续费</a></li>
-		<li><a href="admin.html?page=license"><em class="a-icon-3"></em>登录权限设置</a></li>
-	</ul>
+    <dl class="userinfo">
+        <dt><span class="tximg"></span></dt>
+        <dd class="name">欢迎您，<span id="gsname" title="">深圳市创业印章科技有限公司深圳市创业印章科技有限公司</span></dd>
+        <dd class="renzheng"><span class="rzinfo"></span></dd>
+        <dd class="logintime">上次登录：2017-06-28</dd>
+    </dl>
+
+    <ul class="actionlist">
+        <li><a href="admin.html#step1"><em class="a-icon-1"></em>新办电子印章</a></li>
+        <li><a href="admin.html"><em class="a-icon-2"></em>电子印章续费</a></li>
+        <li><a href="admin.html?page=license"><em class="a-icon-3"></em>登录权限设置</a></li>
+    </ul>
 
 </div>
 
 <!--  中间内容 -->
 <div class="page-kd content">
-	<div class="left">
-		<div class="xufei">
-			<div class="t-title"><h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
-			<ul class="blist boxshow">
-                {{each esealValid as value i}}
-				<li>
-                    <span class="name" title="{{esealValid[i].esealFullName}}">{{esealValid[i].esealFullName}}</span>
-                    <span class="date">{{esealValid[i].validEnd}}</span>
+    <div class="left">
+        <div class="xufei">
+            <div class="t-title">
+                <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
+            <ul class="blist boxshow">
+                {{each esealValid.list as value i}}
+                <li>
+                    <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
+                    <span class="date">{{value.validEnd}}</span>
                     <span class="operate"><a href="admin.html#renew">立即续费></a></span>
                 </li>
                 {{/each}}
-                <!--li><span class="name">电子财务章</span><span class="date">3个月</span><span class="operate"><a href="admin.html">立即续费></a></span></li>
-				<li-><span class="name">电子合同章</span><span class="date">23个月</span><span class="operate"><a href="admin.html">立即续费></a></span></li-->
-			</ul>
-		</div>
-		
-		<div class="help">
-			<div class="t-title"><h2>常见问题汇总</h2><a class="more" href="">更多></a></div>
-			<ul class="blist boxshow">
-				<li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
-				<li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
-				<li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
-			</ul>
+                <!--li><span class="name">电子财务章</span><span class="date">3个月</span><span class="operate"><a href="admin.html">立即续费></a></span></li-->
+            </ul>
+        </div>
 
-		</div>
-	</div>
-	
-	<div class="jilu">
-		<div class="t-title"><h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
-		<div class="jilulist boxshow">
-			<ul>
+        <div class="help">
+            <div class="t-title">
+                <h2>常见问题汇总</h2><a class="more" href="">更多></a></div>
+            <ul class="blist boxshow">
+                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
+                <li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
+                <li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="jilu">
+        <div class="t-title">
+            <h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
+        <div class="jilulist boxshow">
+            <ul>
                 {{each data.list as value i}}
                 <li>
-					<div class="file">
-						<div class="date">{{value.signDate}}</div>
-						<p class="gsname">{{value.fileName}}</p>
-						<p class="yzinfo"><span class="name">{{value.signname}}</span><span class="type">{{value.sealnetType}}</span></p>
-					</div>
-					<div class="details">
-						<dl class="signet">
-							<dt>操作信息</dt>
-							<dd>操作时间：<span>{{value.signDate}}</span></dd>
-							<dd>签章应用：<span>{{value.sealtype}}</span></dd>
-                            <dd>操作状态：
-                                {{if value.Status == 1}}<span style="color:#08c34e">成功</span>{{/if}}
-                                {{if value.Status == 2}}<span style="color:#f00">失败</span>{{/if}}</span>
+                    <div class="file">
+                        <div class="date">{{value.signTime}}</div>
+                        <p class="gsname">{{value.signetDocument}}</p>
+                        <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType}}</span></p>
+                    </div>
+                    <div class="details">
+                        <dl class="signet">
+                            <dt>操作信息</dt>
+                            <dd>操作时间：<span>{{value.signTime}}</span></dd>
+                            <dd>签章应用：<span>{{value.clientAppVersion}}</span></dd>
+                            <dd>操作状态： {{if value.Status == 0}}<span style="color:#08c34e">成功</span>{{/if}} {{if value.Status
+                                == 1}}<span style="color:#f00">失败</span>{{/if}}</span>
                             </dd>
-						</dl>
-						<dl class="signet">
-							<dt>印章信息</dt>
-							<dd>印章名称：<span>{{value.signname}}</span></dd>
-							<dd>印章编码：<span>{{value.sealCode}}</span></dd>
-							<dd>有效期：<span>{{value.validitybefore}}至{{value.validityafter}}</span></dd>
-						</dl>
-						<dl class="computer">
-							<dt>设备信息</dt>
-							<dd>设备IP：<span>{{value.clientIp}}</span></dd>
-							<dd>MAC地址：<span>{{value.clientMac}}</span></dd>
-							<dd>IP来源：<span>{{value.clientAdd}}</span></dd>
-							<dd>操作系统：<span>{{value.clientsSystem}}</span></dd>
-						</dl>
-					</div>
+                        </dl>
+                        <dl class="signet">
+                            <dt>印章信息</dt>
+                            <dd>印章名称：<span>{{value.esealFullName}}</span></dd>
+                            <dd>印章编码：<span>{{value.esealCode}}</span></dd>
+                            <dd>有效期：<span>{{}}至{{}}</span></dd>
+                        </dl>
+                        <dl class="computer">
+                            <dt>设备信息</dt>
+                            <dd>设备IP：<span>{{value.ip}}</span></dd>
+                            <dd>MAC地址：<span>{{value.mac}}</span></dd>
+                            <dd>IP来源：<span>{{value.ipLocation}}</span></dd>
+                            <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
+                        </dl>
+                    </div>
                 </li>
                 {{/each}}
-				<!--li>
+                <!--li>
 					<div class="file">
 						<div class="date">12月12日</div>
 						<p class="gsname">深圳市安印电子科技有限公司采购电子印章UKEY合同书.pdf</p>
@@ -110,8 +111,8 @@
 					</div>
 				</li-->
 
-			</ul>
-		</div>
-	
-	</div>
+            </ul>
+        </div>
+
+    </div>
 </div>

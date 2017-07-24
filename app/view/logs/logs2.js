@@ -20,7 +20,7 @@ var logs2 = Backbone.View.extend({
             } else {
                 logsObj = res.data;
             }
-            this.model.set("totalPages", res.data.totalPages)
+            this.model.set("totalPages", res.data.totalPages);
             this.model.get("tplhtml").data = logsObj;
             this.$el.html(tpl(this.model.get("tplhtml")));
             this.pagination(res.data.pageNum, res.data.totalPages)
@@ -42,7 +42,7 @@ var logs2 = Backbone.View.extend({
             return;
         }
         var _that = this;
-        
+
         this.logslist(val);
     },
     //pagination

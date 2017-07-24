@@ -12,13 +12,13 @@ var logs = Backbone.View.extend({
         //'mouseleave .more': 'mouseleave',
         'blur .more': 'blur',
         "change #s_state": "operateStatus",
-        "change #s_type": "esealType",
+        "change #s_type": "signType",
         'click #date1+em': 'remove_date',
         'click #date2+em': 'remove_date2',
 
-        'click .PreviousPage': 'PreviousPage',
-        'click .NextPage': 'NextPage',
-        'click nav li.index': 'currentPapge'
+        'click .pagelist .PreviousPage': 'PreviousPage',
+        'click .pagelist .NextPage': 'NextPage',
+        'click .pagelist li.index': 'currentPapge'
     },
     //调取日期控件
     form_date() {
@@ -33,7 +33,6 @@ var logs = Backbone.View.extend({
             minView: 2,
             format: 'yyyy-mm-dd',
             forceParse: 0,
-
         });
     },
     remove_date() {
@@ -86,47 +85,42 @@ var logs = Backbone.View.extend({
     },
     //选择状态
     operateStatus(event) {
-        var selected = $(event.currentTarget).find("option:selected").index() || "";
-        switch (parseInt(selected)) {
-            case 1: selected = 0; break;
-            case 2: selected = 1; break;
-        }
-        this.operateStatus = selected;
-        //console.log(this.operateStatus);
+        var operateStatus = $("#s_state").val();
+        var text = $("#s_state").find("option:selected").text();
+        console.log('签章状态：' + text);
     },
     //选择签章类型
-    esealType(event) {
-        var selected = $(event.currentTarget).find("option:selected").index() || "";
-        switch (parseInt(selected)) {
-            case 1: selected = "1"; break;
-            case 2: selected = "2"; break;
-        }
-        this.esealType = selected;
-        //console.log(this.esealType);
+    signType(event) {
+        var signType = $("#s_type").val();
+        var text = $("#s_type").find("option:selected").text();
+        console.log('签章类型：' + text);
     },
     //提交搜索
     searchs(data) {
-        var keyword = $("#keyword").val();
+        var importName = $("#keyword").val();
+        var operateStatus = $("#s_state").val();
+        var signType = $("#s_type").val();
         var signTimeStart = $("#date1").val();
         var signTimeEnd = $("#date2").val();
-        this.keyword = $("#keyword").val();
-        this.signTimeEnd = $("#date1").val();
         if (signTimeEnd !== "" & signTimeEnd < signTimeStart) {
             alert("结束日期不能少于开始日期");
             $("#date2").focus();
             return false;
-        } else if (keyword == "") {
-            console.log("请输入搜索关键字");
-            $("#keyword").focus();
-            this.nosearch();
-            return false;
+            // } else if (importName == "") {
+            //     console.log("请输入搜索关键字");
+            //     $("#keyword").focus();
+            //     this.nosearch();
+            //     return false;
         } else {
             var data = {
-                keyword: this.keyword,
-                operateStatus: this.operateStatus,
-                esealType: this.esealType,
-                signTimeStart: this.signTimeStart,
-                signTimeEnd: this.signTimeEnd,
+                esealCode: "ff",
+                enterpriseCode: "",
+                //"PKCS7": "",
+                importName: importName,
+                operateStatus: operateStatus,
+                signType: signType,
+                signTimeStart: signTimeStart,
+                signTimeEnd: signTimeEnd,
             };
             this.logslist(data);
             console.log(data);
@@ -136,28 +130,29 @@ var logs = Backbone.View.extend({
     //获取数据
     logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 10;
+        pageSize = pageSize || 2;
         var data = {
-            //"enterpriseCode" : "enterpriseCode",
-            "esealCode" : "ff",
-            "PKCS7": "",
-            "keyword": "",
-            // "operateStatus": "",
-            // "esealType": "",
-            // "signTimeStart": "",
-            // "signTimeEnd": "",
+            "esealCode": "ff",//电子印章编码
+            "enterpriseCode": "", //电子印章企业编码
+            //"PKCS7": "",//数据签名
+            "importName": "",//搜索内容
+            "operateStatus": "",//签章状态
+            "signType": "",//签章类型
+            // "signTimeStart": "",//开始时间
+            // "signTimeEnd": "",//结束时间
         }
-        service.commSignetLog2(pageNum, pageSize, data).done(res => {
+        service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
             } else {
                 logsObj = res.data;
             }
-            this.model.set("totalPages", res.data.totalPages)
+            this.model.set("totalPages", res.data.totalPages);
+            console.log(this.model.set("totalPages"));
             this.model.get("tplhtml").data = logsObj;
             this.$el.html(tpl(this.model.get("tplhtml")));
-            this.pagination(res.data.pageNum, res.data.totalPages, res.data.data)
+            this.pagination(res.data.pageNum, res.data.totalPages);
 
             this.form_date();
         });
@@ -177,14 +172,14 @@ var logs = Backbone.View.extend({
         }
         var _that = this;
         var data = {
-            "enterpriseCode" : "enterpriseCode",
-            "esealCode" : "",
-            "PKCS7": "",
-            "keyword": "",
+            "esealCode": "ff",
+            "enterpriseCode" : "",
+            //"PKCS7": "",
+            "importName": "",
             "operateStatus": "",
-            "esealType": "",
-            "signTimeStart": "",
-            "signTimeEnd": "",
+            "signType": "",
+            // "signTimeStart": "",
+            // "signTimeEnd": "",
         }
         this.logslist(data, val)
     },
@@ -229,7 +224,6 @@ var logs = Backbone.View.extend({
         this.active = $(e.currentTarget).prev();
         this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
     },
-
 
     render: function () {
         this.logslist();

@@ -53,17 +53,15 @@ var index = Backbone.View.extend({
     },
 
     //获取签章记录数据
-    logslist(pageNum, pageSize) {
+    logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "keyword": "",
-            "operateStatus": "",
-            "esealType": "",
-            "signTimeStart": "",
-            "signTimeEnd": "",
+            //"enterpriseCode" : "",
+            "esealCode": "ff",
+            //"PKCS7": "",
         }
-        service.commSignetLog1(pageNum, pageSize, data).done(res => {
+        service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
@@ -74,21 +72,7 @@ var index = Backbone.View.extend({
             this.model.get("tpl").data = logsObj;
             this.$el.html(tpl(this.model.get("tpl")));
         });
-    },    
-    //获取签章记录数据
-    // logslist() {
-    //     var _this = this
-    //     service.getLogsList(1, 5).done(res => {
-    //         var obj;
-    //         if (res.code != 0) {
-    //             obj = {}
-    //         } else {
-    //             obj = res.data.list;
-    //         }
-    //         this.model.get("tpl").data = obj
-    //         this.$el.html(tpl(this.model.get("tpl")));
-    //     });
-    // },
+    },
 
     datecalc() {
         var date1 = new Date();
@@ -114,7 +98,7 @@ var index = Backbone.View.extend({
             if (res.code != 0) {
                 Esealobj = {}
             } else {
-                Esealobj = res.data.list;
+                Esealobj = res.data;
             }
             this.model.get("tpl").esealValid = Esealobj;
             this.$el.html(tpl(this.model.get("tpl")));
