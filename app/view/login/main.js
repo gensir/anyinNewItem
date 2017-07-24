@@ -39,10 +39,9 @@ var main = Backbone.View.extend({
         }
         var selectedUkey=$("#seleBook option:selected").index() - 1
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
-        console.log(JSON.stringify(ukeys.dSignature(selectedUkey)))
+        //console.log(JSON.stringify(ukeys.dSignature(selectedUkey)))
         if (checkResult) {
             var data = {
-                "captcha": "jskx",
                 "loginType": 2,
                 "esealCode": ukeys.esealCode(selectedUkey),
                 "codeError": "0",
@@ -50,14 +49,15 @@ var main = Backbone.View.extend({
                 "randomNum": ukeys.randomNum(),
                 "signature": ukeys.dSignature(selectedUkey)
             }
+            console.log(JSON.stringify(data))
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
                 }
-
-                window.open("index.html", "_self")
+debugger;
+                //window.open("index.html", "_self")
             })
         } else {
             bootbox.alert("请检测证书或PIN码是否正确！");

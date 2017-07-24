@@ -13,9 +13,3 @@ S.router = new Router();
 Backbone.history.start({
     root: ''
 });
-//测试代理;
-console.log(service)
-service.serverTest().done(function (data) {
-    console.log(data); 
-    console.log("测试代理成功");
-})

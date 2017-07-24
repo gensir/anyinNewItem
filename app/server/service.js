@@ -114,7 +114,7 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode?smsCode="+data });
     },
     userlogin(data) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/login", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "sys/login", data: data }, "post");
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
