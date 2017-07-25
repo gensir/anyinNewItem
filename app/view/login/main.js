@@ -44,8 +44,8 @@ var main = Backbone.View.extend({
             var data = {
                 "loginType": 2,
                 "esealCode": ukeys.esealCode(selectedUkey),
-                "codeError": "0",
-                "entryptCert": ukeys.Dcertificate(selectedUkey),
+                "codeError": 0,
+                "entryptCert": ukeys.dCertificate(selectedUkey),
                 "randomNum": ukeys.randomNum(),
                 "signature": ukeys.dSignature(selectedUkey)
             }
@@ -56,7 +56,6 @@ var main = Backbone.View.extend({
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
                 }
-debugger;
                 //window.open("index.html", "_self")
             })
         } else {
@@ -83,7 +82,7 @@ debugger;
             } else if (data.code == 4) {
                 $.verify("passwd", "#passwd", "后台返回error");
             }
-            window.open("index.html", "_self")
+            //window.open("index.html", "_self")
         })
         // bootbox.dialog({
         //     closeButton: false,

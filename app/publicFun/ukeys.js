@@ -57,7 +57,7 @@ var ukeys = {
             return this.data.ukey.Signature(randomNum, randomNum.length);
         }
     },
-    Dcertificate(selectukeyInd) {//数字证书；
+    dCertificate(selectukeyInd) {//数字证书；
         if (selectukeyInd !== undefined && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertInfo(1)
