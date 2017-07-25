@@ -128,13 +128,13 @@ export default {
     attach(data) {
         return this.ajaxCall({ url: domain + basemp + "attach", data: data }, "post");
     },
-    //刻章店查询
+    //刻章店查询  /get_area/sealShops/queryPageSealShopsByAreacode?areacode=440305&page=1&size=5
     getSealShop(areacode,pageNum,pageSize){
-    	return this.ajaxCall({ url: domain + sealShop + "queryPageSealShopsByAreacode?areacode="+areacode+"&page="+pageNum+"&size="+pageSize });
+    	return this.ajaxCall({ url: domain + basemp + "get_area/sealShops/queryPageSealShopsByAreacode?areacode="+areacode+"&page="+pageNum+"&size="+pageSize });
     },
-    //获取行政区
+    //获取行政区  get_area/codeArea/queryCodeArea?area_code=440300
     queryCodeArea(data){
-    	return this.ajaxCall({ url: domain + baseUrl + "codeArea/queryCodeArea?area_code="+data});
+    	return this.ajaxCall({ url: domain + basemp + "get_area/codeArea/queryCodeArea?area_code="+data});
     },
     //提交账号和密码
     registerUser(mobile,passwd){
