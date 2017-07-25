@@ -22,7 +22,11 @@
 							</a>
 						</form>
 					</div>
-					<div class="digitalExample"></div>
+					<div class="formPublic">
+						<span class="shadow shadow1">
+						</span>
+						<span class="digitalExample"></span>
+					</div>
 				</div>
 			</div>
 			<div class="photo legalScan">
@@ -40,8 +44,11 @@
 							</a>
 						</form>
 					</div>
-
-					<div class="exampleScan"></div>
+					<div class="formPublic">
+						<span class="shadow shadow2">
+						</span>
+						<span class="exampleScan"></span>
+					</div>
 				</div>
 			</div>
 			<div class="downLoad">
@@ -216,7 +223,11 @@
 		background: #999;
 		display: none;
 	}
-	
+	.step3 .flex .scanPhoto .shadow:hover{
+		background: url(../../../../asset/img/c-1-6-2_03.jpg);
+		opacity: .8;
+		filter: Alpha(opacity= 80);	
+	}
 	.step3 .flex .scanPhoto .exampleScan {
 		width: 162px;
 		height: 112px;
@@ -227,7 +238,17 @@
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/proxy.jpg', sizingMethod='scale');
 		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/proxy.jpg', sizingMethod='scale');
 	}
-	
+	.step3 .formPublic{
+		position: relative;
+		overflow: hidden;
+	}
+	.step3 .flex .scanPhoto .shadow{
+		display: inline-block;
+		width: 163px;
+		height: 112px;
+		position: absolute;	
+		left: 26px;
+	}
 	.step3 .flex .scanPhoto .digitalExample {
 		width: 162px;
 		height: 112px;

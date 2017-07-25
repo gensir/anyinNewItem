@@ -19,18 +19,18 @@ var step3 = Backbone.View.extend({
 		"change #area":'option'
 	},
 	render: function(query) {
+		this.$el.html(tpl);		
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
+		imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
+		pictureFlag = [0, 0];
+		flag = true;
 		that = this;
 		areaNumber = 440305;
 		zone = 440300;
-		//查询公司所在区域编码		
-		that.model.get("tplhtml").areaNumber = areaNumber
+//		//查询公司所在区域编码		
+		this.model.get("tplhtml").areaNumber = areaNumber
 		this.sealList();
-		this.$el.html(tpl);
-		pictureFlag = [0, 0];
-		flag = true;
-		document.body.scrollTop = document.documentElement.scrollTop = 0;
-		imgModalBig('.digitalExample', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
-		imgModalBig('.exampleScan', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 	},
 	changeImg: function(event) {
 		var eve = event;
@@ -307,6 +307,8 @@ var step3 = Backbone.View.extend({
 				$(".sealShopResult").show();
 				$(".pagination").hide();
 			}
+			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
+			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 		});
 	},
 	option(){
