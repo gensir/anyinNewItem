@@ -8,8 +8,8 @@ var step1 = Backbone.View.extend({
         'click .hang input': 'codetype',
         'click #xieyi': 'rules',
         'click #reguser': 'reguser',
-        //'keyup #idcode': 'checkidCode',
-        'keyup #yzmcode': 'checkCode',
+        'keyup #idcode': 'checkidCode',
+        //'keyup #yzmcode': 'checkyzmCode',
         'click #up_yzmcode,.codeimg': 'captcha',
     },
 
@@ -31,22 +31,22 @@ var step1 = Backbone.View.extend({
         }
     },
     //检查信用代码是否注册
-    // checkidCode: function (data) {
-    //     if ($('#idcode').val().length == 18) {
-    //         var data = {
-    //             "idcode": $('#idcode').val(),
-    //         }
-    //         service.checkidCode(data).done(function (data) {
-    //             if (data.code == 0) {
-    //                 $("#idcode-error").html(data.msg).css({ "color": "#08c34e" });
-    //             } else if (data.code == 3) {
-    //                 $("#idcode-error").html(data.msg);
-    //             }
-    //         })
-    //     } else {
-    //         $('#idcode-error').html('').css({ "color": "#f00" });
-    //     }
-    // },
+    checkidCode: function (data) {
+        if ($('#idcode').val().length == 18) {
+            var data = {
+                "idcode": $('#idcode').val(),
+            }
+            service.checkidCode(data).done(function (data) {
+                if (data.code == 0) {
+                    $("#idcode-error").html(data.msg).css({ "color": "#08c34e" });
+                } else if (data.code == 3) {
+                    $("#idcode-error").html(data.msg);
+                }
+            })
+        } else {
+            $('#idcode-error').html('').css({ "color": "#f00" });
+        }
+    },
     //检查随机验证码
     // checkyzmCode: function (data) {
     //     if ($('#yzmcode').val().length == 4) {
@@ -64,41 +64,27 @@ var step1 = Backbone.View.extend({
     //         $('#yzmcode-error').html('').css({ "color": "#f00" });
     //     }
     // },
-    checkCode: function (data) {
-        if ($('#yzmcode').val().length < 4) {
-            var data = {
-                "yzmcode": $('#yzmcode').val(),
-            }
-            $('#yzmcode-error').html('');
-        }
-    },
-    // 获取图片验证码；
+
+    // 获取随机验证码；
     captcha() {
         $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
     },
 
     reguser: function (event) {
-        var enterpriseCode = $("#Ename").val();
-        var captcha = $("#yzmcode").val();
-        window.reqres.setHandler("enterpriseCode", function () {
-            return enterpriseCode;
+        var IDCode = {
+	        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
+	        "businessLicenseNumber": "",
+	        "legalName": "张三疯",
+	        "name": "深圳菱正环保设备有限公司",
+	        "uniformSocialCreditCode": "914403005538853123",
+	    }
+        window.reqres.setHandler("IDCode", function () {
+            return IDCode;
         });
 
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
-            var data = {
-                "enterpriseCode": enterpriseCode,
-                "captcha": captcha,
-            }
-            service.register(data).done(res => {
-                if (res.code == 0) {
-                    window.open('#step2', '_self')
-                } else if (res.code == 1) {
-                    $("#yzmcode-error").html(res.msg);
-                    $("#yzmcode").focus();
-                    this.captcha();
-                };
-            })
+            window.open('#step2', '_self')
         }
     },
 

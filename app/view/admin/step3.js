@@ -108,7 +108,7 @@ var step3 = Backbone.View.extend({
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
 						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
-    						$("#photo" + num).css("background", "url(" + data + ") no-repeat");
+    						$("#photo" + num).css("background", "url(" + data + ") no-repeat").css("background-size","cover");
     						$(".reset" + num).show();
 							$("#file" + num).height(24);
 							imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
@@ -150,8 +150,13 @@ var step3 = Backbone.View.extend({
 				},
 				complete: function() {
 					setTimeout(function() {
-						$(event.target).parent().removeClass("form");
-						$(".formPub").remove();
+						$(eve.target).parent().removeClass("form");
+						var navigatorName = "Microsoft Internet Explorer"; 
+						if(navigator.appName == navigatorName){
+						    document.getElementsByClassName("formPub")[0].removeNode(true);
+						}else{
+						    $(".formPub").remove();
+						}
 					}, 100);
 				},
 			})

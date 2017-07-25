@@ -126,7 +126,7 @@ export default {
     },
     //企业附件信息上传
     attach(data) {
-        return this.ajaxCall({ url: domain + basemps + "attach", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "attach", data: data }, "post");
     },
     //刻章店查询
     getSealShop(areacode,pageNum,pageSize){
@@ -138,7 +138,7 @@ export default {
     },
     //提交账号和密码
     registerUser(mobile,passwd){
-    	return this.ajaxCall({ url: domain + basemps + "common/registerUser?mobile="+mobile+"&password="+passwd});
+    	return this.ajaxCall({ url: domain + basemp + "common/registerUser?mobile="+mobile+"&password="+passwd});
     },
     //点击注册
     register(data){

@@ -18,6 +18,7 @@ var step3 = Backbone.View.extend({
 		this.$el.html(tpl);
 		enterpriseCode = reqres.request("IDCode");
 		enterpriseCode = enterpriseCode.uniformSocialCreditCode;
+		console.log(enterpriseCode);
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
@@ -25,6 +26,7 @@ var step3 = Backbone.View.extend({
 		imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
 	},
 	changeImg: function(event) {
+		var eve=event;
 		var fileVal = $(event.target).val();
 		if(!fileVal) {
 			return;
@@ -102,7 +104,7 @@ var step3 = Backbone.View.extend({
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
 						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
-    						$("#photo" + num).css("background", "url(" + data + ") no-repeat");
+    						$("#photo" + num).css("background", "url(" + data + ") no-repeat").css("background-size","cover");
     						$(".reset" + num).show();
 							$("#file" + num).height(24);
 							imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
@@ -154,10 +156,15 @@ var step3 = Backbone.View.extend({
 					})
 					return;
 				},
-				complete: function() {
+				complete: function(eve) {
 					setTimeout(function() {
-						$(event.target).parent().removeClass("form");
-						$(".formPub").remove();
+						$(eve.target).parent().removeClass("form");
+						var navigatorName = "Microsoft Internet Explorer"; 
+						if(navigator.appName == navigatorName){
+						    document.getElementsByClassName("formPub")[0].removeNode(true);
+						}else{
+						    $(".formPub").remove();
+						}
 					}, 100);
 				},
 			})
