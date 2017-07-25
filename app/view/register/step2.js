@@ -18,7 +18,7 @@ var step2 = Backbone.View.extend({
 	render: function(query) {
 		IDNo="111111111111111111"
 		var result = reqres.request("IDCode");
-//		var result= 
+//		IDNo = result.id;
 		this.$el.html(tpl({data:result}));
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},

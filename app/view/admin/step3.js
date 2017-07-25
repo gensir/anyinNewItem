@@ -15,13 +15,15 @@ var step3 = Backbone.View.extend({
 		'click #goStep4': 'goStep4',
 		'click .PreviousPage': 'PreviousPage',
 		'click .NextPage': 'NextPage',
-		'click nav li.index': 'currentPapge'
+		'click nav li.index': 'currentPapge',
+		"change #area":'option'
 	},
 	render: function(query) {
 		that = this;
 		areaNumber = 440305;
 		zone = 440300;
-		//查询公司所在区域编码
+		//查询公司所在区域编码		
+		that.model.get("tplhtml").areaNumber = areaNumber
 		this.sealList();
 		this.$el.html(tpl);
 		pictureFlag = [0, 0];
@@ -217,8 +219,9 @@ var step3 = Backbone.View.extend({
 			} else {
 				tempObj = res;
 			}
-			console.log(res);
-			that.model.get("tplhtml").zoneArea = tempObj
+			
+			that.model.get("tplhtml").zoneArea = tempObj;
+			console.log(that.model.get("tplhtml"));
 			that.sealShop(areaNumber, pageNumber, pageSize);
 		})
 	},
@@ -283,6 +286,7 @@ var step3 = Backbone.View.extend({
     },
 	sealShop(areaNumber, pageNumber, pageSize) {
 		//获取印章店 	
+		$(".sealShopResult").hide();
 		if($.trim(pageNumber)=="«"){
 			pageNumber=1;
 		}
@@ -291,7 +295,7 @@ var step3 = Backbone.View.extend({
 		service.getSealShop(areaNumber, pageNumber, pageSize).done(res => {
 			var temp;
 			if(res.count == 0) {
-				temp = {}
+				temp = []
 			} else {
 				temp = res.data;
 			}
@@ -299,8 +303,16 @@ var step3 = Backbone.View.extend({
 			that.model.set("totalPages", (res.count / res.size))
 			that.$el.html(tpl(that.model.get("tplhtml")))
 			that.pagination(pageNumber, (res.count / res.size))
+			if(res.data.length==0){
+				$(".sealShopResult").show();
+				$(".pagination").hide();
+			}
 		});
-	}
+	},
+	option(){
+		var area=$("#area option:selected").val();
+		this.sealShop(area);
+	},
 });
 
 module.exports = step3;

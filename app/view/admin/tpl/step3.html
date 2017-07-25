@@ -64,7 +64,7 @@
 					</select>
 					<select id="area" class="search_input">
 						{{each zoneArea as value i}}
-							<option value={{zoneArea[i].areaCode}}>{{zoneArea[i].name}}</option>
+							<option value={{zoneArea[i].areaCode}} {{if zoneArea[i].areaCode==areaNumber}}selected{{/if}} >{{zoneArea[i].name}}</option>
 						{{/each}}
 					</select>
 				</div>
@@ -90,6 +90,7 @@
 					</tr>
 					{{/each}}
 				</table>
+				<div class="sealShopResult">查询不到刻章店信息</div>
 			</div>
 		</div>
 		<nav aria-label="Page navigation">
@@ -318,6 +319,13 @@
 	}
 	.step3 nav{
 		text-align: center;
+	}
+	.step3 .sealMessage .sealShopResult{
+		padding: 20px 0;
+		font-size: 14px;
+		text-align: center;
+		color: red;
+		display: none;
 	}
 	
 	.step3 .go {
