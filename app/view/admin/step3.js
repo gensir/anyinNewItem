@@ -33,6 +33,7 @@ var step3 = Backbone.View.extend({
 		imgModalBig('.exampleScan', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 	},
 	changeImg: function(event) {
+		var eve = event;
 		var fileVal = $(event.target).val();
 		if(!fileVal) {
 			return;
@@ -150,7 +151,7 @@ var step3 = Backbone.View.extend({
 					})
 					return;
 				},
-				complete: function() {
+				complete: function(eve) {
 					setTimeout(function() {
 						$(eve.target).parent().removeClass("form");
 						var navigatorName = "Microsoft Internet Explorer"; 

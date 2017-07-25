@@ -31,6 +31,7 @@ var step2 = Backbone.View.extend({
 		}
 	},
 	changeImg: function(event) {
+		var eve = event;
 		var fileVal = $(event.target).val();
 		if(!fileVal) {
 			return;
@@ -148,7 +149,7 @@ var step2 = Backbone.View.extend({
 					})
 					return;
 				},
-				complete: function() {
+				complete: function(eve) {
 					setTimeout(function() {
 						$(eve.target).parent().removeClass("form");
 						var navigatorName = "Microsoft Internet Explorer"; 
