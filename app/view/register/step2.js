@@ -3,7 +3,7 @@
  */
 import tpl from './tpl/step2.html';
 var service = require('../../server/service').default;
-var IDNo;
+var IDNo,enterpriseCode;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
@@ -19,6 +19,7 @@ var step2 = Backbone.View.extend({
 		IDNo="111111111111111111"
 		var result = reqres.request("IDCode");
 //		IDNo = result.id;
+		enterpriseCode = result.uniformSocialCreditCode;
 		this.$el.html(tpl({data:result}));
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
@@ -75,7 +76,7 @@ var step2 = Backbone.View.extend({
 //		if(!this.model.isValid()) {
 //			var mobile=$(".countPhone").val();
 //			var passwd=$(".passwd").val();
-//			service.registerUser(mobile,passwd).done(res=>{
+//			service.registerUser(mobile,passwd,enterpriseCode).done(res=>{
 //				if(res.code==0){
 //					window.open('register.html#step3', '_self')
 //				}
