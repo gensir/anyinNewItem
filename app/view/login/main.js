@@ -71,18 +71,20 @@ var main = Backbone.View.extend({
             return;
         }
         var data = {
-            "mobile": "13527761888",
-            "password": "123456",
+            "mobile": $("#userName").val()||"13527761888",
+            "password": $("#passwd").val()||"123456",
             "captcha": "jskx",
             "loginType": 1
         }
         service.userlogin(data).done(function (data) {
             if (data.code == 0) {
-                $.verify("passwd", "#passwd");
-            } else if (data.code == 4) {
-                $.verify("passwd", "#passwd", "后台返回error");
+                window.open("index.html", "_self");
+            } else if (data.code == "001") {
+                $.verify("phone","#userName", "用户未注册");
             }
-            //window.open("index.html", "_self")
+            else if (data.code == "500") {
+                $.verify("phone","#userName", "账号不存在");
+            }
         })
         // bootbox.dialog({
         //     closeButton: false,
