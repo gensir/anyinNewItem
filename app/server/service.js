@@ -92,15 +92,7 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "eseal/list/" + pageNum + "/" + pageSize, data: data });
     },
     //签章日志记录
-    commSignetLog1(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/logs/list/1/5", data: data });
-    },
-    //签章日志记录
     commSignetLog(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
-    },
-    //签章日志记录
-    commSignetLog2(pageNum, pageSize, data) {
         return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
     },
     //系统操作日志
@@ -132,14 +124,6 @@ export default {
     checkidCode(data) {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkidCode", data: data }, "post");
     },
-    //获取随机码
-    yzmCode(data) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/method=getvercode" }, "post");
-    },
-    //检查随机验证码
-    checkyzmCode(data) {
-        return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkyzmCode", data: data });
-    },
     //企业附件信息上传
     attach(data) {
         return this.ajaxCall({ url: domain + basemps + "attach", data: data }, "post");
@@ -155,5 +139,9 @@ export default {
     //提交账号和密码
     registerUser(mobile,passwd){
     	return this.ajaxCall({ url: domain + basemps + "common/registerUser?mobile="+mobile+"&password="+passwd});
+    },
+    //点击注册
+    register(data){
+    	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
     }
 }

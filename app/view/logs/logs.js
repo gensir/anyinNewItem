@@ -113,15 +113,15 @@ var logs = Backbone.View.extend({
             //     return false;
         } else {
             var data = {
-                esealCode: "ff",
-                enterpriseCode: "",
-                //"PKCS7": "",
-                importName: importName,
-                operateStatus: operateStatus,
-                signType: signType,
-                signTimeStart: signTimeStart,
-                signTimeEnd: signTimeEnd,
-            };
+                "esealCode": "ff",
+                "enterpriseCode": "",
+                "PKCS7": "",
+                "importName": importName,
+                "operateStatus": operateStatus,
+                "signType": signType,
+                "signTimeStart": signTimeStart,
+                "signTimeEnd": signTimeEnd,
+            }
             this.logslist(data);
             console.log(data);
         };
@@ -131,15 +131,20 @@ var logs = Backbone.View.extend({
     logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
         pageSize = pageSize || 2;
+        var importName = $("#keyword").val();
+        var operateStatus = $("#s_state").val();
+        var signType = $("#s_type").val();
+        var signTimeStart = $("#date1").val();
+        var signTimeEnd = $("#date2").val();
         var data = {
-            "esealCode": "ff",//电子印章编码
-            "enterpriseCode": "", //电子印章企业编码
-            //"PKCS7": "",//数据签名
-            "importName": "",//搜索内容
-            "operateStatus": "",//签章状态
-            "signType": "",//签章类型
-            // "signTimeStart": "",//开始时间
-            // "signTimeEnd": "",//结束时间
+            "esealCode": "ff",
+            "enterpriseCode": "",
+            "PKCS7": "",
+            "importName": importName,
+            "operateStatus": operateStatus,
+            "signType": signType,
+            "signTimeStart": signTimeStart,
+            "signTimeEnd": signTimeEnd,
         }
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
@@ -171,15 +176,20 @@ var logs = Backbone.View.extend({
             return;
         }
         var _that = this;
+        var importName = $("#keyword").val();
+        var operateStatus = $("#s_state").val();
+        var signType = $("#s_type").val();
+        var signTimeStart = $("#date1").val();
+        var signTimeEnd = $("#date2").val();
         var data = {
             "esealCode": "ff",
-            "enterpriseCode" : "",
-            //"PKCS7": "",
-            "importName": "",
-            "operateStatus": "",
-            "signType": "",
-            // "signTimeStart": "",
-            // "signTimeEnd": "",
+            "enterpriseCode": "",
+            "PKCS7": "",
+            "importName": importName,
+            "operateStatus": operateStatus,
+            "signType": signType,
+            "signTimeStart": signTimeStart,
+            "signTimeEnd": signTimeEnd,
         }
         this.logslist(data, val)
     },
