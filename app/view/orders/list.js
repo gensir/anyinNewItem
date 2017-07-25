@@ -28,7 +28,8 @@ var list = Backbone.View.extend({
         }
     },
     
-    listPage( pageNum, pageSize,enterpriseCode) {	   	
+    listPage( pageNum, pageSize,enterpriseCode) {	
+    	$(".listResult").hide();
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
         service.queryOrderList(pageNum, pageSize,enterpriseCode).done(res => {
@@ -42,6 +43,10 @@ var list = Backbone.View.extend({
             this.model.get("tplhtml").data = tempObj;
             this.$el.html(tpl(this.model.get("tplhtml")));
             this.pagination( pageNum, res.data.totalPages)
+            if(res.data.list.length==0){
+            	$(".listResult").show();
+            	$("nav").hide();
+            }
         })
     },
     // 点击上一页、下一页
