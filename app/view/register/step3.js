@@ -5,7 +5,6 @@ import tpl from './tpl/step3.html'
 import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
-//var picture = [];
 var pictureFlag = [0, 0, 0];
 var enterpriseCode;
 var step3 = Backbone.View.extend({
@@ -18,6 +17,7 @@ var step3 = Backbone.View.extend({
 	render: function(query) {
 		this.$el.html(tpl);
 		enterpriseCode = reqres.request("IDCode");
+		enterpriseCode = enterpriseCode.uniformSocialCreditCode;
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
@@ -129,7 +129,7 @@ var step3 = Backbone.View.extend({
 						}	
 						var obj = {
 							"bizType": 5,
-							"enterpriseCode": "233434344344", //组织机构代码 或 统一社会信用代码（优先）
+							"enterpriseCode": enterpriseCode||"233434344344", //组织机构代码 或 统一社会信用代码（优先）
 							"urls": "["+data+"]"
 						}
 						service.attach(obj).done(function(data) {

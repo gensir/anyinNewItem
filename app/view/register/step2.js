@@ -20,7 +20,7 @@ var step2 = Backbone.View.extend({
 //		var result = reqres.request("IDCode");
 		var result= {
 	        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
-	        "businessLicenseNumber": "",
+	        "businessLicenseNumber": "440301112242166",
 	        "legalName": "张三疯",
 	        "name": "深圳菱正环保设备有限公司",
 	        "uniformSocialCreditCode": "914403005538853123",
