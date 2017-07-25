@@ -18,14 +18,14 @@ var step2 = Backbone.View.extend({
 	render: function(query) {
 		IDNo="111111111111111111"
 //		var result = reqres.request("IDCode");
-		result="data": {
+		var result= {
 	        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
 	        "businessLicenseNumber": "",
 	        "legalName": "张三疯",
 	        "name": "深圳菱正环保设备有限公司",
 	        "uniformSocialCreditCode": "914403005538853123",
 	    }
-		this.$el.html(tpl);
+		this.$el.html(tpl({data:result}));
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	phoneCode: function() {
