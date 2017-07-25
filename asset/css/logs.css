@@ -14,14 +14,15 @@
 .intnav .search .submit em { background: url(../img/bg-all.png) no-repeat -80px -290px; display: inline-block; height: 24px; width: 24px; vertical-align: middle; }
 .intnav .search .inputbox .search-input:focus+.submit em,
 .intnav .search .submit:hover em { background: url(../img/bg-all.png) no-repeat -104px -290px; }
-.intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; outline: none; }
+.intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 60px 20px 30px; display: none; outline: none; }
 .intnav .search .more .state { float: left; margin-right: 20px; }
 .intnav .search .more .labelname { font-size: 12px; color: #666; display: inline-block; float: left; line-height: 28px; }
-.select-box { width: 90px; height: 28px; line-height: 28px; font-size: 12px; border: solid 1px #dedede; position: relative; z-index: 1; background: #fff; overflow: hidden; min-width: 44px; max-width: 120px; padding-right: 20px; display: inline-block; vertical-align: middle;  } 
+.intnav .search .more .closes { width: 16px; height: 16px;  background: url(../img/bg-all.png) no-repeat -160px -290px; position: absolute; top: 136px; right: 8px; z-index: 4; cursor: pointer;}
+.intnav .search .more .closes:hover { background: url(../img/bg-all.png) no-repeat -180px -290px; }
+.select-box { width: 90px; height: 28px; line-height: 28px; font-size: 12px; border: solid 1px #dedede; position: relative; z-index: 1; background: #fff; overflow: hidden; min-width: 44px; max-width: 120px; padding-right: 20px; display: inline-block; vertical-align: middle; border-radius: 2px;  } 
 .select-box .selecticon { display: block; height: 28px; width: 20px; overflow: hidden; position: absolute; z-index: 2; top: 0px; right: 0px; background: #fff url(../img/bg-all.png) no-repeat -132px -287px; pointer-events: none; margin: 0; }
 .select-box select { border: 0; padding-left: 6px; color: #666; background: #fff; -webkit-appearance: none; width: 150%; outline: none; }
-/* 内部菜单 */
-.intnav .search .more .date { padding-top: 20px; color: #666; }
+.intnav .search .more .date { padding-top: 14px; color: #666; }
 .intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block; vertical-align: middle; border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
 .intnav .search .more .date span { position: relative; float: left; display: inline-block; }
 .intnav .search .more .date .xian { line-height: 28px; padding-left: 3px; padding-right: 3px; }
@@ -30,14 +31,14 @@
 .intnav .search .more .date .date-input:focus+em { color: #00acff; }
 .intnav .search .nosearch { position: absolute; z-index: 4; right: -15px; top: 0px; width: 340px; height: 160px; padding-top: 65px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; text-align: center; color: #666; }
 .intnav .search .nosearch em { width: 32px; height: 32px; display: inline-block; margin-right: 15px; background: #fff url(../img/bg-all.png) no-repeat 0 -314px; vertical-align: middle;}
-.intnav .search .nosearch i { font-size: 9px; color: #dedede; position: absolute; top: 12px; right: 12px; z-index: 4; cursor: pointer; padding: 2px; border: 2px solid #dedede; border-radius: 50%; }
-.intnav .search .nosearch i:hover { color: #999; border-color: #999; }
+.intnav .search .nosearch i { width: 16px; height: 16px;  position: absolute; top: 12px; right: 12px; z-index: 4; cursor: pointer;background: url(../img/bg-all.png) no-repeat -160px -290px; }
+.intnav .search .nosearch i:hover { background: url(../img/bg-all.png) no-repeat -180px -290px; }
 /*签章列表 */
 .m-title { height: 20px; margin-top: 14px; margin-bottom: 14px; margin-left: 6px; font-size: 16px; line-height: 20px; font-weight: 600; border-left: 6px solid #0073bd; padding-left: 24px; }
 .jilulist { padding: 20px; }
 .jilulist .listtitle { height: 40px; width: 100%; line-height: 20px; padding-left: 30px; padding-right: 30px; }
 .jilulist .listtitle .title { font-size: 16px; }
-.jilulist .listtext .text { font-size: 14px; color: #666; }
+.jilulist .listtext .text { font-size: 14px; color: #666; height: 20px; }
 .jilulist .col1 { width: 20%; display: block; float: left; }
 .jilulist .col2 { width: 40%; display: block; float: left; }
 .jilulist .col3 { width: 15%; display: block; float: left; text-align: center; }

@@ -17,8 +17,8 @@
 							<label class="selecticon" for="state"></label>
 							<select id="s_state">
 								<option value="">全部</option>
-								<option value="1">成功</option>
-								<option value="2">失败</option>
+								<option value="0">成功</option>
+								<option value="1">失败</option>
 							</select>
 						</span>
                 </div>
@@ -41,8 +41,9 @@
                     <span class="xian">-</span>
                     <span class="datebox"><input class="date-input form-control" id="date2" name="date2" type="text" placeholder="请选择结束日期"><em class="glyphicon glyphicon-calendar" title="清空日期"></em></span>
                 </div>
+                <span class="closes"></span>
             </div>
-            <div class="nosearch"><em></em><i class="glyphicon glyphicon-remove" id="close" title="关闭"></i>解密信息后可使用搜索功能</div>
+            <div class="nosearch"><em></em><i id="close" title="关闭"></i>解密信息后可使用搜索功能</div>
 
         </div>
     </div>
@@ -108,48 +109,6 @@
                     </div>
                 </li>
                 {{/each}}
-                <!--li>
-                    <div class="file">
-                        <span class="text col1">2017/02/02 12:21:45</span>
-                        <span class="text col2 hide-text" title="深圳市安印科技销售合同书.pdf">深圳市安印科技销售合同书pdf</span>
-                        <span class="text col3">行政章</span>
-                        <span class="text col4">骑缝签章</span>
-                        <span class="text col5">成功</span>
-                    </div>
-                    <div class="details">
-                        <dl class="signet">
-                            <dt>文档信息<span class="state">正常</span></dt>
-                            <dd class="hide-text">文档名称：<span>深圳市安印科技销售合同书.pdf</span></dd>
-                            <dd>签章时间：<span>2017/2/2  12:22:01</span></dd>
-                            <dd>文档大小：<span>12.4M</span></dd>
-                            <dd>文档哈希值：<span>a518d940152480ac1800ad9f9902025e</span></dd>
-                            <dd>签章类型：<span>骑缝签章</span></dd>
-                        </dl>
-                        <dl class="signet">
-                            <dt>印章信息</dt>
-                            <dd>印章名称：<span>电子行政章</span></dd>
-                            <dd>印章编码：<span>e4403071111231</span></dd>
-                            <dd>制作日期：<span>2017/2/1 14:12：54</span></dd>
-                            <dd>有效期：<span>2016/12/12</span></dd>
-                            <dd>失效期：<span>至2018/12/12</span></dd>
-                        </dl>
-                        <dl class="signet help">
-                            <dt>需要帮助？</dt>
-                            <dd>新办理的电子印章无法使用，<a class="color1" href="#">了解详情</a></dd>
-                            <dd><a class="color2" href="#">电子印章常用问题</a>，或 <a class="color2" href="#">联系客服</a></dd>
-                        </dl>
-                        <dl class="computer">
-                            <dt>设备信息</dt>
-                            <dd>设备IP：<span>210.210.210.210</span></dd>
-                            <dd>MAC地址：：<span>5D-21-D5-E1-28-6D</span></dd>
-                            <dd class="help">IP来源：<span>中国广东省深圳市南山区</span></dd>
-                            <dd>设备名称：<span>ABCDEFGHADFADF</span></dd>
-                            <dd>操作系统：<span>windows7</span></dd>
-                            <dd class="help">签章应用：<span>安印PDF客户端 v2.0.1.3</span></dd>
-                        </dl>
-                    </div>
-                </li-->
-
 
             </ul>
 
