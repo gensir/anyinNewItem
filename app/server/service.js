@@ -1,5 +1,4 @@
 const domain = "";
-const sealShop="/api/sealShops/";
 const baseUrl = "/api/";
 const basemp = "/mp/";
 //const basemps = "/mps/";
