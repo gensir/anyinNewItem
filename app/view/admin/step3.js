@@ -222,7 +222,6 @@ var step3 = Backbone.View.extend({
 			}
 			
 			that.model.get("tplhtml").zoneArea = tempObj;
-			console.log(that.model.get("tplhtml"));
 			that.sealShop(areaNumber, pageNumber, pageSize);
 		})
 	},
@@ -311,8 +310,9 @@ var step3 = Backbone.View.extend({
 		});
 	},
 	option(){
-		var area=$("#area option:selected").val();
-		this.sealShop(area);
+		areaNumber=$("#area option:selected").val();
+		that.model.get("tplhtml").areaNumber = areaNumber
+		this.sealShop(areaNumber);
 	},
 });
 
