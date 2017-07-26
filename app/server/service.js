@@ -140,7 +140,11 @@ export default {
     	return this.ajaxCall({ url: domain + basemp + "common/registerUser?mobile="+mobile+"&password="+passwd+"&enterpriseCode="+enterpriseCode});
     },
     //点击注册
-    register(data){
+    toRegister(data){
     	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
+    },
+    //检查企业是否注册
+    checkCaptcha(data){
+    	return this.ajaxCall({ url: domain + basemp + "common/checkCaptcha"+"?captcha="+captcha});
     }
 }
