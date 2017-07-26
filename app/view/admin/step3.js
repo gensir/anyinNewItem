@@ -10,7 +10,7 @@ var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
 	events: {
-		'change #file0,#file1': 'changeImg',
+		'change #file0,#file1,#file2,#file3': 'changeImg',
 		'click tr': 'choice',
 		'click #goStep4': 'goStep4',
 		'click .PreviousPage': 'PreviousPage',
@@ -23,13 +23,15 @@ var step3 = Backbone.View.extend({
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
 		imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
-		pictureFlag = [0, 0];
+		imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
+		imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
+		pictureFlag = [0, 0 ,0 ,0];
 		flag = true;
 		that = this;
 		areaNumber = 440305;
 		zone = 440300;
 		result = reqres.request("foo");
-		(result==0)?$(".legalScan").show():$(".legalScan").hide();
+//		(result==0)?$(".legalScan").show():$(".legalScan").hide();
 //		//查询公司所在区域编码		
 		this.model.get("tplhtml").areaNumber = areaNumber
 		this.sealList();
@@ -311,6 +313,8 @@ var step3 = Backbone.View.extend({
 			}
 			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
 			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
+			imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
+			imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
 		});
 	},
 	option(){

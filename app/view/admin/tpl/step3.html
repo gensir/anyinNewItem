@@ -7,49 +7,92 @@
 			企业证照
 		</div>
 		<div class="flex">
-			<div class="photo digitalScan">
-				<div class="flexTitle">
-					《数字证书及电子印章申请表及用户责任书》扫描件
-				</div>
-				<div class="scanPhoto">
-					<!--<div class="picture digitalUpload"></div>-->
-					<div class="form">
-						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
-							<span class="digitalUpload" id="photo0"></span>
-							<input name="file" data-id='0' id='file0' size="0" maxlength="0" type="file" />
-							<a class="reset0" href="javascript:">
-								<span>重新选择</span>
-							</a>
-						</form>
+			<div class="photoContent">
+				<div class="photo digitalScan">
+					<div class="flexTitle">
+						《数字证书及电子印章申请表及用户责任书》扫描件
 					</div>
-					<div class="formPublic">
-						<span class="shadow shadow1">
-						</span>
-						<span class="digitalExample"></span>
-					</div>
-				</div>
-			</div>
-			<div class="photo legalScan">
-				<div class="flexTitle">
-					《法人授权书》扫描件
-				</div>
-				<div class="scanPhoto">
-					<!--<div class="picture legalUpload"></div>-->
-					<div class="form">
-						<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
-							<span class="digitalUpload" id="photo1"></span>
-							<input name="file" data-id='1' id='file1' size="0" maxlength="0" type="file" />
-							<a class="reset1" href="javascript:">
-								<span>重新选择</span>
-							</a>
-						</form>
-					</div>
-					<div class="formPublic">
-						<span class="shadow shadow2">
-						</span>
-						<span class="exampleScan"></span>
+					<div class="scanPhoto">
+						<!--<div class="picture digitalUpload"></div>-->
+						<div class="form">
+							<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+								<span class="digitalUpload" id="photo0"></span>
+								<input name="file" data-id='0' id='file0' size="0" maxlength="0" type="file" />
+								<a class="reset0" href="javascript:">
+									<span>重新选择</span>
+								</a>
+							</form>
+						</div>
+						<div class="formPublic">
+							<span class="shadow shadow1"></span>
+							<span class="digitalExample"></span>
+						</div>
 					</div>
 				</div>
+				<div class="photo legalScan">
+					<div class="flexTitle">
+						《法人授权书》扫描件
+					</div>
+					<div class="scanPhoto">
+						<!--<div class="picture legalUpload"></div>-->
+						<div class="form">
+							<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+								<span class="digitalUpload" id="photo1"></span>
+								<input name="file" data-id='1' id='file1' size="0" maxlength="0" type="file" />
+								<a class="reset1" href="javascript:">
+									<span>重新选择</span>
+								</a>
+							</form>
+						</div>
+						<div class="formPublic">
+							<span class="shadow shadow2"></span>
+							<span class="exampleScan"></span>
+						</div>
+					</div>
+				</div>
+				<div class="photo bankScan">
+					<div class="flexTitle">
+						《银行开户证明》扫描件
+					</div>
+					<div class="scanPhoto">
+						<!--<div class="picture digitalUpload"></div>-->
+						<div class="form">
+							<form id="ajaxForm2" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+								<span class="digitalUpload" id="photo2"></span>
+								<input name="file" data-id='2' id='file2' size="0" maxlength="0" type="file" />
+								<a class="reset2" href="javascript:">
+									<span>重新选择</span>
+								</a>
+							</form>
+						</div>
+						<div class="formPublic">
+							<span class="shadow shadow3"></span>
+							<span class="bankExample"></span>
+						</div>
+					</div>
+				</div>
+				<div class="photo tradeScan">
+					<div class="flexTitle">
+						《对外贸易经营者备案登记表》扫描件
+					</div>
+					<div class="scanPhoto">
+						<!--<div class="picture legalUpload"></div>-->
+						<div class="form">
+							<form id="ajaxForm3" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+								<span class="digitalUpload" id="photo3"></span>
+								<input name="file" data-id='3' id='file3' size="0" maxlength="0" type="file" />
+								<a class="reset3" href="javascript:">
+									<span>重新选择</span>
+								</a>
+							</form>
+						</div>
+						<div class="formPublic">
+							<span class="shadow shadow4"></span>
+							<span class="tradeScan"></span>
+						</div>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
 			</div>
 			<div class="downLoad">
 				<a class="example" href="../../../../asset/attachment/digital_and_electronic_seal.doc">申请书模板下载</a>
@@ -157,9 +200,11 @@
 		font-size: 14px;
 		font-weight: 700;
 	}
-	
-	.step3 .flex {
-		height: 210px;
+	.step3 .flex{
+		position: relative;
+	}
+	.step3 .flex .photoContent{
+		width: 840px;
 	}
 	
 	.step3 .flex .photo {
@@ -168,17 +213,17 @@
 		padding: 20px 20px 20px 40px;
 	}
 	.step3 .flex .legalScan{
-		display: none;
+		/*display: none;*/
 	}
 	.step3 .flex .downLoad {
 		width: 260px;
-		float: left;
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
-	
 	.step3 .flex .downLoad a {
 		cursor: pointer;
 	}
-	
 	.step3 .flex .scanPhoto {
 		width: 350px;
 		height: 113px;
@@ -267,6 +312,26 @@
 		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/apply.jpg', sizingMethod='scale');
 	}
 	
+	.step3 .flex .scanPhoto .bankExample {
+		width: 162px;
+		height: 112px;
+		float: right;
+		border: 1px dashed #DEDEDE;
+		background: url(../../../../asset/img/bank.jpg) no-repeat center;
+		background-size: auto 112px;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/bank.jpg', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/bank.jpg', sizingMethod='scale');
+	}
+	.step3 .flex .scanPhoto .tradeScan {
+		width: 162px;
+		height: 112px;
+		float: right;
+		border: 1px dashed #DEDEDE;
+		background: url(../../../../asset/img/trade.jpg) no-repeat center;
+		background-size: auto 112px;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/trade.jpg', sizingMethod='scale');
+		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/trade.jpg', sizingMethod='scale');
+	}
 	.step3 .flex .downLoad {
 		margin-top: 90px;
 	}
