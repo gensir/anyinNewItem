@@ -142,5 +142,17 @@ export default {
     //点击注册
     register(data){
     	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
-    }
+    },
+    //新办电子印章第一步
+    getstep1(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId="+data, async: false });
+    },
+    //提交第一步
+    poststep1(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?", data:data }, "post" );
+    },
+    //获取新版电子印章第二步
+    getstep2(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step2?orderNo="+data, async: false });
+    },
 }

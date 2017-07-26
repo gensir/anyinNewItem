@@ -10,29 +10,27 @@
 			<table class="table table-bordered">
 				<tr>
 					<td class="name">单位名称</td>
-					<td class="container1">{{data.name}}</td>
+					<td class="container1">{{data.enterpriseInfo.name}}</td>
 					<td class="name">单位地址</td>
-					<td class="container2">{{data.address}}</td>
+					<td class="container2">{{data.enterpriseInfo.address}}</td>
 				</tr>
 				<tr>
 					<td class="name">营业执照</td>
-					<td class="container1">{{data.businessLicenseNumber}}</td>
+					<td class="container1">{{data.enterpriseInfo.organizationCode}}</td>
 					<td class="name">统一社会信用代码</td>
-					<td class="container2">{{data.uniformSocialCreditCode}}</td>
+					<td class="container2">{{data.enterpriseInfo.uniformSocialCreditCode}}</td>
 				</tr>
 				<tr>
 					<td class="name">法定代表人</td>
-					<td class="container1">{{data.legalName}}</td>
+					<td class="container1">{{data.enterpriseInfo.legalName}}</td>
 					<td class="name"></td>
 					<td class="container2"></td>
 				</tr>
 			</table>
 			<div class="mainTitle countMessage">可办理的电子印章</div>
 			<div class="sealStyle">
-				{{each data.sealList value i}}
-				<span data-id='1' class="finance">{{value}}</span>
-				<!--<span data-id='2' class="admin">行政章</span>
-				<span data-id='3' class="receipt">发票章</span>-->
+				{{each data.availableEsealList value i}}
+				<span data-id= "{{value.esealName}}" class="finance">{{value.esealFullName}}</span>
 				{{/each}}
 			</div>
 			<div class="mainTitle countMessage">经办人信息</div>
