@@ -8,7 +8,7 @@ var step1 = Backbone.View.extend({
 	events: {
 		'click #goStep2': 'goStep2',
 		'click .sealStyle span': 'choice',
-		
+		'change input:radio':'islegal',
 	},
 	render: function(query) {
 		var result={
@@ -85,6 +85,10 @@ var step1 = Backbone.View.extend({
 			$(ele).addClass('choice');
 		}
 	},
+	islegal:function(){
+		var isLegalVal=$('input:radio:checked').val();
+		(isLegalVal==0)?$(".islegal").show():$(".islegal").hide();
+	}
 	
 });
 
