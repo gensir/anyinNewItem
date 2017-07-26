@@ -9,9 +9,10 @@ var Router = require('../Router');
 var Util = require('../../../publicFun/public');
 var tpl = require('../../../view/pub/tpl/main.html');
 var header=require('../../../view/pub/tpl/uhead.html')
+var search=require('../../../view/logs/tpl/search.html')
 $('body').prepend(tpl({
 }));
-
+$(".contents").prepend(search)
 $(".wrapper").prepend(header)
 window.S = {};
 S.router = new Router();

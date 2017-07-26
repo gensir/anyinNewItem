@@ -1,0 +1,50 @@
+<div class="intnav">
+    <div class="page-kd">
+        <ul>
+            <li><a class="active" href="logs.html">签章日志</a></li>
+            <li><a href="#operateLog">操作日志</a></li>
+        </ul>
+        <div class="search">
+
+            <div class="inputbox">
+                <input class="search-input form-control" id="keyword" name="keyword" type="text" placeholder="请输入文档名/印章名">
+                <button class="submit" id="search_submit" type="button"><em></em></button>
+            </div>
+            <div class="more" tabindex="-1">
+                <div class="state">
+                    <span class="labelname">状态：</span>
+                    <span class="select-box">
+							<label class="selecticon" for="state"></label>
+							<select id="s_state">
+								<option value="">全部</option>
+								<option value="0">成功</option>
+								<option value="1">失败</option>
+							</select>
+						</span>
+                </div>
+                <div class="type">
+                    <span class="labelname">签章类型：</span>
+                    <span class="select-box">
+							<label class="selecticon" for="type"></label>
+							<select id="s_type">
+								<option value="">全部</option>
+								<option value="1">单页</option>
+								<option value="2">批量</option>
+								<option value="3">骑缝</option>
+								<option value="4">手写</option>
+							</select>
+						</span>
+                </div>
+                <div class="date">
+                    <span class="labelname">日期：</span>
+                    <span class="datebox"><input class="date-input form-control" id="date1" name="date1" type="text" placeholder="请选择开始日期"><em class="glyphicon glyphicon-calendar" title="清空日期"></em></span>
+                    <span class="xian">-</span>
+                    <span class="datebox"><input class="date-input form-control" id="date2" name="date2" type="text" placeholder="请选择结束日期"><em class="glyphicon glyphicon-calendar" title="清空日期"></em></span>
+                </div>
+                <span class="closes"></span>
+            </div>
+            <div class="nosearch"><em></em><i id="close" title="关闭"></i>解密信息后可使用搜索功能</div>
+
+        </div>
+    </div>
+</div>

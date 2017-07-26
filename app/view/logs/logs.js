@@ -148,7 +148,8 @@ var logs = Backbone.View.extend({
             }
             this.model.set("totalPages", res.data.totalPages);
             this.model.get("tplhtml").data = logsObj;
-            this.$el.html(tpl(this.model.get("tplhtml")));
+            this.$el.append(tpl(this.model.get("tplhtml")));
+            $(".contents>.page-kd:not(:last)").remove();
             this.pagination(res.data.pageNum, res.data.totalPages);
             $(".datetimepicker").remove();
             if (logsObj.list.length == 0) {
