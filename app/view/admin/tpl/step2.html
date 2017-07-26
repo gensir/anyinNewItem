@@ -16,10 +16,10 @@
 						<span class="nothing"></span>
 					</div>
 				</div>
-				<div class="flexCon">
+				<div class="flexCon flexConPub">
 					<div class="title">企业法人营业执照</div>
 					<div class="form">
-						<form id="ajaxForm0" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
+						<form id="ajaxForm0" accept-charset="utf-8" enctype="multipart/form-data">
 							<span class="licence photo" id="photo0"></span>
 							<input name="file" data-id='0' id='file0' size="0" maxlength="0" type="file" />
 							<a class="reset0" href="javascript:">
@@ -49,7 +49,7 @@
 						<span class="nothing"></span>
 					</div>
 				</div>
-				<div class="flexCon">
+				<div class="flexCon flexConPub">
 					<div class="title">法人身份证正面</div>
 					<div class="form">
 						<form id="ajaxForm1" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
@@ -68,7 +68,7 @@
 						<span class="frontPhoto photo"></span>
 					</div>
 				</div>
-				<div class="flexCon">
+				<div class="flexCon flexConPub">
 					<div class="title">法人身份证反面</div>
 					<div class="form">
 						<form id="ajaxForm2" accept-charset="utf-8" action="/api/sealnet/upload/autho" enctype="multipart/form-data">
@@ -288,6 +288,9 @@
 		z-index: 999;
 		cursor: pointer;
 	}
+	.step2 .flex .flexConPub input {
+		height: 24px;
+	}
 	.step2 .flex .flexCon a {
 		height: 24px;
 		position: absolute;
@@ -301,6 +304,9 @@
 		display: none;
 		opacity: 0.8;
 		filter: Alpha(opacity=80);
+	}
+	.step2 .flex .flexConPub a{
+		display: inline;
 	}
 	.step2 .flex .flexCon a span{
 		line-height: 24px;
