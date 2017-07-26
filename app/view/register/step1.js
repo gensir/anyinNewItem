@@ -9,12 +9,11 @@ var step1 = Backbone.View.extend({
         'click #xieyi': 'rules',
         'click #reguser': 'reguser',
         //'keyup #idcode': 'checkidCode',
-        'keyup #yzmcode': 'checkCode',
+        'keyup #yzmcode': 'checkCaptcha',
         'click #up_yzmcode,.codeimg': 'captcha',
-        'click .typeahead>li': 'checkUserIsExist',
-        'blur #Ename': '',
+        'click #codetype': 'checkUserIsExist',
     },
-
+    //同意协议
     rules: function () {
         if ($('#xieyi').is(':checked')) {
             $('#reguser').prop("disabled", false);
@@ -49,23 +48,11 @@ var step1 = Backbone.View.extend({
     //         $('#idcode-error').html('').css({ "color": "#f00" });
     //     }
     // },
-    //检查随机验证码
-    // checkyzmCode: function (data) {
-    //     if ($('#yzmcode').val().length == 4) {
-    //         var data = {
-    //             "yzmcode": $('#yzmcode').val(),
-    //         }
-    //         service.checkyzmCode(data).done(function (data) {
-    //             if (data.code == 0) {
-    //                 $("#yzmcode-error").html(data.msg).css({ "color": "#08c34e" });
-    //             } else {
-    //                 $("#yzmcode-error").html(data.msg);
-    //             }
-    //         })
-    //     } else {
-    //         $('#yzmcode-error').html('').css({ "color": "#f00" });
-    //     }
-    // },
+    // 获取图片验证码；
+    captcha() {
+        $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
+    },
+    //企业名称模糊搜索
     typeahead() {
         $('#Ename').typeahead({
             ajax: {
@@ -91,18 +78,20 @@ var step1 = Backbone.View.extend({
         });
     }, 
     checkUserIsExist() {
-        alert(1111)
-            service.checkCaptcha(data).done(res => {
-                if (res.code == 0) {
-                    $("#Ename-error").html(res.msg);
-                } else if (res.code == 2) {
-                    $("#Ename-error").html(res.msg);
-                } else if (res.code == 3) {
-                    $("#Ename-error").html(res.msg);
-                } else if (res.code == 4) {
-                    $("#Ename-error").html(res.msg);
-                };
-            })        
+        var data = {
+            "enterpriseCode": "enterpriseCode33",
+        }
+        service.checkUserIsExist(data).done(res => {
+            if (res.code == 0) {
+                $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
+            } else if (res.code == 2) {
+                $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>");
+            } else if (res.code == 3) {
+                $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>");
+            } else if (res.code == 4) {
+                $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请");
+            };
+        })
     },
     checkCode: function (data) {
         if ($('#yzmcode').val().length < 4) {
@@ -112,11 +101,25 @@ var step1 = Backbone.View.extend({
             $('#yzmcode-error').html('');
         }
     },
-    // 获取图片验证码；
-    captcha() {
-        $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
+    //检查图片验证码
+    checkCaptcha: function (data) {
+        if ($('#yzmcode').val().length == 4) {
+            var data = {
+                "captcha": $('#yzmcode').val(),
+            }
+            service.checkCaptcha(data).done(res => {
+                if (res.code == 0) {
+                    $("#yzmcode-error").html("验证码正确").css({ "color": "#08c34e" });
+                } else {
+                    $("#yzmcode-error").html(res.msg);
+                    this.captcha();
+                }
+            })
+        } else {
+            $('#yzmcode-error').html('').css({ "color": "#f00" });
+        }
     },
-
+    //点击注册
     reguser: function (event) {
         var enterpriseCode = $("#Ename").val();
         var captcha = $("#yzmcode").val();
@@ -135,15 +138,15 @@ var step1 = Backbone.View.extend({
         if (!this.model.isValid()) {
             var data = {
                 "enterpriseCode": enterpriseCode,
-                "captcha": captcha,
+                //"captcha": captcha,
             }
             service.toRegister(data).done(res => {
                 if (res.code == 0) {
                     window.open('#step2', '_self')
-                } else if (res.code == 1) {
-                    $("#yzmcode-error").html(res.msg);
-                    $("#yzmcode").focus();
-                    this.captcha();
+                // } else if (res.code == 1) {
+                //     $("#yzmcode-error").html(res.msg).css({ "color": "#f00" });
+                //     $("#yzmcode").focus();
+                //     this.captcha();
                 };
             })
         }
@@ -152,10 +155,6 @@ var step1 = Backbone.View.extend({
     render: function (query) {
         this.$el.html(tpl);
         this.typeahead();
-        $("body").on("click",".typeahead",()=>{
-            alert(123)
-            this.checkUserIsExist()
-        })
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
 });

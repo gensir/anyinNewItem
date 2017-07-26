@@ -144,7 +144,11 @@ export default {
     	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
     },
     //检查企业是否注册
+    checkUserIsExist(data){
+    	return this.ajaxCall({ url: domain + basemp + "common/checkUserIsExist", data: data });
+    },
+    //检查图片验证码
     checkCaptcha(data){
-    	return this.ajaxCall({ url: domain + basemp + "common/checkCaptcha"+"?captcha="+captcha});
+    	return this.ajaxCall({ url: domain + basemp + "common/checkCaptcha", data: data });
     }
 }
