@@ -62,13 +62,16 @@ var step1 = Backbone.View.extend({
 	},
 	goStep2: function(event) {
 		var isLegal = $('input:radio:checked').val();
-		
 		window.reqres.setHandler("foo", function() {
 			return isLegal;
 		});
 		if($('.sealStyle span').hasClass('choice')) {
-			this.model.set({ "clickEle": $(event.target).data('id') })
-			this.model.isValid()
+			if(isLegal==0){
+				this.model.set({ "clickEle": $(event.target).data('id') })
+				this.model.isValid()
+			}else{
+				window.open('admin.html#step2','_self')
+			}	
 		} else {
 			var dialog = bootbox.alert({
 				className: "alert",

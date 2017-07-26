@@ -4,7 +4,7 @@ import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
-var areaNumber;
+var areaNumber,result;
 var that, company, sealShop, zone;
 var step3 = Backbone.View.extend({
 	el: '.container',
@@ -28,6 +28,8 @@ var step3 = Backbone.View.extend({
 		that = this;
 		areaNumber = 440305;
 		zone = 440300;
+		result = reqres.request("foo");
+		(result==0)?$(".legalScan").show():$(".legalScan").hide();
 //		//查询公司所在区域编码		
 		this.model.get("tplhtml").areaNumber = areaNumber
 		this.sealList();
