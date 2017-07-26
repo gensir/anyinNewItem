@@ -4,15 +4,23 @@ var step1 = Backbone.View.extend({
 	el: '.container',
 	initialize() {	
 //		this.render();
-
 	},
 	events: {
 		'click #goStep2': 'goStep2',
-		'click .sealStyle span': 'choice'
+		'click .sealStyle span': 'choice',
+		
 	},
 	render: function(query) {
+		var result={
+	        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
+	        "businessLicenseNumber": "12345666666",
+	        "legalName": "张三疯",
+	        "name": "深圳菱正环保设备有限公司",
+	        "uniformSocialCreditCode": "914403005538853123",
+	        "sealList":['财务章','行政章']
+	    }
 		$(".contents").empty();
-		this.$el.html(tpl);
+		this.$el.html(tpl({data:result}));
 		sealstyle = [];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 //		bootbox.dialog({
@@ -53,10 +61,10 @@ var step1 = Backbone.View.extend({
 //		})
 	},
 	goStep2: function(event) {
-		var hh = $('input:radio:checked').val();
+		var isLegal = $('input:radio:checked').val();
 		
 		window.reqres.setHandler("foo", function() {
-			return hh;
+			return isLegal;
 		});
 		if($('.sealStyle span').hasClass('choice')) {
 			this.model.set({ "clickEle": $(event.target).data('id') })
@@ -76,7 +84,8 @@ var step1 = Backbone.View.extend({
 		} else {
 			$(ele).addClass('choice');
 		}
-	}
+	},
+	
 });
 
 module.exports = step1;

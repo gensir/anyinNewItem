@@ -14,6 +14,7 @@ var step2 = Backbone.View.extend({
 		'click #goStep3': 'goStep3',
 		'keyup .countCode': 'checkCode',
 		'keyup .passwd': 'passwd',
+		'keyup .countPhone':'inputSapceTrim',
 	},
 	render: function(query) {
 		IDNo="111111111111111111"
@@ -58,31 +59,32 @@ var step2 = Backbone.View.extend({
 		}
 	},
 	goStep3: function(event) {
-//		console.log(IDNo)
-//		this.model.set({ "clickEle": $(event.target).data('id') })
-//		this.model.isValid()
-//		if($(".passwd").val().length==0){
-//			$(".pswErrTip").html("请输入您的密码").css("color","red").show();
-//		}
-//		if($(".passwd").val()!=$(".checkPasswd").val()){
-//			console.log($(".passwd").val(),$(".checkPasswd").val())
-//			$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写");
-//			return;
-//		}
-//		if($(".legalID").val()!=IDNo){
-//			$(".legalIDErrTip").html("法人身份证号不正").css({ "color": "red" });
-//			return;
-//		}
-//		if(!this.model.isValid()) {
-//			var mobile=$(".countPhone").val();
-//			var passwd=$(".passwd").val();
-//			service.registerUser(mobile,passwd,enterpriseCode).done(res=>{
-//				if(res.code==0){
-//					window.open('register.html#step3', '_self')
-//				}
-//			})
-//		}
-window.open('register.html#step3', '_self')
+		console.log(IDNo)
+		$(".checkPasswdErrTip").hide();
+		this.model.set({ "clickEle": $(event.target).data('id') })
+		this.model.isValid()
+		if($(".passwd").val().length==0){
+			$(".pswErrTip").html("请输入您的密码").css("color","red").show();
+		}
+		if($(".passwd").val()!=$(".checkPasswd").val()){
+			console.log($(".passwd").val(),$(".checkPasswd").val())
+			$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写").show();
+			return;
+		}
+		if($(".legalID").val()!=IDNo){
+			$(".legalIDErrTip").html("法人身份证号不正确").css({ "color": "red" });
+			return;
+		}
+		if(!this.model.isValid()) {
+			var mobile=$(".countPhone").val();
+			var passwd=$(".passwd").val();
+			service.registerUser(mobile,passwd,enterpriseCode).done(res=>{
+				if(res.code==0){
+					window.open('register.html#step3', '_self')
+				}
+			})
+		}
+//window.open('register.html#step3', '_self')
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
@@ -119,6 +121,20 @@ window.open('register.html#step3', '_self')
 			$(".pswMiddle").hide();
 			$(".pswStrong").hide();		
 		}
+	},
+	inputSapceTrim: function(e){
+		var keynum;
+		if(window.event) // IE 
+		{
+			keynum = e.keyCode
+		} else if(e.which) // Netscape/Firefox/Opera 
+		{
+			keynum = e.which
+		}
+		if(keynum == 32) {
+			return false;
+		}
+		return true;
 	}
 });
 module.exports = step2;

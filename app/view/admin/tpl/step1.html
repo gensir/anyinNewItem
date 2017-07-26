@@ -10,28 +10,30 @@
 			<table class="table table-bordered">
 				<tr>
 					<td class="name">单位名称</td>
-					<td class="container1">深圳市安印科技有限公司</td>
+					<td class="container1">{{data.name}}</td>
 					<td class="name">单位地址</td>
-					<td class="container2">深圳市南山区粤海街道科技园科技中一路创业印章大厦二楼</td>
+					<td class="container2">{{data.address}}</td>
 				</tr>
 				<tr>
 					<td class="name">营业执照</td>
-					<td class="container1">440301112242166</td>
+					<td class="container1">{{data.businessLicenseNumber}}</td>
 					<td class="name">统一社会信用代码</td>
-					<td class="container2">91440330326535080A</td>
+					<td class="container2">{{data.uniformSocialCreditCode}}</td>
 				</tr>
 				<tr>
 					<td class="name">法定代表人</td>
-					<td class="container1">杨瑞香</td>
+					<td class="container1">{{data.legalName}}</td>
 					<td class="name"></td>
 					<td class="container2"></td>
 				</tr>
 			</table>
 			<div class="mainTitle countMessage">可办理的电子印章</div>
 			<div class="sealStyle">
-				<span data-id='1' class="finance">财务章</span>
-				<span data-id='2' class="admin">行政章</span>
-				<span data-id='3' class="receipt">发票章</span>
+				{{each data.sealList value i}}
+				<span data-id='1' class="finance">{{value}}</span>
+				<!--<span data-id='2' class="admin">行政章</span>
+				<span data-id='3' class="receipt">发票章</span>-->
+				{{/each}}
 			</div>
 			<div class="mainTitle countMessage">经办人信息</div>
 			<form class="form-horizontal">
