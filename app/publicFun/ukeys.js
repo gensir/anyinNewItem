@@ -63,12 +63,11 @@ var ukeys = {
             return this.data.ukey.GetCertInfo(1)
         }
     },
-    esealCode(selectukeyInd) {//印章编码
-        if (selectukeyInd !== undefined && this.issupport()) {
+    esealCode(val,selectukeyInd) {//印章编码
+        if(this.PIN(val,selectukeyInd)){
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertInfo(3)
         }
-
     }
 }
 ukeys.ukeyInit();

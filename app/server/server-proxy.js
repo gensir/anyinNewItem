@@ -1,6 +1,6 @@
 var proxy = {
-//  anyinUrl:'http://183.62.140.54',
-    anyinUrl:'http://192.168.1.159:9500'
+    anyinUrl:'http://183.62.140.54',
+    // anyinUrl:'http://192.168.1.159:9500'
 }
 var config = {
 	dev: {

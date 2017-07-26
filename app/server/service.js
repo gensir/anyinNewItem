@@ -140,7 +140,7 @@ export default {
     	return this.ajaxCall({ url: domain + basemp + "common/registerUser?mobile="+mobile+"&password="+passwd+"&enterpriseCode="+enterpriseCode});
     },
     //点击注册
-    register(data){
+    toRegister(data){
     	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
     },
     //新办电子印章第一步
@@ -155,4 +155,12 @@ export default {
     getstep2(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/step2?orderNo="+data, async: false });
     },
+    //检查企业是否注册
+    checkUserIsExist(data){
+    	return this.ajaxCall({ url: domain + basemp + "common/checkUserIsExist", data: data });
+    },
+    //检查图片验证码
+    checkCaptcha(data){
+    	return this.ajaxCall({ url: domain + basemp + "common/checkCaptcha", data: data });
+    }
 }
