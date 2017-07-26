@@ -151,7 +151,7 @@ var logs = Backbone.View.extend({
             this.$el.append(tpl(this.model.get("tplhtml")));
             $(".contents>.page-kd:not(:last)").remove();
             this.pagination(res.data.pageNum, res.data.totalPages);
-            $(".datetimepicker").remove();
+            //$(".datetimepicker").remove();
             if (logsObj.list.length == 0) {
                 $(".listtext").append("<li><div class='file'>无签章日志记录，请重新搜索！</div></li>").css("margin-bottom","20px")
                 $(".pagelist").remove();
