@@ -143,7 +143,7 @@ export default {
     toRegister(data){
     	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
     },
-    //新办电子印章第一步
+     //新办电子印章第一步
     getstep1(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId="+data, async: false });
     },
