@@ -11,7 +11,7 @@
             </ul>
             <ul class="utool">
                 <li><a class="locked hide-text" id="" href="javascript:;" title="锁定"><span>锁定</span></a></li>
-                <li><a class="tools hide-text" id="" href="javascript:;" title="设置"><span>工具</span></a></li>
+                <li class="set"><a class="tools hide-text" id="" href="javascript:;" title="设置"><span>工具</span></a></li>
                 <li><a class="logout" id="" href="javascript:;" title="退出系统">退出</a></li>
             </ul>
         </div>
@@ -43,3 +43,8 @@
     }
 header.init();
 </script>
+<style>
+    .u-head ul.utool .set{
+        display: none;
+    }
+</style>
