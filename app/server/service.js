@@ -133,7 +133,7 @@ export default {
     },
     //获取行政区  get_area/codeArea/queryCodeArea?area_code=440300
     queryCodeArea(data){
-    	return this.ajaxCall({ url: domain + basemp + "get_area/codeArea/queryCodeArea?area_code="+data});
+    	return this.ajaxCall({ url: domain + basemp + "get_area/codeArea/queryCodeArea?area_code="+data,async: false});
     },
     //提交账号和密码
     registerUser(mobile,passwd,enterpriseCode){

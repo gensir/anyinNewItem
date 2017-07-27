@@ -19,8 +19,7 @@ var step3 = Backbone.View.extend({
 		"change #area":'option'
 	},
 	render: function(query) {
-		sealstyle = reqres.request("sealstyle")||[];
-		
+		sealstyle = localStorage.seals;	
 		this.$el.html(tpl);		
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
@@ -32,11 +31,12 @@ var step3 = Backbone.View.extend({
 		that = this;
 		areaNumber = 440305;
 		zone = 440300;
-		result = reqres.request("foo");
+		result = localStorage.isLegal;
 //		//查询公司所在区域编码		
 		this.model.get("tplhtml").areaNumber = areaNumber;
 		this.getstep3("OFFLINE07252055727334");
 		this.sealList();		
+//		that.$el.html(tpl(that.model.get("tplhtml")))
 	},
 	changeImg: function(event) {
 		var eve = event;
@@ -273,9 +273,9 @@ var step3 = Backbone.View.extend({
 				temp = res.data;
 			}
 			that.model.get("tplhtml").sealShop = temp;
-			that.model.set("totalPages", (res.count / res.size))
+			that.model.set("totalPages", Math.ceil(res.count / res.size))
 			that.$el.html(tpl(that.model.get("tplhtml")))
-			that.pagination(pageNumber, (res.count / res.size))
+			that.pagination(pageNumber, Math.ceil(res.count / res.size))
 			if(res.data.length==0){
 				$(".sealShopResult").show();
 				$(".pagination").hide();
@@ -284,6 +284,10 @@ var step3 = Backbone.View.extend({
 			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 			imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
 			imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
+			
+		});
+		//如果是第一次进来
+		if(stepResult.scanAttaches.length==0){
 			(result==0)?$(".legalScan").show():$(".legalScan").hide();
 			for(var i=0;i<sealstyle.length;i++){
 				if(sealstyle[i]==4){
@@ -293,43 +297,42 @@ var step3 = Backbone.View.extend({
 					$(".tradeScan").show();
 				};
 			};
-			if(scan.length==0){		
-			}else{
-				for(var i=0;i<scan.length;i++){
-					if(scan[i].certificateType=="0046"){
-						pictureFlag[0]=scan[i].filePath;
-						$("#file0").css({"height":"24px"});
-						$(".reset0").show();
-						$("#ajaxForm0 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo0', { 'width': 500, 'src': scan[i].filePath });
-					}
-					if(scan[i].certificateType=="0047"){
-						pictureFlag[1]=scan[i].filePath;
-						$(".legalScan").show();
-						$("#file1").css({"height":"24px"})
-						$(".reset1").show();
-						$("#ajaxForm1 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo1', { 'width': 500, 'src': scan[i].filePath });
-					}
-					if(scan[i].certificateType=="0048"){//银行开户证明 暂时48
-						pictureFlag[2]=scan[i].filePath
-						$(".bankScan").show();
-						$("#file2").css({"height":"24px"})
-						$(".reset2").show();
-						$("#ajaxForm2 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo2', { 'width': 500, 'src': scan[i].filePath });
-					}
-					if(scan[i].certificateType=="0049"){//对外贸易许可证 暂时49
-						pictureFlag[3]=scan[i].filePath
-						$(".tradeScan").show();
-						$("#file3").css({"height":"24px"})
-						$(".reset3").show();
-						$("#ajaxForm3 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo3', { 'width': 500, 'src': scan[i].filePath });
-					}
+		}else{
+			//如果未完成订单进来
+			for(var i=0;i<scan.length;i++){
+				if(scan[i].certificateType=="0046"){
+					pictureFlag[0]=scan[i].filePath;
+					$("#file0").css({"height":"24px"});
+					$(".reset0").show();
+					$("#ajaxForm0 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+					imgModalBig('#photo0', { 'width': 500, 'src': scan[i].filePath });
+				}
+				if(scan[i].certificateType=="0047"){
+					pictureFlag[1]=scan[i].filePath;
+					$(".legalScan").show();
+					$("#file1").css({"height":"24px"})
+					$(".reset1").show();
+					$("#ajaxForm1 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+					imgModalBig('#photo1', { 'width': 500, 'src': scan[i].filePath });
+				}
+				if(scan[i].certificateType=="0048"){//银行开户证明 暂时48
+					pictureFlag[2]=scan[i].filePath
+					$(".bankScan").show();
+					$("#file2").css({"height":"24px"})
+					$(".reset2").show();
+					$("#ajaxForm2 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+					imgModalBig('#photo2', { 'width': 500, 'src': scan[i].filePath });
+				}
+				if(scan[i].certificateType=="0049"){//对外贸易许可证 暂时49
+					pictureFlag[3]=scan[i].filePath
+					$(".tradeScan").show();
+					$("#file3").css({"height":"24px"})
+					$(".reset3").show();
+					$("#ajaxForm3 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+					imgModalBig('#photo3', { 'width': 500, 'src': scan[i].filePath });
 				}
 			}
-		});
+		}
 	},
 	option(){
 		areaNumber=$("#area option:selected").val();

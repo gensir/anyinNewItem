@@ -148,9 +148,7 @@ var step1 = Backbone.View.extend({
 	},
 	poststep1:function(data){
 		var seals=sealstyle;
-		window.reqres.setHandler("seals", function () {
-            return seals;
-        });
+		localStorage.seals=seals;
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
 				localStorage.orderNo=data.data;
