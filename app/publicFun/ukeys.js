@@ -52,6 +52,7 @@ var ukeys = {
     },
     dSignature(selectukeyInd) {//客服端数字签名；
         var randomNum = this.randomNum();//"111111";// 
+        var randomNum="111111"
         if (randomNum && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.Signature(randomNum, randomNum.length);

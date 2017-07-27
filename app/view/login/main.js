@@ -43,13 +43,13 @@ var main = Backbone.View.extend({
         if (checkResult) {
             var data = {
                 "loginType": 2,
-                "esealCode": ukeys.esealCode(selectedUkey),
+                "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
                 "codeError": 0,
                 "entryptCert": ukeys.dCertificate(selectedUkey),
-                "randomNum": ukeys.randomNum(),
                 "signature": ukeys.dSignature(selectedUkey)
             }
-            console.log(JSON.stringify(data))
+            //"randomNum": ukeys.randomNum(),
+            console.log(JSON.stringify(data),data.signature)
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
