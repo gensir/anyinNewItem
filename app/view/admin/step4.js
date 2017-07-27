@@ -1,5 +1,6 @@
 import tpl from './tpl/step4.html'
 import payment from './tpl/payment.html'
+var service = require('../../server/service').default;
 var billType;
 var step4 = Backbone.View.extend({
 	el: '.container',
@@ -7,7 +8,8 @@ var step4 = Backbone.View.extend({
 	events: {
 		'click .pay div': 'paystyle',
 		'click .account': 'gopay',
-		'click input[type="radio"]': 'taxType'
+		'click input[type="radio"]': 'taxType',
+		'click .licence':'mf9527'
 	},
 	render: function(query) {
 		var payments = $($(payment()).prop("outerHTML"));
@@ -16,6 +18,20 @@ var step4 = Backbone.View.extend({
 		$(".step4").append(payments.find(".gopay"));
 		this.$el.append(payments.find(".paymentStyle"));
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		this.getOrderInfo();
+	},
+	getOrderInfo:function(){
+		var orderNo="OFFLINE07252055727334";
+		service.orderStep4(orderNo).done(res => {
+			var tempObj;
+			if(res.length == 0) {
+				console.log("无法获取到电子印章订单信息！");
+				tempObj = {}
+			} else {
+				tempObj = res;
+				
+			}					
+		})
 	},
 	paystyle: function(event) {
 		$('.pay div').css({ 'border': '1px solid #dedede' })
@@ -38,6 +54,9 @@ var step4 = Backbone.View.extend({
 	gopay: function() {
 		alert("支付");
 	},
+
+	
+	
 });
 
 module.exports = step4;

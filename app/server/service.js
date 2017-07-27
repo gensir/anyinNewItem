@@ -179,4 +179,12 @@ export default {
     poststep3(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/step3" ,data:data},"post");
     },
+     //获取电子印章订单的详情
+    esealOrderInfo(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/info?orderNo="+data, data: data });
+    },
+      //Step4界面展示
+    orderStep4(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step4?orderNo="+data, data: data });
+    }          
 }
