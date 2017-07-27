@@ -155,6 +155,10 @@ export default {
     getstep1(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId="+data, async: false });
     },
+    //查询有问题的订单
+    errorOrder(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/list/1/5?orderStatus=1&enterpriseCode="+data, async: false });
+    },
     //提交第一步
     poststep1(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1", data:data }, "post" );
