@@ -22,7 +22,7 @@
             <div class="t-title">
                 <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
             <ul class="blist boxshow">
-                {{each esealValid.list as value i}}
+                {{each listdata as value i}}
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date">{{value.validEnd}}</span>
@@ -50,7 +50,7 @@
             <h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
         <div class="jilulist boxshow">
             <ul>
-                {{each data.list as value i}}
+                {{each esealdata as value i}}
                 <li>
                     <div class="file">
                         <div class="date">{{value.signTime}}</div>

@@ -10,7 +10,7 @@ var index = Backbone.View.extend({
         //alert(ukeys.PIN("123456",0))
         //ukeys.dSignature()
         //this.load();
-        this.datecalc()
+        //this.datecalc()
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
@@ -57,19 +57,18 @@ var index = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            //"enterpriseCode" : "",
             "esealCode": "ff",
-            //"PKCS7": "",
-        }
+            "enterpriseCode": "",
+            "PKCS7": "",
+        };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
             } else {
-                logsObj = res.data;
+                logsObj = res.data.list;
             }
-            //this.model.set("totalPages", res.data.totalPages)
-            this.model.get("tpl").data = logsObj;
+            this.model.get("tpl").esealdata = logsObj;
             this.$el.html(tpl(this.model.get("tpl")));
         });
     },
@@ -87,20 +86,20 @@ var index = Backbone.View.extend({
         }
     },
     //获取印章数据
-    getEsealList(pageNum, pageSize, data) {
+    getEsealList(data, pageNum, pageSize) {
+        pageNum = pageNum || 1;
+        pageSize = pageSize || 3;
         var data = {
-            "firmId": "nihao"
-        }
-        pageNum = 1;
-        pageSize = 3;
+            "firmId": "nihao",
+        };
         service.getEsealList(pageNum, pageSize, data).done(res => {
             var Esealobj;
             if (res.code != 0) {
                 Esealobj = {}
             } else {
-                Esealobj = res.data;
+                Esealobj = res.data.list;
             }
-            this.model.get("tpl").esealValid = Esealobj;
+            this.model.get("tpl").listdata = Esealobj;
             this.$el.html(tpl(this.model.get("tpl")));
         });
     },
