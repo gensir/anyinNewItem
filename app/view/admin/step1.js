@@ -4,64 +4,85 @@ var sealstyle = [],result;
 var sealList=[];
 var step1 = Backbone.View.extend({
 	el: '.container',
-	initialize() {	
-//		this.render();
-	},
+	initialize() {},
 	events: {
 		'click #goStep2': 'goStep2',
 		'click .sealStyle span': 'choice',
 		'change input:radio':'islegal',
 	},
 	render: function(query) {
-		
-		this.getstep1("440303044053");
+		var enterpriseCode="440303044053";
+		this.getstep1(enterpriseCode);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
 		sealstyle = [];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-//		bootbox.dialog({
-//			className: "errorTips",
-//			title: "<div class='title'>新办电子印章提示</div>",
-//			message: "<div class='message'>" +
-//				"<div class='icon'><span></span></div>" +
-//				"<div class='errorOrderTips'>" +
-//				"<div class='errorOrderTitle'>您还有未完成的订单,是否继续完成该订单?</div>" +
-//				"<div class='errorOrderSeal'>" +
-//				"<span>电子行政章</span><span>电子行政章</span></div>" +
-//				"<div class='errorOrderRed'>新建订单将覆盖原有的订单,您需要重新填写资料</div></div><div class='clear'></div></div>",
-//			buttons: {
-//				cancel: {
-//					label: "返回",
-//					className: "btn1"
-//				},
-//				confirm1: {
-//					label: "继续该订单",
-//					className: "btn2",
-//					callback: function() {
-//						$(this).find(".message").html(123);
-//						console.log($(this).find(".message").html())
-//						if(i = 5) {
-//							return false;
-//						}
-//
-//					}
-//				},
-//				confirm2: {
-//					label: "新建订单",
-//					className: "btn3",
-//					callback: function() {
-//						window.location.href = "admin.html#step1";
-//					}
-//				}
-//			}
-//		})
+		service.errorOrder(enterpriseCode).done(function(data){
+			if(data.code==0){
+				var obj={
+		                "id": 100000241,
+		                "orderNo": "OFFLINE-2017071793798629",
+		                "firmId": "100001000001",
+		                "orderOrigin": 4,
+		                "actualAmount": 0,
+		                "privilegeScheme": 0,
+		                "businessType": 1,
+		                "payType": 4,
+		                "orderStatus": 1,
+		                "enterpriseCode": "100001000001",
+		                "enterpriseName": "深圳市盐田区祥圆商店1",
+		                "operateStep": 2,
+		                "linkMan": "开发",
+		                "linkManCertificateType": 11,
+		                "linkManCertificateNumber": "43012645321455214",
+		                "isRefund": 0,
+		                "isDelete": 1,
+		                "createTime": "Jul 17, 2017 4:58:35 PM",
+		                "updateTime": "Jul 19, 2017 2:09:52 PM"
+		            }
+				data.data.list.push(obj);
+				if(data.data.list.length>0){
+					bootbox.dialog({
+						className: "errorTips",
+						title: "<div class='title'>新办电子印章提示</div>",
+						message: "<div class='message'>" +
+							"<div class='icon'><span></span></div>" +
+							"<div class='errorOrderTips'>" +
+							"<div class='errorOrderTitle'>您还有未完成的订单,是否继续完成该订单?</div>" +
+							"<div class='errorOrderSeal'>" +
+							"<span>电子行政章</span><span>电子行政章</span><span>电子行政章</span><span>电子行政章</span></div>" +
+							"<div class='errorOrderRed'>新建订单将覆盖原有的订单,您需要重新填写资料</div></div><div class='clear'></div></div>",
+						buttons: {
+							cancel: {
+								label: "返回",
+								className: "btn1"
+							},
+							confirm1: {
+								label: "继续该订单",
+								className: "btn2",
+								callback: function() {
+									window.location.href = "admin.html#step"+data.data.list[0].operateStep;
+								}
+							},
+							confirm2: {
+								label: "新建订单",
+								className: "btn3",
+								callback: function() {
+									window.location.href = "admin.html#step1";
+								}
+							}
+						}
+					})
+				}
+			}else{
+				bootbox.alert(data.msg);
+			}
+		})
+
 	},
-	goStep2: function(event) {
-		
+	goStep2: function(event) {	
 		var isLegal = $('input:radio:checked').val();
-		window.reqres.setHandler("foo", function() {
-			return isLegal;
-		});
+		localStorage.isLegal=isLegal;
 		if($('.sealStyle span').hasClass('choice')) {	
 			for(var i=0;i<sealstyle.length;i++){
 				for(var j=0;j<result.availableEsealList.length;j++){
@@ -75,6 +96,7 @@ var step1 = Backbone.View.extend({
 			if(isLegal==0){
 				result.isDelUnpayed=1;
 				result.isOperatorLegalPersion=0
+				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
 				this.model.set({ "clickEle": $(event.target).data('id') })
 				this.model.isValid()
 				if(!this.model.isValid()){
@@ -120,103 +142,7 @@ var step1 = Backbone.View.extend({
 			if(data.code == 0) {
 				result=data.data;
 			} else {
-//				result={
-//			        "availableEsealList": [
-//			            {
-//			                "createTime": null,
-//			                "easalId": null,
-//			                "enterpriseCode": "440303044053",
-//			                "enterpriseCodeType": null,
-//			                "enterpriseName": null,
-//			                "esealCode": "4403030019792",
-//			                "esealCreateTime": null,
-//			                "esealFullName": "行政章",
-//			                "esealName": 1,
-//			                "esealStatus": 3,
-//			                "esealType": null,
-//			                "firmId": "4403030019792",
-//			                "id": null,
-//			                "isDelete": null,
-//			                "oid": null,
-//			                "operateId": null,
-//			                "picData": null,
-//			                "picHeight": 30,
-//			                "picType": null,
-//			                "picWidth": 45,
-//			                "recordStatus": null,
-//			                "recordTime": null,
-//			                "updateTime": null,
-//			                "validEnd": null,
-//			                "validStart": null,
-//			                "version": null,
-//			                "vid": null
-//			            },
-//			            {
-//			                "createTime": null,
-//			                "easalId": null,
-//			                "enterpriseCode": "440303044053",
-//			                "enterpriseCodeType": null,
-//			                "enterpriseName": null,
-//			                "esealCode": "4403030019793",
-//			                "esealCreateTime": null,
-//			                "esealFullName": "财务专用章",
-//			                "esealName": 2,
-//			                "esealStatus": 3,
-//			                "esealType": null,
-//			                "firmId": "4403030019793",
-//			                "id": null,
-//			                "isDelete": null,
-//			                "oid": null,
-//			                "operateId": null,
-//			                "picData": null,
-//			                "picHeight": 30,
-//			                "picType": null,
-//			                "picWidth": 45,
-//			                "recordStatus": null,
-//			                "recordTime": null,
-//			                "updateTime": null,
-//			                "validEnd": null,
-//			                "validStart": null,
-//			                "version": null,
-//			                "vid": null
-//			            }
-//			        ],
-//			        "enterpriseInfo": {
-//			            "address": "罗湖区凤凰路3号海珑华苑海天阁1018",
-//			            "areaCode": "szpsfj",
-//			            "businessLicenseNumber": null,
-//			            "createTime": "2013-10-31 00:00:00",
-//			            "createUserId": null,
-//			            "establishmentDate": "2011-12-06 00:00:00",
-//			            "headOfficeId": null,
-//			            "id": "440303044053",
-//			            "idcardNumber": "D228173（3）",
-//			            "idcardType": "11",
-//			            "industryType": null,
-//			            "legalAddress": null,
-//			            "legalName": "郑振欧",
-//			            "name": "仕贝伦莎服饰(深圳)有限公司",
-//			            "nameEnglish": null,
-//			            "nameMinorityNationality": null,
-//			            "nature": "99",
-//			            "organizationCode": "593044067",
-//			            "phone": "13823268742",
-//			            "remark": null,
-//			            "scale": null,
-//			            "status": "0",
-//			            "taxNumber": null,
-//			            "telephone": "13823268742",
-//			            "type": "02",
-//			            "uniformSocialCreditCode": "2323322",
-//			            "updateTime": null,
-//			            "updateUserId": null
-//			        },
-//			        "isDelUnpayed": 1,
-//			        "isOperatorLegalPersion": 1,
-//			        "operatorIdCard": null,
-//			        "operatorName": null
-//			    }
-				console.log(data.msg)
+				bootbox.alert(data.msg);
 			}
 		})
 	},
@@ -227,17 +153,13 @@ var step1 = Backbone.View.extend({
         });
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
-				var orderNo=data.data;
-				window.reqres.setHandler("orderNo", function () {
-		            return orderNo;
-		        });
+				localStorage.orderNo=data.data;
 				window.open('admin.html#step2', '_self');
 			} else {
-				console.log(data.msg);
+				bootbox.alert(data.msg);
 			}
 		});
 	}
-	
 });
 
 module.exports = step1;

@@ -6,7 +6,7 @@ import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag;
-var isLegal,stepResult;
+var isLegal,stepResult,length;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -20,45 +20,53 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
-
-		isLegal = reqres.request("foo");
+		isLegal = localStorage.isLegal;
 		if(isLegal == 1) {
 			$(".operate").hide();
 			pictureFlag = [0, 0, 0]
 		} else {
 			pictureFlag = [0, 0, 0, 0, 0]
 		}
-		var orderNo = reqres.request("orderNo")||"OFFLINE07252055727334";
+		var orderNo = localStorage.orderNo;
 		service.getstep2(orderNo).done(function(data){
 			if(data.code == 0) {
 				stepResult=data.data;
 				var attaches=data.data.attaches;
+				length=attaches.length;
 				for(var i=0;i<attaches.length;i++){
 					if(attaches[i].certificateType=="0002"){
+						$("#file0").css({"height":"24px"});
+						$(".reset0").show();
 						pictureFlag[0]=attaches[i].filePath;
 						$("#ajaxForm0 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 						imgModalBig('#photo0', { 'width': 500, 'src': attaches[i].filePath });
 					}else if(attaches[i].certificateType=="0032"){
+						$("#file1").css({"height":"24px"});
+						$(".reset1").show();
 						pictureFlag[1]=attaches[i].filePath;
 						$("#ajaxForm1 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 						imgModalBig('#photo1', { 'width': 500, 'src': data.data.attaches[1].filePath });
 					}else if(attaches[i].certificateType=="0044"){
+						$("#file2").css({"height":"24px"});
+						$(".reset2").show();
 						pictureFlag[2]=attaches[i].filePath;
 						$("#ajaxForm2 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 						imgModalBig('#photo2', { 'width': 500, 'src': attaches[i].filePath });
 					}else if(attaches[i].certificateType=="0033"){
+						$("#file3").css({"height":"24px"});
+						$(".reset3").show();
+						$(".operate").hide();
 						pictureFlag[3]=attaches[i].filePath;
 						$("#ajaxForm4 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 						imgModalBig('#photo4', { 'width': 500, 'src': attaches[i].filePath });
 					}else if(attaches[i].certificateType=="0045"){
+						$("#file4").css({"height":"24px"});
+						$(".reset4").show();
 						pictureFlag[4]=attaches[i].filePath;
 						$("#ajaxForm5 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 						imgModalBig('#photo5', { 'width': 500, 'src': attaches[i].filePath });
 					}
 				}				
-				if(data.data.attaches.length==3){
-					$(".operate").hide();				
-				}
 			} else {
 				console.log(data.msg)
 			}
@@ -139,6 +147,12 @@ var step2 = Backbone.View.extend({
 				},
 				success: function(data) {
 					var data = JSON.parse(data);
+					var obj ={
+		                "filePath": "",
+		                "certificateType": "",
+		                "orderNo": "",
+		                "isOrderAttach": 1
+		            }
 					if(data.code == 0) {
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
@@ -169,50 +183,71 @@ var step2 = Backbone.View.extend({
 							}
 						};
 						if(num==0){
-							for(var j=0;j<stepResult.attaches.length;j++){
+							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0002"){
 									stepResult.attaches[j].filePath=data;
 								}
 							}
+							if(length<3){
+								obj.filePath=data;
+								obj.certificateType='0002';
+								obj.orderNo=stepResult.orderNo;
+								obj.isOrderAttach=1;
+								stepResult.attaches[0]=obj;
+							}
 						};
 						if(num==1){
-							for(var j=0;j<stepResult.attaches.length;j++){
+							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0032"){
 									stepResult.attaches[j].filePath=data;
 								}
 							}
+							if(length<3){
+								obj.filePath=data;
+								obj.certificateType='0032';
+								obj.orderNo=stepResult.orderNo;
+								obj.isOrderAttach=1;
+								stepResult.attaches[1]=obj;
+							}
 						};
 						if(num==2){
-							for(var j=0;j<stepResult.attaches.length;j++){
+							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0044"){
 									stepResult.attaches[j].filePath=data;
 								}
 							}
+							if(length<3){
+								obj.filePath=data;
+								obj.certificateType='0044';
+								obj.orderNo=stepResult.orderNo;
+								obj.isOrderAttach=1;
+								stepResult.attaches[2]=obj;
+							}
 						};
-						if(num==3&&stepResult.attaches.length>3){
-							for(var j=0;j<stepResult.attaches.length;j++){
+						if(num==3&&length>3){
+							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0033"){
 									stepResult.attaches[j].filePath=data;
 								}
 							}
 						}else if(num==3){
 							var obj={
-								"orderNo":stepResult.attaches[0].orderNo,
+								"orderNo":stepResult.orderNo,
 								"filePath":data,
 								"certificateType":"0033",
 								"isOrderAttach":"1"
 							}
 							stepResult.attaches[3]=obj;
 						};
-						if(num==4&&stepResult.attaches.length>3){
-							for(var j=0;j<stepResult.attaches.length;j++){
+						if(num==4&&length>3){
+							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0045"){
 									stepResult.attaches[j].filePath=data;
 								}
 							}
 						}else if(num==4){
 							var obj={
-								"orderNo":stepResult.attaches[0].orderNo,
+								"orderNo":stepResult.orderNo,
 								"filePath":data,
 								"certificateType":"0045",
 								"isOrderAttach":"1"
