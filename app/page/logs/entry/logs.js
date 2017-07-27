@@ -14,6 +14,7 @@ $('body').prepend(tpl({
 }));
 $(".contents").prepend(search)
 $(".wrapper").prepend(header)
+require('../../../view/pub/uhead')
 window.S = {};
 S.router = new Router();
 Backbone.history.start({

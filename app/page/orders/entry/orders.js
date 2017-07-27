@@ -10,6 +10,7 @@ var header=require('../../../view/pub/tpl/uhead.html')
 $('body').prepend(tpl({  
 }));
 $(".wrapper").prepend(header)
+require('../../../view/pub/uhead')
 window.S = {};
 
 S.router = new Router();

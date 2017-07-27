@@ -18,31 +18,6 @@
 
     </div>
 </div>
-<script>
-    var header = {
-        init: function () {
-            this.nav();
-        },
-        arrPath: location.pathname.split(/\//),
-        nav:function() {
-            function toggle(ele){
-                $(".u-head .menu a").removeClass("active").parent("li").find(ele).addClass("active");
-            }
-            for (var i = 0; i < this.arrPath.length; i++) {
-                if (/.html/.test(this.arrPath[i])) {
-                    switch (this.arrPath[i]) {
-                        case "index.html" : toggle(".nav1") ; break;
-                        case "admin.html" : toggle(".nav2"); break;
-                        case "orders.html" : toggle(".nav3"); break;
-                        case "logs.html" : toggle(".nav4"); break;
-                    }
-                }
-            }
-        }
-
-    }
-header.init();
-</script>
 <style>
     .u-head ul.utool .set{
         display: none;
