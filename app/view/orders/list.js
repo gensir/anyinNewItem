@@ -13,8 +13,7 @@ var list = Backbone.View.extend({
         'click nav li.index': 'currentPapge'
     },
     render: function (query) {
-    	
-    	this.listPage(1,10,"91440300618804481R");
+    	this.listPage(1,10,"914403001923081808");
     },
     toggleList(event) {
         var _this = event.currentTarget;

@@ -28,7 +28,7 @@
 							<ul class="nav">
 								<li class="n1">
 									<p class="top f14">业务详情</p>
-									<p>业务类型：<span>{{value.businessType}}</span></p>
+									<p>业务类型：<span>{{value.businessType==1?"开通 ":value.businessType==2?"续费":"退款"}}</span></p>
 									<p>流水号：<span>{{value.orderNo}}</span></p>
 									<p>订单时间：<span>{{value.payTime}}</span></p>
 									<p>订单状态： <span>{{value.orderStatus}}</span></p>
