@@ -11,7 +11,7 @@ var commonAjaxSetting = {
     'post': {
         dataType: "json",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/json"
         },
         data: {},
         cache: false
@@ -129,7 +129,7 @@ export default {
     },
     //刻章店查询  /get_area/sealShops/queryPageSealShopsByAreacode?areacode=440305&page=1&size=5
     getSealShop(areacode,pageNum,pageSize){
-    	return this.ajaxCall({ url: domain + basemp + "get_area/sealShops/queryPageSealShopsByAreacode?areacode="+areacode+"&page="+pageNum+"&size="+pageSize });
+    	return this.ajaxCall({ url: domain + basemp + "get_area/sealShops/queryPageSealShopsByAreacode?areacode="+areacode+"&page="+pageNum+"&size="+pageSize ,async: false});
     },
     //获取行政区  get_area/codeArea/queryCodeArea?area_code=440300
     queryCodeArea(data){
@@ -143,18 +143,6 @@ export default {
     toRegister(data){
     	return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
     },
-     //新办电子印章第一步
-    getstep1(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId="+data, async: false });
-    },
-    //提交第一步
-    poststep1(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?", data:data }, "post" );
-    },
-    //获取新版电子印章第二步
-    getstep2(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step2?orderNo="+data, async: false });
-    },
     //检查企业是否注册
     checkUserIsExist(data){
     	return this.ajaxCall({ url: domain + basemp + "common/checkUserIsExist", data: data });
@@ -162,5 +150,29 @@ export default {
     //检查图片验证码
     checkCaptcha(data){
     	return this.ajaxCall({ url: domain + basemp + "common/checkCaptcha", data: data });
-    }
+    },
+     //新办电子印章第一步
+    getstep1(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId="+data, async: false });
+    },
+    //提交第一步
+    poststep1(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step1", data:data }, "post" );
+    },
+    //获取新版电子印章第二步
+    getstep2(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step2?orderNo="+data, async: false });
+    },
+    //提交新办电子印章第二步
+    poststep2(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step2" ,data:data},"post");
+    }, 
+    //获取新办电子印章第三步
+    getstep3(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step3?orderNo="+data, async: false });
+    },
+    //提交新办电子印章第三步
+    poststep3(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step3" ,data:data},"post");
+    },
 }

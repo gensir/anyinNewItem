@@ -6,11 +6,10 @@ import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag;
-var result;
+var isLegal,stepResult;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
-
 	events: {
 		'change #file0,#file1,#file2,#file3,#file4': 'changeImg',
 		'click #goStep3': 'goStep3',
@@ -22,13 +21,48 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
 
-		result = reqres.request("foo");
-		if(result == 1) {
+		isLegal = reqres.request("foo");
+		if(isLegal == 1) {
 			$(".operate").hide();
 			pictureFlag = [0, 0, 0]
 		} else {
 			pictureFlag = [0, 0, 0, 0, 0]
 		}
+		var orderNo = reqres.request("orderNo")||"OFFLINE07252055727334";
+		service.getstep2(orderNo).done(function(data){
+			if(data.code == 0) {
+				stepResult=data.data;
+				var attaches=data.data.attaches;
+				for(var i=0;i<attaches.length;i++){
+					if(attaches[i].certificateType=="0002"){
+						pictureFlag[0]=attaches[i].filePath;
+						$("#ajaxForm0 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+						imgModalBig('#photo0', { 'width': 500, 'src': attaches[i].filePath });
+					}else if(attaches[i].certificateType=="0032"){
+						pictureFlag[1]=attaches[i].filePath;
+						$("#ajaxForm1 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+						imgModalBig('#photo1', { 'width': 500, 'src': data.data.attaches[1].filePath });
+					}else if(attaches[i].certificateType=="0044"){
+						pictureFlag[2]=attaches[i].filePath;
+						$("#ajaxForm2 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+						imgModalBig('#photo2', { 'width': 500, 'src': attaches[i].filePath });
+					}else if(attaches[i].certificateType=="0033"){
+						pictureFlag[3]=attaches[i].filePath;
+						$("#ajaxForm4 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+						imgModalBig('#photo4', { 'width': 500, 'src': attaches[i].filePath });
+					}else if(attaches[i].certificateType=="0045"){
+						pictureFlag[4]=attaches[i].filePath;
+						$("#ajaxForm5 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+						imgModalBig('#photo5', { 'width': 500, 'src': attaches[i].filePath });
+					}
+				}				
+				if(data.data.attaches.length==3){
+					$(".operate").hide();				
+				}
+			} else {
+				console.log(data.msg)
+			}
+		})
 	},
 	changeImg: function(event) {
 		var eve = event;
@@ -133,6 +167,57 @@ var step2 = Backbone.View.extend({
 								$("#file" + num).height(24);
 								imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
 							}
+						};
+						if(num==0){
+							for(var j=0;j<stepResult.attaches.length;j++){
+								if(stepResult.attaches[j].certificateType=="0002"){
+									stepResult.attaches[j].filePath=data;
+								}
+							}
+						};
+						if(num==1){
+							for(var j=0;j<stepResult.attaches.length;j++){
+								if(stepResult.attaches[j].certificateType=="0032"){
+									stepResult.attaches[j].filePath=data;
+								}
+							}
+						};
+						if(num==2){
+							for(var j=0;j<stepResult.attaches.length;j++){
+								if(stepResult.attaches[j].certificateType=="0044"){
+									stepResult.attaches[j].filePath=data;
+								}
+							}
+						};
+						if(num==3&&stepResult.attaches.length>3){
+							for(var j=0;j<stepResult.attaches.length;j++){
+								if(stepResult.attaches[j].certificateType=="0033"){
+									stepResult.attaches[j].filePath=data;
+								}
+							}
+						}else if(num==3){
+							var obj={
+								"orderNo":stepResult.attaches[0].orderNo,
+								"filePath":data,
+								"certificateType":"0033",
+								"isOrderAttach":"1"
+							}
+							stepResult.attaches[3]=obj;
+						};
+						if(num==4&&stepResult.attaches.length>3){
+							for(var j=0;j<stepResult.attaches.length;j++){
+								if(stepResult.attaches[j].certificateType=="0045"){
+									stepResult.attaches[j].filePath=data;
+								}
+							}
+						}else if(num==4){
+							var obj={
+								"orderNo":stepResult.attaches[0].orderNo,
+								"filePath":data,
+								"certificateType":"0045",
+								"isOrderAttach":"1"
+							}
+							stepResult.attaches[4]=obj;
 						}	
 					} else {
 						var dialog = bootbox.alert({
@@ -164,6 +249,7 @@ var step2 = Backbone.View.extend({
 		}, 200)
 	},
 	goStep3: function() {
+		console.log(pictureFlag)
 		for(var i = 0; i < pictureFlag.length; i++) {
 			if(pictureFlag[i] == 0) {
 				var dialog = bootbox.alert({
@@ -173,18 +259,8 @@ var step2 = Backbone.View.extend({
 				return;
 			}
 		};
-		if(result == 1) {
-			pictureFlag = "[" + pictureFlag[0] + "," + pictureFlag[1] + "," + pictureFlag[2] + "]";
-		} else {
-			pictureFlag = "[" + pictureFlag[0] + "," + pictureFlag[1] + "," + pictureFlag[2] + "," + pictureFlag[3] + "," + pictureFlag[4] + "]";
-		}
-		var data = {
-			"bizType": 2,
-			"enterpriseCode": "233434344344", //组织机构代码 或 统一社会信用代码（优先）
-			"urls": pictureFlag,
-			"esealCode": "2132323232",
-		}
-		service.attach(data).done(function(data) {
+		
+		service.poststep2(stepResult).done(function(data) {
 			if(data.code == 0) {
 				window.open('admin.html#step3', '_self');
 			} else {

@@ -15,14 +15,6 @@ var step1 = Backbone.View.extend({
 	render: function(query) {
 		
 		this.getstep1("440303044053");
-//		var result={
-//	        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
-//	        "businessLicenseNumber": "12345666666",
-//	        "legalName": "张三疯",
-//	        "name": "深圳菱正环保设备有限公司",
-//	        "uniformSocialCreditCode": "914403005538853123",
-//	        "sealList":['财务章','行政章']
-//	    }
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
 		sealstyle = [];
@@ -79,7 +71,9 @@ var step1 = Backbone.View.extend({
 				}
 			}
 			result.availableEsealList=sealList;
+//			不是经办人
 			if(isLegal==0){
+				result.isDelUnpayed=1;
 				result.isOperatorLegalPersion=0
 				this.model.set({ "clickEle": $(event.target).data('id') })
 				this.model.isValid()
@@ -90,10 +84,9 @@ var step1 = Backbone.View.extend({
 					this.poststep1(result);
 				}
 			}else{
-//				window.open('admin.html#step2','_self')
-//				console.log(result);
-//				result=JSON.stringify(result);
-//				result=JSON.parse(result);
+				result.isDelUnpayed=1;
+				result.isOperatorLegalPersion=1;
+				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
 				this.poststep1(result);
 			}	
 		} else {
@@ -125,143 +118,120 @@ var step1 = Backbone.View.extend({
 	getstep1:function(data){
 		service.getstep1(data).done(function(data) {
 			if(data.code == 0) {
-				var obj={
-	                "createTime": null,
-	                "easalId": null,
-	                "enterpriseCode": "440303044053",
-	                "enterpriseCodeType": null,
-	                "enterpriseName": null,
-	                "esealCode": "4403030019792",
-	                "esealCreateTime": null,
-	                "esealFullName": "行政章",
-	                "esealName": 1,
-	                "esealStatus": 3,
-	                "esealType": null,
-	                "firmId": "4403030019792",
-	                "id": null,
-	                "isDelete": null,
-	                "oid": null,
-	                "operateId": null,
-	                "picData": null,
-	                "picHeight": 30,
-	                "picType": null,
-	                "picWidth": 45,
-	                "recordStatus": null,
-	                "recordTime": null,
-	                "updateTime": null,
-	                "validEnd": null,
-	                "validStart": null,
-	                "version": null,
-	                "vid": null
-	            }
-				data.data.availableEsealList.push(obj);
 				result=data.data;
 			} else {
-				result={
-			        "availableEsealList": [
-			            {
-			                "createTime": null,
-			                "easalId": null,
-			                "enterpriseCode": "440303044053",
-			                "enterpriseCodeType": null,
-			                "enterpriseName": null,
-			                "esealCode": "4403030019792",
-			                "esealCreateTime": null,
-			                "esealFullName": "行政章",
-			                "esealName": 1,
-			                "esealStatus": 3,
-			                "esealType": null,
-			                "firmId": "4403030019792",
-			                "id": null,
-			                "isDelete": null,
-			                "oid": null,
-			                "operateId": null,
-			                "picData": null,
-			                "picHeight": 30,
-			                "picType": null,
-			                "picWidth": 45,
-			                "recordStatus": null,
-			                "recordTime": null,
-			                "updateTime": null,
-			                "validEnd": null,
-			                "validStart": null,
-			                "version": null,
-			                "vid": null
-			            },
-			            {
-			                "createTime": null,
-			                "easalId": null,
-			                "enterpriseCode": "440303044053",
-			                "enterpriseCodeType": null,
-			                "enterpriseName": null,
-			                "esealCode": "4403030019793",
-			                "esealCreateTime": null,
-			                "esealFullName": "财务专用章",
-			                "esealName": 2,
-			                "esealStatus": 3,
-			                "esealType": null,
-			                "firmId": "4403030019793",
-			                "id": null,
-			                "isDelete": null,
-			                "oid": null,
-			                "operateId": null,
-			                "picData": null,
-			                "picHeight": 30,
-			                "picType": null,
-			                "picWidth": 45,
-			                "recordStatus": null,
-			                "recordTime": null,
-			                "updateTime": null,
-			                "validEnd": null,
-			                "validStart": null,
-			                "version": null,
-			                "vid": null
-			            }
-			        ],
-			        "enterpriseInfo": {
-			            "address": "罗湖区凤凰路3号海珑华苑海天阁1018",
-			            "areaCode": "szpsfj",
-			            "businessLicenseNumber": null,
-			            "createTime": "2013-10-31 00:00:00",
-			            "createUserId": null,
-			            "establishmentDate": "2011-12-06 00:00:00",
-			            "headOfficeId": null,
-			            "id": "440303044053",
-			            "idcardNumber": "D228173（3）",
-			            "idcardType": "11",
-			            "industryType": null,
-			            "legalAddress": null,
-			            "legalName": "郑振欧",
-			            "name": "仕贝伦莎服饰(深圳)有限公司",
-			            "nameEnglish": null,
-			            "nameMinorityNationality": null,
-			            "nature": "99",
-			            "organizationCode": "593044067",
-			            "phone": "13823268742",
-			            "remark": null,
-			            "scale": null,
-			            "status": "0",
-			            "taxNumber": null,
-			            "telephone": "13823268742",
-			            "type": "02",
-			            "uniformSocialCreditCode": "2323322",
-			            "updateTime": null,
-			            "updateUserId": null
-			        },
-			        "isDelUnpayed": 1,
-			        "isOperatorLegalPersion": 1,
-			        "operatorIdCard": null,
-			        "operatorName": null
-			    }
+//				result={
+//			        "availableEsealList": [
+//			            {
+//			                "createTime": null,
+//			                "easalId": null,
+//			                "enterpriseCode": "440303044053",
+//			                "enterpriseCodeType": null,
+//			                "enterpriseName": null,
+//			                "esealCode": "4403030019792",
+//			                "esealCreateTime": null,
+//			                "esealFullName": "行政章",
+//			                "esealName": 1,
+//			                "esealStatus": 3,
+//			                "esealType": null,
+//			                "firmId": "4403030019792",
+//			                "id": null,
+//			                "isDelete": null,
+//			                "oid": null,
+//			                "operateId": null,
+//			                "picData": null,
+//			                "picHeight": 30,
+//			                "picType": null,
+//			                "picWidth": 45,
+//			                "recordStatus": null,
+//			                "recordTime": null,
+//			                "updateTime": null,
+//			                "validEnd": null,
+//			                "validStart": null,
+//			                "version": null,
+//			                "vid": null
+//			            },
+//			            {
+//			                "createTime": null,
+//			                "easalId": null,
+//			                "enterpriseCode": "440303044053",
+//			                "enterpriseCodeType": null,
+//			                "enterpriseName": null,
+//			                "esealCode": "4403030019793",
+//			                "esealCreateTime": null,
+//			                "esealFullName": "财务专用章",
+//			                "esealName": 2,
+//			                "esealStatus": 3,
+//			                "esealType": null,
+//			                "firmId": "4403030019793",
+//			                "id": null,
+//			                "isDelete": null,
+//			                "oid": null,
+//			                "operateId": null,
+//			                "picData": null,
+//			                "picHeight": 30,
+//			                "picType": null,
+//			                "picWidth": 45,
+//			                "recordStatus": null,
+//			                "recordTime": null,
+//			                "updateTime": null,
+//			                "validEnd": null,
+//			                "validStart": null,
+//			                "version": null,
+//			                "vid": null
+//			            }
+//			        ],
+//			        "enterpriseInfo": {
+//			            "address": "罗湖区凤凰路3号海珑华苑海天阁1018",
+//			            "areaCode": "szpsfj",
+//			            "businessLicenseNumber": null,
+//			            "createTime": "2013-10-31 00:00:00",
+//			            "createUserId": null,
+//			            "establishmentDate": "2011-12-06 00:00:00",
+//			            "headOfficeId": null,
+//			            "id": "440303044053",
+//			            "idcardNumber": "D228173（3）",
+//			            "idcardType": "11",
+//			            "industryType": null,
+//			            "legalAddress": null,
+//			            "legalName": "郑振欧",
+//			            "name": "仕贝伦莎服饰(深圳)有限公司",
+//			            "nameEnglish": null,
+//			            "nameMinorityNationality": null,
+//			            "nature": "99",
+//			            "organizationCode": "593044067",
+//			            "phone": "13823268742",
+//			            "remark": null,
+//			            "scale": null,
+//			            "status": "0",
+//			            "taxNumber": null,
+//			            "telephone": "13823268742",
+//			            "type": "02",
+//			            "uniformSocialCreditCode": "2323322",
+//			            "updateTime": null,
+//			            "updateUserId": null
+//			        },
+//			        "isDelUnpayed": 1,
+//			        "isOperatorLegalPersion": 1,
+//			        "operatorIdCard": null,
+//			        "operatorName": null
+//			    }
 				console.log(data.msg)
 			}
 		})
 	},
 	poststep1:function(data){
+		var seals=sealstyle;
+		window.reqres.setHandler("seals", function () {
+            return seals;
+        });
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
-				console.log(data.msg);
-				pictureFlag[num] = 0;
+				var orderNo=data.data;
+				window.reqres.setHandler("orderNo", function () {
+		            return orderNo;
+		        });
+				window.open('admin.html#step2', '_self');
 			} else {
 				console.log(data.msg);
 			}

@@ -137,6 +137,7 @@
 						<td class="sealName">{{sealShop[i].name}}</td>
 						<td class="address">{{sealShop[i].address}}</td>
 						<td class="telPhone">{{sealShop[i].phone}}</td>
+						<td class="display" style="display: none;">{{sealShop[i].psShopid}}</td>
 					</tr>
 					{{/each}}
 				</table>
@@ -472,5 +473,10 @@
 	form .formPub .progress {
 		height: 4px;
 		background: #3d94ff;
+	}
+	.step3 .bankScan,
+	.step3 .tradeScan,
+	.step3 .legalScan{
+		display: none;
 	}
 </style>
