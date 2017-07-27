@@ -78,7 +78,8 @@ var main = Backbone.View.extend({
         }
         service.userlogin(data).done(function (data) {
             if (data.code == 0) {
-                window.open("index.html", "_self");
+                debugger;
+                //window.open("index.html", "_self");
             } else if (data.code == "001") {
                 $.verify("phone","#userName", "用户未注册");
             }

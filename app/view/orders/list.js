@@ -14,7 +14,7 @@ var list = Backbone.View.extend({
     },
     render: function (query) {
     	
-    	this.listPage(1,10,123456);
+    	this.listPage(1,10,"91440300618804481R");
     },
     toggleList(event) {
         var _this = event.currentTarget;

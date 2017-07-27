@@ -113,7 +113,7 @@ export default {
     },
     //获取订单中心列表
     queryOrderList(pageNum,pageSize,enterpriseCode) {
-        return this.ajaxCall({ url: domain + basemp + "/mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize+"?enterpriseCode="+enterpriseCode});
+        return this.ajaxCall({ url: domain + basemp + "mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize+"?enterpriseCode="+enterpriseCode});
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
