@@ -186,5 +186,9 @@ export default {
       //Step4界面展示
     orderStep4(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/step4?orderNo="+data, data: data });
-    }          
+    },   
+    //获取订单状态
+    status(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/status?orderNo="+data});
+    }
 }

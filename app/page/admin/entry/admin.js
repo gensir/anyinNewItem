@@ -1,5 +1,6 @@
 import '../../../../asset/css/style.css';
 import {add} from '../../../publicFun/public';
+var service = require('../../../server/service').default;
 require('../store/store.js');
 window.reqres.request(  'global', 'current-admin' );
 
@@ -19,3 +20,12 @@ S.router = new Router();
 Backbone.history.start({
     root : ''
 });
+var order = localStorage.orderNo;
+service.status(order).done(function(data){
+	if(data.code==0){
+		if(window.location.hash!=""){
+			window.open("admin.html#step"+data.data.operateStep, '_self')
+		}
+//		window.open("admin.html#step"+data.data.operateStep, '_self')
+	}
+})
