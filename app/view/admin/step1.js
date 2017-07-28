@@ -1,6 +1,6 @@
 import tpl from './tpl/step1.html'
 var service = require('../../server/service').default;
-var sealstyle = [],result;
+var sealstyle = [],result,enterpriseCode,that;
 var sealList=[];
 var step1 = Backbone.View.extend({
 	el: '.container',
@@ -11,12 +11,15 @@ var step1 = Backbone.View.extend({
 		'change input:radio':'islegal',
 	},
 	render: function(query) {
-		var enterpriseCode="440303044053";
+		that=this;
+		enterpriseCode="440303044053";
 		this.getstep1(enterpriseCode);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
 		sealstyle = [];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
+	},
+	goStep2: function(event) {
 		service.errorOrder(enterpriseCode).done(function(data){
 			if(data.code==0){
 				var obj={
@@ -68,7 +71,7 @@ var step1 = Backbone.View.extend({
 								label: "新建订单",
 								className: "btn3",
 								callback: function() {
-									window.location.href = "admin.html#step1";
+									that.goonstep();
 								}
 							}
 						}
@@ -78,45 +81,6 @@ var step1 = Backbone.View.extend({
 				bootbox.alert(data.msg);
 			}
 		})
-
-	},
-	goStep2: function(event) {	
-		var isLegal = $('input:radio:checked').val();
-		localStorage.isLegal=isLegal;
-		if($('.sealStyle span').hasClass('choice')) {	
-			for(var i=0;i<sealstyle.length;i++){
-				for(var j=0;j<result.availableEsealList.length;j++){
-					if(sealstyle[i]==result.availableEsealList[j].esealName){
-						sealList.push(result.availableEsealList[j]);
-					}
-				}
-			}
-			result.availableEsealList=sealList;
-//			不是经办人
-			if(isLegal==0){
-				result.isDelUnpayed=1;
-				result.isOperatorLegalPersion=0
-				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
-				this.model.set({ "clickEle": $(event.target).data('id') })
-				this.model.isValid()
-				if(!this.model.isValid()){
-					result.operatorIdCard=$(".legalID").val();
-					result.operatorName=$(".countCode").val();
-					console.log(result);
-					this.poststep1(result);
-				}
-			}else{
-				result.isDelUnpayed=1;
-				result.isOperatorLegalPersion=1;
-				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
-				this.poststep1(result);
-			}	
-		} else {
-			var dialog = bootbox.alert({
-				className: "alert",
-				message: "请选择要办理的电子印章类型",
-			})
-		}
 	},
 	choice: function(event) {		
 		var ele = event.target
@@ -157,6 +121,44 @@ var step1 = Backbone.View.extend({
 				bootbox.alert(data.msg);
 			}
 		});
+	},
+	goonstep:function(){
+		var isLegal = $('input:radio:checked').val();
+		localStorage.isLegal=isLegal;
+		if($('.sealStyle span').hasClass('choice')) {	
+			for(var i=0;i<sealstyle.length;i++){
+				for(var j=0;j<result.availableEsealList.length;j++){
+					if(sealstyle[i]==result.availableEsealList[j].esealName){
+						sealList.push(result.availableEsealList[j]);
+					}
+				}
+			}
+			result.availableEsealList=sealList;
+//			不是经办人
+			if(isLegal==0){
+				result.isDelUnpayed=1;
+				result.isOperatorLegalPersion=0
+				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
+				this.model.set({ "clickEle": $(event.target).data('id') })
+				this.model.isValid()
+				if(!this.model.isValid()){
+					result.operatorIdCard=$(".legalID").val();
+					result.operatorName=$(".countCode").val();
+					console.log(result);
+					this.poststep1(result);
+				}
+			}else{
+				result.isDelUnpayed=1;
+				result.isOperatorLegalPersion=1;
+				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
+				this.poststep1(result);
+			}	
+		} else {
+			var dialog = bootbox.alert({
+				className: "alert",
+				message: "请选择要办理的电子印章类型",
+			})
+		}
 	}
 });
 

@@ -5,7 +5,7 @@ import tpl from './tpl/step2.html'
 import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
-var pictureFlag;
+var pictureFlag=[];
 var isLegal,stepResult,length;
 var step2 = Backbone.View.extend({
 	el: '.container',
@@ -36,6 +36,12 @@ var step2 = Backbone.View.extend({
 					}
 				}else{
 					for(var i=0;i<attaches.length;i++){
+						if(attaches.length==3){
+							$(".operate").hide();
+							pictureFlag = [0, 0, 0]
+						}else{
+							pictureFlag = [0, 0, 0, 0, 0]
+						}
 						if(attaches[i].certificateType=="0002"){
 							$("#file0").css({"height":"24px"});
 							$(".reset0").show();
