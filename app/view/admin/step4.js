@@ -25,10 +25,21 @@ var step4 = Backbone.View.extend({
 		service.orderStep4(orderNo).done(res => {
 			var tempObj;
 			if(res.length == 0) {
-				console.log("无法获取到电子印章订单信息！");
+				console.log("step4无法获取到电子印章订单信息！");
 				tempObj = {}
 			} else {
 				tempObj = res;
+				var cont="";
+				var sumPrice="";
+//				console.log(tempObj.data.esealProducts[0].esealFullName);
+//				console.log(tempObj.data.products[0].productName);
+//				console.log(tempObj.data.products[0].productAmount);
+				for( var i=0; i<tempObj.data.esealProducts.length; i++ ){
+					cont+='<div class="order"><span class="serial">'+(i+1)+'</span><span class="sealName">'+tempObj.data.esealProducts[i].esealFullName+'</span><span class="service">'+tempObj.data.products[i].productName+'</span> <span class="price">'+tempObj.data.products[i].productAmount * tempObj.data.products[i].renewYear+'元</span></div>'				
+					sumPrice+=tempObj.data.products[i].productAmount * tempObj.data.products[i].renewYear;
+				}
+				$("#step4_orders").append(cont);	
+				$("#sumPrice , #sumPrice_pay").text(sumPrice +"元");
 				
 			}					
 		})
