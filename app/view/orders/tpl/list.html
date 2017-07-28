@@ -1,90 +1,91 @@
 <div class="orderList">
-	订单列表
+    订单列表
 </div>
 <div class="eseal">
-	<div class="mainbody boxmodel">
-		<div class="accordion">
-			<ul class="nav">
-				<li class="nav0">流水号</li>
-				<li class="nav1">订单时间</li>
-				<li class="nav2">业务类型</li>
-				<li class="nav3">支付金额</li>
-				<li class="nav4">支付方式</li>
-				<li class="nav5">状态</li>
-			</ul>
-			{{each data.list as value i}}
-			<div class="eseallist">
-				<div class="list">
-					<ul class="nav">
-						<li class="nav0">{{value.orderNo}}</li>
-						<li class="nav1">{{value.payTime}}</li>
-						<li class="nav2">{{value.businessType}}</li>
-						<li class="nav3">{{value.actualAmount}}</li>
-						<li class="nav4">{{value.payType}}</li>
-						<li class="nav5">{{value.orderStatus}}</li>
-					</ul>
-					<div class="showHide">
-						<div class="toggle">
-							<ul class="nav">
-								<li class="n1">
-									<p class="top f14">业务详情</p>
-									<p>业务类型：<span>{{value.businessType==1?"开通 ":value.businessType==2?"续费":"退款"}}</span></p>
-									<p>流水号：<span>{{value.orderNo}}</span></p>
-									<p>订单时间：<span>{{value.payTime}}</span></p>
-									<p>订单状态： <span>{{value.orderStatus}}</span></p>
-									<p>经办人： <span>{{value.linkMan}}</span></p>
-								</li>
-								<li class="n2">
-									<p class="f14">支付信息</p>
-									<p>支付方式：<span>{{value.payType}}</span></p>
-									<p>受理门店： <span>{{value.shopName}}</span></p>
-									<p>支付单号：<span>{{value.transactionId}}</span></p>
-									<p>支付时间：<span>{{value.payTime}}</span></p>
-								</li>
-								<li class="n3">
-									<p class="f14">电子印章信息</p>
-									<p>印章名：<span>电子印章样品专用章（01）</span></p>
-									<p>印章编号： <span>e4451231541021</span></p>
-									<p>制作日期：<span>2017/2/1 14:12:50</span></p>
-									<p>印章生效期：<span>2017/2/2 14:12:50</span></p>
-									<p>印章失效期：<span>2019/2/2 14:12:50</span></p>
-								</li>
-							</ul>
-						</div>
-						<div class="orderHelp">
-							<ul class="nav">
-								<li class="n1">
-									<p class="top f14">订单内容</p>
-									<p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p>
-									<p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p>
-									<p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥2000</span></p>
-								</li>
-								<li class="n2">
-									<p class="f14">订单发票</p>
-									<p><span>您已申请电子发票，</span>
-										<a>点击下载</a>
-									</p>
-								</li>
-								<li class="n3">
-									<p class="f14">需要帮助？</p>
-									<p><span>新办理的电子印章无法使用，</span>
-										<a>了解详情</a>
-									</p>
-									<p><span>电子印章常见问题，或</span>
-										<a>联系客服</a>
-									</p>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			{{/each}}
-			<div class="listResult">没有订单信息</div>
-		</div>
-	</div>
-	<!--分页-->
-	<nav aria-label="Page navigation">
+    <div class="mainbody boxmodel">
+        <div class="accordion">
+            <ul class="nav">
+                <li class="nav0">流水号</li>
+                <li class="nav1">订单时间</li>
+                <li class="nav2">业务类型</li>
+                <li class="nav3">支付金额</li>
+                <li class="nav4">支付方式</li>
+                <li class="nav5">状态</li>
+            </ul>
+            {{each data.list as value i}}
+            <div class="eseallist">
+                <div class="list">
+                    <ul class="nav">
+                        <li class="nav0">{{value.orderNo}}</li>
+                        <li class="nav1">{{value.payTime}}</li>
+                        <li class="nav2">{{value.businessType==1?"开通":value.businessType==2?"续费":"退款"}}</li>
+                        <li class="nav3">{{value.actualAmount}}</li>
+                        <li class="nav4">{{value.payType==1?"支付宝":value.payType==2?"微支付":value.payType==3?"银联支付":"ERP支付"}}</li>
+                        <li class="nav5">{{value.orderStatus==1?"未付款":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已付款":value.orderStatus==5?"已完成":value.orderStatus==6?"预退款":value.orderStatus==7?"已退款":"交易关闭"}}</li>
+                    </ul>
+                    <div class="showHide">
+                        <div class="toggle">
+                            <ul class="nav">
+                                <li class="n1">
+                                    <p class="top f14">业务详情</p>
+                                    <p>业务类型：<span>{{value.businessType==1?"开通":value.businessType==2?"续费":"退款"}}</span></p>
+                                    <p>流水号：<span>{{value.orderNo}}</span></p>
+                                    <p>订单时间：<span>{{value.payTime}}</span></p>
+                                    <p>订单状态：<span>{{value.orderStatus==1?"未付款":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已付款":value.orderStatus==5?"已完成":value.orderStatus==6?"预退款":value.orderStatus==7?"已退款":"交易关闭"}}</span></p>
+                                    <p>经办人： <span>{{value.linkMan}}</span></p>
+                                </li>
+                                <li class="n2">
+                                    <p class="f14">支付信息</p>
+                                    <p>支付方式：<span>{{value.payType==1?"支付宝":value.payType==2?"微支付":value.payType==3?"银联支付":"ERP支付"}}</span></p>
+                                    <p>受理门店：<span>{{value.shopName}}</span></p>
+                                    <p>支付单号：<span>{{value.transactionId}}</span></p>
+                                    <p>支付时间：<span>{{value.payTime}}</span></p>
+                                    <p></p>
+                                </li>
+                                <li class="n3">
+                                    <p class="f14">电子印章信息</p>
+                                    <p>印章名：<span>电子印章样品专用章（01）</span></p>
+                                    <p>印章编号：<span>e4451231541021</span></p>
+                                    <p>制作日期：<span>2017/2/1 14:12:50</span></p>
+                                    <p>印章生效期：<span>2017/2/2 14:12:50</span></p>
+                                    <p>印章失效期：<span>2019/2/2 14:12:50</span></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="orderHelp">
+                            <ul class="nav">
+                                <li class="n1">
+                                    <p class="top f14">订单内容</p>
+                                    <p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p>
+                                    <p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p>
+                                    <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥2000</span></p>
+                                </li>
+                                <li class="n2">
+                                    <p class="f14">订单发票</p>
+                                    <p><span>您已申请电子发票，</span>
+                                        <a>点击下载</a>
+                                    </p>
+                                </li>
+                                <li class="n3">
+                                    <p class="f14">需要帮助？</p>
+                                    <p><span>新办理的电子印章无法使用，</span>
+                                        <a>了解详情</a>
+                                    </p>
+                                    <p><span>电子印章常见问题，或</span>
+                                        <a>联系客服</a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <div class="listResult">没有订单信息</div>
+        </div>
+    </div>
+    <!--分页-->
+    <nav aria-label="Page navigation">
         <ul class="pagination" id="pageLimit">
             <li class="PreviousPage">
                 <a aria-label="Previous">
@@ -107,213 +108,222 @@
 </div>
 
 <style>
-	html,
-	body {
-		height: 100%;
-	}
-	
-	body {
-		font-size: 14px;
-	}
-	.contents{
-		/*height: 80px;
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .contents {
+        /*height: 80px;
 		width: 80px;
 		background: #0073bd;
 		position: absolute;
 		left: 0;
 		top: 0;*/
-	}
-	.wrapper{
-		/*margin-left: calc(100vw - 100%);*/
-	}
-	.orderList {
-		height: 20px;
-		margin: 17px 0 20px 20px;
-		padding-left: 15px;
-		font-size: 16px;
-		font-weight: 600;
-		border-left: 6px solid #0073bd;
-	}
-	
-	.boxmodel {
-		color: #333;
-		width: 1100px;
-		margin: 0 auto;
-	}
-	
-	.mainbody {
-		background: #f6f8fc
-	}
-	
-	.accordion {
-		background: #fff;
-		padding: 16px 22px 26px 22px;
-	}
-	
-	.accordion>.nav {
-		padding: 0 0 18px 22px;
-		font-size: 16px;
-	}
-	
-	.eseallist .list>ul {
-		cursor: pointer;
-	}
-	
-	.accordion .nav li {
-		float: left;
-	}
-	
-	.accordion .nav .nav0 {
-		min-width: 170px;
-	}
-	
-	.accordion .nav .nav1 {
-		min-width: 190px;
-	}
-	
-	.accordion .nav .nav2 {
-		min-width: 170px;
-	}
-	
-	.accordion .nav .nav3 {
-		min-width: 150px;
-	}
-	
-	.accordion .nav .nav4 {
-		min-width: 170px;
-	}
-	
-	.accordion .nav .nav5 {
-		min-width: 160px;
-	}
-	
-	.accordion .nav .orderTotal {
-		width: 250px;
-		margin: 0;
-		padding: 5px 0;
-		border-top: 1px solid #f6f6f6;
-	}
-	.accordion .listResult{
-		text-align:center;
-		color: red;
-		font: 14px;
-		display: none;
-	}
-	.eseallist .list {
-		background: #f5f5f5;
-		padding: 0px 22px 1px;
-		border-radius: 5px;
-		margin-bottom: 10px;
-	}
-	
-	.eseallist .list>.nav {
-		padding: 14px 0;
-		text-align: center;
-	}
-	
-	.eseal .accordion>.nav {
-		text-align: center;
-	}
-	
-	.eseallist .list .showHide {
-		display: none;
-	}
-	
-	.eseallist .list .toggle {
-		padding: 20px;
-		background: #fff;
-		margin: 0px 0 14px;
-	}
-	
-	.eseallist .list .toggle .nav .n1 {
-		width: 25%;
-		border-right: 1px dashed #dedede;
-	}
-	
-	.eseallist .list .toggle .nav .n2 {
-		width: 37%;
-		padding-left: 10%;
-		border-right: 1px dashed #dedede;
-	}
-	
-	.eseallist .list .toggle .nav .n3 {
-		width: 38%;
-		padding-left: 10%;
-	}
-	
-	.eseallist .list .toggle .nav p {
-		font-size: 12px;
-	}
-	
-	.eseallist .list .toggle .nav .f14 {
-		font-size: 14px;
-		font-weight: 600;
-		margin-bottom: 20px;
-	}
-	
-	.eseallist .list .toggle .nav p span {
-		color: #666
-	}
-	
-	.eseallist .list .toggle .nav p.top span {
-		margin-left: 30px;
-		background: #08c34e;
-		color: #fff;
-		font-size: 12px;
-		padding: 2px 10px;
-		border-radius: 2px;
-	}
-	
-	.eseallist .list .orderHelp {
-		padding: 20px;
-		background: #fff;
-		margin: 0px 0 14px;
-	}
-	
-	.eseallist .list .orderHelp .n1 {
-		width: 30%;
-	}
-	
-	.eseallist .list .orderHelp .n2 {
-		width: 40%;
-		padding-left: 5%;
-	}
-	
-	.eseallist .list .orderHelp .n3 {
-		padding-left: 2%;
-		width: 30%;
-	}
-	
-	.eseallist .list .orderHelp .n1 span {
-		display: inline-block;
-	}
-	
-	.eseallist .list .orderHelp .n1 .sealName {
-		width: 136px;
-	}
-	
-	.eseallist .list .orderHelp .n1 .sealyear {
-		width: 60px;
-	}
-	
-	.eseallist .list .orderHelp .n1 .sealTotal {
-		width: 196px;
-		font-size: 14px;
-		font-weight: 600;
-	}
-	
-	.eseallist .list .orderHelp .n1 .totalMoney {
-		font-size: 14px;
-		font-weight: 600;
-	}
-	
-	.eseallist .list .orderHelp a {
-		cursor: pointer;
-	}
-	nav{
-	    text-align: center;
-	}
-	nav ul.pagination li a{
-		cursor: pointer !important;
-	}
+    }
+
+    .wrapper {
+        /*margin-left: calc(100vw - 100%);*/
+    }
+
+    .orderList {
+        height: 20px;
+        margin: 17px 0 20px 20px;
+        padding-left: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        border-left: 6px solid #0073bd;
+    }
+
+    .boxmodel {
+        color: #333;
+        width: 1100px;
+        margin: 0 auto;
+    }
+
+    .mainbody {
+        background: #f6f8fc
+    }
+
+    .accordion {
+        background: #fff;
+        padding: 16px 22px 26px 22px;
+    }
+
+    .accordion>.nav {
+        padding: 0 22px 18px 22px;
+        font-size: 16px;
+    }
+
+    .eseallist .list>ul {
+        cursor: pointer;
+    }
+
+    .accordion .nav li {
+        float: left;
+        min-height: 20px;
+    }
+
+    .accordion .nav .nav0 {
+        min-width: 180px;
+    }
+
+    .accordion .nav .nav1 {
+        min-width: 190px;
+    }
+
+    .accordion .nav .nav2 {
+        min-width: 160px;
+    }
+
+    .accordion .nav .nav3 {
+        min-width: 150px;
+    }
+
+    .accordion .nav .nav4 {
+        min-width: 170px;
+    }
+
+    .accordion .nav .nav5 {
+        min-width: 160px;
+    }
+
+    .accordion .nav .orderTotal {
+        width: 250px;
+        margin: 0;
+        padding: 10px 0;
+        border-top: 1px solid #f6f6f6;
+    }
+
+    .accordion .listResult {
+        text-align: center;
+        color: red;
+        font: 14px;
+        display: none;
+    }
+
+    .eseallist .list {
+        background: #f5f5f5;
+        padding: 0px 22px 1px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .eseallist .list>.nav {
+        padding: 14px 0;
+        text-align: center;
+    }
+
+    .eseal .accordion>.nav {
+        text-align: center;
+    }
+
+    .eseallist .list .showHide {
+        display: none;
+    }
+
+    .eseallist .list .toggle {
+        padding: 20px 40px;
+        background: #fff;
+        margin: 0px 0 14px;
+    }
+
+    .eseallist .list .toggle .nav .n1 {
+        width: 30%;
+        border-right: 1px dashed #dedede;
+    }
+
+    .eseallist .list .toggle .nav .n2 {
+        width: 35%;
+        padding-left: 5%;
+        border-right: 1px dashed #dedede;
+    }
+
+    .eseallist .list .toggle .nav .n3 {
+        width: 35%;
+        padding-left: 5%;
+    }
+
+    .eseallist .list .toggle .nav p {
+        font-size: 12px;
+        height: 17px;
+    }
+
+    .eseallist .list .toggle .nav .f14 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .eseallist .list .toggle .nav p span {
+        color: #666
+    }
+
+    .eseallist .list .toggle .nav p.top span {
+        margin-left: 30px;
+        background: #08c34e;
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 10px;
+        border-radius: 2px;
+    }
+
+    .eseallist .list .orderHelp {
+        padding: 30px 40px 20px;
+        background: #fff;
+        margin: 0px 0 14px;
+    }
+
+    .eseallist .list .orderHelp .n1 {
+        width: 30%;
+    }
+
+    .eseallist .list .orderHelp .n2 {
+        width: 35%;
+        padding-left: 5%;
+    }
+
+    .eseallist .list .orderHelp .n3 {
+        padding-left: 5%;
+        width: 35%;
+    }
+
+    .eseallist .list .orderHelp .n1 span {
+        display: inline-block;
+    }
+
+    .eseallist .list .orderHelp .n1 .sealName {
+        width: 136px;
+    }
+
+    .eseallist .list .orderHelp .n1 .sealyear {
+        width: 60px;
+    }
+
+    .eseallist .list .orderHelp .n1 .sealTotal {
+        width: 196px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .eseallist .list .orderHelp .n1 .totalMoney {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .eseallist .list .orderHelp a {
+        cursor: pointer;
+    }
+
+    nav {
+        text-align: center;
+    }
+
+    nav ul.pagination li a {
+        cursor: pointer !important;
+    }
 </style>
