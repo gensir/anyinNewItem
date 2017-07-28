@@ -19,8 +19,7 @@ var step2 = Backbone.View.extend({
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
-		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
-		isLegal = localStorage.isLegal;		
+		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });	
 		var orderNo = localStorage.orderNo;
 		service.getstep2(orderNo).done(function(data){
 			if(data.code == 0) {
@@ -28,11 +27,12 @@ var step2 = Backbone.View.extend({
 				var attaches=data.data.attaches;
 				length=attaches.length;
 				if(attaches.length==0){
-					if(isLegal == 1) {
+					if(stepResult.isOperaterLegalPersion==0){
+						$(".operate").show();
+						pictureFlag = [0, 0, 0, 0, 0]
+					}else{
 						$(".operate").hide();
 						pictureFlag = [0, 0, 0]
-					} else if(isLegal == 0){
-						pictureFlag = [0, 0, 0, 0, 0]
 					}
 				}else{
 					for(var i=0;i<attaches.length;i++){
@@ -77,7 +77,7 @@ var step2 = Backbone.View.extend({
 					}
 				}
 			} else {
-				console.log(data.msg)
+				bootbox.alert(data.msg);
 			}
 		})
 	},

@@ -4,8 +4,9 @@ import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
-var areaNumber,result,sealstyle,stepResult;
-var that, company, sealShop, zone,scan;
+var areaNumber,result,stepResult,companyName;
+var that, company, sealShop,scan,eseals,isLegal;
+var zone=440300;
 var step3 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -19,7 +20,6 @@ var step3 = Backbone.View.extend({
 		"change #area":'option'
 	},
 	render: function(query) {
-		sealstyle = localStorage.seals;	
 		this.$el.html(tpl);		
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
@@ -29,13 +29,12 @@ var step3 = Backbone.View.extend({
 		pictureFlag = [0, 0 ,0 ,0];
 		flag = true;
 		that = this;
-		areaNumber = 440305;
 		zone = 440300;
-		result = localStorage.isLegal;
-//		//查询公司所在区域编码		
-		this.model.get("tplhtml").areaNumber = areaNumber;
+		result = isLegal;
+//		//查询公司所在区域编码	
 		this.getstep3("OFFLINE07252055727334");
-		this.sealList();		
+		this.sealList();	
+		
 //		that.$el.html(tpl(that.model.get("tplhtml")))
 	},
 	changeImg: function(event) {
@@ -283,17 +282,16 @@ var step3 = Backbone.View.extend({
 			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
 			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 			imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
-			imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
-			
+			imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });	
 		});
 		//如果是第一次进来
 		if(stepResult.scanAttaches.length==0){
-			(result==0)?$(".legalScan").show():$(".legalScan").hide();
-			for(var i=0;i<sealstyle.length;i++){
-				if(sealstyle[i]==4){
+			(isLegal==0)?$(".legalScan").show():$(".legalScan").hide();
+			for(var i=0;i<eseals.length;i++){
+				if(eseals[i].esealCategory==4){
 					$(".bankScan").show();
 				};
-				if(sealstyle[i]==8){
+				if(eseals[i].esealCategory==8){
 					$(".tradeScan").show();
 				};
 			};
@@ -342,9 +340,19 @@ var step3 = Backbone.View.extend({
 	getstep3:function(data){
 		service.getstep3(data).done(function(data){
 			if(data.code==0){
-				console.log(data);
 				stepResult=data.data;
-				scan=data.data.scanAttaches
+				scan=data.data.scanAttaches;
+				eseals=data.data.eseals;
+				islegal=data.data.isOperaterLegalPersion;
+				var company={
+				    "companyName":data.data.enterpriseName
+				}
+				service.getCompanyArea(company).done(function(data){
+					if(data.code==0){
+						areaNumber=data.data.areaNumber;
+						that.model.get("tplhtml").areaNumber = areaNumber;
+					}
+				})
 			}
 		})
 	},
@@ -367,13 +375,12 @@ var step3 = Backbone.View.extend({
 		};
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
-//		window.open('admin.html#step4', '_self');
+				window.open('admin.html#step4', '_self');
 			} else {
 				console.log(data.msg)
 			}
 		})
-
-	},
+	}
 });
 
 module.exports = step3;
