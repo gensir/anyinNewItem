@@ -14,7 +14,6 @@ var step1 = Backbone.View.extend({
         'keyup #yzmcode': 'checkCaptcha',
         'click #up_yzmcode,.codeimg': 'captcha',
         'click #codetype': 'checkname',
-        'click #test22': 'checkUserIsExist',
         'change #Ename': 'checknameerror',
         //'blur #Ename': 'checkname'
     },
@@ -53,8 +52,8 @@ var step1 = Backbone.View.extend({
     //         $('#idcode-error').html('').css({ "color": "#f00" });
     //     }
     // },
-    
-    // 获取图片验证码；
+
+    // 更换图片验证码；
     captcha() {
         $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
     },
@@ -69,7 +68,7 @@ var step1 = Backbone.View.extend({
                 method: "post",
                 loadingClass: "loading-circle",
                 preDispatch: function (query) {
-                    return JSON.stringify({ pageNum: 1, pageSize: 8, params: { name: query } })
+                    return JSON.stringify({ pageNum: 1, pageSize: 10, params: { name: query } })
                 },
                 preProcess: function (data) {
                     //showLoadingMask(false);
@@ -79,33 +78,36 @@ var step1 = Backbone.View.extend({
                     }
                     // We good!
                     return data.data;
-                },
-            },
-        });
+                }
+            }
+        })
     },
+    //企业名称查询编码
     checkname() {
         var name = $("#Ename").val()
         var data = { "params": { "name": name } }
         if (name.length > 0) {
             service.checkname(data).done(res => {
-                if (res.code == 0) {
+                if (res.code == 0 & res.data !== null) {
                     enterpriseCode = res.data.organizationCode
                     firmId = res.data.id
-                    if (!enterpriseCode) {
-                        $("#Ename-error").html("该企业不可注册");
+                    if (enterpriseCode == null) {
+                        $("#Ename-error").html("该企业不可注册1");
                     } else {
                         this.checkUserIsExist(enterpriseCode);
                     }
+                } else {
+                    $("#Ename-error").html("该企业不可注册2");
                 }
-            });
+                console.log("查询企业编码完成")
+            })
         }
     },
-    //验证公司能否注册
+    //校验公司能否注册
     checkUserIsExist(data) {
         var data = {
-            "enterpriseCode": data,
+            "enterpriseCode": data
         }
-        console.log(data);
         service.checkUserIsExist(data).done(res => {
             if (res.code == 0) {
                 $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
@@ -116,16 +118,17 @@ var step1 = Backbone.View.extend({
             } else if (res.code == 4) {
                 $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请");
             }
+            console.log("企业能否注册校验完成")
         })
     },
-    checknameerror: function (data) {
+    checknameerror(data) {
         $('#Ename-error').html('');
     },
-    //检查图片验证码
-    checkCaptcha: function (data) {
+    //校验图片验证码
+    checkCaptcha(data) {
         if ($('#yzmcode').val().length == 4) {
             var data = {
-                "captcha": $('#yzmcode').val(),
+                "captcha": $('#yzmcode').val()
             }
             service.checkCaptcha(data).done(res => {
                 if (res.code == 0) {
@@ -139,7 +142,7 @@ var step1 = Backbone.View.extend({
             $('#yzmcode-error').html('').css({ "color": "#f00" });
         }
     },
-    //点击注册
+    //点击注册进入第二步
     reguser(data) {
         localStorage.firmId = firmId;
         this.model.set({ "clickEle": $(event.target).data('id') });
@@ -147,12 +150,16 @@ var step1 = Backbone.View.extend({
             var data = {
                 "firmId": firmId,
             }
-            service.toRegister(data).done(res => {
-                if (res.code == 0) {
-                    localStorage.firmId = firmId;
-                    window.open('#step2', '_self')
-                }
-            })
+            if (firmId == null) {
+                this.checkname();
+            } else {
+                service.toRegister(data).done(res => {
+                    if (res.code == 0) {
+                        localStorage.firmId = firmId;
+                        window.open('#step2', '_self')
+                    }
+                })
+            }
         }
     },
 

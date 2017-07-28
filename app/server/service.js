@@ -211,10 +211,6 @@ export default {
     getCompanyArea(data){
     	return this.ajaxCall({ url: domain + basemp + "get_company_area_number/",data:data});
     },
-    //提交注册测试
-    toRegister2(data){
-    	return this.ajaxCall({ url: domain + test +  "toRegister", data: data });
-    },
     //名称查询企业编码
     checkname(data){
     	return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data }, "post");
