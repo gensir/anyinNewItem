@@ -206,5 +206,9 @@ export default {
     //前端查第三方订单状态手动更新订单接口 
     esealOrderResult(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order",data:data},"put");
-    }             
+    },
+    //查询公司所在区域的行政编码
+    getCompanyArea(data){
+    	return this.ajaxCall({ url: domain + basemp + "get_company_area_number/",data:data});
+    }
 }
