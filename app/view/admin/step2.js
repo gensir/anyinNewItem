@@ -20,53 +20,56 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
-		isLegal = localStorage.isLegal;
-		if(isLegal == 1) {
-			$(".operate").hide();
-			pictureFlag = [0, 0, 0]
-		} else {
-			pictureFlag = [0, 0, 0, 0, 0]
-		}
+		isLegal = localStorage.isLegal;		
 		var orderNo = localStorage.orderNo;
 		service.getstep2(orderNo).done(function(data){
 			if(data.code == 0) {
 				stepResult=data.data;
 				var attaches=data.data.attaches;
 				length=attaches.length;
-				for(var i=0;i<attaches.length;i++){
-					if(attaches[i].certificateType=="0002"){
-						$("#file0").css({"height":"24px"});
-						$(".reset0").show();
-						pictureFlag[0]=attaches[i].filePath;
-						$("#ajaxForm0 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo0', { 'width': 500, 'src': attaches[i].filePath });
-					}else if(attaches[i].certificateType=="0032"){
-						$("#file1").css({"height":"24px"});
-						$(".reset1").show();
-						pictureFlag[1]=attaches[i].filePath;
-						$("#ajaxForm1 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo1', { 'width': 500, 'src': data.data.attaches[1].filePath });
-					}else if(attaches[i].certificateType=="0044"){
-						$("#file2").css({"height":"24px"});
-						$(".reset2").show();
-						pictureFlag[2]=attaches[i].filePath;
-						$("#ajaxForm2 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo2', { 'width': 500, 'src': attaches[i].filePath });
-					}else if(attaches[i].certificateType=="0033"){
-						$("#file3").css({"height":"24px"});
-						$(".reset3").show();
+				if(attaches.length==0){
+					if(isLegal == 1) {
 						$(".operate").hide();
-						pictureFlag[3]=attaches[i].filePath;
-						$("#ajaxForm4 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo4', { 'width': 500, 'src': attaches[i].filePath });
-					}else if(attaches[i].certificateType=="0045"){
-						$("#file4").css({"height":"24px"});
-						$(".reset4").show();
-						pictureFlag[4]=attaches[i].filePath;
-						$("#ajaxForm5 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-						imgModalBig('#photo5', { 'width': 500, 'src': attaches[i].filePath });
+						pictureFlag = [0, 0, 0]
+					} else if(isLegal == 0){
+						pictureFlag = [0, 0, 0, 0, 0]
 					}
-				}				
+				}else{
+					for(var i=0;i<attaches.length;i++){
+						if(attaches[i].certificateType=="0002"){
+							$("#file0").css({"height":"24px"});
+							$(".reset0").show();
+							pictureFlag[0]=attaches[i].filePath;
+							$("#ajaxForm0 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							imgModalBig('#photo0', { 'width': 500, 'src': attaches[i].filePath });
+						}else if(attaches[i].certificateType=="0032"){
+							$("#file1").css({"height":"24px"});
+							$(".reset1").show();
+							pictureFlag[1]=attaches[i].filePath;
+							$("#ajaxForm1 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							imgModalBig('#photo1', { 'width': 500, 'src': data.data.attaches[1].filePath });
+						}else if(attaches[i].certificateType=="0044"){
+							$("#file2").css({"height":"24px"});
+							$(".reset2").show();
+							pictureFlag[2]=attaches[i].filePath;
+							$("#ajaxForm2 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							imgModalBig('#photo2', { 'width': 500, 'src': attaches[i].filePath });
+						}else if(attaches[i].certificateType=="0033"){
+							$("#file3").css({"height":"24px"});
+							$(".reset3").show();
+							$(".operate").hide();
+							pictureFlag[3]=attaches[i].filePath;
+							$("#ajaxForm4 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							imgModalBig('#photo4', { 'width': 500, 'src': attaches[i].filePath });
+						}else if(attaches[i].certificateType=="0045"){
+							$("#file4").css({"height":"24px"});
+							$(".reset4").show();
+							pictureFlag[4]=attaches[i].filePath;
+							$("#ajaxForm5 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							imgModalBig('#photo5', { 'width': 500, 'src': attaches[i].filePath });
+						}
+					}
+				}
 			} else {
 				console.log(data.msg)
 			}
