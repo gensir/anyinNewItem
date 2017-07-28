@@ -82,29 +82,30 @@
             </div>
             {{/each}}
             <div class="listResult">没有订单信息</div>
+            <!--分页-->
+            <nav aria-label="Page navigation">
+                <ul class="pagination" id="pageLimit">
+                    <li class="PreviousPage">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <!-- {{each count as value i}}
+                    <li class="index"><a>{{value}}</a></li>
+                    {{/each}} -->
+                    <li class="appendPage NextPage">
+                        <a aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <!-- <li class="gopage">
+                        <label>前往<input type="text">页</label>
+                    </li> -->
+                </ul>
+            </nav>
         </div>
     </div>
-    <!--分页-->
-    <nav aria-label="Page navigation">
-        <ul class="pagination" id="pageLimit">
-            <li class="PreviousPage">
-                <a aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <!-- {{each count as value i}}
-            <li class="index"><a>{{value}}</a></li>
-             {{/each}} -->
-            <li class="appendPage NextPage">
-                <a aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            <!-- <li class="gopage">
-                <label>前往<input type="text">页</label>
-            </li> -->
-        </ul>
-    </nav>
+
 </div>
 
 <style>
@@ -146,12 +147,12 @@
     }
 
     .mainbody {
-        background: #f6f8fc
+        background: #fff;
     }
 
     .accordion {
         background: #fff;
-        padding: 16px 22px 26px 22px;
+        padding: 20px;
     }
 
     .accordion>.nav {
@@ -207,7 +208,7 @@
     }
 
     .eseallist .list {
-        background: #f5f5f5;
+        background: #f6f6f6;
         padding: 0px 22px 1px;
         border-radius: 5px;
         margin-bottom: 10px;
@@ -319,11 +320,14 @@
         cursor: pointer;
     }
 
-    nav {
-        text-align: center;
+    nav
+    {
+        margin-right: 20px;
+        text-align: right;
     }
 
     nav ul.pagination li a {
-        cursor: pointer !important;
-    }
+        cursor: pointer;
+    }    
+
 </style>

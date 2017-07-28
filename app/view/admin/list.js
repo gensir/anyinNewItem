@@ -385,7 +385,7 @@ var list = Backbone.View.extend({
     },
     listPage(querydata, pageNum, pageSize) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 2;
+        pageSize = pageSize || 5;
         querydata = querydata || { "firmId": "nihao" }
         service.getEsealList(pageNum, pageSize, querydata).done(res => {
             var tempObj;
