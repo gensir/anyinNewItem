@@ -77,7 +77,7 @@ var step1 = Backbone.View.extend({
 							}
 						}
 					})
-				}lese{
+				}else{
 					that.goonstep();
 				}
 			}else{
