@@ -1,6 +1,7 @@
 import tpl from './tpl/step1.html';
 var firmId;
 var enterpriseCode;
+var yzmcode;
 var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
@@ -13,7 +14,7 @@ var step1 = Backbone.View.extend({
         //'keyup #idcode': 'checkidCode',
         'keyup #yzmcode': 'checkCaptcha',
         'click #up_yzmcode,.codeimg': 'captcha',
-        'click #codetype': 'checkname',
+        //'click #codetype': 'checkname',
         'change #Ename': 'checknameerror',
         //'blur #Ename': 'checkname'
     },
@@ -111,6 +112,9 @@ var step1 = Backbone.View.extend({
         service.checkUserIsExist(data).done(res => {
             if (res.code == 0) {
                 $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
+                if ($('#yzmcode').val().length == 4) {
+                    this.toreguser();
+                }
             } else if (res.code == 2) {
                 $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>");
             } else if (res.code == 3) {
@@ -121,6 +125,7 @@ var step1 = Backbone.View.extend({
             console.log("企业能否注册校验完成")
         })
     },
+
     checknameerror(data) {
         $('#Ename-error').html('');
     },
@@ -134,7 +139,7 @@ var step1 = Backbone.View.extend({
                 if (res.code == 0) {
                     $("#yzmcode-error").html("验证码正确").css({ "color": "#08c34e" });
                 } else {
-                    $("#yzmcode-error").html(res.msg);
+                    $("#yzmcode-error").html(res.msg).css({ "color": "#f00" });
                     this.captcha();
                 }
             })
@@ -142,9 +147,21 @@ var step1 = Backbone.View.extend({
             $('#yzmcode-error').html('').css({ "color": "#f00" });
         }
     },
+
+    toreguser(data) {
+        localStorage.firmId = firmId;
+        var data = {
+            "firmId": firmId,
+        }
+        service.toRegister(data).done(res => {
+            if (res.code == 0) {
+                localStorage.firmId = firmId;
+                window.open('#step2', '_self')
+            }
+        })
+    },
     //点击注册进入第二步
     reguser(data) {
-        localStorage.firmId = firmId;
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
             var data = {
@@ -153,12 +170,7 @@ var step1 = Backbone.View.extend({
             if (firmId == null) {
                 this.checkname();
             } else {
-                service.toRegister(data).done(res => {
-                    if (res.code == 0) {
-                        localStorage.firmId = firmId;
-                        window.open('#step2', '_self')
-                    }
-                })
+                this.toreguser();
             }
         }
     },
