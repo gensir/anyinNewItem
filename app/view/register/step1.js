@@ -15,8 +15,8 @@ var step1 = Backbone.View.extend({
         'click #up_yzmcode,.codeimg': 'captcha',
         'click #codetype': 'checkname',
         'click #test22': 'checkUserIsExist',
-        //'change #Ename': 'checknameerror',
-        'blur #Ename': 'checkname'
+        'change #Ename': 'checknameerror',
+        //'blur #Ename': 'checkname'
     },
     //同意协议
     rules: function () {
