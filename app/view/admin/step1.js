@@ -22,6 +22,7 @@ var step1 = Backbone.View.extend({
 	goStep2: function(event) {
 		service.errorOrder(enterpriseCode).done(function(data){
 			if(data.code==0){
+				localStorage.orderNo=data.data.list[0].orderNo;
 				var obj={
 		                "id": 100000241,
 		                "orderNo": "OFFLINE-2017071793798629",
@@ -76,6 +77,8 @@ var step1 = Backbone.View.extend({
 							}
 						}
 					})
+				}lese{
+					that.goonstep();
 				}
 			}else{
 				bootbox.alert(data.msg);

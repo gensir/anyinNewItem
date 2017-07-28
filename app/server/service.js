@@ -210,7 +210,7 @@ export default {
     },
     //查询公司所在区域的行政编码
     getCompanyArea(data){
-    	return this.ajaxCall({ url: domain + basemp + "get_company_area_number/",data:data});
+    	return this.ajaxCall({ url: domain + basemp + "get_company_area_number/",data:data},"post");
     },
     //名称查询企业编码
     checkname(data){

@@ -32,7 +32,8 @@ var step3 = Backbone.View.extend({
 		zone = 440300;
 		result = isLegal;
 //		//查询公司所在区域编码	
-		this.getstep3("OFFLINE07252055727334");
+		var orderNo=localStorage.orderNo;
+		this.getstep3(orderNo);
 		this.sealList();	
 		
 //		that.$el.html(tpl(that.model.get("tplhtml")))
