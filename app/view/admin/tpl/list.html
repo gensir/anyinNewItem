@@ -129,9 +129,14 @@
     body {
         height: 100%;
     }
-nav
+    
+    nav
     {
-        text-align: center;
+        margin-right: 20px;
+        text-align: right;
+    }
+
+    nav ul.pagination li a {
         cursor: pointer;
     }
 
@@ -194,7 +199,7 @@ nav
 
     .accordion {
         background: #fff;
-        padding: 16px 22px 26px 22px;
+        padding: 20px;
     }
 
     .accordion>.nav {
@@ -204,6 +209,9 @@ nav
 
     .accordion .nav li {
         float: left;
+    }
+    .eseallist .nav li {
+        min-height: 48px;
     }
 
     .accordion .nav .nav1 {
@@ -235,7 +243,7 @@ nav
     }
 
     .eseallist .list {
-        background: #f5f5f5;
+        background: #f6f6f6;
         padding: 0px 22px 1px;
         border-radius: 5px;
         margin-bottom: 10px;
@@ -248,7 +256,7 @@ nav
 
     .eseallist .list .toggle {
         display: none;
-        padding: 20px;
+        padding: 26px 30px 16px 30px;
         background: #fff;
         margin: 0px 0 14px;
     }
@@ -286,17 +294,12 @@ nav
         border-radius: 2px;
     }
 
-    .listview .accordion .nav li {
-        cursor: pointer;
-    }
-
-    .listview .accordion .nav li {
-        cursor: pointer;
-    }
-
     .listview .accordion .nav li.nav5 span {
         display: inline-block;
         line-height: 48px;
+        padding-left: 2px;
+        padding-right: 2px;
+        cursor: pointer;
     }
 
     .license .accordion .nav li {
