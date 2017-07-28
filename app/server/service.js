@@ -36,6 +36,7 @@ var autoAjaxCall = function (setting, type) {
         setting.data = JSON.stringify(setting.data);
     }
     sendData = $.extend({}, sendData, setting);
+    console.log(JSON.stringify(sendData))
     return $.ajax(sendData);
 };
 
@@ -108,8 +109,8 @@ export default {
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
-    getRandomNum(){
-        return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false });
+    getRandomNum(data){
+        return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false,data:data });
     },
     //获取订单中心列表
     queryOrderList(pageNum,pageSize,enterpriseCode) {

@@ -30,6 +30,7 @@ var ukeys = {
         return true;
     },
     randomNum(esealCode) {//获取随机数
+        console.log(JSON.stringify(esealCode))
         return service.getRandomNum({esealCode:esealCode}).done(function (data) {
         }).responseJSON.data
     },

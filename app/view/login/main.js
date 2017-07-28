@@ -49,6 +49,7 @@ var main = Backbone.View.extend({
                 "randomNum": ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
             }
             //console.log(JSON.stringify(data))
+            alert(123)
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
