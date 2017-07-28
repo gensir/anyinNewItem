@@ -3,7 +3,8 @@
  */
 import tpl from './tpl/step2.html';
 var service = require('../../server/service').default;
-var IDNo,enterpriseCode;
+var IDNo,enterpriseCode,result,that;
+var flag=0;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
@@ -17,11 +18,10 @@ var step2 = Backbone.View.extend({
 		'keyup .countPhone':'inputSapceTrim',
 	},
 	render: function(query) {
-		IDNo="111111111111111111"
-		var result = reqres.request("IDCode");
-//		IDNo = result.id;
-		enterpriseCode = result.uniformSocialCreditCode;
-		this.$el.html(tpl({data:result}));
+		var firmId = localStorage.firmId;
+//		enterpriseCode = result.uniformSocialCreditCode;
+		this.getcompany(firmId);
+		that=this;
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	phoneCode: function() {
@@ -59,7 +59,13 @@ var step2 = Backbone.View.extend({
 		}
 	},
 	goStep3: function(event) {
-		console.log(IDNo)
+		if(flag==0){
+			$(".codeErrTip").html("请校验您的手机验证码").css({ "color": "red" });
+			return;
+		}else if(flag==2){
+			$(".codeErrTip").html("您的手机验证码错误").css({ "color": "red" });
+			return;
+		};
 		$(".checkPasswdErrTip").hide();
 		this.model.set({ "clickEle": $(event.target).data('id') })
 		this.model.isValid()
@@ -91,12 +97,15 @@ var step2 = Backbone.View.extend({
 			var code=$(".countCode").val();
 			service.checkSmsCode(code).done(function(data) {
 				if(data.code == 0) {
+					flag=1;
 					$(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
 				} else {
+					flag=2;
 					$(".codeErrTip").html(data.msg).css({ "color": "red" });
 				}
 			})
 		} else {
+			flag=0;
 			$('.codeErrTip').html('');
 		}
 	},
@@ -135,6 +144,18 @@ var step2 = Backbone.View.extend({
 			return false;
 		}
 		return true;
+	},
+	getcompany:function(firmId){
+		var data={
+			"firmId":firmId
+		}
+		service.toRegister(data).done(function(data){
+			if(data.code==0){
+				result=data.data;
+				IDNo=result.idcardNumber;
+				that.$el.html(tpl({data:result}));
+			}
+		})
 	}
 });
 module.exports = step2;
