@@ -103,13 +103,15 @@ export default {
     checkSmsCode(data) {
         return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode?smsCode="+data });
     },
+    //登录
     userlogin(data) {
-        return this.ajaxCall({ url: domain  + "sys/login", data: data }, "post");
+        return this.ajaxCall({ url: domain  +basemp+ "sys/login", data: data }, "post");
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
     getRandomNum(data){
+        console.log(JSON.stringify(data),999)
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false,data:data });
     },
     //获取订单中心列表

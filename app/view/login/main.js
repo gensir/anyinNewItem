@@ -32,9 +32,12 @@ var main = Backbone.View.extend({
         window.open('register.html#step1', '_self')
     },
     ukeyLogin(event) {
-        console.log(JSON.stringify(ukeys.ConnectKey()),"abc")
-        console.log(JSON.stringify(ukeys.SetPIN("123456")),"abcd")
-        console.log(JSON.stringify(ukeys.WriteSignDataToKey(ukeys.WriteSignDataToKeyText)),"abcdefd")
+        //console.log(JSON.stringify(ukeys.ConnectKey()),"abc")
+        //console.log(JSON.stringify(ukeys.SetPIN("123456789")),"abcd")
+        //console.log(JSON.stringify(ukeys.WriteSignDataToKey(ukeys.WriteSignDataToKeyText)),"abcdefd")
+        console.log(JSON.stringify(ukeys.esealCode($("#pinwd").val(),selectedUkey)),888)
+        console.log(JSON.stringify(ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))),888)
+        
         this.model.set({ "clickEle": $(event.target).data('id') })
         var isValid = this.model.isValid();
         if (isValid) {
@@ -51,6 +54,7 @@ var main = Backbone.View.extend({
                 "signature": ukeys.dSignature(selectedUkey,ukeys.esealCode($("#pinwd").val(),selectedUkey)),
                 "randomNum": ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
             }
+
             //console.log(JSON.stringify(data))
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
@@ -73,7 +77,7 @@ var main = Backbone.View.extend({
             return;
         }
         var data = {
-            "mobile": $("#userName").val()||"13527761888",
+            "mobile": $("#userName").val()||"13527761888,13926993742",
             "password": $("#passwd").val()||"123456",
             "captcha": "jskx",
             "loginType": 1
