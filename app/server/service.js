@@ -190,5 +190,21 @@ export default {
     //获取订单状态
     status(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/status?orderNo="+data});
-    }
+    },
+    //提交Step4
+    submitStep4(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/step4",data:data},"post");
+    },    
+    //获取微信支付的二维码
+    qrCode(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/qr_code?codeUrl="+data, data: data});
+    },    
+    //创建支付宝或银联订单的Json数据
+    payment(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/payment",data:data},"post");
+    },        
+    //前端查第三方订单状态手动更新订单接口 
+    esealOrderResult(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order",data:data},"put");
+    }             
 }
