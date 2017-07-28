@@ -29,8 +29,8 @@ var ukeys = {
         }
         return true;
     },
-    randomNum() {//获取随机数
-        return service.getRandomNum().done(function (data) {
+    randomNum(esealCode) {//获取随机数
+        return service.getRandomNum({esealCode:esealCode}).done(function (data) {
         }).responseJSON.data
     },
     ukeyName() {//获取所有ukey名（数组）
@@ -50,9 +50,8 @@ var ukeys = {
             return this.data.ukey.SetCertPin(val);//Boolean
         }
     },
-    dSignature(selectukeyInd) {//客服端数字签名；
-        var randomNum = this.randomNum();//"111111";// 
-        var randomNum="111111"
+    dSignature(selectukeyInd,esealCode) {//客服端数字签名；
+        var randomNum = this.randomNum(esealCode);//"111111";// 
         if (randomNum && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.Signature(randomNum, randomNum.length);
@@ -65,10 +64,12 @@ var ukeys = {
         }
     },
     esealCode(val,selectukeyInd) {//印章编码
+        var checkResult = null;
         if(this.PIN(val,selectukeyInd)){
             this.data.ukey.SetCertIndex(selectukeyInd);
-            return this.data.ukey.GetCertInfo(3)
+            checkResult = this.data.ukey.SetCertPin(val);
         }
+        return this.data.ukey.GetCertInfo(3)
     }
 }
 ukeys.ukeyInit();

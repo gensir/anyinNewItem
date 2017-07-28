@@ -1,12 +1,11 @@
 import dialog from '../pub/tpl/dialog.html'
 var dialogs = $($(dialog()).prop("outerHTML"));
-
+import ukeys from '../../publicFun/ukeys';
 var header = {
     init: function () {
         this.nav();
         $(".rightbox").on("click","a.locked ",function(){
-            alert(123)
-            //header.lock()
+            header.lock()
         })
     },
     arrPath: location.pathname.split(/\//),
@@ -27,12 +26,12 @@ var header = {
     },
     lock: function () {
         var _outthis = this;
-        var numInd = this.model.get("numInd");
-        var dialogsText = dialogs.find(".unfreezeEseal")
+        var numInd = 0;
+        var dialogsText = dialogs.find(".unlock")
         bootbox.dialog({
             backdrop: true,
             //closeButton: false,
-            className: "common unfreezeEseal",
+            className: "common unlock",
             title: dialogsText.find(".title")[0].outerHTML,
             message: dialogsText.find(".msg1")[0].outerHTML,
             buttons: {
@@ -72,16 +71,20 @@ var header = {
                             }, 1000)
                         } else if (numInd == 2) {
                             // 验证KEY密码
-                            if (ukeys.PIN($("#unfreezeCode").val(), 0)) {
+                            if (ukeys.PIN($("#unlockCode").val(),0)) {
+                                console.log(ukeys.esealCode($("#unlockCode").val()));
+                                console.log(ukeys.randomNum(ukeys.esealCode($("#unlockCode").val(),0)))
+                                 console.log(ukeys.dSignature(0,ukeys.esealCode($("#unlockCode").val(),0)))
+                                 localStorage.dSignature=ukeys.dSignature(0,ukeys.esealCode($("#unlockCode").val(),0))
                                 var success = dialogsText.find(".success")[0].outerHTML
                                 $(_this).find(".bootbox-body").html(success);
                                 $(_this).find(".btn1,.btn2").hide();
-                                setTimeout(function () {
-                                    _this.modal('hide');
-                                }, 1200)
+                                // setTimeout(function () {
+                                //     _this.modal('hide');
+                                // }, 1200)
                             } else {
                                 numInd = 1;
-                                $(_this).find("#unfreezeCode-error").html("PIN码不正确，请重试")
+                                $(_this).find("#unlock-error").html("PIN码不正确，请重试")
                                 $(_this).find(".btn2").show().html("重试");
                             }
                         }

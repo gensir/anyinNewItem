@@ -39,17 +39,16 @@ var main = Backbone.View.extend({
         }
         var selectedUkey=$("#seleBook option:selected").index() - 1
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
-        //console.log(JSON.stringify(ukeys.dSignature(selectedUkey)))
         if (checkResult) {
             var data = {
                 "loginType": 2,
                 "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
                 "codeError": 0,
                 "entryptCert": ukeys.dCertificate(selectedUkey),
-                "signature": ukeys.dSignature(selectedUkey)
+                "signature": ukeys.dSignature(selectedUkey,ukeys.esealCode($("#pinwd").val(),selectedUkey)),
+                "randomNum": ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
             }
-            //"randomNum": ukeys.randomNum(),
-            console.log(JSON.stringify(data),data.signature)
+            //console.log(JSON.stringify(data))
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
