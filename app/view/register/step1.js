@@ -92,14 +92,14 @@ var step1 = Backbone.View.extend({
                     enterpriseCode = res.data.organizationCode
                     firmId = res.data.id
                     if (enterpriseCode == null) {
-                        $("#Ename-error").html("该企业不可注册1");
+                        $("#Ename-error").html("该企业不可注册1").css({ "color": "#f00" });
                     } else {
                         this.checkUserIsExist(enterpriseCode);
                     }
                 } else {
-                    $("#Ename-error").html("该企业不可注册2");
+                    $("#Ename-error").html("该企业不可注册2").css({ "color": "#f00" });
                 }
-                console.log("查询企业编码完成")
+                console.log("查询企业编码完成" + firmId)
             })
         }
     },
@@ -115,11 +115,11 @@ var step1 = Backbone.View.extend({
                     this.toreguser();
                 }
             } else if (res.code == 2) {
-                $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>");
+                $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>").css({ "color": "#f00" });
             } else if (res.code == 3) {
-                $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>");
+                $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>").css({ "color": "#f00" });
             } else if (res.code == 4) {
-                $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请");
+                $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请").css({ "color": "#f00" });
             }
             console.log("企业能否注册校验完成")
         })
