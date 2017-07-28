@@ -1,7 +1,6 @@
 import tpl from './tpl/step1.html';
 var firmId;
 var enterpriseCode;
-var yzmcode;
 var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
@@ -14,7 +13,7 @@ var step1 = Backbone.View.extend({
         //'keyup #idcode': 'checkidCode',
         'keyup #yzmcode': 'checkCaptcha',
         'click #up_yzmcode,.codeimg': 'captcha',
-        //'click #codetype': 'checkname',
+        'click #codetype': 'checkname',
         'change #Ename': 'checknameerror',
         //'blur #Ename': 'checkname'
     },
@@ -125,7 +124,7 @@ var step1 = Backbone.View.extend({
             console.log("企业能否注册校验完成")
         })
     },
-
+    
     checknameerror(data) {
         $('#Ename-error').html('');
     },
@@ -147,9 +146,8 @@ var step1 = Backbone.View.extend({
             $('#yzmcode-error').html('').css({ "color": "#f00" });
         }
     },
-
+    //提交注册验证
     toreguser(data) {
-        localStorage.firmId = firmId;
         var data = {
             "firmId": firmId,
         }
@@ -164,9 +162,6 @@ var step1 = Backbone.View.extend({
     reguser(data) {
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
-            var data = {
-                "firmId": firmId,
-            }
             if (firmId == null) {
                 this.checkname();
             } else {
