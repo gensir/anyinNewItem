@@ -1,5 +1,6 @@
 var proxy = {
     anyinUrl:'http://183.62.140.54',
+    test:'http://192.168.4.95:8080',
     // anyinUrl:'http://192.168.1.159:9500'
 }
 var config = {
@@ -21,8 +22,13 @@ var config = {
 				target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
 				changeOrigin: true
-			},			
-		}
+            },
+			'/common/':{
+				target: proxy.test, //pathRewrite: {'^/column' : '/column'},
+                secure: false,
+				changeOrigin: true
+            },
+        }
 	},
 	pro: {
 		port: 10088

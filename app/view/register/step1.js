@@ -1,4 +1,6 @@
 import tpl from './tpl/step1.html';
+var firmId;
+var enterpriseCode;
 var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
@@ -11,7 +13,10 @@ var step1 = Backbone.View.extend({
         //'keyup #idcode': 'checkidCode',
         'keyup #yzmcode': 'checkCaptcha',
         'click #up_yzmcode,.codeimg': 'captcha',
-        'click #codetype': 'checkUserIsExist',
+        'click #codetype': 'checkname',
+        'click #test22': 'checkUserIsExist',
+        //'change #Ename': 'checknameerror',
+        'blur #Ename': 'checkname'
     },
     //同意协议
     rules: function () {
@@ -48,6 +53,7 @@ var step1 = Backbone.View.extend({
     //         $('#idcode-error').html('').css({ "color": "#f00" });
     //     }
     // },
+    
     // 获取图片验证码；
     captcha() {
         $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
@@ -73,14 +79,33 @@ var step1 = Backbone.View.extend({
                     }
                     // We good!
                     return data.data;
-                }
-            }
+                },
+            },
         });
-    }, 
-    checkUserIsExist() {
-        var data = {
-            "enterpriseCode": "enterpriseCode33",
+    },
+    checkname() {
+        var name = $("#Ename").val()
+        var data = { "params": { "name": name } }
+        if (name.length > 0) {
+            service.checkname(data).done(res => {
+                if (res.code == 0) {
+                    enterpriseCode = res.data.organizationCode
+                    firmId = res.data.id
+                    if (!enterpriseCode) {
+                        $("#Ename-error").html("该企业不可注册");
+                    } else {
+                        this.checkUserIsExist(enterpriseCode);
+                    }
+                }
+            });
         }
+    },
+    //验证公司能否注册
+    checkUserIsExist(data) {
+        var data = {
+            "enterpriseCode": data,
+        }
+        console.log(data);
         service.checkUserIsExist(data).done(res => {
             if (res.code == 0) {
                 $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
@@ -90,16 +115,11 @@ var step1 = Backbone.View.extend({
                 $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>");
             } else if (res.code == 4) {
                 $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请");
-            };
+            }
         })
     },
-    checkCode: function (data) {
-        if ($('#yzmcode').val().length < 4) {
-            var data = {
-                "yzmcode": $('#yzmcode').val(),
-            }
-            $('#yzmcode-error').html('');
-        }
+    checknameerror: function (data) {
+        $('#Ename-error').html('');
     },
     //检查图片验证码
     checkCaptcha: function (data) {
@@ -120,34 +140,18 @@ var step1 = Backbone.View.extend({
         }
     },
     //点击注册
-    reguser: function (event) {
-        var enterpriseCode = $("#Ename").val();
-        var captcha = $("#yzmcode").val();
-        var IDCode = {
-	        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
-	        "businessLicenseNumber": "",
-	        "legalName": "张三疯",
-	        "name": "深圳菱正环保设备有限公司",
-	        "uniformSocialCreditCode": "914403005538853123",
-	    }
-        window.reqres.setHandler("enterpriseCode", function () {
-            return enterpriseCode;
-        });
-
+    reguser(data) {
+        localStorage.firmId = firmId;
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
             var data = {
-                "enterpriseCode": enterpriseCode,
-                //"captcha": captcha,
+                "firmId": firmId,
             }
             service.toRegister(data).done(res => {
                 if (res.code == 0) {
+                    localStorage.firmId = firmId;
                     window.open('#step2', '_self')
-                // } else if (res.code == 1) {
-                //     $("#yzmcode-error").html(res.msg).css({ "color": "#f00" });
-                //     $("#yzmcode").focus();
-                //     this.captcha();
-                };
+                }
             })
         }
     },

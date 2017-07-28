@@ -2,6 +2,8 @@ var registerModel = Backbone.Model.extend({
     defaults: {
         'verify': require('../../../publicFun/validate'),
         pinwdError: '',
+        firmId: "",
+        enterpriseCode: "",
     },
     validate: function (attrs) {
         //验证规则
