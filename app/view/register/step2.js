@@ -16,10 +16,10 @@ var step2 = Backbone.View.extend({
 		'keyup .countCode': 'checkCode',
 		'keyup .passwd': 'passwd',
 		'keyup .countPhone':'inputSapceTrim',
+		'onblur .checkPasswd':'onBlur'
 	},
 	render: function(query) {
 		var firmId = localStorage.firmId;
-//		enterpriseCode = result.uniformSocialCreditCode;
 		this.getcompany(firmId);
 		that=this;
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -71,26 +71,37 @@ var step2 = Backbone.View.extend({
 		this.model.isValid()
 		if($(".passwd").val().length==0){
 			$(".pswErrTip").html("请输入您的密码").css("color","red").show();
+			return;
+		}
+		if($(".passwd").val().length<8){
+			$(".pswErrTip").html("密码为8-20位数字、字母、特殊符号").css("color","red").show();
+			return;
 		}
 		if($(".passwd").val()!=$(".checkPasswd").val()){
 			console.log($(".passwd").val(),$(".checkPasswd").val())
 			$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写").show();
 			return;
+		}else{
+			$(".checkPasswdErrTip").hide();
 		}
 		if($(".legalID").val()!=IDNo){
 			$(".legalIDErrTip").html("法人身份证号不正确").css({ "color": "red" });
 			return;
 		}
+		this.model.set({ "clickEle": $(event.target).data('id') })
+		this.model.isValid()
 		if(!this.model.isValid()) {
 			var mobile=$(".countPhone").val();
 			var passwd=$(".passwd").val();
+			enterpriseCode=result.uniformSocialCreditCode||result.organizationCode||null;
 			service.registerUser(mobile,passwd,enterpriseCode).done(res=>{
 				if(res.code==0){
 					window.open('register.html#step3', '_self')
+				}else{
+					bootbox.alert(res.msg);
 				}
 			})
 		}
-//window.open('register.html#step3', '_self')
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
@@ -110,7 +121,7 @@ var step2 = Backbone.View.extend({
 		}
 	},
 	passwd: function() {
-		$(".pswErrTip").hide();
+		$(".pswErrTip").hide().html("");
 		var $test1 = /^(?:\d+|[a-zA-Z]+|[!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+){8,20}$/; //  弱：纯数字，纯字母，纯特殊字符
 		var $test2 = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)[a-zA-Z\d!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$/; //中：字母+数字，字母+特殊字符，数字+特殊字符
 		var $test3 = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)(?![\d!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)[a-zA-Z\d!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$/; //强：字母+数字+特殊字符
@@ -156,6 +167,9 @@ var step2 = Backbone.View.extend({
 				that.$el.html(tpl({data:result}));
 			}
 		})
+	},
+	onBlur:function(){
+		alert("aaa")
 	}
 });
 module.exports = step2;
