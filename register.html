@@ -30,15 +30,14 @@
     <script src="/asset/lib/bootstrap-typeahead/bootstrap-typeahead.js"></script>
 </body>
 <script language="javascript">
-    //		if(window.location.hash != "#step1") {
-//			window.onload = function() {
-//				window.open('register.html#step1', '_self')
-//			}
-//			window.onbeforeunload = function(event) {
-//				window.event.returnValue = "离开此页面会跳转到第一步";
-//			}
-//		}
-
+  		if(window.location.hash != "#step1") {
+			window.onload = function() {
+				window.open('register.html#step1', '_self')
+			}
+			window.onbeforeunload = function(event) {
+				window.event.returnValue = "离开此页面会跳转到第一步,数据不会保存";
+			}
+		}
 </script>
 
 </html>
