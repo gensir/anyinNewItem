@@ -19,18 +19,18 @@
 				<div class="person">
 					<label class="col-sm-2 control-label"></label>
 					<div class="col-sm-4">
-						<input type="text" id="user" placeholder="发票抬头填写个人名称" class="form-control countCode fl">
+						<input type="text" id="invoice_user" placeholder="发票抬头填写个人名称" class="form-control countCode fl" maxlength="20">
 					</div>
 				</div>
 				<div class="company">
 					<label class="col-sm-2 control-label"></label>
 					<div class="col-sm-4">
-						<input type="text" id="company" placeholder="发票抬头填写企业名称" class="form-control countCode fl">
-						<input type="text" id="taxpayer" placeholder="请填写纳税人识别号" class="form-control countCode fl">
-						<div class="taxTips">
-							请输入15、18或20位的纳税人识别号！
-						</div>
+						<input type="text" id="invoice_company" placeholder="发票抬头填写企业名称" class="form-control countCode fl" maxlength="39"> 
+						<input type="text" id="invoice_taxpayer" placeholder="请填写纳税人识别号" class="form-control countCode fl" maxlength="20">
 					</div>
+				</div>
+				<div class="taxTips" id="taxTips">
+							<!--请输入15、18或20位的纳税人识别号！-->
 				</div>
 				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
 			</div>
@@ -38,7 +38,7 @@
 				<label class="col-sm-2 control-label"></label>
 				<div class="col-sm-4">
 					<div class="billTips">该订单仅提供电子发票。
-						<a href="order.html#step4#">什么是电子发票？</a>
+						<a href="###">什么是电子发票？</a>
 					</div>
 				</div>
 				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
@@ -47,9 +47,9 @@
 				<label class="col-sm-2 control-label">付款方式：</label>
 				<div class="col-sm-10">
 					<div class="pay">
-						<div class="wepay"></div>
-						<div class="alipay"></div>
-						<div class="unionpay"></div>
+						<div class="payway wepay active" name="2"></div>
+						<div class="payway alipay" name="1"></div>
+						<div class="payway unionpay" name="3"></div>
 					</div>
 				</div>
 				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
@@ -92,6 +92,12 @@
 				margin-right: 10px;
 				cursor: pointer;
 			}
+			.step4 form .pay .payway{
+				border: 1px solid #dedede;
+			}
+			.step4 form .pay .active{
+				border:1px solid #00acff;
+			}
 			
 			.step4 form .pay div.wepay {
 				background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat;
@@ -105,16 +111,21 @@
 				background: url(../../../../asset/img/c-1-6-4_14.jpg) no-repeat;
 			}
 			.step4 form .taxBox{
-				height: 118px;
+				height: auto;
 			}
 			.step4 form .company{
 				display: none;
 			}
+			.step4 form .person input{
+				margin-bottom: 15px;
+			}			
 			.step4 form .company input{
 				margin-bottom: 15px;
 			}
-			.step4 form .company .taxTips{
+			.step4 form .taxTips{
 				color: red;
+				clear: both;
+				padding-left: 182px;
 			}
 			.step4 .gopay {
 				height: 56px;
