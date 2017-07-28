@@ -32,6 +32,9 @@ var main = Backbone.View.extend({
         window.open('register.html#step1', '_self')
     },
     ukeyLogin(event) {
+        console.log(JSON.stringify(ukeys.ConnectKey()),"abc")
+        console.log(JSON.stringify(ukeys.SetPIN("123456")),"abcd")
+        console.log(JSON.stringify(ukeys.WriteSignDataToKey(ukeys.WriteSignDataToKeyText)),"abcdefd")
         this.model.set({ "clickEle": $(event.target).data('id') })
         var isValid = this.model.isValid();
         if (isValid) {
@@ -49,7 +52,6 @@ var main = Backbone.View.extend({
                 "randomNum": ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
             }
             //console.log(JSON.stringify(data))
-            alert(123)
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
