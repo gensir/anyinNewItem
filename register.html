@@ -25,19 +25,20 @@
     <script src="/dist/manifest.js"></script>
     <script src="/dist/vendor.js"></script>
     <script src="/asset/basic.min.js"></script>
+    <script src="/asset/lib/bootstrap-typeahead/bootstrap-typeahead.js"></script>
     <script src="/dist/register.js"></script>
     <script src="/asset/lib/jquery/jquery.form.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/asset/lib/bootstrap-typeahead/bootstrap-typeahead.js"></script>
+    <script language="javascript">
+        if (window.location.hash != "#step1") {
+            window.onload = function () {
+                window.open('register.html#step1', '_self')
+            }
+            window.onbeforeunload = function (event) {
+                window.event.returnValue = "离开此页面会跳转到第一步,数据不会保存";
+            }
+        }
+
+    </script>
 </body>
-<script language="javascript">
-  		if(window.location.hash != "#step1") {
-			window.onload = function() {
-				window.open('register.html#step1', '_self')
-			}
-			window.onbeforeunload = function(event) {
-				window.event.returnValue = "离开此页面会跳转到第一步,数据不会保存";
-			}
-		}
-</script>
 
 </html>
