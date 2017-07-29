@@ -2,7 +2,7 @@ import '../../../../asset/css/style.css';
 import '../../../../asset/css/logs.css';
 //import '../../../../asset/lib/datetimepicker/bootstrap-datetimepicker.css';
 import {add} from '../../../publicFun/public';
-import '../../../../asset/lib/jquery-placeholder.js';
+//import '../../../../asset/lib/jquery-placeholder.js';
 require('../store/store.js');
 window.reqres.request(  'global', 'current-user' );
 var Router = require('../Router');

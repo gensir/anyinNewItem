@@ -22,10 +22,10 @@ var logs = Backbone.View.extend({
     },
     //调取日期控件
     form_date() {
+        
         var _this = this
         $('#date1,#date2').datetimepicker({
             language: 'zh-CN',
-            //clearBtn:true,
             weekStart: 1,
             todayBtn: 1,
             autoclose: 1,
@@ -33,8 +33,9 @@ var logs = Backbone.View.extend({
             startView: 2,
             minView: 2,
             format: 'yyyy-mm-dd',
+            endDate: new Date(),
             forceParse: 0,
-        }).unbind("change").on('change', function (e) {
+        }).unbind("changeDate").on('changeDate', function (e) {
             _this.logSearchs();
         })
     },
@@ -100,25 +101,20 @@ var logs = Backbone.View.extend({
     logSearchs(data, pageNum, pageSize) {
         pageNum = pageNum || 1;
         pageSize = pageSize || 2;
-        var importName = $("#keyword").val();
-        var operateStatus = $("#s_state").val();
-        var signType = $("#s_type").val();
-        var signTimeStart = $("#date1").val();
-        var signTimeEnd = $("#date2").val();
-        if (signTimeEnd !== "" & signTimeEnd < signTimeStart) {
+        if ($("#date2").val() !== "" & $("#date2").val() < $("#date1").val()) {
             alert("结束日期不能少于开始日期");
-            //$("#date2").focus();
+            $("#date2").focus();
             return false;
         }
         var data = {
             "esealCode": "ff",
             "enterpriseCode": "",
             "PKCS7": "",
-            "importName": importName,
-            "operateStatus": operateStatus,
-            "signType": signType,
-            "signTimeStart": signTimeStart,
-            "signTimeEnd": signTimeEnd,
+            "importName": $("#keyword").val(),
+            "operateStatus": $("#s_state").val(),
+            "signType": $("#s_type").val(),
+            "signTimeStart": $("#date1").val(),
+            "signTimeEnd": $("#date2").val(),
         };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
@@ -170,6 +166,10 @@ var logs = Backbone.View.extend({
             this.$el.append(tpl(this.model.get("tplhtml")));
             $(".contents>.page-kd:not(:last)").remove();
             this.pagination(res.data.pageNum, res.data.totalPages);
+            if (logsObj.list.length == 0) {
+                $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录！</div></li>").css("margin-bottom", "20px")
+                $(".pagelist").remove();
+            }
             this.form_date();
         });
     },
