@@ -22,7 +22,6 @@ var logs = Backbone.View.extend({
     },
     //调取日期控件
     form_date() {
-        
         var _this = this
         $('#date1,#date2').datetimepicker({
             language: 'zh-CN',
@@ -148,11 +147,6 @@ var logs = Backbone.View.extend({
             "esealCode": "ff",
             "enterpriseCode": "",
             "PKCS7": "",
-            "importName": $("#keyword").val(),
-            "operateStatus": $("#s_state").val(),
-            "signType": $("#s_type").val(),
-            "signTimeStart": $("#date1").val(),
-            "signTimeEnd": $("#date2").val(),
         };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
