@@ -59,7 +59,7 @@ var step1 = Backbone.View.extend({
         var data = { "params": { "name": name } }
         if (name.length > 0) {
             service.checkname(data).done(res => {
-                if (res.code == 0 & res.data !== null) {
+                if (res.code == 0 && res.data !== null) {
                     enterpriseCode = res.data.organizationCode;
                     firmId = res.data.id;
                     if (enterpriseCode == null) {
@@ -98,7 +98,6 @@ var step1 = Backbone.View.extend({
 
     checknameerror(data) {
         $('#Ename-error').html('').css({ "color": "#f00" });
-        //localStorage.clear();
     },
     //校验图片验证码
     checkCaptcha(data) {
@@ -141,6 +140,7 @@ var step1 = Backbone.View.extend({
     render: function (query) {
         this.$el.html(tpl);
         this.typeahead();
+        localStorage.clear();
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
 });
