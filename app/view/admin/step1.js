@@ -109,13 +109,13 @@ var step1 = Backbone.View.extend({
 								label: "新建订单",
 								className: "btn3",
 								callback: function() {
-									that.goonstep();
+									that.goonstep(event);
 								}
 							}
 						}
 					})
 				}else{
-					that.goonstep();
+					that.goonstep(event);
 				}
 			}else{
 				bootbox.alert(data.msg);
@@ -162,7 +162,8 @@ var step1 = Backbone.View.extend({
 			}
 		});
 	},
-	goonstep:function(){
+	goonstep:function(event){
+		sealList=[];
 		var isLegal = $('input:radio:checked').val();
 		localStorage.isLegal=isLegal;
 		if($('.sealStyle span').hasClass('choice')) {	
@@ -179,8 +180,9 @@ var step1 = Backbone.View.extend({
 				result.isDelUnpayed=1;
 				result.isOperatorLegalPersion=0
 				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
-				this.model.set({ "clickEle": $(event.target).data('id') })
-		        var isValid = this.model.isValid();
+				that.model.set({ "clickEle": $(event.target).data('id') })
+		        var isValid = that.model.isValid();
+		        debugger;
 		        if (!isValid) {
 		            result.operatorIdCard=$(".legalID").val();
 					result.operatorName=$(".countCode").val();

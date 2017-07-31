@@ -14,7 +14,7 @@ var registerModel = Backbone.Model.extend({
         // }
         if (attrs.clickEle == 'reguser') {
             return $.verifyEach({ "Ename": "#Ename", "yzmcode": "#yzmcode" }, function () {
-                //return true;
+                return 123;
             })
         }
         if (attrs.clickEle == 'goStep3') {
