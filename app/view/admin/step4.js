@@ -48,8 +48,7 @@ var step4 = Backbone.View.extend({
                     "orderNo": orderNo,
                     "payType": 2,  //默认微信支付是2
                     //"invoice":""   
-                    "esealProducts":tempObj.data.esealProducts, 
-     
+                    "esealProducts":tempObj.data.esealProducts  
                 }
             }
         })
@@ -76,7 +75,14 @@ var step4 = Backbone.View.extend({
     },
     submitStep4:function(){
     	service.submitStep4(step4Data).done(res => {
-    		var tempObj = res;
+    		if( res.code==0){
+    			console.log(res.msg);
+    		}else{
+    			console.log(res.msg);
+    		}
+    		
+    		
+    		
     		//获取数据
     	});
     },
@@ -118,7 +124,7 @@ var step4 = Backbone.View.extend({
         this.invoiceStates();
         if(invoiceState== true){
         	this.submitStep4();
-        }{
+        }else{
         	console.log("发票信息不全，不能提交订单！");
         }
 
