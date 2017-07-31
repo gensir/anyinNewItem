@@ -9,7 +9,8 @@
 .intnav .page-kd { position: relative; }
 .intnav .search { position: absolute; right: 0; top: 0; width: 310px; outline: none; }
 .intnav .inputbox { position: relative; margin-top: 13px; }
-.intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; z-index: 2; position: relative; }
+.intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; position: relative; z-index: 2 }
+.intnav .search .inputbox .search-input+.placeholder { font-size: 14px; z-index: 3; }
 .intnav .search .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: #fff; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }
 .intnav .search .submit em { background: url(../img/bg-all.png) no-repeat -80px -290px; display: inline-block; height: 24px; width: 24px; vertical-align: middle; }
 .intnav .search .inputbox .search-input:focus+.submit em,
@@ -24,7 +25,8 @@
 .select-box select { border: 0; padding-left: 6px; color: #666; background: #fff; -webkit-appearance: none; width: 150%; outline: none; }
 .intnav .search .more .date { padding-top: 14px; color: #666; }
 .intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block; vertical-align: middle; border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
-.intnav .search .more .date span { position: relative; float: left; display: inline-block; }
+.intnav .search .more .date .date-input+.placeholder { font-size: 12px; }
+.intnav .search .more .date span { position: relative; float: left; display: inline-block; height: 28px; }
 .intnav .search .more .date .xian { line-height: 28px; padding-left: 3px; padding-right: 3px; }
 .intnav .search .more .date .datebox em { font-size: 12px; position: absolute; right: 8px; top: 8px; display: block; overflow: hidden; color: #999; cursor: pointer; }
 .intnav .search .more .date .datebox em:hover { color: #00acff; }
