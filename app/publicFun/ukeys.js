@@ -4,9 +4,7 @@ var ukeys = {
         // 这里就是注册表中CLSID文件夹根目录的文件夹名称
         try {
             this.data.ukey = new ActiveXObject("IYIN_SIGNACTIVE.IYIN_SignActiveCtrl.1");
-            debugger
-            this.data.KeyManage = new ActiveXObject("KeyManage.ConnManage.1");
-            debugger
+            //this.data.KeyManage = new ActiveXObject("KeyManage.ConnManage.1");
         } catch (e) {
             this.data.isAvailableUkey = false;
         }
@@ -55,8 +53,7 @@ var ukeys = {
             return this.data.ukey.SetCertPin(val);//Boolean
         }
     },
-    dSignature(selectukeyInd, esealCode) {//客服端数字签名；
-        var randomNum = this.randomNum(esealCode);//"111111";// 
+    dSignature(selectukeyInd, randomNum) {//客服端数字签名；
         if (randomNum && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.Signature(randomNum, randomNum.length);

@@ -36,8 +36,6 @@ var main = Backbone.View.extend({
         //console.log(JSON.stringify(ukeys.SetPIN("123456789")),"abcd")
         //console.log(JSON.stringify(ukeys.WriteSignDataToKey(ukeys.WriteSignDataToKeyText)),"abcdefd")
         console.log(JSON.stringify(ukeys.esealCode($("#pinwd").val(),selectedUkey)),888)
-        console.log(JSON.stringify(ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))),888)
-        
         this.model.set({ "clickEle": $(event.target).data('id') })
         var isValid = this.model.isValid();
         if (isValid) {
@@ -46,13 +44,15 @@ var main = Backbone.View.extend({
         var selectedUkey=$("#seleBook option:selected").index() - 1
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
         if (checkResult) {
+            var randomNum=ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
+            debugger;
             var data = {
                 "loginType": 2,
                 "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
                 "codeError": 0,
                 "entryptCert": ukeys.dCertificate(selectedUkey),
-                "signature": ukeys.dSignature(selectedUkey,ukeys.esealCode($("#pinwd").val(),selectedUkey)),
-                "randomNum": ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
+                "signature": ukeys.dSignature(selectedUkey,randomNum),
+                "randomNum": randomNum
             }
 
             //console.log(JSON.stringify(data))
