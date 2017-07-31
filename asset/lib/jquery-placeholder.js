@@ -1,37 +1,39 @@
-// JavaScript placeholder20170102
-$(document)
-    .ready(
-        function() {
-            var doc = document, inputs = doc
-                .getElementsByTagName('input'), supportPlaceholder = 'placeholder' in doc
-                    .createElement('input'), placeholder = function(
-                input) {
-                var text = input.getAttribute('placeholder'), defaultValue = input.defaultValue;
-                if (defaultValue == '') {
-                    input.value = text
-                    input.setAttribute("old_color", input.style.color);
-                    input.style.color = "#c0c0c0";
+// JavaScript placeholder
+$(function(){
+var JPlaceHolder = {
+    //检测
+    _check : function(){
+        return 'placeholder' in document.createElement('input');
+    },
+    //初始化
+    init : function(){
+        if(!this._check()){
+            this.fix();
+        }
+    },
+    //修复
+    fix : function(){
+        jQuery(':input[placeholder]').each(function(index, element) {
+            var self = $(this), txt = self.attr('placeholder');
+            self.wrap($('<div></div>').css({position:'relative', zoom:'1', border:'none', background:'none', padding:'none', margin:'none'}));
+            var pos = self.position(), h = self.outerHeight(true), l = self.height(), paddingleft = self.css('padding-left');
+            var holder = $('<span class="placeholder"></span>').text(txt).css({position:'absolute', left:pos.left, top:pos.top,height:h, lienHeight:l, paddingLeft:paddingleft, color:'#999'}).appendTo(self.parent());
+            self.focusin(function(e) {
+                holder.hide();
+            }).focusout(function(e) {
+                if(!self.val()){
+                    holder.show();
                 }
-                input.onfocus = function() {
-                    this.style.color = this.getAttribute("old_color");
-                    if (input.value === text) {
-                        this.value = ''
-                    }
-                };
-                input.onblur = function() {
-                    if (input.value === '') {
-                        this.style.color = "#c0c0c0";
-                        this.value = text
-                    }
-                }
-            };
-            if (!supportPlaceholder) {
-                for ( var i = 0, len = inputs.length; i < len; i++) {
-                    var input = inputs[i], text = input
-                        .getAttribute('placeholder');
-                    if (input.type === 'text' && text) {
-                        placeholder(input)
-                    }
-                }
-            }
+            });
+            holder.click(function(e) {
+                holder.hide();
+                self.focus();
+            });
         });
+    }
+};
+//执行
+jQuery(function(){
+    JPlaceHolder.init();    
+});
+});
