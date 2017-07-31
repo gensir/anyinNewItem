@@ -55,8 +55,6 @@ var step1 = Backbone.View.extend({
 //               	}]
 //		        };
 //		        data.data.list.push(obj);
-
-				
 				if(data.data.list.length>0){
 					var length=data.data.list[0].orderDetials;
 					for(var i=0;i<length.length;i++){
@@ -182,12 +180,14 @@ var step1 = Backbone.View.extend({
 				result.isOperatorLegalPersion=0
 				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
 				this.model.set({ "clickEle": $(event.target).data('id') })
-				this.model.isValid()
-				if(!this.model.isValid()){
-					result.operatorIdCard=$(".legalID").val();
+		        var isValid = this.model.isValid();
+		        if (!isValid) {
+		            result.operatorIdCard=$(".legalID").val();
 					result.operatorName=$(".countCode").val();
 					this.poststep1(result);
-				}
+		        }else{
+		        	return;
+		        }
 			}else{
 				result.isDelUnpayed=1;
 				result.isOperatorLegalPersion=1;

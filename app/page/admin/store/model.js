@@ -14,12 +14,12 @@ var orderModel = Backbone.Model.extend({
             }else{
                 return false;
             }
-        }
+        };
 		if(attrs.clickEle == 'goStep2') {
 			// $.verify("#userName", "phone");
-			return $.verifyEach({ "space": ".countCode", "valId": ".legalID" }, function() {
-				return 123;
+			var result= $.verifyEach({ "space": ".countCode", "valId": ".legalID" },function(){	
 			})
+			return result;
 		};
 	}
 });
