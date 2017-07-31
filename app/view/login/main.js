@@ -45,7 +45,6 @@ var main = Backbone.View.extend({
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
         if (checkResult) {
             var randomNum=ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
-            debugger;
             var data = {
                 "loginType": 2,
                 "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
@@ -59,6 +58,7 @@ var main = Backbone.View.extend({
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
+                    localStorage.enterpriseCode=data.data.user.enterpriseCode;
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
                 }
@@ -84,7 +84,7 @@ var main = Backbone.View.extend({
         }
         service.userlogin(data).done(function (data) {
             if (data.code == 0) {
-                debugger;
+                localStorage.enterpriseCode=data.data.user.enterpriseCode;
                 //window.open("index.html", "_self");
             } else if (data.code == "001") {
                 $.verify("phone","#userName", "用户未注册");
