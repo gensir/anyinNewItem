@@ -12,7 +12,7 @@ var step1 = Backbone.View.extend({
 	},
 	render: function(query) {
 		that=this;
-		enterpriseCode="440303044053";
+		enterpriseCode=localStorage.enterpriseCode||"440303044053";
 		this.getstep1(enterpriseCode);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
@@ -22,30 +22,69 @@ var step1 = Backbone.View.extend({
 	goStep2: function(event) {
 		service.errorOrder(enterpriseCode).done(function(data){
 			if(data.code==0){				
-				var obj={
-		                "id": 100000241,
-		                "orderNo": "OFFLINE-2017071793798629",
-		                "firmId": "100001000001",
-		                "orderOrigin": 4,
-		                "actualAmount": 0,
-		                "privilegeScheme": 0,
-		                "businessType": 1,
-		                "payType": 4,
-		                "orderStatus": 1,
-		                "enterpriseCode": "100001000001",
-		                "enterpriseName": "深圳市盐田区祥圆商店1",
-		                "operateStep": 2,
-		                "linkMan": "开发",
-		                "linkManCertificateType": 11,
-		                "linkManCertificateNumber": "43012645321455214",
-		                "isRefund": 0,
-		                "isDelete": 1,
-		                "createTime": "Jul 17, 2017 4:58:35 PM",
-		                "updateTime": "Jul 19, 2017 2:09:52 PM"
-		            }
-				data.data.list.push(obj);
+//				var obj={
+//	                "id": 100000241,
+//	                "orderNo": "OFFLINE-2017071793798629",
+//	                "firmId": "100001000001",
+//	                "orderOrigin": 4,
+//	                "actualAmount": 0,
+//	                "privilegeScheme": 0,
+//	                "businessType": 1,
+//	                "payType": 4,
+//	                "orderStatus": 1,
+//	                "enterpriseCode": "100001000001",
+//	                "enterpriseName": "深圳市盐田区祥圆商店1",
+//	                "operateStep": 2,
+//	                "linkMan": "开发",
+//	                "linkManCertificateType": 11,
+//	                "linkManCertificateNumber": "43012645321455214",
+//	                "isRefund": 0,
+//	                "isDelete": 1,
+//	                "createTime": "Jul 17, 2017 4:58:35 PM",
+//	                "updateTime": "Jul 19, 2017 2:09:52 PM",
+//	                "orderDetials":[{
+//                       "esealName":"01",
+//                       "esealCode":"45122100524"
+//               	},
+//	                {
+//                       "esealName":"02",
+//                       "esealCode":"45122100524"
+//               	},{
+//                       "esealName":"03",
+//                       "esealCode":"45122100524"
+//               	}]
+//		        };
+//		        data.data.list.push(obj);
+
+				
 				if(data.data.list.length>0){
-					localStorage.orderNo=data.data.list[0].orderNo;
+					var length=data.data.list[0].orderDetials;
+					for(var i=0;i<length.length;i++){
+						switch (length[i].esealName){
+							case "01":length[i].esealName="电子行政章";
+								break;
+							case "02":length[i].esealName="电子财务章";
+								break;
+							case "03":length[i].esealName="电子发票章";
+								break;
+							case "04":length[i].esealName="电子合同章";
+								break;
+							case "05":length[i].esealName="电子法人章";
+								break;
+							case "06":length[i].esealName="电子私人章";
+								break;
+							case "07":length[i].esealName="电子杂章";
+								break;	
+							case "08":length[i].esealName="电子报关章";
+								break;
+							case "09":length[i].esealName="电子业务章";
+								break;
+						}
+					}
+					var str=""
+					for(var j=0;j<length.length;j++){
+						str+="<span>"+length[j].esealName+"</span>";
+					}
 					bootbox.dialog({
 						className: "errorTips",
 						title: "<div class='title'>新办电子印章提示</div>",
@@ -53,8 +92,7 @@ var step1 = Backbone.View.extend({
 							"<div class='icon'><span></span></div>" +
 							"<div class='errorOrderTips'>" +
 							"<div class='errorOrderTitle'>您还有未完成的订单,是否继续完成该订单?</div>" +
-							"<div class='errorOrderSeal'>" +
-							"<span>电子行政章</span><span>电子行政章</span><span>电子行政章</span><span>电子行政章</span></div>" +
+							"<div class='errorOrderSeal'>" +str+"</div>" +
 							"<div class='errorOrderRed'>新建订单将覆盖原有的订单,您需要重新填写资料</div></div><div class='clear'></div></div>",
 						buttons: {
 							cancel: {
@@ -65,6 +103,7 @@ var step1 = Backbone.View.extend({
 								label: "继续该订单",
 								className: "btn2",
 								callback: function() {
+									localStorage.orderNo=data.data.list[0].orderNo;
 									window.location.href = "admin.html#step"+data.data.list[0].operateStep;
 								}
 							},

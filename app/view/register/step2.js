@@ -19,7 +19,7 @@ var step2 = Backbone.View.extend({
 		'onblur .checkPasswd':'onBlur'
 	},
 	render: function(query) {
-		var firmId = localStorage.firmId;
+		var firmId = localStorage.firmId||440308006486;
 		this.getcompany(firmId);
 		that=this;
 		document.body.scrollTop = document.documentElement.scrollTop = 0;

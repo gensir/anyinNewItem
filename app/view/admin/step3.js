@@ -4,7 +4,7 @@ import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
-var areaNumber,result,stepResult,companyName;
+var areaNumber,stepResult,companyName;
 var that, company, sealShop,scan,eseals,isLegal;
 var zone=440300;
 var step3 = Backbone.View.extend({
@@ -26,12 +26,10 @@ var step3 = Backbone.View.extend({
 		imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 		imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
 		imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
-		pictureFlag = [0, 0 ,0 ,0];
+		pictureFlag = [1,0,0,0];
 		flag = true;
 		that = this;
 		zone = 440300;
-		result = isLegal;
-//		//查询公司所在区域编码	
 		var orderNo=localStorage.orderNo;
 		this.getstep3(orderNo);
 		this.sealList();	
@@ -140,7 +138,79 @@ var step3 = Backbone.View.extend({
 								$("#file" + num).height(24);
 								imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
 							}
-						}	
+						}
+						var obj={};
+						if(scan.length==0){
+							if(num==0){
+								obj.bizType=2,
+								obj.enterpriseCode=localStorage.enterpriseCode,
+								obj.certificateName="申请书扫描件",
+								obj.filePath=data,
+								obj.certificateType="0046",
+								obj.orderNo=localStorage.orderNo,
+								obj.isOrderAttach=1
+								scan.push(obj);
+							}
+							if(num==1){
+								obj.bizType=2,
+								obj.enterpriseCode=localStorage.enterpriseCode,
+								obj.certificateName="法人授权书扫描件",
+								obj.filePath=data,
+								obj.certificateType="0047",
+								obj.orderNo=localStorage.orderNo,
+								obj.isOrderAttach=1
+								scan.push(obj);
+							}
+							if(num==2){
+								obj.bizType=2,
+								obj.enterpriseCode=localStorage.enterpriseCode,
+								obj.certificateName="银行开户证明扫描件",
+								obj.filePath=data,
+								obj.certificateType="0048",
+								obj.orderNo=localStorage.orderNo,
+								obj.isOrderAttach=1
+								scan.push(obj);
+							}
+							if(num==3){
+								obj.bizType=2,
+								obj.enterpriseCode=localStorage.enterpriseCode,
+								obj.certificateName="对外贸易许可证扫描件",
+								obj.filePath=data,
+								obj.certificateType="0049",
+								obj.orderNo=localStorage.orderNo,
+								obj.isOrderAttach=1
+								scan.push(obj);
+							}
+						}else{
+							if(num==0){
+								for(var i=0;i<scan.lenth;i++){
+									if(scan[i].certificateType=="0046"){
+										scan[i].filePath=data;
+									}
+								}
+							}
+							if(num==1){
+								for(var i=0;i<scan.lenth;i++){
+									if(scan[i].certificateType=="0047"){
+										scan[i].filePath=data;
+									}
+								}
+							}
+							if(num==2){
+								for(var i=0;i<scan.lenth;i++){
+									if(scan[i].certificateType=="0048"){
+										scan[i].filePath=data;
+									}
+								}
+							}
+							if(num==3){
+								for(var i=0;i<scan.lenth;i++){
+									if(scan[i].certificateType=="0049"){
+										scan[i].filePath=data;
+									}
+								}
+							}		
+						}
 					} else {
 						var dialog = bootbox.alert({
 							className: "uploadPhoto",
@@ -213,44 +283,45 @@ var step3 = Backbone.View.extend({
 		this.sealShop(areaNumber, val, )
 	},
 	//pagination
-	pagination: function(pageNumber, totalPages) {
-		$("#pageLimit li.index").remove();
-		var maxShowPage = 5
-		var firstShowPage = pageNumber - 2;
-		if(firstShowPage <= 0) {
-			firstShowPage = 1;
-		}
-		var lastShowPage = maxShowPage + firstShowPage - 1;
-		if(lastShowPage > totalPages) {
-			lastShowPage = totalPages;
-		}
-		if(lastShowPage - firstShowPage + 1 < maxShowPage) {
-			firstShowPage = lastShowPage - maxShowPage + 1;
-			firstShowPage = Math.max(firstShowPage, 1);
-		}
-		this.model.get("tplhtml").count = [];
-		for(var i = firstShowPage; i <= lastShowPage; i++) {
-			var pageIndex = '<li class="index"><a>' + i + '</a></li>';
-			$(".appendPage").before(pageIndex)
-		};
-		 if (!this.active) {
+	pagination: function (pageNumber, totalPages) {
+        $("#pageLimit li.index").remove();
+        var maxShowPage = 5
+        var firstShowPage = pageNumber - 2;
+        if (firstShowPage <= 0) {
+            firstShowPage = 1;
+        }
+        var lastShowPage = maxShowPage + firstShowPage - 1;
+        if (lastShowPage > totalPages) {
+            lastShowPage = totalPages;
+        }
+        if (lastShowPage - firstShowPage + 1 < maxShowPage) {
+            firstShowPage = lastShowPage - maxShowPage + 1;
+            firstShowPage = Math.max(firstShowPage, 1);
+        }
+        this.model.get("tplhtml").count = [];
+        for (var i = firstShowPage; i <= lastShowPage; i++) {
+            var pageIndex = '<li class="index"><a>' + i + '</a></li>';
+            $(".appendPage").before(pageIndex)
+        };
+        if (!this.active) {
             this.active = $("#pageLimit .index").eq(0)
         } else {
             if (isNaN(this.active.find('a').text())) {
-                this.active = $("#pageLimit .index").eq(0)
+                this.active = $("#pageLimit .index").eq(number-1)
             }
             this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
         }
         this.active.addClass("active").siblings().removeClass("active")
-	},
+    },
 	currentPapge(e) {
         this.active = $(e.currentTarget);
         var pageNum = this.active.find("a").text()
         this.pagediv(pageNum, this.model.get("totalPages"))
     },
-    PreviousPage() {
+    PreviousPage(e) {
         this.active = "";
         this.pagediv(1, this.model.get("totalPages"))
+        this.pagediv(pageNum, this.model.get("totalPages"))
     },
     NextPage(e) {
         this.active = $(e.currentTarget).prev();
@@ -259,9 +330,6 @@ var step3 = Backbone.View.extend({
 	sealShop(areaNumber, pageNumber, pageSize) {
 		//获取印章店 	
 		$(".sealShopResult").hide();
-		if($.trim(pageNumber)=="«"){
-			pageNumber=1;
-		}
 		var pageNumber = pageNumber || 1;
 		var pageSize = pageSize || 5
 		service.getSealShop(areaNumber, pageNumber, pageSize).done(res => {
@@ -285,13 +353,20 @@ var step3 = Backbone.View.extend({
 			imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });	
 		});
 		//如果是第一次进来
-		if(stepResult.scanAttaches.length==0){
-			(isLegal==0)?$(".legalScan").show():$(".legalScan").hide();
+		if(scan.length==0){
+			if(isLegal==0){
+				pictureFlag[1]=1;
+				$(".legalScan").show()
+			}else{
+				$(".legalScan").hide();
+			}			
 			for(var i=0;i<eseals.length;i++){
 				if(eseals[i].esealCategory==4){
+					pictureFlag[2]=1;
 					$(".bankScan").show();
 				};
 				if(eseals[i].esealCategory==8){
+					pictureFlag[3]=1;
 					$(".tradeScan").show();
 				};
 			};
@@ -333,6 +408,7 @@ var step3 = Backbone.View.extend({
 		}
 	},
 	option(){
+		this.active='';
 		areaNumber=$("#area option:selected").val();
 		that.model.get("tplhtml").areaNumber = areaNumber
 		this.sealShop(areaNumber);
@@ -362,7 +438,7 @@ var step3 = Backbone.View.extend({
 	},
 	goStep4: function() {
 		for(var i = 0; i < pictureFlag.length; i++) {
-			if(pictureFlag[i] == 0) {
+			if(pictureFlag[i] == 1) {
 				var dialog = bootbox.alert({
 					className: "uploadPhoto",
 					message: "请上传全部图片",
@@ -377,6 +453,7 @@ var step3 = Backbone.View.extend({
 			})
 			return;
 		};
+		stepResult.scanAttaches=scan;
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
 				window.open('admin.html#step4', '_self');

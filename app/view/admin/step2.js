@@ -6,7 +6,7 @@ import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag=[];
-var isLegal,stepResult,length;
+var stepResult,length;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
