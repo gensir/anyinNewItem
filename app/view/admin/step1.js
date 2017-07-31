@@ -182,7 +182,6 @@ var step1 = Backbone.View.extend({
 				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
 				that.model.set({ "clickEle": $(event.target).data('id') })
 		        var isValid = that.model.isValid();
-		        debugger;
 		        if (!isValid) {
 		            result.operatorIdCard=$(".legalID").val();
 					result.operatorName=$(".countCode").val();
