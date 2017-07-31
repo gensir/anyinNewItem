@@ -21,8 +21,7 @@ var step1 = Backbone.View.extend({
 	},
 	goStep2: function(event) {
 		service.errorOrder(enterpriseCode).done(function(data){
-			if(data.code==0){
-				localStorage.orderNo=data.data.list[0].orderNo;
+			if(data.code==0){				
 				var obj={
 		                "id": 100000241,
 		                "orderNo": "OFFLINE-2017071793798629",
@@ -46,6 +45,7 @@ var step1 = Backbone.View.extend({
 		            }
 				data.data.list.push(obj);
 				if(data.data.list.length>0){
+					localStorage.orderNo=data.data.list[0].orderNo;
 					bootbox.dialog({
 						className: "errorTips",
 						title: "<div class='title'>新办电子印章提示</div>",
@@ -147,7 +147,6 @@ var step1 = Backbone.View.extend({
 				if(!this.model.isValid()){
 					result.operatorIdCard=$(".legalID").val();
 					result.operatorName=$(".countCode").val();
-					console.log(result);
 					this.poststep1(result);
 				}
 			}else{

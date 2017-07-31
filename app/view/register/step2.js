@@ -78,7 +78,6 @@ var step2 = Backbone.View.extend({
 			return;
 		}
 		if($(".passwd").val()!=$(".checkPasswd").val()){
-			console.log($(".passwd").val(),$(".checkPasswd").val())
 			$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写").show();
 			return;
 		}else{
@@ -165,11 +164,10 @@ var step2 = Backbone.View.extend({
 				result=data.data;
 				IDNo=result.idcardNumber;
 				that.$el.html(tpl({data:result}));
+			}else{
+				bootbox.alert(data.msg);
 			}
 		})
-	},
-	onBlur:function(){
-		alert("aaa")
 	}
 });
 module.exports = step2;

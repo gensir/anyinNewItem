@@ -18,7 +18,6 @@ var step3 = Backbone.View.extend({
 		this.$el.html(tpl);
 		enterpriseCode = reqres.request("IDCode");
 		enterpriseCode = enterpriseCode.uniformSocialCreditCode;
-		console.log(enterpriseCode);
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
@@ -67,10 +66,9 @@ var step3 = Backbone.View.extend({
 			var data = pictureFlag[num];
 			service.deletePhoto(data).done(function(data) {
 				if(data.code == 0) {
-					console.log(data.msg);
 					pictureFlag[num] = 0;
 				} else {
-					console.log(data.msg);
+					bootbox.alert(data.msg);
 				}
 			});
 		}
@@ -138,7 +136,7 @@ var step3 = Backbone.View.extend({
 							if(data.code == 0) {
 								pictureFlag==1
 							} else {
-								console.log(data.msg)
+								bootbox.alert(data.msg)
 							}
 						})
 					} else {

@@ -80,10 +80,9 @@ var step3 = Backbone.View.extend({
 			var data = pictureFlag[num];
 			service.deletePhoto(data).done(function(data) {
 				if(data.code == 0) {
-					console.log(data.msg);
 					pictureFlag[num] = 0;
 				} else {
-					console.log(data.msg);
+					bootbox.alert(data.msg);
 				}
 			});
 		}
@@ -352,8 +351,12 @@ var step3 = Backbone.View.extend({
 					if(data.code==0){
 						areaNumber=data.data.areaNumber;
 						that.model.get("tplhtml").areaNumber = areaNumber;
+					}else{
+						bootbox.alert(data.msg);
 					}
 				})
+			}else{
+				bootbox.alert(data.msg)
 			}
 		})
 	},
@@ -378,7 +381,7 @@ var step3 = Backbone.View.extend({
 			if(data.code == 0) {
 				window.open('admin.html#step4', '_self');
 			} else {
-				console.log(data.msg)
+				bootbox.alert(data.msg)
 			}
 		})
 	}

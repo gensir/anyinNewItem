@@ -123,10 +123,9 @@ var step2 = Backbone.View.extend({
 			var data = pictureFlag[num];
 			service.deletePhoto(data).done(function(data) {
 				if(data.code == 0) {
-					console.log(data.msg);
 					pictureFlag[num] = 0;
 				} else {
-					console.log(data.msg);
+					bootbox.alert(data.msg);
 				}
 			});
 		}
@@ -293,7 +292,6 @@ var step2 = Backbone.View.extend({
 		}, 200)
 	},
 	goStep3: function() {
-		console.log(pictureFlag)
 		for(var i = 0; i < pictureFlag.length; i++) {
 			if(pictureFlag[i] == 0) {
 				var dialog = bootbox.alert({
@@ -308,7 +306,7 @@ var step2 = Backbone.View.extend({
 			if(data.code == 0) {
 				window.open('admin.html#step3', '_self');
 			} else {
-				console.log(data.msg)
+				bootbox.alert(data.msg)
 			}
 		})
 	}
