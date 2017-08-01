@@ -111,6 +111,7 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
     getRandomNum(data){
+        console.log(JSON.stringify(data),999)
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false,data:data });
     },
     //获取订单中心列表
@@ -191,7 +192,7 @@ export default {
     },   
     //获取订单状态
     status(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/status?orderNo="+data});
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/status?orderNo="+data,async:false});
     },
     //提交Step4
     submitStep4(data){

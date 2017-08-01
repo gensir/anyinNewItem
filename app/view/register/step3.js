@@ -188,6 +188,7 @@ var step3 = Backbone.View.extend({
 				return;
 			}
 		};
+		localStorage.regStep="#step4";
 		window.open('register.html#step4', '_self');
 	}
 });

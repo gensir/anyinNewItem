@@ -1,3 +1,5 @@
+var service = require('../../server/service').default;
+var stepNum;
 var Router = Backbone.Router.extend({
     routes: {
         '': 'list',
@@ -20,6 +22,7 @@ var Router = Backbone.Router.extend({
         this.$el.empty();
     },
     startRout: function (View, queryObj, sub,model) {
+    	this.hashChange();
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
         S.main = new View({model:model});
@@ -122,8 +125,22 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/admin/update_key')
             me.startRout(View, { query: query });
         }, 'update_key')
-    },  
-
+    }, 
+    hashChange:function(){
+    	var order=localStorage.orderNo||"OFFLINE-07190571080634";
+    	stepNum = window.location.stepNum||"#step1";
+    	if(stepNum!="#step1"){
+    		if(order&&stepNum!=window.location.stepNum){
+	    		service.status(order).done(function(data){
+					if(data.code==0){
+						window.open("admin.html#step"+data.data.operateStep, '_self')
+					}
+				})
+	    	}else{
+	    		window.open("admin.html#step1", '_self')
+	    	} 
+    	}
+    }
 });
 
 module.exports = Router;

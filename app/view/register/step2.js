@@ -95,6 +95,7 @@ var step2 = Backbone.View.extend({
 			enterpriseCode=result.uniformSocialCreditCode||result.organizationCode||null;
 			service.registerUser(mobile,passwd,enterpriseCode).done(res=>{
 				if(res.code==0){
+					localStorage.regStep="#step3";
 					window.open('register.html#step3', '_self')
 				}else{
 					bootbox.alert(res.msg);

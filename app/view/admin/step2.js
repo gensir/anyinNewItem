@@ -21,6 +21,9 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });	
 		var orderNo = localStorage.orderNo;
+		if(!orderNo){
+			return;
+		}
 		service.getstep2(orderNo).done(function(data){
 			if(data.code == 0) {
 				stepResult=data.data;
@@ -304,6 +307,7 @@ var step2 = Backbone.View.extend({
 		
 		service.poststep2(stepResult).done(function(data) {
 			if(data.code == 0) {
+				localStorage.stepNum="#step3";
 				window.open('admin.html#step3', '_self');
 			} else {
 				bootbox.alert(data.msg)

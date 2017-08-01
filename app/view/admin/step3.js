@@ -31,6 +31,9 @@ var step3 = Backbone.View.extend({
 		that = this;
 		zone = 440300;
 		var orderNo=localStorage.orderNo;
+		if(!orderNo){
+			return;
+		}
 		this.getstep3(orderNo);
 		this.sealList();	
 		
@@ -456,6 +459,7 @@ var step3 = Backbone.View.extend({
 		stepResult.scanAttaches=scan;
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
+			localStorage.stepNum="#step4";
 				window.open('admin.html#step4', '_self');
 			} else {
 				bootbox.alert(data.msg)

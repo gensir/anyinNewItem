@@ -126,6 +126,7 @@ var step1 = Backbone.View.extend({
         service.toRegister(data).done(res => {
             if (res.code == 0) {
                 localStorage.firmId = firmId;
+                localStorage.regStep="#step2";
                 window.open('#step2', '_self')
             }
         })

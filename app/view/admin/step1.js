@@ -12,7 +12,7 @@ var step1 = Backbone.View.extend({
 	},
 	render: function(query) {
 		that=this;
-		enterpriseCode=localStorage.enterpriseCode||"440303044053";
+		enterpriseCode="440303044053";
 		this.getstep1(enterpriseCode);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
@@ -155,6 +155,7 @@ var step1 = Backbone.View.extend({
 		localStorage.seals=seals;
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
+				localStorage.stepNum="#step2";
 				localStorage.orderNo=data.data;
 				window.open('admin.html#step2', '_self');
 			} else {

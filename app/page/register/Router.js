@@ -1,3 +1,4 @@
+var regStep,hash;
 var Router = Backbone.Router.extend({
     routes: {
         '': 'step1',
@@ -16,6 +17,7 @@ var Router = Backbone.Router.extend({
         this.$el.empty();
     },
     startRout: function(View, queryObj, sub) {
+    	this.hashChange();
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
         S.main = new View({model:model});
@@ -90,6 +92,13 @@ var Router = Backbone.Router.extend({
             me.startRout(View,{query:query});
         },'step4')
     },
+    hashChange:function(){
+    	regStep=localStorage.regStep||"step1";
+    	hash = window.location.hash;
+    	if(hash!=regStep){
+    		window.open("register.html#step1", '_self')
+    	}
+    }
 });
 
 module.exports = Router;
