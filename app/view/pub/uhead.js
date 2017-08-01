@@ -73,12 +73,17 @@ var header = {
                             }, 1000)
                         } else if (numInd == 2) {
                             // 验证KEY密码
-                                if (ukeys.PIN($("#unlockCode").val(), 0)) {
-                                    console.log(ukeys.esealCode($("#unlockCode").val()));
-                                    console.log(ukeys.randomNum(ukeys.esealCode($("#unlockCode").val(), 0)))
-                                    console.log(ukeys.dSignature(0, ukeys.esealCode($("#unlockCode").val(), 0)))
-                                    localStorage.esealCode = ukeys.esealCode($("#unlockCode").val())
-                                    localStorage.dSignature = ukeys.dSignature(0, localStorage.esealCode)
+                                var selectedUkey=$("#seleBook option:selected").index() - 1
+                                if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
+                                    var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
+                                    var randomNum = ukeys.randomNum(esealCode)
+                                    var dSignature = ukeys.dSignature(selectedUkey,randomNum)
+                                    localStorage.esealCode = esealCode
+                                    localStorage.randomNum = randomNum
+                                    localStorage.dSignature = dSignature
+                                    console.log("印章编码："+localStorage.esealCode)
+                                    console.log("随机码："+localStorage.randomNum)
+                                    console.log("签名："+localStorage.dSignature)
                                     var success = dialogsText.find(".success")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(success);
                                     $(_this).find(".btn1,.btn2").hide();

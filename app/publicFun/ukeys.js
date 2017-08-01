@@ -32,7 +32,7 @@ var ukeys = {
         return true;
     },
     randomNum(esealCode) {//获取随机数
-        console.log(JSON.stringify(esealCode),555)
+        //console.log(JSON.stringify(esealCode),555)
         return service.getRandomNum({ esealCode: esealCode }).done(function (data) {
         }).responseJSON.data
     },

@@ -111,7 +111,6 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
     getRandomNum(data){
-        console.log(JSON.stringify(data),999)
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false,data:data });
     },
     //获取订单中心列表
