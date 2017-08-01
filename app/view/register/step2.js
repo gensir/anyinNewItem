@@ -163,6 +163,7 @@ var step2 = Backbone.View.extend({
 			if(data.code==0){
 				result=data.data;
 				IDNo=result.idcardNumber;
+				localStorage.enterpriseCode=result.uniformSocialCreditCode||result.organizationCode;
 				that.$el.html(tpl({data:result}));
 			}else{
 				bootbox.alert(data.msg);

@@ -16,8 +16,7 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
-		enterpriseCode = reqres.request("IDCode");
-		enterpriseCode = enterpriseCode.uniformSocialCreditCode;
+		enterpriseCode = localStorage.enterpriseCode;
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
@@ -129,13 +128,14 @@ var step3 = Backbone.View.extend({
 						}	
 						var obj = {
 							"bizType": 5,
-							"enterpriseCode": enterpriseCode||"233434344344", //组织机构代码 或 统一社会信用代码（优先）
+							"enterpriseCode": enterpriseCode, //组织机构代码 或 统一社会信用代码（优先）
 							"urls": "["+data+"]"
 						}
 						service.attach(obj).done(function(data) {
 							if(data.code == 0) {
-								pictureFlag==1
+								
 							} else {
+								pictureFlag[num]=1;
 								bootbox.alert(data.msg)
 							}
 						})
@@ -174,6 +174,15 @@ var step3 = Backbone.View.extend({
 				var dialog = bootbox.alert({
 					className: "uploadPhoto",
 					message: "请上传全部图片",
+				})
+				return;
+			}
+		};
+		for(var i = 0; i < pictureFlag.length; i++) {
+			if(pictureFlag[i] == 1) {
+				var dialog = bootbox.alert({
+					className: "uploadPhoto",
+					message: "图片保存失败",
 				})
 				return;
 			}
