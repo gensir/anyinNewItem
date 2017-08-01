@@ -79,7 +79,7 @@ var main = Backbone.View.extend({
         var data = {
             "mobile": $("#userName").val()||"13527761888,13926993742",
             "password": $("#passwd").val()||"123456",
-            "captcha": "jskx",
+            //"captcha": "jskx",
             "loginType": 1
         }
         service.userlogin(data).done(function (data) {

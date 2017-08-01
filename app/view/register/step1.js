@@ -62,6 +62,7 @@ var step1 = Backbone.View.extend({
                 if (res.code == 0 && res.data !== null) {
                     enterpriseCode = res.data.organizationCode;
                     firmId = res.data.id;
+                    localStorage.enterpriseCode = enterpriseCode;
                     if (enterpriseCode == null) {
                         $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
                     } else {

@@ -105,7 +105,7 @@ export default {
     },
     //登录
     userlogin(data) {
-        return this.ajaxCall({ url: domain  + "sys/login", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp  + "sys/login", data: data }, "post");
     },
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });

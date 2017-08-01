@@ -1,9 +1,19 @@
 import tpl from './tpl/logs.html';
 var service = require('../../server/service').default;
 var ukey = require('../../publicFun/ukeys');
+var esealCode,enterpriseCode,PKCS7;
+var esealCode = localStorage.esealCode;
+//var enterpriseCode = localStorage.enterpriseCode;
+var PKCS7 = localStorage.dSignature;
+
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize() {
+    },
+    render: function (query) {
+        $(".container").empty();
+        this.logslist();
+
     },
     events: {
         'click .listtext li .file': 'Toggleshow',
@@ -105,9 +115,9 @@ var logs = Backbone.View.extend({
             return false;
         }
         var data = {
-            "esealCode": "ff",
-            "enterpriseCode": "",
-            "PKCS7": "",
+            "esealCode": esealCode || "ff",
+            "enterpriseCode": enterpriseCode,
+            "PKCS7": PKCS7,
             "importName": $("#keyword").val(),
             "operateStatus": $("#s_state").val(),
             "signType": $("#s_type").val(),
@@ -121,10 +131,10 @@ var logs = Backbone.View.extend({
             } else {
                 logsObj = res.data;
             }
-            // if (!(res.code == 0 && data.PKCS7)) {
-            //     this.nosearch();
-            //     return false;
-            // }
+            if (!(res.code == 0 && data.PKCS7)) {
+                this.nosearch();
+                return false;
+            }
             this.model.set("totalPages", res.data.totalPages);
             this.model.get("tplhtml").data = logsObj;
             this.$el.append(tpl(this.model.get("tplhtml")));
@@ -143,9 +153,9 @@ var logs = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 2;
         var data = {
-            "esealCode": "ff",
-            "enterpriseCode": "",
-            "PKCS7": "",
+            "esealCode": esealCode || "ff",
+            "enterpriseCode": enterpriseCode,
+            "PKCS7": PKCS7,
         };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
@@ -180,9 +190,9 @@ var logs = Backbone.View.extend({
             return;
         }
         var obj = {
-            "esealCode": "ff",
-            "enterpriseCode": "",
-            "PKCS7": "",
+            "esealCode": esealCode || "ff",
+            "enterpriseCode": enterpriseCode,
+            "PKCS7": PKCS7,
             "importName": $("#keyword").val(),
             "operateStatus": $("#s_state").val(),
             "signType": $("#s_type").val(),
@@ -231,12 +241,6 @@ var logs = Backbone.View.extend({
     NextPage(e) {
         this.active = $(e.currentTarget).prev();
         this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
-    },
-
-    render: function (query) {
-        $(".container").empty();
-        this.logslist();
-
     }
 });
 

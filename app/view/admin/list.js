@@ -172,7 +172,7 @@ var list = Backbone.View.extend({
         var dialog = bootbox.dialog({
             backdrop: true,
             //closeButton: false,
-            className: "realName common loss",
+            className: "common loss",
             title: dialogs.find(".lossEseal .title")[0].outerHTML,
             message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
             buttons: {
