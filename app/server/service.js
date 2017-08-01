@@ -127,8 +127,8 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/sys/checkidCode", data: data }, "post");
     },
     //企业附件信息上传
-    attach(data) {
-        return this.ajaxCall({ url: domain + basemp + "attach", data: data }, "post");
+    attach(data,urls) {
+        return this.ajaxCall({ url: domain + basemp + "attach"+urls, data: data }, "post");
     },
     //刻章店查询  /get_area/sealShops/queryPageSealShopsByAreacode?areacode=440305&page=1&size=5
     getSealShop(areacode,pageNum,pageSize){

@@ -131,8 +131,9 @@ var step3 = Backbone.View.extend({
 							"enterpriseCode": enterpriseCode, //组织机构代码 或 统一社会信用代码（优先）
 							"urls": "["+data+"]"
 						}
-						service.attach(obj).done(function(data) {
-							if(data.code == 0) {
+						var urls="?urls="+obj.urls+"&bizType="+obj.bizType+"&enterpriseCode="+obj.enterpriseCode
+						service.attach(obj,urls).done(function(res) {
+							if(res.code == 0) {
 								
 							} else {
 								pictureFlag[num]=1;
