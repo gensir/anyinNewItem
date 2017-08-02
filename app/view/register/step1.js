@@ -132,7 +132,7 @@ var step1 = Backbone.View.extend({
         })
     },
     //点击注册进入第二步
-    reguser(data) {
+    reguser(event) {
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
             this.checkname();

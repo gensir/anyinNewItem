@@ -3,6 +3,10 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
+var esealCode,enterpriseCode,PKCS7;
+var esealCode = localStorage.esealCode;
+//var enterpriseCode = localStorage.enterpriseCode;
+var PKCS7 = localStorage.dSignature;
 var index = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -57,9 +61,9 @@ var index = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "esealCode": "ff",
-            "enterpriseCode": "",
-            "PKCS7": "",
+            "esealCode": esealCode || "22222222",
+            "enterpriseCode": enterpriseCode,
+            "PKCS7": PKCS7,
         };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;

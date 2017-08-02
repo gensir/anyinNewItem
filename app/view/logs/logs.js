@@ -5,7 +5,6 @@ var esealCode,enterpriseCode,PKCS7;
 var esealCode = localStorage.esealCode;
 //var enterpriseCode = localStorage.enterpriseCode;
 var PKCS7 = localStorage.dSignature;
-
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize() {
@@ -13,7 +12,6 @@ var logs = Backbone.View.extend({
     render: function (query) {
         $(".container").empty();
         this.logslist();
-
     },
     events: {
         'click .listtext li .file': 'Toggleshow',
@@ -115,7 +113,7 @@ var logs = Backbone.View.extend({
             return false;
         }
         var data = {
-            "esealCode": esealCode || "ff",
+            "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
             "PKCS7": PKCS7,
             "importName": $("#keyword").val(),
@@ -190,7 +188,7 @@ var logs = Backbone.View.extend({
             return;
         }
         var obj = {
-            "esealCode": esealCode || "ff",
+            "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
             "PKCS7": PKCS7,
             "importName": $("#keyword").val(),

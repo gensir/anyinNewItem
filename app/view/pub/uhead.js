@@ -77,19 +77,19 @@ var header = {
                                 if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
                                     var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
                                     var randomNum = ukeys.randomNum(esealCode)
-                                    var dSignature = ukeys.dSignature(selectedUkey,randomNum)
+                                    var dSignature = ukeys.dSignature(selectedUkey , randomNum)
+                                    // console.log("印章编码：" + esealCode)
+                                    // console.log("随机码：" + randomNum)
+                                    // console.log("签名：\n" + dSignature)
                                     localStorage.esealCode = esealCode
-                                    localStorage.randomNum = randomNum
                                     localStorage.dSignature = dSignature
-                                    console.log("印章编码："+localStorage.esealCode)
-                                    console.log("随机码："+localStorage.randomNum)
-                                    console.log("签名："+localStorage.dSignature)
+                                    //document.write("获取客户端数字签名：\n" + dSignature);
                                     var success = dialogsText.find(".success")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(success);
                                     $(_this).find(".btn1,.btn2").hide();
                                     setTimeout(function () {
                                         _this.modal('hide');
-                                        //location.reload();
+                                        location.reload();
                                     }, 1200)
                                 } else {
                                     numInd = 1;
