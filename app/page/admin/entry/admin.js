@@ -21,11 +21,3 @@ Backbone.history.start({
     root : ''
 });
 var order = localStorage.orderNo;
-service.status(order).done(function(data){
-	if(data.code==0){
-		if(window.location.hash!=""){
-			window.open("admin.html#step"+data.data.operateStep, '_self')
-		}
-//		window.open("admin.html#step"+data.data.operateStep, '_self')
-	}
-})
