@@ -55,7 +55,7 @@ var step1 = Backbone.View.extend({
 //               	}]
 //		        };
 //		        data.data.list.push(obj);
-				if(data.data.list.length>0){
+				if(data.data.list!=null){
 					var length=data.data.list[0].orderDetials;
 					for(var i=0;i<length.length;i++){
 						switch (length[i].esealName){
