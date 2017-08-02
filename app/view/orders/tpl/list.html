@@ -57,7 +57,7 @@
                                 <li class="n1">
                                     <p class="top f14">订单内容</p>
                                     {{each value.mpEsealOrderExts as value i}}
-                                    <p><span class="sealTotal">{{value.esealType==1?"单位印章":value.esealType==2?"个人印章":""}}</span><span class="">{{value.payAmount==null?"无数据":value.payAmount}}</span></p>
+                                    <p><span class="sealName">{{value.esealType==1?"单位印章":value.esealType==2?"个人印章":""}}</span><span class="">{{value.payAmount==null?"无数据":value.payAmount}}</span></p>
                                     <!--p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p-->
                                     {{/each}}
                                     <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">{{value.actualAmount}}</span></p>
@@ -298,18 +298,17 @@
     }
 
     .eseallist .list .orderHelp .n1 .sealName {
-        width: 136px;
+        width: 190px;
     }
 
     .eseallist .list .orderHelp .n1 .sealyear {
         width: 60px;
     }
     .eseallist .list .orderHelp .n1 .payAmount {
-        float: right;
         padding-right: 30px;
     }
     .eseallist .list .orderHelp .n1 .sealTotal {
-        width: 196px;
+        width: 190px;
         font-size: 14px;
         font-weight: 600;
     }
