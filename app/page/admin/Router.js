@@ -129,7 +129,7 @@ var Router = Backbone.Router.extend({
     hashChange:function(){
     	var order=localStorage.orderNo||"OFFLINE-07190571080634";
     	stepNum = window.location.stepNum;
-    	if(stepNum!="#step1"){
+    	if(stepNum!="#step1"&&window.location.hash!=""){
     		if(order&&stepNum!=window.location.stepNum){
 	    		service.status(order).done(function(data){
 					if(data.code==0){
