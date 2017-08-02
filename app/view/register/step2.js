@@ -3,7 +3,7 @@
  */
 import tpl from './tpl/step2.html';
 var service = require('../../server/service').default;
-var IDNo,enterpriseCode,result,that;
+var IDNo,enterpriseCode,result,that,username;
 var flag=0;
 var step2 = Backbone.View.extend({
 	el: '.container',
@@ -96,7 +96,7 @@ var step2 = Backbone.View.extend({
 			var mobile=$(".countPhone").val();
 			var passwd=$(".passwd").val();
 			enterpriseCode=result.uniformSocialCreditCode||result.organizationCode||null;
-			service.registerUser(mobile,passwd,enterpriseCode).done(res=>{
+			service.registerUser(mobile,passwd,enterpriseCode,username).done(res=>{
 				if(res.code==0){
 					localStorage.regStep="#step3";
 					window.open('register.html#step3', '_self')
@@ -167,6 +167,7 @@ var step2 = Backbone.View.extend({
 			if(data.code==0){
 				result=data.data;
 				IDNo=result.idcardNumber;
+				username=data.data.name
 				localStorage.enterpriseCode=result.uniformSocialCreditCode||result.organizationCode;
 				that.$el.html(tpl({data:result}));
 			}else{

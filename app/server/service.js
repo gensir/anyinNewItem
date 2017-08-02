@@ -139,8 +139,8 @@ export default {
     	return this.ajaxCall({ url: domain + basemp + "get_area/codeArea/queryCodeArea?area_code="+data,async: false});
     },
     //提交账号和密码
-    registerUser(mobile,passwd,enterpriseCode){
-    	return this.ajaxCall({ url: domain + basemp + "common/registerUser?mobile="+mobile+"&password="+passwd+"&enterpriseCode="+enterpriseCode});
+    registerUser(mobile,passwd,enterpriseCode,username){
+    	return this.ajaxCall({ url: domain + basemp + "common/registerUser?mobile="+mobile+"&password="+passwd+"&enterpriseCode="+enterpriseCode+"&username="+username});
     },
     //点击注册
     toRegister(data){
