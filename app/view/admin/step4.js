@@ -158,7 +158,7 @@ var step4 = Backbone.View.extend({
     			}else if( resPayType ==3 ){ //去处理银联
     				this.paymentEnter(resPayType);
     			}
-				
+				return;
     		}else{
     			console.log(res.msg);
     		}
@@ -188,12 +188,21 @@ var step4 = Backbone.View.extend({
     	};
     	service.payment(paymentData).done(res => {
     		if( res.code == 0){  //支付宝或者银联请求成功
-    			
+    			var requestUrl=res.data.requestUrl;
+    			var payDate=res.data;
+				delete payDate["requestUrl"]; 
+				this.payAlertPageGo( payDate,requestUrl);				
+    			return;
     		}else{
     			console.log("支付宝或者银联请求失败！| "+res.code);
     		}
     	});
     	
+    },
+    payAlertPageGo:function( payDate,requestUrl ){
+    	service.payAlertPage(payDate,requestUrl).done(res => {
+    		console.log(res);
+    	});
     },
     invoiceStates: function(event) {
         if(billType == 1) {    
