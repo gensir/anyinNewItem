@@ -200,7 +200,8 @@ export default {
     },    
     //获取微信支付的二维码
     qrCode(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/qr_code?codeUrl="+data, data: data});
+    	//return this.ajaxCall({ url: domain + basemp + "eseal/order/qr_code?codeUrl="+data, data: data});
+    	return  domain + basemp + "eseal/order/qr_code?codeUrl="+data
     },    
     //创建支付宝或银联订单的Json数据
     payment(data){

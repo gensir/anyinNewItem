@@ -15,7 +15,7 @@ var config = {
         //contentBase:"./app/page/index",
         proxy: {
             '/mp/': {
-//             target: proxy.lsq, //pathRewrite: {'^/column' : '/column'},            	
+//	            target: proxy.lsq, //pathRewrite: {'^/column' : '/column'},            	
              	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
