@@ -109,7 +109,8 @@ var step2 = Backbone.View.extend({
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
 			var code=$(".countCode").val();
-			service.checkSmsCode(code).done(function(data) {
+			var phone=$(".countPhone").val();
+			service.checkSmsCode(code,phone).done(function(data) {
 				if(data.code == 0) {
 					flag=1;
 					$(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
