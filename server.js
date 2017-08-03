@@ -7,7 +7,7 @@ for (var i in proxy.dev.proxy) {
     if (proxy.dev.proxy.hasOwnProperty(i)) {
         app.use(i + '/*', proxyhttp(proxy.dev.proxy[i].target, {
             proxyReqPathResolver: function (req, res) {
-                return req.baseUrl
+                return req.originalUrl 
             }
         }));
     }

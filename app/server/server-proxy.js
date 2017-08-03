@@ -14,7 +14,7 @@ var config = {
         port: 10086,
         //contentBase:"./app/page/index",
         proxy: {
-            '/mp/': {
+            '/mp': {
 //	            target: proxy.lsq, //pathRewrite: {'^/column' : '/column'},            	
              	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
@@ -25,12 +25,12 @@ var config = {
                 secure: false,
                 changeOrigin: true
             },
-            '/common/': {
+            '/common': {
                 target: proxy.test, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
             },
-            '/sys/': {
+            '/sys': {
                 target: proxy.test, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
