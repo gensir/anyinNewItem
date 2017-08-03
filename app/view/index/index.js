@@ -25,7 +25,8 @@ var index = Backbone.View.extend({
         var userdata = {
             "username": "深圳市创业印章科技有限公司",
             "status": "2",
-            "loginDate": "2017-07-01"
+            "loginDate": "2017-07-01",
+            "statusRemark": "资料不完整",
         }
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
@@ -75,10 +76,10 @@ var index = Backbone.View.extend({
         var _this = this
         bootbox.dialog({
             backdrop: true,
-            closeButton: false,
+            closeButton: true,
             className: "common realname_no",
             title: dialogs.find(".realname_no .title")[0].outerHTML,
-            message: dialogs.find(".realname_no .msg1")[0].outerHTML,
+            message: $(dialogs.find(".realname_no .msg1")[0].outerHTML).append(this.model.get('tpl').userinfo.statusRemark),
             buttons: {
                 cancel: {
                     label: "重新实名",

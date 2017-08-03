@@ -93,7 +93,7 @@ export default {
     },
     //签章日志记录
     commSignetLog(pageNum, pageSize, data) {
-        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data });
+        return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data }, "post");
     },
     //系统操作日志
     Operationlog(pageNum, pageSize) {
