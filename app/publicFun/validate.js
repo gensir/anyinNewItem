@@ -36,7 +36,7 @@ var verify = {
     synError(ele) {
         var originVal = $(ele).val();
         if ($(ele + "-error").text()) {
-            $(ele).on("keyup", function () {
+            $(ele).on("keyup change", function () {
                 if ($(this).val() != originVal) {
                     $(ele + "-error").html("")
                 }
@@ -53,8 +53,12 @@ var verify = {
         idcode: '请输入18位社会信用代码',
         yzmcode: '请输入4位验证码',
         Ename: '企业名称不能为空',
+        ukeytip:'请选择证书'
     },
     istrue: {
+        ukeytip:function (ele) {
+            return $(ele).find("option:selected").index()-1!=-1
+        },
         phone: function (ele) {
             var reg = /^1[34578]\d{9}$/;
             return reg.test($(ele).val());
