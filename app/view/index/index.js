@@ -3,7 +3,7 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var esealCode,enterpriseCode,PKCS7,status;
+var esealCode, enterpriseCode, PKCS7, status;
 var esealCode = localStorage.esealCode;
 //var enterpriseCode = localStorage.enterpriseCode;
 var PKCS7 = localStorage.dSignature;
@@ -24,7 +24,7 @@ var index = Backbone.View.extend({
         var _this = this
         var userdata = {
             "username": "深圳市创业印章科技有限公司",
-            "status": "0",
+            "status": "2",
             "loginDate": "2017-07-01"
         }
         this.model.get("tpl").userinfo = userdata;
@@ -64,7 +64,6 @@ var index = Backbone.View.extend({
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        //console.log(result, "cancel")
                         result.cancelable = false;
                     }
                 },
@@ -73,19 +72,19 @@ var index = Backbone.View.extend({
         return false;
     },
     realname_no() {
+        var _this = this
         bootbox.dialog({
             backdrop: true,
             closeButton: false,
-            className: "common realname no",
-            title: dialogs.find(".realname.no .title")[0].outerHTML,
-            message: dialogs.find(".realname.no .msg1")[0].outerHTML,
+            className: "common realname_no",
+            title: dialogs.find(".realname_no .title")[0].outerHTML,
+            message: dialogs.find(".realname_no .msg1")[0].outerHTML,
             buttons: {
                 cancel: {
-                    label: "返回",
-                    className: "btn1",
+                    label: "重新实名",
+                    className: "btn2 shiming",
                     callback: function (result) {
-                        //console.log(result, "cancel")
-                        result.cancelable = false;
+                        result.cancelable = window.open('register.html#step3', '_self');
                     }
                 },
             }
