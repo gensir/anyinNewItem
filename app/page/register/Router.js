@@ -93,11 +93,11 @@ var Router = Backbone.Router.extend({
         },'step4')
     },
     hashChange:function(){
-    	regStep=localStorage.regStep;
-    	hash = window.location.hash;
-    	if(hash!=regStep){
-    		window.open("register.html#step1", '_self')
-    	}
+//  	regStep=localStorage.regStep;
+//  	hash = window.location.hash;
+//  	if(hash!=regStep){
+//  		window.open("register.html#step1", '_self')
+//  	}
     }
 });
 
