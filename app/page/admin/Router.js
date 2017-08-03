@@ -129,16 +129,17 @@ var Router = Backbone.Router.extend({
     hashChange:function(){
     	var order=localStorage.orderNo;
     	stepNum = localStorage.stepNum;
-    	if(stepNum!="#step1"&&window.location.hash!=""){
-//  		var str=window.location.hash;
-//  		var hash=str.charAt(str.length-1);
-    		if(order&&stepNum!=window.location.hash){
-	    		service.status(order).done(function(data){
-					if(data.code==0){
-						window.open("admin.html#step"+data.data.operateStep, '_self')
-					}
-				})
-	    	}else{
+    	if(window.location.hash!=""){
+    		if(order){
+    			if(stepNum!=window.location.hash){
+    				service.status(order).done(function(data){
+						if(data.code==0){
+							localStorage.stepNum="#step"+data.data.operateStep;
+							window.open("admin.html#step"+data.data.operateStep, '_self')
+						}
+					})
+    			}	
+		    }else{
 	    		window.open("admin.html#step1", '_self')
 	    	} 
     	}

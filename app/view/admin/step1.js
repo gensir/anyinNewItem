@@ -156,7 +156,7 @@ var step1 = Backbone.View.extend({
 //		console.log(JSON.stringify(data));
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
-				localStorage.stepNum="#step1";
+				localStorage.stepNum="#step2";
 				localStorage.orderNo=data.data;
 				window.open('admin.html#step2', '_self');
 			} else {

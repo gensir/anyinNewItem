@@ -16,9 +16,13 @@ var step4 = Backbone.View.extend({
         'click .pay div': 'paystyle',
         'click .account': 'gopay',
         'click input[type="radio"]': 'taxType',
-        'click .licence': 'mf9527'
+        'click .licence': 'mf9527',
+        'click #goStep3':'gostep3'
     },
     render: function(query) {
+    	if(localStorage.stepNum!="#step4"){
+			return;
+		}
         var payments = $($(payment()).prop("outerHTML"));
         this.$el.html(tpl);
         $(".orderMessage").append(payments.find(".bill"));
@@ -234,6 +238,9 @@ var step4 = Backbone.View.extend({
         }
 
     },
+    gostep3:function(){
+    	localStorage.stepNum="#step3"
+    }
 
 });
 

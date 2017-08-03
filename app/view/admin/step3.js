@@ -18,9 +18,13 @@ var step3 = Backbone.View.extend({
 		'click .PreviousPage': 'PreviousPage',
 		'click .NextPage': 'NextPage',
 		'click nav li.index': 'currentPapge',
-		"change #area":'option'
+		"change #area":'option',
+		'click #goStep2':'gostep2'
 	},
 	render: function(query) {
+		if(localStorage.stepNum!="#step3"){
+			return;
+		}
 		this.$el.html(tpl);		
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
@@ -464,12 +468,15 @@ var step3 = Backbone.View.extend({
 		stepResult.scanAttaches=scan;
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
-			localStorage.stepNum="#step2";
+			localStorage.stepNum="#step4";
 				window.open('admin.html#step4', '_self');
 			} else {
 				bootbox.alert(data.msg)
 			}
 		})
+	},
+	gostep2:function(){
+		localStorage.stepNum="#step2"
 	}
 });
 

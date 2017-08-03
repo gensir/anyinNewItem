@@ -13,8 +13,12 @@ var step2 = Backbone.View.extend({
 	events: {
 		'change #file0,#file1,#file2,#file3,#file4': 'changeImg',
 		'click #goStep3': 'goStep3',
+		'click #goStep1': 'gostep1'
 	},
 	render: function(query) {
+		if(localStorage.stepNum!="#step2"){
+			return;
+		}
 		this.$el.html(tpl);
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
@@ -309,12 +313,15 @@ var step2 = Backbone.View.extend({
 		
 		service.poststep2(stepResult).done(function(data) {
 			if(data.code == 0) {
-				localStorage.stepNum="#step2";
+				localStorage.stepNum="#step3";
 				window.open('admin.html#step3', '_self');
 			} else {
 				bootbox.alert(data.msg)
 			}
 		})
+	},
+	gostep1:function(){
+		localStorage.stepNum="#step1"
 	}
 });
 
