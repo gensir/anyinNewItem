@@ -2,9 +2,13 @@
 <div class="page-kd actions">
     <dl class="userinfo">
         <dt><span class="tximg"></span></dt>
-        <dd class="name">欢迎您，<span id="gsname" title="">深圳市创业印章科技有限公司深圳市创业印章科技有限公司</span></dd>
-        <dd class="renzheng"><span class="rzinfo"></span></dd>
-        <dd class="logintime">上次登录：2017-06-28</dd>
+        <dd class="name">欢迎您，<span id="username" title="{{userinfo.username}}">{{userinfo.username}}</span></dd>
+        <dd class="renzheng">
+            {{if userinfo.status == 1}}<span class="rzinfo ok" id="status"></span> {{/if}}
+            {{if userinfo.status == 0}}<span class="rzinfo" id="status"></span> {{/if}}
+            {{if userinfo.status == 2}}<span class="rzinfo" id="status"></span> {{/if}}
+        </dd>
+        <dd class="logintime">上次登录：<span id="loginDate">{{userinfo.loginDate}}</span></dd>
     </dl>
 
     <ul class="actionlist">
@@ -22,7 +26,7 @@
             <div class="t-title">
                 <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
             <ul class="blist boxshow">
-                {{each listdata as value i}}
+                {{each esealdata as value i}}
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date">{{value.validEnd}}</span>
@@ -50,7 +54,7 @@
             <h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
         <div class="jilulist boxshow">
             <ul>
-                {{each esealdata as value i}}
+                {{each logdata as value i}}
                 <li>
                     <div class="file">
                         <div class="date">{{value.signTime}}</div>
