@@ -148,11 +148,11 @@ var step4 = Backbone.View.extend({
     			var codeUrl=res.data.codeUrl;
     			var resPayType=step4Data.payType;
     			if( resPayType ==1 ){   //去处理支付宝的弹框
-					this.aliPay(resPayType);
+					this.paymentEnter(resPayType);
     			}else if( resPayType ==2 ){  //去处理微信
     				this.weixinPay(codeUrl);	
     			}else if( resPayType ==3 ){ //去处理银联
-    				
+    				this.paymentEnter(resPayType);
     			}
 				
     		}else{
@@ -177,14 +177,17 @@ var step4 = Backbone.View.extend({
 				}
 			})    	
     },
-    aliPay:function(resPayType){
+    paymentEnter:function(resPayType){
     	var paymentData={
     		"orderNo":orderNo,
     		"payType":resPayType
     	};
     	service.payment(paymentData).done(res => {
-    		console.log(res);
-    		
+    		if( res.code == 0){  //支付宝或者银联请求成功
+    			
+    		}else{
+    			console.log("支付宝或者银联请求失败！| "+res.code);
+    		}
     	});
     	
     },

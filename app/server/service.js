@@ -205,7 +205,7 @@ export default {
     },    
     //创建支付宝或银联订单的Json数据
     payment(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/payment",data:data},"post");
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/payment",data:data});
     },        
     //前端查第三方订单状态手动更新订单接口 
     esealOrderResult(data){
