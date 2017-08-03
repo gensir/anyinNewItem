@@ -11,6 +11,7 @@ var config = {
         hot: true,
         inline: true,
         progress: true,
+        disableHostCheck:true,
         port: 10086,
         //contentBase:"./app/page/index",
         proxy: {
