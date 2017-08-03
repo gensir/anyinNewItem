@@ -6,6 +6,14 @@ var step1 = Backbone.View.extend({
     el: '.container',
     initialize() {
     },
+    render: function (query) {
+        this.$el.html(tpl);
+        this.Emptyinput();
+        this.rules();
+        this.typeahead();
+        localStorage.clear();
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
     events: {
         'click #xieyi': 'rules',
         'click #reguser': 'reguser',
@@ -16,14 +24,25 @@ var step1 = Backbone.View.extend({
         //'blur #Ename': 'checkname'
     },
     //同意协议
-    rules: function () {
+    rules(event) {        
         if ($('#xieyi').is(':checked')) {
-            $('#reguser').prop("disabled", false);
+            $('#reguser').attr("disabled", false);
         } else {
-            $('#reguser').prop("disabled", true);
+            $('#reguser').attr("disabled", true);
         }
     },
-
+    //IE中重置表单内容
+    Emptyinput() {
+        window.onload = function () {
+            document.forms[0].reset();
+        }
+    },
+    //重置验证码输入
+    CodeRefresh() {
+        $('#yzmcode-error').html('').css({ "color": "#f00" });
+        $('#yzmcode').val("")
+        this.captcha();
+    },
     // 更换图片验证码；
     captcha() {
         $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
@@ -62,14 +81,15 @@ var step1 = Backbone.View.extend({
                 if (res.code == 0 && res.data !== null) {
                     enterpriseCode = res.data.organizationCode;
                     firmId = res.data.id;
-                    localStorage.enterpriseCode = enterpriseCode;
                     if (enterpriseCode == null) {
                         $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
+                        this.CodeRefresh();
                     } else {
                         this.checkUserIsExist(enterpriseCode);
                     }
                 } else {
                     $("#Ename-error").html("企业不存在，不可注册").css({ "color": "#f00" });
+                    this.CodeRefresh();
                 }
                 //console.log("firmId：" + firmId)
             })
@@ -86,17 +106,20 @@ var step1 = Backbone.View.extend({
                 if ($('#yzmcode').val().length == 4) {
                     this.toreguser();
                 }
-            } else if (res.code == 2) {
+            } else if (res.code == 1) {
                 $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>").css({ "color": "#f00" });
-            } else if (res.code == 3) {
+                this.CodeRefresh();
+            } else if (res.code == 2) {
                 $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>").css({ "color": "#f00" });
-            } else if (res.code == 4) {
+                this.CodeRefresh();
+            } else if (res.code == 3) {
                 $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请").css({ "color": "#f00" });
+                this.CodeRefresh();
             }
             //console.log("企业校验完成")
         })
     },
-
+    //重置企业名称错误提示
     checknameerror(data) {
         $('#Ename-error').html('').css({ "color": "#f00" });
     },
@@ -137,13 +160,6 @@ var step1 = Backbone.View.extend({
         if (!this.model.isValid()) {
             this.checkname();
         }
-    },
-
-    render: function (query) {
-        this.$el.html(tpl);
-        this.typeahead();
-        localStorage.clear();
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
 });
 
