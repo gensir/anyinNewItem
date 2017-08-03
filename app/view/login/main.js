@@ -17,9 +17,16 @@ var main = Backbone.View.extend({
     },
     render(obj) {
         var _this = this;
-        this.$el.prepend(tpl({
-            list: ukeys.ukeyName()
-        }));
+        if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
+            this.$el.prepend(tpl({
+                list: ukeys.ukeyName()
+            }));
+        }else{
+                this.$el.prepend(tpl({
+                list: null
+            }));
+        }
+
         this.toggleTab();
     },
     toggleTab() {
@@ -32,16 +39,12 @@ var main = Backbone.View.extend({
         window.open('register.html#step1', '_self')
     },
     ukeyLogin(event) {
-        //console.log(JSON.stringify(ukeys.ConnectKey()),"abc")
-        //console.log(JSON.stringify(ukeys.SetPIN("123456789")),"abcd")
-        //console.log(JSON.stringify(ukeys.WriteSignDataToKey(ukeys.WriteSignDataToKeyText)),"abcdefd")
-        console.log(JSON.stringify(ukeys.esealCode($("#pinwd").val(),selectedUkey)),888)
         this.model.set({ "clickEle": $(event.target).data('id') })
         var isValid = this.model.isValid();
-        if (isValid) {
+        var selectedUkey=$("#seleBook option:selected").index() - 1
+        if (selectedUkey==-1) {
             return;
         }
-        var selectedUkey=$("#seleBook option:selected").index() - 1
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
         if (checkResult) {
             var randomNum=ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
@@ -79,7 +82,7 @@ var main = Backbone.View.extend({
         var data = {
             "mobile": $("#userName").val()||"13527761888,13926993742",
             "password": $("#passwd").val()||"123456",
-            //"captcha": "jskx",
+            "captcha": "jskx",
             "loginType": 1
         }
         service.userlogin(data).done(function (data) {
