@@ -127,10 +127,12 @@ var Router = Backbone.Router.extend({
         }, 'update_key')
     }, 
     hashChange:function(){
-    	var order=localStorage.orderNo||"OFFLINE-07190571080634";
-    	stepNum = window.location.stepNum;
+    	var order=localStorage.orderNo;
+    	stepNum = localStorage.stepNum;
     	if(stepNum!="#step1"&&window.location.hash!=""){
-    		if(order&&stepNum!=window.location.stepNum){
+//  		var str=window.location.hash;
+//  		var hash=str.charAt(str.length-1);
+    		if(order&&stepNum!=window.location.hash){
 	    		service.status(order).done(function(data){
 					if(data.code==0){
 						window.open("admin.html#step"+data.data.operateStep, '_self')

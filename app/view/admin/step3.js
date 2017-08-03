@@ -5,7 +5,8 @@ var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
 var areaNumber,stepResult,companyName;
-var that, company, sealShop,scan,eseals,isLegal;
+var that, company, sealShop,scan,eseals;
+var islegal;
 var zone=440300;
 var step3 = Backbone.View.extend({
 	el: '.container',
@@ -34,8 +35,7 @@ var step3 = Backbone.View.extend({
 		if(!orderNo){
 			return;
 		}
-		this.getstep3(orderNo);
-		this.sealList();	
+		this.getstep3(orderNo);	
 		
 //		that.$el.html(tpl(that.model.get("tplhtml")))
 	},
@@ -261,10 +261,10 @@ var step3 = Backbone.View.extend({
 		//查询行政区
 		service.queryCodeArea(zone).done(res => {
 			var tempObj;
-			if(res.length == 0) {
+			if(res.data.length == 0) {
 				tempObj = {}
 			} else {
-				tempObj = res;
+				tempObj = res.data;
 			}	
 			that.model.get("tplhtml").zoneArea = tempObj;
 			that.sealShop(areaNumber, pageNumber, pageSize);
@@ -333,31 +333,35 @@ var step3 = Backbone.View.extend({
 	sealShop(areaNumber, pageNumber, pageSize) {
 		//获取印章店 	
 		$(".sealShopResult").hide();
+		var areaN=areaNumber
 		var pageNumber = pageNumber || 1;
 		var pageSize = pageSize || 5
-		service.getSealShop(areaNumber, pageNumber, pageSize).done(res => {
-			var temp;
-			if(res.count == 0) {
-				temp = []
-			} else {
-				temp = res.data;
+		service.getSealShop(areaN, pageNumber, pageSize).done(res => {
+			if(res.code==0){
+				var temp;
+				var res=res.data;
+				if(res.count == 0) {
+					temp = []
+				} else {
+					temp = res.data;
+				}
+				that.model.get("tplhtml").sealShop = temp;
+				that.model.set("totalPages", Math.ceil(res.count / res.size))
+				that.$el.html(tpl(that.model.get("tplhtml")))
+				that.pagination(pageNumber, Math.ceil(res.count / res.size))
+				if(res.data.length==0){
+					$(".sealShopResult").show();
+					$(".pagination").hide();
+				}
+				imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
+				imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
+				imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
+				imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
 			}
-			that.model.get("tplhtml").sealShop = temp;
-			that.model.set("totalPages", Math.ceil(res.count / res.size))
-			that.$el.html(tpl(that.model.get("tplhtml")))
-			that.pagination(pageNumber, Math.ceil(res.count / res.size))
-			if(res.data.length==0){
-				$(".sealShopResult").show();
-				$(".pagination").hide();
-			}
-			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
-			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
-			imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
-			imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });	
 		});
 		//如果是第一次进来
 		if(scan.length==0){
-			if(isLegal==0){
+			if(islegal==0){
 				pictureFlag[1]=1;
 				$(".legalScan").show()
 			}else{
@@ -430,6 +434,7 @@ var step3 = Backbone.View.extend({
 					if(data.code==0){
 						areaNumber=data.data.areaNumber;
 						that.model.get("tplhtml").areaNumber = areaNumber;
+						that.sealList();
 					}else{
 						bootbox.alert(data.msg);
 					}
@@ -459,7 +464,7 @@ var step3 = Backbone.View.extend({
 		stepResult.scanAttaches=scan;
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
-			localStorage.stepNum="#step4";
+			localStorage.stepNum="#step2";
 				window.open('admin.html#step4', '_self');
 			} else {
 				bootbox.alert(data.msg)

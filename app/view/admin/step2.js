@@ -38,13 +38,15 @@ var step2 = Backbone.View.extend({
 						pictureFlag = [0, 0, 0]
 					}
 				}else{
+					if(stepResult.isOperaterLegalPersion==0){
+						$(".operate").show();
+						pictureFlag = [0, 0, 0, 0, 0]
+					}else{
+						$(".operate").hide();
+						pictureFlag = [0, 0, 0]
+					}
 					for(var i=0;i<attaches.length;i++){
-						if(attaches.length==3){
-							$(".operate").hide();
-							pictureFlag = [0, 0, 0]
-						}else{
-							pictureFlag = [0, 0, 0, 0, 0]
-						}
+						
 						if(attaches[i].certificateType=="0002"){
 							$("#file0").css({"height":"24px"});
 							$(".reset0").show();
@@ -307,7 +309,7 @@ var step2 = Backbone.View.extend({
 		
 		service.poststep2(stepResult).done(function(data) {
 			if(data.code == 0) {
-				localStorage.stepNum="#step3";
+				localStorage.stepNum="#step2";
 				window.open('admin.html#step3', '_self');
 			} else {
 				bootbox.alert(data.msg)
