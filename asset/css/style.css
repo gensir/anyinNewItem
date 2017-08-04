@@ -1,5 +1,5 @@
 @charset "utf-8";
-body { background: #f6f8fc; overflow-y: scroll; }
+body { background: #f6f6f6; overflow-y: scroll; }
 ul { list-style: none; padding: 0; margin: 0; }
 .placeholder { font-size: 14px; }
 .page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
@@ -49,12 +49,12 @@ ul { list-style: none; padding: 0; margin: 0; }
 .common .modal-dialog { width: 540px; }
 .common .modal-body { min-height: 120px;}
 .common .modal-footer { margin: 0 auto; text-align: center; border: 0; padding-top: 1px;  padding-bottom: 20px; }
-.common .modal-footer button { padding: 0; margin: 0 10px; border: 0; width: 80px; height: 30px; }
+.common .modal-footer button { padding: 0; margin: 0 10px; border: 0; min-width: 80px; height: 30px; }
 .common .modal-footer button.btn1,
 .common .modal-footer button a.return { color: #333; background: #ebebeb; }
 .common .modal-footer button.btn2,
 .common .modal-footer button a.continue { color: #fff; background: #00acff; }
-.common .modal-footer button a { text-decoration: none; display: inline-block; zoom: 1; width: 80px; height: 30px; line-height: 30px; }
+.common .modal-footer button a { text-decoration: none; display: inline-block; zoom: 1; min-width: 80px; height: 30px; line-height: 30px; }
 .common .modal-body .msgcenter { margin: 20px 60px; color: #333; font-size: 16px; font-weight: 400; text-align: center; }
 .common .modal-body .msgcenter em { background: url(../img/bg-all.png) no-repeat -520px -290px; display: inline-block; height: 43px; width: 43px; margin-right: 30px; vertical-align: middle; }
 .common .modal-body .msg1 {  background: url(../img/bg-all.png) no-repeat -520px -262px; margin: 0 60px 0 60px; color: #333; font-size: 14px; padding: 30px 0 30px 66px;}
