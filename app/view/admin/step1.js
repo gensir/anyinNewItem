@@ -205,3 +205,5 @@ var step1 = Backbone.View.extend({
 		}
 	}
 });
+
+module.exports = step1;
