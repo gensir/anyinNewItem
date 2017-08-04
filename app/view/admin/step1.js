@@ -160,7 +160,7 @@ var step1 = Backbone.View.extend({
 				localStorage.orderNo=data.data;
 				window.open('admin.html#step2', '_self');
 			} else {
-				bootbox.alert(data.msg);
+				bootbox.alert("很抱歉，您的企业无法在线上申请电子印章，请前往刻章店申请");
 			}
 		});
 	},
@@ -181,7 +181,7 @@ var step1 = Backbone.View.extend({
 			if(isLegal==0){
 				result.isDelUnpayed=1;
 				result.isOperatorLegalPersion=0
-				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
+//				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
 				that.model.set({ "clickEle": $(event.target).data('id') })
 		        var isValid = that.model.isValid();
 		        if (!isValid) {
@@ -194,7 +194,7 @@ var step1 = Backbone.View.extend({
 			}else{
 				result.isDelUnpayed=1;
 				result.isOperatorLegalPersion=1;
-				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
+//				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
 				this.poststep1(result);
 			}	
 		} else {
@@ -205,5 +205,3 @@ var step1 = Backbone.View.extend({
 		}
 	}
 });
-
-module.exports = step1;

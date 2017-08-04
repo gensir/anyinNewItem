@@ -101,7 +101,7 @@ export default {
     },
     //校验短信
     checkSmsCode(code,phone) {
-        return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode?smsCode="+code+"&mobilePhoneNo"+phone });
+        return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode?smsCode="+code+"&mobilePhoneNo="+phone });
     },
     //登录
     userlogin(data) {
