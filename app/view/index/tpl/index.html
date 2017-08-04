@@ -3,11 +3,7 @@
     <dl class="userinfo">
         <dt><span class="tximg"></span></dt>
         <dd class="name">欢迎您，<span id="username" title="{{userinfo.username}}">{{userinfo.username}}</span></dd>
-        <dd class="renzheng">
-            {{if userinfo.status == 1}}<span class="rzinfo ok" id="status"></span> {{/if}}
-            {{if userinfo.status == 0}}<span class="rzinfo" id="status"></span> {{/if}}
-            {{if userinfo.status == 2}}<span class="rzinfo" id="status"></span> {{/if}}
-        </dd>
+        <dd class="renzheng"><span class="rzinfo {{if userinfo.status == 1}}ok{{/if}}" id="status"></span></dd>
         <dd class="logintime">上次登录：<span id="loginDate">{{userinfo.loginDate}}</span></dd>
     </dl>
 
@@ -66,9 +62,8 @@
                             <dt>操作信息</dt>
                             <dd>操作时间：<span>{{value.signTime}}</span></dd>
                             <dd>签章应用：<span>{{value.clientAppVersion}}</span></dd>
-                            <dd>操作状态： {{if value.Status == 0}}<span style="color:#08c34e">成功</span>{{/if}} {{if value.Status
-                                == 1}}<span style="color:#f00">失败</span>{{/if}}</span>
-                            </dd>
+                            <dd>操作状态：{{if value.Status == 0}}<span style="color:#08c34e">成功</span>{{/if}}
+                                {{if value.Status == 1}}<span style="color:#f00">失败</span>{{/if}}</dd>
                         </dl>
                         <dl class="signet">
                             <dt>印章信息</dt>
@@ -86,35 +81,6 @@
                     </div>
                 </li>
                 {{/each}}
-                <!--li>
-					<div class="file">
-						<div class="date">12月12日</div>
-						<p class="gsname">深圳市安印电子科技有限公司采购电子印章UKEY合同书.pdf</p>
-						<p class="yzinfo"><span class="name">电子行政章</span><span class="type">单页签单</span></p>
-					</div>
-					<div class="details">
-						<dl class="signet">
-							<dt>操作信息</dt>
-							<dd>操作时间：<span>2016-12-12 12:12:12</span></dd>
-							<dd>应用版本：<span>office签章客户端V2.1.1.0</span></dd>
-							<dd>操作时间：<span>成功</span></dd>
-						</dl>
-						<dl class="signet">
-							<dt>印章信息</dt>
-							<dd>印章名称：<span>电子行政章</span></dd>
-							<dd>印章编码：<span>e4403071111231</span></dd>
-							<dd>有效期：<span>2016/12/12至2018/12/12</span></dd>
-						</dl>
-						<dl class="computer">
-							<dt>设备信息</dt>
-							<dd>设备IP：<span>210.210.210.210</span></dd>
-							<dd>MAC地址：：<span>5D-21-D5-E1-28-6D</span></dd>
-							<dd>IP来源：<span>中国广东省深圳市南山区</span></dd>
-							<dd>操作系统：<span>windows7</span></dd>
-						</dl>
-					</div>
-				</li-->
-
             </ul>
         </div>
 

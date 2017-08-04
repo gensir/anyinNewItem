@@ -1,10 +1,10 @@
 import tpl from './tpl/logs.html';
 var service = require('../../server/service').default;
 var ukey = require('../../publicFun/ukeys');
-var esealCode,enterpriseCode,PKCS7;
+var esealCode,enterpriseCode,PKSC7;
 var esealCode = localStorage.esealCode;
 //var enterpriseCode = localStorage.enterpriseCode;
-var PKCS7 = localStorage.dSignature;
+var PKSC7 = localStorage.dSignature;
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize() {
@@ -17,8 +17,7 @@ var logs = Backbone.View.extend({
         'click .listtext li .file': 'Toggleshow',
         'focus #keyword': 'MoreSearch',
         'click #search_submit': 'logSearchs',
-        'click #close,.search .more .closes': 'close',
-        'blur .more': 'blur',
+        'click .logcon,.win-close,#close': 'close',
         'change #s_state': 'operateStatus',
         'change #s_type': 'signType',
         'click #date1+em': 'remove_date',
@@ -72,12 +71,6 @@ var logs = Backbone.View.extend({
     MoreSearch() {
         $(".search .more").show()
     },
-    //关闭详细搜索
-    blur() {
-        $('.more').blur(function () {
-            $(".more").hide();
-        })
-    },
     //禁用搜索提示
     nosearch() {
         $(".search .nosearch").show()
@@ -115,7 +108,7 @@ var logs = Backbone.View.extend({
         var data = {
             "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
-            "PKCS7": PKCS7,
+            "PKSC7": PKSC7,
             "importName": $("#keyword").val(),
             "operateStatus": $("#s_state").val(),
             "signType": $("#s_type").val(),
@@ -129,7 +122,7 @@ var logs = Backbone.View.extend({
             } else {
                 logsObj = res.data;
             }
-            if (!(res.code == 0 && data.PKCS7)) {
+            if (!(res.code == 0 && data.PKSC7)) {
                 this.nosearch();
                 return false;
             }
@@ -153,7 +146,7 @@ var logs = Backbone.View.extend({
         var data = {
             "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
-            "PKCS7": PKCS7,
+            "PKSC7": PKSC7,
         };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
@@ -190,7 +183,7 @@ var logs = Backbone.View.extend({
         var obj = {
             "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
-            "PKCS7": PKCS7,
+            "PKSC7": PKSC7,
             "importName": $("#keyword").val(),
             "operateStatus": $("#s_state").val(),
             "signType": $("#s_type").val(),

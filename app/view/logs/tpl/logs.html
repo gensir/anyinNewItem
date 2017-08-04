@@ -1,85 +1,83 @@
-
-
-<div class="page-kd">
-    <h2 class="m-title">签章日志</h2>
-    <div class="mainbox">
-        <div class="jilulist boxshow">
-            <div class="listtitle">
-                <span class="title col1">签章时间</span>
-                <span class="title col2">文档名</span>
-                <span class="title col3">印章名</span>
-                <span class="title col4">签章类型</span>
-                <span class="title col5">状态</span>
-            </div>
-            <ul class="listtext">
-                {{each data.list as value i}}
-                <li class="">
-                    <div class="file">
-                        <span class="text col1">{{value.signTime}}</span>
-                        <span class="text col2 hide-text" title="{{value.signetDocument}}">{{value.signetDocument}}</span>
-                        <span class="text col3">{{value.esealFullName}}</span>
-                        <span class="text col4">{{value.signType}}</span>
-                        <span class="text col5">
-                            {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}}
-                        {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}</span>
-                        </span>
-                    </div>
-                    <div class="details">
-                        <dl class="signet">
-                            <dt>文档信息 {{if value.operateStatus == 0}}<span class="state">正常</span>{{/if}} {{if value.operateStatus
-                                == 1}}<span class="state no">异常</span>{{/if}}
-                            </dt>
-                            <dd class="hide-text">文档名称：<span>{{value.signetDocument}}</span></dd>
-                            <dd>签章时间：<span>{{value.signTime}}</span></dd>
-                            <dd>文档大小：<span>{{value.signetDocumentSize}}</span></dd>
-                            <dd>文档哈希值：<span>{{value.signetDocumentSize}}</span></dd>
-                            <dd>签章类型：<span>{{value.signType}}</span></dd>
-                        </dl>
-                        <dl class="signet">
-                            <dt>印章信息</dt>
-                            <dd>印章名称：<span>{{value.esealFullName}}</span></dd>
-                            <dd>印章编码：<span>{{value.esealCode}}</span></dd>
-                            <dd>制作日期：<span>{{value.createTime}}</span></dd>
-                            <dd>生效期：<span>{{}}</span></dd>
-                            <dd>失效期：<span>{{}}</span></dd>
-                        </dl>
-                        <dl class="signet help">
-                            <dt>需要帮助？</dt>
-                            <dd>新办理的电子印章无法使用，<a class="color1" href="#">了解详情</a></dd>
-                            <dd><a class="color2" href="#">电子印章常用问题</a>，或 <a class="color2" href="#">联系客服</a></dd>
-                        </dl>
-                        <dl class="computer">
-                            <dt>设备信息</dt>
-                            <dd>设备IP：<span>{{value.ip}}</span></dd>
-                            <dd>MAC地址：<span>{{value.ip}}</span></dd>
-                            <dd class="help">IP来源：<span>{{value.ip}}</span></dd>
-                            <dd>设备名称：<span>{{value.ip}}</span></dd>
-                            <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
-                            <dd class="help">签章应用：<span>{{value.clientOsEnv}}</span></dd>
-                        </dl>
-                    </div>
-                </li>
-                {{/each}}
-
-            </ul>
-
-            <nav class="pagelist" aria-label="Page navigation">
-                <ul class="pagination" id="pageLimit">
-                    <li class="PreviousPage">
-                        <a aria-label="Previous">
-                            <span aria-hidden="true">«</span>
-                        </a>
+<div class="logcon">
+    <div class="page-kd">
+        <h2 class="m-title"><span>签章日志</span></h2>
+        <div class="mainbox">
+            <div class="jilulist boxshow">
+                <div class="listtitle">
+                    <span class="title col1">签章时间</span>
+                    <span class="title col2">文档名</span>
+                    <span class="title col3">印章名</span>
+                    <span class="title col4">签章类型</span>
+                    <span class="title col5">状态</span>
+                </div>
+                <ul class="listtext">
+                    {{each data.list as value i}}
+                    <li class="">
+                        <div class="file">
+                            <span class="text col1">{{value.signTime}}</span>
+                            <span class="text col2 hide-text" title="{{value.signetDocument}}">{{value.signetDocument}}</span>
+                            <span class="text col3">{{value.esealFullName}}</span>
+                            <span class="text col4">{{value.signType}}</span>
+                            <span class="text col5">
+                                {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}}
+                                {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
+                            </span>
+                        </div>
+                        <div class="details">
+                            <dl class="signet">
+                                <dt>文档信息 {{if value.operateStatus == 0}}<span class="state">正常</span>{{/if}} {{if value.operateStatus == 1}}<span class="state no">异常</span>{{/if}}</dt>
+                                <dd class="hide-text">文档名称：<span>{{value.signetDocument}}</span></dd>
+                                <dd>签章时间：<span>{{value.signTime}}</span></dd>
+                                <dd>文档大小：<span>{{value.signetDocumentSize}}</span></dd>
+                                <dd>文档哈希值：<span>{{value.signetDocumentSize}}</span></dd>
+                                <dd>签章类型：<span>{{value.signType}}</span></dd>
+                            </dl>
+                            <dl class="signet">
+                                <dt>印章信息</dt>
+                                <dd>印章名称：<span>{{value.esealFullName}}</span></dd>
+                                <dd>印章编码：<span>{{value.esealCode}}</span></dd>
+                                <dd>制作日期：<span>{{value.createTime}}</span></dd>
+                                <dd>生效期：<span>{{}}</span></dd>
+                                <dd>失效期：<span>{{}}</span></dd>
+                            </dl>
+                            <dl class="signet help">
+                                <dt>需要帮助？</dt>
+                                <dd>新办理的电子印章无法使用，<a class="color1" href="#">了解详情</a></dd>
+                                <dd><a class="color2" href="#">电子印章常用问题</a>，或 <a class="color2" href="#">联系客服</a></dd>
+                            </dl>
+                            <dl class="computer">
+                                <dt>设备信息</dt>
+                                <dd>设备IP：<span>{{value.ip}}</span></dd>
+                                <dd>MAC地址：<span>{{value.ip}}</span></dd>
+                                <dd class="help">IP来源：<span>{{value.ip}}</span></dd>
+                                <dd>设备名称：<span>{{value.ip}}</span></dd>
+                                <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
+                                <dd class="help">签章应用：<span>{{value.clientOsEnv}}</span></dd>
+                            </dl>
+                        </div>
                     </li>
-                    <li class="index"><a>{{value}}</a></li>
-                    <li class="appendPage NextPage">
-                        <a aria-label="Next">
-                            <span aria-hidden="true">»</span>
-                        </a>
-                    </li>
+                    {{/each}}
+
                 </ul>
-            </nav>
+
+                <nav class="pagelist" aria-label="Page navigation">
+                    <ul class="pagination" id="pageLimit">
+                        <li class="PreviousPage">
+                            <a aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                        <li class="index"><a>{{value}}</a></li>
+                        <li class="appendPage NextPage">
+                            <a aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
 
 
+            </div>
         </div>
-    </div>
+
 </div>

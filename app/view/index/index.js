@@ -3,10 +3,10 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var esealCode, enterpriseCode, PKCS7, status;
+var esealCode, enterpriseCode, PKSC7, status;
 var esealCode = localStorage.esealCode;
 //var enterpriseCode = localStorage.enterpriseCode;
-var PKCS7 = localStorage.dSignature;
+var PKSC7 = localStorage.dSignature;
 var index = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -24,7 +24,7 @@ var index = Backbone.View.extend({
         var _this = this
         var userdata = {
             "username": "深圳市创业印章科技有限公司",
-            "status": "2",
+            "status": "1",
             "loginDate": "2017-07-01",
             "statusRemark": "资料不完整",
         }
@@ -99,7 +99,7 @@ var index = Backbone.View.extend({
         var data = {
             "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
-            "PKCS7": PKCS7,
+            "PKSC7": PKSC7,
         };
         service.commSignetLog(pageNum, pageSize, data).done(res => {
             var logsObj;
