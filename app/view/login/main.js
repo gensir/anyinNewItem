@@ -61,7 +61,8 @@ var main = Backbone.View.extend({
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
-                    localStorage.enterpriseCode=data.data.user.enterpriseCode;
+                    localStorage.loginadmin=JSON.stringify(data.data);
+                window.open("index.html", "_self");
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
                 }
