@@ -222,5 +222,9 @@ export default {
     //名称查询企业编码
     checkname(data){
     	return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data }, "post");
-    }        
+    },
+    //登录权限控制
+    loginLicense(data){
+    	return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/updateKey", data: data }, "post");
+    },       
 }
