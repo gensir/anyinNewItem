@@ -45,6 +45,9 @@ var list = Backbone.View.extend({
         $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
     },
     shut() {
+        if (!ukeys.issupport()) {
+            return false;
+        }
         var numInd = this.model.get("numInd")
         bootbox.dialog({
             backdrop: true,
@@ -85,6 +88,9 @@ var list = Backbone.View.extend({
         return false;
     },
     open() {
+        if (!ukeys.issupport()) {
+            return false;
+        }
         var numInd = this.model.get("numInd");
         var dialogsText = dialogs.find(".openAllow");
         bootbox.dialog({
@@ -122,7 +128,7 @@ var list = Backbone.View.extend({
                             $(this).find(".bootbox-body").html(msg4);
                             $(this).find(".btn1,.btn2").hide();
                             setTimeout(function () {
-                                if (!ukeys.ukeyName().length) {
+                                if (ukeys.ConnectKey()) {
                                     numInd = 0;
                                     var msg3 = dialogsText.find(".msg3")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg3);
@@ -133,7 +139,10 @@ var list = Backbone.View.extend({
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $(_this).find(".btn1,.btn2").show();
                                     $(_this).find(".btn2").show().html("继续");
-
+                                    $.each(ukeys.ukeyName(), function (ind, val) {
+                                        $(_this).find("#seleBook").append("<option>" + val + "</option>")
+                                    })
+                                    var getPIN = $("#openCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                                 }
                             }, 1000)
                         } else if (numInd == 2) {
@@ -146,7 +155,14 @@ var list = Backbone.View.extend({
                                 console.log(JSON.stringify(res))
 
                             })
+
                             if (ukeys.PIN($("#openCode").val(), 0)) {
+                                if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
+                                    $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
+                                    $(_this).find(".btn2").show().html("重试");
+                                    numInd = 0;
+                                    return false;
+                                }
                                 var success = dialogsText.find(".success")[0].outerHTML
                                 $(_this).find(".bootbox-body").html(success);
                                 $(_this).find(".btn1,.btn2").hide();
@@ -390,12 +406,12 @@ var list = Backbone.View.extend({
         service.getEsealList(pageNum, pageSize, querydata).done(res => {
             var tempObj;
             if (res.code != 0) {
-                tempObj = {}
+                this.tempObj = {}
             } else {
-                tempObj = res.data;
+                this.tempObj = res.data;
             }
             this.model.set("totalPages", res.data.totalPages)
-            this.model.get("tplhtml").data = tempObj;
+            this.model.get("tplhtml").data = this.tempObj;
             this.$el.html(tpl(this.model.get("tplhtml")));
             this.pagination(res.data.pageNum, res.data.totalPages)
             if (GetQueryString("page") == "license") {

@@ -7,6 +7,9 @@ var header = {
         $(".rightbox").on("click", "a.locked ", function () {
             header.lock()
         })
+        $(".rightbox").on("click", "a.logout", function () {
+            header.logout()
+        })
     },
     arrPath: location.pathname.split(/\//),
     nav: function () {
@@ -24,6 +27,36 @@ var header = {
             }
         }
     },
+    //退出
+    logout() {
+        var _this = this
+        bootbox.dialog({
+            backdrop: true,
+            closeButton: true,
+            className: "common",
+            title: '确认退出？',
+            message: '<div class="msgcenter"><em></em>确定现在退出账号吗？</div>',
+            buttons: {
+                cancel: {
+                    label: "取消",
+                    className: "btn1",
+                    callback: function (result) {
+                        result.cancelable = false;
+                    }
+                },
+                confirm: {
+                    label: "确定",
+                    className: "btn2",
+                    callback: function (result) {
+                        localStorage.clear();
+                        window.open('login.html', '_self')
+                    }
+                },
+            }
+        })
+        return false;
+    },
+    //解锁
     lock: function () {
         var _outthis = this;
         var numInd = 0;
@@ -79,7 +112,7 @@ var header = {
                                     var randomNum = ukeys.randomNum(esealCode)
                                     var dSignature = ukeys.dSignature(selectedUkey , randomNum)
                                     // console.log("印章编码：" + esealCode)
-                                    // console.log("随机码：" + randomNum)
+                                    console.log("随机码：" + randomNum)
                                     // console.log("签名：\n" + dSignature)
                                     localStorage.esealCode = esealCode
                                     localStorage.dSignature = dSignature
@@ -89,7 +122,7 @@ var header = {
                                     $(_this).find(".btn1,.btn2").hide();
                                     setTimeout(function () {
                                         _this.modal('hide');
-                                        location.reload();
+                                        // location.reload();
                                     }, 1200)
                                 } else {
                                     numInd = 1;

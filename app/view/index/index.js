@@ -3,9 +3,9 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var esealCode, enterpriseCode, PKSC7, status;
 var esealCode = localStorage.esealCode;
-//var enterpriseCode = localStorage.enterpriseCode;
+var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
+var enterpriseCode = udata.user.enterpriseCode;
 var PKSC7 = localStorage.dSignature;
 var index = Backbone.View.extend({
     el: '.container',
@@ -22,17 +22,14 @@ var index = Backbone.View.extend({
     },
     userinfo: function (event) {
         var _this = this
-        var userdata = {
-            "username": "深圳市创业印章科技有限公司",
-            "status": "1",
-            "loginDate": "2017-07-01",
-            "statusRemark": "资料不完整",
-        }
+        var userdata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
+        console.log(userdata)
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
-        if (this.model.get("tpl").userinfo.status == 0) {
+        console.log("状态" + userdata.user.status)
+        if (this.model.get("tpl").userinfo.user.status == 0) {
             _this.realname_Unknown();
-        } else if (this.model.get("tpl").userinfo.status == 2) {
+        } else if (this.model.get("tpl").userinfo.user.status == 2) {
             _this.realname_no();
         }
 
@@ -97,7 +94,7 @@ var index = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "esealCode": esealCode || "22222222",
+            "esealCode": esealCode,
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
         };
