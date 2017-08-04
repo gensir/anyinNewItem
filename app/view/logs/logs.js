@@ -125,18 +125,18 @@ var logs = Backbone.View.extend({
                     logsObj = {}
                 } else {
                     logsObj = res.data;
+                    this.model.set("totalPages", res.data.totalPages);
+                    this.model.get("tplhtml").data = logsObj;
+                    this.$el.append(tpl(this.model.get("tplhtml")));
+                    $(".contents>.logcon:not(:last)").remove();
+                    this.pagination(res.data.pageNum, res.data.totalPages);
+                    //$(".datetimepicker").remove();
+                    if (logsObj.list.length == 0) {
+                        $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
+                        $(".pagelist").remove();
+                    }
+                    this.form_date();
                 }
-                this.model.set("totalPages", res.data.totalPages);
-                this.model.get("tplhtml").data = logsObj;
-                this.$el.append(tpl(this.model.get("tplhtml")));
-                $(".contents>.logcon:not(:last)").remove();
-                this.pagination(res.data.pageNum, res.data.totalPages);
-                //$(".datetimepicker").remove();
-                if (logsObj.list.length == 0) {
-                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
-                    $(".pagelist").remove();
-                }
-                this.form_date();
             });
         }
     },
@@ -145,7 +145,7 @@ var logs = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "esealCode": esealCode,
+            "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
         };
@@ -155,17 +155,17 @@ var logs = Backbone.View.extend({
                 logsObj = {}
             } else {
                 logsObj = res.data;
+                this.model.set("totalPages", res.data.totalPages);
+                this.model.get("tplhtml").data = logsObj;
+                this.$el.append(tpl(this.model.get("tplhtml")));
+                $(".contents>.logcon:not(:last)").remove();
+                this.pagination(res.data.pageNum, res.data.totalPages);
+                if (logsObj.list.length == 0) {
+                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录！</div></li>").css("margin-bottom", "20px")
+                    $(".pagelist").remove();
+                }
+                this.form_date();
             }
-            this.model.set("totalPages", res.data.totalPages);
-            this.model.get("tplhtml").data = logsObj;
-            this.$el.append(tpl(this.model.get("tplhtml")));
-            $(".contents>.logcon:not(:last)").remove();
-            this.pagination(res.data.pageNum, res.data.totalPages);
-            if (logsObj.list.length == 0) {
-                $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录！</div></li>").css("margin-bottom", "20px")
-                $(".pagelist").remove();
-            }
-            this.form_date();
         });
     },
     // 点击上一页、下一页

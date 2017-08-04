@@ -111,9 +111,9 @@ var header = {
                                     var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
                                     var randomNum = ukeys.randomNum(esealCode)
                                     var dSignature = ukeys.dSignature(selectedUkey , randomNum)
-                                    // console.log("印章编码：" + esealCode)
-                                    console.log("随机码：" + randomNum)
-                                    // console.log("签名：\n" + dSignature)
+                                    //console.log("印章编码：" + esealCode)
+                                    //console.log("随机码：" + randomNum)
+                                    //console.log("签名：\n" + dSignature)
                                     localStorage.esealCode = esealCode
                                     localStorage.dSignature = dSignature
                                     //document.write("获取客户端数字签名：\n" + dSignature);
@@ -122,8 +122,8 @@ var header = {
                                     $(_this).find(".btn1,.btn2").hide();
                                     setTimeout(function () {
                                         _this.modal('hide');
-                                        // location.reload();
-                                    }, 1200)
+                                        location.reload();
+                                    }, 1500)
                                 } else {
                                     numInd = 1;
                                     $(_this).find("#unlock-error").html("PIN码不正确，请重新输入")

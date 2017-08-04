@@ -1,4 +1,4 @@
-import '../../../../asset/css/index.css';
+import '../../../../asset/css/login.css';
 require('../../../../asset/lib/jquery-placeholder');
 import {add} from '../../../publicFun/public'
 import {imgModalBig} from '../../../publicFun/public'

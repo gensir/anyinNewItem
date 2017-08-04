@@ -94,7 +94,7 @@ var index = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "esealCode": esealCode,
+            "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
         };

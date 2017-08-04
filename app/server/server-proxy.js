@@ -1,5 +1,5 @@
 var proxy = {
-  	anyinUrl: 'http://183.62.140.54',
+    anyinUrl: 'http://183.62.140.54',
     test: 'http://192.168.4.95:8080',
     // anyinUrl:'http://192.168.1.159:9500'
     lsq: 'http://192.168.4.69:8080',
