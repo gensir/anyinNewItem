@@ -21,7 +21,7 @@ var step1 = Backbone.View.extend({
         'click #up_yzmcode,.codeimg': 'captcha',
         'click #codetype': 'checkname',
         'change #Ename': 'checknameerror',
-        //'blur #Ename': 'checkname'
+        'blur #Ename': 'blurcheck'
     },
     //同意协议
     rules(event) {        
@@ -72,14 +72,20 @@ var step1 = Backbone.View.extend({
             }
         })
     },
+    blurcheck() {
+        var _this = this,timer
+        timer = setTimeout(function () {
+            _this.checkname();
+        }, 100);
+    },
     //企业名称查询编码
     checkname() {
         var name = $("#Ename").val()
         var data = { "params": { "name": name } }
         if (name.length > 0) {
             service.checkname(data).done(res => {
-                if (res.code == 0 && res.data !== null) {
-                    enterpriseCode = res.data[0].organizationCode;
+                if (res.code == 0 && res.data.length != 0) {
+                    enterpriseCode = res.data[0].creditCode || res.data[0].organizationCode;
                     firmId = res.data[0].id;
                     if (enterpriseCode == null) {
                         $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
