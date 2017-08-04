@@ -48,13 +48,12 @@
 .jilulist .col3 { width: 20%; display: block; float: left; text-align: center; }
 .jilulist .col4 { width: 15%; display: block; float: left; text-align: center; }
 .jilulist .col5 { width: 10%; display: block; float: left; text-align: right; padding-right: 20px; }
-
+.nolist { width: 1100px; margin: 30px auto; padding: 20px; }
 .jilulist ul.listtext { margin-bottom: -20px; }
-.jilulist ul.listtext li { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
+.jilulist ul.listtext li,.notext { background: #f5f5f5; border-radius: 4px; margin-bottom: 10px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
 .jilulist ul.listtext li:hover,
 .jilulist ul.listtext li.active { background: #ddd; }
 .jilulist ul.listtext li .file { padding: 14px 30px; overflow: hidden; cursor: pointer; border-radius: 4px; }
-
 .jilulist li .details { background: #fff; padding: 30px 30px 20px; overflow: hidden; display: none; margin-left: 30px; margin-right: 30px; border-radius: 2px; margin-bottom: 30px; }
 .jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
 .details dl { float: left; margin: 0px; padding: 0; }

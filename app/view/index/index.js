@@ -102,11 +102,12 @@ var index = Backbone.View.extend({
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
+                $(".jilulist ul").append("<li><div class='file'>接口请求失败！</div></li>")
             } else {
                 logsObj = res.data.list;
+                this.model.get("tpl").logdata = logsObj;
+                this.$el.html(tpl(this.model.get("tpl")));
             }
-            this.model.get("tpl").logdata = logsObj;
-            this.$el.html(tpl(this.model.get("tpl")));
         });
     },
 
@@ -134,9 +135,9 @@ var index = Backbone.View.extend({
                 Esealobj = {}
             } else {
                 Esealobj = res.data.list;
+                this.model.get("tpl").esealdata = Esealobj;
+                this.$el.html(tpl(this.model.get("tpl")));
             }
-            this.model.get("tpl").esealdata = Esealobj;
-            this.$el.html(tpl(this.model.get("tpl")));
         });
     },
 });
