@@ -2,9 +2,9 @@
 <div class="page-kd actions">
     <dl class="userinfo">
         <dt><span class="tximg"></span></dt>
-        <dd class="name">欢迎您，<span id="username" title="{{userinfo.username}}">{{userinfo.username}}</span></dd>
-        <dd class="renzheng"><span class="rzinfo {{if userinfo.status == 1}}ok{{/if}}" id="status"></span></dd>
-        <dd class="logintime">上次登录：<span id="loginDate">{{userinfo.loginDate}}</span></dd>
+        <dd class="name">欢迎您，<span id="username" title="{{userinfo.user.username}}">{{userinfo.user.username}}</span></dd>
+        <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"></span></dd>
+        <dd class="logintime">上次登录：<span id="loginDate">{{userinfo.user.loginDate}}</span></dd>
     </dl>
 
     <ul class="actionlist">

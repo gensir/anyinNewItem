@@ -1,9 +1,9 @@
 import tpl from './tpl/logs.html';
 var service = require('../../server/service').default;
 var ukey = require('../../publicFun/ukeys');
-var esealCode,enterpriseCode,PKSC7;
 var esealCode = localStorage.esealCode;
-//var enterpriseCode = localStorage.enterpriseCode;
+var udata = JSON.parse(localStorage.loginadmin)
+var enterpriseCode = udata.user.enterpriseCode;
 var PKSC7 = localStorage.dSignature;
 var logs = Backbone.View.extend({
     el: '.contents',
@@ -115,29 +115,30 @@ var logs = Backbone.View.extend({
             "signTimeStart": $("#date1").val(),
             "signTimeEnd": $("#date2").val(),
         };
-        service.commSignetLog(pageNum, pageSize, data).done(res => {
-            var logsObj;
-            if (res.code != 0) {
-                logsObj = {}
-            } else {
-                logsObj = res.data;
-            }
-            if (!(res.code == 0 && data.PKSC7)) {
-                this.nosearch();
-                return false;
-            }
-            this.model.set("totalPages", res.data.totalPages);
-            this.model.get("tplhtml").data = logsObj;
-            this.$el.append(tpl(this.model.get("tplhtml")));
-            $(".contents>.page-kd:not(:last)").remove();
-            this.pagination(res.data.pageNum, res.data.totalPages);
-            //$(".datetimepicker").remove();
-            if (logsObj.list.length == 0) {
-                $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
-                $(".pagelist").remove();
-            }
-            this.form_date();
-        });
+        if (PKSC7 == null) {
+            this.nosearch();
+            return false;
+        } else {
+            service.commSignetLog(pageNum, pageSize, data).done(res => {
+                var logsObj;
+                if (res.code != 0) {
+                    logsObj = {}
+                } else {
+                    logsObj = res.data;
+                }
+                this.model.set("totalPages", res.data.totalPages);
+                this.model.get("tplhtml").data = logsObj;
+                this.$el.append(tpl(this.model.get("tplhtml")));
+                $(".contents>.logcon:not(:last)").remove();
+                this.pagination(res.data.pageNum, res.data.totalPages);
+                //$(".datetimepicker").remove();
+                if (logsObj.list.length == 0) {
+                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
+                    $(".pagelist").remove();
+                }
+                this.form_date();
+            });
+        }
     },
     //获取数据
     logslist(data, pageNum, pageSize) {
@@ -158,7 +159,7 @@ var logs = Backbone.View.extend({
             this.model.set("totalPages", res.data.totalPages);
             this.model.get("tplhtml").data = logsObj;
             this.$el.append(tpl(this.model.get("tplhtml")));
-            $(".contents>.page-kd:not(:last)").remove();
+            $(".contents>.logcon:not(:last)").remove();
             this.pagination(res.data.pageNum, res.data.totalPages);
             if (logsObj.list.length == 0) {
                 $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录！</div></li>").css("margin-bottom", "20px")
