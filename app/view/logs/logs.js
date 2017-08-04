@@ -2,7 +2,7 @@ import tpl from './tpl/logs.html';
 var service = require('../../server/service').default;
 var ukey = require('../../publicFun/ukeys');
 var esealCode = localStorage.esealCode;
-var udata = JSON.parse(localStorage.loginadmin)
+var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
 var enterpriseCode = udata.user.enterpriseCode;
 var PKSC7 = localStorage.dSignature;
 var logs = Backbone.View.extend({
@@ -106,7 +106,7 @@ var logs = Backbone.View.extend({
             return false;
         }
         var data = {
-            "esealCode": esealCode || "22222222",
+            "esealCode": esealCode,
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
             "importName": $("#keyword").val(),
@@ -145,7 +145,7 @@ var logs = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "esealCode": esealCode || "22222222",
+            "esealCode": esealCode,
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
         };
@@ -182,7 +182,7 @@ var logs = Backbone.View.extend({
             return;
         }
         var obj = {
-            "esealCode": esealCode || "22222222",
+            "esealCode": esealCode,
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
             "importName": $("#keyword").val(),

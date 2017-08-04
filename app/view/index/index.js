@@ -4,7 +4,7 @@ import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
 var esealCode = localStorage.esealCode;
-var udata = JSON.parse(localStorage.loginadmin)
+var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
 var enterpriseCode = udata.user.enterpriseCode;
 var PKSC7 = localStorage.dSignature;
 var index = Backbone.View.extend({
@@ -22,7 +22,7 @@ var index = Backbone.View.extend({
     },
     userinfo: function (event) {
         var _this = this
-        var userdata = JSON.parse(localStorage.loginadmin)
+        var userdata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
         console.log(userdata)
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
@@ -94,7 +94,7 @@ var index = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
-            "esealCode": esealCode || "22222222",
+            "esealCode": esealCode,
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
         };

@@ -7,6 +7,9 @@ var header = {
         $(".rightbox").on("click", "a.locked ", function () {
             header.lock()
         })
+        $(".rightbox").on("click", "a.logout", function () {
+            header.logout()
+        })
     },
     arrPath: location.pathname.split(/\//),
     nav: function () {
@@ -24,6 +27,36 @@ var header = {
             }
         }
     },
+    //退出
+    logout() {
+        var _this = this
+        bootbox.dialog({
+            backdrop: true,
+            closeButton: true,
+            className: "common",
+            title: '确认退出？',
+            message: '<div class="msgcenter"><em></em>确定现在退出账号吗？</div>',
+            buttons: {
+                cancel: {
+                    label: "取消",
+                    className: "btn1",
+                    callback: function (result) {
+                        result.cancelable = false;
+                    }
+                },
+                confirm: {
+                    label: "确定",
+                    className: "btn2",
+                    callback: function (result) {
+                        localStorage.clear();
+                        window.open('login.html', '_self')
+                    }
+                },
+            }
+        })
+        return false;
+    },
+    //解锁
     lock: function () {
         var _outthis = this;
         var numInd = 0;
