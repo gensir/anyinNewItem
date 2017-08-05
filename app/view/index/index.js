@@ -26,7 +26,6 @@ var index = Backbone.View.extend({
         console.log(userdata)
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
-        console.log("状态" + userdata.user.status)
         if (this.model.get("tpl").userinfo.user.status == 0) {
             _this.realname_Unknown();
         } else if (this.model.get("tpl").userinfo.user.status == 2) {
@@ -105,8 +104,12 @@ var index = Backbone.View.extend({
                 $(".jilulist ul").append("<li><div class='file'>接口请求失败！</div></li>")
             } else {
                 logsObj = res.data.list;
-                this.model.get("tpl").logdata = logsObj;
-                this.$el.html(tpl(this.model.get("tpl")));
+                if (logsObj.length == 0) {
+                    $(".jilulist ul").append("<li><div class='file'>暂无签章记录</div></li>")
+                } else {
+                    this.model.get("tpl").logdata = logsObj;
+                    this.$el.html(tpl(this.model.get("tpl")));
+                }
             }
         });
     },
@@ -135,8 +138,12 @@ var index = Backbone.View.extend({
                 Esealobj = {}
             } else {
                 Esealobj = res.data.list;
-                this.model.get("tpl").esealdata = Esealobj;
-                this.$el.html(tpl(this.model.get("tpl")));
+                if (Esealobj == null) {
+                    $(".xufei ul").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
+                } else {
+                    this.model.get("tpl").esealdata = Esealobj;
+                    this.$el.html(tpl(this.model.get("tpl")));
+                }
             }
         });
     },
