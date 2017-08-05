@@ -2,6 +2,8 @@ import tpl from './tpl/list.html'
 //var dialogs=$(dialog()).prop("outerHTML");
 import { GetQueryString } from '../../publicFun/public.js'
 var service=require('../../server/service').default;
+var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
+var enterpriseCode = udata.user.enterpriseCode;
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -13,7 +15,8 @@ var list = Backbone.View.extend({
         'click nav li.index': 'currentPapge'
     },
     render: function (query) {
-    	this.listPage(1,10,"914403001923081808");
+    	//this.listPage(1,10,"914403001923081808");
+    	this.listPage();
     },
     toggleList(event) {
         var _this = event.currentTarget;
@@ -31,6 +34,7 @@ var list = Backbone.View.extend({
     	$(".listResult").hide();
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
+        enterpriseCode = enterpriseCode|| "914403001923081808"
         service.queryOrderList(pageNum, pageSize,enterpriseCode).done(res => {
             var tempObj;
             if (res.code != 0) {
