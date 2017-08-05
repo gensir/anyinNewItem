@@ -142,7 +142,7 @@ var list = Backbone.View.extend({
                                     $.each(ukeys.ukeyName(), function (ind, val) {
                                         $(_this).find("#seleBook").append("<option>" + val + "</option>")
                                     })
-                                    var getPIN = $("#openCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
+
                                 }
                             }, 1000)
                         } else if (numInd == 2) {
@@ -155,7 +155,7 @@ var list = Backbone.View.extend({
                                 console.log(JSON.stringify(res))
 
                             })
-
+                            var getPIN = $("#openCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                             if (ukeys.PIN($("#openCode").val(), 0)) {
                                 if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
                                     $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
