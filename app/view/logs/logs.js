@@ -10,7 +10,7 @@ var logs = Backbone.View.extend({
     initialize() {
     },
     render: function (query) {
-        $(".container").empty();
+        //$(".contents").empty();
         this.logslist();
     },
     events: {
@@ -123,6 +123,7 @@ var logs = Backbone.View.extend({
                 var logsObj;
                 if (res.code != 0) {
                     logsObj = {}
+                    $(".contents").append("<div class='nolist boxshow'>数据请求失败！</div>").css("margin-bottom", "20px")
                 } else {
                     logsObj = res.data;
                     this.model.set("totalPages", res.data.totalPages);
@@ -153,7 +154,7 @@ var logs = Backbone.View.extend({
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
-                $(".contents").append("<div class='nolist boxshow'>接口请求失败！</div>").css("margin-bottom", "20px")
+                $(".contents").append("<div class='nolist boxshow'>数据请求失败！</div>").css("margin-bottom", "20px")
             } else {
                 logsObj = res.data;
                 this.model.set("totalPages", res.data.totalPages);

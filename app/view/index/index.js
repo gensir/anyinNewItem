@@ -3,9 +3,10 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var esealCode = localStorage.esealCode;
 var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
 var enterpriseCode = udata.user.enterpriseCode;
+var firmId = udata.user.firmId;
+var esealCode = localStorage.esealCode;
 var PKSC7 = localStorage.dSignature;
 var index = Backbone.View.extend({
     el: '.container',
@@ -23,15 +24,15 @@ var index = Backbone.View.extend({
     userinfo: function (event) {
         var _this = this
         var userdata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
-        console.log(userdata)
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
         if (this.model.get("tpl").userinfo.user.status == 0) {
             _this.realname_Unknown();
         } else if (this.model.get("tpl").userinfo.user.status == 2) {
             _this.realname_no();
+        } else if (this.model.get("tpl").userinfo.user.status == 3) {
+            window.open('register.html#step3', '_self');
         }
-
     },
     //签章记录弹出详细记录
     Toggleshow(event) {
@@ -61,7 +62,8 @@ var index = Backbone.View.extend({
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        result.cancelable = false;
+                        // localStorage.clear();
+                        // result.cancelable = window.open('login.html', '_self');
                     }
                 },
             }
@@ -72,7 +74,7 @@ var index = Backbone.View.extend({
         var _this = this
         bootbox.dialog({
             backdrop: true,
-            closeButton: true,
+            closeButton: false,
             className: "common realname_no",
             title: dialogs.find(".realname_no .title")[0].outerHTML,
             message: $(dialogs.find(".realname_no .msg1")[0].outerHTML).append(this.model.get('tpl').userinfo.statusRemark),
@@ -102,14 +104,12 @@ var index = Backbone.View.extend({
             if (res.code != 0) {
                 logsObj = {}
                 $(".jilulist ul").append("<li><div class='file'>接口请求失败！</div></li>")
+            } else if (res.data.list.length == 0) {
+                $(".jilulist ul").append("<li><div class='file'>暂无签章记录</div></li>")
             } else {
                 logsObj = res.data.list;
-                if (logsObj.length == 0) {
-                    $(".jilulist ul").append("<li><div class='file'>暂无签章记录</div></li>")
-                } else {
-                    this.model.get("tpl").logdata = logsObj;
-                    this.$el.html(tpl(this.model.get("tpl")));
-                }
+                this.model.get("tpl").logdata = logsObj;
+                this.$el.html(tpl(this.model.get("tpl")));
             }
         });
     },
@@ -130,20 +130,19 @@ var index = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 3;
         var data = {
-            "firmId": enterpriseCode || "nihao",
+            "firmId": firmId || "nihao",
         };
         service.getEsealList(pageNum, pageSize, data).done(res => {
             var Esealobj;
             if (res.code != 0) {
                 Esealobj = {}
+                $(".xufei ul").append("<li>接口请求失败</li>");
+            } else if (res.data.list == null) {
+                $(".xufei ul").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
             } else {
                 Esealobj = res.data.list;
-                if (Esealobj == null) {
-                    $(".xufei ul").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
-                } else {
-                    this.model.get("tpl").esealdata = Esealobj;
-                    this.$el.html(tpl(this.model.get("tpl")));
-                }
+                this.model.get("tpl").esealdata = Esealobj;
+                this.$el.html(tpl(this.model.get("tpl")));
             }
         });
     },

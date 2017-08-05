@@ -4,6 +4,10 @@ var logs2 = Backbone.View.extend({
     el: '.contents',
     initialize() {
     },
+    render: function (query) {
+        //this.$el.html(tpl);
+        this.logslist()
+    },
     events: {
         'click .pagelist .PreviousPage': 'PreviousPage',
         'click .pagelist .NextPage': 'NextPage',
@@ -17,14 +21,18 @@ var logs2 = Backbone.View.extend({
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
+                $(".listtext").append("<li><div class='file' style='cursor: default;'>服务器异常</div></li>").css("margin-bottom", "20px")
             } else {
                 logsObj = res.data;
+                this.model.set("totalPages", res.data.totalPages);
+                this.model.get("tplhtml").data = logsObj;
+                this.$el.html(tpl(this.model.get("tplhtml")));
+                this.pagination(res.data.pageNum, res.data.totalPages);
+                if (logsObj.list.length == 0) {
+                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
+                    $(".pagelist").remove();
+                }
             }
-            this.model.set("totalPages", res.data.totalPages);
-            this.model.get("tplhtml").data = logsObj;
-            this.$el.html(tpl(this.model.get("tplhtml")));
-            this.pagination(res.data.pageNum, res.data.totalPages)
-
         });
     },
 
@@ -87,11 +95,6 @@ var logs2 = Backbone.View.extend({
         this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
     },
 
-    render: function (query) {
-        //this.$el.html(tpl);
-        this.logslist()
-
-    },
 });
 
 module.exports = logs2;
