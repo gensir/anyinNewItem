@@ -13,6 +13,7 @@ var step1 = Backbone.View.extend({
 	render: function(query) {
 		that=this;
 		enterpriseCode=(JSON.parse(localStorage.loginadmin)).user.enterpriseCode;
+		enterpriseCode=localStorage.firmId;
 		this.getstep1(enterpriseCode);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
@@ -151,8 +152,8 @@ var step1 = Backbone.View.extend({
 		})
 	},
 	poststep1:function(data){
-		var seals=sealstyle;
-		localStorage.seals=seals;
+//		var seals=sealstyle;
+//		localStorage.seals=seals;
 //		console.log(JSON.stringify(data));
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
@@ -167,7 +168,7 @@ var step1 = Backbone.View.extend({
 	goonstep:function(event){
 		sealList=[];
 		var isLegal = $('input:radio:checked').val();
-		localStorage.isLegal=isLegal;
+//		localStorage.isLegal=isLegal;
 		if($('.sealStyle span').hasClass('choice')) {	
 			for(var i=0;i<sealstyle.length;i++){
 				for(var j=0;j<result.availableEsealList.length;j++){

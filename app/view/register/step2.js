@@ -104,6 +104,7 @@ var step2 = Backbone.View.extend({
 			};
 			service.registerUser(data).done(res=>{
 				if(res.code==0){
+					localStorage.removeItem("firmId")
 					localStorage.regStep="#step3";
 					window.open('register.html#step3', '_self')
 				}else{
