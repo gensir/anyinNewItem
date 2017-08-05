@@ -123,8 +123,8 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false,data:data });
     },
     //获取订单中心列表
-    queryOrderList(pageNum,pageSize,enterpriseCode) {
-        return this.ajaxCall({ url: domain + basemp + "mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize+"?enterpriseCode="+enterpriseCode});
+    queryOrderList(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "mpEsealOrder/queryOrderList/"+pageNum+"/"+pageSize, data: data });
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {

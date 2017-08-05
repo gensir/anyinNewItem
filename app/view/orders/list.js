@@ -15,7 +15,6 @@ var list = Backbone.View.extend({
         'click nav li.index': 'currentPapge'
     },
     render: function (query) {
-    	//this.listPage(1,10,"914403001923081808");
     	this.listPage();
     },
     toggleList(event) {
@@ -30,12 +29,14 @@ var list = Backbone.View.extend({
         }
     },
     
-    listPage( pageNum, pageSize,enterpriseCode) {	
+    listPage(data, pageNum, pageSize) {	
     	$(".listResult").hide();
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
-        enterpriseCode = enterpriseCode|| "914403001923081808"
-        service.queryOrderList(pageNum, pageSize,enterpriseCode).done(res => {
+        var data = {
+            "enterpriseCode": enterpriseCode || "914403001923081808"
+        }
+        service.queryOrderList(pageNum, pageSize, data).done(res => {
             var tempObj;
             if (res.code != 0) {
                 tempObj = {}
@@ -65,8 +66,10 @@ var list = Backbone.View.extend({
         if (val === this.current) {
             return;
         }
-//      console.log(val,totalPages)
-        this.listPage(val)
+        var data = {
+            "enterpriseCode": enterpriseCode
+        }
+        this.listPage(data, val)
     },
     //pagination
     pagination: function (pageNumber, totalPages) {
