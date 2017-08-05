@@ -21,7 +21,8 @@ var list = Backbone.View.extend({
         'click .license .accordion .nav .open': 'open',
         'click .PreviousPage': 'PreviousPage',
         'click .NextPage': 'NextPage',
-        'click nav li.index': 'currentPapge'
+        'click nav li.index': 'currentPapge',
+        'click #step':'step'
     },
     render: function (query) {
         $(".container").empty();
@@ -478,6 +479,9 @@ var list = Backbone.View.extend({
     NextPage(e) {
         this.active = $(e.currentTarget).prev();
         this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
+    },
+    step:function(){
+    	localStorage.stepNum="#step1"
     }
 });
 
