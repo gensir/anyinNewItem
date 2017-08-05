@@ -110,7 +110,7 @@ var step2 = Backbone.View.extend({
 					bootbox.alert(res.msg);
 				}
 			})
-//		}
+		}
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
