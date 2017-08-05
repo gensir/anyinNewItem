@@ -430,7 +430,7 @@ var step3 = Backbone.View.extend({
 				stepResult=data.data;
 				scan=data.data.scanAttaches;
 				eseals=data.data.eseals;
-				islegal=data.data.isOperaterLegalPersion;
+				islegal=data.data.isOperatorLegalPerson;
 				var company={
 				    "companyName":data.data.enterpriseName
 				}

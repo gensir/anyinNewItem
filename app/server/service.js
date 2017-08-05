@@ -16,6 +16,14 @@ var commonAjaxSetting = {
         data: {},
         cache: false
     },
+    'POST': {
+        dataType: "json",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {},
+        cache: false
+    },
     'delete': {
         dataType: "json",
         headers: {
@@ -140,7 +148,7 @@ export default {
     },
     //提交账号和密码
     registerUser(data){
-    	return this.ajaxCall({ url: domain + basemp + "common/registerUser",data:data},"post");
+    	return this.ajaxCall({ url: domain + basemp + "common/registerUser",data:data,"Content-Type":"application/x-www-form-urlencoded"},"POST");
     },
     //点击注册
     toRegister(data){

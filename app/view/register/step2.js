@@ -101,7 +101,7 @@ var step2 = Backbone.View.extend({
 				"password":passwd,
 				"enterpriseCode":enterpriseCode,
 				"username":username
-			}
+			};
 			service.registerUser(data).done(res=>{
 				if(res.code==0){
 					localStorage.regStep="#step3";
