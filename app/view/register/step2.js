@@ -96,7 +96,13 @@ var step2 = Backbone.View.extend({
 			var mobile=$(".countPhone").val();
 			var passwd=$(".passwd").val();
 			enterpriseCode=result.uniformSocialCreditCode||result.organizationCode||null;
-			service.registerUser(mobile,passwd,enterpriseCode,username).done(res=>{
+			var data={
+				"mobile":mobile,
+				"password":passwd,
+				"enterpriseCode":enterpriseCode,
+				"username":username
+			}
+			service.registerUser(data).done(res=>{
 				if(res.code==0){
 					localStorage.regStep="#step3";
 					window.open('register.html#step3', '_self')
@@ -104,7 +110,7 @@ var step2 = Backbone.View.extend({
 					bootbox.alert(res.msg);
 				}
 			})
-		}
+//		}
 	},
 	checkCode: function() {
 		if($('.countCode').val().length == 6) {
