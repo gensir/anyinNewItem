@@ -19,12 +19,11 @@ var step1 = Backbone.View.extend({
         'click #reguser': 'reguser',
         'keyup #yzmcode': 'checkCaptcha',
         'click #up_yzmcode,.codeimg': 'captcha',
-        'click #codetype': 'checkname',
         'change #Ename': 'checknameerror',
         'blur #Ename': 'blurcheck'
     },
     //同意协议
-    rules(event) {        
+    rules() {
         if ($('#xieyi').is(':checked')) {
             $('#reguser').attr("disabled", false);
         } else {
@@ -34,7 +33,7 @@ var step1 = Backbone.View.extend({
     //IE中重置表单内容
     Emptyinput() {
         window.onload = function () {
-            document.forms[0].reset();
+            document.reg.reset();
         }
     },
     //重置验证码输入
@@ -72,8 +71,9 @@ var step1 = Backbone.View.extend({
             }
         })
     },
+    //输入框blur后自动查询校验
     blurcheck() {
-        var _this = this,timer
+        var _this = this, timer
         timer = setTimeout(function () {
             _this.checkname();
         }, 100);
@@ -155,7 +155,7 @@ var step1 = Backbone.View.extend({
         service.toRegister(data).done(res => {
             if (res.code == 0) {
                 localStorage.firmId = firmId;
-                localStorage.regStep="#step2";
+                localStorage.regStep = "#step2";
                 window.open('#step2', '_self')
             }
         })
