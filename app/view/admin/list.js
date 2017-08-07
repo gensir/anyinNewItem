@@ -28,7 +28,7 @@ var list = Backbone.View.extend({
     render: function (query) {
         $(".container").empty();
         this.listPage({ "firmId": this.firmId });
-        //this.licenselist()
+        this.licenselist()
 
     },
     toggleList(event) {
@@ -465,10 +465,16 @@ var list = Backbone.View.extend({
             }
         })
     },
-    licenselist(pageNum, pageSize, enterpriseCode) {
+    licenselist(pageNum,pageSize) {
+        alert(123)
+        var data={
+            pageNum:pageNum || 1,
+            pageSize : pageSize || 5,
+            enterpriseCode: this.enterpriseCode 
+        }
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
-        service.licenselist(pageNum, pageSize, { enterpriseCode: this.enterpriseCode }).done(res => {
+        service.licenselist(data.pageNum,data.pageSize,data).done(res => {
             var tempObj;
             if (res.code != 0) {
                 this.tempObjs = {}
