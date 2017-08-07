@@ -61,7 +61,7 @@ var main = Backbone.View.extend({
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
-                    localStorage.loginadmin=JSON.stringify(data.data);
+                    $.cookie('loginadmin',JSON.stringify(data.data))
                 window.open("index.html", "_self");
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
@@ -88,7 +88,7 @@ var main = Backbone.View.extend({
         }
         service.userlogin(data).done(function (data) {
             if (data.code == 0) {
-                localStorage.loginadmin=JSON.stringify(data.data);
+                $.cookie('loginadmin',JSON.stringify(data.data))
                 window.open("index.html", "_self");
             } else if (data.code == "001") {
                 $.verify("phone","#userName", "用户未注册");

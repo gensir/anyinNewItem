@@ -2,6 +2,7 @@ var uglifyConfig = [
     'asset/lib/jquery/jquery.min.js',
     'asset/lib/bootstrap/js/bootstrap.min.js',
     'asset/lib/bootbox/bootbox.min.js',
+    'asset/lib/cookie/jquery.cookie.js'
 ]
 module.exports = function (grunt) {
 
