@@ -1,4 +1,3 @@
-var regStep, hash;
 var Router = Backbone.Router.extend({
     routes: {
         '': 'step1',
@@ -7,7 +6,7 @@ var Router = Backbone.Router.extend({
         'step1': 'step1',
         'step2': 'step2',
         'step3': 'step3',
-        'step4': 'step4',
+        'step4': 'step4'
     },
     initialize: function () {
         S.main = null;
@@ -17,13 +16,9 @@ var Router = Backbone.Router.extend({
         this.$el.empty();
     },
     startRout: function (View, queryObj, sub) {
-        console.log(location.hash)
-        this.hashChange();
-        if (location.hash) {
-            var View = require('../../view/register/'+location.hash.substr(1))
-        }
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
+        debugger;
         S.main = new View({ model: model });
         S.main.viewUnmount = this.viewUnmount;
         S.main.sub = null
@@ -65,14 +60,11 @@ var Router = Backbone.Router.extend({
             });
         }, 'Stat');
     },
-
     step1: function (query) {
-        var model = require('./store/model.js');
         var me = this;
         require.ensure([], function (require) {
             var View = require('../../view/register/step1')
             me.startRout(View, { query: query });
-            //new View({model:model});
         }, 'step1')
     },
     step2: function (query) {
@@ -95,13 +87,6 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/register/step4')
             me.startRout(View, { query: query });
         }, 'step4')
-    },
-    hashChange: function () {
-        //  	regStep=localStorage.regStep;
-        //  	hash = window.location.hash;
-        //  	if(hash!=regStep){
-        //  		window.open("register.html#step1", '_self')
-        //  	}
     }
 });
 
