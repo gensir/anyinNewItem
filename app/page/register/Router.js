@@ -1,8 +1,6 @@
 var Router = Backbone.Router.extend({
     routes: {
         '': 'step1',
-        'stat/': 'stat',
-        'stat/:query': 'substat',
         'step1': 'step1',
         'step2': 'step2',
         'step3': 'step3',
@@ -18,6 +16,10 @@ var Router = Backbone.Router.extend({
     startRout: function (View, queryObj, sub) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
+        // if(Backbone.Wreqr==View){
+        //     console.log(location.hash.substr(1),1212)
+        // View = require('../../view/register/'+location.hash.substr(1))
+        // }
         debugger;
         S.main = new View({ model: model });
         S.main.viewUnmount = this.viewUnmount;
@@ -27,39 +29,39 @@ var Router = Backbone.Router.extend({
         }
         S.main.render(typeof queryObj == 'undefined' ? '' : queryObj);
     },
-    starSubroute: function (View, queryObj) {
-        S.main.sub && S.main.sub.viewUnmount && S.main.sub.viewUnmount();
-        S.main.sub = new View();
-        S.main.sub.viewUnmount = this.viewUnmount;
-        S.main.sub.render(typeof queryObj == 'undefined' ? '' : queryObj);
-    },
-    home: function (query) {
-        var me = this;
-        require.ensure([], function (require) {
-            var View = require('../../view/home/Home')
-            me.startRout(View, { query: query });
-        }, 'Home');
-    },
-    stat: function (query) {
-        //console.log(query)
-        var me = this;
-        require.ensure([], function (require) {
-            var View = require('../../view/stat/Stat')
-            me.startRout(View, { query: query }, "substat");
-        }, 'Stat');
-    },
-    substat: function (query) {
-        var me = this;
-        if (!S.main || !S.main.sub == "substat") {
-            me.stat();
-        }
-        require.ensure([], function (require) {
-            var View = require('../../view/stat/substat')
-            me.starSubroute(View, {
-                query: query
-            });
-        }, 'Stat');
-    },
+    // starSubroute: function (View, queryObj) {
+    //     S.main.sub && S.main.sub.viewUnmount && S.main.sub.viewUnmount();
+    //     S.main.sub = new View();
+    //     S.main.sub.viewUnmount = this.viewUnmount;
+    //     S.main.sub.render(typeof queryObj == 'undefined' ? '' : queryObj);
+    // },
+    // home: function (query) {
+    //     var me = this;
+    //     require.ensure([], function (require) {
+    //         var View = require('../../view/home/Home')
+    //         me.startRout(View, { query: query });
+    //     }, 'Home');
+    // },
+    // stat: function (query) {
+    //     //console.log(query)
+    //     var me = this;
+    //     require.ensure([], function (require) {
+    //         var View = require('../../view/stat/Stat')
+    //         me.startRout(View, { query: query }, "substat");
+    //     }, 'Stat');
+    // },
+    // substat: function (query) {
+    //     var me = this;
+    //     if (!S.main || !S.main.sub == "substat") {
+    //         me.stat();
+    //     }
+    //     require.ensure([], function (require) {
+    //         var View = require('../../view/stat/substat')
+    //         me.starSubroute(View, {
+    //             query: query
+    //         });
+    //     }, 'Stat');
+    // },
     step1: function (query) {
         var me = this;
         require.ensure([], function (require) {
@@ -69,9 +71,10 @@ var Router = Backbone.Router.extend({
     },
     step2: function (query) {
         var me = this;
+        
         require.ensure([], function (require) {
-            var View = require('../../view/register/step2')
-            me.startRout(View, { query: query });
+            //var View = require('../../view/register/step2')
+            me.startRout(require('../../view/register/step2'), { query: query });
         }, 'step2')
     },
     step3: function (query) {

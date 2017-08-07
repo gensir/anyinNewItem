@@ -5,7 +5,7 @@ import tpl from './tpl/step2.html';
 var service = require('../../server/service').default;
 var IDNo,enterpriseCode,result,that,username,id;
 var flag=0;
-var step2 = Backbone.View.extend({
+var step22 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
 //		this.render();
@@ -187,4 +187,4 @@ var step2 = Backbone.View.extend({
 		})
 	}
 });
-module.exports = step2;
+module.exports = step22;
