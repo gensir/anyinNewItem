@@ -27,7 +27,7 @@ var step2 = Backbone.View.extend({
 		that=this;
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
-	phoneCode: function() {
+	phoneCode: function(event) {
 		this.model.set({ "clickEle": $(event.target).data('id') })
 		this.model.isValid()
 		//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {

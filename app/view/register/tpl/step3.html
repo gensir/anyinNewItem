@@ -1,327 +1,334 @@
-{{include "./header.html"}}
 <div class="page-kd">
-	<!-- 注册进度 -->
-	<div class="jd-list">
-		<ul>
-			<li class="last ok"><span class="yuan">1</span>单位信息确认</li>
-			<li class="middle ok"><span class="yuan">2</span>账号信息确认</li>
-			<li class="middle ok"><span class="yuan">3</span>证照信息上传</li>
-			<li class="first"><span class="yuan">4</span>等待审核</li>
-		</ul>
-		<!-- 已完成或当前步骤的li里添加OK样式 -->
-	</div>
+    <div class="page-kd header">
+        <h1 class="top-logo hide-text">电子印章管理平台</h1>
+    </div>
+    <!-- 注册进度 -->
+    <div class="jd-list">
+        <ul>
+            <li class="last ok"><span class="yuan">1</span>单位信息确认</li>
+            <li class="middle ok"><span class="yuan">2</span>账号信息确认</li>
+            <li class="middle ok"><span class="yuan">3</span>证照信息上传</li>
+            <li class="first"><span class="yuan">4</span>等待审核</li>
+        </ul>
+        <!-- 已完成或当前步骤的li里添加OK样式 -->
+    </div>
 </div>
 <div class="step3">
-	<div class="Message">
-		<div class="mainTitle">
-			企业证照上传
-		</div>
-		<div class="legalSubstance">
-			<div class="flex">
-				<div class="flexCon">
-					<div class="unitPhotoTitle">
-						上传单位证件照片：
-					</div>
-					<div class="form">
-						<span class="nothing"></span>
-					</div>
-				</div>
-				<div class="flexCon">
-					<div class="title">企业法人营业执照</div>
-					<div class="form">
-						<form id="ajaxForm0" accept-charset="utf-8" enctype="multipart/form-data">
-							<span class="licence photo" id="photo0"></span>
-							<input name="file" data-id='0' id='file0' size="0" maxlength="0" type="file" />
-							<a class="reset0" href="javascript:">
+    <div class="Message">
+        <div class="mainTitle">
+            企业证照上传
+        </div>
+        <div class="legalSubstance">
+            <div class="flex">
+                <div class="flexCon">
+                    <div class="unitPhotoTitle">
+                        上传单位证件照片：
+                    </div>
+                    <div class="form">
+                        <span class="nothing"></span>
+                    </div>
+                </div>
+                <div class="flexCon">
+                    <div class="title">企业法人营业执照</div>
+                    <div class="form">
+                        <form id="ajaxForm0" accept-charset="utf-8" enctype="multipart/form-data">
+                            <span class="licence photo" id="photo0"></span>
+                            <input name="file" data-id='0' id='file0' size="0" maxlength="0" type="file" />
+                            <a class="reset0" href="javascript:">
 								<span>重新选择</span>
 							</a>
-						</form>
-					</div>
-				</div>
-				<div class="flexCon">
-					<!--<div class="title">企业法人营业执照</div>-->
-					<div class="form">
-						<span class="shadow shadow1">
+                        </form>
+                    </div>
+                </div>
+                <div class="flexCon">
+                    <!--<div class="title">企业法人营业执照</div>-->
+                    <div class="form">
+                        <span class="shadow shadow1">
 						</span>
-						<span class="businessLicense photo"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mainTitle countMessage">法人证照上传</div>
-		<div class="mainSubstance">
-			<div class="flex">
-				<div class="flexCon">
-					<div class="unitPhotoTitle">
-						上传单位法人身份证照：
-					</div>
-					<div class="form">
-						<span class="nothing"></span>
-					</div>
-				</div>
-				<div class="flexCon">
-					<div class="title">法人身份证正面</div>
-					<div class="form">
-						<form id="ajaxForm1" accept-charset="utf-8" enctype="multipart/form-data">
-							<span class="licence photo" id="photo1"></span>
-							<input name="file" data-id='1' id='file1' size="0" maxlength="0" type="file" />
-							<a class="reset1" href="javascript:">
+                        <span class="businessLicense photo"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mainTitle countMessage">法人证照上传</div>
+        <div class="mainSubstance">
+            <div class="flex">
+                <div class="flexCon">
+                    <div class="unitPhotoTitle">
+                        上传单位法人身份证照：
+                    </div>
+                    <div class="form">
+                        <span class="nothing"></span>
+                    </div>
+                </div>
+                <div class="flexCon">
+                    <div class="title">法人身份证正面</div>
+                    <div class="form">
+                        <form id="ajaxForm1" accept-charset="utf-8" enctype="multipart/form-data">
+                            <span class="licence photo" id="photo1"></span>
+                            <input name="file" data-id='1' id='file1' size="0" maxlength="0" type="file" />
+                            <a class="reset1" href="javascript:">
 								<span>重新选择</span>
 							</a>
-						</form>
-					</div>
-				</div>
-				<div class="flexCon">
-					<!--<div class="title">法人身份证正面</div>-->
-					<div class="form">
-						<span class="shadow shadow2">
+                        </form>
+                    </div>
+                </div>
+                <div class="flexCon">
+                    <!--<div class="title">法人身份证正面</div>-->
+                    <div class="form">
+                        <span class="shadow shadow2">
 						</span>
-						<span class="frontPhoto photo"></span>
-					</div>
-				</div>
-				<div class="flexCon">
-					<div class="title">法人身份证反面</div>
-					<div class="form">
-						<form id="ajaxForm2" accept-charset="utf-8" enctype="multipart/form-data">
-							<span class="licence photo" id="photo2"></span>
-							<input name="file" data-id='2' id='file2' size="0" maxlength="0" type="file" />
-							<a class="reset2" href="javascript:">
+                        <span class="frontPhoto photo"></span>
+                    </div>
+                </div>
+                <div class="flexCon">
+                    <div class="title">法人身份证反面</div>
+                    <div class="form">
+                        <form id="ajaxForm2" accept-charset="utf-8" enctype="multipart/form-data">
+                            <span class="licence photo" id="photo2"></span>
+                            <input name="file" data-id='2' id='file2' size="0" maxlength="0" type="file" />
+                            <a class="reset2" href="javascript:">
 								<span>重新选择</span>
 							</a>
-						</form>
-					</div>
-				</div>
-				<div class="flexCon">
-					<!--<div class="title">法人身份证反面</div>-->
-					<div class="form">
-						<span class="shadow shadow3">
+                        </form>
+                    </div>
+                </div>
+                <div class="flexCon">
+                    <!--<div class="title">法人身份证反面</div>-->
+                    <div class="form">
+                        <span class="shadow shadow3">
 						</span>
-						<span class="backPhoto photo"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="go">
-		<a class="btn btn-default fl" id="goStep2" href="register.html#step2">上一步</a>
-		<a class="btn btn-ay fr" id="goStep4">提交</a>
-	</div>
+                        <span class="backPhoto photo"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="go">
+        <a class="btn btn-default fl" id="goStep2" href="register.html#step2">上一步</a>
+        <a class="btn btn-ay fr" id="goStep4">提交</a>
+    </div>
 </div>
 <style>
-	.fl {
-		float: left;
-	}
-	
-	.fr {
-		float: right;
-	}
-	
-	.step3 {
-		width: 1100px;
-		/*height: 460px;*/
-		margin: 40px auto 0;
-	}
-	
-	.step3 .form form span img {
-		width: 163px;
-		height: 112px;
-	}
-	
-	.step3 .Message {
-		margin-top: 30px;
-		padding-bottom: 30px;
-		background: #fff;
-		border-radius: 4px;
-		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
-	}
-	
-	.step3 .mainTitle {
-		height: 42px;
-		line-height: 42px;
-		border-bottom: 1px solid #dedede;
-		padding-left: 30px;
-		font-size: 14px;
-		font-weight: 700;
-	}
-	
-	.step3 .mainSubstance {
-		margin-top: 0;
-	}
-	
-	.step3 .flex {
-		margin-bottom: 20px;
-	}
-	
-	.step3 .flex .flexCon {
-		width: 216px;
-		display: inline-block;
-		text-align: center;
-		vertical-align: bottom;
-	}
-	
-	.step3 .flex .flexCon .unitPhotoTitle {
-		text-align: center;
-	}
-	
-	.step3 .flex .flexCon .form {
-		position: relative;
-		overflow: hidden;
-	}
-	
-	.step3 .flex .flexCon .title {
-		width: 170px;
-		margin: 30px 0px 20px;
-	}
-	
-	.step3 .flex .flexCon .photo {
-		display: inline-block;
-		width: 163px;
-		height: 112px;
-		border: 1px dashed #999;
-		cursor: pointer;
-	}
-	.step3 .flex .flexCon .shadow{
-		display: inline-block;
-		width: 163px;
-		height: 112px;
-		position: absolute;	
-		left: 26px;
-	}
-	.step3 .flex .flexCon .shadow:hover{
-		background: url(../../../../asset/img/c-1-6-2_03.jpg);
-		opacity: .8;
-		filter: Alpha(opacity= 80);
-	}
-	.step3 .flex .flexCon .licence {
-		background: url(../../../../asset/img/upload.jpg) no-repeat;
-		background-size: 163px 112px;
-	}
-	
-	.step3 .flex .flexCon .businessLicense {
-		background: url(../../../../asset/img/lince.jpg) no-repeat center center;
-		background-size: auto 112px;
-		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg', sizingMethod='scale');
-		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg', sizingMethod='scale');
-	}
-	
-	.step3 .flex .flexCon .frontPhoto {
-		background: url(../../../../asset/img/ID-front.png) no-repeat;
-		background-size: 163px 112px;
-		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png', sizingMethod='scale');
-		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png', sizingMethod='scale');
-	}
-	
-	.step3 .flex .flexCon .backPhoto {
-		background: url(../../../../asset/img/ID-back.png) no-repeat;
-		background-size: 163px 112px;
-		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png', sizingMethod='scale');
-		-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png', sizingMethod='scale');
-	}
-	
-	.step3 .flex .flexCon .nothing {
-		display: inline-block;
-		width: 163px;
-		height: 50px;
-	}
-	
-	.step3 .flex .flexCon input {
-		position: absolute;
-		font-size: 46px;
-		width: 163px;
-		height: 112px;
-		opacity: 0;
-		filter: Alpha(opacity=0);
-		left: 26px;
-		bottom: 5px;
-		z-index: 999;
-		cursor: pointer;
-	}
-	
-	.step3 .flex .flexCon a {
-		height: 24px;
-		position: absolute;
-		bottom: 5px;
-		left: 26px;
-		width: 163px;
-		height: 24px;
-		text-align: center;
-		color: #FFFFFF;
-		background: #999;
-		display: none;
-		opacity: 0.8;
-		filter: Alpha(opacity=80);
-	}
-	.step3 .flex .flexCon a span{
-		line-height: 24px;
-	}
-	.step3 .go {
-		height: 36px;
-		width: 375px;
-		margin: 25px auto 0px;
-	}
-	
-	.step3 .go a {
-		display: inline-block;
-		height: 36px;
-		width: 170px;
-		text-align: center;
-		font-size: 14px;
-		text-decoration: none;
-	}
-	
-	.step3 .go a#goStep2 {
-		color: #666666;
-	}
-	
-	.step3 .go a#goStep4 {
-		color: #ffffff;
-	}
-	/*bootbox弹窗*/
-	
-	.realName .modal-dialog {
-		margin-top: 200px;
-	}
-	
-	.realName .modal-header {
-		border: 0;
-		background: #f2f2f2;
-		padding: 11px;
-		border-radius: 4px;
-		color: #333;
-	}
-	
-	.realName .modal-body .message {
-		text-align: center;
-		font-size: 16px;
-		padding: 10px 0;
-	}
-	
-	.uploadPhoto .modal-footer {
-		display: none;
-	}
-	
-	.uploadPhoto .bootbox-body {
-		text-align: center;
-		padding: 10px 0;
-		font-size: 16px;
-	}
-	
-	form .formPub {
-		height: 10px;
-		width: 163px;
-		/*background: #000;*/
-		border: 2px solid #3d94ff;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-left: -82px;
-		margin-top: -5px;
-		border-radius: 10px;
-		padding: 1px;
-	}
-	
-	form .formPub .progress {
-		height: 4px;
-		background: #3d94ff;
-	}
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .step3 {
+        width: 1100px;
+        /*height: 460px;*/
+        margin: 40px auto 0;
+    }
+
+    .step3 .form form span img {
+        width: 163px;
+        height: 112px;
+    }
+
+    .step3 .Message {
+        margin-top: 30px;
+        padding-bottom: 30px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+    }
+
+    .step3 .mainTitle {
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #dedede;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .step3 .mainSubstance {
+        margin-top: 0;
+    }
+
+    .step3 .flex {
+        margin-bottom: 20px;
+    }
+
+    .step3 .flex .flexCon {
+        width: 216px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: bottom;
+    }
+
+    .step3 .flex .flexCon .unitPhotoTitle {
+        text-align: center;
+    }
+
+    .step3 .flex .flexCon .form {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .step3 .flex .flexCon .title {
+        width: 170px;
+        margin: 30px 0px 20px;
+    }
+
+    .step3 .flex .flexCon .photo {
+        display: inline-block;
+        width: 163px;
+        height: 112px;
+        border: 1px dashed #999;
+        cursor: pointer;
+    }
+
+    .step3 .flex .flexCon .shadow {
+        display: inline-block;
+        width: 163px;
+        height: 112px;
+        position: absolute;
+        left: 26px;
+    }
+
+    .step3 .flex .flexCon .shadow:hover {
+        background: url(../../../../asset/img/c-1-6-2_03.jpg);
+        opacity: .8;
+        filter: Alpha(opacity=80);
+    }
+
+    .step3 .flex .flexCon .licence {
+        background: url(../../../../asset/img/upload.jpg) no-repeat;
+        background-size: 163px 112px;
+    }
+
+    .step3 .flex .flexCon .businessLicense {
+        background: url(../../../../asset/img/lince.jpg) no-repeat center center;
+        background-size: auto 112px;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg', sizingMethod='scale');
+        -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/lince.jpg', sizingMethod='scale');
+    }
+
+    .step3 .flex .flexCon .frontPhoto {
+        background: url(../../../../asset/img/ID-front.png) no-repeat;
+        background-size: 163px 112px;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png', sizingMethod='scale');
+        -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-front.png', sizingMethod='scale');
+    }
+
+    .step3 .flex .flexCon .backPhoto {
+        background: url(../../../../asset/img/ID-back.png) no-repeat;
+        background-size: 163px 112px;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png', sizingMethod='scale');
+        -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../../asset/img/ID-back.png', sizingMethod='scale');
+    }
+
+    .step3 .flex .flexCon .nothing {
+        display: inline-block;
+        width: 163px;
+        height: 50px;
+    }
+
+    .step3 .flex .flexCon input {
+        position: absolute;
+        font-size: 46px;
+        width: 163px;
+        height: 112px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        left: 26px;
+        bottom: 5px;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+    .step3 .flex .flexCon a {
+        height: 24px;
+        position: absolute;
+        bottom: 5px;
+        left: 26px;
+        width: 163px;
+        height: 24px;
+        text-align: center;
+        color: #FFFFFF;
+        background: #999;
+        display: none;
+        opacity: 0.8;
+        filter: Alpha(opacity=80);
+    }
+
+    .step3 .flex .flexCon a span {
+        line-height: 24px;
+    }
+
+    .step3 .go {
+        height: 36px;
+        width: 375px;
+        margin: 25px auto 0px;
+    }
+
+    .step3 .go a {
+        display: inline-block;
+        height: 36px;
+        width: 170px;
+        text-align: center;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+    .step3 .go a#goStep2 {
+        color: #666666;
+    }
+
+    .step3 .go a#goStep4 {
+        color: #ffffff;
+    }
+    /*bootbox弹窗*/
+
+    .realName .modal-dialog {
+        margin-top: 200px;
+    }
+
+    .realName .modal-header {
+        border: 0;
+        background: #f2f2f2;
+        padding: 11px;
+        border-radius: 4px;
+        color: #333;
+    }
+
+    .realName .modal-body .message {
+        text-align: center;
+        font-size: 16px;
+        padding: 10px 0;
+    }
+
+    .uploadPhoto .modal-footer {
+        display: none;
+    }
+
+    .uploadPhoto .bootbox-body {
+        text-align: center;
+        padding: 10px 0;
+        font-size: 16px;
+    }
+
+    form .formPub {
+        height: 10px;
+        width: 163px;
+        /*background: #000;*/
+        border: 2px solid #3d94ff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -82px;
+        margin-top: -5px;
+        border-radius: 10px;
+        padding: 1px;
+    }
+
+    form .formPub .progress {
+        height: 4px;
+        background: #3d94ff;
+    }
 </style>

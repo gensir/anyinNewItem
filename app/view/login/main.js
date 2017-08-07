@@ -17,12 +17,12 @@ var main = Backbone.View.extend({
     },
     render(obj) {
         var _this = this;
-        if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
+        if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)) {
             this.$el.prepend(tpl({
                 list: ukeys.ukeyName()
             }));
-        }else{
-                this.$el.prepend(tpl({
+        } else {
+            this.$el.prepend(tpl({
                 list: null
             }));
         }
@@ -41,19 +41,19 @@ var main = Backbone.View.extend({
     ukeyLogin(event) {
         this.model.set({ "clickEle": $(event.target).data('id') })
         var isValid = this.model.isValid();
-        var selectedUkey=$("#seleBook option:selected").index() - 1
-        if (selectedUkey==-1) {
+        var selectedUkey = $("#seleBook option:selected").index() - 1
+        if (selectedUkey == -1) {
             return;
         }
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
         if (checkResult) {
-            var randomNum=ukeys.randomNum(ukeys.esealCode($("#pinwd").val(),selectedUkey))
+            var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey))
             var data = {
                 "loginType": 2,
                 "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
                 "codeError": 0,
                 "entryptCert": ukeys.dCertificate(selectedUkey),
-                "signature": ukeys.dSignature(selectedUkey,randomNum),
+                "signature": ukeys.dSignature(selectedUkey, randomNum),
                 "randomNum": randomNum
             }
 
@@ -61,8 +61,8 @@ var main = Backbone.View.extend({
             service.userlogin(data).done(function (data) {
                 if (data.code == 0) {
                     $.verify("passwd", "#passwd");
-                    $.cookie('loginadmin',JSON.stringify(data.data))
-                window.open("index.html", "_self");
+                    $.cookie('loginadmin', JSON.stringify(data.data))
+                    window.open("index.html", "_self");
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
                 }
@@ -81,21 +81,23 @@ var main = Backbone.View.extend({
             return;
         }
         var data = {
-            "mobile": $("#userName").val()||"13527761888,13926993742",
-            "password": $("#passwd").val()||"123456",
+            "mobile": $("#userName").val() || "13527761888,13926993742",
+            "password": $("#passwd").val() || "123456",
             "captcha": "jskx",
             "loginType": 1
         }
         service.userlogin(data).done(function (data) {
             if (data.code == 0) {
-                $.cookie('loginadmin',JSON.stringify(data.data))
+                $.cookie('loginadmin', JSON.stringify(data.data))
                 window.open("index.html", "_self");
             } else if (data.code == "100") {
-                $.verify("phone","#userName", "用户未注册");
-            } else if(data.code == "201"){
-                $.verify("phone","#userName", "代表资料不全");
-            }else if (data.code == "500") {
-                $.verify("phone","#userName", "用户名或密码错误");
+                $.verify("phone", "#userName", "用户未注册");
+            } else if (data.code == "201") {
+                $.cookie('loginadmin', JSON.stringify(data))
+                window.open("index.html", "_self");
+                $.verify("phone", "#userName", "资料不全");
+            } else if (data.code == "500") {
+                $.verify("phone", "#userName", "用户名或密码错误");
             }
         })
         // bootbox.dialog({
