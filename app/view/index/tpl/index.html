@@ -22,6 +22,9 @@
             <div class="t-title">
                 <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
             <ul class="blist boxshow">
+                {{if esealdata == null}}
+                <li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>
+                {{/if}}
                 {{each esealdata as value i}}
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
@@ -49,6 +52,9 @@
             <h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
         <div class="jilulist boxshow">
             <ul>
+                {{if logdata == ""}}
+                <li><div class="file" style="cursor: default;">暂无签章记录</div></li>
+                {{/if}}
                 {{each logdata as value i}}
                 <li>
                     <div class="file">

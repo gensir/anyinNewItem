@@ -1,5 +1,6 @@
 import tpl from './tpl/logs2.html';
 var service = require('../../server/service').default;
+var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
 var logs2 = Backbone.View.extend({
     el: '.contents',
     initialize() {
@@ -14,10 +15,13 @@ var logs2 = Backbone.View.extend({
         'click .pagelist li.index': 'currentPapge'
     },
     //获取数据
-    logslist(pageNum, pageSize) {
+    logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
-        service.Operationlog(pageNum, pageSize).done(res => {
+        var data = {
+            "enterpriseCode": enterpriseCode || "11"
+        }
+        service.Operationlog(pageNum, pageSize, data).done(res => {
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
@@ -29,7 +33,7 @@ var logs2 = Backbone.View.extend({
                 this.$el.html(tpl(this.model.get("tplhtml")));
                 this.pagination(res.data.pageNum, res.data.totalPages);
                 if (logsObj.list.length == 0) {
-                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
+                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
                 }
             }

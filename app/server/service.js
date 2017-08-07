@@ -104,8 +104,8 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "commSignetLog/list/" + pageNum + "/" + pageSize, data: data }, "post");
     },
     //系统操作日志
-    Operationlog(pageNum, pageSize) {
-        return this.ajaxCall({ url: domain + basemp + "operateLog/list/" + pageNum + "/" + pageSize });
+    Operationlog(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "operateLog/list/" + pageNum + "/" + pageSize, data: data });
     },
     //校验短信
     checkSmsCode(code,phone) {
