@@ -188,9 +188,20 @@ var step3 = Backbone.View.extend({
 				return;
 			}
 		};
-		localStorage.removeItem("enterpriseCode")
-		localStorage.regStep="#step4";
-		window.open('register.html#step4', '_self');
+		var data={
+			"status":0,
+			"enterprise_code":"91440300724740231D"
+		};
+		service.updateStatus(data).done(function(data){
+			if(data.code==0){
+				localStorage.removeItem("enterpriseCode")
+				localStorage.regStep="#step4";
+				window.open('register.html#step4', '_self');
+			}else{
+				bootbox.alert(data.msg);
+			}
+		})
+		
 	}
 });
 
