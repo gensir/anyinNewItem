@@ -8,7 +8,7 @@ var dialogs = $($(dialog()).prop("outerHTML"));
 var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
-        this.firmId = localStorage.loginadmin && JSON.parse(localStorage.loginadmin).user.firmId
+        this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',

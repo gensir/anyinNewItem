@@ -90,11 +90,12 @@ var main = Backbone.View.extend({
             if (data.code == 0) {
                 $.cookie('loginadmin',JSON.stringify(data.data))
                 window.open("index.html", "_self");
-            } else if (data.code == "001") {
+            } else if (data.code == "100") {
                 $.verify("phone","#userName", "用户未注册");
-            }
-            else if (data.code == "500") {
-                $.verify("phone","#userName", "账号不存在");
+            } else if(data.code == "201"){
+                $.verify("phone","#userName", "代表资料不全");
+            }else if (data.code == "500") {
+                $.verify("phone","#userName", "用户名或密码错误");
             }
         })
         // bootbox.dialog({
