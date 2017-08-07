@@ -4,9 +4,9 @@ var service = require('../../server/service').default;
 var billType=1;
 var step4Data;
 var invoiceState;
-//var orderNo = localStorage.orderNo || "OFFLINE08011174248425";
+var orderNo = localStorage.orderNo || "OFFLINE07252055727334";
 
-var orderNo="OFFLINE07252055727334";
+//var orderNo="OFFLINE07252055727334";
 //var orderNo="OFFLINE08011174248425";
 
 var step4 = Backbone.View.extend({
