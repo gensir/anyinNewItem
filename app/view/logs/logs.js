@@ -3,8 +3,7 @@ var service = require('../../server/service').default;
 var ukey = require('../../publicFun/ukeys');
 var esealCode = localStorage.esealCode;
 var PKSC7 = localStorage.dSignature;
-var udata = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin'))
-var enterpriseCode = udata.user.enterpriseCode;
+var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize() {

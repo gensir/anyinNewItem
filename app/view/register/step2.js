@@ -19,7 +19,7 @@ var step2 = Backbone.View.extend({
 		'onblur .checkPasswd':'onBlur'
 	},
 	render: function(query) {
-		var firmId = localStorage.firmId;
+		var firmId = localStorage.firmId||$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 		if(!firmId){
 			return;
 		}
