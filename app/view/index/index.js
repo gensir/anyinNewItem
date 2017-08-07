@@ -3,7 +3,7 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var udata = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin'))
+var udata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || {user:{},menuList:{}}
 var enterpriseCode = udata.user.enterpriseCode;
 var firmId = udata.user.firmId;
 var esealCode = localStorage.esealCode;
@@ -23,7 +23,7 @@ var index = Backbone.View.extend({
     },
     userinfo: function (event) {
         var _this = this
-        var userdata = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin'))
+        var userdata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || {user:{},menuList:{}}
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
         if (this.model.get("tpl").userinfo.user.status == 0) {
@@ -31,7 +31,7 @@ var index = Backbone.View.extend({
         } else if (this.model.get("tpl").userinfo.user.status == 2) {
             _this.realname_no();
         } else if (this.model.get("tpl").userinfo.user.status == 3) {
-            window.open('register.html#step3', '_self');
+            _this.realname();
         }
     },
     //签章记录弹出详细记录
@@ -54,15 +54,16 @@ var index = Backbone.View.extend({
         bootbox.dialog({
             backdrop: true,
             closeButton: false,
-            className: "common realname",
-            title: dialogs.find(".realname .title")[0].outerHTML,
-            message: dialogs.find(".realname .msg1")[0].outerHTML,
+            className: "common realname_Unknown",
+            title: dialogs.find(".realname_Unknown .title")[0].outerHTML,
+            message: dialogs.find(".realname_Unknown .msg1")[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
                         localStorage.clear();
+                        $.removeCookie('loginadmin');
                         result.cancelable = window.open('login.html', '_self');
                     }
                 },
@@ -81,7 +82,27 @@ var index = Backbone.View.extend({
             buttons: {
                 cancel: {
                     label: "重新实名",
-                    className: "btn2 shiming",
+                    className: "btn2",
+                    callback: function (result) {
+                        result.cancelable = window.open('register.html#step3', '_self');
+                    }
+                },
+            }
+        })
+        return false;
+    },
+    realname() {
+        var _this = this
+        bootbox.dialog({
+            backdrop: true,
+            closeButton: false,
+            className: "common realname",
+            title: dialogs.find(".realname .title")[0].outerHTML,
+            message: dialogs.find(".realname .msg1")[0].outerHTML,
+            buttons: {
+                cancel: {
+                    label: "实名认证",
+                    className: "btn2",
                     callback: function (result) {
                         result.cancelable = window.open('register.html#step3', '_self');
                     }

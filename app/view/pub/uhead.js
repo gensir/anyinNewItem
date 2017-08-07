@@ -49,7 +49,8 @@ var header = {
                     className: "btn2",
                     callback: function (result) {
                         localStorage.clear();
-                        window.open('login.html', '_self')
+                        $.removeCookie('loginadmin');
+                        window.open('login.html', '_self');
                     }
                 },
             }
