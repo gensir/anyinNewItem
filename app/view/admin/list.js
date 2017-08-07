@@ -9,6 +9,7 @@ var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
         this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
+        this.enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
@@ -27,6 +28,7 @@ var list = Backbone.View.extend({
     render: function (query) {
         $(".container").empty();
         this.listPage({ "firmId": this.firmId });
+        //this.licenselist()
 
     },
     toggleList(event) {
@@ -56,7 +58,7 @@ var list = Backbone.View.extend({
             //closeButton: false,
             className: "closeAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message:$(".eseallist .shut").length <= 1?dialogsText.find(".msg1")[0].outerHTML:dialogsText.find(".msg1.closeEseal")[0].outerHTML,
+            message: $(".eseallist .shut").length <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal")[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
@@ -68,7 +70,7 @@ var list = Backbone.View.extend({
                 },
                 confirm: {
                     label: "继续",
-                    className: $(".eseallist .shut").length <= 1?"btn2 closeAllowbtn2":"btn2",
+                    className: $(".eseallist .shut").length <= 1 ? "btn2 closeAllowbtn2" : "btn2",
                     callback: function (event) {
                         numInd++;
                         var _this = this;
@@ -100,7 +102,6 @@ var list = Backbone.View.extend({
                             var getPIN = $("#closeCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                             if (ukeys.PIN($("#closeCode").val(), 0)) {
                                 if (ukeys.esealCode(getPIN, selectedUkey) != ukeys.esealCode(getPIN, selectedUkey)) {
-                                    debugger
                                     $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                     $(_this).find(".btn2").show().html("重试");
                                     numInd = 0;
@@ -122,7 +123,6 @@ var list = Backbone.View.extend({
                                 })
                             } else {
                                 numInd = 1;
-                                debugger;
                                 $(_this).find("#closeCode-error").html("PIN码不正确，请重试")
                                 $(_this).find(".btn2").show().html("重试");
                             }
@@ -189,7 +189,6 @@ var list = Backbone.View.extend({
                             var getPIN = $("#openCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                             if (ukeys.PIN($("#openCode").val(), 0)) {
                                 if (ukeys.esealCode(getPIN, selectedUkey) != ukeys.esealCode(getPIN, selectedUkey)) {
-                                    debugger
                                     $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                     $(_this).find(".btn2").show().html("重试");
                                     numInd = 0;
@@ -452,6 +451,32 @@ var list = Backbone.View.extend({
             }
             this.model.set("totalPages", res.data.totalPages)
             this.model.get("tplhtml").data = this.tempObj;
+            this.$el.html(tpl(this.model.get("tplhtml")));
+            this.pagination(res.data.pageNum, res.data.totalPages)
+            if (GetQueryString("page") == "license") {
+                this.toggleTab(event, $("#loginset"))
+            }
+            if (pageNum == 1) {
+                $(".PreviousPage>a").css("cursor","not-allowed");
+            }else if(pageNum==res.data.totalPages){
+                $(".NextPage>a").css("cursor","not-allowed");
+            }else{
+                $(".PreviousPage>a,.NextPage>a").css("cursor","pointer");
+            }
+        })
+    },
+    licenselist(pageNum, pageSize, enterpriseCode) {
+        pageNum = pageNum || 1;
+        pageSize = pageSize || 5;
+        service.licenselist(pageNum, pageSize, { enterpriseCode: this.enterpriseCode }).done(res => {
+            var tempObj;
+            if (res.code != 0) {
+                this.tempObjs = {}
+            } else {
+                this.tempObjs = res.data;
+            }
+            this.model.set("totalPages", res.data.totalPages)
+            this.model.get("tplhtml").loginlist = this.tempObjs;
             this.$el.html(tpl(this.model.get("tplhtml")));
             this.pagination(res.data.pageNum, res.data.totalPages)
             if (GetQueryString("page") == "license") {
