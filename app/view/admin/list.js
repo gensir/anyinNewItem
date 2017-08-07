@@ -22,11 +22,11 @@ var list = Backbone.View.extend({
         'click .PreviousPage': 'PreviousPage',
         'click .NextPage': 'NextPage',
         'click nav li.index': 'currentPapge',
-        'click #step':'step'
+        'click #step': 'step'
     },
     render: function (query) {
         $(".container").empty();
-        this.listPage({"firmId":this.firmId});
+        this.listPage({ "firmId": this.firmId });
 
     },
     toggleList(event) {
@@ -49,13 +49,14 @@ var list = Backbone.View.extend({
         if (!ukeys.issupport()) {
             return false;
         }
-        var numInd = this.model.get("numInd")
+        var numInd = this.model.get("numInd");
+        var dialogsText = dialogs.find(".closeAllow");
         bootbox.dialog({
             backdrop: true,
             //closeButton: false,
             className: "closeAllow common",
-            title: dialogs.find(".closeAllow .title")[0].outerHTML,
-            message: dialogs.find(".closeAllow .msg1")[0].outerHTML,
+            title: dialogsText.find(".title")[0].outerHTML,
+            message:$(".eseallist .shut").length <= 1?dialogsText.find(".msg1")[0].outerHTML:dialogsText.find(".msg1.closeEseal")[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
@@ -67,19 +68,64 @@ var list = Backbone.View.extend({
                 },
                 confirm: {
                     label: "继续",
-                    className: "btn2",
+                    className: $(".eseallist .shut").length <= 1?"btn2 closeAllowbtn2":"btn2",
                     callback: function (event) {
                         numInd++;
+                        var _this = this;
+                        var msg3 = dialogsText.find(".msg3")[0].outerHTML
+                        var msg4 = dialogsText.find(".msg4")[0].outerHTML
+                        var msg6 = dialogsText.find(".msg6")[0].outerHTML
                         if (numInd == 1) {
-                            var msg2 = dialogs.find(".msg2")[0].outerHTML
                             //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
-                            $(this).find(".bootbox-body").html(msg2);
+                            $(this).find(".bootbox-body").html(msg4);
+                            $(this).find(".btn1,.btn2").hide();
+                            setTimeout(function () {
+                                if (ukeys.ConnectKey()) {
+                                    numInd = 0;
+                                    $(_this).find(".bootbox-body").html(msg3);
+                                    $(_this).find(".btn1,.btn2").show();
+                                    $(_this).find(".btn2").show().html("重试");
+                                } else {
+                                    $(_this).find(".bootbox-body").html(msg6);
+                                    $(_this).find(".btn1,.btn2").show();
+                                    $(_this).find(".btn2").show().html("继续");
+                                    $.each(ukeys.ukeyName(), function (ind, val) {
+                                        $(_this).find("#seleBook").append("<option>" + val + "</option>")
+                                    })
+
+                                }
+                            }, 1000)
                         } else if (numInd == 2) {
-                            var msg3 = dialogs.find(".msg3")[0].outerHTML
-                            $(this).find(".modal-footer .btn2").hide();
-                            $(this).find(".bootbox-body").html(msg3);
-                        } else {
-                            this.modal('hide');
+                            // 验证KEY密码
+                            var getPIN = $("#closeCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
+                            if (ukeys.PIN($("#closeCode").val(), 0)) {
+                                if (ukeys.esealCode(getPIN, selectedUkey) != ukeys.esealCode(getPIN, selectedUkey)) {
+                                    debugger
+                                    $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
+                                    $(_this).find(".btn2").show().html("重试");
+                                    numInd = 0;
+                                    $(_this).find(".btn1,.btn2").hide();
+                                    return false;
+                                }
+                                var data = {
+                                    "esealCode": "ffCode",
+                                    "keyStatus": 1
+                                }
+                                service.loginLicense(data).done((res) => {
+                                    console.log(JSON.stringify(res))
+                                    var success = dialogsText.find(".success").html("已成功关闭" + '“电子印章样品专用章（01）”' + "的登录权限").get(0).outerHTML
+                                    $(_this).find(".bootbox-body").html(success);
+                                    $(_this).find(".btn1,.btn2").hide();
+                                    setTimeout(function () {
+                                        _this.modal('hide');
+                                    }, 1200)
+                                })
+                            } else {
+                                numInd = 1;
+                                debugger;
+                                $(_this).find("#closeCode-error").html("PIN码不正确，请重试")
+                                $(_this).find(".btn2").show().html("重试");
+                            }
                         }
                         return false;
                     }
@@ -115,28 +161,20 @@ var list = Backbone.View.extend({
                     callback: function (event) {
                         numInd++;
                         var _this = this;
-                        var data = {
-                            "esealCode": "ffCode",
-                            "keyStatus": 1
-                        }
-                        service.loginLicense(data).done((res) => {
-                            console.log(JSON.stringify(res))
-
-                        })
+                        var msg3 = dialogsText.find(".msg3")[0].outerHTML
+                        var msg4 = dialogsText.find(".msg4")[0].outerHTML
+                        var msg6 = dialogsText.find(".msg6")[0].outerHTML
                         if (numInd == 1) {
-                            var msg4 = dialogsText.find(".msg4")[0].outerHTML
                             //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                             $(this).find(".bootbox-body").html(msg4);
                             $(this).find(".btn1,.btn2").hide();
                             setTimeout(function () {
                                 if (ukeys.ConnectKey()) {
                                     numInd = 0;
-                                    var msg3 = dialogsText.find(".msg3")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg3);
                                     $(_this).find(".btn1,.btn2").show();
                                     $(_this).find(".btn2").show().html("重试");
                                 } else {
-                                    var msg6 = dialogsText.find(".msg6")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $(_this).find(".btn1,.btn2").show();
                                     $(_this).find(".btn2").show().html("继续");
@@ -148,28 +186,29 @@ var list = Backbone.View.extend({
                             }, 1000)
                         } else if (numInd == 2) {
                             // 验证KEY密码
-                            var data = {
-                                "esealCode": "ffCode",
-                                "keyStatus": 1
-                            }
-                            service.loginLicense(data).done((res) => {
-                                console.log(JSON.stringify(res))
-
-                            })
                             var getPIN = $("#openCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                             if (ukeys.PIN($("#openCode").val(), 0)) {
-                                if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
+                                if (ukeys.esealCode(getPIN, selectedUkey) != ukeys.esealCode(getPIN, selectedUkey)) {
+                                    debugger
                                     $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                     $(_this).find(".btn2").show().html("重试");
                                     numInd = 0;
+                                    $(_this).find(".btn1,.btn2").hide();
                                     return false;
                                 }
-                                var success = dialogsText.find(".success")[0].outerHTML
-                                $(_this).find(".bootbox-body").html(success);
-                                $(_this).find(".btn1,.btn2").hide();
-                                setTimeout(function () {
-                                    _this.modal('hide');
-                                }, 1200)
+                                var data = {
+                                    "esealCode": "ffCode",
+                                    "keyStatus": 1
+                                }
+                                service.loginLicense(data).done((res) => {
+                                    console.log(JSON.stringify(res))
+                                    var success = dialogsText.find(".success").html("已成功开启" + '“电子印章样品专用章（01）”' + "的登录权限").get(0).outerHTML
+                                    $(_this).find(".bootbox-body").html(success);
+                                    $(_this).find(".btn1,.btn2").hide();
+                                    setTimeout(function () {
+                                        _this.modal('hide');
+                                    }, 1200)
+                                })
                             } else {
                                 numInd = 1;
                                 $(_this).find("#openCode-error").html("PIN码不正确，请重试")
@@ -434,7 +473,7 @@ var list = Backbone.View.extend({
             return;
         }
         var _that = this;
-        var obj = {"firmId":this.firmId}
+        var obj = { "firmId": this.firmId }
         this.listPage(obj, val)
     },
     //pagination
@@ -478,8 +517,8 @@ var list = Backbone.View.extend({
         this.active = $(e.currentTarget).prev();
         this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
     },
-    step:function(){
-    	localStorage.stepNum="#step1"
+    step: function () {
+        localStorage.stepNum = "#step1"
     }
 });
 
