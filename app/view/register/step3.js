@@ -190,7 +190,7 @@ var step3 = Backbone.View.extend({
 		};
 		var data={
 			"status":0,
-			"enterprise_code":"91440300724740231D"
+			"enterprise_code":enterpriseCode
 		};
 		service.updateStatus(data).done(function(data){
 			if(data.code==0){
