@@ -3,7 +3,7 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
+var udata = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin'))
 var enterpriseCode = udata.user.enterpriseCode;
 var firmId = udata.user.firmId;
 var esealCode = localStorage.esealCode;
@@ -23,7 +23,7 @@ var index = Backbone.View.extend({
     },
     userinfo: function (event) {
         var _this = this
-        var userdata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
+        var userdata = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin'))
         this.model.get("tpl").userinfo = userdata;
         this.$el.html(tpl(this.model.get("tpl")));
         if (this.model.get("tpl").userinfo.user.status == 0) {
@@ -62,8 +62,8 @@ var index = Backbone.View.extend({
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        // localStorage.clear();
-                        // result.cancelable = window.open('login.html', '_self');
+                        localStorage.clear();
+                        result.cancelable = window.open('login.html', '_self');
                     }
                 },
             }
@@ -77,7 +77,7 @@ var index = Backbone.View.extend({
             closeButton: false,
             className: "common realname_no",
             title: dialogs.find(".realname_no .title")[0].outerHTML,
-            message: $(dialogs.find(".realname_no .msg1")[0].outerHTML).append(this.model.get('tpl').userinfo.statusRemark),
+            message: $(dialogs.find(".realname_no .msg1")[0].outerHTML).append("<span style='color:#f00;'>【"+ this.model.get('tpl').userinfo.user.statusRemark +"】</span>" ),
             buttons: {
                 cancel: {
                     label: "重新实名",
@@ -92,6 +92,7 @@ var index = Backbone.View.extend({
     },
     //获取签章记录数据
     logslist(pageNum, pageSize, data) {
+        var _this = this
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
         var data = {
@@ -103,13 +104,11 @@ var index = Backbone.View.extend({
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
-                $(".jilulist ul").append("<li><div class='file'>接口请求失败！</div></li>")
-            } else if (res.data.list.length == 0) {
-                $(".jilulist ul").append("<li><div class='file'>暂无签章记录</div></li>")
+                $(".jilulist ul").append("<li><div class='file'>接口数据请求失败！</div></li>");
             } else {
                 logsObj = res.data.list;
-                this.model.get("tpl").logdata = logsObj;
-                this.$el.html(tpl(this.model.get("tpl")));
+                _this.model.get("tpl").logdata = logsObj;
+                _this.$el.html(tpl(_this.model.get("tpl")));
             }
         });
     },
@@ -127,6 +126,7 @@ var index = Backbone.View.extend({
     },
     //获取印章数据
     getEsealList(data, pageNum, pageSize) {
+        var _this = this
         pageNum = pageNum || 1;
         pageSize = pageSize || 3;
         var data = {
@@ -137,12 +137,11 @@ var index = Backbone.View.extend({
             if (res.code != 0) {
                 Esealobj = {}
                 $(".xufei ul").append("<li>接口请求失败</li>");
-            } else if (res.data.list == null) {
-                $(".xufei ul").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
             } else {
                 Esealobj = res.data.list;
-                this.model.get("tpl").esealdata = Esealobj;
-                this.$el.html(tpl(this.model.get("tpl")));
+                _this.model.get("tpl").esealdata = Esealobj;
+                _this.$el.html(tpl(_this.model.get("tpl")));
+
             }
         });
     },

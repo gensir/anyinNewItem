@@ -2,9 +2,9 @@ import tpl from './tpl/logs.html';
 var service = require('../../server/service').default;
 var ukey = require('../../publicFun/ukeys');
 var esealCode = localStorage.esealCode;
-var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
-var enterpriseCode = udata.user.enterpriseCode;
 var PKSC7 = localStorage.dSignature;
+var udata = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin'))
+var enterpriseCode = udata.user.enterpriseCode;
 var logs = Backbone.View.extend({
     el: '.contents',
     initialize() {
