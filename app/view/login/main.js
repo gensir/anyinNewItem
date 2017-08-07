@@ -92,10 +92,6 @@ var main = Backbone.View.extend({
                 window.open("index.html", "_self");
             } else if (data.code == "100") {
                 $.verify("phone", "#userName", "用户未注册");
-            } else if (data.code == "201") {
-                $.cookie('loginadmin', JSON.stringify(data))
-                window.open("index.html", "_self");
-                $.verify("phone", "#userName", "资料不全");
             } else if (data.code == "500") {
                 $.verify("phone", "#userName", "用户名或密码错误");
             }
