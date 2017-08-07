@@ -12,7 +12,7 @@ var step1 = Backbone.View.extend({
 	},
 	render: function(query) {
 		that=this;
-		enterpriseCode=(JSON.parse(localStorage.loginadmin)).user.firmId;
+		enterpriseCode=localStorage.loginadmin && JSON.parse(localStorage.loginadmin).user.firmId;
 //		enterpriseCode=localStorage.firmId;
 		this.getstep1(enterpriseCode);
 		$(".contents").empty();

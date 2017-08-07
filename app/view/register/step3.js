@@ -16,7 +16,7 @@ var step3 = Backbone.View.extend({
 	},
 	render: function(query) {
 		this.$el.html(tpl);
-		enterpriseCode = localStorage.enterpriseCode;
+		enterpriseCode = localStorage.enterpriseCode||JSON.parse(localStorage.loginadmin).user.enterpriseCode;
 		pictureFlag = [0, 0, 0];
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
