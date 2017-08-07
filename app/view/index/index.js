@@ -78,7 +78,7 @@ var index = Backbone.View.extend({
             closeButton: false,
             className: "common realname_no",
             title: dialogs.find(".realname_no .title")[0].outerHTML,
-            message: $(dialogs.find(".realname_no .msg1")[0].outerHTML).append("<span style='color:#f00;'>【"+ this.model.get('tpl').userinfo.user.statusRemark +"】</span>" ),
+            message: $(dialogs.find(".realname_no .msgcenter")[0].outerHTML).append("<span style='color:#f00;'>【"+ this.model.get('tpl').userinfo.user.statusRemark +"】</span>" ),
             buttons: {
                 cancel: {
                     label: "重新实名",
@@ -98,10 +98,10 @@ var index = Backbone.View.extend({
             closeButton: false,
             className: "common realname",
             title: dialogs.find(".realname .title")[0].outerHTML,
-            message: dialogs.find(".realname .msg1")[0].outerHTML,
+            message: dialogs.find(".realname .msgcenter")[0].outerHTML,
             buttons: {
                 cancel: {
-                    label: "实名认证",
+                    label: "我要实名认证",
                     className: "btn2",
                     callback: function (result) {
                         result.cancelable = window.open('register.html#step3', '_self');
