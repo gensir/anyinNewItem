@@ -27,7 +27,7 @@ var list = Backbone.View.extend({
     },
     render: function (query) {
         $(".container").empty();
-        this.listPage({ "firmId": this.firmId });
+        this.listPage();
         this.licenselist()
 
     },
@@ -438,10 +438,10 @@ var list = Backbone.View.extend({
         window.open("admin.html#renew", "_self")
         return false
     },
-    listPage(querydata, pageNum, pageSize) {
+    listPage(pageNum, pageSize) {
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
-        querydata = querydata || { "firmId": "nihao" }
+        var querydata ={ "firmId":this.firmId|| "nihao" }
         service.getEsealList(pageNum, pageSize, querydata).done(res => {
             var tempObj;
             if (res.code != 0) {
@@ -466,7 +466,6 @@ var list = Backbone.View.extend({
         })
     },
     licenselist(pageNum,pageSize) {
-        alert(123)
         var data={
             pageNum:pageNum || 1,
             pageSize : pageSize || 5,
@@ -504,8 +503,7 @@ var list = Backbone.View.extend({
             return;
         }
         var _that = this;
-        var obj = { "firmId": this.firmId }
-        this.listPage(obj, val)
+        this.listPage(val)
     },
     //pagination
     pagination: function (pageNumber, totalPages) {
