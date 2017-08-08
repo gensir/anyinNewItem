@@ -135,6 +135,13 @@ var logs = Backbone.View.extend({
                         $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
                         $(".pagelist").remove();
                     }
+                    if (pageNum == 1) {
+                        $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                    } else if (pageNum == res.data.totalPages) {
+                        $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                    } else {
+                        $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
+                    }
                     this.form_date();
                 }
             });
@@ -164,6 +171,13 @@ var logs = Backbone.View.extend({
                 if (logsObj.list.length == 0) {
                     $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
+                }
+                if (pageNum == 1) {
+                    $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                } else if (pageNum == res.data.totalPages) {
+                    $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                } else {
+                    $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
                 }
                 this.form_date();
             }

@@ -51,6 +51,13 @@ var list = Backbone.View.extend({
             	$(".listResult").show();
             	$("nav").hide();
             }
+            if (pageNum == 1) {
+                $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+            } else if (pageNum == res.data.totalPages) {
+                $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+            } else {
+                $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
+            }
         })
     },
     // 点击上一页、下一页

@@ -10,14 +10,14 @@ var logs2 = Backbone.View.extend({
         this.logslist()
     },
     events: {
-        'click .pagelist .PreviousPage': 'PreviousPage',
-        'click .pagelist .NextPage': 'NextPage',
+        'click .pagelist .PreviousPage:not(".no")': 'PreviousPage',
+        'click .pagelist .NextPage.not[disabled]': 'NextPage',
         'click .pagelist li.index': 'currentPapge'
     },
     //获取数据
     logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 10;
+        pageSize = pageSize || 5;
         var data = {
             "enterpriseCode": enterpriseCode || "11"
         }
@@ -35,6 +35,13 @@ var logs2 = Backbone.View.extend({
                 if (logsObj.list.length == 0) {
                     $(".listtext").append("<li><div class='file' style='cursor: default;'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
+                }
+                if (pageNum == 1) {
+                    $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                } else if (pageNum == res.data.totalPages) {
+                    $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                } else {
+                    $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
                 }
             }
         });
