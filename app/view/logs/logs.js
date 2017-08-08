@@ -21,9 +21,9 @@ var logs = Backbone.View.extend({
         'change #s_type': 'signType',
         'click #date1+em': 'remove_date',
         'click #date2+em': 'remove_date2',
-        'click .pagelist .PreviousPage': 'PreviousPage',
-        'click .pagelist .NextPage': 'NextPage',
-        'click .pagelist li.index': 'currentPapge'
+        'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
+        'click .pagination .NextPage:not(".no")': 'NextPage',
+        'click .pagination .index': 'currentPapge'
     },
     //调取日期控件
     form_date() {
@@ -136,11 +136,11 @@ var logs = Backbone.View.extend({
                         $(".pagelist").remove();
                     }
                     if (pageNum == 1) {
-                        $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                        $("li.PreviousPage").addClass("no");
                     } else if (pageNum == res.data.totalPages) {
-                        $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                        $("li.NextPage").addClass("no");
                     } else {
-                        $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
+                        $("li.PreviousPage,li.NextPage").removeClass("no");
                     }
                     this.form_date();
                 }
@@ -173,11 +173,11 @@ var logs = Backbone.View.extend({
                     $(".pagelist").remove();
                 }
                 if (pageNum == 1) {
-                    $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                    $("li.PreviousPage").addClass("no");
                 } else if (pageNum == res.data.totalPages) {
-                    $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                    $("li.NextPage").addClass("no");
                 } else {
-                    $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
+                    $("li.PreviousPage,li.NextPage").removeClass("no");
                 }
                 this.form_date();
             }
@@ -246,7 +246,7 @@ var logs = Backbone.View.extend({
         this.pagediv(1, this.model.get("totalPages"))
     },
     NextPage(e) {
-        this.active = $(e.currentTarget).prev();
+        this.active = $(e.currentTarget).parent().prev();
         this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
     }
 });

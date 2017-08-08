@@ -10,9 +10,9 @@ var list = Backbone.View.extend({
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
-        'click .PreviousPage': 'PreviousPage',
-        'click .NextPage': 'NextPage',
-        'click nav li.index': 'currentPapge'
+        'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
+        'click .pagination .NextPage:not(".no")': 'NextPage',
+        'click .pagination .index': 'currentPapge'
     },
     render: function (query) {
     	this.listPage();
@@ -52,11 +52,11 @@ var list = Backbone.View.extend({
             	$("nav").hide();
             }
             if (pageNum == 1) {
-                $(".PreviousPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                $("li.PreviousPage").addClass("no");
             } else if (pageNum == res.data.totalPages) {
-                $(".NextPage>a").css({ "cursor": "not-allowed", "background": "#f5f5f5" });
+                $("li.NextPage").addClass("no");
             } else {
-                $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
+                $("li.PreviousPage,li.NextPage").removeClass("no");
             }
         })
     },
@@ -122,11 +122,8 @@ var list = Backbone.View.extend({
         this.pagediv(pageNum, this.model.get("totalPages"))
     },
     NextPage(e) {
-    	this.active = $(e.currentTarget);
-//      var pageNum = this.active.find("a").text()
-        var pageNum = $(".pagination .active a").text();
-        console.log(pageNum+"pre")
-        this.pagediv(pageNum, this.model.get("totalPages"))
+        this.active = $(e.currentTarget).prev();
+        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
     },
 });
 
