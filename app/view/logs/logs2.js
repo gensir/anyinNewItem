@@ -10,8 +10,8 @@ var logs2 = Backbone.View.extend({
         this.logslist()
     },
     events: {
-        'click .pagelist .PreviousPage:not(".no")': 'PreviousPage',
-        'click .pagelist .NextPage.not[disabled]': 'NextPage',
+        'click .pagelist .PreviousPage': 'PreviousPage',
+        'click .pagelist .NextPage': 'NextPage',
         'click .pagelist li.index': 'currentPapge'
     },
     //获取数据
