@@ -15,9 +15,9 @@ var main = Backbone.View.extend({
     seleBook() {
         //$("#seleBook option").eq(0).attr("disabled","disabled")
     },
-    render(obj) {
+    render() {
         var _this = this;
-        if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)) {
+        if ((!!window.ActiveXObject || "ActiveXObject" in window) && (navigator.userAgent.indexOf('Opera') < 0)) {
             this.$el.prepend(tpl({
                 list: ukeys.ukeyName()
             }));
