@@ -229,7 +229,7 @@ export default {
     },
     //名称查询企业编码
     checkname(data) {
-        return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data }, "POST");
+        return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data }, "post");
     },
     //登录权限控制
     loginLicense(data) {
@@ -241,6 +241,6 @@ export default {
     },
     //更新状态
     updateStatus(data) {
-        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/update_status", data: data }, "POST");
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/update_status", data: data }, "post");
     }
 }
