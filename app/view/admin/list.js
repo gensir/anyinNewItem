@@ -483,6 +483,9 @@ var list = Backbone.View.extend({
                     this.toggleTab(event, $("#loginset"))
                 }
                 GetQueryStringBool = false;
+                if (res.data && (!res.data.list || res.data.list.length == 0)) {
+                    $("#esealNav").hide();
+                }
             }
             if (pageNum == 1) {
                 $("li.PreviousPage").addClass("no");
@@ -513,9 +516,9 @@ var list = Backbone.View.extend({
                 $("#loginset").addClass("active").siblings().removeClass("active");
                 $(".mainbody").eq(1).addClass("active").siblings(".mainbody").removeClass("active");
                 $(".license li.nav4:contains('开启登录权限')").attr("class", "nav4 open")
-                // if (GetQueryString("page") == "license") {
-                //     this.toggleTab(event, $("#loginset"))
-                // }
+                if (res.data && (!res.data.list || res.data.list.length == 0)) {
+                    $("#licenseNav").hide();
+                }
             }
             if (data.pageNum == 1) {
                 $("li.PreviousPage").addClass("no");
