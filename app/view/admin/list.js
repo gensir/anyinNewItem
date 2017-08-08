@@ -27,7 +27,7 @@ var list = Backbone.View.extend({
     },
     render: function (query) {
         $(".container").empty();
-        this.listPage();
+        //this.listPage();
         this.licenselist()
 
     },
@@ -447,14 +447,14 @@ var list = Backbone.View.extend({
             if (res.code != 0) {
                 this.tempObj = {}
             } else {
-                this.tempObj = res.data;
-            }
-            this.model.set("totalPages", res.data.totalPages)
-            this.model.get("tplhtml").data = this.tempObj;
-            this.$el.html(tpl(this.model.get("tplhtml")));
-            this.pagination(res.data.pageNum, res.data.totalPages)
-            if (GetQueryString("page") == "license") {
-                this.toggleTab(event, $("#loginset"))
+                this.tempObj = res.data.list;
+                this.model.set("totalPages", res.data.totalPages)
+                this.model.get("tplhtml").data = this.tempObj;
+                this.$el.html(tpl(this.model.get("tplhtml")));
+                this.pagination(res.data.pageNum, res.data.totalPages)
+                if (GetQueryString("page") == "license") {
+                    this.toggleTab(event, $("#loginset"))
+                }
             }
             if (pageNum == 1) {
                 $(".PreviousPage>a").css("cursor","not-allowed");
@@ -469,7 +469,7 @@ var list = Backbone.View.extend({
         var data={
             pageNum:pageNum || 1,
             pageSize : pageSize || 5,
-            enterpriseCode: this.enterpriseCode 
+            enterpriseCode: this.enterpriseCode || "e440301000412"
         }
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
@@ -478,14 +478,14 @@ var list = Backbone.View.extend({
             if (res.code != 0) {
                 this.tempObjs = {}
             } else {
-                this.tempObjs = res.data;
-            }
-            this.model.set("totalPages", res.data.totalPages)
-            this.model.get("tplhtml").loginlist = this.tempObjs;
-            this.$el.html(tpl(this.model.get("tplhtml")));
-            this.pagination(res.data.pageNum, res.data.totalPages)
-            if (GetQueryString("page") == "license") {
-                this.toggleTab(event, $("#loginset"))
+                this.tempObjs = res.data.list;
+                this.model.set("totalPages", res.data.totalPages)
+                this.model.get("tplhtml").loginlist = this.tempObjs;
+                this.$el.html(tpl(this.model.get("tplhtml")));
+                this.pagination(res.data.pageNum, res.data.totalPages)
+                if (GetQueryString("page") == "license") {
+                    this.toggleTab(event, $("#loginset"))
+                }
             }
         })
     },

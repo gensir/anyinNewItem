@@ -20,7 +20,10 @@
                     <!-- <li class="nav5">管理操作</li> -->
                 </ul>
                 <div class="eseallist">
-                    {{each data.list as value i}}
+                    {{if data == null}}
+                     <div class="listResult">无电子印章信息</div>
+                     {{/if}}
+                    {{each data as value i}}
                     <div class="list">
                         <ul class="nav">
                             <li class="nav1">{{value.esealFullName}}</li>
@@ -99,14 +102,19 @@
                     <li class="nav4">管理操作</li>
                 </ul>
                 <div class="eseallist">
+                    {{if loginlist == ""}}
+                    <div class="listResult">无电子印章信息</div>
+                    {{/if}}
+                    {{each loginlist as value i}}
                     <div class="list">
                         <ul class="nav">
-                            <li class="nav1">电子印章样品专用章（01）</li>
-                            <li class="nav2">e441231541021</li>
-                            <li class="nav3">允许登录</li>
-                            <li class="nav4 shut">关闭登录权限</li>
+                            <li class="nav1">{{value.esealFullName}}</li>
+                            <li class="nav2">{{value.esealCode}}</li>
+                            <li class="nav3">{{value.keyStatus==0?"禁用":"启用"}}</li>
+                            <li class="nav4 shut">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</li>
                         </ul>
                     </div>
+                    {{/each}}
                     <div class="list">
                         <ul class="nav">
                             <li class="nav1">电子印章样品专用章（01）</li>
@@ -222,7 +230,7 @@
     }
 
     .accordion>.nav {
-        padding: 0 0 18px 22px;
+        padding: 0 22px 18px 22px;
         font-size: 16px;
     }
 
@@ -340,8 +348,8 @@
 
     .license .accordion>.nav .nav3 {
         position: relative;
-        margin-left: -33px;
-        width: 22%;
+        /* margin-left: -33px; 
+        width: 22%;*/
     }
 
     .license .accordion .nav .nav4 {
@@ -359,4 +367,11 @@
     .closeAllowbtn2{
         display: none;
     }
+    .listResult {
+    text-align: center;
+    background: #f6f6f6;
+    color: red;
+    font-size: 14px;
+    line-height: 48px;
+}
 </style>
