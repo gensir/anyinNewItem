@@ -15,8 +15,8 @@ var step3 = Backbone.View.extend({
 		'change #file0,#file1,#file2,#file3': 'changeImg',
 		'click tr': 'choice',
 		'click #goStep4': 'goStep4',
-		'click .PreviousPage': 'PreviousPage',
-		'click .NextPage': 'NextPage',
+		'click .PreviousPage:not(".no")': 'PreviousPage',
+		'click .NextPage:not(".no")': 'NextPage',
 		'click nav li.index': 'currentPapge',
 		"change #area":'option',
 		'click #goStep2':'gostep2'
