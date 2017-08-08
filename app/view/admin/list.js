@@ -21,9 +21,9 @@ var list = Backbone.View.extend({
         'click .topseal .boxmodel span': 'toggleTab',
         'click .license .accordion .nav .shut': 'shut',
         'click .license .accordion .nav .open': 'open',
-        'click .PreviousPage': 'PreviousPage',
-        'click .NextPage': 'NextPage',
-        'click nav li.index': 'currentPapge',
+        'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
+        'click .pagination .NextPage:not(".no")': 'NextPage',
+        'click .pagination .index': 'currentPapge',
         'click #step': 'step'
     },
     render: function (query) {
@@ -477,11 +477,11 @@ var list = Backbone.View.extend({
                 GetQueryStringBool = false;
             }
             if (pageNum == 1) {
-                $(".PreviousPage>a").css("cursor", "not-allowed");
+                $("li.PreviousPage").addClass("no");
             } else if (pageNum == res.data.totalPages) {
-                $(".NextPage>a").css("cursor", "not-allowed");
+                $("li.NextPage").addClass("no");
             } else {
-                $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
+                $("li.PreviousPage,li.NextPage").removeClass("no");
             }
         })
     },
@@ -570,7 +570,7 @@ var list = Backbone.View.extend({
     },
     NextPage(e) {
         this.active = $(e.currentTarget).prev();
-        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
+        this.pagediv(this.model.get("totalPages"))
     },
     step: function () {
         localStorage.stepNum = "#step1"

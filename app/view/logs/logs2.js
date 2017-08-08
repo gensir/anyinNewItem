@@ -25,7 +25,7 @@ var logs2 = Backbone.View.extend({
             var logsObj;
             if (res.code != 0) {
                 logsObj = {}
-                $(".listtext").append("<li><div class='file' style='cursor: default;'>服务器异常</div></li>").css("margin-bottom", "20px")
+                $(".listtext").append("<li><div class='file no'>服务器异常</div></li>").css("margin-bottom", "20px")
             } else {
                 logsObj = res.data;
                 this.model.set("totalPages", res.data.totalPages);
@@ -33,7 +33,7 @@ var logs2 = Backbone.View.extend({
                 this.$el.html(tpl(this.model.get("tplhtml")));
                 this.pagination(res.data.pageNum, res.data.totalPages);
                 if (logsObj.list.length == 0) {
-                    $(".listtext").append("<li><div class='file' style='cursor: default;'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
+                    $(".listtext").append("<li><div class='file no'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
                 }
                 if (pageNum == 1) {

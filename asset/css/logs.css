@@ -54,6 +54,7 @@
 .jilulist ul.listtext li:hover,
 .jilulist ul.listtext li.active { background: #ddd; }
 .jilulist ul.listtext li .file { padding: 14px 30px; overflow: hidden; cursor: pointer; border-radius: 4px; }
+.jilulist ul.listtext li .file.no { cursor: default; color: #666; }
 .jilulist li .details { background: #fff; padding: 30px 30px 20px; overflow: hidden; display: none; margin-left: 30px; margin-right: 30px; border-radius: 2px; margin-bottom: 30px; }
 .jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
 .details dl { float: left; margin: 0px; padding: 0; }

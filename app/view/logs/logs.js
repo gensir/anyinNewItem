@@ -132,7 +132,7 @@ var logs = Backbone.View.extend({
                     this.pagination(res.data.pageNum, res.data.totalPages);
                     //$(".datetimepicker").remove();
                     if (logsObj.list.length == 0) {
-                        $(".listtext").append("<li><div class='file' style='cursor: default;'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
+                        $(".listtext").append("<li><div class='file no'>无签章日志记录，请重设条件查询！</div></li>").css("margin-bottom", "20px")
                         $(".pagelist").remove();
                     }
                     if (pageNum == 1) {
