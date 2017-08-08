@@ -16,12 +16,12 @@ var step2 = Backbone.View.extend({
 		'onblur .checkPasswd':'onBlur'
 	},
 	render: function(query) {
+		that=this;
         firmId = localStorage.firmId;
 		if(!firmId){
 			return;
         }
-		this.getcompany(firmId);
-		that=this;
+		this.getcompany(firmId);		
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	phoneCode: function(event) {
