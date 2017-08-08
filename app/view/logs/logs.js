@@ -246,8 +246,8 @@ var logs = Backbone.View.extend({
         this.pagediv(1, this.model.get("totalPages"))
     },
     NextPage(e) {
-        this.active = $(e.currentTarget).parent().prev();
-        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
+        this.active = $(e.currentTarget).prev();
+        this.pagediv(this.model.get("totalPages"))
     }
 });
 

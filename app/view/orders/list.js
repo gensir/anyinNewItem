@@ -123,7 +123,7 @@ var list = Backbone.View.extend({
     },
     NextPage(e) {
         this.active = $(e.currentTarget).prev();
-        this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
+        this.pagediv(this.model.get("totalPages"))
     },
 });
 
