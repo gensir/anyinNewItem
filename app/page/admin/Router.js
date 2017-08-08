@@ -22,7 +22,7 @@ var Router = Backbone.Router.extend({
         this.$el.empty();
     },
     startRout: function (View, queryObj, sub, model) {
-        if(!/#license|#renew|#update_key/.test(location.hash)){
+        if(!/#license|#renew|#update_key|#pay_ok/.test(location.hash)){
             this.hashChange();
         }
         
