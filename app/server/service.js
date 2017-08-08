@@ -229,7 +229,7 @@ export default {
     },
     //名称查询企业编码
     checkname(data) {
-        return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data });
+        return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data }, "POST");
     },
     //登录权限控制
     loginLicense(data) {
