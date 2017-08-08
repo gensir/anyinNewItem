@@ -16,11 +16,6 @@ var Router = Backbone.Router.extend({
     startRout: function (View, queryObj, sub) {
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
-        // if(Backbone.Wreqr==View){
-        //     console.log(location.hash.substr(1),1212)
-        // View = require('../../view/register/'+location.hash.substr(1))
-        // }
-        debugger;
         S.main = new View({ model: model });
         S.main.viewUnmount = this.viewUnmount;
         S.main.sub = null
@@ -73,8 +68,8 @@ var Router = Backbone.Router.extend({
         var me = this;
         
         require.ensure([], function (require) {
-            //var View = require('../../view/register/step2')
-            me.startRout(require('../../view/register/step2'), { query: query });
+            var View = require('../../view/register/step2')
+            me.startRout(View, { query: query });
         }, 'step2')
     },
     step3: function (query) {

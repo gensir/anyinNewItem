@@ -21,6 +21,7 @@
         "build": "webpack --config webpack.production.config.js",
         "dev": "webpack-dev-server --inline --hot --host 0.0.0.0 --progress --colors --devtool eval",
         "pro": "node server",
+        "postbuild": "grunt postbuild",
         "start": "node ./mockServer/bin/www"
     },
     "dependencies": {

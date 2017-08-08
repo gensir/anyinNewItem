@@ -1,8 +1,8 @@
 import '../../../../asset/css/style.css';
 import {add} from '../../../publicFun/public';
 var service = require('../../../server/service').default;
-require('../store/store.js');
-window.reqres.request(  'global', 'current-admin' );
+// require('../store/store.js');
+// window.reqres.request(  'global', 'current-admin' );
 
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');

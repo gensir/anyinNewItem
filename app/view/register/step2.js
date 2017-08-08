@@ -1,11 +1,11 @@
 /**
  * Created by Administrator on 2017/6/20 0020.
  */
-import tpl from './tpl/step2.html';
+var tpl=require('./tpl/step22.html');
 var service = require('../../server/service').default;
-var IDNo,enterpriseCode,result,that,username,id;
+var IDNo,enterpriseCode,result,that,username,id,firmId;
 var flag=0;
-var step22 = Backbone.View.extend({
+var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
 //		this.render();
@@ -19,11 +19,10 @@ var step22 = Backbone.View.extend({
 		'onblur .checkPasswd':'onBlur'
 	},
 	render: function(query) {
-        var firmId = localStorage.firmId||$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
-        firmId="440305078921"
+        firmId = localStorage.firmId;
 		if(!firmId){
 			return;
-		}
+        }
 		this.getcompany(firmId);
 		that=this;
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -169,10 +168,10 @@ var step22 = Backbone.View.extend({
 		}
 		return true;
 	},
-	getcompany:function(firmId){
+	getcompany:function(){
 		var data={
 			"firmId":firmId
-		}
+        }
 		service.toRegister(data).done(function(data){
 			if(data.code==0){
 				result=data.data;
@@ -187,4 +186,4 @@ var step22 = Backbone.View.extend({
 		})
 	}
 });
-module.exports = step22;
+module.exports = step2;

@@ -1,6 +1,6 @@
 import '../../../../asset/css/style.css';
-require('../store/store.js');
-window.reqres.request(  'global', 'current-user' );
+// require('../store/store.js');
+// window.reqres.request(  'global', 'current-user' );
 
 var Router = require('../Router');
 var Util = require('../../../publicFun/public');

@@ -67,8 +67,8 @@ var config = {
         // }),
         new webpack.ProvidePlugin({
             Backbone: 'backbone',
-            _: 'underscore',
-            'backbone.wreqr': 'backbone.wreqr'
+            _: 'underscore'
+            //'backbone.wreqr': 'backbone.wreqr'
         }),
         new ExtractTextPlugin('[name].[chunkhash].css'),
         new AssetsPlugin({
@@ -130,7 +130,7 @@ function getEntry(globPath) {
         });
     });
     var elseIn = {
-        vendor: ['backbone', 'underscore', 'backbone.wreqr']
+        vendor: ['backbone', 'underscore']
     };
     Object.assign(entries, elseIn);
     config.entry = entries;
