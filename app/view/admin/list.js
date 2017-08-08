@@ -48,9 +48,11 @@ var list = Backbone.View.extend({
         $(_this).addClass("active").siblings().removeClass("active");
         $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
         if ($(_this)[0].id == "loginset") {
-            this.licenselist(undefined, undefined, true)
+            this.active = ""
+            this.licenselist(1)
         } else {
-            this.listPage();
+            this.active = ""
+            this.listPage(1);
         }
         // if (GetQueryString("page") == "license" || $(_this)[0].id == "loginset") {
         //     alert($(_this)[0].id)
@@ -65,12 +67,15 @@ var list = Backbone.View.extend({
         var _that = this, listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
         var numInd = this.model.get("numInd");
         var dialogsText = dialogs.find(".closeAllow");
+        service.licenseLast({ enterpriseCode: this.enterpriseCode }).done((res) => {
+            _that.licenseLast = res.data
+        })
         bootbox.dialog({
             backdrop: true,
             //closeButton: false,
             className: "closeAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message: $(".license li.nav4:contains('关闭登录权限')").length <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal")[0].outerHTML,
+            message: _that.licenseLast <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal")[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
@@ -81,7 +86,7 @@ var list = Backbone.View.extend({
                 },
                 confirm: {
                     label: "继续",
-                    className: $(".license li.nav4:contains('关闭登录权限')").length <= 1 ? "btn2 closeAllowbtn2" : "btn2",
+                    className: _that.licenseLast <= 1 ? "btn2 closeAllowbtn2" : "btn2",
                     callback: function (event) {
                         numInd++;
                         var _this = this;
@@ -128,6 +133,7 @@ var list = Backbone.View.extend({
                                         var success = dialogsText.find(".success").html("已成功关闭" + listdata.esealFullName + "的登录权限").get(0).outerHTML
                                         $(_this).find(".bootbox-body").html(success);
                                         $(_this).find(".btn1,.btn2").hide();
+                                        window.open("admin.html?page=license", "_self")
                                     } else {
                                         var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
                                         $(_this).find(".bootbox-body").html(success);
@@ -135,6 +141,7 @@ var list = Backbone.View.extend({
                                     }
 
                                     setTimeout(function () {
+                                        window.open("admin.html?page=license", "_self")
                                         _this.modal('hide');
                                     }, 1500)
                                 })
@@ -227,6 +234,7 @@ var list = Backbone.View.extend({
                                         $(_this).find(".btn1,.btn2").hide();
                                     }
                                     setTimeout(function () {
+                                        window.open("admin.html?page=license", "_self")
                                         _this.modal('hide');
                                     }, 1500)
                                 })
@@ -485,10 +493,10 @@ var list = Backbone.View.extend({
             }
         })
     },
-    licenselist(pageNum, pageSize, bool) {
+    licenselist(pageNum, pageSize) {
         var data = {
             pageNum: pageNum || 1,
-            pageSize: pageSize || 2,
+            pageSize: pageSize || 5,
             enterpriseCode: this.enterpriseCode || "e440301000412"
         }
         service.licenselist(data.pageNum, data.pageSize, data).done(res => {
@@ -508,6 +516,13 @@ var list = Backbone.View.extend({
                 // if (GetQueryString("page") == "license") {
                 //     this.toggleTab(event, $("#loginset"))
                 // }
+            }
+            if (data.pageNum == 1) {
+                $("li.PreviousPage").addClass("no");
+            } else if (data.pageNum == res.data.totalPages) {
+                $("li.NextPage").addClass("no");
+            } else {
+                $("li.PreviousPage,li.NextPage").removeClass("no");
             }
         })
     },

@@ -236,8 +236,12 @@ export default {
         return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/updateKey", data: data }, "post");
     },
     //登录权限控制
-    licenselist(pageNum,pageSize,data) {
-        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectEsealInfoList/"+ pageNum + "/" + pageSize, data: data });
+    licenselist(pageNum, pageSize, data) {
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectEsealInfoList/" + pageNum + "/" + pageSize, data: data });
+    },
+    //登录权限最后一个关闭控制
+    licenseLast(data) {
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectCountByEnterpriseCode", data: data,async:false });
     },
     //更新状态
     updateStatus(data) {
