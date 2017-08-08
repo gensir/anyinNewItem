@@ -65,6 +65,10 @@ var main = Backbone.View.extend({
                     window.open("index.html", "_self");
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
+                } else if (data.code == "500") {
+                    $.verify("ukeytip", "#seleBook", data.msg);
+                } else {
+                    $.verify("ukeytip", "#seleBook", data.msg);
                 }
                 //window.open("index.html", "_self")
             })
