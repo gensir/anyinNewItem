@@ -200,9 +200,22 @@ var step4 = Backbone.View.extend({
     	
     },
     payAlertPageGo:function( payDate,requestUrl ){
-    	service.payAlertPage(payDate,requestUrl).done(res => {
-    		console.log(res);
-    	});
+    	console.log(payDate);
+    	console.log(requestUrl);			
+		var temp = ""; 
+		for(var i in payDate){ 
+			temp += i+"="+payDate[i]  +"&"; 
+		} 
+		var ifrSRC=requestUrl+"?"+temp;		
+					bootbox.dialog({
+						className: "alipayAlert",
+						message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
+						buttons: {
+							
+						}
+					})		
+		
+		$("#aliiframe").attr("src", ifrSRC );
     },
     invoiceStates: function(event) {
         if(billType == 1) {    
