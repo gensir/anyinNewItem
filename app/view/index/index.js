@@ -6,6 +6,7 @@ var dialogs = $($(dialog()).prop("outerHTML"));
 var udata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || {user:{},menuList:{}}
 var enterpriseCode = udata.user.enterpriseCode;
 var firmId = udata.user.firmId;
+var statusRemark = udata.user.statusRemark || "无";
 var esealCode = localStorage.esealCode;
 var PKSC7 = localStorage.dSignature;
 var index = Backbone.View.extend({
@@ -23,14 +24,14 @@ var index = Backbone.View.extend({
     },
     userinfo: function (event) {
         var _this = this
-        var userdata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || {user:{},menuList:{}}
-        this.model.get("tpl").userinfo = userdata;
-        this.$el.html(tpl(this.model.get("tpl")));
-        if (this.model.get("tpl").userinfo.user.status == 0) {
+        var userdata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || { user: {}, menuList: {} }
+        _this.model.get("tpl").userinfo = userdata;
+        _this.$el.html(tpl(_this.model.get("tpl")));
+        if (userdata.user.status == 0) {
             _this.realname_Unknown();
-        } else if (this.model.get("tpl").userinfo.user.status == 2) {
+        } else if (userdata.user.status == 2) {
             _this.realname_no();
-        } else if (this.model.get("tpl").userinfo.user.status == 3) {
+        } else if (userdata.user.status == 3) {
             _this.realname();
         }
     },
@@ -63,8 +64,8 @@ var index = Backbone.View.extend({
                     className: "btn1",
                     callback: function (result) {
                         localStorage.clear();
-                        $.removeCookie('loginadmin');
-                        result.cancelable = window.open('login.html', '_self');
+                        // $.removeCookie('loginadmin');
+                        // result.cancelable = window.open('login.html', '_self');
                     }
                 },
             }
@@ -78,7 +79,7 @@ var index = Backbone.View.extend({
             closeButton: false,
             className: "common realname_no",
             title: dialogs.find(".realname_no .title")[0].outerHTML,
-            message: $(dialogs.find(".realname_no .msgcenter")[0].outerHTML).append("<span style='color:#f00;'>【"+ this.model.get('tpl').userinfo.user.statusRemark +"】</span>" ),
+            message: $(dialogs.find(".realname_no .msgcenter")[0].outerHTML).append("<span style='color:#f00;'>【" + statusRemark + "】</span>" ),
             buttons: {
                 cancel: {
                     label: "重新实名",
