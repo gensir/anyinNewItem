@@ -361,6 +361,13 @@ var step3 = Backbone.View.extend({
 				imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 				imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
 				imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
+				if (pageNumber == 1) {
+	                $("li.PreviousPage").addClass("no");
+	            } else if (pageNumber == Math.ceil(res.count / res.size)) {
+	                $("li.NextPage").addClass("no");
+	            } else {
+	                $("li.PreviousPage,li.NextPage").removeClass("no");
+	            }
 			}
 		});
 		//如果是第一次进来
