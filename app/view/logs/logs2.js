@@ -17,7 +17,7 @@ var logs2 = Backbone.View.extend({
     //获取数据
     logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 3;
+        pageSize = pageSize || 5;
         var data = {
             "enterpriseCode": enterpriseCode || "11"
         }
@@ -32,7 +32,7 @@ var logs2 = Backbone.View.extend({
                 this.model.get("tplhtml").data = logsObj;
                 this.$el.html(tpl(this.model.get("tplhtml")));
                 this.pagination(res.data.pageNum, res.data.totalPages);
-                if (logsObj.list.length == 0) {
+                if (logsObj.list == "" && logsObj.list.length == 0) {
                     $(".listtext").append("<li><div class='file no'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
                 }

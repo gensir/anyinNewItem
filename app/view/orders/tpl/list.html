@@ -12,6 +12,7 @@
                 <li class="nav4">支付方式</li>
                 <li class="nav5">状态</li>
             </ul>
+            <div class="esealtab">
             {{each data.list as value i}}
             <div class="eseallist">
                 <div class="list">
@@ -82,6 +83,7 @@
             </div>
             {{/each}}
             <div class="listResult">没有订单信息</div>
+            </div>
             <!--分页-->
             <nav aria-label="Page navigation">
                 <ul class="pagination" id="pageLimit">
@@ -209,7 +211,7 @@
         line-height: 48px;
         display: none;
     }
-
+    .esealtab { min-height: 340px; }
     .eseallist .list {
         background: #f6f6f6;
         padding: 0px 22px 1px;
