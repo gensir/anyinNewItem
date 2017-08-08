@@ -1,6 +1,5 @@
 import tpl from './tpl/step1.html';
-var firmId;
-var enterpriseCode;
+var firmId,enterpriseCode
 var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
@@ -39,7 +38,7 @@ var step1 = Backbone.View.extend({
     //重置验证码输入
     CodeRefresh() {
         $('#yzmcode-error').html('').css({ "color": "#f00" });
-        $('#yzmcode').val("")
+        $('#yzmcode').val("");
         this.captcha();
     },
     // 更换图片验证码；
@@ -150,7 +149,7 @@ var step1 = Backbone.View.extend({
     //提交注册验证
     toreguser(data) {
         var data = {
-            "firmId": firmId,
+            "firmId": firmId
         }
         service.toRegister(data).done(res => {
             if (res.code == 0) {

@@ -54,4 +54,4 @@ html,body { width: 100%; height: 100%; background: #f6f6f6; }
 /* 注册成功 */
 .reg-content .regok .title { height: 48px; font-size: 20px; color: #0073bd; text-align: center; line-height: 48px; margin-top: 50px; }
 .reg-content .regok .title em { background: url(../img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }
-.reg-content .regok .text { width: 650px; border-top: dashed 2px #dedede; margin: 40px auto; padding: 50px 70px 0; text-align: center; color: #666; font-size: 14px; height: 200px; }
+.reg-content .regok .text { width: 650px; border-top: dashed 2px #dedede; margin: 40px auto; padding: 50px 70px 0; text-align: center; color: #666; font-size: 14px; height: 120px; }

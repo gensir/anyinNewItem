@@ -1,7 +1,4 @@
-/**
- * Created by Administrator on 2017/6/20 0020.
- */
-var tpl=require('./tpl/step22.html');
+var tpl=require('./tpl/step2.html');
 var service = require('../../server/service').default;
 var IDNo,enterpriseCode,result,that,username,id,firmId;
 var flag=0;
