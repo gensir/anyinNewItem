@@ -5,6 +5,7 @@ import { GetQueryString } from '../../publicFun/public.js'
 import ukeys from '../../publicFun/ukeys';
 var service = require('../../server/service').default;
 var dialogs = $($(dialog()).prop("outerHTML"));
+var GetQueryStringBool = true;
 var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
@@ -27,8 +28,8 @@ var list = Backbone.View.extend({
     },
     render: function (query) {
         $(".container").empty();
-        //this.listPage();
-        this.licenselist()
+        this.listPage();
+        //this.licenselist()
 
     },
     toggleList(event) {
@@ -46,11 +47,22 @@ var list = Backbone.View.extend({
         var _this = license || event.currentTarget;
         $(_this).addClass("active").siblings().removeClass("active");
         $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
+        if ($(_this)[0].id == "loginset") {
+            this.licenselist(undefined, undefined, true)
+        } else {
+            this.listPage();
+        }
+        // if (GetQueryString("page") == "license" || $(_this)[0].id == "loginset") {
+        //     alert($(_this)[0].id)
+        //     this.licenselist()
+        //     this.toggleTab(event, $("#loginset"))
+        // }
     },
-    shut() {
+    shut(e) {
         if (!ukeys.issupport()) {
             return false;
         }
+        var _that = this, listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
         var numInd = this.model.get("numInd");
         var dialogsText = dialogs.find(".closeAllow");
         bootbox.dialog({
@@ -58,19 +70,18 @@ var list = Backbone.View.extend({
             //closeButton: false,
             className: "closeAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message: $(".eseallist .shut").length <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal")[0].outerHTML,
+            message: $(".license li.nav4:contains('关闭登录权限')").length <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal")[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        console.log(result, "cancel")
                         result.cancelable = false;
                     }
                 },
                 confirm: {
                     label: "继续",
-                    className: $(".eseallist .shut").length <= 1 ? "btn2 closeAllowbtn2" : "btn2",
+                    className: $(".license li.nav4:contains('关闭登录权限')").length <= 1 ? "btn2 closeAllowbtn2" : "btn2",
                     callback: function (event) {
                         numInd++;
                         var _this = this;
@@ -101,25 +112,31 @@ var list = Backbone.View.extend({
                             // 验证KEY密码
                             var getPIN = $("#closeCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                             if (ukeys.PIN($("#closeCode").val(), 0)) {
-                                if (ukeys.esealCode(getPIN, selectedUkey) != ukeys.esealCode(getPIN, selectedUkey)) {
+                                if (listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
                                     $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                     $(_this).find(".btn2").show().html("重试");
                                     numInd = 0;
-                                    $(_this).find(".btn1,.btn2").hide();
+                                    $(_this).find(".btn1,.btn2").show();
                                     return false;
                                 }
                                 var data = {
-                                    "esealCode": "ffCode",
-                                    "keyStatus": 1
+                                    "esealCode": listdata.esealCode,
+                                    "keyStatus": Number(!(listdata.keyStatus))
                                 }
                                 service.loginLicense(data).done((res) => {
-                                    console.log(JSON.stringify(res))
-                                    var success = dialogsText.find(".success").html("已成功关闭" + '“电子印章样品专用章（01）”' + "的登录权限").get(0).outerHTML
-                                    $(_this).find(".bootbox-body").html(success);
-                                    $(_this).find(".btn1,.btn2").hide();
+                                    if (res.code == 0) {
+                                        var success = dialogsText.find(".success").html("已成功关闭" + listdata.esealFullName + "的登录权限").get(0).outerHTML
+                                        $(_this).find(".bootbox-body").html(success);
+                                        $(_this).find(".btn1,.btn2").hide();
+                                    } else {
+                                        var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
+                                        $(_this).find(".bootbox-body").html(success);
+                                        $(_this).find(".btn1,.btn2").hide();
+                                    }
+
                                     setTimeout(function () {
                                         _this.modal('hide');
-                                    }, 1200)
+                                    }, 1500)
                                 })
                             } else {
                                 numInd = 1;
@@ -134,10 +151,11 @@ var list = Backbone.View.extend({
         })
         return false;
     },
-    open() {
+    open(e) {
         if (!ukeys.issupport()) {
             return false;
         }
+        var _that = this, listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
         var numInd = this.model.get("numInd");
         var dialogsText = dialogs.find(".openAllow");
         bootbox.dialog({
@@ -151,7 +169,6 @@ var list = Backbone.View.extend({
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        console.log(result, "cancel")
                         result.cancelable = false;
                     }
                 },
@@ -188,25 +205,30 @@ var list = Backbone.View.extend({
                             // 验证KEY密码
                             var getPIN = $("#openCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                             if (ukeys.PIN($("#openCode").val(), 0)) {
-                                if (ukeys.esealCode(getPIN, selectedUkey) != ukeys.esealCode(getPIN, selectedUkey)) {
+                                if (listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
                                     $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                     $(_this).find(".btn2").show().html("重试");
                                     numInd = 0;
-                                    $(_this).find(".btn1,.btn2").hide();
+                                    $(_this).find(".btn1,.btn2").show();
                                     return false;
                                 }
                                 var data = {
-                                    "esealCode": "ffCode",
-                                    "keyStatus": 1
+                                    "esealCode": listdata.esealCode,
+                                    "keyStatus": Number(!(listdata.keyStatus))
                                 }
                                 service.loginLicense(data).done((res) => {
-                                    console.log(JSON.stringify(res))
-                                    var success = dialogsText.find(".success").html("已成功开启" + '“电子印章样品专用章（01）”' + "的登录权限").get(0).outerHTML
-                                    $(_this).find(".bootbox-body").html(success);
-                                    $(_this).find(".btn1,.btn2").hide();
+                                    if (res.code == 0) {
+                                        var success = dialogsText.find(".success").html("已成功开启" + listdata.esealFullName + "的登录权限").get(0).outerHTML
+                                        $(_this).find(".bootbox-body").html(success);
+                                        $(_this).find(".btn1,.btn2").hide();
+                                    } else {
+                                        var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
+                                        $(_this).find(".bootbox-body").html(success);
+                                        $(_this).find(".btn1,.btn2").hide();
+                                    }
                                     setTimeout(function () {
                                         _this.modal('hide');
-                                    }, 1200)
+                                    }, 1500)
                                 })
                             } else {
                                 numInd = 1;
@@ -235,7 +257,6 @@ var list = Backbone.View.extend({
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        console.log(result, "cancel")
                         result.cancelable = false;
                     }
                 },
@@ -308,7 +329,6 @@ var list = Backbone.View.extend({
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        console.log(result, "cancel")
                         result.cancelable = false;
                     }
                 },
@@ -426,7 +446,6 @@ var list = Backbone.View.extend({
 
                         }
                         //this.modal('hide');
-
                         return false;
                     }
                 }
@@ -441,51 +460,54 @@ var list = Backbone.View.extend({
     listPage(pageNum, pageSize) {
         pageNum = pageNum || 1;
         pageSize = pageSize || 5;
-        var querydata ={ "firmId":this.firmId|| "nihao" }
+        var querydata = { "firmId": this.firmId || "nihao" }
         service.getEsealList(pageNum, pageSize, querydata).done(res => {
             var tempObj;
             if (res.code != 0) {
-                this.tempObj = {}
+                var tempObj = {}
             } else {
-                this.tempObj = res.data.list;
+                var tempObj = res.data.list;
                 this.model.set("totalPages", res.data.totalPages)
-                this.model.get("tplhtml").data = this.tempObj;
+                this.model.get("tplhtml").data = tempObj;
                 this.$el.html(tpl(this.model.get("tplhtml")));
-                this.pagination(res.data.pageNum, res.data.totalPages)
-                if (GetQueryString("page") == "license") {
+                this.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
+                if (GetQueryString("page") == "license" && GetQueryStringBool) {
                     this.toggleTab(event, $("#loginset"))
                 }
+                GetQueryStringBool = false;
             }
             if (pageNum == 1) {
-                $(".PreviousPage>a").css("cursor","not-allowed");
-            }else if(pageNum==res.data.totalPages){
-                $(".NextPage>a").css("cursor","not-allowed");
-            }else{
-                $(".PreviousPage>a,.NextPage>a").css("cursor","pointer");
+                $(".PreviousPage>a").css("cursor", "not-allowed");
+            } else if (pageNum == res.data.totalPages) {
+                $(".NextPage>a").css("cursor", "not-allowed");
+            } else {
+                $(".PreviousPage>a,.NextPage>a").css("cursor", "pointer");
             }
         })
     },
-    licenselist(pageNum,pageSize) {
-        var data={
-            pageNum:pageNum || 1,
-            pageSize : pageSize || 5,
+    licenselist(pageNum, pageSize, bool) {
+        var data = {
+            pageNum: pageNum || 1,
+            pageSize: pageSize || 2,
             enterpriseCode: this.enterpriseCode || "e440301000412"
         }
-        pageNum = pageNum || 1;
-        pageSize = pageSize || 5;
-        service.licenselist(data.pageNum,data.pageSize,data).done(res => {
+        service.licenselist(data.pageNum, data.pageSize, data).done(res => {
             var tempObj;
             if (res.code != 0) {
-                this.tempObjs = {}
+                var tempObjs = {}
             } else {
-                this.tempObjs = res.data.list;
+                var tempObjs = res.data.list;
                 this.model.set("totalPages", res.data.totalPages)
-                this.model.get("tplhtml").loginlist = this.tempObjs;
+                this.model.get("tplhtml").loginlist = tempObjs;
                 this.$el.html(tpl(this.model.get("tplhtml")));
-                this.pagination(res.data.pageNum, res.data.totalPages)
-                if (GetQueryString("page") == "license") {
-                    this.toggleTab(event, $("#loginset"))
-                }
+                this.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
+
+                $("#loginset").addClass("active").siblings().removeClass("active");
+                $(".mainbody").eq(1).addClass("active").siblings(".mainbody").removeClass("active");
+                $(".license li.nav4:contains('开启登录权限')").attr("class", "nav4 open")
+                // if (GetQueryString("page") == "license") {
+                //     this.toggleTab(event, $("#loginset"))
+                // }
             }
         })
     },
@@ -503,11 +525,15 @@ var list = Backbone.View.extend({
             return;
         }
         var _that = this;
-        this.listPage(val)
+        if ($("h3.boxmodel .active")[0].id == "loginset") {
+            this.licenselist(val)
+        } else {
+            this.listPage(val)
+        }
     },
     //pagination
-    pagination: function (pageNumber, totalPages) {
-        $("#pageLimit li.index").remove();
+    pagination: function (pageNumber, totalPages, nav) {
+        nav.find("li.index").remove();
         var firstShowPage, maxShowPage = 5
         if (pageNumber <= 3) {
             firstShowPage = 1
@@ -521,15 +547,15 @@ var list = Backbone.View.extend({
         this.model.get("tplhtml").count = [];
         for (var i = firstShowPage; i <= lastShowPage; i++) {
             var pageIndex = '<li class="index"><a>' + i + '</a></li>';
-            $(".appendPage").before(pageIndex)
+            nav.find(".appendPage").before(pageIndex)
         };
         if (!this.active) {
-            this.active = $("#pageLimit .index").eq(0)
+            this.active = nav.find("li.index").eq(0)
         } else {
             if (isNaN(this.active.find('a').text())) {
-                this.active = $("#pageLimit .index").eq(0)
+                this.active = nav.find("li.index").eq(0)
             }
-            this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
+            this.active = nav.find("a:contains(" + this.active.find('a').text() + ")").parents("li");
         }
         this.active.addClass("active").siblings().removeClass("active")
     },

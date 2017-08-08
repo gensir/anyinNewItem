@@ -5,7 +5,7 @@
             <span id="loginset">登录权限设置</span>
         </h3>
     </div>
-    <div>
+    <div class="listtoggle">
         <div class="mainbody boxmodel active listview">
             <h2 class="listTop">
                 <span>电子印章列表</span>
@@ -65,7 +65,7 @@
                     </div>
                     {{/each}}
                 </div>
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" id="esealNav">
                     <ul class="pagination" id="pageLimit">
                         <li class="PreviousPage">
                             <a aria-label="Previous">
@@ -124,13 +124,14 @@
                         </ul>
                     </div-->
                 </div>
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" id="licenseNav">
                     <ul class="pagination" id="pageLimit">
                         <li class="PreviousPage">
                             <a aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
+                        <li class="index"><a>123</a></li>
                         <!-- {{each count as value i}}
                         <li class="index"><a>{{value}}</a></li>
                          {{/each}} -->

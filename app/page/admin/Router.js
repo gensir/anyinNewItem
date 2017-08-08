@@ -21,11 +21,14 @@ var Router = Backbone.Router.extend({
         this.undelegateEvents();
         this.$el.empty();
     },
-    startRout: function (View, queryObj, sub,model) {
-    	this.hashChange();
+    startRout: function (View, queryObj, sub, model) {
+        if(!/#license|#renew|#update_key/.test(location.hash)){
+            this.hashChange();
+        }
+        
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
-        S.main = new View({model:model});
+        S.main = new View({ model: model });
         S.main.viewUnmount = this.viewUnmount;
         S.main.sub = null
         if (sub) {
@@ -83,7 +86,7 @@ var Router = Backbone.Router.extend({
             });
         }, 'Stat');
     },
-	isview:false,
+    isview: false,
     step1: function (query) {
         var me = this;
         require.ensure([], function (require) {
@@ -125,24 +128,24 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/admin/update_key')
             me.startRout(View, { query: query });
         }, 'update_key')
-    }, 
-    hashChange:function(){
-    	var order=localStorage.orderNo;
-    	stepNum = localStorage.stepNum;
-    	if(window.location.hash!=""){
-    		if(order){
-    			if(stepNum!=window.location.hash){
-    				service.status(order).done(function(data){
-						if(data.code==0){
-							localStorage.stepNum="#step"+data.data.operateStep;
-							window.open("admin.html#step"+data.data.operateStep, '_self')
-						}
-					})
-    			}	
-		    }else{
-	    		window.open("admin.html#step1", '_self')
-	    	} 
-    	}
+    },
+    hashChange: function () {
+        var order = localStorage.orderNo;
+        stepNum = localStorage.stepNum;
+        if (window.location.hash != "") {
+            if (order) {
+                if (stepNum != window.location.hash) {
+                    service.status(order).done(function (data) {
+                        if (data.code == 0) {
+                            localStorage.stepNum = "#step" + data.data.operateStep;
+                            window.open("admin.html#step" + data.data.operateStep, '_self')
+                        }
+                    })
+                }
+            } else {
+                window.open("admin.html#step1", '_self')
+            }
+        }
     }
 });
 
