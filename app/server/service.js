@@ -241,6 +241,6 @@ export default {
     },
     //更新状态
     updateStatus(data) {
-        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/update_status", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/update_status", data: data }, "POST");
     }
 }
