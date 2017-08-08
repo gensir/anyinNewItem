@@ -4,7 +4,7 @@ var service = require('../../server/service').default;
 var billType=1;
 var step4Data;
 var invoiceState;
-var orderNo = localStorage.orderNo || "OFFLINE07252055727334";
+var orderNo = localStorage.orderNo || "OFFLINE08071088058690";
 
 //var orderNo="OFFLINE07252055727334";
 //var orderNo="OFFLINE08011174248425";
@@ -20,9 +20,9 @@ var step4 = Backbone.View.extend({
         'click #goStep3':'gostep3'
     },
     render: function(query) {
-    	if(localStorage.stepNum!="#step4"){
-			return;
-		}
+//  	if(localStorage.stepNum!="#step4"){
+//			return;
+//		}
         var payments = $($(payment()).prop("outerHTML"));
         this.$el.html(tpl);
         $(".orderMessage").append(payments.find(".bill"));
@@ -191,7 +191,11 @@ var step4 = Backbone.View.extend({
     			var requestUrl=res.data.requestUrl;
     			var payDate=res.data;
 				delete payDate["requestUrl"]; 
-				this.payAlertPageGo( payDate,requestUrl);				
+				if(resPayType ==1 ){
+					this.payAlertPageGo( payDate,requestUrl);		
+				}else if( resPayType ==3 ){
+					this.payAlertPageYL( payDate,requestUrl);		
+				}
     			return;
     		}else{
     			console.log("支付宝或者银联请求失败！| "+res.code);
@@ -199,9 +203,7 @@ var step4 = Backbone.View.extend({
     	});
     	
     },
-    payAlertPageGo:function( payDate,requestUrl ){
-    	console.log(payDate);
-    	console.log(requestUrl);			
+    payAlertPageGo:function( payDate,requestUrl ){	
 		var temp = ""; 
 		for(var i in payDate){ 
 			temp += i+"="+payDate[i]  +"&"; 
@@ -210,13 +212,18 @@ var step4 = Backbone.View.extend({
 					bootbox.dialog({
 						className: "alipayAlert",
 						message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
-						buttons: {
-							
+						buttons: {							
 						}
-					})		
-		
+					})	;			
 		$("#aliiframe").attr("src", ifrSRC );
     },
+    payAlertPageYL:function( payDate,requestUrl ){    	
+    	service.payAlertPage(payDate,requestUrl).done(res => {
+    	 console.log(res);
+    	
+    	});    	
+    },
+    
     invoiceStates: function(event) {
         if(billType == 1) {    
             if( $("#invoice_user").val() =="" ){
