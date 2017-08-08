@@ -4,6 +4,7 @@ import ukeys from '../../publicFun/ukeys';
 var header = {
     init: function () {
         this.nav();
+        this.login();
         $(".rightbox").on("click", "a.locked ", function () {
             header.lock()
         })
@@ -26,6 +27,32 @@ var header = {
                 }
             }
         }
+    },
+    login() {
+        var _this = this
+        if ($.cookie('loginadmin') === undefined) {
+            _this.logintip();
+        }
+    },
+    logintip() {
+        var _this = this
+        bootbox.dialog({
+            backdrop: true,
+            closeButton: false,
+            className: "common logintip",
+            title: dialogs.find(".logintip .title")[0].outerHTML,
+            message: dialogs.find(".logintip .msgcenter")[0].outerHTML,
+            buttons: {
+                cancel: {
+                    label: "我要登录",
+                    className: "btn2",
+                    callback: function (result) {
+                        result.cancelable = window.open('login.html', '_self');
+                    }
+                },
+            }
+        })
+        return false;
     },
     //退出
     logout() {
