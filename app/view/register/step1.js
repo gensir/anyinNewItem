@@ -17,7 +17,7 @@ var step1 = Backbone.View.extend({
         'click #xieyi': 'rules',
         'click #reguser': 'reguser',
         'keyup #yzmcode': 'checkCaptcha',
-        'click #up_yzmcode,.codeimg': 'captcha',
+        'click #up_yzmcode,.codeimg': 'CodeRefresh',
         'change #Ename': 'checknameerror',
         'blur #Ename': 'blurcheck'
     },
