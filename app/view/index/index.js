@@ -64,8 +64,8 @@ var index = Backbone.View.extend({
                     className: "btn1",
                     callback: function (result) {
                         localStorage.clear();
-                        // $.removeCookie('loginadmin');
-                        // result.cancelable = window.open('login.html', '_self');
+                        $.removeCookie('loginadmin');
+                        result.cancelable = window.open('login.html', '_self');
                     }
                 },
             }
