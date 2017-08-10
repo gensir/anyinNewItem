@@ -1,6 +1,7 @@
 const domain = "";
 const baseUrl = "/api/";
 const basemp = "/mp/";
+const gateway ="/gateway/"
 //const basemps = "/mps/";
 //const oldBaseUrl = "/";
 var commonAjaxSetting = {
@@ -246,5 +247,10 @@ export default {
     //更新状态
     updateStatus(data) {
         return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/update_status", data: data }, "POST");
-    }
+    },
+    //银联接口
+    unYlyl(data) {
+        return this.ajaxCall({ url: domain + gateway + "api/frontTransReq.do",data: data, dataType:'html'}, "POST");
+    }    
+    
 }

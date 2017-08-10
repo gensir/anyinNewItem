@@ -1,16 +1,23 @@
 <div class="step4">
-	<div class="title">
-		订单确认-<span>新办电子印章缴费</span>
-	</div>
-	<div class="Message">
-		<div class="mainTitle">
-			订单信息
-		</div>
-	<!--	<iframe src="http://www.baidu.com" width="800" height="600" id="ifIFidiframe"></iframe>-->
-		<div class="orderMessage">
-			<div class="orderList">
-				<div class="orders" id="step4_orders">
-					<!--<div class="order">
+
+    <div class="modal fade" tabindex="-1" id="payment" role="dialog" aria-labelledby="myModalLabel">
+        <div class="dialog ifr_dialog" role="document">
+            <div class="payment-modal-content"></div>
+        </div>
+    </div>
+
+    <div class="title">
+        订单确认-<span>新办电子印章缴费</span>
+    </div>
+    <div class="Message">
+        <div class="mainTitle">
+            订单信息
+        </div>
+        <!--	<iframe src="http://www.baidu.com" width="800" height="600" id="ifIFidiframe"></iframe>-->
+        <div class="orderMessage">
+            <div class="orderList">
+                <div class="orders" id="step4_orders">
+                    <!--<div class="order">
 						<span class="serial">1</span><span class="sealName">安印电子行政章</span><span class="service">
 							<select>
 								<option value="2">两年服务费</option>
@@ -18,171 +25,279 @@
 							</select>
 						</span> <span class="price">360元</span>
 					</div>-->
-					
-					<!--<div class="order">
+
+                    <!--<div class="order">
 						<span class="serial">2</span><span class="sealName">安印电子行政章</span><span class="service">两年服务费</span> <span class="price">360元</span>
 					</div>-->
-					
-				</div>
-				<div class="orderTips">
-					<span>注：赠送2年保修</span><span class="total">总计：</span><span class="totalM" id="sumPrice">0元</span>
-				</div>
-			</div>
-			<div class="orderYear">
-				<div class="year">
-					<div class="licence">2年</div>
-					<div class="dateline">电子印章有效期</div>
-				</div>
-			</div>
-			
-			<!--html .bill from payment template-->
-		</div>
-	</div>
+
+                </div>
+                <div class="orderTips">
+                    <span>注：赠送2年保修</span><span class="total">总计：</span><span class="totalM" id="sumPrice">0元</span>
+                </div>
+            </div>
+            <div class="orderYear">
+                <div class="year">
+                    <div class="licence">2年</div>
+                    <div class="dateline">电子印章有效期</div>
+                </div>
+            </div>
+
+            <!--html .bill from payment template-->
+        </div>
+    </div>
     <!--html .gopay from payment template-->
 </div>
 <style>
-	.fl {
-		float: left;
-	}
-	
-	.fr {
-		float: right;
-	}
-	
-	.step4>.title {
-		height: 20px;
-		margin: 17px 0 20px;
-		padding-left: 15px;
-		font-size: 16px;
-		font-weight: 600;
-		border-left: 6px solid #0073bd;
-	}
-	
-	.step4 .title span {
-		font-weight: 500;
-	}
-	
-	.step4 .Message {
-		margin-top: 20px;
-		padding-bottom: 15px;
-		background: #fff;
-		border-radius: 4px;
-		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
-	}
-	
-	.step4 .mainTitle {
-		height: 42px;
-		line-height: 42px;
-		border-bottom: 1px solid #dedede;
-		padding-left: 30px;
-		font-size: 14px;
-		font-weight: 700;
-	}
-	
-	.step4 .orderMessage {
-		width: 1000px;
-		margin: 0 auto;
-	}
-	
-	.step4 .orderMessage .orderList {
-		display: inline-block;
-		position: relative;
-	}
-	.step4 .orderMessage .orderList .orders{
-		min-height: 110px;
-	}
-	.step4 .orderMessage .order {
-		width: 496px;
-		padding: 15px 0;
-		border-bottom: 1px dashed #e0e0e0;
-	}
-	
-	.step4 .orderMessage .order .serial {
-		display: inline-block;
-		width: 30px;
-		text-align: center;
-	}
-	
-	.step4 .orderMessage .order .sealName {
-		color: #333333;
-		margin-left: 22px;
-	}
-	
-	.step4 .orderMessage .order .service {
-		margin-left: 38px;
-		height: 24px;
-		width: 94px;
-		color: #00acff;
-		text-align: center;
-		line-height: 24px;
-		padding: 7px 15px;
-	}
-	
-	.step4 .orderMessage .order .price {
-		margin-left: 48px;
-		color: #00acff;
-		font-size: 16px;
-	}
-	
-	.step4 .orderYear {
-		width: 280px;
-		height: 110px;
-		margin: 20px 0;
-		float: right;
-		border-left: 1px solid #dedede;
-	}
-	
-	.step4 .orderYear .year {
-		width: 100px;
-		height: 45px;
-		margin: 25px auto;
-	}
-	
-	.step4 .orderYear .year .licence {
-		color: #00acff;
-		font-size: 20px;
-		text-align: center;
-		height: 50px;
-		width: 50px;
-		line-height: 50px;
-		margin-left: 25px;
-		border-radius: 25px;
-		background: #eee;
-	}
-	
-	.step4 .orderYear .year .dateline {
-		text-align: center;
-		margin-top: 10px;
-	}
-	
-	.step4 .orderTips {
-		height: 40px;
-		line-height: 40px;
-		color: #999999;
-	}
-	.step4 .orderTips .total{
-		margin-left: 200px;
-	}
-    .step4 .orderTips .totalM{
-    	font-size: 20px;
-    	color: #00acff;
+    .fl {
+        float: left;
     }
-	.service select{ padding: 4px 8px; border-radius: 4px; padding-bottom: 6px;} 
-	.payTips{ }
-	.payTips .title p{ margin: 0; font-size: 16px;}
-	.payTips .cont{ }
-	.payTips .cont .wxpay01{ width: 154px; height: 42px ;  background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat; float: left; }
-	.payTips .cont .clearboth{ width: 100%; height: 1px; clear: both;}
-	.payTips .cont .money{ width: auto; height: 42px; vertical-align: bottom; font-size: 14px; float: right; padding-right: 10px; line-height: 52px;}
-	.payTips .cont .money span{ font-weight: bold; color: #006DCC; font-size: 20px;}
-	.payTips .cont .wx_l{  width: 250px; height: auto; float: left; margin-top: 20px; padding-left: 16px;}
-	.payTips .cont .wx_l .ewm{ width: 250px; height: 250px; border: 1px solid #ccc; margin: 0 auto;}
-	.payTips .cont .wx_l .wx_l_d{ width: 250px; height: 55px;background: url(../../../../asset/img/wxpay02.png) no-repeat; margin-top: 10px;  }
-	.payTips .cont .wx_r{ margin-top: 20px; padding-right: 10px; width: 278px; height: 348px; background: url(../../../../asset/img/wxpay03.png) no-repeat; float: right; }
-	
-	.alipayAlert .modal-content{ width: 1130px }
-.alipayAlert .modal-dialog{
-	width: 1130px;
-}
-	
+    
+    .fr {
+        float: right;
+    }
+    
+    .step4>.title {
+        height: 20px;
+        margin: 17px 0 20px;
+        padding-left: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        border-left: 6px solid #0073bd;
+    }
+    
+    .step4 .title span {
+        font-weight: 500;
+    }
+    
+    .step4 .Message {
+        margin-top: 20px;
+        padding-bottom: 15px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+    }
+    
+    .step4 .mainTitle {
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #dedede;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    
+    .step4 .orderMessage {
+        width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .step4 .orderMessage .orderList {
+        display: inline-block;
+        position: relative;
+    }
+    
+    .step4 .orderMessage .orderList .orders {
+        min-height: 110px;
+    }
+    
+    .step4 .orderMessage .order {
+        width: 496px;
+        padding: 15px 0;
+        border-bottom: 1px dashed #e0e0e0;
+    }
+    
+    .step4 .orderMessage .order .serial {
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+    }
+    
+    .step4 .orderMessage .order .sealName {
+        color: #333333;
+        margin-left: 22px;
+    }
+    
+    .step4 .orderMessage .order .service {
+        margin-left: 38px;
+        height: 24px;
+        width: 94px;
+        color: #00acff;
+        text-align: center;
+        line-height: 24px;
+        padding: 7px 15px;
+    }
+    
+    .step4 .orderMessage .order .price {
+        margin-left: 48px;
+        color: #00acff;
+        font-size: 16px;
+    }
+    
+    .step4 .orderYear {
+        width: 280px;
+        height: 110px;
+        margin: 20px 0;
+        float: right;
+        border-left: 1px solid #dedede;
+    }
+    
+    .step4 .orderYear .year {
+        width: 100px;
+        height: 45px;
+        margin: 25px auto;
+    }
+    
+    .step4 .orderYear .year .licence {
+        color: #00acff;
+        font-size: 20px;
+        text-align: center;
+        height: 50px;
+        width: 50px;
+        line-height: 50px;
+        margin-left: 25px;
+        border-radius: 25px;
+        background: #eee;
+    }
+    
+    .step4 .orderYear .year .dateline {
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    .step4 .orderTips {
+        height: 40px;
+        line-height: 40px;
+        color: #999999;
+    }
+    
+    .step4 .orderTips .total {
+        margin-left: 200px;
+    }
+    
+    .step4 .orderTips .totalM {
+        font-size: 20px;
+        color: #00acff;
+    }
+    
+    .service select {
+        padding: 4px 8px;
+        border-radius: 4px;
+        padding-bottom: 6px;
+    }
+    
+    .payTips {}
+    
+    .payTips .title p {
+        margin: 0;
+        font-size: 16px;
+    }
+    
+    .payTips .cont {}
+    
+    .payTips .cont .wxpay01 {
+        width: 154px;
+        height: 42px;
+        background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat;
+        float: left;
+    }
+    
+    .payTips .cont .clearboth {
+        width: 100%;
+        height: 1px;
+        clear: both;
+    }
+    
+    .payTips .cont .money {
+        width: auto;
+        height: 42px;
+        vertical-align: bottom;
+        font-size: 14px;
+        float: right;
+        padding-right: 10px;
+        line-height: 52px;
+    }
+    
+    .payTips .cont .money span {
+        font-weight: bold;
+        color: #006DCC;
+        font-size: 20px;
+    }
+    
+    .payTips .cont .wx_l {
+        width: 250px;
+        height: auto;
+        float: left;
+        margin-top: 20px;
+        padding-left: 16px;
+    }
+    
+    .payTips .cont .wx_l .ewm {
+        width: 250px;
+        height: 250px;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+    }
+    
+    .payTips .cont .wx_l .wx_l_d {
+        width: 250px;
+        height: 55px;
+        background: url(../../../../asset/img/wxpay02.png) no-repeat;
+        margin-top: 10px;
+    }
+    
+    .payTips .cont .wx_r {
+        margin-top: 20px;
+        padding-right: 10px;
+        width: 278px;
+        height: 348px;
+        background: url(../../../../asset/img/wxpay03.png) no-repeat;
+        float: right;
+    }
+    
+    .alipayAlert .modal-content {
+        width: 1130px
+    }
+    
+    .alipayAlert .modal-dialog {
+        width: 1130px;
+    }
+    
+    .alipayAlertYL .modal-content {
+        width: 1130px;
+        height: 700px;
+    }
+    
+    .alipayAlertYL .modal-dialog {
+        width: 1130px;
+        height: 700px;
+    }
+    
+    .payment-modal-content {
+        position: relative;
+        width: 1100px;
+        height: 700px;
+
+        background-color: #fff;
+    }
+    
+    .payment_wx {
+        width: 326px;
+        height: 426px;
+        margin-top: 100px;
+    }
+    
+    .payment_wx img {
+        display: block;
+        margin: 0 auto;
+    }
+    
+    .ifr_dialog{ width: 1100px; margin: 0 auto; margin-top: 20px;}
+    @media screen and (max-width: 1110px) and (min-width: 700px) {
+        .payment-modal-content {
+            width: 700px;
+        }
+        .payment_wx {
+            width: 326px;
+        }
+    }
 </style>
