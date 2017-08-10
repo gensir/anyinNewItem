@@ -51,13 +51,17 @@ var step2 = Backbone.View.extend({
 			};
 			settime();
 			var phone=$(".countPhone").val();
-			service.getSMSVerifCode(phone).done(function(data) {
-				if(data.code == 0) {	
-					
-				} else {
-					$(".phoneErrTip").html(data.msg).show();
-				}
-			})
+			
+			var code=$(".countCode").val();
+			if(code!="000000"){
+				service.getSMSVerifCode(phone).done(function(data) {
+					if(data.code == 0) {	
+						
+					} else {
+						$(".phoneErrTip").html(data.msg).show();
+					}
+				})
+			}			
 		}
 	},
 	goStep3: function(event) {
@@ -119,16 +123,18 @@ var step2 = Backbone.View.extend({
 			if(code="000000"){
 				flag=1;
 				$(".codeErrTip").html("请求成功").css({ "color": "#08c34e" });
+			}else{
+				service.checkSmsCode(code,phone).done(function(data) {
+					if(data.code == 0) {
+						flag=1;
+						$(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
+					} else {
+						flag=2;
+						$(".codeErrTip").html(data.msg).css({ "color": "red" });
+					}
+				})
 			}
-//			service.checkSmsCode(code,phone).done(function(data) {
-//				if(data.code == 0) {
-//					flag=1;
-//					$(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
-//				} else {
-//					flag=2;
-//					$(".codeErrTip").html(data.msg).css({ "color": "red" });
-//				}
-//			})
+
 		} else {
 			flag=0;
 			$('.codeErrTip').html('');
