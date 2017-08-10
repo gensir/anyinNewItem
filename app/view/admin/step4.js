@@ -51,7 +51,8 @@ var step4 = Backbone.View.extend({
                 }
                 for(var i = 0; i < tempObj.data.esealProducts.length; i++) {
                     cont += '<div class="order"><span class="serial">' + (i + 1) + '</span><span class="sealName">' + tempObj.data.esealProducts[i].esealFullName + '</span><span class="service">' + tempObj.data.products[0].productName + '</span> <span class="price">' + tempObj.data.products[0].productAmount  + '元</span></div>'
-                    sumPrice += tempObj.data.products[0].productAmount;
+                    sumPrice +=Number(tempObj.data.products[0].productAmount);
+                    sumPrice=Number(sumPrice)
                 }  //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
                 $("#step4_orders").append(cont);
                 $("#sumPrice , #sumPrice_pay").html(sumPrice + "元");
@@ -167,7 +168,7 @@ var step4 = Backbone.View.extend({
 					})	;			
 		$("#aliiframe").attr("src", ifrSRC );
 		var that=this;	
-		setTimeout(function(){ that.payOrderStatus() } ,3000);		
+		setTimeout(function(){ that.payOrderStatus() } ,3000);
     },
     payAlertPageYL:function( payDate,requestUrl ){    
 //  	var payDatexg="txnType="+payDate.txnType+"&frontUrl="+payDate.frontUrl+"&channelType="+payDate.channelType+
@@ -181,6 +182,7 @@ var step4 = Backbone.View.extend({
 				for(var i in payDate){
 					payDatexg += i+"="+payDate[i]  +"&"; 
 				}  	
+//		$("#aavvbb").val(payDatexg)	;	
 //var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
     	service.unYlyl(payDatexg).done(res => {   		
 			this.createIframe(res);	
@@ -215,7 +217,10 @@ var step4 = Backbone.View.extend({
 	     		console.log ( "现在是第" + payOrderStatuNum+ "次请求订单状态，当前返回的结果为 : " +res.data.orderStatus );
 	    		if(res.code == 0 ){  //订单状态查询请求成功
 	    			if( res.data.orderStatus =="SUCCESS"  ||  res.data.orderStatus =="COMPLETED"  ){
-	    				console.log("支付成功了！");
+	    				console.log("支付成功了！");	    				
+	    				localStorage.removeItem("stepNum");
+	    				localStorage.removeItem("orderNo");
+						window.open('pay_ok.html', '_self');
 	    				
 	    			}else{
 	    				payOrderStatuNum++;
