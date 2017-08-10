@@ -20,7 +20,7 @@
         <div class="mainSubstance">
             <div class="unitMessage form-group">
                 <div class="col-sm-3 Name">单位名称：</div>
-                <div class="col-sm-9 Content">{{data.name}}</div>
+                <div class="col-sm-9 Content">{{data.name||null}}</div>
             </div>
             <div class="unitMessage form-group">
                 <div class="col-sm-3 Name">单位地址：</div>
@@ -66,7 +66,7 @@
             <div class="form-group form-bottom passwdForm">
                 <label class="col-sm-3 control-label">密码：</label>
                 <div class="col-sm-5">
-                    <input type="password" maxlength="18" placeholder="请输入密码" class="form-control passwd fl">
+                    <input type="password" maxlength="20" placeholder="请输入密码" class="form-control passwd fl">
                     <div class="tip">✲ 密码为8-20位数字、字母、特殊符号</div>
                 </div>
                 <div class="col-sm-3 passwd-error passwdErrTip errTip">
