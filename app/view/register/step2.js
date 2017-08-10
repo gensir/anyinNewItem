@@ -25,33 +25,35 @@ var step2 = Backbone.View.extend({
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	phoneCode: function(event) {
+		
 		this.model.set({ "clickEle": $(event.target).data('id') })
 		this.model.isValid()
 		//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {
 		if(!this.model.isValid()) {
+//			$(".findPasswordCodeBtn").attr("disabled", true);
+			var countdown = 60;
+			var ele = $(".findPasswordCodeBtn");
+			function settime() {
+				if(countdown == 0) {
+					ele.removeAttr("disabled");
+					ele.val("获取验证码");
+					countdown = 60;
+					clearTimeout(ele[0].settimes);
+					return false;
+				} else {
+					ele.attr("disabled", true);
+					ele.val("重新发送(" + countdown + ")");
+					countdown--;
+				}
+				ele[0].settimes = setTimeout(function() {
+					settime(ele)
+				}, 1000)
+			};
+			settime();
 			var phone=$(".countPhone").val();
 			service.getSMSVerifCode(phone).done(function(data) {
-				if(data.code == 0) {
-					var countdown = 60;
-					var ele = $(".findPasswordCodeBtn");
-					function settime() {
-						if(countdown == 0) {
-							ele.removeAttr("disabled");
-							ele.val("获取验证码");
-							countdown = 60;
-							clearTimeout(ele[0].settimes);
-							return false;
-						} else {
-							ele.attr("disabled", true);
-							ele.val("重新发送(" + countdown + ")");
-							countdown--;
-						}
-						ele[0].settimes = setTimeout(function() {
-							settime(ele)
-						}, 1000)
-					};
-					settime();
-					return false;
+				if(data.code == 0) {	
+					
 				} else {
 					$(".phoneErrTip").html(data.msg).show();
 				}
