@@ -75,7 +75,7 @@ var step1 = Backbone.View.extend({
         var _this = this, timer
         timer = setTimeout(function () {
             _this.checkname();
-        }, 100);
+        }, 200);
     },
     //企业名称查询编码
     checkname() {
@@ -108,9 +108,6 @@ var step1 = Backbone.View.extend({
         service.checkUserIsExist(data).done(res => {
             if (res.code == 0) {
                 $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
-                if ($('#yzmcode').val().length == 4) {
-                    this.toreguser();
-                }
             } else if (res.code == 1) {
                 $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>").css({ "color": "#f00" });
                 this.CodeRefresh();
@@ -163,7 +160,7 @@ var step1 = Backbone.View.extend({
     reguser(event) {
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
-            this.checkname();
+            this.toreguser();
         }
     },
 });
