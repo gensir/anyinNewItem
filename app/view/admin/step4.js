@@ -4,6 +4,7 @@ var service = require('../../server/service').default;
 var billType=1;
 var step4Data;
 var invoiceState;
+var payOrderStatuNum=0;
 var orderNo = localStorage.orderNo || "OFFLINE08071088058690";
 
 //var orderNo="OFFLINE07252055727334";
@@ -39,61 +40,6 @@ var step4 = Backbone.View.extend({
                 tempObj = {}
             } else {
               tempObj = res;
-/*              
-                tempObj={
-				    "code": 0,
-				    "data": {
-				        "actualAmount": null,
-				        "discountAmount": null,
-				        "discounts": [
-				            {
-				                "createTime": "2017-07-24 18:05:29",
-				                "id": 1,
-				                "isDelete": 0,
-				                "privilegeAmount": 1,
-				                "privilegeIndate": "2017-07-27 19:14:53",
-				                "privilegeName": "deeee",
-				                "privilegeScheme": 1,
-				                "privilegeYears": 1,
-				                "updateTime": null
-				            }
-				        ],
-				        "esealProducts": [
-				            {
-				                "esealCode": "4403030002622",
-				                "esealFullName": "深圳市新秀宾馆03",
-				                "id": 100000557,
-				                "orderNo": "OFFLINE07252055727334",
-				                "payAmount": null,
-				                "productAmountId": null,
-				                "productPrivilegeId": null,
-				                "validEnd": null,
-				                "validStart": null
-				            }
-				        ],
-				        "invoice": null,
-				        "orderAmount": null,
-				        "orderNo": "OFFLINE07252055727334",
-				        "payType": null,
-				        "products": [
-				            {
-				                "createTime": "2017-07-24 18:05:07",
-				                "id": 1,
-				                "isDelete": 0,
-				                "privilegeScheme": 1,
-				                "productAmount": 12,
-				                "productFirm": 1,
-				                "productIndate": "2017-07-28 18:05:07",
-				                "productName": "ddeeee",
-				                "productType": 1,
-				                "renewYear": 2,
-				                "updateTime": null
-				            }
-				        ]
-				    },
-				    "msg": "请求成功"
-				}
-*/                
                 var cont = "";
                 var sumPrice = "";
                 if( tempObj.data.esealProducts || tempObj.data.esealProducts !=null ){                	
@@ -146,6 +92,7 @@ var step4 = Backbone.View.extend({
         }
     },
     submitStep4:function(){
+    	console.log(step4Data);
     	service.submitStep4(step4Data).done(res => {
     		if( res.code==0){
     			//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
@@ -179,7 +126,10 @@ var step4 = Backbone.View.extend({
 						className: "btn1"
 					}
 				}
-			})    	
+			}) ;
+		var that=this;	
+		setTimeout(function(){ that.payOrderStatus() } ,3000);
+
     },
     paymentEnter:function(resPayType){
     	var paymentData={
@@ -216,14 +166,71 @@ var step4 = Backbone.View.extend({
 						}
 					})	;			
 		$("#aliiframe").attr("src", ifrSRC );
+		var that=this;	
+		setTimeout(function(){ that.payOrderStatus() } ,3000);		
     },
-    payAlertPageYL:function( payDate,requestUrl ){    	
-    	service.payAlertPage(payDate,requestUrl).done(res => {
-    	 console.log(res);
-    	
+    payAlertPageYL:function( payDate,requestUrl ){    
+//  	var payDatexg="txnType="+payDate.txnType+"&frontUrl="+payDate.frontUrl+"&channelType="+payDate.channelType+
+//  								"&currencyCode="+payDate.currencyCode+
+//  								"&merId="+payDate.merId+"&txnSubType="+payDate.txnSubType+"&txnAmt="+payDate.txnAmt+"&version="+payDate.version+"&signMethod="+payDate.signMethod+
+//  								"&backUrl="+payDate.backUrl+"&certId="+payDate.certId+"&encoding="+payDate.encoding+"&bizType="+payDate.bizType+"&signature="+payDate.signature+"&orderId="+payDate.orderId+
+//  								"&accessType="+payDate.accessType+"&txnTime="+payDate.txnTime
+
+
+		var payDatexg="";
+				for(var i in payDate){
+					payDatexg += i+"="+payDate[i]  +"&"; 
+				}  	
+//var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
+    	service.unYlyl(payDatexg).done(res => {   		
+			this.createIframe(res);	
+    	}).fail(res=>{
+    		console.log(res);
     	});    	
+  	},   
+    createIframe(content, addBody) {
+        $(".payment-modal-content").empty();
+        $("#payment").modal("show");
+        var iframe = document.createElement('iframe');
+        var ifr = document.getElementsByClassName('payment-modal-content')[0].appendChild(iframe);
+        var ifr_doc = ifr.contentWindow.document;
+        ifr.frameborder = '1px';
+        ifr.height = '100%';
+        ifr.width = '100%';
+        ifr.style.display = 'inline';
+        var loadjs = content;
+        if(addBody){
+            loadjs = '<html><body clss="body_iframe">' + loadjs + '</body></html>';
+        }
+        ifr_doc.open();
+        ifr_doc.write(loadjs);
+        ifr_doc.close();
+        var that=this;	
+		setTimeout(function(){ that.payOrderStatus() } ,3000);		  //弹框后开始查询订单状态
+    },    
+
+    payOrderStatus:function(){	
+    	if( payOrderStatuNum<300){  //小于300次，就发送订单状态轮询支付请求.3秒一次
+	     	service.status(orderNo).done(res => {  
+	     		console.log ( "现在是第" + payOrderStatuNum+ "次请求订单状态，当前返回的结果为 : " +res.data.orderStatus );
+	    		if(res.code == 0 ){  //订单状态查询请求成功
+	    			if( res.data.orderStatus =="SUCCESS"  ||  res.data.orderStatus =="COMPLETED"  ){
+	    				console.log("支付成功了！");
+	    				
+	    			}else{
+	    				payOrderStatuNum++;
+						var that=this;	
+						setTimeout(function(){ that.payOrderStatus() } ,3000);
+	    			}
+	    			return;
+	    		}else{   //订单状态查询请求失败
+	    			console.log( res.msg )
+	    		}    			
+	    	});   			
+    	}else{   //大于300次，不发送订单状态轮询支付请求
+    		console.log("十五分钟内未付款成功，订单重置!");
+    	}
     },
-    
     invoiceStates: function(event) {
         if(billType == 1) {    
             if( $("#invoice_user").val() =="" ){
@@ -232,6 +239,7 @@ var step4 = Backbone.View.extend({
             }else{
             	var invoice1={
             		"orderNo":orderNo,
+            		"invoiceType":0,
             		"invoiceHeader":$("#invoice_user").val(),             		        		
             	};
             	step4Data.invoice=invoice1;
@@ -244,6 +252,7 @@ var step4 = Backbone.View.extend({
             }else{
             	var invoice2={
             		"orderNo":orderNo,
+            		"invoiceType":0,
             		"invoiceHeader":$("#invoice_company").val(),                		
 	           		"buyerTaxerNo":$("#invoice_taxpayer").val(),            		
             	};
