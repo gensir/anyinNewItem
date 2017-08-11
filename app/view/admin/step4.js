@@ -4,6 +4,7 @@ var service = require('../../server/service').default;
 var billType=1;
 var step4Data;
 var invoiceState;
+var serialNo;  //开发票需要用的序号
 var payOrderStatuNum=0;
 var orderNo = localStorage.orderNo || "OFFLINE08071088058690";
 
@@ -21,9 +22,9 @@ var step4 = Backbone.View.extend({
         'click #goStep3':'gostep3'
     },
     render: function(query) {
-//  	if(localStorage.stepNum!="#step4"){
-//			return;
-//		}
+    	if(localStorage.stepNum!="#step4"){
+			return;
+		}
         var payments = $($(payment()).prop("outerHTML"));
         this.$el.html(tpl);
         $(".orderMessage").append(payments.find(".bill"));
@@ -95,6 +96,10 @@ var step4 = Backbone.View.extend({
     submitStep4:function(){
     	console.log(step4Data);
     	service.submitStep4(step4Data).done(res => {
+    		if( res.data.invoice){
+    			serialNo=res.data.invoice.serialNo;
+    		}    		
+    		//alert(serialNo);
     		if( res.code==0){
     			//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
     			var codeUrl=res.data.codeUrl;
@@ -217,6 +222,13 @@ var step4 = Backbone.View.extend({
 	     		console.log ( "现在是第" + payOrderStatuNum+ "次请求订单状态，当前返回的结果为 : " +res.data.orderStatus );
 	    		if(res.code == 0 ){  //订单状态查询请求成功
 	    			if( res.data.orderStatus =="SUCCESS"  ||  res.data.orderStatus =="COMPLETED"  ){
+	    				
+	    				//此处待测试！
+						if(serialNo){
+	    					this.takeOrderInvoice(serialNo);
+	    				}else{
+	    					console.log("订单支付成功，但是该订单客户不需要开发票！")	    					
+	    				}							 
 	    				console.log("支付成功了！");	    				
 	    				localStorage.removeItem("stepNum");
 	    				localStorage.removeItem("orderNo");
@@ -226,6 +238,7 @@ var step4 = Backbone.View.extend({
 	    				payOrderStatuNum++;
 						var that=this;	
 						setTimeout(function(){ that.payOrderStatus() } ,3000);
+					 
 	    			}
 	    			return;
 	    		}else{   //订单状态查询请求失败
@@ -235,6 +248,20 @@ var step4 = Backbone.View.extend({
     	}else{   //大于300次，不发送订单状态轮询支付请求
     		console.log("十五分钟内未付款成功，订单重置!");
     	}
+    },
+    takeOrderInvoice:function(serialNo){
+    	var subData={
+    		"serialNo":serialNo 
+    	};
+    	service.orderInvoice(subData).done(res => {  
+    		if( res.code==0){
+    			console.log("开发票成功！"+res.msg );
+    			console.log(res.data);
+    			
+    		}else{
+    			console.log("由于数据原因，开发票失败！"+res.msg );
+    		}
+    	});
     },
     invoiceStates: function(event) {
         if(billType == 1) {    

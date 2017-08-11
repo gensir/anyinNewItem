@@ -251,6 +251,9 @@ export default {
     //银联接口
     unYlyl(data) {
         return this.ajaxCall({ url: domain + gateway + "api/frontTransReq.do",data: data, dataType:'html'}, "POST");
+    },
+    //通过发票流水号生成百望电子发票
+    orderInvoice(data) {
+        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice", data: data }, "POST");
     }    
-    
 }
