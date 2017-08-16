@@ -22,8 +22,7 @@
                 <li>
                     <div class="file">
                         <span class="text col1">{{value.bizOperateTime}}</span>
-                        <span class="text col2">{{value.bizOperateType}}</span>
-                        <span class="text col3">{{value.bizOperateIp}}</span>
+                        <span class="text col2">{{value.bizOperateType==1?"申请电子印章":value.bizOperateType==2?"续费电子印章":value.bizOperateType==3?"挂失电子印章":value.bizOperateType==4?"补办电子印章":value.bizOperateType==5?"冻结电子印章":value.bizOperateType==6?"撤销电子印章":"其他"}}</span>                        <span class="text col3">{{value.bizOperateIp}}</span>
                         <span class="text col4 hide-text">{{value.bizOperateLocation}}</span>
                     </div>
                 </li>

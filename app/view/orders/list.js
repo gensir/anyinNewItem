@@ -2,8 +2,7 @@ import tpl from './tpl/list.html'
 //var dialogs=$(dialog()).prop("outerHTML");
 import { GetQueryString } from '../../publicFun/public.js'
 var service=require('../../server/service').default;
-var udata = localStorage.loginadmin && JSON.parse(localStorage.loginadmin) || {user:{},menuList:{}}
-var enterpriseCode = udata.user.enterpriseCode;
+var enterpriseCode = JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
