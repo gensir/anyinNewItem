@@ -1,5 +1,6 @@
 import tpl from './tpl/step1.html';
-var firmId,enterpriseCode
+var firmId, enterpriseCode;
+var flag = false;
 var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
@@ -34,16 +35,6 @@ var step1 = Backbone.View.extend({
         window.onload = function () {
             document.reg.reset();
         }
-    },
-    //重置验证码输入
-    CodeRefresh() {
-        $('#yzmcode-error').html('').css({ "color": "#f00" });
-        $('#yzmcode').val("");
-        this.captcha();
-    },
-    // 更换图片验证码；
-    captcha() {
-        $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
     },
     //企业名称模糊搜索
     typeahead() {
@@ -88,15 +79,12 @@ var step1 = Backbone.View.extend({
                     firmId = res.data[0].id;
                     if (enterpriseCode == null) {
                         $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
-                        this.CodeRefresh();
                     } else {
                         this.checkUserIsExist(enterpriseCode);
                     }
                 } else {
                     $("#Ename-error").html("企业不存在，不可注册").css({ "color": "#f00" });
-                    this.CodeRefresh();
                 }
-                //console.log("firmId：" + firmId)
             })
         }
     },
@@ -110,40 +98,45 @@ var step1 = Backbone.View.extend({
                 $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
             } else if (res.code == 1) {
                 $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>").css({ "color": "#f00" });
-                this.CodeRefresh();
             } else if (res.code == 2) {
                 $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>").css({ "color": "#f00" });
-                this.CodeRefresh();
             } else if (res.code == 3) {
                 $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请").css({ "color": "#f00" });
-                this.CodeRefresh();
             }
-            //console.log("企业校验完成")
         })
     },
     //重置企业名称错误提示
-    checknameerror(data) {
+    checknameerror() {
         $('#Ename-error').html('').css({ "color": "#f00" });
+    },
+    //更换验证码
+    CodeRefresh() {
+        $('#yzmcode-error').html('').css({ "color": "#f00" });
+        $('#yzmcode').val("");
+        $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random())
     },
     //校验图片验证码
     checkCaptcha(data) {
-        if ($('#yzmcode').val().length == 4) {
+        var _this = this
+        if ($('#yzmcode').val().length >= 4) {
             var data = {
                 "captcha": $('#yzmcode').val()
             }
             service.checkCaptcha(data).done(res => {
                 if (res.code == 0) {
+                    flag = true;
                     $("#yzmcode-error").html("验证码正确").css({ "color": "#08c34e" });
                 } else {
+                    flag = false;
                     $("#yzmcode-error").html(res.msg).css({ "color": "#f00" });
-                    this.captcha();
+                    $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random());
                 }
             })
         } else {
             $('#yzmcode-error').html('').css({ "color": "#f00" });
         }
     },
-    //提交注册验证
+    //点击注册进入第二步
     toreguser(data) {
         var data = {
             "firmId": firmId
@@ -156,13 +149,19 @@ var step1 = Backbone.View.extend({
             }
         })
     },
-    //点击注册进入第二步
+    //提交注册验证
     reguser(event) {
+        if ($("#yzmcode").val().length < 4) {
+            $("#yzmcode-error").html("请输入4位验证码").css({ "color": "#f00" });
+            flag = false;
+        }
         this.model.set({ "clickEle": $(event.target).data('id') });
         if (!this.model.isValid()) {
-            this.toreguser();
+            if (flag) {
+                this.toreguser();
+            }
         }
-    },
+    }
 });
 
 module.exports = step1;
