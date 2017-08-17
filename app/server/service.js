@@ -149,7 +149,7 @@ export default {
     },
     //提交账号和密码
     registerUser(data) {
-        return this.ajaxCall({ url: domain + basemp + "common/registerUser", data: data, "Content-Type": "application/x-www-form-urlencoded" }, "POST");
+        return this.ajaxCall({ url: domain + basemp + "common/registerUser", data: data }, "post");
     },
     //点击注册
     toRegister(data) {
