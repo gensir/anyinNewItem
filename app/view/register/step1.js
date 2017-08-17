@@ -70,11 +70,11 @@ var step1 = Backbone.View.extend({
     },
     //企业名称查询编码
     checkname() {
-        var name = $("#Ename").val()
+        var name = $.trim($("#Ename").val());
         var data = { "params": { "name": name } }
         if (name.length > 0) {
             service.checkname(data).done(res => {
-                if (res.code == 0 && res.data != "" || res.data.length != 0) {
+                if (res.code == 0 && (res.data != "" || res.data.length != 0)) {
                     enterpriseCode = res.data[0].creditCode || res.data[0].organizationCode;
                     firmId = res.data[0].id;
                     if (enterpriseCode == null) {

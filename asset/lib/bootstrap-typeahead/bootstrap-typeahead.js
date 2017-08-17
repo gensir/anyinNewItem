@@ -107,7 +107,7 @@
             //
             ajaxer: function () {
                 var that = this,
-                    query = that.$element.val();
+                    query = $.trim(that.$element.val());
 
                 if (query === that.query) {
                     return that;
