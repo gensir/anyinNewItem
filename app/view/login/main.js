@@ -1,6 +1,8 @@
 var tpl = require('./tpl/main.html');
 var service = require('../../server/service').default;
 import ukeys from '../../publicFun/ukeys';
+import dialog from '../pub/tpl/dialog.html';
+var dialogs = $($(dialog()).prop("outerHTML"));
 var main = Backbone.View.extend({
     el: "body",
     initialize() {
@@ -18,15 +20,14 @@ var main = Backbone.View.extend({
     render() {
         var _this = this;
         if ((!!window.ActiveXObject || "ActiveXObject" in window) && (navigator.userAgent.indexOf('Opera') < 0)) {
-            this.$el.prepend(tpl({
+            this.$el.html(tpl({
                 list: ukeys.ukeyName()
             }));
         } else {
-            this.$el.prepend(tpl({
+            this.$el.html(tpl({
                 list: null
             }));
         }
-
         this.toggleTab();
     },
     toggleTab() {
@@ -46,35 +47,68 @@ var main = Backbone.View.extend({
             return;
         }
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
-        if (checkResult) {
-            var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey))
-            var data = {
-                "loginType": 2,
-                "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
-                "codeError": 0,
-                "entryptCert": ukeys.dCertificate(selectedUkey),
-                "signature": ukeys.dSignature(selectedUkey, randomNum),
-                "randomNum": randomNum
-            }
-
-            //console.log(JSON.stringify(data))
-            service.userlogin(data).done(function (data) {
-                if (data.code == 0) {
-                    $.verify("passwd", "#passwd");
-                    $.cookie('loginadmin', JSON.stringify(data.data))
-                    window.open("index.html", "_self");
-                } else if (data.code == 4) {
-                    $.verify("passwd", "#passwd", "后台返回error");
-                } else if (data.code == "500") {
-                    $.verify("ukeytip", "#seleBook", data.msg);
-                } else {
-                    $.verify("ukeytip", "#seleBook", data.msg);
-                }
-                //window.open("index.html", "_self")
-            })
-        } else {
-            bootbox.alert("请检测证书或PIN码是否正确！");
+        var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey))
+        var data = {
+            "loginType": 2,
+            "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
+            "codeError": checkResult ? 0 : 1,
+            "entryptCert": ukeys.dCertificate(selectedUkey),
+            "signature": ukeys.dSignature(selectedUkey, randomNum),
+            "randomNum": randomNum
         }
+
+        //console.log(JSON.stringify(data))
+        service.userlogin(data).done(function (data) {
+            if (!data.msg && data.code != 0) {
+                $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误")
+            }
+            if (data.code == 0) {
+                $.verify("passwd", "#passwd");
+                $.cookie('loginadmin', JSON.stringify(data.data))
+                window.open("index.html", "_self");
+            } else if (data.code == 4) {
+                $.verify("passwd", "#passwd", "后台返回error");
+            } else if (data.code == 100) {
+                var numInd = 0;
+                var dialog = bootbox.dialog({
+                    backdrop: true,
+                    //closeButton: false,
+                    className: "common loss",
+                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                    message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
+                    buttons: {
+                        cancel: {
+                            label: "返回",
+                            className: "btn1",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                        confirm: {
+                            label: "继续",
+                            className: "btn2 sureLoss",
+                            callback: function (event) {
+                                numInd++;
+                                if (numInd == 1) {
+                                    numInd = 0
+                                    alert(123)
+                                    //window.open('register.html#step2', '_self');
+                                } else {
+                                    this.modal('hide');
+                                }
+                                return false;
+                            }
+                        }
+                    }
+                })
+            } else if (data.code == "500") {
+                $.verify("ukeytip", "#seleBook", data.msg);
+            } else {
+                $.verify("ukeytip", "#seleBook", data.msg);
+            }
+            //window.open("index.html", "_self")
+        })
+
 
     },
     phoneLogin(event) {
@@ -91,13 +125,16 @@ var main = Backbone.View.extend({
             "loginType": 1
         }
         service.userlogin(data).done(function (data) {
+            if (!data.msg && data.code != 0) {
+                $.verify("phone", "#userName", "您输入的用户名或密码错误")
+            }
             if (data.code == 0) {
                 $.cookie('loginadmin', JSON.stringify(data.data))
                 window.open("index.html", "_self");
             } else if (data.code == "100") {
-                $.verify("phone", "#userName", "用户未注册");
+                $.verify("phone", "#userName", data.msg);
             } else if (data.code == "500") {
-                $.verify("phone", "#userName", "用户名或密码错误");
+                $.verify("phone", "#userName", data.msg);
             }
         })
         // bootbox.dialog({
