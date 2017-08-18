@@ -3,6 +3,7 @@ import tpl from './tpl/list.html'
 import { GetQueryString } from '../../publicFun/public.js'
 var service=require('../../server/service').default;
 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
+
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -59,7 +60,7 @@ var list = Backbone.View.extend({
             }
         })
     },
-    // 点击上一页、下一页
+    // 点击上一页、下一�
     pagediv(val, totalPages) {
         if (val < 1) {
             val = 1;
@@ -102,7 +103,7 @@ var list = Backbone.View.extend({
             this.active = $("#pageLimit .index").eq(0)
         } else {
         	console.log(isNaN(this.active.find('a').text()))
-            if (isNaN(this.active.find('a').text())) {  //上下页   true
+            if (isNaN(this.active.find('a').text())) {  //上下�  true
                 this.active = $("#pageLimit .index").eq(pageNumber)
             }
             console.log($("#pageLimit a:contains(" + this.active.find('a').text() + ")"))

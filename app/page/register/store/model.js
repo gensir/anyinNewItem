@@ -13,7 +13,7 @@ var registerModel = Backbone.Model.extend({
         //     })
         // }
         if (attrs.clickEle == 'reguser') {
-            return $.verifyEach({ "Ename": "#Ename", "yzmcode": "#yzmcode" }, function () {
+            return $.verifyEach({ "Ename": "#Ename" }, function () {
                 return 123;
             })
         }
