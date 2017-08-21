@@ -54,7 +54,9 @@ var main = Backbone.View.extend({
             "codeError": checkResult ? 0 : 1,
             "entryptCert": ukeys.dCertificate(selectedUkey),
             "signature": ukeys.dSignature(selectedUkey, randomNum),
-            "randomNum": randomNum
+            "randomNum": randomNum,
+            "oid":ukeys.GetOid(selectedUkey),
+            "enterpriseCode":ukeys.GetenterpriseCode(selectedUkey)
         }
 
         //console.log(JSON.stringify(data))

@@ -65,7 +65,7 @@ var ukeys = {
             return this.data.ukey.GetCertData(1)
         }
     },
-    getSignatureCert(selectukeyInd){//签名证书
+    getSignatureCert(selectukeyInd) {//签名证书
         if (selectukeyInd !== undefined && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertData(0)
@@ -115,6 +115,18 @@ var ukeys = {
     GetKeyID(PassWord) {
         if (this.issupport()) {
             return this.data.KeyManage.GetKeyID()
+        }
+    },
+    GetOid(selectukeyInd) {
+        if (selectukeyInd !== undefined && this.issupport()) {
+            this.data.ukey.SetCertIndex(selectukeyInd);
+            return this.data.ukey.GetCertInfo(1)
+        }
+    },
+    GetenterpriseCode(selectukeyInd) {
+        if (selectukeyInd !== undefined && this.issupport()) {
+            this.data.ukey.SetCertIndex(selectukeyInd);
+            return this.data.ukey.GetCertInfo(8)
         }
     },
     WriteSignDataToKey(WriteSignDataToKeyText) {
