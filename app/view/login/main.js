@@ -58,19 +58,14 @@ var main = Backbone.View.extend({
             "oid":ukeys.GetOid(selectedUkey),
             "enterpriseCode":ukeys.GetenterpriseCode(selectedUkey)
         }
-        console.log(JSON.stringify(data))
         service.userlogin(data).done(function (data) {
             if (!data.msg && data.code != 0) {
                 $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                 return
             }
-            if (data.code == 0) {
+            if (data.code === 0) {
                 $.verify("passwd", "#passwd");
-                $.cookie('loginadmin', JSON.stringify(data.data))
-                window.open("index.html", "_self");
-            } else if (data.code == 4) {
-                $.verify("passwd", "#passwd", "后台返回error");
-            } else if (data.code == 100) {
+                if (data.data.pointCode == 100) {
                 var numInd = 0;
                 var dialog = bootbox.dialog({
                     backdrop: true,
@@ -93,8 +88,8 @@ var main = Backbone.View.extend({
                                 numInd++;
                                 if (numInd == 1) {
                                     numInd = 0
-                                    alert(123)
-                                    //window.open('register.html#step2', '_self');
+                                    localStorage.firmId = data.data.firmId
+                                    window.open('register.html#step2', '_self');
                                 } else {
                                     this.modal('hide');
                                 }
@@ -102,7 +97,14 @@ var main = Backbone.View.extend({
                             }
                         }
                     }
-                })
+                });
+                return               
+            }
+
+                $.cookie('loginadmin', JSON.stringify(data.data))
+                //window.open("index.html", "_self");
+            } else if (data.code == 4) {
+                $.verify("passwd", "#passwd", "后台返回error");
             } else if (data.code == "500") {
                 $.verify("ukeytip", "#seleBook", data.msg);
             } else {
@@ -131,7 +133,7 @@ var main = Backbone.View.extend({
                 $.verify("phone", "#userName", "您输入的用户名或密码错误");
                 return
             }
-            if (data.code == 0) {
+            if (data.code === 0) {
                 $.cookie('loginadmin', JSON.stringify(data.data))
                 window.open("index.html", "_self");
             } else if (data.code == "100") {
