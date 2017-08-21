@@ -255,5 +255,9 @@ export default {
     //通过发票流水号生成百望电子发票
     orderInvoice(data) {
         return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice", data: data }, "POST");
-    }    
+    },
+    //手机号是否存在
+    mobileIsNotExist(data){
+    	return this.ajaxCall({ url: domain  + basemp + "common/mobileIsNotExist", data: data });
+    }   
 }

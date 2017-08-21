@@ -17,7 +17,8 @@ var step2 = Backbone.View.extend({
 	},
 	render: function(query) {
 		that=this;
-        firmId = localStorage.firmId;
+        firmId = localStorage.firmId||$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
+//      firmId = "440311062534"
 		if(!firmId){
 			return;
         }
@@ -30,38 +31,47 @@ var step2 = Backbone.View.extend({
 		this.model.isValid()
 		//		if((/^1[34578]\d{9}$/.test($(".countPhone").val()))) {
 		if(!this.model.isValid()) {
-//			$(".findPasswordCodeBtn").attr("disabled", true);
-			var countdown = 60;
-			var ele = $(".findPasswordCodeBtn");
-			function settime() {
-				if(countdown == 0) {
-					ele.removeAttr("disabled");
-					ele.val("获取验证码");
-					countdown = 60;
-					clearTimeout(ele[0].settimes);
-					return false;
-				} else {
-					ele.attr("disabled", true);
-					ele.val("重新发送(" + countdown + ")");
-					countdown--;
-				}
-				ele[0].settimes = setTimeout(function() {
-					settime(ele)
-				}, 1000)
-			};
-			settime();
 			var phone=$(".countPhone").val();
-			
-			var code=$(".countCode").val();
-			if(code!="000000"){
-				service.getSMSVerifCode(phone).done(function(data) {
-					if(data.code == 0) {	
-						
-					} else {
-						$(".phoneErrTip").html(data.msg).show();
+			var mobile={
+				"mobile":phone
+			}
+			service.mobileIsNotExist(mobile).done(function(data){
+				if(data.code==0){
+					var countdown = 60;
+					var ele = $(".findPasswordCodeBtn");
+					function settime() {
+						if(countdown == 0) {
+							ele.removeAttr("disabled");
+							ele.val("获取验证码");
+							countdown = 60;
+							clearTimeout(ele[0].settimes);
+							return false;
+						} else {
+							ele.attr("disabled", true);
+							ele.val("重新发送(" + countdown + ")");
+							countdown--;
+						}
+						ele[0].settimes = setTimeout(function() {
+							settime(ele)
+						}, 1000)
+					};
+					settime();		
+					var code=$(".countCode").val();
+					if(code!="000000"){
+						service.getSMSVerifCode(phone).done(function(data) {
+							if(data.code == 0) {	
+								
+							} else {
+								$(".phoneErrTip").html(data.msg).show();
+							}
+						})
 					}
-				})
-			}			
+				}else if(data.code==1){
+					bootbox.alert(data.msg);
+				}else{
+					bootbox.alert(data.msg);
+				}
+			})					
 		}
 	},
 	goStep3: function(event) {
@@ -182,6 +192,19 @@ var step2 = Backbone.View.extend({
         }
 		service.toRegister(data).done(function(data){
 			if(data.code==0){
+//				data={
+//				    "code": 0,
+//				    "msg": "请求成功",
+//				    "data": {
+//				        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
+//				        "businessLicenseNumber": "",
+//				        "legalName": "张三疯",
+//				        "name": "深圳菱正环保设备有限公司",
+//				        "uniformSocialCreditCode": "914403005538853123",
+//				        "idcardNumber":"4408231999155656",
+//				        "id":"123456789"
+//				    }
+//				}
 				result=data.data;
 				id=result.id;
 				IDNo=result.idcardNumber;
