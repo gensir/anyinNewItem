@@ -1,6 +1,7 @@
 import tpl from './tpl/step1.html';
 var firmId, enterpriseCode;
 var flag = false;
+var cname = false;
 var service = require('../../server/service').default;
 var step1 = Backbone.View.extend({
     el: '.container',
@@ -78,11 +79,14 @@ var step1 = Backbone.View.extend({
                     enterpriseCode = res.data[0].creditCode || res.data[0].organizationCode;
                     firmId = res.data[0].id;
                     if (enterpriseCode == null) {
+                        cname = false;
                         $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
                     } else {
+                        cname = true;
                         this.checkUserIsExist(enterpriseCode);
                     }
                 } else {
+                    cname = false;
                     $("#Ename-error").html("企业不存在，不可注册").css({ "color": "#f00" });
                 }
             })
@@ -95,12 +99,16 @@ var step1 = Backbone.View.extend({
         }
         service.checkUserIsExist(data).done(res => {
             if (res.code == 0) {
+                cname = true;
                 $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
             } else if (res.code == 1) {
+                cname = false;
                 $("#Ename-error").html("当前企业已注册，<a href='login.html'>立即登录</a>").css({ "color": "#f00" });
             } else if (res.code == 2) {
+                cname = false;
                 $("#Ename-error").html("当前企业已办理电子印章，使用UKEY<a href='login.html'>快速登录</a>").css({ "color": "#f00" });
             } else if (res.code == 3) {
+                cname = false;
                 $("#Ename-error").html("很抱歉，该企业暂时不支持电子印章申请").css({ "color": "#f00" });
             }
         })
@@ -117,7 +125,6 @@ var step1 = Backbone.View.extend({
     },
     //校验图片验证码
     checkCaptcha(data) {
-        var _this = this
         if ($('#yzmcode').val().length >= 4) {
             var data = {
                 "captcha": $('#yzmcode').val()
@@ -151,16 +158,20 @@ var step1 = Backbone.View.extend({
     },
     //提交注册验证
     reguser(event) {
+        if ($.trim($("#Ename").val()) == "") {
+            $("#Ename-error").html("请输入企业名称").css({ "color": "#f00" });
+            cname = false;
+        }
         if ($("#yzmcode").val().length < 4) {
             $("#yzmcode-error").html("请输入4位验证码").css({ "color": "#f00" });
             flag = false;
         }
-        this.model.set({ "clickEle": $(event.target).data('id') });
-        if (!this.model.isValid()) {
-            if (flag) {
-                this.toreguser();
-            }
-        }
+        if (cname && flag) {
+            this.toreguser();
+        }        
+        // this.model.set({ "clickEle": $(event.target).data('id') });
+        // if (!this.model.isValid()) {
+        // }
     }
 });
 

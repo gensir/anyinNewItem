@@ -130,7 +130,7 @@ var step2 = Backbone.View.extend({
 		if($('.countCode').val().length == 6) {
 			var code=$(".countCode").val();
 			var phone=$(".countPhone").val();
-			if(code="000000"){
+			if(code=="000000"){
 				flag=1;
 				$(".codeErrTip").html("请求成功").css({ "color": "#08c34e" });
 			}else{
