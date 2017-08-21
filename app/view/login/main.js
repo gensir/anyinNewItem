@@ -58,11 +58,11 @@ var main = Backbone.View.extend({
             "oid":ukeys.GetOid(selectedUkey),
             "enterpriseCode":ukeys.GetenterpriseCode(selectedUkey)
         }
-
-        //console.log(JSON.stringify(data))
+        console.log(JSON.stringify(data))
         service.userlogin(data).done(function (data) {
             if (!data.msg && data.code != 0) {
-                $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误")
+                $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
+                return
             }
             if (data.code == 0) {
                 $.verify("passwd", "#passwd");
@@ -128,7 +128,8 @@ var main = Backbone.View.extend({
         }
         service.userlogin(data).done(function (data) {
             if (!data.msg && data.code != 0) {
-                $.verify("phone", "#userName", "您输入的用户名或密码错误")
+                $.verify("phone", "#userName", "您输入的用户名或密码错误");
+                return
             }
             if (data.code == 0) {
                 $.cookie('loginadmin', JSON.stringify(data.data))
