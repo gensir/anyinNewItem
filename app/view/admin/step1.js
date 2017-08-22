@@ -8,6 +8,7 @@ var step1 = Backbone.View.extend({
 	events: {
 		'click #goStep2': 'goStep2',
 		'click .sealStyle span': 'choice',
+		'click .ODC span': 'choice1',
 		'change input:radio':'islegal',
 	},
 	render: function(query) {
@@ -138,6 +139,14 @@ var step1 = Backbone.View.extend({
 			sealstyle.push(count);
 		}
 	},
+	choice1:function(event){
+		var ele = event.target
+		if($(ele).hasClass('choice')) {
+			$(ele).removeClass('choice');
+		} else {
+			$(ele).addClass('choice');
+		}
+	},
 	islegal:function(){
 		var isLegalVal=$('input:radio:checked').val();
 		(isLegalVal==0)?$(".islegal").show():$(".islegal").hide();
@@ -169,15 +178,29 @@ var step1 = Backbone.View.extend({
 		sealList=[];
 		var isLegal = $('input:radio:checked').val();
 //		localStorage.isLegal=isLegal;
-		if($('.sealStyle span').hasClass('choice')) {	
-			for(var i=0;i<sealstyle.length;i++){
-				for(var j=0;j<result.availableEsealList.length;j++){
-					if(sealstyle[i]==result.availableEsealList[j].esealName){
-						sealList.push(result.availableEsealList[j]);
+		if($('.sealStyle span').hasClass('choice')||$('.ODC span').hasClass('choice')) {	
+			if($('.sealStyle span').hasClass('choice')){
+				for(var i=0;i<sealstyle.length;i++){
+					for(var j=0;j<result.availableEsealList.length;j++){
+						if(sealstyle[i]==result.availableEsealList[j].esealName){
+							sealList.push(result.availableEsealList[j]);
+						}
 					}
 				}
+				result.availableEsealList=sealList;
 			}
-			result.availableEsealList=sealList;
+			if($('.ODC span').hasClass('choice')){
+				var obj={
+					"esealCode":"",
+					"esealName":"",
+					"esealFullName":"",
+					"firmId":"",
+					"esealStatus":"",
+					"keyType":1
+				};
+				result.availableEsealList.push(obj);
+				result.encrytPublicKey="";
+			}
 //			不是经办人
 			if(isLegal==0){
 				result.isDelUnpayed=1;

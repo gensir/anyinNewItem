@@ -27,7 +27,11 @@
 					<td class="container2"></td>
 				</tr>
 			</table>
-			<div class="mainTitle countMessage">可办理的电子印章</div>
+			<div class="ODC mainTitle countMessage">ODC电子云公章处理</div>
+			<div class="ODC">
+				<span class="finance"></span>
+			</div>
+			<div class="mainTitle countMessage">安印电子公章办理</div>
 			<div class="sealStyle">
 				{{each data.availableEsealList value i}}
 				<span data-id= "{{value.esealName}}" class="finance">{{value.esealFullName}}</span>
@@ -122,11 +126,15 @@
 		vertical-align: middle !important;
 	}
 	
-	.step1 .sealStyle {
+	.step1 .sealStyle,
+	.step1 .ODC {
 		margin: 30px 0 30px 20px;
 	}
-	
-	.step1 .sealStyle span {
+	.step1 .ODC{
+		display: none;
+	}
+	.step1 .sealStyle span ,
+	.step1 .ODC span{
 		width: 115px;
 		height: 40px;
 		display: inline-block;
@@ -138,7 +146,8 @@
 		cursor: pointer;
 	}
 	
-	.step1 .sealStyle span.choice {
+	.step1 .sealStyle span.choice,
+	.step1 .ODC span.choice {
 		color: #00acff;
 		border: 1px solid #00acff;
 		background: url(../../../../asset/img/1111.png) no-repeat right bottom;
