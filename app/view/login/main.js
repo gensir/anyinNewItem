@@ -102,7 +102,7 @@ var main = Backbone.View.extend({
             }
 
                 $.cookie('loginadmin', JSON.stringify(data.data))
-                //window.open("index.html", "_self");
+                window.open("index.html", "_self");
             } else if (data.code == 4) {
                 $.verify("passwd", "#passwd", "后台返回error");
             } else if (data.code == "500") {

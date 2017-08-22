@@ -65,6 +65,12 @@ var ukeys = {
             return this.data.ukey.GetCertData(1)
         }
     },
+    dCertPublicKey(selectukeyInd) {//数字加密证书公钥；
+        if (selectukeyInd !== undefined && this.issupport()) {
+            this.data.ukey.SetCertIndex(selectukeyInd);
+            return this.data.ukey.GetCertInfo(9);
+        }
+    },
     getSignatureCert(selectukeyInd) {//签名证书
         if (selectukeyInd !== undefined && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
