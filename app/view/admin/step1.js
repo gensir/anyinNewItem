@@ -14,7 +14,11 @@ var step1 = Backbone.View.extend({
 	render: function(query) {
 		that=this;
 		enterpriseCode=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
-//		enterpriseCode=localStorage.firmId;
+//		enterpriseCode=localStorage.firmId||440311285096;
+        var isODC=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.certificateType;
+        if(isODC==1){
+        	$(".ODChide").show();
+        }
 		this.getstep1(enterpriseCode);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
@@ -191,15 +195,15 @@ var step1 = Backbone.View.extend({
 			}
 			if($('.ODC span').hasClass('choice')){
 				var obj={
-					"esealCode":"",
-					"esealName":"",
-					"esealFullName":"",
-					"firmId":"",
-					"esealStatus":"",
+					"esealCode":"",             //印章编码
+					"esealName":"",             //电子印章类型：1行政，2财务，3发票，4合同，5法人，6私人，7杂章，8报关，9业务章
+					"esealFullName":"",         //电子印章全名
+					"firmId":"",                //非必传
+					"esealStatus":"",           //如果没有就传1,1代表正常
 					"keyType":1
 				};
 				result.availableEsealList.push(obj);
-				result.encrytPublicKey="";
+				result.encrytPublicKey="";      //必传，ODC类型的印章的加密公钥
 			}
 //			不是经办人
 			if(isLegal==0){
