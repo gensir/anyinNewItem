@@ -50,11 +50,11 @@ var main = Backbone.View.extend({
         var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey))
         var data = {
             "loginType": 2,
-            "esealCode": ukeys.esealCode($("#pinwd").val(), selectedUkey),
+            "esealCode": checkResult==true?ukeys.esealCode($("#pinwd").val(), selectedUkey):"",
             "codeError": checkResult ? 0 : 1,
             "entryptCert": ukeys.dCertificate(selectedUkey),
-            "signature": ukeys.dSignature(selectedUkey, randomNum),
             "randomNum": randomNum,
+            "signature": checkResult==true?ukeys.dSignature(selectedUkey, randomNum):"",
             "oid":ukeys.GetOid(selectedUkey),
             "enterpriseCode":ukeys.GetenterpriseCode(selectedUkey)
         }
