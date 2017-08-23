@@ -28,15 +28,15 @@
                                 <dt>文档信息 {{if value.operateStatus == 0}}<span class="state">正常</span>{{/if}} {{if value.operateStatus == 1}}<span class="state no">异常</span>{{/if}}</dt>
                                 <dd class="hide-text">文档名称：<span>{{value.signetDocument}}</span></dd>
                                 <dd>签章时间：<span>{{value.signTime}}</span></dd>
-                                <dd>文档大小：<span>{{value.signetDocumentSize}}</span></dd>
-                                <dd>文档哈希值：<span>{{value.signetDocumentSize}}</span></dd>
-                                <dd>签章类型：<span>{{value.signType}}</span></dd>
+                                <dd>文档大小：<span>{{value.signetDocumentSize}}M</span></dd>
+                                <dd>文档哈希值：<span>{{value.signetDocumentHash}}</span></dd>
+                                <dd>签章类型：<span>{{value.signType==1?"单页":value.signType==2?"批量":value.signType==3?"骑缝":value.signType==4?"手写":value.signType}}</span></dd>
                             </dl>
                             <dl class="signet">
                                 <dt>印章信息</dt>
                                 <dd>印章名称：<span>{{value.esealFullName}}</span></dd>
                                 <dd>印章编码：<span>{{value.esealCode}}</span></dd>
-                                <dd>制作日期：<span>{{value.createTime}}</span></dd>
+                                <dd>制作日期：<span>{{value.esealCreateTime}}</span></dd>
                                 <dd>生效期：<span>{{value.validStart}}</span></dd>
                                 <dd>失效期：<span>{{value.validEnd}}</span></dd>
                             </dl>
@@ -48,11 +48,11 @@
                             <dl class="computer">
                                 <dt>设备信息</dt>
                                 <dd>设备IP：<span>{{value.ip}}</span></dd>
-                                <dd>MAC地址：<span>{{value.ip}}</span></dd>
-                                <dd class="help">IP来源：<span>{{value.ip}}</span></dd>
-                                <dd>设备名称：<span>{{value.ip}}</span></dd>
+                                <dd>MAC地址：<span>{{value.mac}}</span></dd>
+                                <dd class="help">IP来源：<span>{{value.ipLocation}}</span></dd>
+                                <dd>设备名称：<span>{{value.clientOsName}}</span></dd>
                                 <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
-                                <dd class="help">签章应用：<span>{{value.clientOsEnv}}</span></dd>
+                                <dd class="help">签章应用：<span>{{value.clientDocEnv}}</span></dd>
                             </dl>
                         </div>
                     </li>

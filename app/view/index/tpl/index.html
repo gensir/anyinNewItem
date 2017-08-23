@@ -27,7 +27,7 @@
                 {{/if}}
                 {{each esealdata as value i}}
                 <li>
-                    <span class="name" title="{{value.esealName}}">{{value.esealName}}</span>
+                    <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date">{{value.validEnd}}</span>
                     <span class="operate"><a href="admin.html#renew">立即续费></a></span>
                 </li>
@@ -60,13 +60,13 @@
                     <div class="file">
                         <div class="date">{{value.signTime}}</div>
                         <p class="gsname">{{value.signetDocument}}</p>
-                        <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType}}</span></p>
+                        <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType==1?"单页":value.signType==2?"批量":value.signType==3?"骑缝":value.signType==4?"手写":value.signType}}</span></p>
                     </div>
                     <div class="details">
                         <dl class="signet">
                             <dt>操作信息</dt>
                             <dd>操作时间：<span>{{value.signTime}}</span></dd>
-                            <dd>签章应用：<span>{{value.clientAppVersion}}</span></dd>
+                            <dd>签章应用：<span>{{value.clientDocEnv}}</span></dd>
                             <dd>操作状态：{{if value.Status == 0}}<span style="color:#08c34e">成功</span>{{/if}}
                                 {{if value.Status == 1}}<span style="color:#f00">失败</span>{{/if}}</dd>
                         </dl>

@@ -153,6 +153,8 @@ var step1 = Backbone.View.extend({
                 localStorage.firmId = firmId;
                 localStorage.regStep = "#step2";
                 window.open('#step2', '_self')
+            } else {
+                bootbox.alert(res.msg);
             }
         })
     },
