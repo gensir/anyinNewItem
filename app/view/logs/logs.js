@@ -98,7 +98,7 @@ var logs = Backbone.View.extend({
     //数据搜索
     logSearchs(data, pageNum, pageSize) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 5;
+        pageSize = pageSize || 10;
         if ($("#date2").val() !== "" & $("#date2").val() < $("#date1").val()) {
             alert("结束日期不能少于开始日期");
             $("#date2").focus();
@@ -150,7 +150,7 @@ var logs = Backbone.View.extend({
     //获取数据
     logslist(data, pageNum, pageSize) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 5;
+        pageSize = pageSize || 10;
         var data = {
             "esealCode": esealCode || "22222222",
             "enterpriseCode": enterpriseCode,

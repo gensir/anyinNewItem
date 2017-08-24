@@ -467,7 +467,7 @@ var list = Backbone.View.extend({
     },
     listPage(pageNum, pageSize) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 5;
+        pageSize = pageSize || 10;
         var querydata = { "firmId": this.firmId || "nihao" }
         service.getEsealList(pageNum, pageSize, querydata).done(res => {
             var tempObj;
@@ -499,7 +499,7 @@ var list = Backbone.View.extend({
     licenselist(pageNum, pageSize) {
         var data = {
             pageNum: pageNum || 1,
-            pageSize: pageSize || 5,
+            pageSize: pageSize || 10,
             enterpriseCode: this.enterpriseCode || "e440301000412"
         }
         service.licenselist(data.pageNum, data.pageSize, data).done(res => {

@@ -42,7 +42,7 @@ var config = {
                 target: proxy.test, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
-            },
+            }
         }
     },
     pro: {

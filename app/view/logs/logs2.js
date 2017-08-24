@@ -17,7 +17,7 @@ var logs2 = Backbone.View.extend({
     //获取数据
     logslist(pageNum, pageSize, data) {
         pageNum = pageNum || 1;
-        pageSize = pageSize || 5;
+        pageSize = pageSize || 10;
         var data = {
             "enterpriseCode": enterpriseCode || "11"
         }
