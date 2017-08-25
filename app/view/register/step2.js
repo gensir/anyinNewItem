@@ -120,7 +120,8 @@ var step2 = Backbone.View.extend({
             };
             service.registerUser(data).done(res => {
                 if (res.code == 0) {
-                    if (res.pointCode == 100) {
+                    if (res.data == 100) {
+                        localStorage.regStep = "#step4";
                         window.open('register.html#step4', '_self')
                     } else {
                         localStorage.regStep = "#step3";
