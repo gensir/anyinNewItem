@@ -18,6 +18,7 @@ var step2 = Backbone.View.extend({
     render: function (query) {
         that = this;
         firmId = localStorage.firmId || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
+        pointCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
         //      firmId = "440311062534"
         if (!firmId) {
             return;
@@ -114,12 +115,17 @@ var step2 = Backbone.View.extend({
                 "password": passwd,
                 "enterpriseCode": enterpriseCode,
                 "username": username,
-                "firmId": id
+                "firmId": id,
+                "pointCode":pointCode
             };
             service.registerUser(data).done(res => {
                 if (res.code == 0) {
-                    localStorage.regStep = "#step3";
-                    window.open('register.html#step3', '_self')
+                    if (res.pointCode == 100) {
+                        window.open('register.html#step4', '_self')
+                    } else {
+                        localStorage.regStep = "#step3";
+                        window.open('register.html#step3', '_self')
+                    }
                 } else {
                     bootbox.alert(res.msg);
                 }
@@ -188,7 +194,8 @@ var step2 = Backbone.View.extend({
     },
     getcompany: function () {
         var data = {
-            "firmId": firmId
+            "firmId": firmId,
+            "pointCode": pointCode
         }
         service.toRegister(data).done(function (data) {
             if (data.data == null) {
