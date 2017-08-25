@@ -1,6 +1,6 @@
 var tpl = require('./tpl/step2.html');
 var service = require('../../server/service').default;
-var IDNo, enterpriseCode, result, that, username, id, firmId;
+var IDNo, enterpriseCode, result, that, username, id, firmId ,pointCode;
 var flag = 0;
 var step2 = Backbone.View.extend({
     el: '.container',
