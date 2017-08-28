@@ -1,6 +1,6 @@
 var tpl = require('./tpl/step2.html');
 var service = require('../../server/service').default;
-var IDNo, enterpriseCode, result, that, username, id, firmId ,pointCode;
+var IDNo, enterpriseCode, result, that, username, id, firmId, pointCode;
 var flag = 0;
 var step2 = Backbone.View.extend({
     el: '.container',
@@ -122,7 +122,7 @@ var step2 = Backbone.View.extend({
                 if (res.code == 0) {
                     if (res.data == 100) {
                         localStorage.regStep = "#step4";
-                        window.open('register.html#step4', '_self')
+                        window.open('register.html#step5', '_self')
                     } else {
                         localStorage.regStep = "#step3";
                         window.open('register.html#step3', '_self')

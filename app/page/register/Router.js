@@ -4,7 +4,8 @@ var Router = Backbone.Router.extend({
         'step1': 'step1',
         'step2': 'step2',
         'step3': 'step3',
-        'step4': 'step4'
+        'step4': 'step4',
+        'step5': 'step5'
     },
     initialize: function () {
         S.main = null;
@@ -85,6 +86,13 @@ var Router = Backbone.Router.extend({
             var View = require('../../view/register/step4')
             me.startRout(View, { query: query });
         }, 'step4')
+    },
+    step5: function (query) {
+        var me = this;
+        require.ensure([], function (require) {
+            var View = require('../../view/register/step5')
+            me.startRout(View, { query: query });
+        }, 'step5')
     }
 });
 
