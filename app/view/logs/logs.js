@@ -152,7 +152,7 @@ var logs = Backbone.View.extend({
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
         var data = {
-            "esealCode": esealCode || "22222222",
+            "esealCode": esealCode,
             "enterpriseCode": enterpriseCode,
             "PKSC7": PKSC7,
         };
