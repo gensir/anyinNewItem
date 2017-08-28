@@ -88,7 +88,8 @@ var main = Backbone.View.extend({
                                 numInd++;
                                 if (numInd == 1) {
                                     numInd = 0
-                                    localStorage.firmId = data.data.firmId
+                                    localStorage.firmId = data.data.firmId;
+                                    localStorage.pointCode = data.data.pointCode;
                                     window.open('register.html#step2', '_self');
                                 } else {
                                     this.modal('hide');

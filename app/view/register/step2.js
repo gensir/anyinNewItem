@@ -18,7 +18,7 @@ var step2 = Backbone.View.extend({
     render: function (query) {
         that = this;
         firmId = localStorage.firmId || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
-        pointCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
+        pointCode = localStorage.pointCode || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
         //      firmId = "440311062534"
         if (!firmId) {
             return;
@@ -121,7 +121,7 @@ var step2 = Backbone.View.extend({
             service.registerUser(data).done(res => {
                 if (res.code == 0) {
                     if (res.data == 100) {
-                        localStorage.regStep = "#step4";
+                        localStorage.clear();
                         window.open('register.html#step5', '_self')
                     } else {
                         localStorage.regStep = "#step3";
