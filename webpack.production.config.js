@@ -68,7 +68,6 @@ var config = {
         new webpack.ProvidePlugin({
             Backbone: 'backbone',
             _: 'underscore'
-            //'backbone.wreqr': 'backbone.wreqr'
         }),
         new ExtractTextPlugin('[name].[chunkhash].css'),
         new AssetsPlugin({

@@ -6,7 +6,7 @@ var path = require('path'),
     HtmlWebpackPlugin = require('html-webpack-plugin')//add
 var config = {
     entry: {
-         vendor: ['backbone', 'underscore','backbone.wreqr']
+         vendor: ['backbone', 'underscore']
     },
     output: {
         path: path.join(__dirname, '/dist/'),
@@ -60,8 +60,7 @@ var config = {
         }),
         new webpack.ProvidePlugin({
             Backbone: 'backbone',
-            _: 'underscore',
-            'backbone.wreqr': 'backbone.wreqr'
+            _: 'underscore'
         }),
         new ExtractTextPlugin('[name].css')
     ]
@@ -91,7 +90,7 @@ function getEntry(globPath) {
                     basename = path.basename(entry, path.extname(entry));
                     config.entry[basename] = [entry];
                 };
-                //config.entry["vendor"] = ['backbone', 'underscore', 'backbone.wreqr']
+                //config.entry["vendor"] = ['backbone', 'underscore']
             }
         }
 }

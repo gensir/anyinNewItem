@@ -21,7 +21,7 @@
         "build": "webpack --config webpack.production.config.js",
         "dev": "webpack-dev-server --inline --hot --host 0.0.0.0 --progress --colors --devtool eval",
         "pro": "node server",
-        "postbuild": "grunt postbuild",
+
         "start": "node ./mockServer/bin/www"
     },
     "dependencies": {
@@ -39,7 +39,6 @@
         "babel-plugin-transform-es3-property-literals": "^6.22.0",
         "babel-polyfill": "^6.23.0",
         "babel-preset-latest": "^6.24.1",
-        "backbone.wreqr": "^1.4.0",
         "bootstrap": "^3.3.7",
         "clean-webpack-plugin": "^0.1.16",
         "copy-webpack-plugin": "^4.0.1",
