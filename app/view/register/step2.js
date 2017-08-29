@@ -104,6 +104,19 @@ var step2 = Backbone.View.extend({
             $(".legalIDErrTip").html("法人身份证号不正确").css({ "color": "red" });
             return;
         }
+        var mobile = $(".countPhone").val();
+        var passwd = $(".passwd").val();        
+        var code = $(".countCode").val();
+        
+//      service.checkSmsCode(code,mobile).done(function(data){
+//      	if(data.code==0){
+//      		
+//      	}else{
+//      		$(".codeErrTip").html(data.msg).css({ "color": "red" });
+//      		return;
+//      	}
+//      });
+        this.checkCode();
         this.model.set({ "clickEle": $(event.target).data('id') })
         this.model.isValid()
         if (!this.model.isValid()) {
@@ -148,6 +161,7 @@ var step2 = Backbone.View.extend({
                     } else {
                         flag = 2;
                         $(".codeErrTip").html(data.msg).css({ "color": "red" });
+                        return;
                     }
                 })
             }
