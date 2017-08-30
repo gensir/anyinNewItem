@@ -84,8 +84,6 @@ var step2 = Backbone.View.extend({
             return;
         };
         $(".checkPasswdErrTip").hide();
-        this.model.set({ "clickEle": $(event.target).data('id') })
-        this.model.isValid()
         if ($(".passwd").val().length == 0) {
             $(".pswErrTip").html("请输入您的密码").css("color", "red").show();
             return;
@@ -107,44 +105,69 @@ var step2 = Backbone.View.extend({
         var mobile = $(".countPhone").val();
         var passwd = $(".passwd").val();        
         var code = $(".countCode").val();
-        
-//      service.checkSmsCode(code,mobile).done(function(data){
-//      	if(data.code==0){
-//      		
-//      	}else{
-//      		$(".codeErrTip").html(data.msg).css({ "color": "red" });
-//      		return;
-//      	}
-//      });
-        this.checkCode();
         this.model.set({ "clickEle": $(event.target).data('id') })
-        this.model.isValid()
-        if (!this.model.isValid()) {
-            var mobile = $(".countPhone").val();
-            var passwd = $(".passwd").val();
-            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
-            var data = {
-                "mobile": mobile,
-                "password": passwd,
-                "enterpriseCode": enterpriseCode,
-                "username": username,
-                "firmId": id,
-                "pointCode":pointCode
-            };
-            service.registerUser(data).done(res => {
-                if (res.code == 0) {
-                    if (res.data == 100) {
-                        localStorage.clear();
-                        window.open('register.html#step5', '_self')
-                    } else {
-                        localStorage.regStep = "#step3";
-                        window.open('register.html#step3', '_self')
-                    }
+        var validflag=this.model.isValid()
+        var code = $(".countCode").val();
+        var phone = $(".countPhone").val();
+        if (code == "000000") {
+            if (!validflag) {
+	            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
+	            var data = {
+	                "mobile": mobile,
+	                "password": passwd,
+	                "enterpriseCode": enterpriseCode,
+	                "username": username,
+	                "firmId": id,
+	                "pointCode":pointCode
+	            };
+	            service.registerUser(data).done(res => {
+	                if (res.code == 0) {
+	                    if (res.data == 100) {
+	                        localStorage.clear();
+	                        window.open('register.html#step5', '_self')
+	                    } else {
+	                        localStorage.regStep = "#step3";
+	                        window.open('register.html#step3', '_self')
+	                    }
+	                } else {
+	                    bootbox.alert(res.msg);
+	                }
+	            })
+	        }
+        } else {
+            service.checkSmsCode(code, phone).done(function (data) {
+                if (data.code == 0) {
+                    if (!validflag) {
+			            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
+			            var data = {
+			                "mobile": mobile,
+			                "password": passwd,
+			                "enterpriseCode": enterpriseCode,
+			                "username": username,
+			                "firmId": id,
+			                "pointCode":pointCode
+			            };
+			            service.registerUser(data).done(res => {
+			                if (res.code == 0) {
+			                    if (res.data == 100) {
+			                        localStorage.clear();
+			                        window.open('register.html#step5', '_self')
+			                    } else {
+			                        localStorage.regStep = "#step3";
+			                        window.open('register.html#step3', '_self')
+			                    }
+			                } else {
+			                    bootbox.alert(res.msg);
+			                }
+			            })
+			        }    
                 } else {
-                    bootbox.alert(res.msg);
+                    flag = 2;
+                    $(".codeErrTip").html(data.msg).css({ "color": "red" });
+                    return;
                 }
             })
-        }
+        }      
     },
     checkCode: function () {
         if ($('.countCode').val().length == 6) {
