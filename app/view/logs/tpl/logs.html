@@ -17,7 +17,7 @@
                             <span class="text col1">{{value.signTime}}</span>
                             <span class="text col2 hide-text" title="{{value.signetDocument}}">{{value.signetDocument}}</span>
                             <span class="text col3 hide-text">{{value.esealFullName}}</span>
-                            <span class="text col4">{{value.signType}}</span>
+                            <span class="text col4">{{value.signType==1?"单页":value.signType==2?"批量":value.signType==3?"骑缝":value.signType==4?"手写":value.signType}}</span>
                             <span class="text col5">
                                 {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}}
                                 {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
