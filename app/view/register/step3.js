@@ -101,7 +101,8 @@ var step3 = Backbone.View.extend({
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
 						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
-    						$("#photo" + num).css("background", "url(" + data + ") no-repeat").css("background-size","cover");
+    						$("#photo" + num).css("background", "url(" + data + ") no-repeat").css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+data+", sizingMethod='scale')",
+        "-ms-filter":" progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+data+", sizingMethod='scale')"});
     						$(".reset" + num).show();
 							$("#file" + num).height(24);
 							imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
@@ -160,7 +161,7 @@ var step3 = Backbone.View.extend({
 						$(eve.target).parent().removeClass("form");
 						var navigatorName = "Microsoft Internet Explorer"; 
 						if(navigator.appName == navigatorName){
-						    document.getElementsByClassName("formPub")[0].removeNode(true);
+							$(".formPub").remove();
 						}else{
 						    $(".formPub").remove();
 						}
