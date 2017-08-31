@@ -13,7 +13,8 @@ var step2 = Backbone.View.extend({
         'keyup .countCode': 'checkCode',
         'keyup .passwd': 'passwd',
         'keyup .countPhone': 'inputSapceTrim',
-        'onblur .checkPasswd': 'onBlur'
+        'onblur .checkPasswd': 'onBlur',
+        'keyup .countPhone':'changePhone'
     },
     render: function (query) {
         that = this;
@@ -163,7 +164,7 @@ var step2 = Backbone.View.extend({
 			        }    
                 } else {
                     flag = 2;
-                    $(".codeErrTip").html(data.msg).css({ "color": "red" });
+                    $(".codeErrTip").html(data.msg).css({ "color": "red" }).show();
                     return;
                 }
             })
@@ -180,10 +181,10 @@ var step2 = Backbone.View.extend({
                 service.checkSmsCode(code, phone).done(function (data) {
                     if (data.code == 0) {
                         flag = 1;
-                        $(".codeErrTip").html(data.msg).css({ "color": "#08c34e" });
+                        $(".codeErrTip").html(data.msg).css({ "color": "#08c34e" }).show();
                     } else {
                         flag = 2;
-                        $(".codeErrTip").html(data.msg).css({ "color": "red" });
+                        $(".codeErrTip").html(data.msg).css({ "color": "red" }).show();
                         return;
                     }
                 })
@@ -264,6 +265,10 @@ var step2 = Backbone.View.extend({
                 bootbox.alert(data.msg);
             }
         })
+    },
+    changePhone:function(){
+    	$(".codeErrTip").hide();
+    	flag=1;
     }
 });
 module.exports = step2;
