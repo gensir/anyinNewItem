@@ -47,6 +47,11 @@ var ukeys = {
             return this.data.ukeyName
         }
     },
+    GetCertCount() {
+        if (this.issupport()) {
+            return this.data.ukey.GetCertCount()
+        }
+    },
     PIN(val, selectukeyInd) {// 验证PIN密码
         if (val && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);

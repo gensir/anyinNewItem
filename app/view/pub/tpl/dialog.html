@@ -34,7 +34,7 @@ msg6 有input的单行；
 
     <div class="lossEseal">
         <div class="title">预挂失电子印章提示</div>
-        <div class="msg1">您选择预挂失“电子印章样品专用章（01）”</br>该电子印章相关功能将暂停使用</div>
+        <div class="msg1">您选择预挂失<span></span></br>该电子印章相关功能将暂停使用</div>
         <div class="msg2">
             <div class="input-group">
                 <input type="text" class="form-control checkSmsCode" placeholder="请输入验证码" aria-describedby="basic-addon1">
@@ -47,9 +47,9 @@ msg6 有input的单行；
 
     <div class="unfreezeEseal">
         <div class="title">解冻电子印章提示</div>
-        <div class="msg1">您选择解冻“电子印章样品专用章（01）”</br>请插入相对应的电子印章后点击“继续”</div>
+        <div class="msg1">您选择解冻<span></span></br>请插入相对应的电子印章后点击“继续”</div>
         <div class="msg4">正在读取UKEY,请稍后......</div>
-        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
+        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="https://yun.i-yin.net/plugins/IYINPlugin.zip">电子印章驱动程序</a></div>
         <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</a>
         </div>
         <div class="msg6">
@@ -60,7 +60,7 @@ msg6 有input的单行；
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="unfreezeCode" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" id="unfreezeCode" maxlength="16" minlength="6" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="unfreezeCode-error"></p>
@@ -103,9 +103,9 @@ msg6 有input的单行；
             </p>
 
         </div>
-        <div class="msg1">您选择注销“电子印章样品专用章（01）”</br>请插入有权限的电子印章后点击“继续”</div>
+        <div class="msg1">您选择注销<span></span></br>请插入有权限的电子印章后点击“继续”</div>
         <div class="msg4">正在读取UKEY,请稍后......</div>
-        <div class="msg5">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
+        <div class="msg5">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="https://yun.i-yin.net/plugins/IYINPlugin.zip">电子印章驱动程序</a></div>
         <div class="msg5">您插入的UKEY与所选UKEY不符，请重新插入</a>
         </div>
         <div class="msg6">
@@ -116,7 +116,7 @@ msg6 有input的单行；
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" class="form-control" maxlength="16" minlength="6" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p>PIN码不正确，请重试</p>
@@ -135,9 +135,9 @@ msg6 有input的单行；
     <div class="closeAllow">
         <div class="title">关闭登录权限提示</div>
         <div class="msg1 laseEseal">最后一枚电子印章的登录权限不允许关闭</div>
-        <div class="msg1 closeEseal">您选择关闭“电子印章样品专用章（01）”的登录权限</br>请插入相对应的电子印章后点击“继续”</div>
+        <div class="msg1 closeEseal">您选择关闭<span></span>的登录权限</br>请插入相对应的电子印章后点击“继续”</div>
         <div class="msg4">正在读取UKEY,请稍后......</div>
-        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并安装 <a href="#">电子印章驱动程序</a></div>
+        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并安装 <a href="https://yun.i-yin.net/plugins/IYINPlugin.zip">电子印章驱动程序</a></div>
         <div class="msg5 discrepancy">您插入的UKEY与所选UKEY不符，请重新插入</a>
         </div>
         <div class="msg6">
@@ -148,7 +148,7 @@ msg6 有input的单行；
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" class="form-control" id="closeCode" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" class="form-control" id="closeCode" maxlength="16" minlength="6" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="closeCode-error"></p>
@@ -160,9 +160,9 @@ msg6 有input的单行；
     <div class="openAllow">
         <div class="title">开启登录权限提示</div>
         <!--<div class="msg1">最后一枚电子印章的登录权限不允许关闭</div>-->
-        <div class="msg1">您选择开启“电子印章样品专用章（01）”的登录权限</br>请插入相对应的电子印章后点击“继续”</div>
+        <div class="msg1">您选择开启<span></span>的登录权限</br>请插入相对应的电子印章后点击“继续”</div>
         <div class="msg4">正在读取UKEY,请稍后......</div>
-        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并安装 <a href="#">电子印章驱动程序</a></div>
+        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并安装 <a href="https://yun.i-yin.net/plugins/IYINPlugin.zip">电子印章驱动程序</a></div>
         <div class="msg5 discrepancy">您插入的UKEY与所选UKEY不符，请重新插入</a>
         </div>
         <div class="msg6">
@@ -173,7 +173,7 @@ msg6 有input的单行；
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="openCode" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" id="openCode" maxlength="16" minlength="6" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="openCode-error"></p>
@@ -185,7 +185,7 @@ msg6 有input的单行；
         <div class="title">解密日志</div>
         <div class="msg1">您将解密日志</br>请插入相对应的电子印章后点击“继续”</div>
         <div class="msg4">正在读取UKEY，请稍后......</div>
-        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="#">电子印章驱动程序</a></div>
+        <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="https://yun.i-yin.net/plugins/IYINPlugin.zip">电子印章驱动程序</a></div>
         <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</div>
         <div class="msg6">
             <div class="input-group">
@@ -195,7 +195,7 @@ msg6 有input的单行；
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="unlockCode" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" id="unlockCode" maxlength="16" minlength="6" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="unlock-error"></p>

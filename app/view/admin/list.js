@@ -60,7 +60,17 @@ var list = Backbone.View.extend({
         //     this.toggleTab(event, $("#loginset"))
         // }
     },
+    getSealName(target) {
+        var _this = target.currentTarget;
+        var ind = $(_this).parents(".list").index();
+        return this.model.get("tplhtml").loginlist[ind].esealFullName;
+    },
     shut(e) {
+        // function getName() {
+        //     var _this = e.currentTarget;
+        //     var ind = $(_this).parents(".list").index();
+        //     return this.model.get("tplhtml").loginlist[ind].esealFullName;
+        // }
         if (!ukeys.issupport()) {
             return false;
         }
@@ -75,7 +85,7 @@ var list = Backbone.View.extend({
             //closeButton: false,
             className: "closeAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message: _that.licenseLast <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal")[0].outerHTML,
+            message: _that.licenseLast <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
@@ -170,7 +180,7 @@ var list = Backbone.View.extend({
             //closeButton: false,
             className: "openAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message: dialogsText.find(".msg1")[0].outerHTML,
+            message: dialogsText.find(".msg1").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
@@ -193,7 +203,7 @@ var list = Backbone.View.extend({
                             $(this).find(".bootbox-body").html(msg4);
                             $(this).find(".btn1,.btn2").hide();
                             setTimeout(function () {
-                                if (ukeys.ConnectKey()) {
+                                if (ukeys.GetCertCount() == 0) {
                                     numInd = 0;
                                     $(_this).find(".bootbox-body").html(msg3);
                                     $(_this).find(".btn1,.btn2").show();
@@ -470,7 +480,6 @@ var list = Backbone.View.extend({
         pageSize = pageSize || 10;
         var querydata = { "firmId": this.firmId || "nihao" }
         service.getEsealList(pageNum, pageSize, querydata).done(res => {
-            var tempObj;
             if (res.code != 0) {
                 var tempObj = {}
             } else {
@@ -503,7 +512,6 @@ var list = Backbone.View.extend({
             enterpriseCode: this.enterpriseCode || "e440301000412"
         }
         service.licenselist(data.pageNum, data.pageSize, data).done(res => {
-            var tempObj;
             if (res.code != 0) {
                 var tempObjs = {}
             } else {
