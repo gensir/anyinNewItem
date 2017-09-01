@@ -14,7 +14,10 @@ module.exports = function (grunt) {
                 //可以给压缩文件首行添加注释
                 banner: '/* last-uglify <%= grunt.template.today("yyyy-mm-dd") %> */\n',
                 mangle: false,
-                ie8: true
+                ie8: true,
+                compress: {
+                    drop_console: true
+                }
             },
             biuldAll: {//任务四：合并压缩a.js和b.js
                 files: {
@@ -40,5 +43,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     // 默认任务
     grunt.registerTask('default', ['uglify:biuldAll']);
-        grunt.registerTask('postbuild', ['uglify:postbuild']);
+    grunt.registerTask('postbuild', ['uglify:postbuild']);
 }
