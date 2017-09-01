@@ -34,7 +34,7 @@
 			<div class="mainTitle countMessage">安印电子公章办理</div>
 			<div class="sealStyle">
 				{{each data.availableEsealList value i}}
-				<span data-id= "{{value.esealName}}" class="finance">{{value.esealFullName}}</span>
+				<span data-id= "{{value.esealCode}}" class="finance">{{value.esealFullName}}</span>
 				{{/each}}
 			</div>
 			<div class="mainTitle countMessage">经办人信息</div>
@@ -143,6 +143,7 @@
 		border: 1px solid #dedede;
 		margin-left: 20px;
 		cursor: pointer;
+		margin-top: 20px;
 	}
 	
 	.step1 .sealStyle span.choice,

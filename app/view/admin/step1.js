@@ -1,6 +1,6 @@
 import tpl from './tpl/step1.html'
 var service = require('../../server/service').default;
-var sealstyle = [],result,enterpriseCode,that;
+var sealstyle = [],result,enterpriseCode,that,localSeal;
 var sealList=[];
 var step1 = Backbone.View.extend({
 	el: '.container',
@@ -15,6 +15,7 @@ var step1 = Backbone.View.extend({
 		that=this;
 		enterpriseCode=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 //		enterpriseCode=localStorage.firmId||440311285096;
+//		enterpriseCode=440305436959
         var isODC=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         if(isODC==2){
         	$(".ODChide").show();
@@ -159,6 +160,7 @@ var step1 = Backbone.View.extend({
 		service.getstep1(data).done(function(data) {
 			if(data.code == 0) {
 				result=data.data;
+				localSeal=result.availableEsealList;
 			} else {
 				bootbox.alert(data.msg);
 			}
@@ -185,9 +187,9 @@ var step1 = Backbone.View.extend({
 		if($('.sealStyle span').hasClass('choice')||$('.ODC span').hasClass('choice')) {	
 			if($('.sealStyle span').hasClass('choice')){
 				for(var i=0;i<sealstyle.length;i++){
-					for(var j=0;j<result.availableEsealList.length;j++){
-						if(sealstyle[i]==result.availableEsealList[j].esealName){
-							sealList.push(result.availableEsealList[j]);
+					for(var j=0;j<localSeal.length;j++){
+						if(sealstyle[i]==localSeal[j].esealCode){
+							sealList.push(localSeal[j]);
 						}
 					}
 				}
