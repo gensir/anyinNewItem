@@ -18,7 +18,7 @@
                 <div class="list">
                     <ul class="nav">
                         <li class="nav0">{{value.orderNo}}</li>
-                        <li class="nav1">{{value.payTime}}</li>
+                        <li class="nav1">{{value.createTime}}</li>
                         <li class="nav2">{{value.businessType==1?"开通":value.businessType==2?"续费":"退款"}}</li>
                         <li class="nav3">{{value.actualAmount}}</li>
                         <li class="nav4">{{value.payType==1?"支付宝":value.payType==2?"微信支付":value.payType==3?"银联支付":"ERP支付"}}</li>
@@ -31,7 +31,7 @@
                                     <p class="top f14">业务详情</p>
                                     <p>业务类型：<span>{{value.businessType==1?"开通":value.businessType==2?"续费":"退款"}}</span></p>
                                     <p>流水号：<span>{{value.orderNo}}</span></p>
-                                    <p>订单时间：<span>{{value.payTime}}</span></p>
+                                    <p>订单时间：<span>{{value.createTime}}</span></p>
                                     <p>订单状态：<span>{{value.orderStatus==1?"未付款":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已付款":value.orderStatus==5?"已完成":value.orderStatus==6?"预退款":value.orderStatus==7?"已退款":"交易关闭"}}</span></p>
                                     <p>经办人： <span>{{value.linkMan}}</span></p>
                                 </li>
