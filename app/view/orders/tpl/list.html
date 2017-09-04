@@ -21,7 +21,7 @@
                         <li class="nav1">{{value.payTime}}</li>
                         <li class="nav2">{{value.businessType==1?"开通":value.businessType==2?"续费":"退款"}}</li>
                         <li class="nav3">{{value.actualAmount}}</li>
-                        <li class="nav4">{{value.payType==1?"支付宝":value.payType==2?"微支付":value.payType==3?"银联支付":"ERP支付"}}</li>
+                        <li class="nav4">{{value.payType==1?"支付宝":value.payType==2?"微信支付":value.payType==3?"银联支付":"ERP支付"}}</li>
                         <li class="nav5">{{value.orderStatus==1?"未付款":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已付款":value.orderStatus==5?"已完成":value.orderStatus==6?"预退款":value.orderStatus==7?"已退款":"交易关闭"}}</li>
                     </ul>
                     <div class="showHide">
@@ -37,7 +37,7 @@
                                 </li>
                                 <li class="n2">
                                     <p class="f14">支付信息</p>
-                                    <p>支付方式：<span>{{value.payType==1?"支付宝":value.payType==2?"微支付":value.payType==3?"银联支付":"ERP支付"}}</span></p>
+                                    <p>支付方式：<span>{{value.payType==1?"支付宝":value.payType==2?"微信支付":value.payType==3?"银联支付":"ERP支付"}}</span></p>
                                     <p>受理门店：<span>{{value.shopName}}</span></p>
                                     <p>支付单号：<span>{{value.transactionId}}</span></p>
                                     <p>支付时间：<span>{{value.payTime}}</span></p>
