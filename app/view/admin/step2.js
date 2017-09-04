@@ -174,8 +174,20 @@ var step2 = Backbone.View.extend({
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
 						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
-    						$("#photo" + num).css("background", "url(" + data + ") no-repeat").css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+data+", sizingMethod='scale')",
+                           
+                            var userAgent = navigator.userAgent;
+                            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");  
+                            reIE.test(userAgent);  
+                            var fIEVersion = parseFloat(RegExp["$1"]);  
+                            if(fIEVersion <= 9)  { 
+                                $("#photo" + num).css("background", "url(" + data + ") no-repeat").css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+data+", sizingMethod='scale')",
         "-ms-filter":" progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+data+", sizingMethod='scale')"});
+                            }else if(fIEVersion >=10){
+                                $("#photo" + num).css("background", "url(" + data + ") no-repeat").css("background-size","163px 112px");
+                            }  
+                           
+
+    						
     						$(".reset" + num).show();
 							$("#file" + num).height(24);
 							imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
@@ -292,7 +304,8 @@ var step2 = Backbone.View.extend({
 						$(eve.target).parent().removeClass("form");
 						var navigatorName = "Microsoft Internet Explorer"; 
 						if(navigator.appName == navigatorName){
-						    document.getElementsByClassName("formPub")[0].removeNode(true);
+                            // document.getElementsByClassName("formPub")[0].removeNode(true);
+                                $(".formPub").remove();
 						}else{
 						    $(".formPub").remove();
 						}
