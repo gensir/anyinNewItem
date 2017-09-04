@@ -247,7 +247,7 @@ var step3 = Backbone.View.extend({
 						$(eve.target).parent().removeClass("form");
 						var navigatorName = "Microsoft Internet Explorer"; 
 						if(navigator.appName == navigatorName){
-						    document.getElementsByClassName("formPub")[0].removeNode(true);
+                            $(".formPub").remove();        
 						}else{
 						    $(".formPub").remove();
 						}
