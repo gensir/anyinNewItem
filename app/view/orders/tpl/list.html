@@ -43,13 +43,13 @@
                                     <p>支付时间：<span>{{value.payTime}}</span></p>
                                     <p></p>
                                 </li>
-                                <li class="n3">
+                                <li class="n3" style='display: {{value.businessType==1?"none":value.businessType==2?"block":"block"}} ;'>                                	
                                     <p class="f14">电子印章信息</p>
                                     <p>印章名：<span>{{value.esealName}}</span></p>
                                     <p>印章编号：<span>{{value.esealCode}}</span></p>
                                     <p>制作日期：<span>{{value.esealCreateTime}}</span></p>
                                     <p>印章生效期：<span>{{value.validStart}}</span></p>
-                                    <p>印章失效期：<span>{{value.validEnd}}</span></p>
+                                    <p>印章失效期：<span>{{value.validEnd}}</span></p>                                    
                                 </li>
                             </ul>
                         </div>
@@ -58,8 +58,9 @@
                                 <li class="n1">
                                     <p class="top f14">订单内容</p>
                                     {{each value.mpEsealOrderExts as value i}}
-                                    <p><span class="sealName">{{value.esealType==1?"单位印章":value.esealType==2?"个人印章":""}}</span><span class="">{{value.payAmount==null?"无数据":value.payAmount}}</span></p>
-                                    <!--p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p-->
+                                <!--<p><span class="sealName">{{value.esealType==1?"单位印章":value.esealType==2?"个人印章":""}}</span><span class="">{{value.payAmount==null?"无数据":value.payAmount}}</span></p>-->
+                                    <p><span class="sealName">{{value.esealName}}</span><span class="">{{value.payAmount==null?"无数据":value.payAmount}}</span></p>                                   
+                                   <!--p><span class="sealName">安印电子印章续费</span><span class="sealyear">2年</span><span>￥200</span></p-->
                                     {{/each}}
                                     <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">{{value.actualAmount}}</span></p>
                                 </li>
