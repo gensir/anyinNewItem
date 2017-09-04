@@ -15,6 +15,12 @@ var Router = Backbone.Router.extend({
         this.$el.empty();
     },
     startRout: function (View, queryObj, sub) {
+    	if(localStorage.regStep&&localStorage.regStep=="#step3"){
+    		setTimeout(function(){
+    			history.forward();
+    		},100)		
+    	}
+    	
         S.main && S.main.viewUnmount && S.main.viewUnmount();
         var model = require('./store/model.js');
         S.main = new View({ model: model });
@@ -24,6 +30,7 @@ var Router = Backbone.Router.extend({
             S.main.sub = sub;
         }
         S.main.render(typeof queryObj == 'undefined' ? '' : queryObj);
+        
     },
     // starSubroute: function (View, queryObj) {
     //     S.main.sub && S.main.sub.viewUnmount && S.main.sub.viewUnmount();
