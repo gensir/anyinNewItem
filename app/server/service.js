@@ -259,5 +259,9 @@ export default {
     //手机号是否存在
     mobileIsNotExist(data){
     	return this.ajaxCall({ url: domain  + basemp + "common/mobileIsNotExist", data: data });
-    }   
+    },  
+    getRenewInfo(data){
+    	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data });
+    }    
+    
 }

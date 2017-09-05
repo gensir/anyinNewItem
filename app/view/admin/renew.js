@@ -1,9 +1,19 @@
 import tpl from './tpl/renew.html'
 import payment from './tpl/payment.html'
+var service = require('../../server/service').default;
+var billType=1;
+var step4Data;
+var invoiceState;
+var serialNo;  //开发票需要用的序号
+var payOrderStatuNum=0;
+var orderNo;
+//var esealcode=window.location.hash.split("?")[1].split(/[=&]/)[1];
+
+
+
 var step4 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
-        this.render()
     },
 	events: {
 		'click .pay div': 'paystyle',
@@ -16,14 +26,16 @@ var step4 = Backbone.View.extend({
          $(".step4").append(payments.find(".gopay"));
          this.$el.append(payments.find(".paymentStyle"));
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		
+		this.renewInfo();
 	},
-	paystyle: function(event) {
-		$('.pay div').css({ 'border': '1px solid #dedede' })
-		var ele = event.target;
-		$(ele).css({ 'border': '1px solid #00acff' })
-		console.log(event.target)
-	},
-	gopay: function() {
+    paystyle: function(event) {
+        $('.pay .payway').removeClass("active")
+        var ele = event.target;
+        $(ele).addClass("active")
+        step4Data.payType = $(ele).attr("name");
+    },
+	gopay1: function() {
 		bootbox.dialog({
 			className: "errorTips",
 			title: "<div class='title'>未实名提示</div>",
@@ -61,6 +73,50 @@ var step4 = Backbone.View.extend({
             }
 		})
 	},
+	getUrlParam: function(name){
+	    var after = window.location.hash.split("?")[1];
+	    if(after)
+	    {
+	        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	        var r = after.match(reg);
+	        if(r != null)
+	        {
+	            return  decodeURIComponent(r[2]);
+	        }
+	        else
+	        {
+	            return null;
+	        }
+	    }		
+	},
+	renewInfo:function(){
+		var esealcode=this.getUrlParam('esealcode');
+		var oid=this.getUrlParam('oid') || '14154545';
+        var data = {
+			'esealcode':esealcode,
+			'oid':oid,
+        };		
+        service.getRenewInfo(esealcode, oid).done(res => {
+            var renewData;
+            if (res.code != 0) {
+                renewData = {}
+                $(".mainTitle").append("订单信息 (当前接口请求失败)");
+            } else {
+                renewData = res.data.list;
+                _this.model.get("tpl").renewData = renewData;
+                _this.$el.html(tpl(_this.model.get("tpl")));
+            }
+        });		
+		
+		
+
+	},	
+	gopay:function(){
+		alert("去支付了")
+		
+	}
+	
+
 });
 
 module.exports = step4;
