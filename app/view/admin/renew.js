@@ -132,7 +132,7 @@ var step4 = Backbone.View.extend({
                 step4Data = {
                     "payType": 2,  //默认微信支付是2
                     //"invoice":"",   
-              		'eseal':res.data[0]
+              		'eseal': res.data[0]
                 }
 				
 				$("#sumPrice_pay").text(res.data[0].totalPrice + "元")
@@ -151,16 +151,159 @@ var step4 = Backbone.View.extend({
 					step4Data.eseal=res.data[i]
 					
 				});
-				
 
             }
         });		
-		
-
-		
-		
 
 	},	
+    weixinPay:function(codeUrl){
+    	var wxQrImgSrc=service.qrCode(codeUrl);
+    	var allAmount=step4Data.actualAmount;  //orderNo
+			bootbox.dialog({
+				className: "payTips",
+				title: '<div class="title"><p>订单编号：'+orderNo+'</p></div>',
+				message: '<div class="cont"><div class="wxpay01"></div><div class="money">应付金额：￥<span>'+allAmount
+								+'</span></div><div class="clearboth"></div><div class="wx_l"><img class="ewm" src=".'+wxQrImgSrc+'"><div class="wx_l_d"></div> </div> <div class="wx_r"></div><div class="clearboth"></div></div>'
+				,
+				buttons: {
+					cancel: {
+						label: "返回订单",
+						className: "btn1"
+					}
+				}
+			}) ;
+		var that=this;	
+		setTimeout(function(){ that.payOrderStatus() } ,3000);
+
+    },
+    paymentEnter:function(resPayType){
+    	var paymentData={
+    		"orderNo":orderNo,
+    		"payType":resPayType
+    	};
+    	service.payment(paymentData).done(res => {
+    		if( res.code == 0){  //支付宝或者银联请求成功
+    			var requestUrl=res.data.requestUrl;
+    			var payDate=res.data;
+				delete payDate["requestUrl"]; 
+				if(resPayType ==1 ){
+					this.payAlertPageGo( payDate,requestUrl);		
+				}else if( resPayType ==3 ){
+					this.payAlertPageYL( payDate,requestUrl);		
+				}
+    			return;
+    		}else{
+    			console.log("支付宝或者银联请求失败！| "+res.code);
+    		}
+    	});
+    	
+    },
+    payAlertPageGo:function( payDate,requestUrl ){	
+		var temp = ""; 
+		for(var i in payDate){ 
+			temp += i+"="+payDate[i]  +"&"; 
+		} 
+		var ifrSRC=requestUrl+"?"+temp;		
+					bootbox.dialog({
+						className: "alipayAlert",
+						message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
+						buttons: {							
+						}
+					})	;			
+		$("#aliiframe").attr("src", ifrSRC );
+		var that=this;	
+		setTimeout(function(){ that.payOrderStatus() } ,3000);
+    },
+    payAlertPageYL:function( payDate,requestUrl ){    
+//  	var payDatexg="txnType="+payDate.txnType+"&frontUrl="+payDate.frontUrl+"&channelType="+payDate.channelType+
+//  								"&currencyCode="+payDate.currencyCode+
+//  								"&merId="+payDate.merId+"&txnSubType="+payDate.txnSubType+"&txnAmt="+payDate.txnAmt+"&version="+payDate.version+"&signMethod="+payDate.signMethod+
+//  								"&backUrl="+payDate.backUrl+"&certId="+payDate.certId+"&encoding="+payDate.encoding+"&bizType="+payDate.bizType+"&signature="+payDate.signature+"&orderId="+payDate.orderId+
+//  								"&accessType="+payDate.accessType+"&txnTime="+payDate.txnTime
+
+
+		var payDatexg="";
+				for(var i in payDate){
+					var payDateURI=encodeURIComponent( payDate[i] );
+					payDatexg += i+"="+payDateURI+"&"; 
+				}
+//var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
+    	service.unYlyl(payDatexg).done(res => {   		
+			this.createIframe(res);	
+    	}).fail(res=>{
+    		console.log(res);
+    	});    	
+  	},   
+    createIframe(content, addBody) {
+        $(".payment-modal-content").empty();
+        $("#payment").modal("show");
+        var iframe = document.createElement('iframe');
+        var ifr = document.getElementsByClassName('payment-modal-content')[0].appendChild(iframe);
+        var ifr_doc = ifr.contentWindow.document;
+        ifr.frameborder = '1px';
+        ifr.height = '100%';
+        ifr.width = '100%';
+        ifr.style.display = 'inline';
+        var loadjs = content;
+        if(addBody){
+            loadjs = '<html><body clss="body_iframe">' + loadjs + '</body></html>';
+        }
+        ifr_doc.open();
+        ifr_doc.write(loadjs);
+        ifr_doc.close();
+        var that=this;	
+		setTimeout(function(){ that.payOrderStatus() } ,3000);		  //弹框后开始查询订单状态
+    },    
+
+    payOrderStatus:function(){	
+    	if( payOrderStatuNum<300){  //小于300次，就发送订单状态轮询支付请求.3秒一次
+	     	service.status(orderNo).done(res => {  
+	     		console.log ( "现在是第" + payOrderStatuNum+ "次请求订单状态，当前返回的结果为 : " +res.data.orderStatus );
+	    		if(res.code == 0 ){  //订单状态查询请求成功
+	    			if( res.data.orderStatus =="SUCCESS"  ||  res.data.orderStatus =="COMPLETED"  ){
+	    				
+	    				//此处待测试！
+						if(serialNo){
+	    					this.takeOrderInvoice(serialNo);
+	    				}else{
+	    					console.log("订单支付成功，但是该订单客户不需要开发票！")	    					
+	    				}							 
+	    				console.log("支付成功了！");	    				
+	    				localStorage.removeItem("stepNum");
+	    				localStorage.removeItem("orderNo");
+						window.open('pay_ok.html', '_self');
+	    				
+	    			}else{
+	    				payOrderStatuNum++;
+						var that=this;	
+						setTimeout(function(){ that.payOrderStatus() } ,3000);
+					 
+	    			}
+	    			return;
+	    		}else{   //订单状态查询请求失败
+	    			console.log( res.msg )
+	    		}    			
+	    	});   			
+    	}else{   //大于300次，不发送订单状态轮询支付请求
+    		console.log("十五分钟内未付款成功，订单重置!");
+    	}
+    },
+    takeOrderInvoice:function(serialNo){
+    	var subData={
+    		"serialNo":serialNo 
+    	};
+    	service.orderInvoice(subData).done(res => {  
+    		if( res.code==0){
+    			console.log("开发票成功！"+res.msg );
+    			console.log(res.data);
+    			
+    		}else{
+    			console.log("由于数据原因，开发票失败！"+res.msg );
+    		}
+    	});
+    },	
+	
+
     invoiceStates: function(event) {
         if(billType == 1) {    
             if( $("#invoice_user").val() =="" ){
