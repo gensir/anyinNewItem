@@ -156,13 +156,13 @@ var step4 = Backbone.View.extend({
         });		
 
 	},	
-    weixinPay:function(codeUrl){
+    weixinPay:function(codeUrl , orderNo , orderAmount ){
     	var wxQrImgSrc=service.qrCode(codeUrl);
-    	var allAmount=step4Data.actualAmount;  //orderNo
+    	
 			bootbox.dialog({
 				className: "payTips",
 				title: '<div class="title"><p>订单编号：'+orderNo+'</p></div>',
-				message: '<div class="cont"><div class="wxpay01"></div><div class="money">应付金额：￥<span>'+allAmount
+				message: '<div class="cont"><div class="wxpay01"></div><div class="money">应付金额：￥<span>'+orderAmount
 								+'</span></div><div class="clearboth"></div><div class="wx_l"><img class="ewm" src=".'+wxQrImgSrc+'"><div class="wx_l_d"></div> </div> <div class="wx_r"></div><div class="clearboth"></div></div>'
 				,
 				buttons: {
@@ -358,11 +358,14 @@ var step4 = Backbone.View.extend({
     		if( res.code==0){
     			//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
     			var codeUrl=res.data.codeUrl;
+    			orderNo=res.data.order.orderNo;
+    			var orderAmount=res.data.order.orderAmount
+    			
     			var resPayType=step4Data.payType;
     			if( resPayType ==1 ){   //去处理支付宝的弹框
 					this.paymentEnter(resPayType);
     			}else if( resPayType ==2 ){  //去处理微信
-    				this.weixinPay(codeUrl);	
+    				this.weixinPay(codeUrl , orderNo , orderAmount );	
     			}else if( resPayType ==3 ){ //去处理银联
     				this.paymentEnter(resPayType);
     			}
