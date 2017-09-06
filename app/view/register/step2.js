@@ -128,6 +128,7 @@ var step2 = Backbone.View.extend({
 	                        window.open('register.html#step5', '_self')
 	                    } else {
 	                        localStorage.regStep = "#step3";
+	                        localStorage.removeItem("firmId");
 	                        window.open('register.html#step3', '_self')
 	                    }
 	                } else {
@@ -155,6 +156,7 @@ var step2 = Backbone.View.extend({
 			                        window.open('register.html#step5', '_self')
 			                    } else {
 			                        localStorage.regStep = "#step3";
+			                        localStorage.removeItem("firmId");
 			                        window.open('register.html#step3', '_self')
 			                    }
 			                } else {
@@ -176,7 +178,7 @@ var step2 = Backbone.View.extend({
             var phone = $(".countPhone").val();
             if (code == "000000") {
                 flag = 1;
-                $(".codeErrTip").html("请求成功").css({ "color": "#08c34e" });
+                $(".codeErrTip").html("请求成功").css({ "color": "#08c34e" }).show();
             } else {
                 service.checkSmsCode(code, phone).done(function (data) {
                     if (data.code == 0) {
