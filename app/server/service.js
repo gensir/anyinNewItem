@@ -262,6 +262,9 @@ export default {
     },  
     getRenewInfo(data){
     	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data  });
-    }    
+    },    
+    orderRenew(data){
+    	return this.ajaxCall({ url: domain  + basemp + "order/renew", data: data}, "POST");
+    }        
     
 }
