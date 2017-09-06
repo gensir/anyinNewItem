@@ -9,7 +9,7 @@ var logs = Backbone.View.extend({
     initialize() {
     },
     render: function (query) {
-        //$(".contents").empty();
+        $(".container").empty();
         this.logslist();
     },
     events: {

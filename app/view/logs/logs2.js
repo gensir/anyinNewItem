@@ -7,7 +7,8 @@ var logs2 = Backbone.View.extend({
     },
     render: function (query) {
         //this.$el.html(tpl);
-        this.logslist()
+        $(".container").empty();
+        this.logslist();
     },
     events: {
         'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
