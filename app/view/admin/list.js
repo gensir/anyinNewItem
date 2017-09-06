@@ -108,7 +108,7 @@ var list = Backbone.View.extend({
                             $(this).find(".bootbox-body").html(msg4);
                             $(this).find(".btn1,.btn2").hide();
                             setTimeout(function () {
-                                if (ukeys.ConnectKey()) {
+                                if (ukeys.GetCertCount() == 0) {
                                     numInd = 0;
                                     $(_this).find(".bootbox-body").html(msg3);
                                     $(_this).find(".btn1,.btn2").show();
