@@ -27,8 +27,8 @@
                         <ul class="nav">
                             <li class="nav1">{{value.esealFullName}}</li>
                             <li class="nav2">{{value.esealCode}}</li>
-                            <li class="nav3">{{value.esealCreateTime}}</li>
-                            <li class="nav4">{{value.validEnd}}</li>
+                            <li class="nav3">{{value.createTime}}</li>
+                            <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
                             <!-- <li class="nav5">
                                 <span class="renew">续费</span>
                                 <span class="unfreeze">解冻</span>
