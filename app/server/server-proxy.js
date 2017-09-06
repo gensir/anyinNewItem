@@ -23,8 +23,8 @@ var config = {
                 changeOrigin: true
             },        	       	
             '/mp': {
-// 	            target: proxy.lsq2, //pathRewrite: {'^/column' : '/column'},            	
-            	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
+ 	            target: proxy.lsq2, //pathRewrite: {'^/column' : '/column'},            	
+//            	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
             },

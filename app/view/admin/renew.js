@@ -1,6 +1,6 @@
+var service = require('../../server/service').default;
 import tpl from './tpl/renew.html'
 import payment from './tpl/payment.html'
-var service = require('../../server/service').default;
 var billType=1;
 var step4Data;
 var invoiceState;
@@ -90,23 +90,48 @@ var step4 = Backbone.View.extend({
 	    }		
 	},
 	renewInfo:function(){
-		var esealcode=this.getUrlParam('esealcode');
-		var oid=this.getUrlParam('oid') || '14154545';
+		var _this = this
+//		var esealCode=this.getUrlParam('esealcode');
+//     var oid=this.getUrlParam('oid')
+	
+		var esealCode='4403048020393';	
+		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
         var data = {
-			'esealcode':esealcode,
-			'oid':oid,
+			'esealCode':esealCode,
+			'oid':oid
         };		
-        service.getRenewInfo(esealcode, oid).done(res => {
+        service.getRenewInfo(data).done(res => {        	
             var renewData;
             if (res.code != 0) {
                 renewData = {}
-                $(".mainTitle").append("订单信息 (当前接口请求失败)");
-            } else {
-                renewData = res.data.list;
-                _this.model.get("tpl").renewData = renewData;
-                _this.$el.html(tpl(_this.model.get("tpl")));
+                $(".mainTitle").append("(当前接口请求失败 | "+res.msg +")");
+            } else {           	
+                renewData = res.data;
+                var cont="";
+				for( var i=0; i<res.data.length;i++){
+					cont+='<span class="time" name="'+i+'">'+res.data[i].productName+'</span>'					
+				}
+				$("#validz").append(cont);
+				$("#validz .time").eq(0).addClass("active");
+				
+				$(".priceUnitNum").text(res.data[0].price);
+				$(".date1").text(res.data[0].validStart);
+				$(".date2").text(res.data[0].validEnd);				
+				
+				$("#validz .time" ).click(function(){
+					var i=$(this).attr("name");
+					$("#validz .time" ).removeClass("active");
+					$(this).addClass("active");					
+					$(".priceUnitNum").text(res.data[i].price);
+					$(".date1").text(res.data[i].validStart);
+					$(".date2").text(res.data[i].validEnd);	
+				});
+				
+
             }
         });		
+		
+
 		
 		
 

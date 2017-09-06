@@ -261,7 +261,7 @@ export default {
     	return this.ajaxCall({ url: domain  + basemp + "common/mobileIsNotExist", data: data });
     },  
     getRenewInfo(data){
-    	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data });
+    	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data  });
     }    
     
 }
