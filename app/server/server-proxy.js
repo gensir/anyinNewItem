@@ -3,7 +3,8 @@ var proxy = {
     test: 'http://192.168.4.95:8080',
     // anyinUrl:'http://192.168.1.159:9500'
     lsq: 'http://192.168.4.69:8080',
-    lsq2: 'http://192.168.1.159:9500',
+    lsq1: 'http://192.168.4.99:8080',
+    se159: 'http://192.168.1.159:9500',
     unyl:"https://gateway.95516.com"
     
 }
@@ -24,7 +25,7 @@ var config = {
                 changeOrigin: true
             },        	       	
             '/mp': {
-// 	            target: proxy.lsq2, //pathRewrite: {'^/column' : '/column'},            	
+//	            target: proxy.lsq, //pathRewrite: {'^/column' : '/column'},            	
             	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
