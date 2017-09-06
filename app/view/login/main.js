@@ -64,7 +64,7 @@ var main = Backbone.View.extend({
                 return
             }
             if (data.code === 0) {
-                $.verify("passwd", "#passwd");
+                //$.verify("passwd", "#passwd");
                 if (data.data.pointCode == 100) {
                 var numInd = 0;
                 var dialog = bootbox.dialog({
@@ -100,6 +100,76 @@ var main = Backbone.View.extend({
                     }
                 });
                 return               
+            }else if (data.data.pointCode == 101||data.data.pointCode == 104) {
+                var numInd = 0;
+                var dialog = bootbox.dialog({
+                    backdrop: true,
+                    //closeButton: false,
+                    className: "common loss",
+                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                    message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
+                    buttons: {
+                        cancel: {
+                            label: "返回",
+                            className: "btn1",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                        confirm: {
+                            label: "继续",
+                            className: "btn2 sureLoss",
+                            callback: function (event) {
+                                numInd++;
+                                if (numInd == 1) {
+                                    numInd = 0
+                                    localStorage.firmId = data.data.firmId;
+                                    localStorage.pointCode = data.data.pointCode;
+                                    window.open('admin.html#renew', '_self');
+                                } else {
+                                    this.modal('hide');
+                                }
+                                return false;
+                            }
+                        }
+                    }
+                });
+                return  
+            }else if (data.data.pointCode == 102) {
+                var numInd = 0;
+                var dialog = bootbox.dialog({
+                    backdrop: true,
+                    //closeButton: false,
+                    className: "common loss",
+                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                    message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
+                    buttons: {
+                        cancel: {
+                            label: "返回",
+                            className: "btn1",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                        confirm: {
+                            label: "继续",
+                            className: "btn2 sureLoss",
+                            callback: function (event) {
+                                numInd++;
+                                if (numInd == 1) {
+                                    numInd = 0
+                                    localStorage.firmId = data.data.firmId;
+                                    localStorage.pointCode = data.data.pointCode;
+                                    window.open('admin.html#renew', '_self');
+                                } else {
+                                    this.modal('hide');
+                                }
+                                return false;
+                            }
+                        }
+                    }
+                });
+                return  
             }
 
                 $.cookie('loginadmin', JSON.stringify(data.data))

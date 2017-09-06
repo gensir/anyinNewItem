@@ -10,7 +10,7 @@ var verify = {
                     var text = text || _this.log[log]
                     $(ele + "-error").html(text)
                     _this.synError(ele);
-                }else{
+                } else {
                     $(ele + "-error").html("")
                 };
                 if ($(ele + "-error").html() && /#f00|rgb\(255, 0, 0\)|red/.test($(ele + "-error").css("color"))) {
@@ -55,11 +55,11 @@ var verify = {
         idcode: '请输入18位社会信用代码',
         yzmcode: '请输入4位验证码',
         Ename: '企业名称不能为空',
-        ukeytip:'请选择证书'
+        ukeytip: '请选择证书'
     },
     istrue: {
-        ukeytip:function (ele) {
-            return $(ele).find("option:selected").index()-1!=-1
+        ukeytip: function (ele) {
+            return $(ele).find("option:selected").index() - 1 != -1
         },
         phone: function (ele) {
             var reg = /^1[34578]\d{9}$/;
@@ -79,6 +79,14 @@ var verify = {
         },
         idcode: function (ele) {
             var reg = /^[0-9a-zA-Z]{18}$/;
+            return reg.test($(ele).val())
+        },
+        Organization: function (ele) {//组织机构代码
+            var reg = /^[a-zA-Z0-9]{8}[a-zA-Z0-9]$/;
+            return reg.test($(ele).val())
+        },
+        socialCredit: function (ele) {//统一社会信用代码
+            var reg = /^[A-Z0-9]{18}$/;
             return reg.test($(ele).val())
         },
         yzmcode: function (ele) {

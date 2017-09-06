@@ -21,9 +21,8 @@
                 </ul>
                 <div class="eseallist">
                     {{if data == null}}
-                     <div class="listResult">无电子印章信息</div>
-                     {{/if}}
-                    {{each data as value i}}
+                    <div class="listResult">无电子印章信息</div>
+                    {{/if}} {{each data as value i}}
                     <div class="list">
                         <ul class="nav">
                             <li class="nav1">{{value.esealFullName}}</li>
@@ -50,8 +49,14 @@
                                 <li class="n2">
                                     <p class="f14">企业信息</p>
                                     <p>企业名称：<span>{{value.enterpriseName}}</span></p>
-                                    <p>机构代码： <span>  {{value.enterpriseCode}}</span></p>
-                                    <p>统一社会信用代码：<span>5465451274112135121X</span></p>
+                                    <!-- 判断是否为组织机构代码 -->
+                                    {{if /^[a-zA-Z0-9]{8}[a-zA-Z0-9]$/.test(value.enterpriseName)}}
+                                    <p>组织机构代码： <span>  {{value.enterpriseCode}}</span></p>
+                                    {{else}}
+                                    <p>统一社会信用代码：<span>{{value.enterpriseCode}}</span></p>
+                                    {{/if}}
+
+
                                 </li>
                                 <li class="n3">
                                     <p>需要帮助？</p>
@@ -104,8 +109,7 @@
                 <div class="eseallist">
                     {{if loginlist == ""}}
                     <div class="listResult">无电子印章信息</div>
-                    {{/if}}
-                    {{each loginlist as value i}}
+                    {{/if}} {{each loginlist as value i}}
                     <div class="list">
                         <ul class="nav">
                             <li class="nav1">{{value.esealFullName}}</li>
@@ -153,16 +157,17 @@
     </div>
 </div>
 <style>
-    .accordion .eseallist,.accordion .eseallist{
-       min-height: 290px;
+    .accordion .eseallist,
+    .accordion .eseallist {
+        min-height: 290px;
     }
+
     html,
     body {
         height: 100%;
     }
-    
-    nav
-    {
+
+    nav {
         margin-right: 20px;
         text-align: right;
     }
@@ -241,6 +246,7 @@
     .accordion .nav li {
         float: left;
     }
+
     .eseallist .nav li {
         min-height: 48px;
     }
@@ -369,9 +375,11 @@
     .license .accordion .nav .open {
         cursor: pointer;
     }
-    .closeAllowbtn2{
+
+    .closeAllowbtn2 {
         display: none;
     }
+
     .listResult {
         border-radius: 4px;
         text-indent: 22px;

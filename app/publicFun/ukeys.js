@@ -7,7 +7,12 @@ var ukeys = {
             this.data.ukey = (ActiveXObject !== undefined && new ActiveXObject("IYIN_SIGNACTIVE.IYIN_SignActiveCtrl.1"));
             this.data.KeyManage = new ActiveXObject("KeyManage.ConnManage.1");
         } catch (e) {
-            this.data.isAvailableUkey = false;
+            if(ActiveXObject == undefined){
+                this.data.isAvailableUkey = false;
+            }else{
+                console.log("uninstall KeyManage")
+            }
+            
         }
     },
     data: {
@@ -27,7 +32,7 @@ var ukeys = {
     },
     issupport() {
         if (!this.data.isAvailableUkey || !this.data.ukey) {
-            this.tip("请插入ukey并在IE浏览器下使用ukey");
+            this.tip("请插入ukey并安装驱动后在IE浏览器下使用ukey");
             return false;
         }
         return true;
@@ -45,6 +50,24 @@ var ukeys = {
                 this.data.ukeyName.push(this.data.ukey.GetCertInfo(0));
             }
             return this.data.ukeyName
+        }
+    },
+    getCertSignSN(selectukeyInd) {//获取签名证书序列号
+        if (this.issupport()) {
+            this.data.ukey.SetCertIndex(selectukeyInd);
+            return this.data.ukey.GetCertInfo(10)
+        }
+    },
+    getCertEncSN(selectukeyInd) {//获取加密证书序列号
+        if (this.issupport()) {
+            this.data.ukey.SetCertIndex(selectukeyInd);
+            return this.data.ukey.GetCertInfo(11)
+        }
+    },
+    dCertPublicKey(selectukeyInd) {//数字加密证书公钥；
+        if (selectukeyInd !== undefined && this.issupport()) {
+            this.data.ukey.SetCertIndex(selectukeyInd);
+            return this.data.ukey.GetCertInfo(9);
         }
     },
     GetCertCount() {
@@ -68,12 +91,6 @@ var ukeys = {
         if (selectukeyInd !== undefined && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertData(1)
-        }
-    },
-    dCertPublicKey(selectukeyInd) {//数字加密证书公钥；
-        if (selectukeyInd !== undefined && this.issupport()) {
-            this.data.ukey.SetCertIndex(selectukeyInd);
-            return this.data.ukey.GetCertInfo(9);
         }
     },
     getSignatureCert(selectukeyInd) {//签名证书
@@ -114,13 +131,18 @@ var ukeys = {
             return this.data.ukey.GetCertInfo(4)
         }
     },
-    ConnectKey(dwKeyIndex, bandRates) {//检测ukey
-        //console.log(JSON.stringify())
-        return this.data.KeyManage.ConnectKey()
-    },
+    // ConnectKey(dwKeyIndex, bandRates) {//检测ukey
+    //     //console.log(JSON.stringify())
+    //     return this.data.KeyManage.ConnectKey()
+    // },
     SetPIN(PassWord) {
         if (this.issupport()) {
             return this.data.KeyManage.SetPIN(PassWord)
+        }
+    },
+    ChangePIN(PINType, oldPIN, newPIN) {
+        if (this.issupport()) {
+            return this.data.KeyManage.ChangePIN({ "PINType": PINType, "oldPIN": oldPIN, "newPIN": newPIN })
         }
     },
     GetKeyID(PassWord) {
