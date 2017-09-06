@@ -17,7 +17,8 @@ var step4 = Backbone.View.extend({
     },
 	events: {
 		'click .pay div': 'paystyle',
-		'click .account': 'gopay'
+		'click .account': 'gopay',
+        'click input[type="radio"]': 'taxType',		
 	},
 	render: function(query) {
         var payments = $($(payment()).prop("outerHTML"));
@@ -35,6 +36,20 @@ var step4 = Backbone.View.extend({
         $(ele).addClass("active")
         step4Data.payType = $(ele).attr("name");
     },
+    taxType: function(event) {
+        billType = event.target.value;
+        $("#taxTips").text("");
+        if(billType == 1) {
+            $(".company").hide();
+            $(".person").show();
+        } else if(billType == 2) {
+            $(".company").show();
+            $(".person").hide();
+        } else if(billType == 3) {
+            $(".company").hide();
+            $(".person").hide();
+        }
+    },    
 	gopay1: function() {
 		bootbox.dialog({
 			className: "errorTips",
@@ -114,6 +129,13 @@ var step4 = Backbone.View.extend({
 				$("#validz").append(cont);
 				$("#validz .time").eq(0).addClass("active");
 				
+                step4Data = {
+                    "payType": 2,  //默认微信支付是2
+                    //"invoice":"",   
+              		'eseal':res.data[0]
+                }
+				
+				$("#sumPrice_pay").text(res.data[0].totalPrice + "元")
 				$(".priceUnitNum").text(res.data[0].price);
 				$(".date1").text(res.data[0].validStart);
 				$(".date2").text(res.data[0].validEnd);				
@@ -125,6 +147,9 @@ var step4 = Backbone.View.extend({
 					$(".priceUnitNum").text(res.data[i].price);
 					$(".date1").text(res.data[i].validStart);
 					$(".date2").text(res.data[i].validEnd);	
+					$("#sumPrice_pay").text(res.data[i].totalPrice + "元")
+					step4Data.eseal=res.data[i]
+					
 				});
 				
 
@@ -136,10 +161,74 @@ var step4 = Backbone.View.extend({
 		
 
 	},	
-	gopay:function(){
-		alert("去支付了")
-		
-	}
+    invoiceStates: function(event) {
+        if(billType == 1) {    
+            if( $("#invoice_user").val() =="" ){
+            	invoiceState=false;
+            	$("#taxTips").text("请填写个人发票抬头！")
+            }else{
+            	var invoice1={
+            		"orderNo":orderNo,
+            		"invoiceType":0,
+            		"invoiceHeader":$("#invoice_user").val(),             		        		
+            	};
+            	step4Data.invoice=invoice1;
+            	invoiceState=true;
+            }
+        }else if(billType == 2){
+             if($("#invoice_company").val() =="" || $("#invoice_taxpayer").val() ==""  ) {
+             	invoiceState=false;
+             	$("#taxTips").text("请填写企业发票抬头，并输入15、18或20位的纳税人识别号！")
+            }else{
+            	var invoice2={
+            		"orderNo":orderNo,
+            		"invoiceType":0,
+            		"invoiceHeader":$("#invoice_company").val(),                		
+	           		"buyerTaxerNo":$("#invoice_taxpayer").val(),            		
+            	};
+            	step4Data.invoice=invoice2;            	
+            	invoiceState=true;
+            }       		
+        }else if(billType == 3){
+        	invoiceState=true;
+        }      
+        $(".taxBox input").keyup(function(){
+        	$("#taxTips").text("");
+        })
+    },
+    gopay: function() {
+        this.invoiceStates();
+        if(invoiceState== true){
+        	this.submitStep4();
+        }else{
+        	console.log("发票信息不全，不能提交订单！");
+        }
+
+    },
+    submitStep4:function(){
+    	console.log(step4Data);
+    	service.orderRenew(step4Data).done(res => {
+//  		if( res.data.invoice){
+//  			serialNo=res.data.invoice.serialNo;
+//  		}    		
+    		//alert(serialNo);
+    		if( res.code==0){
+    			//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
+    			var codeUrl=res.data.codeUrl;
+    			var resPayType=step4Data.payType;
+    			if( resPayType ==1 ){   //去处理支付宝的弹框
+					this.paymentEnter(resPayType);
+    			}else if( resPayType ==2 ){  //去处理微信
+    				this.weixinPay(codeUrl);	
+    			}else if( resPayType ==3 ){ //去处理银联
+    				this.paymentEnter(resPayType);
+    			}
+				return;
+    		}else{
+    			console.log(res.msg);
+    		}
+    	});
+    },
 	
 
 });
