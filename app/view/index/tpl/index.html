@@ -28,7 +28,7 @@
                 {{each esealdata as value i}}
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
-                    <span class="date">{{value.validEnd}}</span>
+                    <span class="date" title="{{value.validEnd}}"></span>
                     <span class="operate"><a href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a></span>
                 </li>
                 {{/each}}

@@ -135,17 +135,6 @@ var index = Backbone.View.extend({
         });
     },
 
-    datecalc() {
-        var date1 = new Date();
-        var date2 = new Date('2018-01-01');
-        var date = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
-        if (date < 0) {
-            console.log("已过期")
-        } else {
-            console.log(parseInt(date) + '天')
-            //alert(parseInt(date) + '天');
-        }
-    },
     //获取印章数据
     getEsealList(data, pageNum, pageSize) {
         var _this = this
@@ -157,13 +146,25 @@ var index = Backbone.View.extend({
         service.getEsealList(pageNum, pageSize, data).done(res => {
             var Esealobj;
             if (res.code != 0) {
-                Esealobj = {}
                 $(".xufei ul").append("<li>接口请求失败</li>");
             } else {
                 Esealobj = res.data.list;
                 _this.model.get("tpl").esealdata = Esealobj;
                 _this.$el.html(tpl(_this.model.get("tpl")));
 
+                for (var i = 0; i < Esealobj.length; i++) {
+                    var date1 = new Date(),
+                        dates = res.data.list[i].validEnd;
+                    var date2 = new Date(dates.replace(/-/g, "/"));
+                    var date = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
+                    if (date < 0) {
+                        $(".blist li .date").html("已过期");
+                    } else if (date < 30) {
+                        $(".blist li .date").html(parseInt(date) + "天");
+                    } else {
+                        $(".blist li .date").html(parseInt(date / 30) + "个月");
+                    }
+                }
             }
         });
     },
