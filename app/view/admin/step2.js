@@ -6,7 +6,7 @@ import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
 var pictureFlag=[];
-var stepResult,length;
+var stepResult,length,enterpriseCode,firmId;
 var step2 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -16,18 +16,20 @@ var step2 = Backbone.View.extend({
 		'click #goStep1': 'gostep1'
 	},
 	render: function(query) {
-		if(localStorage.stepNum!="#step2"){
-			return;
-		}
+//		if(localStorage.stepNum!="#step2"){
+//			return;
+//		}
+		enterpriseCode=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
+		firmId=JSON.parse($.cookie('loginadmin')).user.firmId;
 		this.$el.html(tpl);
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });	
 		var orderNo = localStorage.orderNo;
-		if(!orderNo){
-			return;
-		}
+//		if(!orderNo){
+//			return;
+//		}
 		service.getstep2(orderNo).done(function(data){
 			if(data.code == 0) {
 				stepResult=data.data;
@@ -72,15 +74,14 @@ var step2 = Backbone.View.extend({
 						}else if(attaches[i].certificateType=="0033"){
 							$("#file3").css({"height":"24px"});
 							$(".reset3").show();
-							$(".operate").hide();
 							pictureFlag[3]=attaches[i].filePath;
-							$("#ajaxForm4 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							$("#ajaxForm3 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 							imgModalBig('#photo4', { 'width': 500, 'src': attaches[i].filePath });
 						}else if(attaches[i].certificateType=="0045"){
 							$("#file4").css({"height":"24px"});
 							$(".reset4").show();
 							pictureFlag[4]=attaches[i].filePath;
-							$("#ajaxForm5 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+							$("#ajaxForm4 .licence").css({"background":"url("+attaches[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
 							imgModalBig('#photo5', { 'width': 500, 'src': attaches[i].filePath });
 						}
 					}
@@ -128,15 +129,12 @@ var step2 = Backbone.View.extend({
 		}
 		var randomPercent = Math.floor(Math.random() * 19 + 80);
 		var percentVal = 0;
+		var deleteData;
+		var isdelete=false;
+		var signalDate;
 		if(pictureFlag[num] != 0) {
-			var data = pictureFlag[num];
-			service.deletePhoto(data).done(function(data) {
-				if(data.code == 0) {
-					pictureFlag[num] = 0;
-				} else {
-					bootbox.alert(data.msg);
-				}
-			});
+			isdelete=true;
+			deleteData = pictureFlag[num];
 		}
 		setTimeout(function() {
 			$("#ajaxForm" + num).ajaxSubmit({
@@ -164,17 +162,20 @@ var step2 = Backbone.View.extend({
 				},
 				success: function(data) {
 					var data = JSON.parse(data);
+					var entercode = stepResult.attaches[0].enterpriseCode||enterpriseCode;
 					var obj ={
 		                "filePath": "",
 		                "certificateType": "",
-		                "orderNo": "",
-		                "isOrderAttach": 1
+		                "orderNo": stepResult.orderNo,
+		                "enterpriseCode":entercode,
+		                "firmId":firmId,
+		                "isOrderAttach": 1,
+		                "bizType":2
 		            }
 					if(data.code == 0) {
 						var data = data.data.fullUrl;
 						pictureFlag[num] = data;
-						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
-                           
+						if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){                          
                             var userAgent = navigator.userAgent;
                             var reIE = new RegExp("MSIE (\\d+\\.\\d+);");  
                             reIE.test(userAgent);  
@@ -185,9 +186,6 @@ var step2 = Backbone.View.extend({
                             }else if(fIEVersion >=10){
                                 $("#photo" + num).css("background", "url(" + data + ") no-repeat").css("background-size","163px 112px");
                             }  
-                           
-
-    						
     						$(".reset" + num).show();
 							$("#file" + num).height(24);
 							imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
@@ -216,74 +214,86 @@ var step2 = Backbone.View.extend({
 							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0002"){
 									stepResult.attaches[j].filePath=data;
+									stepResult.attaches[j].orderNo=stepResult.orderNo;
+									signalDate=stepResult.attaches[j];
 								}
 							}
 							if(length<3){
 								obj.filePath=data;
 								obj.certificateType='0002';
-								obj.orderNo=stepResult.orderNo;
-								obj.isOrderAttach=1;
-								stepResult.attaches[0]=obj;
+								signalDate=obj
 							}
 						};
 						if(num==1){
 							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0032"){
 									stepResult.attaches[j].filePath=data;
+									stepResult.attaches[j].orderNo=stepResult.orderNo;
+									signalDate=stepResult.attaches[j]
 								}
 							}
 							if(length<3){
 								obj.filePath=data;
 								obj.certificateType='0032';
-								obj.orderNo=stepResult.orderNo;
-								obj.isOrderAttach=1;
-								stepResult.attaches[1]=obj;
+								signalDate=obj;
 							}
 						};
 						if(num==2){
 							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0044"){
 									stepResult.attaches[j].filePath=data;
+									stepResult.attaches[j].orderNo=stepResult.orderNo;
+									signalDate=stepResult.attaches[j]
 								}
 							}
 							if(length<3){
 								obj.filePath=data;
 								obj.certificateType='0044';
-								obj.orderNo=stepResult.orderNo;
-								obj.isOrderAttach=1;
-								stepResult.attaches[2]=obj;
+								signalDate=obj;
 							}
 						};
 						if(num==3&&length>3){
 							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0033"){
 									stepResult.attaches[j].filePath=data;
+									stepResult.attaches[j].orderNo=stepResult.orderNo;
+									signalDate=stepResult.attaches[j]
 								}
 							}
 						}else if(num==3){
-							var obj={
-								"orderNo":stepResult.orderNo,
-								"filePath":data,
-								"certificateType":"0033",
-								"isOrderAttach":"1"
-							}
-							stepResult.attaches[3]=obj;
+							obj.filePath=data;
+							obj.certificateType="0033";	
+							signalDate=obj;
 						};
 						if(num==4&&length>3){
 							for(var j=0;j<length;j++){
 								if(stepResult.attaches[j].certificateType=="0045"){
 									stepResult.attaches[j].filePath=data;
+									stepResult.attaches[j].orderNo=stepResult.orderNo;
+									signalDate=stepResult.attaches[j]
 								}
 							}
 						}else if(num==4){
-							var obj={
-								"orderNo":stepResult.orderNo,
-								"filePath":data,
-								"certificateType":"0045",
-								"isOrderAttach":"1"
+							obj.filePath=data;
+							obj.certificateType="0045";	
+							signalDate=obj;
+						}
+						if(isdelete){
+							service.deletePhoto(data).done(function(data) {
+								if(data.code == 0) {
+									pictureFlag[num] = 0;
+								} else {
+									bootbox.alert(data.msg);
+								}
+							});
+						}
+						service.orderAttach(signalDate).done(function(data){
+							if(data.code==0){
+							} else {
+								pictureFlag[num] = 0;
+								bootbox.alert(data.msg);
 							}
-							stepResult.attaches[4]=obj;
-						}	
+						})
 					} else {
 						var dialog = bootbox.alert({
 							className: "uploadPhoto",
@@ -324,15 +334,8 @@ var step2 = Backbone.View.extend({
 				return;
 			}
 		};
-		
-		service.poststep2(stepResult).done(function(data) {
-			if(data.code == 0) {
-				localStorage.stepNum="#step3";
-				window.open('admin.html#step3', '_self');
-			} else {
-				bootbox.alert(data.msg)
-			}
-		})
+		localStorage.stepNum="#step3";
+		window.open('admin.html#step3', '_self');
 	},
 	gostep1:function(){
 		localStorage.stepNum="#step1"

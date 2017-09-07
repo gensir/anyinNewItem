@@ -129,7 +129,7 @@ export default {
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + basemp + "file?fileUrl=" + data }, "delete");
+        return this.ajaxCall({ url: domain + basemp + "file?fileUrl=" + data , async: false }, "delete");
     },
     //检查信用代码
     checkidCode(data) {
@@ -261,10 +261,22 @@ export default {
     	return this.ajaxCall({ url: domain  + basemp + "common/mobileIsNotExist", data: data });
     },  
     getRenewInfo(data){
+
     	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data  });
     },    
     orderRenew(data){
     	return this.ajaxCall({ url: domain  + basemp + "order/renew", data: data}, "post");
-    }        
-    
+    }   
+    //根据firmId获取行政区域编码
+    getAreaByFirmId(data){
+    	return this.ajaxCall({ url: domain  + basemp + "api/web/unit/get/"+data});
+    },
+    //根据公司名查询firmId
+    getAreaByCom(data){
+    	return this.ajaxCall({ url: domain + basemp + "api/web/solr/company/name", data: data,async:false }, "post");
+    },
+    //单个订单附件上传
+    orderAttach(data){
+    	return this.ajaxCall({ url: domain + basemp + "eseal/order/attach", data: data }, "post");
+    }
 }
