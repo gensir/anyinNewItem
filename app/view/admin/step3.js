@@ -22,9 +22,9 @@ var step3 = Backbone.View.extend({
 		'click #goStep2':'gostep2'
 	},
 	render: function(query) {
-		if(localStorage.stepNum!="#step3"){
-			return;
-		}
+//		if(localStorage.stepNum!="#step3"){
+//			return;
+//		}
 		enterpriseCode=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 		this.$el.html(tpl);		
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -36,10 +36,10 @@ var step3 = Backbone.View.extend({
 		flag = true;
 		that = this;
 		zone = 440300;
-		var orderNo=localStorage.orderNo;
-		if(!orderNo){
-			return;
-		}
+		var orderNo=localStorage.orderNo||"APPLY09071184272345";
+//		if(!orderNo){
+//			return;
+//		}
 		this.getstep3(orderNo);	
 		
 //		that.$el.html(tpl(that.model.get("tplhtml")))
@@ -400,81 +400,108 @@ var step3 = Backbone.View.extend({
 				eseals=data.data.eseals;
 				islegal=data.data.isOperatorLegalPerson;
 				var firmId=data.data.firmId;
-				if(!firmId){       //如果没有firmId就根据公司名查firmId
-					var company={ 
-						"params": {"name":data.data.enterpriseName} 
+				var dtd = $.Deferred();
+				function test(){
+					if(firmId){
+						dtd.resolve();
+					}else{
+						var company={ 
+							"params": {"name":data.data.enterpriseName} 
+						}
+						service.getAreaByCom(company).done(function(data){
+							if(data.code==0){
+								firmId=data.data.id;
+								dtd.resolve();
+							}else{
+								bootbox.alert(data.msg);
+								dtd.reject();
+							}
+						})
 					}
-					service.getAreaByCom(company).done(function(data){
+					return dtd.promise();
+				}
+				$.when(test()).then(function(){					
+					service.getAreaByFirmId(firmId).done(function(dta){
 						if(data.code==0){
-							firmId=data.data.id;
+							areaNumber=data.data.areaNum;
+							that.model.get("tplhtml").areaNumber = areaNumber;
+							that.sealList();
 						}else{
 							bootbox.alert(data.msg);
 						}
 					})
-				}
-				service.getAreaByFirmId(firmId).done(function(dta){
-					if(data.code==0){
-						areaNumber=data.data.areaNum;
-						that.model.get("tplhtml").areaNumber = areaNumber;
-						that.sealList();
-					}else{
-						bootbox.alert(data.msg);
-					}
+					
 				})
+				
 				//如果是第一次进来
-				if(scan.length==0){
-					if(islegal==0){
-						pictureFlag[1]=1;
-						$(".legalScan").show()
+					if(scan.length==0){
+						if(islegal==0){
+							pictureFlag[1]=1;
+							$(".legalScan").show()
+						}else{
+							$(".legalScan").hide();
+						}			
+						for(var i=0;i<eseals.length;i++){
+							if(eseals[i].esealCategory==4){
+								pictureFlag[2]=1;
+								$(".bankScan").show();
+							};
+							if(eseals[i].esealCategory==8){
+								pictureFlag[3]=1;
+								$(".tradeScan").show();
+							};
+						};
 					}else{
-						$(".legalScan").hide();
-					}			
-					for(var i=0;i<eseals.length;i++){
-						if(eseals[i].esealCategory==4){
-							pictureFlag[2]=1;
-							$(".bankScan").show();
-						};
-						if(eseals[i].esealCategory==8){
-							pictureFlag[3]=1;
-							$(".tradeScan").show();
-						};
-					};
-				}else{
-					//如果未完成订单进来
-					for(var i=0;i<scan.length;i++){
-						if(scan[i].certificateType=="0046"){
-							pictureFlag[0]=scan[i].filePath;
-							$("#file0").css({"height":"24px"});
-							$(".reset0").show();
-							$("#ajaxForm0 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-							imgModalBig('#photo0', { 'width': 500, 'src': scan[i].filePath });
-						}
-						if(scan[i].certificateType=="0047"){
-							pictureFlag[1]=scan[i].filePath;
-							$(".legalScan").show();
-							$("#file1").css({"height":"24px"})
-							$(".reset1").show();
-							$("#ajaxForm1 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-							imgModalBig('#photo1', { 'width': 500, 'src': scan[i].filePath });
-						}
-						if(scan[i].certificateType=="0048"){//银行开户证明 暂时48
-							pictureFlag[2]=scan[i].filePath
-							$(".bankScan").show();
-							$("#file2").css({"height":"24px"})
-							$(".reset2").show();
-							$("#ajaxForm2 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-							imgModalBig('#photo2', { 'width': 500, 'src': scan[i].filePath });
-						}
-						if(scan[i].certificateType=="0049"){//对外贸易许可证 暂时49
-							pictureFlag[3]=scan[i].filePath
-							$(".tradeScan").show();
-							$("#file3").css({"height":"24px"})
-							$(".reset3").show();
-							$("#ajaxForm3 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
-							imgModalBig('#photo3', { 'width': 500, 'src': scan[i].filePath });
+						//如果未完成订单进来
+						for(var i=0;i<scan.length;i++){
+							if(scan[i].certificateType=="0046"){
+								pictureFlag[0]=scan[i].filePath;
+								$("#file0").css({"height":"24px"});
+								$(".reset0").show();
+								$("#ajaxForm0 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+								imgModalBig('#photo0', { 'width': 500, 'src': scan[i].filePath });
+							}
+							if(scan[i].certificateType=="0047"){
+								pictureFlag[1]=scan[i].filePath;
+								$(".legalScan").show();
+								$("#file1").css({"height":"24px"})
+								$(".reset1").show();
+								$("#ajaxForm1 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+								imgModalBig('#photo1', { 'width': 500, 'src': scan[i].filePath });
+							}
+							if(scan[i].certificateType=="0048"){//银行开户证明 暂时48
+								pictureFlag[2]=scan[i].filePath
+								$(".bankScan").show();
+								$("#file2").css({"height":"24px"})
+								$(".reset2").show();
+								$("#ajaxForm2 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+								imgModalBig('#photo2', { 'width': 500, 'src': scan[i].filePath });
+							}
+							if(scan[i].certificateType=="0049"){//对外贸易许可证 暂时49
+								pictureFlag[3]=scan[i].filePath
+								$(".tradeScan").show();
+								$("#file3").css({"height":"24px"})
+								$(".reset3").show();
+								$("#ajaxForm3 .digitalUpload").css({"background":"url("+scan[i].filePath+") no-repeat"}).css({"background-size":"163px 112px"})
+								imgModalBig('#photo3', { 'width': 500, 'src': scan[i].filePath });
+							}
 						}
 					}
-				}
+				
+				
+//				if(!firmId){       //如果没有firmId就根据公司名查firmId
+//					var company={ 
+//						"params": {"name":data.data.enterpriseName} 
+//					}
+//					service.getAreaByCom(company).done(function(data){
+//						if(data.code==0){
+//							firmId=data.data.id;
+//						}else{
+//							bootbox.alert(data.msg);
+//						}
+//					})
+//				}
+				
 				
 			}else{
 				bootbox.alert(data.msg)

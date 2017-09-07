@@ -225,7 +225,7 @@ export default {
     },
     //查询公司所在区域的行政编码
     getCompanyArea(data) {
-        return this.ajaxCall({ url: domain + basemp + "get_company_area_number/", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "get_company_area_number/" });
     },
     //名称查询企业编码
     checkname(data) {
@@ -267,12 +267,12 @@ export default {
     	return this.ajaxCall({ url: domain  + basemp + "order/renew", data: data}, "post");
     },
     //根据firmId获取行政区域编码
-    getAreaByFirmId(data) {
-        return this.ajaxCall({ url: domain + basemp + "api/web/unit/get/" + data });
+    getAreaByFirmId(data){
+    	return this.ajaxCall({ url: domain  + basemp + "get_company_area_number/web/unit/get/"+data});
     },
     //根据公司名查询firmId
     getAreaByCom(data){
-    	return this.ajaxCall({ url: domain + basemp + "api/web/solr/company/name", data: data,async:false }, "post");
+    	return this.ajaxCall({ url: domain + basemp + "api/web/solr/company/name", data: data}, "post");
     },
     //单个订单附件上传
     orderAttach(data){
