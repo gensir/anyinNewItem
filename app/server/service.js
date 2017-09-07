@@ -266,10 +266,10 @@ export default {
     },    
     orderRenew(data){
     	return this.ajaxCall({ url: domain  + basemp + "order/renew", data: data}, "post");
-    }   
+    },
     //根据firmId获取行政区域编码
-    getAreaByFirmId(data){
-    	return this.ajaxCall({ url: domain  + basemp + "api/web/unit/get/"+data});
+    getAreaByFirmId(data) {
+        return this.ajaxCall({ url: domain + basemp + "api/web/unit/get/" + data });
     },
     //根据公司名查询firmId
     getAreaByCom(data){
