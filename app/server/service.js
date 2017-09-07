@@ -76,7 +76,7 @@ export default {
                 className: 'common',
                 title: '接口提示',
                 onEscape: 'true',
-                message: '<div class="msgcenter"><em></em>请求异常，请求数据失败！</div>',
+                message: '<div class="msgcenter"><em></em>接口异常，请求数据失败！</div>',
                 buttons: {
                     cancel: {
                         label: "确定",
@@ -120,7 +120,6 @@ export default {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
     getRandomNum(data) {
-        //console.log(JSON.stringify(data),999)
         return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false, data: data });
     },
     //获取订单中心列表
