@@ -60,7 +60,7 @@ var list = Backbone.View.extend({
             }
         })
     },
-    // 点击上一页、下一�
+    // 点击上一页、下一页
     pagediv(val, totalPages) {
         if (val < 1) {
             val = 1;
@@ -81,18 +81,15 @@ var list = Backbone.View.extend({
     //pagination
     pagination: function (pageNumber, totalPages) {
         $("#pageLimit li.index").remove();
-        var maxShowPage = 5
-        var firstShowPage = pageNumber - 2;
-        if (firstShowPage <= 0) {
-            firstShowPage = 1;
+        var firstShowPage, maxShowPage = 5
+        if (pageNumber <= 3) {
+            firstShowPage = 1
+        } else {
+            firstShowPage = pageNumber - 2;
         }
         var lastShowPage = maxShowPage + firstShowPage - 1;
         if (lastShowPage > totalPages) {
             lastShowPage = totalPages;
-        }
-        if (lastShowPage - firstShowPage + 1 < maxShowPage) {
-            firstShowPage = lastShowPage - maxShowPage + 1;
-            firstShowPage = Math.max(firstShowPage, 1);
         }
         this.model.get("tplhtml").count = [];
         for (var i = firstShowPage; i <= lastShowPage; i++) {
@@ -102,11 +99,15 @@ var list = Backbone.View.extend({
         if (!this.active) {
             this.active = $("#pageLimit .index").eq(0)
         } else {
-        	console.log(isNaN(this.active.find('a').text()))
-            if (isNaN(this.active.find('a').text())) {  //上下�  true
-                this.active = $("#pageLimit .index").eq(pageNumber)
+            if(this.active.hasClass("NextPage")){
+                this.active=$(".NextPage");
             }
-            console.log($("#pageLimit a:contains(" + this.active.find('a').text() + ")"))
+            if (isNaN(this.active.find('a').text())&&this.active.prev().text()!=this.model.get("totalPages")) {
+                this.active = $("#pageLimit .index").eq(0)
+            }
+            if(this.active.prev().text()==this.model.get("totalPages")){
+                this.active=this.active.prev()
+            }
             this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
         }
         this.active.addClass("active").siblings().removeClass("active")
@@ -114,17 +115,17 @@ var list = Backbone.View.extend({
     currentPapge(e) {
         this.active = $(e.currentTarget);
         var pageNum = this.active.find("a").text()
-        this.pagediv(pageNum, this.model.get("totalPages"))
+        this.pagediv(pageNum, this.model.get("totalPages"));
     },
-    PreviousPage(e) {	
-        var pageNum = $(".pagination .active a").text();
-        console.log(pageNum+"pre")
-        this.pagediv(pageNum, this.model.get("totalPages"))
+    PreviousPage() {
+        this.active = "";
+        this.pagediv(1, this.model.get("totalPages"))
     },
     NextPage(e) {
-        this.active = $(e.currentTarget).prev();
+        this.active = $(".NextPage");
+        console.log(this.active.text(),this.model.get("totalPages"))
         this.pagediv(this.model.get("totalPages"))
-    },
+    }
 });
 
 module.exports = list;

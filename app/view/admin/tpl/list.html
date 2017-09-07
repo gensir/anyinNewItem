@@ -55,8 +55,7 @@
                                     {{else}}
                                     <p>统一社会信用代码：<span>{{value.enterpriseCode}}</span></p>
                                     {{/if}}
-
-
+                                    <p>电子印章状态：<span>{{value.esealStatus==1?"正常":value.esealStatus==2?"待审核":value.esealStatus==3?"审核不通过":value.esealStatus==4?"待制作":value.esealStatus==5?"待交付":value.esealStatus==6?"已过期":value.esealStatus==7?"需更新证书":value.esealStatus==8?"被禁用":value.esealStatus==9?"预挂失中":value.esealStatus==10?"挂失":value.esealStatus==11?"注销":value.esealStatus==12?"交付待审批":}}</span></p>
                                 </li>
                                 <li class="n3">
                                     <p>需要帮助？</p>

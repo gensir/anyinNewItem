@@ -229,8 +229,14 @@ var logs = Backbone.View.extend({
         if (!this.active) {
             this.active = $("#pageLimit .index").eq(0)
         } else {
-            if (isNaN(this.active.find('a').text())) {
+            if(this.active.hasClass("NextPage")){
+                this.active=$(".NextPage");
+            }
+            if (isNaN(this.active.find('a').text())&&this.active.prev().text()!=this.model.get("totalPages")) {
                 this.active = $("#pageLimit .index").eq(0)
+            }
+            if(this.active.prev().text()==this.model.get("totalPages")){
+                this.active=this.active.prev()
             }
             this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
         }
@@ -246,7 +252,8 @@ var logs = Backbone.View.extend({
         this.pagediv(1, this.model.get("totalPages"))
     },
     NextPage(e) {
-        this.active = $(e.currentTarget).prev();
+        this.active = $(".NextPage");
+        console.log(this.active.text(),this.model.get("totalPages"))
         this.pagediv(this.model.get("totalPages"))
     }
 });
