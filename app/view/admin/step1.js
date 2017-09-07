@@ -15,7 +15,7 @@ var step1 = Backbone.View.extend({
 		that=this;
 		enterpriseCode=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 //		enterpriseCode=localStorage.firmId||440311285096;
-//		enterpriseCode=440305436959
+//		enterpriseCode=440311285096
         var isODC=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         if(isODC==2){
         	$(".ODChide").show();

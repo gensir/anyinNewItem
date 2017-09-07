@@ -16,9 +16,9 @@ var step2 = Backbone.View.extend({
 		'click #goStep1': 'gostep1'
 	},
 	render: function(query) {
-//		if(localStorage.stepNum!="#step2"){
-//			return;
-//		}
+		if(localStorage.stepNum!="#step2"){
+			return;
+		}
 		enterpriseCode=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 		firmId=JSON.parse($.cookie('loginadmin')).user.firmId;
 		this.$el.html(tpl);
@@ -27,9 +27,9 @@ var step2 = Backbone.View.extend({
 		imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
 		imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });	
 		var orderNo = localStorage.orderNo;
-//		if(!orderNo){
-//			return;
-//		}
+		if(!orderNo){
+			return;
+		}
 		service.getstep2(orderNo).done(function(data){
 			if(data.code == 0) {
 				stepResult=data.data;
@@ -162,7 +162,7 @@ var step2 = Backbone.View.extend({
 				},
 				success: function(data) {
 					var data = JSON.parse(data);
-					var entercode = stepResult.attaches[0].enterpriseCode||enterpriseCode;
+					var entercode = enterpriseCode;
 					var obj ={
 		                "filePath": "",
 		                "certificateType": "",
