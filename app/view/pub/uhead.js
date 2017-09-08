@@ -1,6 +1,7 @@
 import dialog from '../pub/tpl/dialog.html'
 var dialogs = $($(dialog()).prop("outerHTML"));
 import ukeys from '../../publicFun/ukeys';
+var service = require('../../server/service').default;
 var header = {
     init: function () {
         this.nav();
@@ -84,7 +85,7 @@ var header = {
         })
         return false;
     },
-    //解锁
+    //解密
     lock: function () {
         var _outthis = this;
         var numInd = 0;
@@ -100,7 +101,7 @@ var header = {
                     label: "返回",
                     className: "btn1",
                     callback: function (result) {
-                        console.log(result, "cancel")
+                        //console.log(result, "cancel")
                         result.cancelable = false;
                     }
                 },
@@ -112,7 +113,6 @@ var header = {
                         var _this = this;
                         if (numInd == 1) {
                             var msg4 = dialogsText.find(".msg4")[0].outerHTML
-                            //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                             $(this).find(".bootbox-body").html(msg4);
                             $(this).find(".btn1,.btn2").hide();
                             setTimeout(function () {
@@ -126,7 +126,7 @@ var header = {
                                     var msg6 = dialogsText.find(".msg6")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $.each(ukeys.ukeyName(), function (ind, val) {
-                                        $("#seleBook").append("<Option>" + val + "</Option>")
+                                        $("#seleBook").append("<Option value="+ val +">" + val + "</Option>")
                                     })
                                     $(_this).find(".btn1,.btn2").show();
                                     $(_this).find(".btn2").show().html("解密");
@@ -134,33 +134,77 @@ var header = {
                             }, 1000)
                         } else if (numInd == 2) {
                             // 验证KEY密码
-                                var selectedUkey=$("#seleBook option:selected").index() - 1
+                            var selectedUkey = $("#seleBook option:selected").val();
+                            var unlockCode = $("#unlockCode").val();
+                            if (selectedUkey == "") {
+                                numInd = 1;                                
+                                $(_this).find("#seleBook-error").html("请选择一个证书");
+                                $(_this).find(".btn2").show().html("解密");
+                                $("#seleBook").change(function(){
+                                    $("#seleBook-error").html("");
+                                });  
+                            } else if (unlockCode.length < 6) {
+                                numInd = 1;                                
+                                $(_this).find("#unlock-error").html("请输入6位以上PIN码");
+                                $(_this).find(".btn2").show().html("解密");
+                                $("#unlockCode").keyup(function () {
+                                    $("#unlock-error").html("");
+                                });   
+                            } else {
+                                var selectedUkey = $("#seleBook option:selected").index() - 1;
                                 if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
-                                    var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
-                                    var randomNum = ukeys.randomNum(esealCode)
-                                    var dSignature = ukeys.dSignature(selectedUkey , randomNum)
+                                    var esealCode = ukeys.esealCode($("#unlockCode").val(), selectedUkey);
+                                    var randomNum = ukeys.randomNum(esealCode);
+                                    var dSignature = ukeys.dSignature(selectedUkey, randomNum);
+                                    var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                     //console.log("印章编码：" + esealCode)
                                     //console.log("随机码：" + randomNum)
                                     //console.log("签名：\n" + dSignature)
-                                    localStorage.esealCode = esealCode
-                                    localStorage.dSignature = dSignature
+                                    localStorage.esealCode = esealCode;
+                                    localStorage.dSignature = dSignature;
                                     //document.write("获取客户端数字签名：\n" + dSignature);
-                                    var success = dialogsText.find(".success")[0].outerHTML
-                                    $(_this).find(".bootbox-body").html(success);
-                                    $(_this).find(".btn1,.btn2").hide();
-                                    setTimeout(function () {
-                                        _this.modal('hide');
-                                        location.reload();
-                                    }, 1500)
+                                    var data = {
+                                        "esealCode": esealCode,
+                                        "enterpriseCode": enterpriseCode,
+                                        "PKSC7": dSignature,
+                                    };
+                                    service.commSignetLog(1, 1, data).done(res => {
+                                        if (res.code == 0) {
+                                            var success = dialogsText.find(".success")[0].outerHTML
+                                            $(_this).find(".bootbox-body").html(success);
+                                            $(_this).find(".btn1,.btn2").hide();
+                                            setTimeout(function () {
+                                                _this.modal('hide');
+                                                // location.reload();
+                                            }, 1000)
+                                        } else {
+                                            var msg7 = dialogsText.find(".msg7")[0].outerHTML
+                                            $(_this).find(".bootbox-body").html(msg7);
+                                            // $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>解密失败，UKEY不存在</div>");
+                                            $(_this).find(".btn1").show().html("确定");
+                                            $(_this).find(".btn2").hide();
+                                        }
+                                    });
                                 } else {
                                     numInd = 1;
-                                    $(_this).find("#unlock-error").html("PIN码不正确，请重新输入")
-                                    $(_this).find(".btn2").show().html("重试");
+                                    var GetOid = ukeys.GetOid(selectedUkey);
+                                    localStorage.GetOid = GetOid;
+                                    var data = {
+                                        "oid": GetOid,
+                                        "errorCode": 1
+                                    };
+                                    service.commSignetLog(1, 1, data).done(res => {
+                                        if (res.code == 1) {
+                                            $(_this).find("#unlock-error").html(res.msg);
+                                            $(_this).find(".btn2").show().html("重试");
+                                        }
+                                    });
+
                                 }
+                            }
                         }
 
                         //this.modal('hide');
-
                         return false;
                     }
                 }

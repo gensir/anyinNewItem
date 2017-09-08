@@ -56,13 +56,13 @@ msg6 有input的单行；
         </div>
         <div class="msg6">
             <div class="input-group">
-                <select class="form-control seleBook" id="seleBook" name="seleBook">
+                <select class="form-control seleBook" style="border-radius: 4px;" id="seleBook" name="seleBook">
                     <option value="">------------------<span> 选择证书 </span>------------------</option>
                 </select>
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="unfreezeCode" maxlength="16" minlength="6" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" id="unfreezeCode" style="border-radius: 4px;" maxlength="16" minlength="6" class="form-control" placeholder="请输入PIN码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="unfreezeCode-error"></p>
@@ -112,13 +112,13 @@ msg6 有input的单行；
         </div>
         <div class="msg6">
             <div class="input-group">
-                <select class="form-control seleBook" id="seleBook" name="seleBook">
+                <select class="form-control seleBook" style="border-radius: 4px;" id="seleBook" name="seleBook">
                     <option value="">------------------<span> 选择证书 </span>------------------</option>
                 </select>
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" class="form-control" maxlength="16" minlength="6" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" class="form-control" style="border-radius: 4px;" maxlength="16" minlength="6" placeholder="请输入PIN码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p>PIN码不正确，请重试</p>
@@ -126,7 +126,7 @@ msg6 有input的单行；
         <div class="msg4">已成功注销“电子印章样品专用章（01）”</div>
         <div class="msg2">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" style="border-radius: 4px;" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <span class="input-group-addon" id="basic-addon1">重新发送</span>
             </div>
             <p>验证码已通过短信发送到登录帐号上，5分钟内有效</p>
@@ -144,13 +144,13 @@ msg6 有input的单行；
         </div>
         <div class="msg6">
             <div class="input-group">
-                <select class="form-control seleBook" id="seleBook" name="seleBook">
+                <select class="form-control seleBook" style="border-radius: 4px;" id="seleBook" name="seleBook">
                     <option value="">------------------<span> 选择证书 </span>------------------</option>
                 </select>
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" class="form-control" id="closeCode" maxlength="16" minlength="6" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" class="form-control" id="closeCode" maxlength="16" minlength="6" style="border-radius: 4px;" placeholder="请输入PIN码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="closeCode-error"></p>
@@ -169,13 +169,13 @@ msg6 有input的单行；
         </div>
         <div class="msg6">
             <div class="input-group">
-                <select class="form-control seleBook" id="seleBook" name="seleBook">
+                <select class="form-control seleBook" style="border-radius: 4px;" id="seleBook" name="seleBook">
                     <option value="">------------------<span> 选择证书 </span>------------------</option>
                 </select>
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="openCode" maxlength="16" minlength="6" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" id="openCode" maxlength="16" minlength="6" class="form-control" style="border-radius: 4px;" placeholder="请输入PIN码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="openCode-error"></p>
@@ -191,19 +191,20 @@ msg6 有input的单行；
         <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</div>
         <div class="msg6">
             <div class="input-group">
-                <select class="form-control seleBook" id="seleBook" name="seleBook">
+                <select class="form-control seleBook" style="border-radius: 4px;" id="seleBook" name="seleBook">
                     <option value="">------------------<span> 选择证书 </span>------------------</option>
                 </select>
+                <p id="seleBook-error"></p>
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="unlockCode" maxlength="16" minlength="6" class="form-control" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="password" id="unlockCode" maxlength="16" minlength="6" class="form-control" style="border-radius: 4px;" placeholder="请输入PIN码" aria-describedby="basic-addon1">
                 <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="unlock-error"></p>
-            <div class="Loading">正在解锁日志，读取UKEY中，请稍后......</div>
+            <div class="Loading">正在解密日志，读取UKEY中，请稍后......</div>
         </div>
-        <div class="msg5 Loading">正在解锁日志，读取UKEY中，请稍后......</div>
+        <div class="msg7 msgcenter"><em></em>解密失败，UKEY不存在</div>
         <div class="msg5 success">已成功解锁日志，重新加载数据中......</div>
     </div>
 </div>

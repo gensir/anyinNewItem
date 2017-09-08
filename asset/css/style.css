@@ -70,7 +70,8 @@ ul.pagination li.no a { cursor: not-allowed; background: #eee; color: #999;  }
 .common .msg6 .seleBook { margin-bottom: 20px; }
 .common .msg6 .Loading { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 65px 0; text-align: center; z-index: 3; background: #fff; }
 .common .msg6 label { display: table-cell; vertical-align: middle; padding-right: 20px; color: #666; font-size: 14px; font-weight: normal; }
-.common .msg6 p { padding-left: 102px; margin-top: 8px; font-size: 12px; color: #ef3434;position: absolute; }
+.common .msg6 p { padding-left: 0px; margin-top: 5px; margin-bottom: 0; font-size: 12px; color: #ef3434; position: absolute; }
+.common .msg6 p#seleBook-error { top: 36px; margin-top: 2px;  position: absolute; font-size: 12px; color: #ef3434; }
 .bigLogout .modal-dialog { width: 975px; margin-top: 80px; }
 .bigLogout .modal-content { height: 633px; }
 .bigLogout .modal-body { height: auto; }
