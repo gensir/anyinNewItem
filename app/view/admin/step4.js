@@ -36,8 +36,8 @@ var step4 = Backbone.View.extend({
     getOrderInfo: function() {
         service.orderStep4(orderNo).done(res => {
             var tempObj;
-            if(res.length == 0) {
-                console.log("step4无法获取到电子印章订单信息！");
+            if(res.code != 0) {
+                console.log("step4无法获取到电子印章订单信息！"+res.msg );
                 tempObj = {}
             } else {
               tempObj = res;
