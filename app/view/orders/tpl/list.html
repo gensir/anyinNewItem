@@ -17,7 +17,7 @@
             <div class="eseallist">
                 <div class="list">
                     <ul class="nav">
-                        <li class="nav0">{{value.orderNo}}  111</li>
+                        <li class="nav0">{{value.orderNo}}</li>
                         <li class="nav1">{{value.createTime}}</li>
                         <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":"电子印章退款"}}</li>
                         <li class="nav3">{{value.actualAmount==0?"0":value.actualAmount+"元"}}</li>
@@ -172,7 +172,7 @@
 
     .accordion .nav .nav0 {
         min-width: 180px;
-        min-width: 183px;
+        max-width: 183px;
         white-space: nowrap; 
         word-wrap: normal; 
         text-overflow: ellipsis;  
