@@ -155,17 +155,19 @@ var index = Backbone.View.extend({
                 if (Esealobj != null) {
                     for (var i = 0; i < Esealobj.length; i++) {
                         var date1 = new Date(),
-                            dates = res.data.list[i].validEnd;
-                        // dates = "2017-9-30 12:45:25"
-                        var date2 = new Date(dates.replace(/-/g, "/"));
-                        var date = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
-                        if (date < 0) {
-                            $(".blist li").eq(i).find("span.date").html("已过期");
-                        } else if (date < 30) {
-                            $(".blist li").eq(i).find("span.date").html(Math.ceil(date) + "天");
-                        } else {
-                            $(".blist li").eq(i).find("span.date").html(Math.ceil(date / 30) + "个月");
+                            dates = res.data.list[i].validEnd;// dates = "2017-9-30 12:45:25";
+                        if (dates != "") {
+                            var date2 = new Date(dates.replace(/-/g, "/"));
+                            var date = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
+                            if (date < 0) {
+                                $(".blist li").eq(i).find("span.date").html("已过期");
+                            } else if (date < 30) {
+                                $(".blist li").eq(i).find("span.date").html(Math.ceil(date) + "天");
+                            } else {
+                                $(".blist li").eq(i).find("span.date").html(Math.ceil(date / 30) + "个月");
+                            }
                         }
+
                     }
                 }
 
