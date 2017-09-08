@@ -46,7 +46,7 @@
                                 <li class="n3" style='display: {{value.businessType==1?"none":value.businessType==2?"block":"block"}} ;'>                                	
                                     <p class="f14">电子印章信息</p>
                                     {{each value.commEsealInfos as value i}}
-                                    <p>印章名：<span>{{value.esealName}}</span></p>
+                                    <p>印章名：<span>{{value.esealFullName}}</span></p>
                                     <p>印章编号：<span>{{value.esealCode}}</span></p>
                                     <p>制作日期：<span>{{value.esealCreateTime}}</span></p>
                                     <p>印章生效期：<span>{{value.validStart}}</span></p>
