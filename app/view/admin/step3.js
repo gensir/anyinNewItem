@@ -401,7 +401,7 @@ var step3 = Backbone.View.extend({
 							pictureFlag[2]=1;
 							$(".bankScan").show();
 						};
-						if(eseals[i].esealCategory==8){
+						if(eseals[i].esealCategory==6){
 							pictureFlag[3]=1;
 							$(".tradeScan").show();
 						};
