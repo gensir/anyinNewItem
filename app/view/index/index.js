@@ -152,11 +152,11 @@ var index = Backbone.View.extend({
                 _this.model.get("tpl").esealdata = Esealobj;
                 _this.$el.html(tpl(_this.model.get("tpl")));
 
-                if (Esealobj != null) {
+                if (Esealobj != null && Esealobj != "") {
                     for (var i = 0; i < Esealobj.length; i++) {
                         var date1 = new Date(),
                             dates = res.data.list[i].validEnd;// dates = "2017-9-30 12:45:25";
-                        if (dates != "") {
+                        if (dates != "" && dates != null) {
                             var date2 = new Date(dates.replace(/-/g, "/"));
                             var date = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
                             if (date < 0) {

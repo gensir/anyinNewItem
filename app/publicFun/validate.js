@@ -55,7 +55,8 @@ var verify = {
         idcode: '请输入18位社会信用代码',
         yzmcode: '请输入4位验证码',
         Ename: '企业名称不能为空',
-        ukeytip: '请选择证书'
+        ukeytip: '请选择证书',
+        pinwd:'请输入6-16位PIN码'
     },
     istrue: {
         ukeytip: function (ele) {
@@ -97,7 +98,10 @@ var verify = {
             var reg = /\S/;
             return reg.test($(ele).val())
         },
-    }
+        pinwd: function (ele) {
+            var reg = /^[0-9a-zA-Z]{6}$/;
+            return reg.test($(ele).val())
+        },    }
 }
 verify.synErrorInit();
 module.exports = verify;

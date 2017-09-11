@@ -62,6 +62,9 @@ var main = Backbone.View.extend({
     ukeyLogin(event,itemEle) {
         this.model.set({ "clickEle": itemEle || $(event.target).data('id') })
         var isValid = this.model.isValid();
+        if (isValid) {
+            return;
+        }
         var selectedUkey = $("#seleBook option:selected").index() - 1
         if (selectedUkey == -1) {
             return;

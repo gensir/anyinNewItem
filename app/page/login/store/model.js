@@ -14,7 +14,7 @@ var loginModel = Backbone.Model.extend({
         };
         if (attrs.clickEle == 'ukeyLogin') {
             var result=$.verify("ukeytip", "#seleBook");
-            //var result=$.verify("passwd", "#pinwd");
+            var result=$.verify("pinwd", "#pinwd");
             return result;
         }
     }

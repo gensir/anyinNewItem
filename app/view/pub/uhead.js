@@ -175,7 +175,7 @@ var header = {
                                             $(_this).find(".btn1,.btn2").hide();
                                             setTimeout(function () {
                                                 _this.modal('hide');
-                                                // location.reload();
+                                                location.reload();
                                             }, 1000)
                                         } else {
                                             var msg7 = dialogsText.find(".msg7")[0].outerHTML
@@ -193,7 +193,7 @@ var header = {
                                         "oid": GetOid,
                                         "errorCode": 1
                                     };
-                                    service.commSignetLog(1, 1, data).done(res => {
+                                    service.checkPIN(data).done(res => {
                                         if (res.code == 1) {
                                             $(_this).find("#unlock-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");

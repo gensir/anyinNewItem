@@ -260,7 +260,6 @@ export default {
     	return this.ajaxCall({ url: domain  + basemp + "common/mobileIsNotExist", data: data });
     },  
     getRenewInfo(data){
-
     	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data  });
     },    
     orderRenew(data){
@@ -277,5 +276,9 @@ export default {
     //单个订单附件上传
     orderAttach(data){
     	return this.ajaxCall({ url: domain + basemp + "eseal/order/attach", data: data }, "post");
+    },
+    //PIN码错误次数校验
+    checkPIN(data){
+    	return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
     }
 }
