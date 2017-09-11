@@ -17,7 +17,7 @@
                     <li class="nav2">电子印章编码</li>
                     <li class="nav3">电子印章办理时间</li>
                     <li class="nav4">电子印章有效期</li>
-                    <!-- <li class="nav5">管理操作</li> -->
+                    <li class="nav5">管理操作</li>
                 </ul>
                 <div class="eseallist">
                     {{if data == null}}
@@ -29,12 +29,12 @@
                             <li class="nav2">{{value.esealCode}}</li>
                             <li class="nav3">{{value.createTime}}</li>
                             <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
-                            <!-- <li class="nav5">
+                            <li class="nav5">
                                 <span class="renew">续费</span>
                                 <span class="unfreeze">解冻</span>
                                 <span class="logout">注销</span>
                                 <span class="loss">预挂失</span>
-                            </li> -->
+                            </li>
                         </ul>
                         <div class="toggle">
                             <ul class="nav">

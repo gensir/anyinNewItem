@@ -99,7 +99,7 @@ var verify = {
             return reg.test($(ele).val())
         },
         pinwd: function (ele) {
-            var reg = /^[0-9a-zA-Z]{6}$/;
+            var reg = /^[0-9a-zA-Z]{6,}$/;
             return reg.test($(ele).val())
         },    }
 }

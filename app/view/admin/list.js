@@ -85,7 +85,7 @@ var list = Backbone.View.extend({
             //closeButton: false,
             className: "closeAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message: _that.licenseLast <= 1 ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
+            message: (_that.licenseLast <= 1) ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",
@@ -96,7 +96,7 @@ var list = Backbone.View.extend({
                 },
                 confirm: {
                     label: "继续",
-                    className: _that.licenseLast <= 1 ? "btn2 closeAllowbtn2" : "btn2",
+                    className: (_that.licenseLast <= 1) ? "btn2 closeAllowbtn2" : "btn2",
                     callback: function (event) {
                         numInd++;
                         var _this = this;
@@ -157,8 +157,17 @@ var list = Backbone.View.extend({
                                 })
                             } else {
                                 numInd = 1;
-                                $(_this).find("#closeCode-error").html("PIN码不正确，请重试")
-                                $(_this).find(".btn2").show().html("重试");
+                                var GetOid = ukeys.GetOid(selectedUkey);
+                                var data = {
+                                    "oid": GetOid,
+                                    "errorCode": 1
+                                };
+                                service.checkPIN(data).done(res => {
+                                    if (res.code == 1) {
+                                        $(_this).find("#closeCode-error").html(res.msg);
+                                        $(_this).find(".btn2").show().html("重试");
+                                    }
+                                });
                             }
                         }
                         return false;
@@ -250,8 +259,20 @@ var list = Backbone.View.extend({
                                 })
                             } else {
                                 numInd = 1;
-                                $(_this).find("#openCode-error").html("PIN码不正确，请重试")
-                                $(_this).find(".btn2").show().html("重试");
+                                var GetOid = ukeys.GetOid(selectedUkey);
+                                var data = {
+                                    "oid": GetOid,
+                                    "errorCode": 1
+                                };
+                                service.checkPIN(data).done(res => {
+                                    if (res.code == 1) {
+                                        $(_this).find("#openCode-error").html(res.msg);
+                                        $(_this).find(".btn2").show().html("重试");
+                                    }
+                                });
+
+                                //$(_this).find("#openCode-error").html("PIN码不正确，请重试")
+                                //$(_this).find(".btn2").show().html("重试");
                             }
                         }
                         return false;
@@ -578,14 +599,14 @@ var list = Backbone.View.extend({
         if (!this.active) {
             this.active = $("#pageLimit .index").eq(0)
         } else {
-            if(this.active.hasClass("NextPage")){
-                this.active=$(".NextPage");
+            if (this.active.hasClass("NextPage")) {
+                this.active = $(".NextPage");
             }
-            if (isNaN(this.active.find('a').text())&&this.active.prev().text()!=this.model.get("totalPages")) {
+            if (isNaN(this.active.find('a').text()) && this.active.prev().text() != this.model.get("totalPages")) {
                 this.active = $("#pageLimit .index").eq(0)
             }
-            if(this.active.prev().text()==this.model.get("totalPages")){
-                this.active=this.active.prev()
+            if (this.active.prev().text() == this.model.get("totalPages")) {
+                this.active = this.active.prev()
             }
             this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
         }
@@ -602,7 +623,7 @@ var list = Backbone.View.extend({
     },
     NextPage(e) {
         this.active = $(".NextPage");
-        console.log(this.active.text(),this.model.get("totalPages"))
+        console.log(this.active.text(), this.model.get("totalPages"))
         this.pagediv(this.model.get("totalPages"))
     },
     step: function () {
