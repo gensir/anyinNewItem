@@ -30,7 +30,7 @@
 .t-title h2 { font-size: 15px; line-height: 53px; font-weight: 600; margin: 0px; float: left; }
 .t-title .more { font-size: 14px; color: #999; float: right; text-decoration: none; }
 .t-title .more:hover { color: #666; }
-.blist { padding: 20px 38px 38px; }
+.blist { padding: 20px 38px 38px; min-height: 108px; }
 .blist li { height: 50px; padding: 17px 0; line-height: 16px; border-bottom: dashed 1px #dedede; }
 .xufei .blist li span { display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .xufei .name { width: 33%; }

@@ -160,8 +160,6 @@ var header = {
                                     //console.log("印章编码：" + esealCode)
                                     //console.log("随机码：" + randomNum)
                                     //console.log("签名：\n" + dSignature)
-                                    localStorage.esealCode = esealCode;
-                                    localStorage.dSignature = dSignature;
                                     //document.write("获取客户端数字签名：\n" + dSignature);
                                     var data = {
                                         "esealCode": esealCode,
@@ -170,6 +168,8 @@ var header = {
                                     };
                                     service.commSignetLog(1, 1, data).done(res => {
                                         if (res.code == 0) {
+                                            localStorage.esealCode = esealCode;
+                                            localStorage.dSignature = dSignature;                                            
                                             var success = dialogsText.find(".success")[0].outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
@@ -178,9 +178,9 @@ var header = {
                                                 location.reload();
                                             }, 1000)
                                         } else {
-                                            var msg7 = dialogsText.find(".msg7")[0].outerHTML
-                                            $(_this).find(".bootbox-body").html(msg7);
-                                            // $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>解密失败，UKEY不存在</div>");
+                                            // var msg7 = dialogsText.find(".msg7")[0].outerHTML
+                                            // $(_this).find(".bootbox-body").html(msg7);
+                                            $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
                                             $(_this).find(".btn1").show().html("确定");
                                             $(_this).find(".btn2").hide();
                                         }
