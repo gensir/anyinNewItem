@@ -183,7 +183,6 @@ var header = {
                                             // $(_this).find(".bootbox-body").html(msg7);
                                             $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + res.msg + "</span></div>");
                                             $(_this).find(".btn2").show().html("重试");
-                                            // $(_this).find(".btn1").show();
                                         }
                                     });
                                 } else {

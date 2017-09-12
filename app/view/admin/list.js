@@ -85,7 +85,7 @@ var list = Backbone.View.extend({
             //closeButton: false,
             className: "closeAllow common",
             title: dialogsText.find(".title")[0].outerHTML,
-            message: (_that.licenseLast <= 1) ? dialogsText.find(".msg1")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
+            message: (_that.licenseLast <= 1) ? dialogsText.find(".msgcenter")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
             buttons: {
                 cancel: {
                     label: "返回",

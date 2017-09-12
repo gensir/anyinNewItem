@@ -7,7 +7,7 @@ var ukeys = {
             this.data.ukey = (ActiveXObject !== undefined && new ActiveXObject("IYIN_SIGNACTIVE.IYIN_SignActiveCtrl.1"));
             this.data.KeyManage = new ActiveXObject("KeyManage.ConnManage.1");
         } catch (e) {
-            if(ActiveXObject == undefined){
+            if(ActiveXObject === undefined){
                 this.data.isAvailableUkey = false;
             }else{
                 console.log("uninstall KeyManage")
