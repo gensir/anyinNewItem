@@ -76,7 +76,7 @@ export default {
                 className: 'common',
                 title: '接口提示',
                 onEscape: 'true',
-                message: '<div class="msgcenter"><em></em>接口异常，请求数据失败！</div>',
+                message: '<div class="msgcenter"><em></em><span>接口异常，请求数据失败！</span></div>',
                 buttons: {
                     cancel: {
                         label: "确定",

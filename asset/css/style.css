@@ -55,8 +55,9 @@ ul.pagination li.no a { cursor: not-allowed; background: #eee; color: #999;  }
 .common .modal-footer button.btn2,
 .common .modal-footer button a.continue { color: #fff; background: #00acff; }
 .common .modal-footer button a { text-decoration: none; display: inline-block; zoom: 1; min-width: 80px; height: 30px; line-height: 30px; }
-.common .modal-body .msgcenter { margin: 25px 50px; color: #333; font-size: 16px; font-weight: 400; text-align: center; }
-.common .modal-body .msgcenter em { background: url(../img/bg-all.png) no-repeat -520px -290px; display: inline-block; height: 43px; width: 43px; margin-right: 30px; vertical-align: middle; }
+.common .modal-body .msgcenter { margin: 30px 50px; color: #333; font-size: 16px; font-weight: 400; text-align: center; }
+.common .modal-body .msgcenter em { background: url(../img/bg-all.png) no-repeat -520px -290px; display: inline-block; height: 43px; width: 43px; margin-right: 25px; vertical-align: middle; }
+.common .modal-body .msgcenter span { display: inline-block; vertical-align: middle; }
 .common .modal-body .msg1 {  background: url(../img/bg-all.png) no-repeat -520px -262px; margin: 0 60px 0 60px; color: #333; font-size: 14px; padding: 30px 0 30px 66px;}
 .common .modal-body .msg2 { margin: 0 18%; color: #999; position: relative; top: 10px; }
 .common .modal-body .msg2 input { border-right: 0; height: 40px; }

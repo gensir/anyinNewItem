@@ -63,7 +63,7 @@ var header = {
             closeButton: true,
             className: "common",
             title: '确认退出？',
-            message: '<div class="msgcenter"><em></em>确定现在退出账号吗？</div>',
+            message: '<div class="msgcenter"><em></em><span>确定现在退出账号吗？</span></div>',
             buttons: {
                 cancel: {
                     label: "取消",
@@ -78,7 +78,7 @@ var header = {
                     callback: function (result) {
                         localStorage.clear();
                         $.removeCookie('loginadmin');
-                        window.open('login.html', '_self');
+                        result.cancelable = window.open('login.html', '_self');
                     }
                 },
             }
@@ -98,7 +98,7 @@ var header = {
             message: dialogsText.find(".msg1")[0].outerHTML,
             buttons: {
                 cancel: {
-                    label: "返回",
+                    label: "取消",
                     className: "btn1",
                     callback: function (result) {
                         //console.log(result, "cancel")
@@ -178,11 +178,12 @@ var header = {
                                                 location.reload();
                                             }, 1000)
                                         } else {
+                                            numInd = 0;
                                             // var msg7 = dialogsText.find(".msg7")[0].outerHTML
                                             // $(_this).find(".bootbox-body").html(msg7);
-                                            $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
-                                            $(_this).find(".btn1").show().html("确定");
-                                            $(_this).find(".btn2").hide();
+                                            $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + res.msg + "</span></div>");
+                                            $(_this).find(".btn2").show().html("重试");
+                                            // $(_this).find(".btn1").show();
                                         }
                                     });
                                 } else {
@@ -198,6 +199,9 @@ var header = {
                                             $(_this).find("#unlock-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
                                         }
+                                        $("#unlockCode").change(function () {
+                                            $("#unlock-error").html("");
+                                        });
                                     });
 
                                 }
