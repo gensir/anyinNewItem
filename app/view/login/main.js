@@ -75,7 +75,7 @@ var main = Backbone.View.extend({
             "loginType": 2,
             "esealCode": checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
             "codeError": checkResult ? 0 : 1,
-            "entryptCert": ukeys.dCertificate(selectedUkey),
+            "entryptCert": checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
             "randomNum": randomNum,
             "signature": checkResult == true ? ukeys.dSignature(selectedUkey, randomNum) : "",
             "oid": ukeys.GetOid(selectedUkey),
