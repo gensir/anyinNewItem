@@ -113,11 +113,12 @@ var step3 = Backbone.View.extend({
 				},
 				success: function(data) {
 					var data = JSON.parse(data);
+					var parage;
 					var entercode = enterpriseCode;
 					var firmId=JSON.parse($.cookie('loginadmin')).user.firmId
 					var obj ={
 		                "filePath": "",
-		                "certificateType": localStorage.enterpriseCode,
+		                "certificateType": "",
 		                "orderNo": localStorage.orderNo,
 		                "isOrderAttach": 1,
 		                "bizType":"",
@@ -169,51 +170,62 @@ var step3 = Backbone.View.extend({
 								obj.filePath=data;
 								obj.certificateType="0046";
 								picflag[0]=data;
+								parage=obj;
 							}
 							if(num==1){
 								obj.certificateName="法人授权书扫描件";
 								obj.filePath=data;
 								obj.certificateType="0047";
 								picflag[1]=data;
+								parage=obj;
 							}
 							if(num==2){
 								obj.certificateName="银行开户证明扫描件";
 								obj.filePath=data;
 								obj.certificateType="0048";
 								picflag[2]=data;
+								parage=obj;
 							}
 							if(num==3){
 								obj.certificateName="对外贸易许可证扫描件";
 								obj.filePath=data;
 								obj.certificateType="0049";
 								picflag[3]=data;
+								parage=obj;
 							}
 						}else{
 							if(num==0){
-								for(var i=0;i<scan.lenth;i++){
+								for(var i=0;i<scan.length;i++){
 									if(scan[i].certificateType=="0046"){
 										scan[i].filePath=data;
+										parage=scan[i];
 									}
 								}
 							}
 							if(num==1){
-								for(var i=0;i<scan.lenth;i++){
+								for(var i=0;i<scan.length;i++){
 									if(scan[i].certificateType=="0047"){
 										scan[i].filePath=data;
+										obj.filePath=data;
+										parage=scan[i];
 									}
 								}
 							}
 							if(num==2){
-								for(var i=0;i<scan.lenth;i++){
+								for(var i=0;i<scan.length;i++){
 									if(scan[i].certificateType=="0048"){
 										scan[i].filePath=data;
+										obj.filePath=data;
+										parage=scan[i];
 									}
 								}
 							}
 							if(num==3){
-								for(var i=0;i<scan.lenth;i++){
+								for(var i=0;i<scan.length;i++){
 									if(scan[i].certificateType=="0049"){
 										scan[i].filePath=data;
+										obj.filePath=data;
+										parage=scan[i];
 									}
 								}
 							}		
@@ -227,7 +239,7 @@ var step3 = Backbone.View.extend({
 								}
 							});
 						}
-						service.orderAttach(obj).done(function(data){
+						service.orderAttach(parage).done(function(data){
 							if(data.code==0){
 								
 							} else {
@@ -468,6 +480,7 @@ var step3 = Backbone.View.extend({
 				eseals=data.data.eseals;
 				islegal=data.data.isOperatorLegalPerson;
 				var firmId=data.data.firmId;
+				firmId=440311285096;
 				var dtd = $.Deferred();
 				function test(){
 					if(firmId){
