@@ -6,7 +6,7 @@ var pictureFlag;
 var flag = true;
 var areaNumber,stepResult,companyName,enterpriseCode;
 var that, company, sealShop,scan,eseals;
-var islegal;
+var islegal,picflag=[0,0,0,0];
 var zone=440300;
 var step3 = Backbone.View.extend({
 	el: '.container',
@@ -42,7 +42,6 @@ var step3 = Backbone.View.extend({
 		}
 		this.getstep3(orderNo);	
 		
-//		that.$el.html(tpl(that.model.get("tplhtml")))
 	},
 	changeImg: function(event) {
 		var eve = event;
@@ -169,21 +168,25 @@ var step3 = Backbone.View.extend({
 								obj.certificateName="申请书扫描件";
 								obj.filePath=data;
 								obj.certificateType="0046";
+								picflag[0]=data;
 							}
 							if(num==1){
 								obj.certificateName="法人授权书扫描件";
 								obj.filePath=data;
 								obj.certificateType="0047";
+								picflag[1]=data;
 							}
 							if(num==2){
 								obj.certificateName="银行开户证明扫描件";
 								obj.filePath=data;
 								obj.certificateType="0048";
+								picflag[2]=data;
 							}
 							if(num==3){
 								obj.certificateName="对外贸易许可证扫描件";
 								obj.filePath=data;
 								obj.certificateType="0049";
+								picflag[3]=data;
 							}
 						}else{
 							if(num==0){
@@ -387,6 +390,12 @@ var step3 = Backbone.View.extend({
 	            } else {
 	                $("li.PreviousPage,li.NextPage").removeClass("no");
 	            }
+	            for(var i=0;i<=picflag.length-1;i++){
+	            	if(picflag[0]!=0){
+		            	this.clickPage(i);
+		            }
+	            }
+	            
 	            
 	            //如果是第一次进来
 				if(scan.length==0){
@@ -543,6 +552,55 @@ var step3 = Backbone.View.extend({
 	},
 	gostep2:function(){
 		localStorage.stepNum="#step2"
+	},
+	clickPage:function(num){
+		if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
+			var userAgent = navigator.userAgent;
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");  
+            reIE.test(userAgent);  
+            var fIEVersion = parseFloat(RegExp["$1"]);  
+            if(fIEVersion <= 9)  { 
+                $("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat").css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+picflag[num]+", sizingMethod='scale')",
+"-ms-filter":" progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+picflag[num]+", sizingMethod='scale')"});
+            }else if(fIEVersion >=10){
+                $("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat").css("background-size","163px 112px");
+            } 
+			$(".reset" + num).show();
+			$("#file" + num).height(24);
+			imgModalBig('#photo' + num, { 'width': 500, 'src': picflag[num] });
+		}else{
+			var url=picflag[num];
+			$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center");
+			function checkPicurl(url){
+				var img = new Image();
+				img.src = url;
+				img.onerror = function() {
+					return false;
+				};
+				
+				if(img.complete) {
+					console.log(img.width + " " + img.height);
+					var height = img.height;
+					var width = img.width;
+					if((height / width) > (112 / 163)) {
+						$("#photo" + num).css("background-size", "auto 112px");
+					} else {
+						$("#photo" + num).css("background-size", "163px auto");
+					}
+				} else {
+					img.onload = function() {
+						console.log(img.width + " " + img.height);
+						img.onload = null;
+						//避免重复加载
+					}
+				}
+			}
+			checkPicurl(url);
+			
+			$(".reset" + num).show();
+			$("#file" + num).height(24);
+			imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
+		}
 	}
 });
 
