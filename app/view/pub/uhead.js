@@ -156,14 +156,15 @@ var header = {
                                     var esealCode = ukeys.esealCode($("#unlockCode").val(), selectedUkey);
                                     var randomNum = ukeys.randomNum(esealCode);
                                     var dSignature = ukeys.dSignature(selectedUkey, randomNum);
+                                    localStorage.removeItem("dSignature");
                                     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                     //console.log("印章编码：" + esealCode)
-                                    // console.log("随机码：" + randomNum)
+                                    //console.log("随机码：" + randomNum)
                                     //console.log("签名：\n" + dSignature)
                                     //document.write("获取客户端数字签名：\n" + dSignature);
                                     if (dSignature == "") {
                                         numInd = 0;
-                                        $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px;'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>");
+                                        $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>");
                                         $(_this).find(".btn2").show().html("重试");
                                     } else {
                                         var data = {
