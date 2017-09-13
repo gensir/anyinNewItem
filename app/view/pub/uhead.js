@@ -126,7 +126,7 @@ var header = {
                                     var msg6 = dialogsText.find(".msg6")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $.each(ukeys.ukeyName(), function (ind, val) {
-                                        $("#seleBook").append("<Option value="+ val +">" + val + "</Option>")
+                                        $("#seleBook").append("<Option value=" + val + ">" + val + "</Option>")
                                     })
                                     $(_this).find(".btn1,.btn2").show();
                                     $(_this).find(".btn2").show().html("解密");
@@ -137,19 +137,19 @@ var header = {
                             var selectedUkey = $("#seleBook option:selected").val();
                             var unlockCode = $("#unlockCode").val();
                             if (selectedUkey == "") {
-                                numInd = 1;                                
+                                numInd = 1;
                                 $(_this).find("#seleBook-error").html("请选择一个证书");
                                 $(_this).find(".btn2").show().html("解密");
-                                $("#seleBook").change(function(){
+                                $("#seleBook").change(function () {
                                     $("#seleBook-error").html("");
-                                });  
+                                });
                             } else if (unlockCode.length < 6) {
-                                numInd = 1;                                
+                                numInd = 1;
                                 $(_this).find("#unlock-error").html("请输入6位以上PIN码");
                                 $(_this).find(".btn2").show().html("解密");
                                 $("#unlockCode").keyup(function () {
                                     $("#unlock-error").html("");
-                                });   
+                                });
                             } else {
                                 var selectedUkey = $("#seleBook option:selected").index() - 1;
                                 if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
@@ -158,33 +158,39 @@ var header = {
                                     var dSignature = ukeys.dSignature(selectedUkey, randomNum);
                                     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                     //console.log("印章编码：" + esealCode)
-                                    //console.log("随机码：" + randomNum)
+                                    // console.log("随机码：" + randomNum)
                                     //console.log("签名：\n" + dSignature)
                                     //document.write("获取客户端数字签名：\n" + dSignature);
-                                    var data = {
-                                        "esealCode": esealCode,
-                                        "enterpriseCode": enterpriseCode,
-                                        "PKSC7": dSignature,
-                                    };
-                                    service.commSignetLog(1, 1, data).done(res => {
-                                        if (res.code == 0) {
-                                            localStorage.esealCode = esealCode;
-                                            localStorage.dSignature = dSignature;                                            
-                                            var success = dialogsText.find(".success")[0].outerHTML
-                                            $(_this).find(".bootbox-body").html(success);
-                                            $(_this).find(".btn1,.btn2").hide();
-                                            setTimeout(function () {
-                                                _this.modal('hide');
-                                                location.reload();
-                                            }, 1000)
-                                        } else {
-                                            numInd = 0;
-                                            // var msg7 = dialogsText.find(".msg7")[0].outerHTML
-                                            // $(_this).find(".bootbox-body").html(msg7);
-                                            $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + res.msg + "</span></div>");
-                                            $(_this).find(".btn2").show().html("重试");
-                                        }
-                                    });
+                                    if (dSignature == "") {
+                                        numInd = 0;
+                                        $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px;'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>");
+                                        $(_this).find(".btn2").show().html("重试");
+                                    } else {
+                                        var data = {
+                                            "esealCode": esealCode,
+                                            "enterpriseCode": enterpriseCode,
+                                            "PKSC7": dSignature,
+                                        };
+                                        service.commSignetLog(1, 1, data).done(res => {
+                                            if (res.code == 0) {
+                                                localStorage.esealCode = esealCode;
+                                                localStorage.dSignature = dSignature;
+                                                var success = dialogsText.find(".success")[0].outerHTML
+                                                $(_this).find(".bootbox-body").html(success);
+                                                $(_this).find(".btn1,.btn2").hide();
+                                                setTimeout(function () {
+                                                    _this.modal('hide');
+                                                    location.reload();
+                                                }, 1000)
+                                            } else {
+                                                numInd = 0;
+                                                // var msg7 = dialogsText.find(".msg7")[0].outerHTML
+                                                // $(_this).find(".bootbox-body").html(msg7);
+                                                $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + res.msg + "</span></div>");
+                                                $(_this).find(".btn2").show().html("重试");
+                                            }
+                                        });
+                                    }
                                 } else {
                                     numInd = 1;
                                     var GetOid = ukeys.GetOid(selectedUkey);

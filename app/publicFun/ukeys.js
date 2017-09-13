@@ -81,7 +81,7 @@ var ukeys = {
             return this.data.ukey.SetCertPin(val);//Boolean
         }
     },
-    dSignature(selectukeyInd, randomNum) {//客服端数字签名；
+    dSignature(selectukeyInd, randomNum) {//客户端数字签名；
         if (randomNum && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.Signature(randomNum, randomNum.length);
