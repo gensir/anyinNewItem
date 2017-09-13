@@ -115,6 +115,7 @@ var logs = Backbone.View.extend({
             "signTimeEnd": $("#date2").val(),
         };
         if (PKSC7 == null) {
+            $("#keyword,#s_state,#s_type,#date1,#date2").val("");
             this.nosearch();
             return false;
         } else {
