@@ -89,6 +89,7 @@ var Router = Backbone.Router.extend({
     isview: false,
     step1: function (query) {
         var me = this;
+        localStorage.stepNum="#step1";
         require.ensure([], function (require) {
             var View = require('../../view/admin/step1')
             me.startRout(View, { query: query });
