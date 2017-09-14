@@ -134,7 +134,8 @@
     }
 
     .step4 .orderMessage .order {
-        width: 496px;
+        width: 680px;
+        min-height: 44px;
         height: 60px;
         margin-bottom: 40px;
         border: 1px dashed #e0e0e0;
@@ -146,7 +147,8 @@
     }
 
     .step4 .orderMessage .order .serial {
-        display: inline-block;
+        display: block;
+        float: left;
         width: 30px;
         height: 30px;
         border: 1px solid #e0e0e0;
@@ -159,23 +161,31 @@
     .step4 .orderMessage .order .sealName {
         color: #333333;
         margin-left: 22px;
+        width: 100px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;
+        display:block;
+        float: left;        
     }
 
     .step4 .orderMessage .order .service {
-        margin-left: 38px;
-        height: 24px;
-        width: 94px;
+        margin-left: 10px;
         border: 1px solid #00acff;
         color: #00acff;
         text-align: center;
-        line-height: 24px;
-        padding: 7px 15px;
+        display:block;
+        float: left;
+        width: 320px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;
     }
 
     .step4 .orderMessage .order .price {
         margin-left: 48px;
         color: #00acff;
         font-size: 16px;
+        display:block;
+        float: left;
+        width: 100px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;             
     }
 
     .step4 .orderYear {
