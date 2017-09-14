@@ -101,36 +101,49 @@
     }
     
     .step4 .orderMessage .order {
-        width: 496px;
+        width: 680px;
+        min-height: 44px;
         padding: 15px 0;
         border-bottom: 1px dashed #e0e0e0;
     }
     
     .step4 .orderMessage .order .serial {
-        display: inline-block;
+        display:block;
+        float: left;
         width: 30px;
         text-align: center;
+        
+        
     }
     
     .step4 .orderMessage .order .sealName {
         color: #333333;
         margin-left: 22px;
+        width: 100px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;
+        display:block;
+        float: left;
     }
     
     .step4 .orderMessage .order .service {
-        margin-left: 38px;
-        height: 24px;
+        margin-left: 10px;
         width: 94px;
         color: #00acff;
         text-align: center;
-        line-height: 24px;
-        padding: 7px 15px;
+        display:block;
+        float: left;
+        width: 320px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;
     }
     
     .step4 .orderMessage .order .price {
         margin-left: 48px;
         color: #00acff;
         font-size: 16px;
+        display:block;
+        float: left;
+        width: 100px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;        
     }
     
     .step4 .orderYear {
@@ -171,12 +184,14 @@
     }
     
     .step4 .orderTips .total {
-        margin-left: 200px;
+        margin-left: 330px;
     }
     
     .step4 .orderTips .totalM {
         font-size: 20px;
         color: #00acff;
+        max-width: 140px;
+        white-space: nowrap; word-wrap: normal; text-overflow: ellipsis;  overflow: hidden;      
     }
     
     .service select {
