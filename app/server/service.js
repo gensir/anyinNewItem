@@ -168,7 +168,7 @@ export default {
     },
     //查询有问题的订单
     errorOrder(data) {
-        return this.ajaxCall({ url: domain + basemp + "eseal/order/list/1/5?orderStatus=1&enterpriseCode=" + data, async: false });
+        return this.ajaxCall({ url: domain + basemp + "eseal/order/list/1/5?orderStatus=1&firmId=" + data, async: false });
     },
     //提交第一步
     poststep1(data) {
