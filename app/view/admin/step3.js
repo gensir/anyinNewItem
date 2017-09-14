@@ -5,7 +5,7 @@ var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
 var areaNumber,stepResult,companyName,enterpriseCode;
-var that, company, sealShop,scan,eseals;
+var that, company, sealShop,scan,eseals,parage;
 var islegal,picflag=[0,0,0,0];
 var zone=440300;
 var step3 = Backbone.View.extend({
@@ -113,7 +113,7 @@ var step3 = Backbone.View.extend({
 				},
 				success: function(data) {
 					var data = JSON.parse(data);
-					var parage;
+					
 					var entercode = enterpriseCode;
 					var firmId=JSON.parse($.cookie('loginadmin')).user.firmId
 					var obj ={
@@ -171,6 +171,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0046";
 								picflag[0]=data;
 								parage=obj;
+								scan.push(obj);
 							}
 							if(num==1){
 								obj.certificateName="法人授权书扫描件";
@@ -178,6 +179,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0047";
 								picflag[1]=data;
 								parage=obj;
+								scan.push(obj);
 							}
 							if(num==2){
 								obj.certificateName="银行开户证明扫描件";
@@ -185,6 +187,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0048";
 								picflag[2]=data;
 								parage=obj;
+								scan.push(obj);
 							}
 							if(num==3){
 								obj.certificateName="对外贸易许可证扫描件";
@@ -192,6 +195,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0049";
 								picflag[3]=data;
 								parage=obj;
+								scan.push(obj);
 							}
 						}else{
 							if(num==0){
@@ -512,25 +516,7 @@ var step3 = Backbone.View.extend({
 						}
 					})
 					
-				})
-				
-				
-				
-				
-//				if(!firmId){       //如果没有firmId就根据公司名查firmId
-//					var company={ 
-//						"params": {"name":data.data.enterpriseName} 
-//					}
-//					service.getAreaByCom(company).done(function(data){
-//						if(data.code==0){
-//							firmId=data.data.id;
-//						}else{
-//							bootbox.alert(data.msg);
-//						}
-//					})
-//				}
-				
-				
+				})				
 			}else{
 				bootbox.alert(data.msg)
 			}
@@ -556,7 +542,7 @@ var step3 = Backbone.View.extend({
 		stepResult.scanAttaches=scan;
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
-			localStorage.stepNum="#step4";
+				localStorage.stepNum="#step4";
 				window.open('admin.html#step4', '_self');
 			} else {
 				bootbox.alert(data.msg)
