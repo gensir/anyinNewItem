@@ -278,7 +278,7 @@ var step4 = Backbone.View.extend({
             	invoiceState=true;
             }
         }else if(billType == 2){
-             if($("#invoice_company").val().length !=15 || $("#invoice_taxpayer").val().length !=18 ||  $("#invoice_taxpayer").val().length !=20 ) {
+             if($("#invoice_company").val()=="" || $("#invoice_taxpayer").val().length !=15 && $("#invoice_taxpayer").val().length !=18 && $("#invoice_taxpayer").val().length !=20 ) {
              	invoiceState=false;
              	$("#taxTips").text("请填写企业发票抬头，并输入15、18或20位的纳税人识别号！")
             }else{
