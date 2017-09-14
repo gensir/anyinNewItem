@@ -106,11 +106,11 @@ var step4 = Backbone.View.extend({
 	},
 	renewInfo:function(){
 		var _this = this
-//		var esealCode=this.getUrlParam('esealcode');
-//     var oid=this.getUrlParam('oid')
+		var esealCode=this.getUrlParam('esealcode');
+        var oid=this.getUrlParam('oid');
 	
-		var esealCode='4403048020393';	
-		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
+//		var esealCode='4403048020393';	
+//		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
         var data = {
 			'esealCode':esealCode,
 			'oid':oid
