@@ -58,9 +58,9 @@
                                     <p>电子印章状态：<span>{{value.esealStatus==1?"正常":value.esealStatus==2?"待审核":value.esealStatus==3?"审核不通过":value.esealStatus==4?"待制作":value.esealStatus==5?"待交付":value.esealStatus==6?"已过期":value.esealStatus==7?"需更新证书":value.esealStatus==8?"被禁用":value.esealStatus==9?"预挂失中":value.esealStatus==10?"挂失":value.esealStatus==11?"注销":value.esealStatus==12?"交付待审批":"其他"}}</span></p>
                                 </li>
                                 <li class="n3">
-                                    <p>需要帮助？</p>
+                                    <p class="f14">需要帮助？</p>
                                     <p><span>我的电子印章快过有效期了，</span><a href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">马上续费</a></p>
-                                    <p><span>我的电子印章可能遗失或被人盗用，</span><a href="#">马上冻结</a></p>
+                                    <p><span>我的电子印章可能遗失或被人盗用，</span><a href="#">马上预挂失</a></p>
                                     <p><span>我不需要继续使用的电子印章，</span><a href="#">马上注销</a></p>
                                     <p><span>电子印章常用问题，或</span><a href="#">联系客服</a></p>
                                 </li>
@@ -311,6 +311,7 @@
 
     .eseallist .list .toggle .nav .f14 {
         font-size: 14px;
+        font-weight: 600;
     }
 
     .eseallist .list .toggle .nav p span {
