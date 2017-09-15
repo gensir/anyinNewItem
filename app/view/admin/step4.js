@@ -37,7 +37,7 @@ var step4 = Backbone.View.extend({
     toDecimal:function(x) { 
       var f = parseFloat(x); 
       if (isNaN(f)) { 
-        return; 
+        return 0; 
       } 
       f = Math.round(x*100)/100; 
       return f; 
@@ -51,7 +51,7 @@ var step4 = Backbone.View.extend({
             } else {
               tempObj = res;
                 var cont = "";
-                var sumPrice = "";
+                var sumPrice = 0;
                 if( tempObj.data.esealProducts || tempObj.data.esealProducts !=null ){                	
                 }else{ 
 					var dialog = bootbox.alert({
@@ -62,14 +62,15 @@ var step4 = Backbone.View.extend({
                 for(var i = 0; i < tempObj.data.esealProducts.length; i++) {
                     cont += '<div class="order"><span class="serial">' + (i + 1) + '</span><span class="sealName">' + tempObj.data.esealProducts[i].esealFullName + '</span><span class="service">' + tempObj.data.products[0].productName + '</span> <span class="price">' + tempObj.data.products[0].productAmount  + '元</span></div>'
                     sumPrice +=Number(tempObj.data.products[0].productAmount);
-                    sumPrice=Number(sumPrice)
-                    sumPrice=this.toDecimal(sumPrice);
-                }  //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
+                }                    //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
+                sumPrice=this.toDecimal(sumPrice);
+                sumPrice=sumPrice.toFixed(2);
+                var paysumPrice=sumPrice;
                 $("#step4_orders").append(cont);
                 $("#sumPrice , #sumPrice_pay").html(sumPrice + "元");
                 step4Data = {
                     "discountAmount": 0,
-                    "actualAmount": sumPrice,
+                    "actualAmount": paysumPrice,
                     "orderNo": orderNo,
                     "payType": 2,  //默认微信支付是2
                     //"invoice":""   
