@@ -493,8 +493,8 @@ var list = Backbone.View.extend({
         return false;
     },
     renew() {
-        window.open("admin.html#renew", "_self")
-        return false
+        //window.open("admin.html#renew", "_self")
+        //return false
     },
     listPage(pageNum, pageSize) {
         pageNum = pageNum || 1;

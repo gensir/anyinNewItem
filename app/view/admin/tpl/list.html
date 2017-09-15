@@ -30,7 +30,7 @@
                             <li class="nav3">{{value.createTime}}</li>
                             <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
                             <li class="nav5">
-                                <span class="renew">续费</span>
+                                <a class="renew" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}" target="_self">续费</a>
                                 <span class="unfreeze">解冻</span>
                                 <span class="logout">注销</span>
                                 <span class="loss">预挂失</span>
@@ -382,4 +382,12 @@
         font-size: 14px;
         line-height: 48px;
     }
+    .eseallist ul li .renew{
+    	color: #333;
+    	padding: 0 8px;
+    	float: left;
+    }
+     .eseallist ul li .renew:hover{
+     	background-color: transparent;
+     }   
 </style>
