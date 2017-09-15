@@ -162,7 +162,7 @@ var header = {
                                     //console.log("随机码：" + randomNum)
                                     //console.log("签名：\n" + PKSC7)
                                     //document.write("获取客户端数字签名：\n" + PKSC7);
-                                    if (PKSC7 == "" || PKSC7 == null) {
+                                    if (!Boolean(PKSC7)) {
                                         numInd = 0;
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>");
                                         $(_this).find(".btn2").show().html("重试");

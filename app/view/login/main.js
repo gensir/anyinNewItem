@@ -83,7 +83,7 @@ var main = Backbone.View.extend({
             "randomNum": randomNum,
             "signature": PKSC7,
         }
-        if (PKSC7 != "") {
+        if (Boolean(PKSC7)) {
             service.userlogin(data).done(function (data) {
                 if (!data.msg && data.code != 0) {
                     $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");

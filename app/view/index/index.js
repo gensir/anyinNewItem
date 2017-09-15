@@ -151,14 +151,14 @@ var index = Backbone.View.extend({
                 Esealobj = res.data.list;
                 _this.model.get("tpl").esealdata = Esealobj;
                 _this.$el.html(tpl(_this.model.get("tpl")));
-                if (Esealobj == "" || Esealobj == null) {
+                if (!Boolean(Esealobj)) {
                     $("ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
                 } else {
                     for (var i = 0; i < Esealobj.length; i++) {
                         var date1 = new Date(),
                             dates = res.data.list[i].validEnd;
                         // dates = "2017-9-30 12:45:25";
-                        if (dates != "" || dates != null ) {
+                        if (Boolean(dates)) {
                             var date2 = new Date(dates.replace(/-/g, "/"));
                             var count = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
                             if (count < 0) {
