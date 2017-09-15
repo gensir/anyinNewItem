@@ -5,7 +5,7 @@ var service = require('../../server/service').default;
 var pictureFlag;
 var flag = true;
 var areaNumber,stepResult,companyName,enterpriseCode;
-var that, company, sealShop,scan,eseals,parage;
+var that, company, sealShop,scan,eseals,parage,tempArr=[];
 var islegal,picflag=[0,0,0,0];
 var zone=440300;
 var step3 = Backbone.View.extend({
@@ -171,7 +171,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0046";
 								picflag[0]=data;
 								parage=obj;
-								scan.push(obj);
+								tempArr.push(obj);
 							}
 							if(num==1){
 								obj.certificateName="法人授权书扫描件";
@@ -179,7 +179,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0047";
 								picflag[1]=data;
 								parage=obj;
-								scan.push(obj);
+								tempArr.push(obj);
 							}
 							if(num==2){
 								obj.certificateName="银行开户证明扫描件";
@@ -187,7 +187,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0048";
 								picflag[2]=data;
 								parage=obj;
-								scan.push(obj);
+								tempArr.push(obj);
 							}
 							if(num==3){
 								obj.certificateName="对外贸易许可证扫描件";
@@ -195,7 +195,7 @@ var step3 = Backbone.View.extend({
 								obj.certificateType="0049";
 								picflag[3]=data;
 								parage=obj;
-								scan.push(obj);
+								tempArr.push(obj);
 							}
 						}else{
 							if(num==0){
@@ -203,6 +203,7 @@ var step3 = Backbone.View.extend({
 									if(scan[i].certificateType=="0046"){
 										scan[i].filePath=data;
 										parage=scan[i];
+										picflag[0]=data;
 									}
 								}
 							}
@@ -212,6 +213,7 @@ var step3 = Backbone.View.extend({
 										scan[i].filePath=data;
 										obj.filePath=data;
 										parage=scan[i];
+										picflag[1]=data;
 									}
 								}
 							}
@@ -221,6 +223,7 @@ var step3 = Backbone.View.extend({
 										scan[i].filePath=data;
 										obj.filePath=data;
 										parage=scan[i];
+										picflag[2]=data;
 									}
 								}
 							}
@@ -230,6 +233,7 @@ var step3 = Backbone.View.extend({
 										scan[i].filePath=data;
 										obj.filePath=data;
 										parage=scan[i];
+										picflag[3]=data;
 									}
 								}
 							}		
@@ -237,7 +241,7 @@ var step3 = Backbone.View.extend({
 						if(isdelete){
 							service.deletePhoto(deleteData).done(function(data) {
 								if(data.code == 0) {
-									pictureFlag[num] = 0;
+									pictureFlag[num] = 1;
 								} else {
 									bootbox.alert(data.msg);
 								}
@@ -245,9 +249,8 @@ var step3 = Backbone.View.extend({
 						}
 						service.orderAttach(parage).done(function(data){
 							if(data.code==0){
-								
-							} else {
 								pictureFlag[num] = 0;
+							} else {
 								bootbox.alert(data.msg);
 							}
 						})
@@ -407,7 +410,7 @@ var step3 = Backbone.View.extend({
 	                $("li.PreviousPage,li.NextPage").removeClass("no");
 	            }
 	            for(var i=0;i<=picflag.length-1;i++){
-	            	if(picflag[0]!=0){
+	            	if(picflag[i]!=0){
 		            	this.clickPage(i);
 		            }
 	            }
@@ -539,7 +542,11 @@ var step3 = Backbone.View.extend({
 			})
 			return;
 		};
-		stepResult.scanAttaches=scan;
+		if(scan.length==0){
+			stepResult.scanAttaches=tempArr;
+		}else{
+			stepResult.scanAttaches=scan;
+		}
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
 				localStorage.stepNum="#step4";
@@ -569,7 +576,7 @@ var step3 = Backbone.View.extend({
 			imgModalBig('#photo' + num, { 'width': 500, 'src': picflag[num] });
 		}else{
 			var url=picflag[num];
-			$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center");
+//			$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center center");
 			function checkPicurl(url){
 				var img = new Image();
 				img.src = url;
@@ -582,9 +589,9 @@ var step3 = Backbone.View.extend({
 					var height = img.height;
 					var width = img.width;
 					if((height / width) > (112 / 163)) {
-						$("#photo" + num).css("background-size", "auto 112px");
+						$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center center auto 112px");
 					} else {
-						$("#photo" + num).css("background-size", "163px auto");
+						$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center center 163px auto");
 					}
 				} else {
 					img.onload = function() {
