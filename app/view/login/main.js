@@ -36,7 +36,7 @@ var main = Backbone.View.extend({
         var event = event || window.event;
         var keyCode = event.keyCode || event.which; // 按键的keyCode
         if (keyCode == 13) {
-            this.ukeyLogin(event,"ukeyLogin")
+            this.ukeyLogin(event, "ukeyLogin")
             return false;
         }
 
@@ -45,7 +45,7 @@ var main = Backbone.View.extend({
         var event = event || window.event;
         var keyCode = event.keyCode || event.which; // 按键的keyCode
         if (keyCode == 13) {
-            this.phoneLogin(event,"phoneLogin")
+            this.phoneLogin(event, "phoneLogin")
             return false;
         }
 
@@ -59,7 +59,7 @@ var main = Backbone.View.extend({
     goregister() {
         window.open('register.html#step1', '_self')
     },
-    ukeyLogin(event,itemEle) {
+    ukeyLogin(event, itemEle) {
         this.model.set({ "clickEle": itemEle || $(event.target).data('id') })
         var isValid = this.model.isValid();
         if (isValid) {
@@ -71,147 +71,152 @@ var main = Backbone.View.extend({
         }
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
         var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey))
+        var PKSC7 = ukeys.dSignature(selectedUkey, randomNum)
         var data = {
             "loginType": 2,
             "esealCode": checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
             "codeError": checkResult ? 0 : 1,
             "entryptCert": checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
-            "randomNum": randomNum,
-            "signature": checkResult == true ? ukeys.dSignature(selectedUkey, randomNum) : "",
+            "keyType": checkResult == true ? ukeys.getCertType(selectedUkey) : "",
             "oid": ukeys.GetOid(selectedUkey),
-            "enterpriseCode": ukeys.GetenterpriseCode(selectedUkey)
+            "enterpriseCode": ukeys.GetenterpriseCode(selectedUkey),
+            "randomNum": randomNum,
+            "signature": PKSC7,
         }
-        service.userlogin(data).done(function (data) {
-            if (!data.msg && data.code != 0) {
-                $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
-                return
-            }
-            if (data.code === 0) {
-                //$.verify("passwd", "#passwd");
-                if (data.data.pointCode == 100) {
-                    var numInd = 0;
-                    var dialog = bootbox.dialog({
-                        backdrop: true,
-                        //closeButton: false,
-                        className: "common loss",
-                        title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                        message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
-                        buttons: {
-                            cancel: {
-                                label: "返回",
-                                className: "btn1",
-                                callback: function (result) {
-                                    result.cancelable = false;
-                                }
-                            },
-                            confirm: {
-                                label: "继续",
-                                className: "btn2 sureLoss",
-                                callback: function (event) {
-                                    numInd++;
-                                    if (numInd == 1) {
-                                        numInd = 0
-                                        localStorage.firmId = data.data.firmId;
-                                        localStorage.pointCode = data.data.pointCode;
-                                        window.open('register.html#step2', '_self');
-                                    } else {
-                                        this.modal('hide');
-                                    }
-                                    return false;
-                                }
-                            }
-                        }
-                    });
-                    return
-                } else if (data.data.pointCode == 101 || data.data.pointCode == 104) {
-                    var numInd = 0;
-                    var dialog = bootbox.dialog({
-                        backdrop: true,
-                        //closeButton: false,
-                        className: "common loss",
-                        title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                        message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
-                        buttons: {
-                            cancel: {
-                                label: "返回",
-                                className: "btn1",
-                                callback: function (result) {
-                                    result.cancelable = false;
-                                }
-                            },
-                            confirm: {
-                                label: "继续",
-                                className: "btn2 sureLoss",
-                                callback: function (event) {
-                                    numInd++;
-                                    if (numInd == 1) {
-                                        numInd = 0
-                                        localStorage.firmId = data.data.firmId;
-                                        localStorage.pointCode = data.data.pointCode;
-                                        window.open('admin.html#renew', '_self');
-                                    } else {
-                                        this.modal('hide');
-                                    }
-                                    return false;
-                                }
-                            }
-                        }
-                    });
-                    return
-                } else if (data.data.pointCode == 102) {
-                    var numInd = 0;
-                    var dialog = bootbox.dialog({
-                        backdrop: true,
-                        //closeButton: false,
-                        className: "common loss",
-                        title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                        message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
-                        buttons: {
-                            cancel: {
-                                label: "返回",
-                                className: "btn1",
-                                callback: function (result) {
-                                    result.cancelable = false;
-                                }
-                            },
-                            confirm: {
-                                label: "继续",
-                                className: "btn2 sureLoss",
-                                callback: function (event) {
-                                    numInd++;
-                                    if (numInd == 1) {
-                                        numInd = 0
-                                        localStorage.firmId = data.data.firmId;
-                                        localStorage.pointCode = data.data.pointCode;
-                                        window.open('admin.html#renew', '_self');
-                                    } else {
-                                        this.modal('hide');
-                                    }
-                                    return false;
-                                }
-                            }
-                        }
-                    });
+        if (PKSC7 != "") {
+            service.userlogin(data).done(function (data) {
+                if (!data.msg && data.code != 0) {
+                    $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                     return
                 }
+                if (data.code === 0) {
+                    //$.verify("passwd", "#passwd");
+                    if (data.data.pointCode == 100) {
+                        var numInd = 0;
+                        var dialog = bootbox.dialog({
+                            backdrop: true,
+                            //closeButton: false,
+                            className: "common loss",
+                            title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                            message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
+                            buttons: {
+                                cancel: {
+                                    label: "返回",
+                                    className: "btn1",
+                                    callback: function (result) {
+                                        result.cancelable = false;
+                                    }
+                                },
+                                confirm: {
+                                    label: "继续",
+                                    className: "btn2 sureLoss",
+                                    callback: function (event) {
+                                        numInd++;
+                                        if (numInd == 1) {
+                                            numInd = 0
+                                            localStorage.firmId = data.data.firmId;
+                                            localStorage.pointCode = data.data.pointCode;
+                                            window.open('register.html#step2', '_self');
+                                        } else {
+                                            this.modal('hide');
+                                        }
+                                        return false;
+                                    }
+                                }
+                            }
+                        });
+                        return
+                    } else if (data.data.pointCode == 101 || data.data.pointCode == 104) {
+                        var numInd = 0;
+                        var dialog = bootbox.dialog({
+                            backdrop: true,
+                            //closeButton: false,
+                            className: "common loss",
+                            title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                            message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
+                            buttons: {
+                                cancel: {
+                                    label: "返回",
+                                    className: "btn1",
+                                    callback: function (result) {
+                                        result.cancelable = false;
+                                    }
+                                },
+                                confirm: {
+                                    label: "继续",
+                                    className: "btn2 sureLoss",
+                                    callback: function (event) {
+                                        numInd++;
+                                        if (numInd == 1) {
+                                            numInd = 0
+                                            localStorage.firmId = data.data.firmId;
+                                            localStorage.pointCode = data.data.pointCode;
+                                            window.open('admin.html#renew', '_self');
+                                        } else {
+                                            this.modal('hide');
+                                        }
+                                        return false;
+                                    }
+                                }
+                            }
+                        });
+                        return
+                    } else if (data.data.pointCode == 102) {
+                        var numInd = 0;
+                        var dialog = bootbox.dialog({
+                            backdrop: true,
+                            //closeButton: false,
+                            className: "common loss",
+                            title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                            message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
+                            buttons: {
+                                cancel: {
+                                    label: "返回",
+                                    className: "btn1",
+                                    callback: function (result) {
+                                        result.cancelable = false;
+                                    }
+                                },
+                                confirm: {
+                                    label: "继续",
+                                    className: "btn2 sureLoss",
+                                    callback: function (event) {
+                                        numInd++;
+                                        if (numInd == 1) {
+                                            numInd = 0
+                                            localStorage.firmId = data.data.firmId;
+                                            localStorage.pointCode = data.data.pointCode;
+                                            window.open('admin.html#renew', '_self');
+                                        } else {
+                                            this.modal('hide');
+                                        }
+                                        return false;
+                                    }
+                                }
+                            }
+                        });
+                        return
+                    }
 
-                $.cookie('loginadmin', JSON.stringify(data.data))
-                window.open("index.html", "_self");
-            } else if (data.code == 4) {
-                $.verify("passwd", "#passwd", "后台返回error");
-            } else if (data.code == "500") {
-                $.verify("ukeytip", "#seleBook", data.msg);
-            } else {
-                $.verify("ukeytip", "#seleBook", data.msg);
-            }
-            //window.open("index.html", "_self")
-        })
-
+                    $.cookie('loginadmin', JSON.stringify(data.data))
+                    window.open("index.html", "_self");
+                } else if (data.code == 4) {
+                    $.verify("passwd", "#passwd", "后台返回error");
+                } else if (data.code == "500") {
+                    $.verify("ukeytip", "#seleBook", data.msg);
+                } else {
+                    $.verify("ukeytip", "#seleBook", data.msg);
+                }
+                //window.open("index.html", "_self")
+            })
+        } else {
+            $.verify("ukeytip", "#pinwd", "获取签名失败，请确认PIN输入正确");
+        }
 
     },
-    phoneLogin(event,itemEle) {
+    phoneLogin(event, itemEle) {
         // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
-        this.model.set({ "clickEle":  itemEle || $(event.target).data('id') })
+        this.model.set({ "clickEle": itemEle || $(event.target).data('id') })
         var isValid = this.model.isValid();
         if (isValid) {
             return;
