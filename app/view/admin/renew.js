@@ -114,7 +114,7 @@ var step4 = Backbone.View.extend({
 			message: "<div class='message'>"+
 			"<div class='icon' style='height: 64px;'><span style='margin-top: 11px;'></span></div>"+
 			"<div class='errorOrderTips'>"+
-			"<div class='errorOrderTitle'>当前尚未监测到U-key，无法进行续期！</div>"+
+			"<div class='errorOrderTitle'>当前尚未检测到U-key，无法进行续期！</div>"+
 			"<div class='errorOrderRed'>请使用U-key登录后再进行此操作。</div></div><div class='clear'></div></div>",
 				buttons: {
 					cancel: {
