@@ -155,14 +155,14 @@ var header = {
                                 if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
                                     var esealCode = ukeys.esealCode($("#unlockCode").val(), selectedUkey);
                                     var randomNum = ukeys.randomNum(esealCode);
-                                    var dSignature = ukeys.dSignature(selectedUkey, randomNum);
+                                    var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
                                     localStorage.removeItem("dSignature");
                                     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                     //console.log("印章编码：" + esealCode)
                                     //console.log("随机码：" + randomNum)
-                                    //console.log("签名：\n" + dSignature)
-                                    //document.write("获取客户端数字签名：\n" + dSignature);
-                                    if (dSignature == "") {
+                                    //console.log("签名：\n" + PKSC7)
+                                    //document.write("获取客户端数字签名：\n" + PKSC7);
+                                    if (PKSC7 == "" || PKSC7 == null) {
                                         numInd = 0;
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>");
                                         $(_this).find(".btn2").show().html("重试");
@@ -170,12 +170,12 @@ var header = {
                                         var data = {
                                             "esealCode": esealCode,
                                             "enterpriseCode": enterpriseCode,
-                                            "PKSC7": dSignature,
+                                            "PKSC7": PKSC7,
                                         };
                                         service.commSignetLog(1, 1, data).done(res => {
                                             if (res.code == 0) {
                                                 localStorage.esealCode = esealCode;
-                                                localStorage.dSignature = dSignature;
+                                                localStorage.dSignature = PKSC7;
                                                 var success = dialogsText.find(".success")[0].outerHTML
                                                 $(_this).find(".bootbox-body").html(success);
                                                 $(_this).find(".btn1,.btn2").hide();
