@@ -232,7 +232,7 @@ var step4 = Backbone.View.extend({
 	    				console.log("支付成功了！");	    				
 	    				localStorage.removeItem("stepNum");
 	    				localStorage.removeItem("orderNo");
-						window.open('pay_ok.html', '_self');
+						window.open('admin.html#pay_ok', '_self');
 	    				
 	    			}else{
 	    				payOrderStatuNum++;

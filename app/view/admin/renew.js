@@ -10,7 +10,6 @@ var orderNo;
 //var esealcode=window.location.hash.split("?")[1].split(/[=&]/)[1];
 
 
-
 var step4 = Backbone.View.extend({
 	el: '.container',
 	initialize() {
@@ -271,7 +270,7 @@ var step4 = Backbone.View.extend({
 	    				console.log("支付成功了！");	    				
 	    				localStorage.removeItem("stepNum");
 	    				localStorage.removeItem("orderNo");
-						window.open('pay_ok.html', '_self');
+						window.open('admin.html#pay_ok', '_self');
 	    				
 	    			}else{
 	    				payOrderStatuNum++;
