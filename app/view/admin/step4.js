@@ -129,7 +129,7 @@ var step4 = Backbone.View.extend({
 				buttons: {
 					cancel: {
 						label: "返回订单",
-						className: "btn1"
+						className: "btn1 closepayalert"
 					}
 				}
 			}) ;
@@ -213,7 +213,7 @@ var step4 = Backbone.View.extend({
         ifr_doc.write(loadjs);
         ifr_doc.close();
         var that=this;	
-		setTimeout(function(){ that.payOrderStatus() } ,3000);		  //弹框后开始查询订单状态
+		setTimeout(function(){ that.payOrderStatus() } ,3000);		  //支付弹框出现3秒后开始查询订单状态
     },    
 
     payOrderStatus:function(){	
@@ -232,12 +232,14 @@ var step4 = Backbone.View.extend({
 	    				console.log("支付成功了！");	    				
 	    				localStorage.removeItem("stepNum");
 	    				localStorage.removeItem("orderNo");
+	    				$(".closepayalert").trigger("click"); 
+	    				$(".bootbox-close-button").trigger("click");
 						window.open('admin.html#pay_ok', '_self');
 	    				
 	    			}else{
 	    				payOrderStatuNum++;
 						var that=this;	
-						setTimeout(function(){ that.payOrderStatus() } ,3000);
+						setTimeout(function(){ that.payOrderStatus() } ,1000);
 					 
 	    			}
 	    			return;

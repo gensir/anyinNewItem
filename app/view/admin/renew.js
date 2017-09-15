@@ -107,7 +107,24 @@ var step4 = Backbone.View.extend({
 		var _this = this
 		var esealCode=this.getUrlParam('esealcode');
         var oid=this.getUrlParam('oid');
-	
+        if(oid=="" ){
+			bootbox.dialog({
+				className: "errorTips",
+				title: '<div class="title">电子印章续费提示</div>',
+			message: "<div class='message'>"+
+			"<div class='icon' style='height: 64px;'><span style='margin-top: 11px;'></span></div>"+
+			"<div class='errorOrderTips'>"+
+			"<div class='errorOrderTitle'>当前尚未监测到U-key，无法进行续期！</div>"+
+			"<div class='errorOrderRed'>请使用U-key登录后再进行此操作。</div></div><div class='clear'></div></div>",
+				buttons: {
+					cancel: {
+						label: "返回",
+						className: "btn1"
+					}
+				}
+			}) ;        	
+        }
+
 //		var esealCode='4403048020393';	
 //		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
         var data = {
@@ -167,7 +184,7 @@ var step4 = Backbone.View.extend({
 				buttons: {
 					cancel: {
 						label: "返回订单",
-						className: "btn1"
+						className: "btn1 closepayalert"
 					}
 				}
 			}) ;
@@ -251,7 +268,7 @@ var step4 = Backbone.View.extend({
         ifr_doc.write(loadjs);
         ifr_doc.close();
         var that=this;	
-		setTimeout(function(){ that.payOrderStatus() } ,3000);		  //弹框后开始查询订单状态
+		setTimeout(function(){ that.payOrderStatus() } ,3000);		  //支付弹框出现3秒后开始查询订单状态
     },    
 
     payOrderStatus:function(){	
@@ -270,12 +287,14 @@ var step4 = Backbone.View.extend({
 	    				console.log("支付成功了！");	    				
 	    				localStorage.removeItem("stepNum");
 	    				localStorage.removeItem("orderNo");
+	    				$(".closepayalert").trigger("click"); 
+	    				$(".bootbox-close-button").trigger("click");
 						window.open('admin.html#pay_ok', '_self');
 	    				
 	    			}else{
 	    				payOrderStatuNum++;
 						var that=this;	
-						setTimeout(function(){ that.payOrderStatus() } ,3000);
+						setTimeout(function(){ that.payOrderStatus() } ,1000);
 					 
 	    			}
 	    			return;
