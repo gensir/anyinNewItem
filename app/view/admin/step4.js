@@ -33,6 +33,15 @@ var step4 = Backbone.View.extend({
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.getOrderInfo();
     },
+    //保留小数点后两位
+    toDecimal:function(x) { 
+      var f = parseFloat(x); 
+      if (isNaN(f)) { 
+        return; 
+      } 
+      f = Math.round(x*100)/100; 
+      return f; 
+    } ,    
     getOrderInfo: function() {
         service.orderStep4(orderNo).done(res => {
             var tempObj;
@@ -54,6 +63,7 @@ var step4 = Backbone.View.extend({
                     cont += '<div class="order"><span class="serial">' + (i + 1) + '</span><span class="sealName">' + tempObj.data.esealProducts[i].esealFullName + '</span><span class="service">' + tempObj.data.products[0].productName + '</span> <span class="price">' + tempObj.data.products[0].productAmount  + '元</span></div>'
                     sumPrice +=Number(tempObj.data.products[0].productAmount);
                     sumPrice=Number(sumPrice)
+                    sumPrice=this.toDecimal(sumPrice);
                 }  //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
                 $("#step4_orders").append(cont);
                 $("#sumPrice , #sumPrice_pay").html(sumPrice + "元");
