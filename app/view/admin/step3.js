@@ -1,5 +1,4 @@
 import tpl from './tpl/step3.html'
-import sealshop from './tpl/sealshop.html'
 import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
@@ -570,8 +569,8 @@ var step3 = Backbone.View.extend({
 		}
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
-//				localStorage.stepNum="#step4";
-//				window.open('admin.html#step4', '_self');
+				localStorage.stepNum="#step4";
+				window.open('admin.html#step4', '_self');
 			} else {
 				bootbox.alert(data.msg)
 			}
