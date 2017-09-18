@@ -113,9 +113,9 @@
 						<option value="0">深圳市</option>
 					</select>
 					<select id="area" class="search_input">
-						{{each zoneArea as value i}}
+						<!--{{each zoneArea as value i}}
 							<option value={{zoneArea[i].areaCode}} {{if zoneArea[i].areaCode==areaNumber}}selected{{/if}} >{{zoneArea[i].name}}</option>
-						{{/each}}
+						{{/each}}-->
 					</select>
 				</div>
 				<div class="current">
@@ -131,15 +131,6 @@
 						<th>印章店地址</th>
 						<th>联系方式</th>
 					</tr>
-					{{each sealShop as value i }}
-					<tr>
-						<td class="right"></td>
-						<td class="sealName">{{sealShop[i].name}}</td>
-						<td class="address">{{sealShop[i].address}}</td>
-						<td class="telPhone">{{sealShop[i].phone}}</td>
-						<td class="display" style="display: none;">{{sealShop[i].psShopid}}</td>
-					</tr>
-					{{/each}}
 				</table>
 				<div class="sealShopResult">查询不到刻章店信息</div>
 			</div>

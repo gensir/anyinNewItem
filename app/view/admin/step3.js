@@ -1,4 +1,5 @@
 import tpl from './tpl/step3.html'
+import sealshop from './tpl/sealshop.html'
 import { imgModalBig } from '../../publicFun/public'
 import { fileUp } from '../../publicFun/public'
 var service = require('../../server/service').default;
@@ -83,7 +84,7 @@ var step3 = Backbone.View.extend({
 		var percentVal = 0;
 		var deleteData;
 		var isdelete=false;
-		if(pictureFlag[num] != 0) {
+		if(pictureFlag[num] != 0&&pictureFlag[num] != 1) {
 			isdelete=true;
 			deleteData = pictureFlag[num];
 		}
@@ -305,8 +306,18 @@ var step3 = Backbone.View.extend({
 				tempObj = {}
 			} else {
 				tempObj = res.data;
+				var str='';
+				for(var i=0;i<res.data.length;i++){
+					if(tempObj[i].areaCode==areaNumber){
+						str+='<option selected value='+tempObj[i].areaCode+'>'+tempObj[i].name+'</option>'
+					}else{
+						str+='<option value='+tempObj[i].areaCode+'>'+tempObj[i].name+'</option>'
+					}
+					
+				}
+				
 			}	
-			that.model.get("tplhtml").zoneArea = tempObj;
+			$("#area").append(str);
 			that.sealShop(areaNumber, pageNumber, pageSize);
 		})
 	},
@@ -390,14 +401,26 @@ var step3 = Backbone.View.extend({
 				} else {
 					temp = res.data;
 				}
-				that.model.get("tplhtml").sealShop = temp;
+				var str='';
+//				that.model.get("tplhtml").sealShop = temp;
 				that.model.set("totalPages", Math.ceil(res.count / res.size))
-				that.$el.html(tpl(that.model.get("tplhtml")))
+//				that.$el.html(tpl(that.model.get("tplhtml")))
 				that.pagination(pageNumber, Math.ceil(res.count / res.size))
 				if(res.data.length==0){
 					$(".sealShopResult").show();
 					$(".pagination").hide();
+				}else{
+					$(".sealshopcontent").remove();
+					for(var i=0;i<res.data.length;i++){
+						str+='<tr class="sealshopcontent"><td class="right"></td>'+
+						'<td class="sealName">'+temp[i].name+'</td>'+
+						'<td class="address">'+temp[i].address+'</td>'+
+						'<td class="telPhone">'+temp[i].phone+'</td>'+
+						'<td class="display" style="display: none;">'+temp[i].psShopid+'</td>'+
+					'</tr>'
+					}
 				}
+				$(".result table").append(str);
 				imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
 				imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
 				imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
@@ -409,14 +432,29 @@ var step3 = Backbone.View.extend({
 	            } else {
 	                $("li.PreviousPage,li.NextPage").removeClass("no");
 	            }
-	            for(var i=0;i<=picflag.length-1;i++){
-	            	if(picflag[i]!=0){
-		            	this.clickPage(i);
-		            }
-	            }
-	            
-	            
-	            //如果是第一次进来
+//	            for(var i=0;i<=picflag.length-1;i++){
+//	            	if(picflag[i]!=0){
+//		            	this.clickPage(i);
+//		            }
+//	            }  
+            }
+		});	
+	},
+	option(){
+		this.active='';
+		areaNumber=$("#area option:selected").val();
+		that.model.get("tplhtml").areaNumber = areaNumber
+		this.sealShop(areaNumber);
+	},
+	getstep3:function(data){
+		service.getstep3(data).done(function(data){
+			if(data.code==0){
+				stepResult=data.data;
+				scan=data.data.scanAttaches;
+				eseals=data.data.eseals;
+				islegal=data.data.isOperatorLegalPerson;
+				var firmId=data.data.firmId;
+				//如果是第一次进来
 				if(scan.length==0){
 					if(islegal==0){
 						pictureFlag[1]=1;
@@ -470,24 +508,7 @@ var step3 = Backbone.View.extend({
 						}
 					}
 				}   
-			}
-		});	
-	},
-	option(){
-		this.active='';
-		areaNumber=$("#area option:selected").val();
-		that.model.get("tplhtml").areaNumber = areaNumber
-		this.sealShop(areaNumber);
-	},
-	getstep3:function(data){
-		service.getstep3(data).done(function(data){
-			if(data.code==0){
-				stepResult=data.data;
-				scan=data.data.scanAttaches;
-				eseals=data.data.eseals;
-				islegal=data.data.isOperatorLegalPerson;
-				var firmId=data.data.firmId;
-				firmId=440311285096;
+				
 				var dtd = $.Deferred();
 				function test(){
 					if(firmId){
@@ -549,8 +570,8 @@ var step3 = Backbone.View.extend({
 		}
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
-				localStorage.stepNum="#step4";
-				window.open('admin.html#step4', '_self');
+//				localStorage.stepNum="#step4";
+//				window.open('admin.html#step4', '_self');
 			} else {
 				bootbox.alert(data.msg)
 			}
@@ -558,55 +579,6 @@ var step3 = Backbone.View.extend({
 	},
 	gostep2:function(){
 		localStorage.stepNum="#step2"
-	},
-	clickPage:function(num){
-		if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){
-			var userAgent = navigator.userAgent;
-            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");  
-            reIE.test(userAgent);  
-            var fIEVersion = parseFloat(RegExp["$1"]);  
-            if(fIEVersion <= 9)  { 
-                $("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat").css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+picflag[num]+", sizingMethod='scale')",
-"-ms-filter":" progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+picflag[num]+", sizingMethod='scale')"});
-            }else if(fIEVersion >=10){
-                $("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat").css("background-size","163px 112px");
-            } 
-			$(".reset" + num).show();
-			$("#file" + num).height(24);
-			imgModalBig('#photo' + num, { 'width': 500, 'src': picflag[num] });
-		}else{
-			var url=picflag[num];
-//			$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center center");
-			function checkPicurl(url){
-				var img = new Image();
-				img.src = url;
-				img.onerror = function() {
-					return false;
-				};
-				
-				if(img.complete) {
-					console.log(img.width + " " + img.height);
-					var height = img.height;
-					var width = img.width;
-					if((height / width) > (112 / 163)) {
-						$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center center auto 112px");
-					} else {
-						$("#photo" + num).css("background", "url(" + picflag[num] + ") no-repeat center center 163px auto");
-					}
-				} else {
-					img.onload = function() {
-						console.log(img.width + " " + img.height);
-						img.onload = null;
-						//避免重复加载
-					}
-				}
-			}
-			checkPicurl(url);
-			
-			$(".reset" + num).show();
-			$("#file" + num).height(24);
-			imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
-		}
 	}
 });
 
