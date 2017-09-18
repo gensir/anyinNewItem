@@ -126,7 +126,7 @@ var header = {
                                     var msg6 = dialogsText.find(".msg6")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $.each(ukeys.ukeyName(), function (ind, val) {
-                                        $("#seleBook").append("<Option value=" + val + ">" + val + "</Option>")
+                                        $("#seleBook").append("<Option value=" + ind + ">" + val + "</Option>")
                                     })
                                     $(_this).find(".btn1,.btn2").show();
                                     $(_this).find(".btn2").show().html("解密");
