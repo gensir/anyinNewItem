@@ -59,7 +59,9 @@ var step4 = Backbone.View.extend({
 						message: "印章产品信息不存在，请核对数据！",
 					})                                
                 }
+                var productsId=tempObj.data.products[0].id;
                 for(var i = 0; i < tempObj.data.esealProducts.length; i++) {
+                	tempObj.data.esealProducts[i].productAmountId=productsId;
                     cont += '<div class="order"><span class="serial">' + (i + 1) + '</span><span class="sealName">' + tempObj.data.esealProducts[i].esealFullName + '</span><span class="service">' + tempObj.data.products[0].productName + '</span> <span class="price">' + tempObj.data.products[0].productAmount  + '元</span></div>'
                     sumPrice +=Number(tempObj.data.products[0].productAmount);
                 }                    //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
