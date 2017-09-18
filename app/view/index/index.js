@@ -163,11 +163,16 @@ var index = Backbone.View.extend({
                             var count = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
                             if (count < 0) {
                                 $(".blist li").eq(i).find("span.date").html("已过期");
-                            } else if (count < 30) {
-                                $(".blist li").eq(i).find("span.date").html(Math.ceil(count) + "天");
                             } else {
-                                $(".blist li").eq(i).find("span.date").html(Math.ceil(count / 30) + "个月");
+                                $(".blist li").eq(i).find("span.date").html(Math.ceil(count) + "天");
                             }
+                            // if (count < 0) {
+                            //     $(".blist li").eq(i).find("span.date").html("已过期");
+                            // } else if (count < 30) {
+                            //     $(".blist li").eq(i).find("span.date").html(Math.ceil(count) + "天");
+                            // } else {
+                            //     $(".blist li").eq(i).find("span.date").html(Math.ceil(count / 30) + "个月");
+                            // }
                         }
                     }
                 }

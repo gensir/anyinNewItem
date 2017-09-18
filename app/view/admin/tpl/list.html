@@ -30,7 +30,7 @@
                             <li class="nav3">{{value.createTime}}</li>
                             <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
                             <li class="nav5">
-                                <a class="renew" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}" target="_self">续费</a>
+                                {{if value.esealStatus!=4 && value.esealStatus!=3 && value.esealStatus!=2}}<a class="renew" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}" target="_self">续费</a>{{/if}}
                                 <!-- <span class="unfreeze">解冻</span> -->
                                 <span class="logout">注销</span>
                                 <span class="loss">预挂失</span>
@@ -42,9 +42,9 @@
                                     <p class="top f14">电子印章信息<span>正常</span></p>
                                     <p>印章名：<span>{{value.esealFullName}}</span></p>
                                     <p>印章编号：<span>{{value.esealCode}}</span></p>
-                                    <p>制作日期: <span>{{value.esealCreateTime}}</span></p>
-                                    <p>印章生效期: <span>{{value.validStart}}</span></p>
-                                    <p>印章失效期： <span>{{value.validEnd}}</span></p>
+                                    <p>制作日期：<span>{{value.esealCreateTime}}</span></p>
+                                    <p>印章生效期：<span>{{value.validStart}}</span></p>
+                                    <p>印章失效期：<span>{{value.validEnd}}</span></p>
                                 </li>
                                 <li class="n2">
                                     <p class="f14">企业信息</p>
@@ -330,8 +330,8 @@
     .listview .accordion .nav li.nav5 span {
         display: inline-block;
         line-height: 48px;
-        padding-left: 2px;
-        padding-right: 2px;
+        padding-left: 4px;
+        padding-right: 4px;
         cursor: pointer;
     }
 
@@ -385,7 +385,7 @@
     }
     .eseallist ul li .renew{
     	color: #333;
-    	padding: 0 8px;
+    	padding: 0 4px;
     	float: left;
     }
      .eseallist ul li .renew:hover{
