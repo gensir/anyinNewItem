@@ -1,4 +1,6 @@
 import tpl from './tpl/pay_ok.html'
+
+var orderNo = localStorage.orderNo;
 var pay_ok = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -6,8 +8,9 @@ var pay_ok = Backbone.View.extend({
     },
     
     jump: function () {
+    	alert(shopName);
         var time = setInterval(showTime, 1000);
-        var second = 5;
+        var second = 50;
         function showTime() {
             if (second == 0) {
                 window.location = "#update_key";

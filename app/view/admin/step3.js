@@ -296,6 +296,7 @@ var step3 = Backbone.View.extend({
 		stepResult.shopName=$(ele).parent().find('.sealName').html();
 		stepResult.shopNo=$(ele).parent().find('.display').html();
 		stepResult.shopTel=$(ele).parent().find('.telPhone').html();
+		
 	},
 	sealList: function(pageNumber, pageSize) {
 		//查询行政区
@@ -569,6 +570,7 @@ var step3 = Backbone.View.extend({
 		}
 		service.poststep3(stepResult).done(function(data) {
 			if(data.code == 0) {
+				localStorage.sealShop=stepResult.shopName;
 				localStorage.stepNum="#step4";
 				window.open('admin.html#step4', '_self');
 			} else {

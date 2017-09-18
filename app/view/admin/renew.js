@@ -108,7 +108,7 @@ var step4 = Backbone.View.extend({
 		var esealCode=this.getUrlParam('esealcode');
         //var oid=this.getUrlParam('oid');
         var oid=localStorage.oid;
-        if(oid=="" ){
+        if(oid=="undefined" || oid==null  ){
 			bootbox.dialog({
 				className: "errorTips",
 				title: '<div class="title">电子印章续费提示</div>',
