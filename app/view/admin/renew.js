@@ -106,7 +106,8 @@ var step4 = Backbone.View.extend({
 	renewInfo:function(){
 		var _this = this
 		var esealCode=this.getUrlParam('esealcode');
-        var oid=this.getUrlParam('oid');
+        //var oid=this.getUrlParam('oid');
+        var oid=localStorage.oid;
         if(oid=="" ){
 			bootbox.dialog({
 				className: "errorTips",
