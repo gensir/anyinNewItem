@@ -69,16 +69,17 @@ var main = Backbone.View.extend({
         if (selectedUkey == -1) {
             return;
         }
-        var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey)
-        var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey))
-        var PKSC7 = ukeys.dSignature(selectedUkey, randomNum)
+        var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
+        var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey));
+        var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
+        var oid = ukeys.GetOid(selectedUkey);
         var data = {
             "loginType": 2,
             "esealCode": checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
             "codeError": checkResult ? 0 : 1,
             "entryptCert": checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
             "keyType": checkResult == true ? ukeys.getCertType(selectedUkey) : "",
-            "oid": ukeys.GetOid(selectedUkey),
+            "oid": oid,
             "enterpriseCode": ukeys.GetenterpriseCode(selectedUkey),
             "randomNum": randomNum,
             "signature": PKSC7,
@@ -197,8 +198,8 @@ var main = Backbone.View.extend({
                         });
                         return
                     }
-
-                    $.cookie('loginadmin', JSON.stringify(data.data))
+                    localStorage.oid = oid;
+                    $.cookie('loginadmin', JSON.stringify(data.data));
                     window.open("index.html", "_self");
                 } else if (data.code == 4) {
                     $.verify("passwd", "#passwd", "后台返回error");
