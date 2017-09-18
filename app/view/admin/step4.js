@@ -261,7 +261,9 @@ var step4 = Backbone.View.extend({
 	    		}    			
 	    	});   			
     	}else{   //大于300次，不发送订单状态轮询支付请求
-    		console.log("十五分钟内未付款成功，订单重置!");
+    		console.log("五分钟内未付款成功，订单重置!");
+    		location.reload();
+    		alert("五分钟内未付款成功，订单支付重置!");
     	}
     },
     takeOrderInvoice:function(serialNo){
