@@ -28,7 +28,7 @@ var config = {
             },        	       	
             '/mp': {
             	//target: proxy.test1, //pathRewrite: {'^/column' : '/column'},            	
-	            target: proxy.test1, //pathRewrite: {'^/column' : '/column'},
+	            target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
             },
