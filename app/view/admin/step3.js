@@ -13,7 +13,7 @@ var step3 = Backbone.View.extend({
 	initialize() {},
 	events: {
 		'change #file0,#file1,#file2,#file3': 'changeImg',
-		'click tr': 'choice',
+		'click .table-striped tbody tr': 'choice',
 		'click #goStep4': 'goStep4',
 		'click .PreviousPage:not(".no")': 'PreviousPage',
 		'click .NextPage:not(".no")': 'NextPage',

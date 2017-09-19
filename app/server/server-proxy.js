@@ -2,13 +2,9 @@ var proxy = {
     anyinUrl: 'http://183.62.140.54',
     test: 'http://192.168.4.95:8080',
     test1:"http://218.17.157.119:3380",
-    // anyinUrl:'http://192.168.1.159:9500'
-    lsq: 'http://192.168.4.69:8080',
-    lsq1: 'http://192.168.4.99:8080',
-    lsq2: 'http://10.9.33.115:8080',  
-    se159: 'http://192.168.1.159:9500',
+    // anyinUrl:'http://192.168.1.159:9500',
+    lsq2: 'http://10.9.33.115:8080',
     unyl:"https://gateway.95516.com" 
-    
 }
 var config = {
     dev: {
@@ -27,7 +23,7 @@ var config = {
                 changeOrigin: true
             },        	       	
             '/mp': {
-            	//target: proxy.test1, //pathRewrite: {'^/column' : '/column'},            	
+            	// target: proxy.test1, //pathRewrite: {'^/column' : '/column'},            	
 	            target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
