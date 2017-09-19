@@ -14,7 +14,7 @@ var list = Backbone.View.extend({
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
-        'click .eseallist .list>.nav .renew': 'renew',
+        'click .eseallist .renew': 'renew',
         'click .eseallist .list>.nav .loss': 'loss',
         'click .eseallist .list>.nav .unfreeze': 'unfreeze',
         'click .eseallist .list>.nav .logout': 'logout',
@@ -492,9 +492,39 @@ var list = Backbone.View.extend({
         })
         return false;
     },
+    //续费操作
     renew() {
-        //window.open("admin.html#renew", "_self")
-        //return false
+        var GetOid = localStorage.oid;
+        if (!Boolean(GetOid)) {
+            var _this = this
+            bootbox.dialog({
+                backdrop: true,
+                closeButton: false,
+                className: "common",
+                title: "登录提示",
+                message: '<div class="msgcenter"><em></em><span>请使用UKEY登录后再进行续费操作！</span></div',
+                buttons: {
+                    cancel: {
+                        label: "取消",
+                        className: "btn1",
+                        callback: function (result) {
+                            result.cancelable = false;
+                        }
+                    },
+                    confirm: {
+                        label: "UKEY登录",
+                        className: "btn2",
+                        callback: function (result) {
+                            localStorage.clear();
+                            $.removeCookie('loginadmin');
+                            result.cancelable = window.open('login.html', '_self');
+                        }
+                    },
+                }
+            })
+            return false;
+
+        }
     },
     listPage(pageNum, pageSize) {
         pageNum = pageNum || 1;

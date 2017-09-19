@@ -26,7 +26,7 @@
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date" title="{{value.validEnd}}"></span>
-                    <span class="operate">{{if value.esealStatus!=4 && value.esealStatus!=3 && value.esealStatus!=2}}<a href="admin.html#renew?esealcode={{value.esealCode}}">立即续费></a>{{/if}}</span>
+                    <span class="operate">{{if value.esealStatus!=4 && value.esealStatus!=3 && value.esealStatus!=2}}<a class="renew" href="admin.html#renew?esealcode={{value.esealCode}}">立即续费></a>{{/if}}</span>
                 </li>
                 {{/each}}
             </ul>

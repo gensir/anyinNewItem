@@ -20,6 +20,7 @@ var index = Backbone.View.extend({
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
+        'click .renew': 'renew'
     },
     userinfo: function (event) {
         var _this = this
@@ -32,6 +33,40 @@ var index = Backbone.View.extend({
             _this.realname_no();
         } else if (userdata.user.status == 3) {
             _this.realname();
+        }
+    },
+    //续费操作
+    renew() {
+        var GetOid = localStorage.oid;
+        if (!Boolean(GetOid)) {
+            var _this = this
+            bootbox.dialog({
+                backdrop: true,
+                closeButton: false,
+                className: "common",
+                title: "登录提示",
+                message: '<div class="msgcenter"><em></em><span>请使用UKEY登录后再进行续费操作！</span></div',
+                buttons: {
+                    cancel: {
+                        label: "取消",
+                        className: "btn1",
+                        callback: function (result) {
+                            result.cancelable = false;
+                        }
+                    },
+                    confirm: {
+                        label: "UKEY登录",
+                        className: "btn2",
+                        callback: function (result) {
+                            localStorage.clear();
+                            $.removeCookie('loginadmin');
+                            result.cancelable = window.open('login.html', '_self');
+                        }
+                    },
+                }
+            })
+            return false;
+
         }
     },
     //签章记录弹出详细记录
