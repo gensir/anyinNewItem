@@ -21,6 +21,7 @@ var list = Backbone.View.extend({
     gopay(event) {
         localStorage.orderNo = $(event.currentTarget).parent().parent().find(".nav0").text();
         localStorage.stepNum = "#step4";
+        event.stopPropagation();
     },
     toggleList(event) {
         var _this = event.currentTarget;

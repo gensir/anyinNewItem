@@ -494,6 +494,7 @@ var list = Backbone.View.extend({
     },
     //续费操作
     renew() {
+        event.stopPropagation();
         var GetOid = localStorage.oid;
         if (!Boolean(GetOid)) {
             var _this = this
@@ -523,7 +524,6 @@ var list = Backbone.View.extend({
                 }
             })
             return false;
-
         }
     },
     listPage(pageNum, pageSize) {
