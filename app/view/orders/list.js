@@ -12,10 +12,15 @@ var list = Backbone.View.extend({
         'click .eseallist .list>.nav': 'toggleList',
         'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
         'click .pagination .NextPage:not(".no")': 'NextPage',
-        'click .pagination .index': 'currentPapge'
+        'click .pagination .index': 'currentPapge',
+        'click #gopay': 'gopay'
     },
     render: function (query) {
     	this.listPage();
+    },
+    gopay(event) {
+        localStorage.orderNo = $(event.currentTarget).parent().parent().find(".nav0").text();
+        localStorage.stepNum = "#step4";
     },
     toggleList(event) {
         var _this = event.currentTarget;
@@ -29,8 +34,8 @@ var list = Backbone.View.extend({
         }
     },
     
-    listPage(data, pageNum, pageSize) {	
-    	$(".listResult").hide();
+    listPage(data, pageNum, pageSize) {
+        $(".listResult").hide();
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
         var data = {
@@ -42,21 +47,21 @@ var list = Backbone.View.extend({
                 tempObj = {}
             } else {
                 tempObj = res.data;
-            }
-            this.model.set("totalPages", res.data.totalPages)
-            this.model.get("tplhtml").data = tempObj;
-            this.$el.html(tpl(this.model.get("tplhtml")));
-            this.pagination( pageNum, res.data.totalPages)
-            if(res.data.list.length==0){
-            	$(".listResult").show();
-            	$("nav").hide();
-            }
-            if (pageNum == 1) {
-                $("li.PreviousPage").addClass("no");
-            } else if (pageNum == res.data.totalPages) {
-                $("li.NextPage").addClass("no");
-            } else {
-                $("li.PreviousPage,li.NextPage").removeClass("no");
+                this.model.set("totalPages", res.data.totalPages)
+                this.model.get("tplhtml").data = tempObj;
+                this.$el.html(tpl(this.model.get("tplhtml")));
+                this.pagination(pageNum, res.data.totalPages)
+                if (res.data.list.length == 0) {
+                    $(".listResult").show();
+                    $("nav").hide();
+                }
+                if (pageNum == 1) {
+                    $("li.PreviousPage").addClass("no");
+                } else if (pageNum == res.data.totalPages) {
+                    $("li.NextPage").addClass("no");
+                } else {
+                    $("li.PreviousPage,li.NextPage").removeClass("no");
+                }
             }
         })
     },
