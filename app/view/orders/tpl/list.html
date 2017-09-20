@@ -22,7 +22,7 @@
                         <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</li>
                         <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
                         <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
-                        <li class="nav5">{{if value.orderStatus ==1}}<a id='gopay' href='admin.html#step4'>预付款</a>{{else}}{{value.orderStatus==2?"已付款":value.orderStatus==3?"已完成":value.orderStatus==4?"预退款":value.orderStatus==5?"退款中":value.orderStatus==6?"已退款":value.orderStatus==7?"交易关闭":value.orderStatus}}{{/if}}</li>
+                        <li class="nav5">{{if value.orderStatus ==1}}<a id='continue' href='javascript:;'>预付款</a>{{else}}{{value.orderStatus==2?"已付款":value.orderStatus==3?"已完成":value.orderStatus==4?"预退款":value.orderStatus==5?"退款中":value.orderStatus==6?"已退款":value.orderStatus==7?"交易关闭":value.orderStatus}}{{/if}}</li>
                     </ul>
                     <div class="showHide">
                         <div class="toggle">
@@ -198,7 +198,6 @@
 
     .accordion .nav .nav5 {
         min-width: 160px;
-        z-index: 99;
     }
 
     .accordion .nav .orderTotal {
@@ -229,7 +228,6 @@
         padding: 14px 0;
         text-align: center;
         cursor: pointer;
-        z-index: -1;
     }
     .eseallist .list>.nav .nav5 a { 
         color: #00acff; padding: 0 4px; display: inline-block; background-color: #f6f6f6; 

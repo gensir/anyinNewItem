@@ -53,8 +53,8 @@ var step1 = Backbone.View.extend({
 								label: "继续该订单",
 								className: "btn2",
 								callback: function() {
-									localStorage.orderNo=data.data.list[0].orderNo;
-									window.location.href = "admin.html#step"+data.data.list[0].operateStep;
+                                    localStorage.orderNo = data.data.list[0].orderNo;
+                                    result.cancelable = window.open('admin.html#step' + data.data.list[0].operateStep, '_self');
 								}
 							},
 							confirm2: {

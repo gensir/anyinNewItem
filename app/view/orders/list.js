@@ -3,7 +3,7 @@ import tpl from './tpl/list.html'
 import { GetQueryString } from '../../publicFun/public.js'
 var service=require('../../server/service').default;
 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
-
+var firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -13,14 +13,19 @@ var list = Backbone.View.extend({
         'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
         'click .pagination .NextPage:not(".no")': 'NextPage',
         'click .pagination .index': 'currentPapge',
-        'click #gopay': 'gopay'
+        'click #continue': 'continue'
     },
     render: function (query) {
     	this.listPage();
     },
-    gopay(event) {
-        localStorage.orderNo = $(event.currentTarget).parent().parent().find(".nav0").text();
-        localStorage.stepNum = "#step4";
+    continue(event) {
+        service.errorOrder(firmId).done(function (data) {
+            if (data.code == 0) {
+                localStorage.orderNo = data.data.list[0].orderNo;
+                localStorage.stepNum = "#step" + data.data.list[0].operateStep
+                window.location.href = "admin.html#step" + data.data.list[0].operateStep;
+            }
+        })
         event.stopPropagation();
     },
     toggleList(event) {
