@@ -198,7 +198,7 @@ var main = Backbone.View.extend({
                         });
                         return
                     }
-                    localStorage.oid = oid;
+                    // localStorage.oid = oid;
                     $.cookie('loginadmin', JSON.stringify(data.data));
                     window.open("index.html", "_self");
                 } else if (data.code == 4) {

@@ -13,12 +13,14 @@ var list = Backbone.View.extend({
         'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
         'click .pagination .NextPage:not(".no")': 'NextPage',
         'click .pagination .index': 'currentPapge',
-        'click #continue': 'continue'
+        'click #continue': 'continue',
+        'click #renew': 'renew'
     },
     render: function (query) {
     	this.listPage();
     },
     continue(event) {
+        event.stopPropagation();
         service.errorOrder(firmId).done(function (data) {
             if (data.code == 0) {
                 localStorage.orderNo = data.data.list[0].orderNo;
@@ -26,7 +28,41 @@ var list = Backbone.View.extend({
                 window.location.href = "admin.html#step" + data.data.list[0].operateStep;
             }
         })
+    },
+    renew(event) {
         event.stopPropagation();
+        var orderNo = $(event.currentTarget).parent().siblings(".nav0").text();
+        var esealCode = $(event.currentTarget).siblings("#esealCode").val();
+        var oid = $(event.currentTarget).siblings("#oid").val();
+        if (!Boolean(oid)) {
+            bootbox.dialog({
+                backdrop: true,
+                closeButton: false,
+                className: "common",
+                title: "登录提示",
+                message: '<div class="msgcenter"><em></em><span>订单已失效，不支持支付！</span></div',
+                buttons: {
+                    cancel: {
+                        label: "取消",
+                        className: "btn1",
+                        callback: function (result) {
+                            result.cancelable = false;
+                        }
+                    },
+                    confirm: {
+                        label: "确定",
+                        className: "btn2",
+                        callback: function (result) {
+                            result.cancelable = false;
+                            // localStorage.clear();
+                            // $.removeCookie('loginadmin');
+                            // result.cancelable = window.open('login.html', '_self');
+                        }
+                    },
+                }
+            })
+            return false;
+        }
     },
     toggleList(event) {
         var _this = event.currentTarget;

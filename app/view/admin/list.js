@@ -495,14 +495,14 @@ var list = Backbone.View.extend({
     //续费操作
     renew(event) {
         event.stopPropagation();
-        var GetOid = $(event.currentTarget).siblings(".oid").val() || localStorage.oid;
+        var GetOid = $(event.currentTarget).siblings(".oid").val()
         if (!Boolean(GetOid)) {
             bootbox.dialog({
                 backdrop: true,
                 closeButton: false,
                 className: "common",
                 title: "登录提示",
-                message: '<div class="msgcenter"><em></em><span>请使用UKEY登录后再进行续费操作！</span></div',
+                message: '<div class="msgcenter"><em></em><span>订单已失效，不支持支付！</span></div',
                 buttons: {
                     cancel: {
                         label: "取消",
@@ -512,12 +512,13 @@ var list = Backbone.View.extend({
                         }
                     },
                     confirm: {
-                        label: "UKEY登录",
+                        label: "确定",
                         className: "btn2",
                         callback: function (result) {
-                            localStorage.clear();
-                            $.removeCookie('loginadmin');
-                            result.cancelable = window.open('login.html', '_self');
+                            result.cancelable = false;
+                            // localStorage.clear();
+                            // $.removeCookie('loginadmin');
+                            // result.cancelable = window.open('login.html', '_self');
                         }
                     },
                 }

@@ -22,7 +22,20 @@
                         <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</li>
                         <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
                         <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
-                        <li class="nav5">{{if value.orderStatus ==1}}<a id='continue' href='javascript:;'>预付款</a>{{else}}{{value.orderStatus==2?"已付款":value.orderStatus==3?"已完成":value.orderStatus==4?"预退款":value.orderStatus==5?"退款中":value.orderStatus==6?"已退款":value.orderStatus==7?"交易关闭":value.orderStatus}}{{/if}}</li>
+                        <li class="nav5">
+                            {{if value.orderStatus ==1}}
+                                {{if value.businessType==1}}
+                                <a id="continue" href='javascript:;'>未支付</a>
+                                {{/if}}
+                                {{if value.businessType==2}}
+                                <input id="esealCode" type="hidden" value="{{value.commEsealInfos[0].esealCode}}">
+                                <input id="oid" type="hidden" value="{{value.commEsealInfos[0].oid}}">
+                                <a id="renew" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.commEsealInfos[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
+                                {{/if}}
+                            {{else}}
+                                {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}
+                            {{/if}}
+                        </li>
                     </ul>
                     <div class="showHide">
                         <div class="toggle">
@@ -32,7 +45,7 @@
                                     <p>业务类型：<span>{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</span></p>
                                     <p>流水号：<span>{{value.orderNo}}</span></p>
                                     <p>订单时间：<span>{{value.createTime}}</span></p>
-                                    <p>订单状态：<span>{{value.orderStatus==1?"预付款":value.orderStatus==2?"已付款":value.orderStatus==3?"已完成":value.orderStatus==4?"预退款":value.orderStatus==5?"退款中":value.orderStatus==6?"已退款":value.orderStatus==7?"交易关闭":value.orderStatus}}</span></p>
+                                    <p>订单状态：<span>{{value.orderStatus==1?"未支付":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}</span></p>
                                     {{if value.businessType!=2}}
                                     <p>经办人：<span>{{value.linkMan}}</span></p>
                                     {{/if}}
@@ -70,7 +83,7 @@
                                     {{/if}}
                                     {{if value.businessType==2 }}
                                         {{each value.mpEsealOrderExts as value i}}
-                                        <p><span class="sealName" style="width:120px;">电子印章续费</span><span class="sealyear">2年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
+                                        <p><span class="sealName" style="width:130px;">{{value.esealFullName}} 续费</span><span class="sealyear">{{value.effectiveDuration}}年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
                                         {{/each}}
                                     {{/if}}
                                     <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span></p>
@@ -85,8 +98,8 @@
                                 </li>
                                 <li class="n3">
                                     <p class="f14">需要帮助？</p>
-                                    <p><span>新办理的电子印章无法使用，</span>
-                                        <a>了解详情</a>
+                                    <p><span>续费后仍然提示已过期？</span>
+                                        <a>点击更新证书</a>
                                     </p>
                                     <p><a>电子印章常见问题</a>，或
                                         <a>联系客服</a>
@@ -325,6 +338,10 @@
 
     .eseallist .list .orderHelp .n1 .sealName {
         width: 190px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        float: left;
     }
 
     .eseallist .list .orderHelp .n1 .sealyear {
