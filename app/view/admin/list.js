@@ -493,11 +493,10 @@ var list = Backbone.View.extend({
         return false;
     },
     //续费操作
-    renew() {
+    renew(event) {
         event.stopPropagation();
-        var GetOid = localStorage.oid;
+        var GetOid = $(event.currentTarget).siblings(".oid").val() || localStorage.oid;
         if (!Boolean(GetOid)) {
-            var _this = this
             bootbox.dialog({
                 backdrop: true,
                 closeButton: false,

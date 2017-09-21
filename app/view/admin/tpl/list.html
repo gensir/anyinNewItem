@@ -30,6 +30,7 @@
                             <li class="nav3">{{value.createTime}}</li>
                             <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
                             <li class="nav5">
+                                <input class="oid" type="hidden" value="{{value.oid}}">
                                 {{if value.esealStatus!=4 && value.esealStatus!=3 && value.esealStatus!=2}}<a class="renew" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}" target="_self">续费</a>{{/if}}
                                 <!-- <span class="unfreeze">解冻</span> -->
                                 <a class="logout">注销</a>
