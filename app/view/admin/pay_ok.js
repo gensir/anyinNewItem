@@ -11,7 +11,7 @@ var pay_ok = Backbone.View.extend({
     
     jump: function () {
         var time = setInterval(showTime, 1000);
-        var second = 600;
+        var second = 6;
         function showTime() {
             if (second == 0) {
                 window.location = windowLocation;
