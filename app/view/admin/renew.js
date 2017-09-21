@@ -290,7 +290,7 @@ var step4 = Backbone.View.extend({
 	    				localStorage.removeItem("orderNo");
 	    				$(".closepayalert").trigger("click"); 
 	    				$(".bootbox-close-button").trigger("click");
-						window.open('admin.html#pay_ok', '_self');
+						window.open('admin.html#pay_ok?num='+orderNo, '_self');
 	    				
 	    			}else{
 	    				payOrderStatuNum++;

@@ -1,7 +1,7 @@
 import tpl from './tpl/pay_ok.html'
 var service = require('../../server/service').default;
 
-var orderNo = localStorage.orderNo;
+
 var windowLocation="orders.html";
 var pay_ok = Backbone.View.extend({
     el: '.container',
@@ -11,7 +11,7 @@ var pay_ok = Backbone.View.extend({
     
     jump: function () {
         var time = setInterval(showTime, 1000);
-        var second = 6;
+        var second = 600;
         function showTime() {
             if (second == 0) {
                 window.location = windowLocation;
@@ -26,12 +26,27 @@ var pay_ok = Backbone.View.extend({
         this.$el.html(tpl);
         this.jump();
         document.body.scrollTop = document.documentElement.scrollTop = 0;
-        this.getData(orderNo);
+        this.getData();
 
-        
-        
     },
-    getData:function(orderNo){
+	getUrlParam: function(name){
+	    var after = window.location.hash.split("?")[1];
+	    if(after)
+	    {
+	        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	        var r = after.match(reg);
+	        if(r != null)
+	        {
+	            return  decodeURIComponent(r[2]);
+	        }
+	        else
+	        {
+	            return null;
+	        }
+	    }		
+	},    
+    getData:function(){
+    	var orderNo=this.getUrlParam('num');
     	service.status(orderNo).done(res => {  
 	    		if(res.code == 0 ){  //订单状态查询请求成功
 					var businessType=res.data.businessType;
@@ -48,9 +63,6 @@ var pay_ok = Backbone.View.extend({
 						$(".lcocation_page").text("证书更新页面")
 						windowLocation="#update_key";
 					}
-				
-					
-
 	    		}else{   //订单状态查询请求失败
 	    			console.log( res.msg )
 	    		}    			
