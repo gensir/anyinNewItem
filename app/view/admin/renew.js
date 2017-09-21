@@ -107,6 +107,7 @@ var step4 = Backbone.View.extend({
 		var _this = this
 		var esealCode=this.getUrlParam('esealcode');
         var oid=this.getUrlParam('oid');
+        var newOrderNo=this.getUrlParam('orderNo');
         //var oid=localStorage.oid || this.getUrlParam('oid');
         if(!Boolean(oid) ){
 			bootbox.dialog({
@@ -151,6 +152,8 @@ var step4 = Backbone.View.extend({
                     //"invoice":"",   
               		'eseal': res.data[0]
                 }
+                
+				step4Data.eseal.orderNo=newOrderNo;
 				
 				$("#sumPrice_pay").text(res.data[0].totalPrice + "元")
 				$(".priceUnitNum").text(res.data[0].price);
@@ -166,7 +169,6 @@ var step4 = Backbone.View.extend({
 					$(".date2").text(res.data[i].validEnd);	
 					$("#sumPrice_pay").text(res.data[i].totalPrice + "元")
 					step4Data.eseal=res.data[i]
-					
 				});
 
             }
