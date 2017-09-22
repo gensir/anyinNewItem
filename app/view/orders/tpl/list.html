@@ -98,9 +98,16 @@
                                 </li>
                                 <li class="n3">
                                     <p class="f14">需要帮助？</p>
-                                    <p><span>续费后仍然提示已过期？</span>
-                                        <a>点击更新证书</a>
+                                    {{if value.businessType==1}}
+                                    <p><span>新办理的电子印章无法使用，</span>
+                                        <a href="">了解详情</a>
                                     </p>
+                                    {{/if}}
+                                    {{if value.businessType==2 || value.businessType==3}}
+                                    <p><span>续费后仍然提示已过期？</span>
+                                        <a href="admin.html#update_key">点击更新证书</a>
+                                    </p>
+                                    {{/if}}
                                     <p><a>电子印章常见问题</a>，或
                                         <a>联系客服</a>
                                     </p>
