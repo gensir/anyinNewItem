@@ -29,8 +29,8 @@
                                 {{/if}}
                                 {{if value.businessType==2}}
                                 <input id="esealCode" type="hidden" value="{{value.commEsealInfos[0].esealCode}}">
-                                <input id="oid" type="hidden" value="{{value.commEsealInfos[0].oid}}">
-                                <a id="renew" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.commEsealInfos[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
+                                <input id="oid" type="hidden" value="{{value.mpEsealOrderExts[0].oid}}">
+                                <a id="renew" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
                                 {{/if}}
                             {{else}}
                                 {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}
