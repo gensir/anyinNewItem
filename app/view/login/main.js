@@ -73,12 +73,13 @@ var main = Backbone.View.extend({
         var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey));
         var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
         var oid = ukeys.GetOid(selectedUkey);
+        var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2
         var data = {
             "loginType": 2,
             "esealCode": checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
             "codeError": checkResult ? 0 : 1,
             "entryptCert": checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
-            "keyType": checkResult == true ? ukeys.getCertType(selectedUkey) : "",
+            "keyType": checkResult == true ? keyType : "",
             "oid": oid,
             "enterpriseCode": ukeys.GetenterpriseCode(selectedUkey),
             "randomNum": randomNum,
