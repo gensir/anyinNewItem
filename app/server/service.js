@@ -1,7 +1,7 @@
 const domain = "";
 const baseUrl = "/api/";
 const basemp = "/mp/";
-const gateway ="/gateway/"
+const gateway = "/gateway/"
 //const basemps = "/mps/";
 //const oldBaseUrl = "/";
 var commonAjaxSetting = {
@@ -128,7 +128,7 @@ export default {
     },
     //上传图片时删除之前的图片
     deletePhoto(data) {
-        return this.ajaxCall({ url: domain + basemp + "file?fileUrl=" + data , async: false }, "delete");
+        return this.ajaxCall({ url: domain + basemp + "file?fileUrl=" + data, async: false }, "delete");
     },
     //检查信用代码
     checkidCode(data) {
@@ -153,6 +153,9 @@ export default {
     //点击注册
     toRegister(data) {
         return this.ajaxCall({ url: domain + basemp + "common/toRegister", data: data });
+    },
+    toRegisterOdc(data) {
+        return this.ajaxCall({ url: domain + basemp + "common/toRegisterOdc", data: data }, 'get');
     },
     //检查企业是否注册
     checkUserIsExist(data) {
@@ -196,7 +199,7 @@ export default {
     },
     //Step4界面展示
     orderStep4(data) {
-        return this.ajaxCall({ url: domain + basemp + "eseal/order/step4?orderNo=" + data});
+        return this.ajaxCall({ url: domain + basemp + "eseal/order/step4?orderNo=" + data });
     },
     //获取订单状态
     status(data) {
@@ -241,7 +244,7 @@ export default {
     },
     //登录权限最后一个关闭控制
     licenseLast(data) {
-        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectCountByEnterpriseCode", data: data,async:false });
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectCountByEnterpriseCode", data: data, async: false });
     },
     //更新状态
     updateStatus(data) {
@@ -249,36 +252,36 @@ export default {
     },
     //银联接口
     unYlyl(data) {
-        return this.ajaxCall({ url: domain + gateway + "api/frontTransReq.do",data: data, dataType:'html'}, "POST");
+        return this.ajaxCall({ url: domain + gateway + "api/frontTransReq.do", data: data, dataType: 'html' }, "POST");
     },
     //通过发票流水号生成百望电子发票
     orderInvoice(data) {
         return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice", data: data }, "POST");
     },
     //手机号是否存在
-    mobileIsNotExist(data){
-    	return this.ajaxCall({ url: domain  + basemp + "common/mobileIsNotExist", data: data });
-    },  
-    getRenewInfo(data){
-    	return this.ajaxCall({ url: domain  + basemp + "order/renew/info", data: data  });
-    },    
-    orderRenew(data){
-    	return this.ajaxCall({ url: domain  + basemp + "order/renew", data: data}, "post");
+    mobileIsNotExist(data) {
+        return this.ajaxCall({ url: domain + basemp + "common/mobileIsNotExist", data: data });
+    },
+    getRenewInfo(data) {
+        return this.ajaxCall({ url: domain + basemp + "order/renew/info", data: data });
+    },
+    orderRenew(data) {
+        return this.ajaxCall({ url: domain + basemp + "order/renew", data: data }, "post");
     },
     //根据firmId获取行政区域编码
-    getAreaByFirmId(data){
-    	return this.ajaxCall({ url: domain  + basemp + "get_company_area_number/web/unit/get/"+data});
+    getAreaByFirmId(data) {
+        return this.ajaxCall({ url: domain + basemp + "get_company_area_number/web/unit/get/" + data });
     },
     //根据公司名查询firmId
-    getAreaByCom(data){
-    	return this.ajaxCall({ url: domain + basemp + "api/web/solr/company/name", data: data}, "post");
+    getAreaByCom(data) {
+        return this.ajaxCall({ url: domain + basemp + "api/web/solr/company/name", data: data }, "post");
     },
     //单个订单附件上传
-    orderAttach(data){
-    	return this.ajaxCall({ url: domain + basemp + "eseal/order/attach", data: data }, "post");
+    orderAttach(data) {
+        return this.ajaxCall({ url: domain + basemp + "eseal/order/attach", data: data }, "post");
     },
     //PIN码错误次数校验
-    checkPIN(data){
-    	return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
+    checkPIN(data) {
+        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
     }
 }

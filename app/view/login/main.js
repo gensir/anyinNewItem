@@ -70,10 +70,11 @@ var main = Backbone.View.extend({
             return;
         }
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
-        var randomNum = ukeys.randomNum(ukeys.esealCode($("#pinwd").val(), selectedUkey));
-        var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
         var oid = ukeys.GetOid(selectedUkey);
-        var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2
+        var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+        var randomNumKey=keyType==1?oid:ukeys.esealCode($("#pinwd").val(), selectedUkey)
+        var randomNum = ukeys.randomNum(randomNumKey);
+        var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
         var data = {
             "loginType": 2,
             "esealCode": checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
@@ -118,6 +119,11 @@ var main = Backbone.View.extend({
                                             numInd = 0
                                             localStorage.firmId = data.data.firmId;
                                             localStorage.pointCode = data.data.pointCode;
+                                            var loginODC = data.data;
+                                            loginODC.enterpriseName = $("#seleBook option:selected").text()
+                                            loginODC.oid = oid;
+                                            loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                                            localStorage.loginODC = JSON.stringify(loginODC);
                                             window.open('register.html#step2', '_self');
                                         } else {
                                             this.modal('hide');

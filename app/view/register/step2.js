@@ -1,5 +1,6 @@
 var tpl = require('./tpl/step2.html');
 var service = require('../../server/service').default;
+import ukeys from '../../publicFun/ukeys';
 var IDNo, enterpriseCode, result, that, username, id, firmId, pointCode;
 var flag = 0;
 var step2 = Backbone.View.extend({
@@ -14,7 +15,7 @@ var step2 = Backbone.View.extend({
         'keyup .passwd': 'passwd',
         'keyup .countPhone': 'inputSapceTrim',
         'onblur .checkPasswd': 'onBlur',
-        'keyup .countPhone':'changePhone'
+        'keyup .countPhone': 'changePhone'
     },
     render: function (query) {
         that = this;
@@ -24,7 +25,12 @@ var step2 = Backbone.View.extend({
         if (!firmId) {
             return;
         }
-        this.getcompany(firmId);
+        if (JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+            this.getcompanyODC()
+        } else {
+            this.getcompany(firmId);
+        }
+
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
     phoneCode: function (event) {
@@ -104,73 +110,84 @@ var step2 = Backbone.View.extend({
             return;
         }
         var mobile = $(".countPhone").val();
-        var passwd = $(".passwd").val();        
+        var passwd = $(".passwd").val();
         var code = $(".countCode").val();
         this.model.set({ "clickEle": $(event.target).data('id') })
-        var validflag=this.model.isValid()
+        var validflag = this.model.isValid()
         var code = $(".countCode").val();
         var phone = $(".countPhone").val();
         if (code == "000000") {
             if (!validflag) {
-	            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
-	            var data = {
-	                "mobile": mobile,
-	                "password": passwd,
-	                "enterpriseCode": enterpriseCode,
-	                "username": username,
-	                "firmId": id,
-	                "pointCode":pointCode
-	            };
-	            service.registerUser(data).done(res => {
-	                if (res.code == 0) {
-	                    if (res.data == 100) {
-	                        localStorage.clear();
-	                        window.open('register.html#step5', '_self')
-	                    } else {
-	                        localStorage.regStep = "#step3";
-	                        localStorage.removeItem("firmId");
-	                        window.open('register.html#step3', '_self')
-	                    }
-	                } else {
-	                    bootbox.alert(res.msg);
-	                }
-	            })
-	        }
+                enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
+                var data = {
+                    "mobile": mobile,
+                    "password": passwd,
+                    "enterpriseCode": enterpriseCode,
+                    "username": username,
+                    "firmId": id,
+                    "pointCode": pointCode
+                };
+                if (JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+                    data.esealCode = JSON.parse(localStorage.loginODC).esealCode || "12345678";
+                    data.oid = JSON.parse(localStorage.loginODC).oid;
+                    data.keyType = JSON.parse(localStorage.loginODC).keyType
+                }
+                service.registerUser(data).done(res => {
+                    debugger
+                    if (res.code == 0) {
+                        if (res.data == 100) {
+                            localStorage.clear();
+                            window.open('register.html#step5', '_self')
+                        } else {
+                            localStorage.regStep = "#step3";
+                            localStorage.removeItem("firmId");
+                            window.open('register.html#step3', '_self')
+                        }
+                    } else {
+                        bootbox.alert(res.msg);
+                    }
+                })
+            }
         } else {
             service.checkSmsCode(code, phone).done(function (data) {
                 if (data.code == 0) {
                     if (!validflag) {
-			            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
-			            var data = {
-			                "mobile": mobile,
-			                "password": passwd,
-			                "enterpriseCode": enterpriseCode,
-			                "username": username,
-			                "firmId": id,
-			                "pointCode":pointCode
-			            };
-			            service.registerUser(data).done(res => {
-			                if (res.code == 0) {
-			                    if (res.data == 100) {
-			                        localStorage.clear();
-			                        window.open('register.html#step5', '_self')
-			                    } else {
-			                        localStorage.regStep = "#step3";
-			                        localStorage.removeItem("firmId");
-			                        window.open('register.html#step3', '_self')
-			                    }
-			                } else {
-			                    bootbox.alert(res.msg);
-			                }
-			            })
-			        }    
+                        enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
+                        var data = {
+                            "mobile": mobile,
+                            "password": passwd,
+                            "enterpriseCode": enterpriseCode,
+                            "username": username,
+                            "firmId": id,
+                            "pointCode": pointCode
+                        };
+                        if (JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+                            data.esealCode = JSON.parse(localStorage.loginODC).esealCode || "12345678";
+                            data.oid = JSON.parse(localStorage.loginODC).oid;
+                            data.keyType = JSON.parse(localStorage.loginODC).keyType
+                        }
+                        service.registerUser(data).done(res => {
+                            if (res.code == 0) {
+                                if (res.data == 100) {
+                                    localStorage.clear();
+                                    window.open('register.html#step5', '_self')
+                                } else {
+                                    localStorage.regStep = "#step3";
+                                    localStorage.removeItem("firmId");
+                                    window.open('register.html#step3', '_self')
+                                }
+                            } else {
+                                bootbox.alert(res.msg);
+                            }
+                        })
+                    }
                 } else {
                     flag = 2;
                     $(".codeErrTip").html(data.msg).css({ "color": "red" }).show();
                     return;
                 }
             })
-        }      
+        }
     },
     checkCode: function () {
         if ($('.countCode').val().length == 6) {
@@ -240,7 +257,7 @@ var step2 = Backbone.View.extend({
         }
         service.toRegister(data).done(function (data) {
             if (data.data == null) {
-                bootbox.alert("firmId异常，无法获取到注册用户的信息",function(){window.open('login.html', '_self');})
+                bootbox.alert("firmId异常，无法获取到注册用户的信息", function () { window.open('login.html', '_self'); })
                 return;
             }
             if (data.code == 0) {
@@ -268,9 +285,46 @@ var step2 = Backbone.View.extend({
             }
         })
     },
-    changePhone:function(){
-    	$(".codeErrTip").hide();
-    	flag=1;
+    getcompanyODC() {
+        var data = {
+            "enterpriseCode": JSON.parse(localStorage.loginODC).enterpriseCode,
+            "enterpriseName": JSON.parse(localStorage.loginODC).enterpriseName,
+            "pointCode": JSON.parse(localStorage.loginODC).pointCode
+        }
+        service.toRegisterOdc(data).done(function (data) {
+            console.log(data)
+            if (data.data == null) {
+                bootbox.alert(data.msg, function () { window.open('login.html', '_self'); })
+                return;
+            }
+            if (data.code == 0) {
+                //				data={
+                //				    "code": 0,
+                //				    "msg": "请求成功",
+                //				    "data": {
+                //				        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
+                //				        "businessLicenseNumber": "",
+                //				        "legalName": "张三疯",
+                //				        "name": "深圳菱正环保设备有限公司",
+                //				        "uniformSocialCreditCode": "914403005538853123",
+                //				        "idcardNumber":"4408231999155656",
+                //				        "id":"123456789"
+                //				    }
+                //				}
+                result = data.data;
+                id = result.id;
+                IDNo = result.idcardNumber;
+                username = data.data.name
+                localStorage.enterpriseCode = result.uniformSocialCreditCode || result.organizationCode;
+                that.$el.html(tpl({ data: result }));
+            } else {
+                bootbox.alert(data.msg);
+            }
+        })
+    },
+    changePhone: function () {
+        $(".codeErrTip").hide();
+        flag = 1;
     }
 });
 module.exports = step2;

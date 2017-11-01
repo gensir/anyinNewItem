@@ -38,7 +38,11 @@ var ukeys = {
         return true;
     },
     randomNum(esealCode) {//获取随机数
-        return service.getRandomNum({ esealCode: esealCode }).done(function (data) {
+        var data={esealCode:esealCode};
+        if(!esealCode){
+            data={ oid: esealCode}
+        }
+        return service.getRandomNum(data).done(function (data) {
         }).responseJSON.data
     },
     ukeyName() {//获取所有ukey名（数组）
