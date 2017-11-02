@@ -3,10 +3,10 @@ var service = require('../../server/service').default;
 import dialog from '../pub/tpl/dialog.html';
 import ukeys from '../../publicFun/ukeys';
 var dialogs = $($(dialog()).prop("outerHTML"));
-var udata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || {user:{},menuList:{}}
-var enterpriseCode = udata.user.enterpriseCode;
-var firmId = udata.user.firmId;
-var statusRemark = udata.user.statusRemark || "无";
+var udata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || { user: {}, menuList: {} }
+var enterpriseCode = udata && udata.user && udata.user.enterpriseCode;
+var firmId = udata && udata.user && udata.user.firmId;
+var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
 var esealCode = localStorage.esealCode;
 var PKSC7 = localStorage.dSignature;
 var index = Backbone.View.extend({
@@ -15,6 +15,10 @@ var index = Backbone.View.extend({
     },
     render: function () {
         //this.$el.html(tpl);
+        // if ($.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).pointCode == 106) {
+        //     this.odcRenew();
+        //     return false;
+        // }
         this.userinfo();
         this.logslist();
     },
@@ -34,6 +38,26 @@ var index = Backbone.View.extend({
         } else if (userdata.user.status == 3) {
             _this.realname();
         }
+    },
+    odcRenew() {
+        var _this = this
+        bootbox.dialog({
+            backdrop: true,
+            closeButton: false,
+            className: "common realname",
+            title: dialogs.find(".newEseal .title")[0].outerHTML,
+            message: dialogs.find(".newEseal .msgcenter")[0].outerHTML,
+            buttons: {
+                cancel: {
+                    label: "新办电子印章",
+                    className: "btn2",
+                    callback: function (result) {
+                        result.cancelable = window.open('admin.html#renew', '_self');
+                    }
+                },
+            }
+        })
+        return false;
     },
     //续费操作
     renew(event) {
@@ -114,7 +138,7 @@ var index = Backbone.View.extend({
             closeButton: false,
             className: "common realname_no",
             title: dialogs.find(".realname_no .title")[0].outerHTML,
-            message: $(dialogs.find(".realname_no .msgcenter")[0].outerHTML).append("<span style='color:#f00;'>【" + statusRemark + "】</span>" ),
+            message: $(dialogs.find(".realname_no .msgcenter")[0].outerHTML).append("<span style='color:#f00;'>【" + statusRemark + "】</span>"),
             buttons: {
                 cancel: {
                     label: "重新实名",

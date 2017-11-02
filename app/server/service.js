@@ -119,8 +119,8 @@ export default {
     loginCaptcha() {
         return this.ajaxCall({ url: domain + baseUrl + "management_platform/captcha", async: false });
     },
-    getRandomNum(data) {
-        return this.ajaxCall({ url: domain + basemp + "common/getRandomNum", async: false, data: data });
+    getRandomNum(val) {
+        return this.ajaxCall({ url: domain + basemp + "common/getRandomNum?esealCode"+"="+decodeURIComponent(val), async: false});
     },
     //获取订单中心列表
     queryOrderList(pageNum, pageSize, data) {

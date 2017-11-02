@@ -23,6 +23,7 @@
                                         <option>{{value}}</option>
                                     {{/each}}
                                 </select>
+                                <span class="tipIE">( 请在IE浏览器下使用UKEY )</span>
                                 <div id="seleBook-error" class="error"></div>
                             </div>
                             <div>
@@ -178,6 +179,17 @@
         width: 370px;
         padding: 12px 0 12px 38px;
         margin-bottom: 18px;
+    }
+    .ukeyKeyup .phoneTab{
+        position: relative;
+    }
+    .ukeyKeyup .phoneTab .tipIE{
+        position: absolute;
+        font-size: 12px;
+        top:2px;
+        right: -163px;
+        color:red;
+        display: none;
     }
 
     .phoneTab select option span {

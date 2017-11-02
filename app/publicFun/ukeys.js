@@ -37,12 +37,13 @@ var ukeys = {
         }
         return true;
     },
-    randomNum(esealCode) {//获取随机数
+    randomNum(esealCode,keyType) {//获取随机数
         var data={esealCode:esealCode};
-        if(!esealCode){
-            data={ oid: esealCode}
+        if(keyType == 1){
+            data={ oid: decodeURIComponent(esealCode)}
         }
-        return service.getRandomNum(data).done(function (data) {
+        var type = keyType==1?"oid":"esealCode"
+        return service.getRandomNum(data[type]).done(function (data) {
         }).responseJSON.data
     },
     ukeyName() {//获取所有ukey名（数组）

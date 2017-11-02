@@ -25,10 +25,12 @@ var main = Backbone.View.extend({
             this.$el.html(tpl({
                 list: ukeys.ukeyName()
             }));
+            $(".tipIE").hide()
         } else {
             this.$el.html(tpl({
                 list: null
             }));
+            $(".tipIE").show()
         }
         this.toggleTab();
     },
@@ -73,7 +75,7 @@ var main = Backbone.View.extend({
         var oid = ukeys.GetOid(selectedUkey);
         var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
         var randomNumKey=keyType==1?oid:ukeys.esealCode($("#pinwd").val(), selectedUkey)
-        var randomNum = ukeys.randomNum(randomNumKey);
+        var randomNum = ukeys.randomNum(randomNumKey,keyType);
         var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
         var data = {
             "loginType": 2,
@@ -92,6 +94,7 @@ var main = Backbone.View.extend({
                     $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                     return
                 }
+                debugger
                 if (data.code === 0) {
                     //$.verify("passwd", "#passwd");
                     if (data.data.pointCode == 100) {
