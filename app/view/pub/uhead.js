@@ -172,13 +172,13 @@ var header = {
                                         $(_this).find(".btn2").show().html("重试");
                                     } else {
                                         var data = {
-                                            "esealCode": esealCode,
+                                            "esealCode": randomNumKey,
                                             "enterpriseCode": enterpriseCode,
                                             "PKSC7": PKSC7,
                                         };
                                         service.commSignetLog(1, 1, data).done(res => {
                                             if (res.code == 0) {
-                                                localStorage.esealCode = esealCode;
+                                                localStorage.esealCode = randomNumKey;
                                                 localStorage.dSignature = PKSC7;
                                                 var success = dialogsText.find(".success")[0].outerHTML
                                                 $(_this).find(".bootbox-body").html(success);
