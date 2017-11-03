@@ -153,8 +153,12 @@ var header = {
                             } else {
                                 var selectedUkey = $("#seleBook option:selected").index() - 1;
                                 if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
-                                    var esealCode = ukeys.esealCode($("#unlockCode").val(), selectedUkey);
-                                    var randomNum = ukeys.randomNum(esealCode);
+                                    // var esealCode = ukeys.esealCode($("#unlockCode").val(), selectedUkey);
+                                    // var randomNum = ukeys.randomNum(esealCode);
+                                    var oid = ukeys.GetOid(selectedUkey);
+                                    var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+                                    var randomNumKey = keyType == 1 ? oid : ukeys.esealCode($("#unlockCode").val(), selectedUkey)
+                                    var randomNum = ukeys.randomNum(randomNumKey, keyType);
                                     var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
                                     localStorage.removeItem("dSignature");
                                     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
