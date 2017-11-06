@@ -25,7 +25,7 @@ var step2 = Backbone.View.extend({
         if (!firmId) {
             return;
         }
-        if (JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+        if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
             this.getcompanyODC()
         } else {
             this.getcompany(firmId);

@@ -274,7 +274,7 @@ export default {
     },
     //根据公司名查询firmId
     getAreaByCom(data) {
-        return this.ajaxCall({ url: domain + basemp + "api/web/solr/company/name", data: data }, "post");
+        return this.ajaxCall({ url: domain + basemp + "check_organization/web/solr/company/name", data: data }, "post");
     },
     //单个订单附件上传
     orderAttach(data) {
