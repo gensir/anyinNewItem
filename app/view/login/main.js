@@ -77,6 +77,7 @@ var main = Backbone.View.extend({
         var randomNumKey=keyType==1?oid:ukeys.esealCode($("#pinwd").val(), selectedUkey)
         var randomNum = ukeys.randomNum(randomNumKey,keyType);
         var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
+        localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
         var data = {
             "loginType": 2,
             "esealCode": checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
@@ -94,7 +95,6 @@ var main = Backbone.View.extend({
                     $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                     return
                 }
-                debugger
                 if (data.code === 0) {
                     //$.verify("passwd", "#passwd");
                     if (data.data.pointCode == 100) {
@@ -207,8 +207,9 @@ var main = Backbone.View.extend({
                             }
                         });
                         return
+                    } else if (data.data.pointCode == 106) {
+                    	localStorage.oid = oid;
                     }
-                    // localStorage.oid = oid;
                     $.cookie('loginadmin', JSON.stringify(data.data));
                     window.open("index.html", "_self");
                 } else if (data.code == 4) {

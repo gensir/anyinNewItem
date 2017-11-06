@@ -1,7 +1,9 @@
 import tpl from './tpl/step1.html'
 var service = require('../../server/service').default;
-var sealstyle = [],result,firmId,that,localSeal;
+var sealstyle = [],sealstyle1 = [],result,firmId,that,localSeal;
 var sealList=[];
+var choiceflag=false;
+var gotoflag=false;
 var step1 = Backbone.View.extend({
 	el: '.container',
 	initialize() {},
@@ -15,15 +17,16 @@ var step1 = Backbone.View.extend({
 		that=this;
 		firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 //		firmId=localStorage.firmId||440311285096;
-//		firmId=440305436959
-        var isODC=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
-        if(isODC==2){
-        	$(".ODChide").show();
-        }
+//		firmId=440304599542
 		this.getstep1(firmId);
 		$(".contents").empty();
 		this.$el.html(tpl({data:result}));
 		sealstyle = [];
+		var isODC=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType;
+        //2为ODC
+        if(isODC==2){
+        	$(".ODChide").show();
+        }
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	goStep2: function(event) {
@@ -84,17 +87,57 @@ var step1 = Backbone.View.extend({
 					sealstyle.pop(count);
 				}
 			}
+			if(!choiceflag){
+				for(let i=0;i<$(".ODC span").length;i++){
+					var count1=$(".ODC span")[i].getAttribute('data-id');
+					if(count==count1){
+						$(".ODC span")[i].style.display='inline-block';
+					}
+				}
+			}
 		} else {
 			$(ele).addClass('choice');
 			sealstyle.push(count);
+			
+			for(let i=0;i<$(".ODC span").length;i++){
+				var count1=$(".ODC span")[i].getAttribute('data-id');
+				if(count==count1){
+					$(".ODC span")[i].style.display='none';
+				}
+			}
 		}
 	},
 	choice1:function(event){
-		var ele = event.target
+		var ele = event.target;
+		var count=$(ele).data('id');
 		if($(ele).hasClass('choice')) {
 			$(ele).removeClass('choice');
+			$(ele).siblings().show();
+			choiceflag=false;
+			for(var i=0;i<sealstyle1.length;i++){
+				if(sealstyle1[i]==count){
+					sealstyle1.pop(count);
+				}
+			}
+			for(let i=0;i<$(".sealStyle span").length;i++){
+				var count1=$(".sealStyle span")[i].getAttribute('data-id');
+				if(count==count1){
+					$(".sealStyle span")[i].style.display='inline-block';
+				}
+			}
 		} else {
+			choiceflag=true;
 			$(ele).addClass('choice');
+			$(ele).siblings().hide();
+			
+			sealstyle1.push(count);
+			for(let i=0;i<$(".sealStyle span").length;i++){
+				var count1=$(".sealStyle span")[i].getAttribute('data-id');
+				if(count==count1){
+					$(".sealStyle span")[i].style.display='none';
+				}
+			}
+			
 		}
 	},
 	islegal:function(){
@@ -117,9 +160,15 @@ var step1 = Backbone.View.extend({
 //		console.log(JSON.stringify(data));
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
-				localStorage.stepNum="#step2";
 				localStorage.orderNo=data.data;
-				window.open('admin.html#step2', '_self');
+				if(gotoflag){
+					localStorage.stepNum="#step2";
+//					window.open('admin.html#step2', '_self');
+				}else{
+					localStorage.stepNum="#step4";
+//					window.open('admin.html#step4', '_self');
+				}
+				
 			} else {
 				bootbox.alert("很抱歉，您的企业无法在线上申请电子印章，请前往刻章店申请");
 			}
@@ -131,6 +180,7 @@ var step1 = Backbone.View.extend({
 //		localStorage.isLegal=isLegal;
 		if($('.sealStyle span').hasClass('choice')||$('.ODC span').hasClass('choice')) {	
 			if($('.sealStyle span').hasClass('choice')){
+				gotoflag=true;
 				for(var i=0;i<sealstyle.length;i++){
 					for(var j=0;j<localSeal.length;j++){
 						if(sealstyle[i]==localSeal[j].esealCode){
@@ -138,20 +188,16 @@ var step1 = Backbone.View.extend({
 						}
 					}
 				}
-				result.availableEsealList=sealList;
 			}
 			if($('.ODC span').hasClass('choice')){
-				var obj={
-					"esealCode":"",             //印章编码
-					"esealName":"",             //电子印章类型：1行政，2财务，3发票，4合同，5法人，6私人，7杂章，8报关，9业务章
-					"esealFullName":"",         //电子印章全名
-					"firmId":"",                //非必传
-					"esealStatus":"",           //如果没有就传1,1代表正常
-					"keyType":1
-				};
-				result.availableEsealList.push(obj);
-				result.encrytPublicKey="";      //必传，ODC类型的印章的加密公钥
+				for(var j=0;j<localSeal.length;j++){
+					if(sealstyle1[0]==localSeal[j].esealCode){
+						sealList.push(localSeal[j]);
+					}
+				}
+				result.encrytPublicKey=localStorage.publicKey;      //必传，ODC类型的印章的加密公钥
 			}
+			result.availableEsealList=sealList;
 //			不是经办人
 			if(isLegal==0){
 				result.isDelUnpayed=1;

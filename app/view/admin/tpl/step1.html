@@ -29,7 +29,9 @@
 			</table>
 			<div class="ODChide mainTitle countMessage">ODC电子云公章办理</div>
 			<div class="ODChide ODC">
-				<span class="finance"></span>
+				{{each data.availableEsealList value i}}
+				<span class="{{value.esealName==1?'':'hide'}}" data-id= "{{value.esealCode}}" class="finance">{{value.esealFullName}}</span>
+				{{/each}}
 			</div>
 			<div class="mainTitle countMessage">安印电子公章办理</div>
 			<div class="sealStyle">
@@ -73,6 +75,9 @@
 	</div>
 </div>
 <style>
+	.hide{
+		display: none;
+	}
 	.step {
 		color: pink;
 	}
