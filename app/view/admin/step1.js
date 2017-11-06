@@ -15,6 +15,16 @@ var step1 = Backbone.View.extend({
 	},
 	render: function(query) {
 		that=this;
+		var company={ 
+			"params": {"name":JSON.parse($.cookie('loginadmin')).user.username} 
+		}
+		service.getAreaByCom(company).done(function(data){
+			if(data.code==0){
+				firmId=data.data[0].id;
+			}else{
+				bootbox.alert(data.msg);
+			}
+		})
 		firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 //		firmId=localStorage.firmId||440311285096;
 //		firmId=440304599542
