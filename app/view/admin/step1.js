@@ -14,29 +14,35 @@ var step1 = Backbone.View.extend({
 		'change input:radio':'islegal',
 	},
 	render: function(query) {
-		that=this;
-		var company={ 
-			"params": {"name":JSON.parse($.cookie('loginadmin')).user.username} 
-		}
-		service.getAreaByCom(company).done(function(data){
-			if(data.code==0){
-				firmId=data.data[0].id;
-			}else{
-				bootbox.alert(data.msg);
-			}
-		})
-		firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
+		that=this;		
 //		firmId=localStorage.firmId||440311285096;
-//		firmId=440304599542
-		this.getstep1(firmId);
-		$(".contents").empty();
-		this.$el.html(tpl({data:result}));
+//		firmId=440304599542		
 		sealstyle = [];
-		var isODC=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType;
+		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         //2为ODC
-        if(isODC==2){
-        	$(".ODChide").show();
+        //如果是ODC登录
+        if(isODC==2){			
+        	var company={ 
+				"params": {"name":JSON.parse($.cookie('loginadmin')).user.username} 
+			}
+        	service.getAreaByCom(company).done(function(data){
+				if(data.code==0){
+					firmId=data.data[0].id;
+					that.getstep1(firmId);
+					that.$el.html(tpl({data:result}));
+					$(".ODChide").show();
+				}else{
+					bootbox.alert(data.msg);
+				}
+			})
+        }else{
+        	//如果不是ODC登录
+        	firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
+        	firmId = "440311064427"
+        	this.getstep1(firmId);
+        	this.$el.html(tpl({data:result}));
         }
+		$(".contents").empty();
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	},
 	goStep2: function(event) {
@@ -165,22 +171,19 @@ var step1 = Backbone.View.extend({
 		})
 	},
 	poststep1:function(data){
-//		var seals=sealstyle;
-//		localStorage.seals=seals;
-//		console.log(JSON.stringify(data));
 		service.poststep1(data).done(function(data) {
 			if(data.code == 0) {
 				localStorage.orderNo=data.data;
 				if(gotoflag){
 					localStorage.stepNum="#step2";
-//					window.open('admin.html#step2', '_self');
+					window.open('admin.html#step2', '_self');
 				}else{
 					localStorage.stepNum="#step4";
-//					window.open('admin.html#step4', '_self');
+					window.open('admin.html#step4', '_self');
 				}
 				
 			} else {
-				bootbox.alert("很抱歉，您的企业无法在线上申请电子印章，请前往刻章店申请");
+				bootbox.alert("很抱歉，您的企业无法在线上申请电子印章，请前往刻章店申请");	
 			}
 		});
 	},
@@ -202,6 +205,7 @@ var step1 = Backbone.View.extend({
 			if($('.ODC span').hasClass('choice')){
 				for(var j=0;j<localSeal.length;j++){
 					if(sealstyle1[0]==localSeal[j].esealCode){
+						localSeal[j].keyType=1
 						sealList.push(localSeal[j]);
 					}
 				}

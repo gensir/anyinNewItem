@@ -6,7 +6,7 @@ var step4Data;
 var invoiceState;
 var serialNo;  //开发票需要用的序号
 var payOrderStatuNum=0;
-var orderNo = localStorage.orderNo || "OFFLINE08071088058690";
+var orderNo = localStorage.orderNo || "APPLY11071125189290";
 
 //var orderNo="OFFLINE07252055727334";
 //var orderNo="OFFLINE08011174248425";

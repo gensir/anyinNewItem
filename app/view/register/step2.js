@@ -30,7 +30,6 @@ var step2 = Backbone.View.extend({
         } else {
             this.getcompany(firmId);
         }
-
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
     phoneCode: function (event) {
