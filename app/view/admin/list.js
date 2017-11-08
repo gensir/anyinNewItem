@@ -9,7 +9,15 @@ var GetQueryStringBool = true;
 var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
-        this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
+    	var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
+        //2为ODC
+        //如果是ODC登录
+        if(isODC==2){			
+        	firmId = localStorage.indexFirmid;
+        }else{
+        	this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
+        }
+        
         this.enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
     },
     events: {

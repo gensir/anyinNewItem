@@ -115,7 +115,14 @@ var step3 = Backbone.View.extend({
 					var data = JSON.parse(data);
 					
 					var entercode = enterpriseCode;
-					var firmId=JSON.parse($.cookie('loginadmin')).user.firmId
+					var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
+			        //2为ODC
+			        //如果是ODC登录
+			        if(isODC==2){			
+			        	firmId = localStorage.indexFirmid;
+			        }else{
+			        	this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
+			        }
 					var obj ={
 		                "filePath": "",
 		                "certificateType": "",

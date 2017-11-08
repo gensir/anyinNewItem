@@ -3,7 +3,7 @@ import tpl from './tpl/list.html'
 import { GetQueryString } from '../../publicFun/public.js'
 var service=require('../../server/service').default;
 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
-var firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
+var firmId;
 var list = Backbone.View.extend({
     el: '.container',
     initialize() {
@@ -17,6 +17,14 @@ var list = Backbone.View.extend({
         'click #renew': 'renew'
     },
     render: function (query) {
+    	var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
+        //2为ODC
+        //如果是ODC登录
+        if(isODC==2){			
+        	firmId = localStorage.indexFirmid;
+        }else{
+        	this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
+        }
     	this.listPage();
     },
     continue(event) {
