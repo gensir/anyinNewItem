@@ -24,7 +24,7 @@ var list = Backbone.View.extend({
     events: {
         'click .eseallist .list>.nav': 'toggleList',
         'click .eseallist .renew': 'renew',
-        'click .eseallist .list>.nav .loss': 'loss',
+        'click .eseallist .list>.nav .loss,.eseallist .list>.toggle>.nav>.n3 .loss': 'loss',
         'click .eseallist .list>.nav .unfreeze': 'unfreeze',
         'click .eseallist .list>.nav .logout': 'logout',
         'click .topseal .boxmodel span': 'toggleTab',
@@ -295,8 +295,9 @@ var list = Backbone.View.extend({
     loss(event) {
         var _this = this;
         event.stopPropagation();
-        var esealFullName = $(event.currentTarget).parent().siblings(".nav1").text();
-        var esealCode = $(event.currentTarget).parent().siblings(".nav2").text();
+        var GetOid = $(event.currentTarget).data('oid');
+        var esealFullName = $(event.currentTarget).data('name');
+        var esealCode = $(event.currentTarget).data('code');
         var numInd = this.model.get("numInd");
         var dialog = bootbox.dialog({
             backdrop: true,
@@ -525,7 +526,7 @@ var list = Backbone.View.extend({
     //续费操作
     renew(event) {
         event.stopPropagation();
-        var GetOid = $(event.currentTarget).siblings(".oid").val()
+        var GetOid = $(event.currentTarget).data('oid');
         if (!Boolean(GetOid)) {
             bootbox.dialog({
                 backdrop: true,

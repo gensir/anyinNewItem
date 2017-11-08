@@ -59,7 +59,7 @@ var index = Backbone.View.extend({
     //续费操作
     renew(event) {
         event.stopPropagation();
-        var GetOid = $(event.currentTarget).siblings(".oid").val();
+        var GetOid = $(event.currentTarget).data('oid');
         if (!Boolean(GetOid)) {
             bootbox.dialog({
                 backdrop: true,
