@@ -14,35 +14,29 @@ var index = Backbone.View.extend({
     initialize() {
     },
     render: function () {
-    	var that =this;
+        var that = this;
         //this.$el.html(tpl);
-        // if ($.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).pointCode == 106) {
-        //     this.odcRenew();
-        //     return false;
-        // }
         var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         //2为ODC
         //如果是ODC登录
-        if(isODC==2){			
-        	var company={ 
-				"params": {"name":JSON.parse($.cookie('loginadmin')).user.username} 
-			}
-        	service.getAreaByCom(company).done(function(data){
-				if(data.code==0){
-					firmId=data.data[0].id;
-					localStorage.indexFirmid=firmId;
-					that.userinfo();
-        			that.logslist();
-				}else{
-					
-					bootbox.alert(data.msg);
-				}
-			})
-        }else{
-        	firmId = udata && udata.user && udata.user.firmId;
-//      	firmId="440311064427";
-        	that.userinfo();
-        	that.logslist();
+        if (isODC == 2) {
+            var company = {
+                "params": { "name": JSON.parse($.cookie('loginadmin')).user.username }
+            }
+            service.getAreaByCom(company).done(function (data) {
+                if (data.code == 0) {
+                    firmId = data.data[0].id;
+                    localStorage.indexFirmid = firmId;
+                    that.userinfo();
+                    that.logslist();
+                } else {
+                    bootbox.alert(data.msg);
+                }
+            })
+        } else {
+            firmId = udata && udata.user && udata.user.firmId;
+            that.userinfo();
+            that.logslist();
         }
     },
     events: {
@@ -62,26 +56,6 @@ var index = Backbone.View.extend({
             _this.realname();
         }
     },
-    odcRenew() {
-        var _this = this
-        bootbox.dialog({
-            backdrop: true,
-            closeButton: false,
-            className: "common realname",
-            title: dialogs.find(".newEseal .title")[0].outerHTML,
-            message: dialogs.find(".newEseal .msgcenter")[0].outerHTML,
-            buttons: {
-                cancel: {
-                    label: "新办电子印章",
-                    className: "btn2",
-                    callback: function (result) {
-                        result.cancelable = window.open('admin.html#renew', '_self');
-                    }
-                },
-            }
-        })
-        return false;
-    },
     //续费操作
     renew(event) {
         event.stopPropagation();
@@ -91,8 +65,8 @@ var index = Backbone.View.extend({
                 backdrop: true,
                 closeButton: false,
                 className: "common",
-                title: "登录提示",
-                message: '<div class="msgcenter"><em></em><span>订单已失效，不支持支付！</span></div',
+                title: "续费提示",
+                message: '<div class="msgcenter"><em></em><span>印章数据异常，不支持在线续费！</span></div',
                 buttons: {
                     cancel: {
                         label: "取消",
@@ -106,15 +80,11 @@ var index = Backbone.View.extend({
                         className: "btn2",
                         callback: function (result) {
                             result.cancelable = false;
-                            // localStorage.clear();
-                            // $.removeCookie('loginadmin');
-                            // result.cancelable = window.open('login.html', '_self');
                         }
                     },
                 }
             })
             return false;
-
         }
     },
     //签章记录弹出详细记录

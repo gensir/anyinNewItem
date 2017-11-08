@@ -93,9 +93,9 @@ var step1 = Backbone.View.extend({
         }
     },
     //校验公司能否注册
-    checkUserIsExist(data) {
+    checkUserIsExist(enterpriseCode) {
         var data = {
-            "enterpriseCode": data
+            "enterpriseCode": enterpriseCode
         }
         service.checkUserIsExist(data).done(res => {
             if (res.code == 0) {
@@ -143,21 +143,6 @@ var step1 = Backbone.View.extend({
             $('#yzmcode-error').html('').css({ "color": "#f00" });
         }
     },
-    //点击注册进入第二步
-    toreguser(data) {
-        var data = {
-            "firmId": firmId
-        }
-        service.toRegister(data).done(res => {
-            if (res.code == 0) {
-                localStorage.firmId = firmId;
-                localStorage.regStep = "#step2";
-                window.open('#step2', '_self')
-            } else {
-                bootbox.alert(res.msg);
-            }
-        })
-    },
     //提交注册验证
     reguser(event) {
         if ($.trim($("#Ename").val()) == "") {
@@ -174,6 +159,21 @@ var step1 = Backbone.View.extend({
         // this.model.set({ "clickEle": $(event.target).data('id') });
         // if (!this.model.isValid()) {
         // }
+    },
+    //注册进入第二步
+    toreguser(data) {
+        var data = {
+            "firmId": firmId
+        }
+        service.toRegister(data).done(res => {
+            if (res.code == 0) {
+                localStorage.firmId = firmId;
+                localStorage.regStep = "#step2";
+                window.open('#step2', '_self')
+            } else {
+                bootbox.alert(res.msg);
+            }
+        })
     }
 });
 
