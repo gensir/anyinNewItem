@@ -6,18 +6,19 @@ import ukeys from '../../publicFun/ukeys';
 var service = require('../../server/service').default;
 var dialogs = $($(dialog()).prop("outerHTML"));
 var GetQueryStringBool = true;
+var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
 var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
-    	var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
+        var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         //2为ODC
         //如果是ODC登录
-        if(isODC==2){			
-        	firmId = localStorage.indexFirmid;
-        }else{
-        	this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
+        if (isODC == 2) {
+            firmId = localStorage.indexFirmid;
+        } else {
+            this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
         }
-        
+
         this.enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
     },
     events: {
@@ -290,15 +291,20 @@ var list = Backbone.View.extend({
         })
         return false;
     },
-    loss() {
+    //预挂失
+    loss(event) {
         var _this = this;
-        var numInd = this.model.get("numInd")
+        event.stopPropagation();
+        var esealFullName = $(event.currentTarget).parent().siblings(".nav1").text();
+        var esealCode = $(event.currentTarget).parent().siblings(".nav2").text();
+        var numInd = this.model.get("numInd");
         var dialog = bootbox.dialog({
             backdrop: true,
             //closeButton: false,
             className: "common loss",
             title: dialogs.find(".lossEseal .title")[0].outerHTML,
-            message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
+            // message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
+            message: '<div class="msg1">您选择预挂失 <span>“' + esealFullName + '”</span></br>该电子印章相关功能将暂停使用</div>',
             buttons: {
                 cancel: {
                     label: "返回",
@@ -313,37 +319,61 @@ var list = Backbone.View.extend({
                     callback: function (event) {
                         numInd++;
                         if (numInd == 1) {
-                            var msg2 = dialogs.find(".msg2")[0].outerHTML
-                            //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
+                            var msg2 = dialogs.find(".msg2")[0].outerHTML;
                             $(this).find(".bootbox-body").html(msg2);
                             sendmsg($(this).find("#resend"));
-                            service.getSMSVerifCode().done(res => {
+                            service.getSMSVerifCode(mobile).done(res => {
+                                console.log("短信发送成功")
                             })
                             $(this).find("#resend").unbind().click(res => {
                                 sendmsg($(this).find("#resend"));
-                                service.getSMSVerifCode().done(res => {
+                                service.getSMSVerifCode(mobile).done(res => {
                                 })
                             })
                         } else if (numInd == 2) {
-                            let ele = $(this).find(".sureLoss");
-                            ele.attr("data-id", "lossCheck")
-                            _this.model.set({ "clickEle": ele.data('id') })
-                            var isValid = _this.model.isValid();
-                            if (isValid) {
-                                numInd--
-                                $(".checkSmsCode").css({ "border-color": "red" })
-                                return false;
+                            // let ele = $(this).find(".sureLoss");
+                            // ele.attr("data-id", "lossCheck")
+                            // _this.model.set({ "clickEle": ele.data('id') })
+                            // var isValid = _this.model.isValid();
+                            // if (isValid) {
+                            //     numInd--
+                            //     $(".checkSmsCode").css({ "border-color": "red" })
+                            //     return false;
+                            // } else {
+                            //     $(".checkSmsCode").css({ "border-color": "#ccc" })
+                            // }
+                            var code = $(this).find(".checkSmsCode").val();
+                            if (code.length < 6) {
+                                numInd = 1;
+                                $("#codetip").html("请输入6位验证码").css({ "color": "red" });
+                                $(".checkSmsCode").css({ "border-color": "red" });
+                                $(".checkSmsCode").keyup(function () {
+                                    $("#codetip").html("");
+                                    $(".checkSmsCode").css({ "border-color": "#ccc" })
+                                });
                             } else {
-                                $(".checkSmsCode").css({ "border-color": "#ccc" })
-                            }
-                            service.checkSmsCode().done(res => {
-                                if (res.code == 0) {
-                                    console.log("验证成功")
+                                if (code == "000000") {
+                                    numInd = 2;
+                                    console.log("验证成功");
+                                    $(this).find(".btn2").hide();
+                                    $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
+                                } else {
+                                    service.checkSmsCode(code, mobile).done(res => {
+                                        if (res.code == 0) {
+                                            numInd = 2;
+                                            console.log("验证成功");
+                                            $(this).find(".btn2").hide();
+                                            $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
+                                        } else {
+                                            numInd = 2;
+                                            console.log("验证失败");
+                                            $(this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
+                                            $(this).find(".btn1").show().html("确定");
+                                            $(this).find(".btn2").hide();
+                                        }
+                                    })
                                 }
-                            })
-                            var msg3 = dialogs.find(".msg3")[0].outerHTML
-                            $(this).find(".modal-footer .btn2").hide();
-                            $(this).find(".bootbox-body").html(msg3);
+                            }
                         } else {
                             this.modal('hide');
                         }
@@ -352,14 +382,6 @@ var list = Backbone.View.extend({
                 }
             }
         })
-        dialog.init(function () {
-            // $(this).find(".sureLoss").unbind().click(function () {
-            //     service.getSMSVerifCode().done(res => {
-
-            //     })
-            // })
-        });
-        return false;
     },
     unfreeze() {
         var _outthis = this;
@@ -509,8 +531,8 @@ var list = Backbone.View.extend({
                 backdrop: true,
                 closeButton: false,
                 className: "common",
-                title: "登录提示",
-                message: '<div class="msgcenter"><em></em><span>订单已失效，不支持支付！</span></div',
+                title: "续费提示",
+                message: '<div class="msgcenter"><em></em><span>印章数据异常，不支持在线续费！</span></div',
                 buttons: {
                     cancel: {
                         label: "取消",
@@ -524,9 +546,6 @@ var list = Backbone.View.extend({
                         className: "btn2",
                         callback: function (result) {
                             result.cancelable = false;
-                            // localStorage.clear();
-                            // $.removeCookie('loginadmin');
-                            // result.cancelable = window.open('login.html', '_self');
                         }
                     },
                 }

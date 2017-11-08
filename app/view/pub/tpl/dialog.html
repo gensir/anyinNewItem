@@ -43,10 +43,10 @@ msg6 有input的单行；
         <div class="msg1">您选择预挂失<span></span></br>该电子印章相关功能将暂停使用</div>
         <div class="msg2">
             <div class="input-group">
-                <input type="text" class="form-control checkSmsCode" placeholder="请输入验证码" aria-describedby="basic-addon1">
+                <input type="text" class="form-control checkSmsCode" maxlength="6" placeholder="请输入验证码" aria-describedby="basic-addon1">
                 <span class="input-group-addon"><button id="resend" disabled="disabled">重新发送(60)</button></span>
             </div>
-            <p>验证码已通过短信发送到登录帐号上，5分钟内有效</p>
+            <p id="codetip">验证码已通过短信发送到登录帐号上，5分钟内有效</p>
         </div>
         <div class="msg3">已成功预挂失“电子印章样品专用章（01）”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>
     </div>

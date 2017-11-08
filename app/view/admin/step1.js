@@ -29,10 +29,10 @@ var step1 = Backbone.View.extend({
         }else{
         	//如果不是ODC登录
         	firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
-        	firmId = "440311064427"
+        	// firmId = "440311064427"
         	this.getstep1(firmId);
         	this.$el.html(tpl({data:result}));
-        	$(".ODChide").show();
+        	// $(".ODChide").show();
         }
 		$(".contents").empty();
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
