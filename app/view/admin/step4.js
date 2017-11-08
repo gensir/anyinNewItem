@@ -89,8 +89,12 @@ var step4 = Backbone.View.extend({
                 for(var i = 0; i < tempObj.data.esealProducts.length; i++){
                 	if(tempObj.data.esealProducts[i].keyType==1){           //等于1  说明是ODC
                 		step4Data.esealProducts[i].productAmountId=tempObj.data.products[1].id;
+                		step4Data.esealProducts[0].validStart=tempObj.data.products[1].createTime;
+                		step4Data.esealProducts[0].validEnd=tempObj.data.products[1].productIndate;
                 	}else{                 //非ODC
                 		step4Data.esealProducts[i].productAmountId=tempObj.data.products[0].id;
+                		step4Data.esealProducts[0].validStart=tempObj.data.products[0].createTime;
+                		step4Data.esealProducts[0].validEnd=tempObj.data.products[0].productIndate;
                 	}
                 }
             }

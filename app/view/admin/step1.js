@@ -21,26 +21,18 @@ var step1 = Backbone.View.extend({
 		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         //2为ODC
         //如果是ODC登录
-        if(isODC==2){			
-        	var company={ 
-				"params": {"name":JSON.parse($.cookie('loginadmin')).user.username} 
-			}
-        	service.getAreaByCom(company).done(function(data){
-				if(data.code==0){
-					firmId=data.data[0].id;
-					that.getstep1(firmId);
-					that.$el.html(tpl({data:result}));
-					$(".ODChide").show();
-				}else{
-					bootbox.alert(data.msg);
-				}
-			})
+        if(isODC==2){	
+        	firmId = localStorage.indexFirmid;
+        	that.getstep1(firmId);
+			that.$el.html(tpl({data:result}));
+			$(".ODChide").show();
         }else{
         	//如果不是ODC登录
         	firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
         	firmId = "440311064427"
         	this.getstep1(firmId);
         	this.$el.html(tpl({data:result}));
+        	$(".ODChide").show();
         }
 		$(".contents").empty();
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -115,20 +107,21 @@ var step1 = Backbone.View.extend({
 			$(ele).addClass('choice');
 			sealstyle.push(count);
 			
-			for(let i=0;i<$(".ODC span").length;i++){
-				var count1=$(".ODC span")[i].getAttribute('data-id');
-				if(count==count1){
-					$(".ODC span")[i].style.display='none';
-				}
-			}
+//			for(let i=0;i<$(".ODC span").length;i++){
+//				var count1=$(".ODC span")[i].getAttribute('data-id');
+//				if(count==count1){
+//					$(".ODC span")[i].removeAttribute('choice');
+//				}
+//			}
 		}
 	},
+//	选择ODC
 	choice1:function(event){
 		var ele = event.target;
 		var count=$(ele).data('id');
 		if($(ele).hasClass('choice')) {
 			$(ele).removeClass('choice');
-			$(ele).siblings().show();
+			$(ele).siblings().removeClass('choice');
 			choiceflag=false;
 			for(var i=0;i<sealstyle1.length;i++){
 				if(sealstyle1[i]==count){
@@ -144,13 +137,15 @@ var step1 = Backbone.View.extend({
 		} else {
 			choiceflag=true;
 			$(ele).addClass('choice');
-			$(ele).siblings().hide();
-			
+			$(ele).siblings().removeClass('choice');
 			sealstyle1.push(count);
 			for(let i=0;i<$(".sealStyle span").length;i++){
 				var count1=$(".sealStyle span")[i].getAttribute('data-id');
 				if(count==count1){
+					$(".sealStyle span")[i].className='';
 					$(".sealStyle span")[i].style.display='none';
+				}else{
+					$(".sealStyle span")[i].style.display='inline-block';
 				}
 			}
 			

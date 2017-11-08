@@ -14,13 +14,36 @@ var index = Backbone.View.extend({
     initialize() {
     },
     render: function () {
+    	var that =this;
         //this.$el.html(tpl);
         // if ($.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).pointCode == 106) {
         //     this.odcRenew();
         //     return false;
         // }
-        this.userinfo();
-        this.logslist();
+        var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
+        //2为ODC
+        //如果是ODC登录
+        if(isODC==2){			
+        	var company={ 
+				"params": {"name":JSON.parse($.cookie('loginadmin')).user.username} 
+			}
+        	service.getAreaByCom(company).done(function(data){
+				if(data.code==0){
+					firmId=data.data[0].id;
+					localStorage.indexFirmid=firmId;
+					that.userinfo();
+        			that.logslist();
+				}else{
+					
+					bootbox.alert(data.msg);
+				}
+			})
+        }else{
+        	firmId = udata && udata.user && udata.user.firmId;
+//      	firmId="440311064427";
+        	that.userinfo();
+        	that.logslist();
+        }
     },
     events: {
         'click .jilulist ul li .file': 'Toggleshow',
