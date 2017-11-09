@@ -23,6 +23,7 @@ define([
             },
             lastFun:function(){
 				console.log("你打开了主页");
+
             }
         });
         return main;

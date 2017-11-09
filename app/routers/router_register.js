@@ -7,12 +7,12 @@ define(function(require, exports, module) {
 	// Defining the application router.
 	module.exports = Backbone.Router.extend({
 		routes: {
-		    "":"registerPage",
-			"step1":"registerStep1",
-			"step2":"registerStep2",			
-			"step3":"registerStep3",			
-			"step4":"registerStep4",	
-			"step5":"registerStep5"			
+		    "":"registerPage_step1",
+			"step1":"registerPage_step1",
+			"step2":"registerPage_step2",			
+			"step3":"registerPage_step3",			
+			"step4":"registerPage_step4",	
+			"step5":"registerPage_step5"			
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
@@ -31,20 +31,51 @@ define(function(require, exports, module) {
             }
             return dtd.promise();
         },
-		registerPage:function(){
+		registerPage_step1:function(){
             var debugLogin = false;
             this.preRoute(true,'registerPage').then(function(){
                 require(['../view/registerPage', '../model/registerPage'],function(View, Model){
                     var view = new View({model: new Model()});
-                    view.render();
+                    view.render('step1');
                 });
             });
        },
-       registerStep1:function(){
-       	
-       }
-		
-		
-        
+       registerPage_step2:function(){
+            var debugLogin = false;
+            this.preRoute(true,'registerPage').then(function(){
+                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                    var view = new View({model: new Model()});
+                    view.render('step2');
+                });
+            });       	
+       },
+       registerPage_step3:function(){
+            var debugLogin = false;
+            this.preRoute(true,'registerPage').then(function(){
+                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                    var view = new View({model: new Model()});
+                    view.render('step3');
+                });
+            });       	
+       },		
+       registerPage_step4:function(){
+            var debugLogin = false;
+            this.preRoute(true,'registerPage').then(function(){
+                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                    var view = new View({model: new Model()});
+                    view.render('step4');
+                });
+            });       	
+       },		
+       registerPage_step5:function(){
+            var debugLogin = false;
+            this.preRoute(true,'registerPage').then(function(){
+                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                    var view = new View({model: new Model()});
+                    view.render('step5');
+                });
+            });       	
+       }    
+       
 	});
 });
