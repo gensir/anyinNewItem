@@ -6,56 +6,27 @@
     <div class="jd-list">
         <ul>
             <li class="last ok"><span class="yuan">1</span>单位信息确认</li>
-            <li class="middle"><span class="yuan">2</span>账号信息确认</li>
-            <li class="middle"><span class="yuan">3</span>证照信息上传</li>
-            <li class="first"><span class="yuan">4</span>等待审核</li>
+            <li class="middle ok"><span class="yuan">2</span>账号信息确认</li>
+            <li class="middle ok"><span class="yuan">3</span>证照信息上传</li>
+            <li class="first ok"><span class="yuan">4</span>等待审核</li>
         </ul>
     </div>
+
     <div class="reg-content">
-        <div class="idcode">
-            <div class="tip-content">每个单位仅能注册一个账户</div>
-            <!--             <div class="id-type">
-                <div class="left">证件类型：</div>
-                <div class="idname">
-                    <div class="hang"><label><input name="idcode" value="0" type="radio" checked>多证合一营业执照</label></div>
-                    <div class="hang"><label><input name="idcode" value="1" type="radio">普通营业执照</label></div>
-                </div>
-            </div> -->
-
-            <!--             <div class="checkin-box">
-                <div class="left" id="codetype">统一社会信用代码：</div>
-                <div class="input-text">
-                    <input class="reginput form-control" data-id="idcode" id="idcode" name="idcode" type="text"placeholder="请输入18位统一社会信用代码" value="" maxlength="18">
-                    <div class="regtip idcode-error" id="idcode-error"></div>
-                </div>
-            </div>    -->
-            <form name="reg">
-                <div class="checkin-box">
-                    <div class="left" id="codetype">企业名称：</div>
-                    <div class="input-text">
-                        <input class="reginput form-control" autocomplete="off" data-id="Ename" id="Ename" type="text" validateevent="true" placeholder="请输入企业名称查询">
-                        <div class="regtip Ename-error" id="Ename-error"></div>
-                    </div>
-                </div>
-                <div class="checkin-box">
-                    <div class="left">验证码：</div>
-                    <div class="input-text">
-                        <input class="code form-control" autocomplete="off" data-id="yzmcode" id="yzmcode" type="text" maxlength="4" placeholder="输入验证码">
-                        <span id="codeimg"><img class="codeimg" src="/mp/captcha.jpg" ></span>
-                        <span class="upcodeimg">看不清，<a id="up_yzmcode" href="javascript:;">换一换</a></span>
-                        <div class="regtip yzmcode-error" id="yzmcode-error"></div>
-                    </div>
-                </div>
-
-                <div class="xieyi">
-                    <label><input id="xieyi" name="xieyi" type="checkbox">我同意并遵守</label>
-                    <a href="javascript:;">《安印电子印章用户守则》</a>
-                </div>
-
-                <div class="subform"><button class="btn btn-ay" data-id="reguser" id="reguser" type="button">注册</button></div>
-            </form>
+        <div class="regok">
+            <div class="title"><em></em>恭喜您注册成功！</div>
+            <div class="text">感谢您的注册！现进入审核阶段，审核通过后将短信通知您审核结果，请留意！</div>
+            <a href="login.html" class="btn btn-ay">去登录</a>
         </div>
-
-        <div class="login-text">已有帐号?<a href="login.html">直接登录</a></div>
     </div>
 </div>
+<style>
+    .regok a {
+        margin: 0 auto;
+        display: block;
+        width: 120px;
+        line-height: 32px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+</style>

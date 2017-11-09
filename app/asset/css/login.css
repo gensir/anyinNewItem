@@ -1,7 +1,304 @@
-.test{
-    color:#0f0;
-}
-body{
-    font-size: 16px;
-}
-/*wang*/
+   .error {
+       color: red;
+       text-align: left;
+       padding-left: 0px;
+       height: 20px;
+       position: relative;
+       top: -16px;
+   }
+   
+   html,
+   body {
+       height: 100%;
+       font-family: "微软雅黑";
+       font-size: 14px;
+   }
+   
+   input,
+   select {
+       outline: none;
+   }
+   
+   .wrapper {
+       position: relative;
+       width: 100%;
+       min-height: 810px;
+       height: 100%;
+       background: url('../../asset/img/login2.jpg') no-repeat center center;
+   }
+   
+   .wrapper .main {
+       width: 796px;
+       height: 532px;
+       background: #fff;
+       margin: 0 auto;
+       position: relative;
+       top: 140px;
+       overflow: hidden;
+   }
+   
+   .wrapper .main .head {
+       border-bottom: 4px solid #48BAF1;
+       height: 101px;
+   }
+   
+   .wrapper .main .head .logo {
+       float: left;
+       height: 101px;
+       line-height: 101px;
+       padding-left: 38px;
+   }
+   
+   .wrapper .main .head .but {
+       float: right;
+       margin: 64px 22px 0 0;
+   }
+   
+   .wrapper .main .head .but span {
+       cursor: pointer;
+       margin-left: 40px;
+       font-size: 16px;
+       font-family: "微软雅黑";
+       font-weight: bold;
+       display: inline-block;
+       height: 37px;
+       width: 112px;
+       text-align: center;
+   }
+   
+   .wrapper .main .head .but span.active {
+       cursor: default;
+       border-bottom: 6px solid #0cabfd;
+       color: #0cabfd;
+   }
+   
+   .mainbody li {
+       display: none;
+       text-align: center
+   }
+   
+   .mainbody li>div {
+       width: 370px;
+       margin: 0 auto;
+   }
+   
+   .mainbody li>div span {
+       line-height: 43px;
+   }
+   
+   .mainbody li.active {
+       display: block
+   }
+   
+   .mainbody .ukey h2 {
+       font-size: 37px;
+       color: #00acff;
+       text-align: center;
+       letter-spacing: 12px;
+       margin: 36px 0 30px 0;
+   }
+   
+   .mainbody .ukey h2 span {
+       color: #333
+   }
+   
+   .mainbody .ukey input {
+       border: 0;
+       border-bottom: 1px solid #b2b2b2;
+       width: 370px;
+       padding: 12px 0 12px 38px;
+       margin-bottom: 18px;
+   }
+   
+   .phoneTab select {
+       border: 0;
+       border-bottom: 1px solid #b2b2b2;
+       width: 370px;
+       padding: 12px 0 12px 38px;
+       margin-bottom: 18px;
+   }
+   
+   .ukeyKeyup .phoneTab {
+       position: relative;
+   }
+   
+   .ukeyKeyup .phoneTab .tipIE {
+       position: absolute;
+       font-size: 12px;
+       top: 2px;
+       right: -163px;
+       color: red;
+       display: none;
+   }
+   
+   .phoneTab select option span {
+       padding: 0 10px;
+   }
+   
+   .mainbody #seleBook {
+       background: url('../../asset/img/login3.png') no-repeat -2px 6px;
+   }
+   
+   .mainbody #seleBook option span {
+       margin: 0 5px
+   }
+   
+   .mainbody #userName {
+       background: url('../../asset/img/login3.png') no-repeat -2px -82px;
+   }
+   
+   .mainbody #passwd,
+   #pinwd {
+       background: url('../../asset/img/login3.png') no-repeat -2px -43px;
+   }
+   
+   .buttonTab {
+       width: 370px;
+       margin: 20px auto 0;
+       overflow: hidden;
+   }
+   
+   .mainbody .ukey .login {
+       height: 46px;
+       line-height: 46px;
+       width: 180px;
+       background: #0cabfd;
+       color: #fff;
+       border: 0;
+       float: left;
+   }
+   
+   .mainbody .ukey .goregister {
+       height: 46px;
+       line-height: 46px;
+       width: 180px;
+       background: #d5dcf1;
+       color: #989898;
+       border: 0;
+       float: right;
+   }
+   
+   .btnA {
+       width: 370px;
+       margin: 63px auto 0;
+   }
+   
+   .btnA a:hover {
+       text-decoration: none;
+   }
+   
+   .btnA .drive {
+       float: left;
+       color: #666;
+   }
+   
+   .btnA .help {
+       float: right;
+       color: #00acff;
+   }
+   /*bootbox弹窗*/
+   
+   .common .modal-dialog {
+       margin-top: 200px;
+   }
+   
+   .common .modal-header {
+       border: 0;
+       background: #f2f2f2;
+       padding: 10px 15px;
+       border-radius: 4px;
+       color: #333;
+   }
+   
+   .common .modal-header .title {
+       font-size: 18px;
+       font-weight: 400;
+   }
+   
+   .common .modal-body {
+       min-height: 120px;
+   }
+   
+   .common .modal-footer {
+       margin: 0 auto;
+       text-align: center;
+       border: 0;
+       padding-top: 1px;
+       padding-bottom: 20px;
+   }
+   
+   .common .modal-body .message {
+       margin: 0 auto;
+       color: #333;
+       font-size: 14px;
+       padding: 20px 0 20px 70px;
+       background: url('../asset/img/login3.png') no-repeat 0 -168px;
+   }
+   
+   .common .modal-footer {
+       margin: 0 auto;
+       text-align: center;
+   }
+   
+   .common .modal-footer button {
+       padding: 0;
+       margin: 0 10px;
+       border: 0;
+       min-width: 80px;
+       height: 30px;
+   }
+   
+   .common .modal-footer button.btn1,
+   .common .modal-footer button a.return {
+       color: #333;
+       background: #ebebeb;
+   }
+   
+   .common .modal-footer button.btn2,
+   .common .modal-footer button a.continue {
+       color: #fff;
+       background: #00acff;
+   }
+   
+   .common .modal-footer button a {
+       text-decoration: none;
+       display: inline;
+       zoom: 1;
+       display: inline-block;
+       zoom: 1;
+       *display: inline;
+       min-width: 80px;
+       height: 30px;
+       line-height: 30px;
+   }
+   
+   .common .modal-body .msgcenter {
+       margin: 20px 60px;
+       color: #333;
+       font-size: 16px;
+       font-weight: 400;
+       text-align: center;
+   }
+   
+   .common .modal-body .msgcenter em {
+       background: url(../img/bg-all.png) no-repeat -520px -290px;
+       display: inline-block;
+       height: 43px;
+       width: 43px;
+       margin-right: 30px;
+       vertical-align: middle;
+   }
+   
+   .common .modal-body .msg1 {
+       background: url(../img/bg-all.png) no-repeat -520px -262px;
+       margin: 0 60px 0 60px;
+       color: #333;
+       font-size: 14px;
+       padding: 30px 0 30px 66px;
+   }
+   
+    .footer{position:absolute;bottom:0;width: 100%;color: #fff;}
+    .footer>div{margin: 0 auto;text-align: center;}
+    .footer a{color: #fff;text-decoration: none;}
+    .footer p span{margin: 0 10px}
+    .copyright{font-size: 12px;}

@@ -3,16 +3,16 @@ html,body {  background: #f6f6f6; }
 .page-bg { background: #f6f6f6; height: 100%; width: 100%; }
 /* 头部*/
 .header { height: 100px; padding-top: 15px; }
-.header .top-logo { background: url(../img/ay-logo.png) no-repeat; height: 54px; width: 143px; display: block; margin: 0 50px 30px; }
+.header .top-logo { background: url(../../asset/img/ay-logo.png) no-repeat; height: 54px; width: 143px; display: block; margin: 0 50px 30px; }
 .header .hide-text { overflow: hidden; text-indent: 100%; white-space: nowrap; font-size: 14px; }
 /* 注册进度 */
 .jd-list { overflow: hidden; }
 .jd-list ul { list-style: none; margin: 0; padding: 0; }
-.jd-list ul li { float: left; width: 283px; height: 38px; vertical-align: top; padding-top: 10px; padding-bottom: 10px; line-height: 16px; padding-left: 60px; background-image: url(../img/bg-all.png); background-repeat: no-repeat; color: #666; position: relative; margin-left: -8px; font-size: 14px; }
+.jd-list ul li { float: left; width: 283px; height: 38px; vertical-align: top; padding-top: 10px; padding-bottom: 10px; line-height: 16px; padding-left: 60px; background-image: url(../../asset/img/bg-all.png); background-repeat: no-repeat; color: #666; position: relative; margin-left: -8px; font-size: 14px; }
 .jd-list ul li.last { width: 275px; margin-left: 0; }
 .jd-list ul li.middle { width: 283px; background-position: 0 -40px; }
 .jd-list ul li.first { width: 283px; background-position: 0 -80px; }
-.jd-list ul li .yuan { background: url(../img/bg-all.png) no-repeat 0px -120px; display: block; height: 18px; width: 18px; line-height: 18px; float: left; text-align: center; margin-right: 10px; }
+.jd-list ul li .yuan { background: url(../../asset/img/bg-all.png) no-repeat 0px -120px; display: block; height: 18px; width: 18px; line-height: 18px; float: left; text-align: center; margin-right: 10px; }
 .jd-list ul li.ok { color: #fff; }
 .jd-list ul li.ok .yuan { color: #00acff; }
 .jd-list ul li.middle.ok { background-position: -285px -40px; }
@@ -53,5 +53,5 @@ html,body {  background: #f6f6f6; }
 .reg-content .login-text a { margin-left:6px; color: #00acff; }
 /* 注册成功 */
 .reg-content .regok .title { height: 48px; font-size: 20px; color: #0073bd; text-align: center; line-height: 48px; margin-top: 50px; }
-.reg-content .regok .title em { background: url(../img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }
+.reg-content .regok .title em { background: url(../../asset/img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }
 .reg-content .regok .text { width: 650px; border-top: dashed 2px #dedede; margin: 40px auto; padding: 50px 70px 0; text-align: center; color: #666; font-size: 14px; height: 120px; }
