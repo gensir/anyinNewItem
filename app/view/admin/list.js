@@ -25,6 +25,7 @@ var list = Backbone.View.extend({
         'click .eseallist .list>.nav': 'toggleList',
         'click .eseallist .renew': 'renew',
         'click .eseallist .list>.nav .loss,.eseallist .list>.toggle>.nav>.n3 .loss': 'loss',
+        'click .eseallist .list>.nav .cancelloss': 'cancelloss',
         'click .eseallist .list>.nav .unfreeze': 'unfreeze',
         'click .eseallist .list>.nav .logout': 'logout',
         'click .topseal .boxmodel span': 'toggleTab',
@@ -295,92 +296,150 @@ var list = Backbone.View.extend({
     loss(event) {
         var _this = this;
         event.stopPropagation();
-        var GetOid = $(event.currentTarget).data('oid');
+        var status = $(event.currentTarget).data('status');
         var esealFullName = $(event.currentTarget).data('name');
         var esealCode = $(event.currentTarget).data('code');
         var numInd = this.model.get("numInd");
-        var dialog = bootbox.dialog({
+        if (status == 1 || status == 6 || status == 7) {
+            var dialog = bootbox.dialog({
+                backdrop: true,
+                //closeButton: false,
+                className: "common loss",
+                title: dialogs.find(".lossEseal .title")[0].outerHTML,
+                // message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
+                message: '<div class="msg1">您选择预挂失 <span>“' + esealFullName + '”</span></br>该电子印章相关功能将暂停使用</div>',
+                buttons: {
+                    cancel: {
+                        label: "返回",
+                        className: "btn1",
+                        callback: function (result) {
+                            result.cancelable = false;
+                        }
+                    },
+                    confirm: {
+                        label: "继续",
+                        className: "btn2 sureLoss",
+                        callback: function (event) {
+                            numInd++;
+                            var _this = this;
+                            if (numInd == 1) {
+                                var msg2 = dialogs.find(".msg2")[0].outerHTML;
+                                $(this).find(".bootbox-body").html(msg2);
+                                sendmsg($(this).find("#resend"));
+                                service.getSMSVerifCode(mobile).done(res => {
+                                    console.log("短信发送成功")
+                                })
+                                $(this).find("#resend").unbind().click(res => {
+                                    sendmsg($(this).find("#resend"));
+                                    service.getSMSVerifCode(mobile).done(res => {
+                                    })
+                                })
+                            } else if (numInd == 2) {
+                                // let ele = $(this).find(".sureLoss");
+                                // ele.attr("data-id", "lossCheck")
+                                // _this.model.set({ "clickEle": ele.data('id') })
+                                // var isValid = _this.model.isValid();
+                                // if (isValid) {
+                                //     numInd--
+                                //     $(".checkSmsCode").css({ "border-color": "red" })
+                                //     return false;
+                                // } else {
+                                //     $(".checkSmsCode").css({ "border-color": "#ccc" })
+                                // }
+                                var code = $(this).find(".checkSmsCode").val();
+                                if (code.length < 6) {
+                                    numInd = 1;
+                                    $("#codetip").html("请输入6位验证码").css({ "color": "red" });
+                                    $(".checkSmsCode").css({ "border-color": "red" });
+                                    $(".checkSmsCode").keyup(function () {
+                                        $("#codetip").html("");
+                                        $(".checkSmsCode").css({ "border-color": "#ccc" })
+                                    });
+                                } else {
+                                    if (code == "000000") {
+                                        numInd = 2;
+                                        console.log("验证成功");
+                                        $(this).find(".btn2").show().html("确定");
+                                        $(this).find(".btn1").hide();
+                                        $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
+                                        
+                                    } else {
+                                        var data = {
+                                            "esealCode": esealCode,
+                                            "mobilePhoneNo": mobile,
+                                            "smsCode": code
+                                        }
+                                        service.updatePreLossStatus(data).done(res => {
+                                            if (res.code == 0) {
+                                                numInd = 2;
+                                                console.log("验证成功");
+                                                $(this).find(".btn2").show().html("确定");
+                                                $(this).find(".btn1").hide();
+                                                $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
+                                            } else {
+                                                numInd = 2;
+                                                console.log("验证失败");
+                                                $(this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
+                                                $(this).find(".btn1").show();
+                                                $(this).find(".btn2").hide();
+                                            }
+                                        })
+                                    }
+                                }
+                            } else if (numInd == 3) {
+                                _this.modal('hide');
+                                location.reload();
+                            } else {
+                                _this.modal('hide');
+                            }
+                            return false;
+                        }
+                    }
+                }
+            })
+        } else {
+            bootbox.alert("该印章当前状态不允许此操作")
+        }
+    },
+    //取消预挂失提示
+    cancelloss(event) {
+        event.stopPropagation();
+        var esealCode = $(event.currentTarget).data('code');
+        var esealFullName = $(event.currentTarget).data('name');
+        var numInd = this.model.get("numInd");
+        var _this = this
+        bootbox.dialog({
             backdrop: true,
-            //closeButton: false,
+            closeButton: false,
             className: "common loss",
-            title: dialogs.find(".lossEseal .title")[0].outerHTML,
-            // message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
-            message: '<div class="msg1">您选择预挂失 <span>“' + esealFullName + '”</span></br>该电子印章相关功能将暂停使用</div>',
+            title: "取消预挂失",
+            message: '<div class="msgcenter"><em></em><span>确认取消已预挂失的“' + esealFullName + '”？</span></div',
             buttons: {
                 cancel: {
-                    label: "返回",
+                    label: "取消",
                     className: "btn1",
                     callback: function (result) {
                         result.cancelable = false;
                     }
                 },
                 confirm: {
-                    label: "继续",
-                    className: "btn2 sureLoss",
-                    callback: function (event) {
-                        numInd++;
-                        if (numInd == 1) {
-                            var msg2 = dialogs.find(".msg2")[0].outerHTML;
-                            $(this).find(".bootbox-body").html(msg2);
-                            sendmsg($(this).find("#resend"));
-                            service.getSMSVerifCode(mobile).done(res => {
-                                console.log("短信发送成功")
-                            })
-                            $(this).find("#resend").unbind().click(res => {
-                                sendmsg($(this).find("#resend"));
-                                service.getSMSVerifCode(mobile).done(res => {
-                                })
-                            })
-                        } else if (numInd == 2) {
-                            // let ele = $(this).find(".sureLoss");
-                            // ele.attr("data-id", "lossCheck")
-                            // _this.model.set({ "clickEle": ele.data('id') })
-                            // var isValid = _this.model.isValid();
-                            // if (isValid) {
-                            //     numInd--
-                            //     $(".checkSmsCode").css({ "border-color": "red" })
-                            //     return false;
-                            // } else {
-                            //     $(".checkSmsCode").css({ "border-color": "#ccc" })
-                            // }
-                            var code = $(this).find(".checkSmsCode").val();
-                            if (code.length < 6) {
-                                numInd = 1;
-                                $("#codetip").html("请输入6位验证码").css({ "color": "red" });
-                                $(".checkSmsCode").css({ "border-color": "red" });
-                                $(".checkSmsCode").keyup(function () {
-                                    $("#codetip").html("");
-                                    $(".checkSmsCode").css({ "border-color": "#ccc" })
-                                });
-                            } else {
-                                if (code == "000000") {
-                                    numInd = 2;
-                                    console.log("验证成功");
-                                    $(this).find(".btn2").hide();
-                                    $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
-                                } else {
-                                    service.checkSmsCode(code, mobile).done(res => {
-                                        if (res.code == 0) {
-                                            numInd = 2;
-                                            console.log("验证成功");
-                                            $(this).find(".btn2").hide();
-                                            $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
-                                        } else {
-                                            numInd = 2;
-                                            console.log("验证失败");
-                                            $(this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
-                                            $(this).find(".btn1").show().html("确定");
-                                            $(this).find(".btn2").hide();
-                                        }
-                                    })
-                                }
-                            }
-                        } else {
-                            this.modal('hide');
-                        }
-                        return false;
+                    label: "确定",
+                    className: "btn2",
+                    callback: function (result) {
+                        _this.cancellossfun(esealCode);
                     }
-                }
+                },
+            }
+        })
+    },
+    //取消预挂失
+    cancellossfun(esealCode) {
+        var data = { "esealCode": esealCode }
+        service.updateEsealStatus(data).done(res => {
+            if (res.code == 0) {
+                location.reload();
+            } else {
+                bootbox.alert(res.msg);
             }
         })
     },

@@ -283,5 +283,13 @@ export default {
     //PIN码错误次数校验
     checkPIN(data) {
         return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
+    },
+    //线上预挂失
+    updatePreLossStatus(data) {
+        return this.ajaxCall({ url: domain + basemp + "esealReportLossInfo/updatePreLossStatus", data: data }, "post");
+    },
+    //取消预挂失
+    updateEsealStatus(data) {
+        return this.ajaxCall({ url: domain + basemp + "esealReportLossInfo/updateEsealStatus", data: data }, "post");
     }
 }
