@@ -1,0 +1,70 @@
+<div class="wrapper">
+    <div class="main">
+        <div class="head">
+            <div class="logo">
+                <img src="./app/asset/img/login1.png" alt="">
+            </div>
+            <div class="but">
+                <span class="ukeyTab active">UKEY登录</span>
+                <span class="phoneTab">手机号登录</span>
+            </div>
+        </div>
+        <div class="mainbody">
+            <div class="ukey">
+                <h2>欢迎<span>登录</span></h2>
+                <ul>
+                    <li class="active ukeyKeyup">
+                        <div class="phoneTab">
+                            <div>
+                                <!--<input id="userName" type="text" placeholder="请输入用户名">-->
+                                <select name="" id="seleBook">
+                                    <option value="">------------------- <span> 选择证书 </span> -------------------</option>
+                                    {{each list as value i}}
+                                        <option>{{value}}</option>
+                                    {{/each}}
+                                </select>
+                                <span class="tipIE">( 请在IE浏览器下使用UKEY )</span>
+                                <div id="seleBook-error" class="error"></div>
+                            </div>
+                            <div>
+                                <input id="pinwd" type="password" placeholder="PIN码" minlength="6" maxlength="16">
+                                <div id="pinwd-error" class="error"></div>
+                            </div>
+                        </div>
+                        <div class="buttonTab">
+                            <button class="login" id="ukeyLogin" data-id="ukeyLogin">立即登录</button>
+                            <button class="goregister">注册账号</button>
+                        </div>
+                    </li>
+                    <li class="phoneKeyup">
+                        <div>
+                            <input id="userName" type="text" placeholder="请输入用户名" maxlength="11">
+                            <!--<label id="userName-error" class="error" for="login_user">必须填写手机号</label>-->
+                            <div id="userName-error" class="error"></div>
+                        </div>
+                        <div>
+                            <input id="passwd" type="password" placeholder="请输入密码" maxlength="20">
+                            <div id="passwd-error" class="error"></div>
+                        </div>
+                        <div class="buttonTab">
+                            <button class="login" id="phoneLogin" data-id="phoneLogin">立即登录</button>
+                            <button class="goregister">注册账号</button>
+                        </div>
+                    </li>
+
+                </ul>
+                <div class="btnA">
+                    <a href="https://yun.i-yin.net/plugins/IYINPlugin.zip" class="drive">驱动中心</a>
+                    <a href="#" class="help">帮助中心</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	<div class="footer">
+	    <div>
+	        <p><a href="#">关于安印</a><span>|</span><a href="#">联系我们</a></p>
+	        <p class="copyright">安印版权所有 2016-2017 ICP证：粤B2-25677777</p>
+	    </div>
+	</div>
+</div>

@@ -1,38 +1,40 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=edge,chrome=1">
-    <title>日志记录</title>
-    <link href="/dist/logs.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/asset/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/asset/lib/datetimepicker/bootstrap-datetimepicker.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<title>首页 - 安印电子印章管理平台</title>
+	
+    <link rel="stylesheet" href="./vendor/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./vendor/datetimepicker/bootstrap-datetimepicker.css">
+	<!-- Application styles. -->
+	<!-- build:[href] ./app/styles/styles.min.css -->
+	<link rel="stylesheet" href="./app/styles/css/base.css">   
+	<link rel="stylesheet" href="./app/styles/css/logs.css">
+	<!-- /build -->
+    <link rel="stylesheet" media="print" href="./static/css/print.css">
     <!--[if lt IE 9]>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
-            <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    <style>
-        html {
-            height: 100%;
-        }
-        body {
-            position: relative;
-            min-height: 100%;
-            box-sizing: border-box;
-            background: #f6f6f6;
-        }
-    </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-    <script src="/dist/manifest.js"></script>
-    <script src="/dist/vendor.js"></script>
-    <script src="/asset/basic.min.js"></script>
-    <script src="/asset/lib/datetimepicker/bootstrap-datetimepicker.js"></script>
-    <script src="/asset/lib/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-    <script src="/dist/logs.js"></script>
+	<!-- Application container. -->
+	<div role="main" id="main"></div>
+	
+	<!-- Application source. -->
+	<!-- build:[src] ./source.min.js -->
+	<script data-main="./app/main_logs.js" src="./vendor/bower/requirejs/require.js"></script>
+	<!-- /build -->
+	
+   <!--<script  src="./vendor/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>-->
+
+    <!--<script  src="./app/lib/bootbox.min.js"></script>-->
 </body>
 
 </html>
