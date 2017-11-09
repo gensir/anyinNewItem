@@ -23,6 +23,7 @@ var step2 = Backbone.View.extend({
         pointCode = localStorage.pointCode || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
         //      firmId = "440311062534"
         if (!firmId) {
+            window.open("register.html#step1","_self");
             return;
         }
         if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
