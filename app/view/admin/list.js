@@ -327,11 +327,20 @@ var list = Backbone.View.extend({
                                 $(this).find(".bootbox-body").html(msg2);
                                 sendmsg($(this).find("#resend"));
                                 service.getSMSVerifCode(mobile).done(res => {
-                                    console.log("短信发送成功")
+                                    if (res.code==0) {
+                                        console.log("短信发送成功")
+                                    } else {
+                                        $("#codetip").html(res.msg).css({ "color": "red" });
+                                    }
                                 })
                                 $(this).find("#resend").unbind().click(res => {
                                     sendmsg($(this).find("#resend"));
                                     service.getSMSVerifCode(mobile).done(res => {
+                                        if (res.code==0) {
+                                            console.log("短信重新发送成功")
+                                        } else {
+                                            $("#codetip").html(res.msg).css({ "color": "red" });
+                                        }
                                     })
                                 })
                             } else if (numInd == 2) {
@@ -362,7 +371,6 @@ var list = Backbone.View.extend({
                                         $(this).find(".btn2").show().html("确定");
                                         $(this).find(".btn1").hide();
                                         $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
-                                        
                                     } else {
                                         var data = {
                                             "esealCode": esealCode,
