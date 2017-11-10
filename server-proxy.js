@@ -14,7 +14,6 @@ var config = {
         inline: true,
         progress: true,
         disableHostCheck:true,
-        port: 10086,
         //contentBase:"./app/page/index",
         proxy: {
              '/gateway': {
@@ -45,9 +44,7 @@ var config = {
             }
         }
     },
-    pro: {
-        port: 10088
-    }
+    port: '20086' 
 
 }
 module.exports = config;
