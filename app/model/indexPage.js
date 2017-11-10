@@ -9,6 +9,7 @@ define([
             "pinwdError": '',
         },
         initialize: function () {
+			
 
         },
         validate: function (attrs) {
@@ -19,6 +20,7 @@ define([
                 })
             };
         },
+
         safeCompanyList: function (objval) {//pageNumber, pageSize
             var _this=this;
             var obj = {

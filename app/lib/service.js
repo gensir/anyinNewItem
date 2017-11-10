@@ -38,7 +38,7 @@ define([
 	    }
 	};
 	
-    var ajaxCall = function (setting, type) {
+    var autoAjaxCall = function (setting, type) {
         if (type === undefined) {
             type = 'get';
         }

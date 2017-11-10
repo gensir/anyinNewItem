@@ -22,7 +22,23 @@ define([
                 "click .details li.index":"togglePage"                
             },
             lastFun:function(){
-				//$("#demo").text("12312");
+				
+				var pageNum=1;
+				var pageSize=3;
+				var data={
+					"firmId": "440311064427"
+				}
+				service.getEsealList(pageNum, pageSize, data).done(res => {
+		            var Esealobj;
+		            if (res.code != 0) {
+		                console.log(res);
+		            } else {
+		                console.log(res);
+		
+		            }
+		        });
+				
+				
 
             }
         });
