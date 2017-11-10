@@ -1,3 +1,4 @@
+console.time('start WebServer need time');
 var proxyhttp = require('express-http-proxy');
 var express = require('express');
 var app = express();
@@ -33,4 +34,6 @@ var server = app.listen(proxy.port, function () {
     var port = server.address().port;
 
     console.log('Example app listening at http://%s:%s', host, port);
+    
+    console.timeEnd('start WebServer need time');
 });

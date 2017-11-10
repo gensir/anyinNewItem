@@ -34,7 +34,7 @@
   },
   "scripts": {
     "test": "grunt test coveralls",
-    "dev": "node server.js"
+    "dev": "node webserver.js"
   },
   "name": "anyin2",
   "version": "0.1.0",
