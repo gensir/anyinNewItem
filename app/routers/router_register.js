@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 			"step2":"registerPage_step2",			
 			"step3":"registerPage_step3",			
 			"step4":"registerPage_step4",	
-			"step5":"registerPage_step5"			
+			"step5":"registerPage_step5"	
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
@@ -34,7 +34,7 @@ define(function(require, exports, module) {
 		registerPage_step1:function(){
             var debugLogin = false;
             this.preRoute(true,'registerPage').then(function(){
-                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                require(['../view/register/step1', '../model/register/step1'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render('step1');
                 });
@@ -43,7 +43,7 @@ define(function(require, exports, module) {
        registerPage_step2:function(){
             var debugLogin = false;
             this.preRoute(true,'registerPage').then(function(){
-                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                require(['../view/register/step2', '../model/register/step2'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render('step2');
                 });
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
        registerPage_step3:function(){
             var debugLogin = false;
             this.preRoute(true,'registerPage').then(function(){
-                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                require(['../view/register/step3', '../model/register/step3'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render('step3');
                 });
@@ -61,7 +61,7 @@ define(function(require, exports, module) {
        registerPage_step4:function(){
             var debugLogin = false;
             this.preRoute(true,'registerPage').then(function(){
-                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                require(['../view/register/step4', '../model/register/step4'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render('step4');
                 });
@@ -70,7 +70,7 @@ define(function(require, exports, module) {
        registerPage_step5:function(){
             var debugLogin = false;
             this.preRoute(true,'registerPage').then(function(){
-                require(['../view/registerPage', '../model/registerPage'],function(View, Model){
+                require(['../view/register/step5', '../model/register/step5'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render('step5');
                 });

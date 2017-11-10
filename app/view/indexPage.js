@@ -22,7 +22,7 @@ define([
                 "click .details li.index":"togglePage"                
             },
             lastFun:function(){
-				console.log("你打开了主页");
+				//$("#demo").text("12312");
 
             }
         });
