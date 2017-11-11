@@ -1,10 +1,10 @@
 define([
-    "text!../../tpl/register/step4.html",
-    "text!../tpl/primary.html",
+    "text!./tpl/step4.html",
+    "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "../../../app/lib/util",
     "bootbox"
-    ],function(registerstep4,primary,service,util,bootbox) {
+    ],function(registerstep4,footer,service,util,bootbox) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
@@ -15,7 +15,7 @@ define([
         },
         render: function(param) {
 			this.$el.empty().html(template.compile(registerstep4,{})());
-			this.$el.append(template.compile(primary,{})());
+			this.$el.append(template.compile(footer,{})());
             this.lastFun();
         },
         events: {

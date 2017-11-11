@@ -2,7 +2,7 @@
 // assist with testing.
 require(["config"], function() {
 	// Kick off the application.
-	require(["app", "routers/router_register"], function(app, Router) {
+	require(["app", "routers/register/register"], function(app, Router) {
 		// Define your master router on the application namespace and trigger all
 		// navigation from this instance.
 		

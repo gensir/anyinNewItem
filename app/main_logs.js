@@ -2,7 +2,7 @@
 // assist with testing.
 require(["config"], function() {
 	// Kick off the application.
-	require(["app", "routers/router_logs"], function(app, Router) {
+	require(["app", "routers/logs/logs"], function(app, Router) {
 		// Define your master router on the application namespace and trigger all
 		// navigation from this instance.
 		app.router = new Router();

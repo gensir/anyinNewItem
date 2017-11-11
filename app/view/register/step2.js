@@ -1,6 +1,6 @@
 define([
-    "text!../../tpl/register/step2.html",
-    "text!../tpl/primary.html",
+    "text!./tpl/step2.html",
+    "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "../../../app/lib/util",
     "bootbox"
