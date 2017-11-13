@@ -8,14 +8,11 @@ define([
 
     var Backbone = require('backbone');
     var template = require('art-template');
-
-	var dialogs=$(dialog);
-    
+    var dialogs=$(dialog);
     
     var main = Backbone.View.extend({
         el: '#main',
         initialize:function () {
-        	
         },
         events: {
         'click #phoneLogin': 'phoneLogin',
@@ -26,7 +23,6 @@ define([
         'keyup .ukeyKeyup': 'ukeyKeyup'            
         },          
         render: function(param) {
-        	debugger;
             this.$el.empty().html(template.compile(tpl,{})());
 	        var _this = this;
 	        if ((!!window.ActiveXObject || "ActiveXObject" in window) && (navigator.userAgent.indexOf('Opera') < 0)) {
@@ -35,14 +31,11 @@ define([
 	            }));
 	            $(".tipIE").hide()
 	        } else {
-	            this.$el.html(tpl({
-	                list: null
-	            }));
 	            $(".tipIE").show()
 	        }
 	        this.toggleTab();
         },
-	    ukeyKeyup(event) {
+	    ukeyKeyup:function(event) {
 	        var event = event || window.event;
 	        var keyCode = event.keyCode || event.which; // 按键的keyCode
 	        if (keyCode == 13) {
@@ -51,7 +44,7 @@ define([
 	        }
 	
 	    },
-	    phoneKeyup(event) {
+	    phoneKeyup:function(event) {
 	        var event = event || window.event;
 	        var keyCode = event.keyCode || event.which; // 按键的keyCode
 	        if (keyCode == 13) {
@@ -60,16 +53,16 @@ define([
 	        }
 	
 	    },
-	    toggleTab() {
+	    toggleTab:function() {
 	        $(".head div.but").on("click", "span", function () {
 	            $(this).addClass("active").siblings().removeClass("active");
 	            $(".mainbody ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
 	        })
 	    },
-	    goregister() {
+	    goregister:function() {
 	        window.open('register.html#step1', '_self')
 	    },
-	    ukeyLogin(event, itemEle) {
+	    ukeyLogin:function(event, itemEle) {
 	        this.model.set({ "clickEle": itemEle || $(event.target).data('id') })
 	        var isValid = this.model.isValid();
 	        if (isValid) {
@@ -234,7 +227,7 @@ define([
 	        }
 	
 	    },
-	    phoneLogin(event, itemEle) {
+	    phoneLogin:function(event, itemEle) {
 	        // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
 	        this.model.set({ "clickEle": itemEle || $(event.target).data('id') })
 	        var isValid = this.model.isValid();

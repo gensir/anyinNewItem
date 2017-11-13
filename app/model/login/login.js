@@ -1,44 +1,24 @@
 define([
-    "../../lib/service",
     "../../lib/validate"
-],function(service, validateItem) {    
+],function(validateItem) {    
     return Backbone.Model.extend({
         defaults: {
             "verify": validateItem,
-            "numInd": 0,
-            "pinwdError": '',
-        },
-        initialize: function () {
-
+            pinwdError: ''
         },
         validate: function (attrs) {
-            if (attrs.clickEle == 'goStep2') {
+            //验证规则
+            if (attrs.clickEle == 'phoneLogin') {
                 // $.verify("#userName", "phone");
-                $.verifyEach({ "space": ".countCode", "valId": ".legalID" }, function () {
-                    window.open('admin.html#step2', '_self')
+                var result=$.verifyEach({"phone":"#userName","passwd":"#passwd"},function(){
                 })
+                return result;
             };
-        },
-        safeCompanyList: function (objval) {//pageNumber, pageSize
-            var _this=this;
-            var obj = {
-                shopId: 1,
-                auditStatus: "",
-                applyType: "",
-                sTime: "",
-                eTime: "",
-                pageNum:1,
-                pageSize:10,
-                sTime: "",
-                shopId: 1
+            if (attrs.clickEle == 'ukeyLogin') {
+                var result=$.verify("ukeytip", "#seleBook");
+                var result=$.verify("pinwd", "#pinwd");
+                return result;
             }
-            if(objval){
-                $.extend(obj,objval)
-            }
-            return service.safeCompanyList(obj);
-        },
-        fuzzy:function(val){
-            return service.safeCompanyList(val);
         }
     });
 });

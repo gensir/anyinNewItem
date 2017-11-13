@@ -14,7 +14,6 @@ define([
     var main = Backbone.View.extend({
         el: '#main',
         initialize:function () {
-        	
         },
         render: function(param) {
 			this.$el.empty().html(template.compile(registerstep1,{})());

@@ -1,44 +1,29 @@
-define([
-    "../../lib/service",
-    "../../lib/validate"
-],function(service, validateItem) {    
+define(["../../lib/validate"], function(validateItem) {
     return Backbone.Model.extend({
         defaults: {
-            "verify": validateItem,
-            "numInd": 0,
-            "pinwdError": '',
+            verify: validateItem,
+            numInd: 0,
+            ukeyName: [],
+            pinwdError: "",
+            tplhtml: {},
+            totalPages: ""
         },
-        initialize: function () {
-
-        },
-        validate: function (attrs) {
-            if (attrs.clickEle == 'goStep2') {
+        validate: function(attrs) {
+            if (attrs.clickEle == "lossCheck") {
+                if (attrs.verify.istrue.yzmcode($(".checkSmsCode"))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            if (attrs.clickEle == "goStep2") {
                 // $.verify("#userName", "phone");
-                $.verifyEach({ "space": ".countCode", "valId": ".legalID" }, function () {
-                    window.open('admin.html#step2', '_self')
-                })
-            };
-        },
-        safeCompanyList: function (objval) {//pageNumber, pageSize
-            var _this=this;
-            var obj = {
-                shopId: 1,
-                auditStatus: "",
-                applyType: "",
-                sTime: "",
-                eTime: "",
-                pageNum:1,
-                pageSize:10,
-                sTime: "",
-                shopId: 1
+                var result = $.verifyEach(
+                    { space: ".countCode", valId: ".legalID" },
+                    function() {}
+                );
+                return result;
             }
-            if(objval){
-                $.extend(obj,objval)
-            }
-            return service.safeCompanyList(obj);
-        },
-        fuzzy:function(val){
-            return service.safeCompanyList(val);
         }
     });
 });
