@@ -2,7 +2,7 @@ define([], function() {
     // 密码验证（数字，字母，中文标点符号）
     var verify = {
         result: true,
-        synErrorInit() {
+        synErrorInit: function() {
             var _this = this;
             $.extend({
                 verify: function(log, ele, text) {
@@ -45,7 +45,7 @@ define([], function() {
                 }
             });
         },
-        synError(ele) {
+        synError: function(ele) {
             var originVal = $(ele).val();
             if ($(ele + "-error").text()) {
                 $(ele).on("keyup change", function() {
