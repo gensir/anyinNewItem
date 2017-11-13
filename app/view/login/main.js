@@ -72,8 +72,8 @@ var main = Backbone.View.extend({
             return;
         }
         var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
-        var oid = ukeys.GetOid(selectedUkey);
         var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+        var oid = ukeys.GetOid(selectedUkey);
         var randomNumKey=keyType==1?oid:ukeys.esealCode($("#pinwd").val(), selectedUkey)
         var randomNum = ukeys.randomNum(randomNumKey,keyType);
         var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);

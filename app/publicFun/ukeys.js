@@ -83,6 +83,9 @@ var ukeys = {
     PIN(val, selectukeyInd) {// 验证PIN密码
         if (val && this.issupport()) {
             this.data.ukey.SetCertIndex(selectukeyInd);
+            // this.data.ukey.SetCertPin(val);
+            // alert(this.data.ukey.GetCertInfo(2))
+            // debugger
             return this.data.ukey.SetCertPin(val);//Boolean
         }
     },
@@ -104,10 +107,10 @@ var ukeys = {
             return this.data.ukey.GetCertData(0)
         }
     },
-    esealCode(val, selectukeyInd) {//印章编码
+    esealCode(val, selectukeyInd) {//印章编码  //必须先验证PIN码；
         var checkResult = null;
         if (this.PIN(val, selectukeyInd)) {
-            this.data.ukey.SetCertIndex(selectukeyInd);
+            //this.data.ukey.SetCertIndex(selectukeyInd);
             checkResult = this.data.ukey.SetCertPin(val);
         }
         return this.data.ukey.GetCertInfo(3)
@@ -124,9 +127,9 @@ var ukeys = {
             return this.data.ukey.GetCertInfo(6)
         }
     },
-    getCertType(selectukeyInd) {//1==ODC OR 0==IYIN
+    getCertType(selectukeyInd) {//1==ODC OR 0==IYIN  //必须先验证PIN码；
         if (selectukeyInd !== undefined && this.issupport()) {
-            this.data.ukey.SetCertIndex(selectukeyInd);
+            // this.data.ukey.SetCertIndex(selectukeyInd);
             return this.data.ukey.GetCertInfo(2)
         }
     },
