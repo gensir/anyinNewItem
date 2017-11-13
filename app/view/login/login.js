@@ -4,10 +4,9 @@ define(
         "../../lib/service",
         "../../lib/ukeys",
         "bootbox",
-        "../../lib/jquery.cookie",
         "text!../pub/tpl/dialog.html"
     ],
-    function(tpl, service, ukeys, bootbox, cookie, dialog) {
+    function(tpl, service, ukeys, bootbox, dialog) {
         var Backbone = require("backbone");
         var template = require("art-template");
         var dialogs = $(dialog);
