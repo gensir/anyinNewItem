@@ -1,10 +1,11 @@
 define([
     "text!./tpl/login.html",
+    "text!../pub/tpl/dialog.html",
     "../../lib/service",
-    "../../lib/util",
+    "../../lib/ukeys",
     "bootbox"
-    ],function(tpl,service,util,bootbox) {
-    	
+    ],function(tpl,dialog,service,ukeys,bootbox) {
+    // var dialogs = $($(dialog()).prop("outerHTML"));    
     var Backbone = require('backbone');
     var template = require('art-template');
     var main = Backbone.View.extend({

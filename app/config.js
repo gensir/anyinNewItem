@@ -23,7 +23,6 @@ require.config({
         "typeahead": "../vendor/bootstrap-typeahead/bootstrap-typeahead",
         "colResizable": "./../static/plugin/colResizable-1.6",
         "bootstrap-typeahead":"lib/bootstrap-typeahead/bootstrap-typeahead"
-        
 	},
 	shim: {
 		// This is required to ensure Backbone works as expected within the AMD
