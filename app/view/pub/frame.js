@@ -3,11 +3,9 @@ define(
         "text!./tpl/header.html",
         "text!./tpl/footer.html",
         "../../lib/service",
-        "../../lib/ukeys",
-        "../../lib/jquery.cookie",
-        "bootbox"
+        "../../lib/ukeys"
     ],
-    function(header, footer, service, ukeys, cookie, bootbox) {
+    function(header, footer, service, ukeys) {
         var Backbone = require("backbone");
         var template = require("art-template");
 

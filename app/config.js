@@ -24,13 +24,14 @@ require.config({
         "colResizable": "./../static/plugin/colResizable-1.6",
         "bootstrap-typeahead":"lib/bootstrap-typeahead/bootstrap-typeahead",
         "cookie":"lib/jquery.cookie",
+        
 	},
 	shim: {
 		// This is required to ensure Backbone works as expected within the AMD
 		// environment.
 		"backbone": {
 			// These are the two hard dependencies that will be loaded first.
-			deps: ["jquery", "underscore","art-template","cookie"],
+			deps: ["jquery", "underscore","art-template","cookie",'bootbox'],
 
 			// This maps the global `Backbone` object to `require("backbone")`.
 			exports: "Backbone"

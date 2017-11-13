@@ -3,9 +3,7 @@ define([
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "../../../app/lib/ukeys",
-    "bootbox",
-    "../../lib/jquery.cookie"
-    ],function(registerstep2,primary,service,ukeys,bootbox,cookie) {
+    ],function(registerstep2,primary,service,ukeys) {
 	var IDNo, enterpriseCode, result, that, username, id, firmId, pointCode;
 	var flag = 0;    	
     var Backbone = require('backbone');

@@ -2,9 +2,8 @@ define([
     "text!./tpl/step3.html",
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
-    "bootbox",
     "../../lib/public"
-    ],function(registerstep3,primary,service,bootbox,Util) {
+    ],function(registerstep3,primary,service,Util) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');

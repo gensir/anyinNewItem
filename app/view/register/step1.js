@@ -2,9 +2,8 @@ define([
     "text!./tpl/step1.html",
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
-    "bootbox",
     "bootstrap-typeahead"
-    ],function(registerstep1,primary,service,util,bootbox,typeahead) {
+    ],function(registerstep1,primary,service,typeahead) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
