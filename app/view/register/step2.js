@@ -3,8 +3,9 @@ define([
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "../../../app/lib/ukeys",
-    "bootbox"
-    ],function(registerstep2,primary,service,ukeys,bootbox) {
+    "bootbox",
+    "../../lib/jquery.cookie"
+    ],function(registerstep2,primary,service,ukeys,bootbox,cookie) {
 	var IDNo, enterpriseCode, result, that, username, id, firmId, pointCode;
 	var flag = 0;    	
     var Backbone = require('backbone');
@@ -27,13 +28,14 @@ define([
         },          
         render: function(param) {
 //			this.$el.empty().html(template.compile(registerstep2,{})());
-			this.$el.append(template.compile(primary,{})());
+//			this.$el.append(template.compile(primary,{})());
 
 	        that = this;
 	        firmId = localStorage.firmId || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 	        pointCode = localStorage.pointCode || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
 	        //      firmId = "440311062534"
 	        if (!firmId) {
+	        	window.open("register.html#step1","_self");
 	            return;
 	        }
 	        if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
@@ -290,7 +292,10 @@ define([
 	                IDNo = result.idcardNumber;
 	                username = data.data.name
 	                localStorage.enterpriseCode = result.uniformSocialCreditCode || result.organizationCode;
-	                that.$el.html(tpl({ data: result }));
+	                that.$el.html(template.compile(registerstep2)({ data: result }));
+	                that.$el.append(template.compile(primary,{})());
+	                
+	                
 	            } else {
 	                bootbox.alert(data.msg);
 	            }
@@ -327,7 +332,11 @@ define([
 	                IDNo = result.idcardNumber;
 	                username = data.data.name
 	                localStorage.enterpriseCode = result.uniformSocialCreditCode || result.organizationCode;
-	                that.$el.html(tpl({ data: result }));
+
+	                that.$el.html(template.compile(registerstep2)({ data: result }));  
+	                that.$el.append(template.compile(primary,{})());
+	               // that.$el.html(tpl({ data: result }));
+	               
 	            } else {
 	                bootbox.alert(data.msg);
 	            }

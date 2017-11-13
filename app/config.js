@@ -22,14 +22,15 @@ require.config({
         "datetimepicker": "../vendor/datetimepicker/bootstrap-datetimepicker.min",
         "typeahead": "../vendor/bootstrap-typeahead/bootstrap-typeahead",
         "colResizable": "./../static/plugin/colResizable-1.6",
-        "bootstrap-typeahead":"lib/bootstrap-typeahead/bootstrap-typeahead"
+        "bootstrap-typeahead":"lib/bootstrap-typeahead/bootstrap-typeahead",
+        "cookie":"lib/jquery.cookie",
 	},
 	shim: {
 		// This is required to ensure Backbone works as expected within the AMD
 		// environment.
 		"backbone": {
 			// These are the two hard dependencies that will be loaded first.
-			deps: ["jquery", "underscore","art-template"],
+			deps: ["jquery", "underscore","art-template","cookie"],
 
 			// This maps the global `Backbone` object to `require("backbone")`.
 			exports: "Backbone"

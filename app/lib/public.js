@@ -1,9 +1,13 @@
 define([],function(){
     var Util = {
-        
+        	imgModalBig:imgModalBig,
+        	GetQueryString:GetQueryString,
+        	SetQueryString:SetQueryString,
+        	sendmsg:sendmsg
+
         };
         //域名键值对调用
-        export function GetQueryString(name, elseUrl) {
+        function GetQueryString(name, elseUrl) {
         
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             if (elseUrl !== undefined) {
@@ -16,7 +20,7 @@ define([],function(){
             return null;
         }
         
-        export function SetQueryString(obj) {
+        function SetQueryString(obj) {
             var tempAry = [];
             for (var i in obj) {
                 tempAry.push(i + "=" + encodeURIComponent(obj[i]));
@@ -25,7 +29,7 @@ define([],function(){
             return ret;
         }
         //imgModalBig('.logo img',{width:'1000'})
-        export function imgModalBig(el, binding) {
+        function imgModalBig(el, binding) {
             $(el).click(function () {
                 if (binding == undefined) {
                     var width = $(el).width();
@@ -54,7 +58,7 @@ define([],function(){
                 })
             })
         }
-        export function sendmsg(ele) {
+        function sendmsg(ele) {
             var num = 60;
             if (!(ele.val() || ele.html())) {
                 try {
@@ -78,4 +82,5 @@ define([],function(){
             }, 1000)
         
         }
+        return Util;
 })

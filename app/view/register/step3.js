@@ -2,12 +2,13 @@ define([
     "text!./tpl/step3.html",
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
-    "bootbox"
-    ],function(registerstep3,primary,service,util,bootbox) {
+    "bootbox",
+    "../../lib/public"
+    ],function(registerstep3,primary,service,bootbox,Util) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
-    
+    var imgModalBig=Util.imgModalBig;
 	var pictureFlag = [0, 0, 0];
 	var enterpriseCode;    
 	
@@ -28,9 +29,9 @@ define([
 			enterpriseCode = localStorage.enterpriseCode||$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 			pictureFlag = [0, 0, 0];
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
-			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/ID-front.png' });
-			imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/ID-back.png' });
+			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../app/asset/img/lince.jpg' });
+			imgModalBig('.shadow2', { 'width': 500, 'src': '../../../app/asset/img/ID-front.png' });
+			imgModalBig('.shadow3', { 'width': 500, 'src': '../../../app/asset/img/ID-back.png' });
         },
 		changeImg: function(event) {
 			var eve=event;
