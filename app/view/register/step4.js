@@ -2,9 +2,8 @@ define([
     "text!./tpl/step4.html",
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
-    "../../../app/lib/util",
     "bootbox"
-    ],function(registerstep4,footer,service,util,bootbox) {
+    ],function(registerstep4,footer,service,bootbox) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
@@ -13,18 +12,15 @@ define([
         initialize:function () {
         	
         },
+        events: {
+          
+        },     
         render: function(param) {
 			this.$el.empty().html(template.compile(registerstep4,{})());
 			this.$el.append(template.compile(footer,{})());
-            this.lastFun();
-        },
-        events: {
-                "click .startfind": "startfind",
-                "click .details li.index":"togglePage"                
-        },  
-        lastFun:function(){
-		
-        },        
+        	document.body.scrollTop = document.documentElement.scrollTop = 0;
+        }
+
     });
     return main;
 });
