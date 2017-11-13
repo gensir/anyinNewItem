@@ -7,7 +7,7 @@ define(
         "bootbox",
         "text!../pub/tpl/dialog.html"
     ],
-    function(header, footer, service, ukeys, bootbox,dialog) {
+    function(header, footer, service, ukeys, bootbox, dialog) {
         var Backbone = require("backbone");
         var template = require("art-template");
         var dialogs = $(dialog);

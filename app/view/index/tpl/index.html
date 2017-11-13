@@ -1,14 +1,90 @@
+<!-- 操作区域 -->
+<div class="page-kd actions">
+    <dl class="userinfo">
+        <dt><span class="tximg"></span></dt>
+        <dd class="name">欢迎您，<span id="username" title="{{userinfo.user.username}}">{{userinfo.user.username}}</span></dd>
+        <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"></span></dd>
+        <dd class="logintime">上次登录：<span id="loginDate">{{if userinfo.user&&userinfo.user.status == 1}}{{userinfo.user.lastLoginTime==null?"第一次登录系统":userinfo.user.lastLoginTime}}{{/if}}</span></dd>
+    </dl>
 
-<div class="index_page">
-	<p>index页面的内容</p>
-	<br>
-	
-	
-	<div id="demo">
-		
-		
-	</div>
-
+    <ul class="actionlist">
+        <li><a href="admin.html#step1"><em class="a-icon-1"></em>新办电子印章</a></li>
+        <li><a href="admin.html"><em class="a-icon-2"></em>电子印章续费</a></li>
+        <li><a href="admin.html?page=license"><em class="a-icon-3"></em>登录权限设置</a></li>
+    </ul>
 
 </div>
 
+<!--  中间内容 -->
+<div class="page-kd content">
+    <div class="left">
+        <div class="xufei">
+            <div class="t-title">
+                <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
+            <ul class="blist boxshow">
+                {{each esealdata as value i}}
+                <li>
+                    <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
+                    <span class="date" title="{{value.validEnd}}"></span>
+                    <span class="operate">{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7}}<a class="renew" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>{{/if}}</span>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <div class="help">
+            <div class="t-title">
+                <h2>常见问题汇总</h2><a class="more" href="">更多></a></div>
+            <ul class="blist boxshow">
+                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
+                <li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
+                <li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="jilu">
+        <div class="t-title">
+            <h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
+        <div class="jilulist boxshow">
+            <ul>
+                {{if logdata == ""}}
+                <li><div class="file" style="cursor: default;">暂无签章记录</div></li>
+                {{/if}}
+                {{each logdata as value i}}
+                <li>
+                    <div class="file">
+                        <div class="date">{{value.signTime}}</div>
+                        <p class="gsname">{{value.signetDocument}}</p>
+                        <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</span></p>
+                    </div>
+                    <div class="details">
+                        <dl class="signet">
+                            <dt>操作信息</dt>
+                            <dd>操作时间：<span>{{value.signTime}}</span></dd>
+                            <dd>签章应用：<span>{{value.clientDocEnv}}</span></dd>
+                            <dd>操作状态：{{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}}
+                                {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}</dd>
+                        </dl>
+                        <dl class="signet">
+                            <dt>印章信息</dt>
+                            <dd>印章名称：<span>{{value.esealFullName}}</span></dd>
+                            <dd>印章编码：<span>{{value.esealCode}}</span></dd>
+                            <dd>印章有效期：<span>{{value.bizValidStart?value.bizValidStart.substr(0,10)+"至":""}}{{value.bizValidEnd?value.bizValidEnd.substr(0,10):""}}</span></dd>
+                        </dl>
+                        <dl class="computer">
+                            <dt>设备信息</dt>
+                            <dd>设备IP：<span>{{value.ip}}</span></dd>
+                            <dd>MAC地址：<span>{{value.mac}}</span></dd>
+                            <dd>IP来源：<span>{{value.ipLocation}}</span></dd>
+                            <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
+                        </dl>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+    </div>
+</div>
