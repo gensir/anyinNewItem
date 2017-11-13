@@ -1,7 +1,7 @@
 define([
     "text!./tpl/index.html",
     "../../lib/service",
-    ],function(tpl, service) {
+    ],function(indextpl, service) {
         var Backbone = require('backbone');
         var template = require('art-template');
         
@@ -17,8 +17,8 @@ define([
             initialize: function () {
             },
             render: function () {
-                var that = this;
-                //this.$el.empty().html(template.compile(tpl)({}));
+                var _this = this;
+                // this.$el.html(template.compile(indextpl)({}));
                 var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
                 //2为ODC
                 //如果是ODC登录
@@ -30,16 +30,16 @@ define([
                         if (data.code == 0) {
                             firmId = data.data[0].id;
                             localStorage.indexFirmid = firmId;
-                            that.userinfo();
-                            that.logslist();
+                            _this.userinfo();
+                            _this.logslist();
                         } else {
                             bootbox.alert(data.msg);
                         }
                     })
                 } else {
                     firmId = udata && udata.user && udata.user.firmId;
-                    that.userinfo();
-                    that.logslist();
+                    _this.userinfo();
+                    _this.logslist();
                 }
             },
             events: {
@@ -49,9 +49,8 @@ define([
             userinfo: function (event) {
                 var _this = this
                 var userdata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || { user: {}, menuList: {} }
-                // _this.model.get("tpl").userinfo = userdata;
-                // _this.$el.html(tpl(_this.model.get("tpl")));
-                _this.$el.html(template.compile(tpl)({ userinfo: userdata}));
+                _this.model.get("tpl").userinfo = userdata;
+                _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                 if (userdata.user.status == 0) {
                     _this.realname_Unknown();
                 } else if (userdata.user.status == 2) {
@@ -185,7 +184,8 @@ define([
                         $(".jilulist ul").append("<li><div class='file'>接口数据请求失败！</div></li>");
                     } else {
                         logsObj = data.data.list;
-                        _this.$el.html(template.compile(tpl)({logdata: logsObj}));
+                        _this.model.get("tpl").logdata = logsObj;
+                        _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                     }
                     _this.getEsealList();
                 });
@@ -205,9 +205,8 @@ define([
                         $(".xufei ul").append("<li>接口请求失败</li>");
                     } else {
                         Esealobj = data.data.list;
-                        // _this.model.get("tpl").esealdata = Esealobj;
-                        // _this.$el.html(tpl(_this.model.get("tpl")));
-                        _this.$el.html(template.compile(tpl)({esealdata: Esealobj}));
+                        _this.model.get("tpl").esealdata = Esealobj;
+                        _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                         if (!Boolean(Esealobj)) {
                             $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
                         } else {
