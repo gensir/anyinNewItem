@@ -3,12 +3,14 @@ define(
         "text!./tpl/header.html",
         "text!./tpl/footer.html",
         "../../lib/service",
-        "../../lib/ukeys"
+        "../../lib/ukeys",
+        "bootbox",
+        "text!../pub/tpl/dialog.html"
     ],
-    function(header, footer, service, ukeys) {
+    function(header, footer, service, ukeys, bootbox,dialog) {
         var Backbone = require("backbone");
         var template = require("art-template");
-
+        var dialogs = $(dialog);
         var main = Backbone.View.extend({
             el: "#main",
             initialize: function() {},
@@ -17,7 +19,7 @@ define(
                 this.$el.append(template.compile(header, {})());
                 this.$el.append(template.compile(footer, {})());
                 this.pageTagChioce(pageTag);
-                this.login();
+                // this.login();
             },
             events: {
                 "click .rightbox a.locked": "lock",
@@ -124,7 +126,7 @@ define(
                                             var msg6 = dialogsText.find(".msg6")[0].outerHTML;
                                             $(_this).find(".bootbox-body").html(msg6);
                                             $.each(ukeys.ukeyName(), function(ind,val) {
-                                                $("#seleBook").append("<Option value='ind'>val</Option>");
+                                                $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
                                             });
                                             $(_this).find(".btn1,.btn2").show();
                                             $(_this).find(".btn2").show().html("解密");
@@ -188,21 +190,11 @@ define(
                                                             var success = dialogsText.find(
                                                                 ".success"
                                                             )[0].outerHTML;
-                                                            $(_this)
-                                                                .find(
-                                                                    ".bootbox-body"
-                                                                )
-                                                                .html(success);
-                                                            $(_this)
-                                                                .find(
-                                                                    ".btn1,.btn2"
-                                                                )
-                                                                .hide();
+                                                            $(_this).find(".bootbox-body").html(success);
+                                                            $(_this).find(".btn1,.btn2").hide();
                                                             setTimeout(
                                                                 function() {
-                                                                    _this.modal(
-                                                                        "hide"
-                                                                    );
+                                                                    _this.modal("hide");
                                                                     location.reload();
                                                                 },
                                                                 1000
@@ -211,19 +203,13 @@ define(
                                                             numInd = 0;
                                                             // var msg7 = dialogsText.find(".msg7")[0].outerHTML
                                                             // $(_this).find(".bootbox-body").html(msg7);
-                                                            $(_this)
-                                                                .find(
-                                                                    ".bootbox-body"
-                                                                )
+                                                            $(_this).find(".bootbox-body")
                                                                 .html(
                                                                     "<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" +
                                                                         data.msg +
                                                                         "</span></div>"
                                                                 );
-                                                            $(_this)
-                                                                .find(".btn2")
-                                                                .show()
-                                                                .html("重试");
+                                                            $(_this).find(".btn2").show().html("重试");
                                                         }
                                                     });
                                             }
@@ -239,17 +225,10 @@ define(
                                             };
                                             service.checkPIN(data).done(function(data) {
                                                 if (data.code == 1) {
-                                                    $(_this)
-                                                        .find("#unlock-error")
-                                                        .html(data.msg);
-                                                    $(_this)
-                                                        .find(".btn2")
-                                                        .show()
-                                                        .html("重试");
+                                                    $(_this).find("#unlock-error").html(data.msg);
+                                                    $(_this).find(".btn2").show().html("重试");
                                                 }
-                                                $(
-                                                    "#unlockCode"
-                                                ).change(function() {
+                                                $("#unlockCode").change(function() {
                                                     $("#unlock-error").html("");
                                                 });
                                             });

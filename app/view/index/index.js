@@ -1,7 +1,7 @@
 define([
     "text!./tpl/index.html",
     "../../lib/service",
-    ],function(indexPageTpl, service, util) {
+    ],function(indexPageTpl, service) {
 
         var Backbone = require('backbone');
         var template = require('art-template');

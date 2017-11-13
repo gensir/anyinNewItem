@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 html { height: 100%; }
-body { position: relative; min-height: 100%; box-sizing: border-box; background: #f6f6f6; overflow-y: scroll; font-family: "Microsoft YaHei", "微软雅黑", "MicrosoftJhengHei"; }
+body { position: relative; min-height: 100%; box-sizing: border-box; background: #f6f6f6; overflow-y: scroll;font-family: "Microsoft YaHei", "微软雅黑", "MicrosoftJhengHei"; }
 ul { list-style: none; padding: 0; margin: 0; }
 .placeholder { font-size: 14px; }
 .page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
@@ -24,7 +24,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 /* 用户后台管理头部菜单*/
 .u-head { background: #0073bd; height: 80px; width: 100%; min-width: 1100px; padding-top:12px; }
 .u-head .page-kd { position: relative; }
-.u-head .top-logo { background: url(../../asset/img/ay-logo.png) no-repeat 0 -60px; height: 54px; width: 143px; display: block; margin: 0px; }
+.u-head .top-logo { background: url(../img/ay-logo.png) no-repeat 0 -60px; height: 54px; width: 143px; display: block; margin: 0px; }
 .u-head .hide-text { overflow: hidden; text-indent: 100%; white-space: nowrap; font-size: 14px; }
 .u-head .rightbox { position: absolute; top: 12px; right: 0; height: 32px; z-index: 1; text-align: right; display: block; overflow: hidden; }
 .u-head .rightbox ul { list-style: none; display: inline-block; font-size: 0px; margin: 0; padding: 0; vertical-align: top; *float: left; }
@@ -36,13 +36,53 @@ ul { list-style: none; padding: 0; margin: 0; }
 .u-head .rightbox .menu li a.active { background: #0466a4; border-radius: 6px; }
 .u-head .rightbox .utool { margin-left: -20px; }
 .u-head .rightbox .utool li { margin-left: 38px; }
-.u-head .rightbox .utool li a.locked span { width: 24px; height: 24px; background: url(../../asset/img/bg-all.png) no-repeat 0 -266px; display: block; margin: 4px 6px; }
-.u-head .rightbox .utool li a.tools span { width: 24px; height: 24px; background: url(../../asset/img/bg-all.png) no-repeat -24px -266px; display: block; margin: 4px 6px;}
+.u-head .rightbox .utool li a.locked span { width: 24px; height: 24px; background: url(../img/bg-all.png) no-repeat 0 -266px; display: block; margin: 4px 6px; }
+.u-head .rightbox .utool li a.tools span { width: 24px; height: 24px; background: url(../img/bg-all.png) no-repeat -24px -266px; display: block; margin: 4px 6px;}
 .u-head .rightbox .utool li a.logout { width: 62px; height: 28px; border: solid 1px #fff; border-radius: 4px; text-align: center; line-height: 26px; margin-top: 2px; margin-left: 10px; }
 .u-head .rightbox .utool li a:hover { background: #0466a4; }
 .u-head .rightbox .utool li a:hover.locked,
 .u-head .rightbox .utool li a:hover.tools { border-radius: 4px; }
 ul.pagination li.no a { cursor: not-allowed; background: #eee; color: #999;  }
+/*bootbox弹窗*/
+.common .modal-dialog { margin-top: 200px; }
+.common .modal-header { border: 0; background: #f2f2f2; padding: 10px 15px; border-radius: 4px; color: #333; }
+.common .modal-header .title { font-size: 18px; font-weight: 400; }
+.common .modal-dialog { width: 540px; }
+.common .modal-body { min-height: 120px;}
+.common .modal-footer { margin: 0 auto; text-align: center; border: 0; padding-top: 1px;  padding-bottom: 20px; }
+.common .modal-footer button { padding: 0 12px; margin: 0 10px; border: 0; min-width: 80px; height: 30px; }
+.common .modal-footer button.btn1,
+.common .modal-footer button a.return { color: #333; background: #ebebeb; }
+.common .modal-footer button.btn2,
+.common .modal-footer button a.continue { color: #fff; background: #00acff; }
+.common .modal-footer button a { text-decoration: none; display: inline-block; zoom: 1; min-width: 80px; height: 30px; line-height: 30px; }
+.common .modal-body .msgcenter { margin: 30px 50px; color: #333; font-size: 16px; font-weight: 400; text-align: center; }
+.common .modal-body .msgcenter em { background: url(../img/bg-all.png) no-repeat -520px -290px; display: inline-block; height: 43px; width: 43px; margin-right: 25px; vertical-align: middle; }
+.common .modal-body .msgcenter span { display: inline-block; vertical-align: middle; }
+.common .modal-body .msg1 {  background: url(../img/bg-all.png) no-repeat -520px -262px; margin: 0 60px 0 60px; color: #333; font-size: 14px; padding: 30px 0 30px 66px;}
+.common .modal-body .msg2 { margin: 0 18%; color: #999; position: relative; top: 10px; }
+.common .modal-body .msg2 input { border-right: 0; height: 40px; }
+.common .modal-body .msg2 span { padding: 0; }
+.common .modal-body .msg2 span button { padding:6px 12px;cursor: pointer; background: #00acff; color: #fff; height: 38px; border: 0; }
+.common .modal-body .msg2 span button[disabled] {background-color: #CCC;color: #7f7f7f;cursor: not-allowed;border: none 0px;}
+.common .modal-body .msg2 p { margin: 10px 0; font-size: 12px; }
+.common .modal-body .msg3 { font-size: 14px; color: #999; margin: 0 11%; padding: 30px 0; }
+.common .msg4 { padding: 52px 0; text-align: center; }
+.common .msg5 { padding: 52px 0; text-align: center; color: #666; }
+.common .msg6 { padding: 20px 96px; }
+.common .msg6 .seleBook { margin-bottom: 20px; }
+.common .msg6 .Loading { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 65px 0; text-align: center; z-index: 3; background: #fff; }
+.common .msg6 label { display: table-cell; vertical-align: middle; padding-right: 20px; color: #666; font-size: 14px; font-weight: normal; }
+.common .msg6 p { padding-left: 0px; margin-top: 5px; margin-bottom: 0; font-size: 12px; color: #ef3434; position: absolute; }
+.common .msg6 p#seleBook-error { top: 36px; margin-top: 2px;  position: absolute; font-size: 12px; color: #ef3434; }
+.bigLogout .modal-dialog { width: 975px; margin-top: 80px; }
+.bigLogout .modal-content { height: 633px; }
+.bigLogout .modal-body { height: auto; }
+.bigLogout .log1 { margin: 0 auto; width: 861px; height: 455px; border: 1px solid #dedede; padding: 0px 30px 22px; color: #666; font-size: 12px; line-height: 2; overflow-y: auto; }
+.bigLogout .log1 h3 { font-size: 18px; color: #333; font-weight: bolder; text-align: center; overflow-y: auto }
+.bigLogout .log1 p.agree { text-align: center }
+.bigLogout .log1 p.agree label { font-size: 14px; font-weight: normal; margin-left: 10px; color: #333; }
+.bigLogout .log1 p.agree span { margin-left: -83px; }
 
 /*主体的css*/
 .contents{width: 1100px; margin:20px  auto; }
