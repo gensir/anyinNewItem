@@ -2,7 +2,6 @@ define([
     "text!./tpl/orders.html",
     "text!../pub/tpl/footer.html",
     "../../lib/service",
-    "../../lib/util",
     ],function(orders, service) {
 
         var Backbone = require('backbone');

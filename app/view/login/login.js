@@ -8,8 +8,6 @@ define(
         "text!../pub/tpl/dialog.html"
     ],
     function(tpl, service, ukeys, bootbox, cookie, dialog) {
-        console.log(tpl, service, ukeys, bootbox, cookie, dialog)
-        debugger;
         var Backbone = require("backbone");
         var template = require("art-template");
         var dialogs = $(dialog);
@@ -26,21 +24,21 @@ define(
                 "keyup .ukeyKeyup": "ukeyKeyup"
             },
             render: function(param) {
-                var _this = this;
-                _this.$el.empty().html(template.compile(tpl, {})());
+                var that = this;
+                that.$el.empty().html(template.compile(tpl, {})());
                 if (
                     (!!window.ActiveXObject || "ActiveXObject" in window) &&
                     navigator.userAgent.indexOf("Opera") < 0 ) {
-                        _this.$el.html(template.compile(tpl)({
+                        that.$el.html(template.compile(tpl)({
                             list: ukeys.ukeyName()
                         })
                     );
                     $(".tipIE").hide();
                 } else {
-                    _this.$el.html(template.compile(tpl)({}));
+                    that.$el.html(template.compile(tpl)({}));
                     $(".tipIE").show();
                 }
-                this.toggleTab();
+                that.toggleTab();
             },
             ukeyKeyup: function(event) {
                 var event = event || window.event;
@@ -75,10 +73,11 @@ define(
                 window.open("register.html#step1", "_self");
             },
             ukeyLogin: function(event, itemEle) {
-                this.model.set({
+                var that = this;
+                that.model.set({
                     clickEle: itemEle || $(event.target).data("id")
                 });
-                var isValid = this.model.isValid();
+                var isValid = that.model.isValid();
                 if (isValid) {
                     return;
                 }

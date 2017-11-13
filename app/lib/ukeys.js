@@ -1,4 +1,4 @@
-define(["./service"], function() {
+define(["./service"], function(service) {
     var ukeys = {
         ukeyInit: function() {
             // 这里就是注册表中CLSID文件夹根目录的文件夹名称

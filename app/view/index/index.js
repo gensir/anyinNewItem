@@ -24,12 +24,12 @@ define([
 				var data={
 					"firmId": "440311064427"
 				}
-				service.getEsealList(pageNum, pageSize, data).done(res => {
+				service.getEsealList(pageNum, pageSize, data).done(function(data) {
 		            var Esealobj;
-		            if (res.code != 0) {
-		                console.log(res);
+		            if (data.code != 0) {
+		                console.log(data);
 		            } else {
-		                console.log(res);
+		                console.log(data);
 		
 		            }
 		        });

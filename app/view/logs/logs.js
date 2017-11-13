@@ -2,7 +2,6 @@ define([
     "text!./tpl/logs.html",
     "text!../pub/tpl/footer.html",
     "../../lib/service",
-    "../../lib/util",
     "datetimepicker",
     ],function(logsPageTpl, service) {
 
