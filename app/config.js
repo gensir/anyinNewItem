@@ -31,7 +31,7 @@ require.config({
 		// environment.
 		"backbone": {
 			// These are the two hard dependencies that will be loaded first.
-			deps: ["jquery", "underscore","art-template","cookie",'bootbox'],
+			deps: ["jquery", "underscore","art-template","cookie"],
 
 			// This maps the global `Backbone` object to `require("backbone")`.
 			exports: "Backbone"

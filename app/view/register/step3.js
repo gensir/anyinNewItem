@@ -2,14 +2,15 @@ define([
     "text!./tpl/step3.html",
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
+    "bootbox",
     "../../lib/public"
-    ],function(registerstep3,primary,service,Util) {
+    ],function(registerstep3,primary,service,bootbox,Util) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
     var imgModalBig=Util.imgModalBig;
 	var pictureFlag = [0, 0, 0];
-	var enterpriseCode;    
+	var enterpriseCode;
 	
     var main = Backbone.View.extend({
         el: '#main',

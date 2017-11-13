@@ -3,7 +3,8 @@ define([
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "../../../app/lib/ukeys",
-    ],function(registerstep2,primary,service,ukeys) {
+    "bootbox"
+    ],function(registerstep2,primary,service,ukeys,bootbox) {
 	var IDNo, enterpriseCode, result, that, username, id, firmId, pointCode;
 	var flag = 0;    	
     var Backbone = require('backbone');
