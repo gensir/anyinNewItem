@@ -58,15 +58,22 @@
 	</div>
 
 	<div class="gopay">
+		<div class="fl">商品共计：<span class="product"></span>种   &nbsp;&nbsp;<span>数量共计：</span><span class="product"></span>件</div>
 		<div class="fr">
-			<span class="realPay">实付金额：</span> <span class="money" id="sumPrice_pay">360元</span> <span class="account">去结算</span>
+			<span class="realPay">实付金额：</span> <span class="money" id="sumPrice_pay"></span> 
 		</div>
+	</div>
+	<div class="gopay">
+		<span class="account fr">去结算</span>
 	</div>
 
 	<div class="paymentStyle">
 		<style>
+			.bill{
+				margin-top: -6px;
+			}
 			.step4 form {
-				border-top: 1px dashed #999999;
+				border: 1px solid #dedede;
 				padding-top: 20px;
 			}
 			
@@ -77,7 +84,7 @@
 			
 			.step4 form .downLine {
 				padding-bottom: 20px;
-				border-bottom: 1px dashed #999999;
+				border-bottom: 1px solid #ddd;
 			}
 			
 			.step4 form .control-label {
@@ -100,15 +107,15 @@
 			}
 			
 			.step4 form .pay div.wepay {
-				background: url(../../../../asset/img/c-1-6-4_10.jpg) no-repeat;
+				background: url(../../../../app/asset/img/c-1-6-4_10.jpg) no-repeat;
 			}
 			
 			.step4 form .pay div.alipay {
-				background: url(../../../../asset/img/c-1-6-4_12.jpg) no-repeat;
+				background: url(../../../../app/asset/img/c-1-6-4_12.jpg) no-repeat;
 			}
 			
 			.step4 form .pay div.unionpay {
-				background: url(../../../../asset/img/c-1-6-4_14.jpg) no-repeat;
+				background: url(../../../../app/asset/img/c-1-6-4_14.jpg) no-repeat;
 			}
 			.step4 form .taxBox{
 				height: auto;
@@ -131,11 +138,14 @@
 				height: 56px;
 				background: #f5f5f5;
 			}
-			
+			.step4 .gopay .fl{
+				margin-top: 20px;
+			}
 			.step4 .gopay .realPay {
 				font-size: 14px;
 				font-weight: 600;
 				margin-right: 10px;
+				line-height: 56px;
 			}
 			
 			.step4 .gopay .money {

@@ -5,12 +5,12 @@ define([
 	"../../../app/lib/service",
 	"bootbox"
 ], function(adminstep4, primary,payment, service, bootbox) {
-	var pictureFlag;
-	var flag = true;
-	var areaNumber, stepResult, companyName, enterpriseCode;
-	var that, company, sealShop, scan, eseals, parage, tempArr = [];
-	var islegal, picflag = [0, 0, 0, 0];
-	var zone = 440300;
+	var billType=1;
+	var step4Data;
+	var invoiceState;
+	var serialNo;  //开发票需要用的序号
+	var payOrderStatuNum=0;
+	var orderNo = localStorage.orderNo || "APPLY11071125189290";
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
@@ -26,7 +26,6 @@ define([
 			if(localStorage.stepNum != "#step4") {
 				return;
 			}
-			debugger;
 			var payments = $(payment);
 			this.$el.html(adminstep4);
 			$(".orderMessage").append(payments.find(".bill"));
@@ -53,23 +52,37 @@ define([
 							message: "印章产品信息不存在，请核对数据！",
 						})
 					}
+					$(".product").html(tempObj.data.esealProducts.length+1);
 					for(var i = 0; i < tempObj.data.esealProducts.length; i++) {
 						if(tempObj.data.esealProducts[i].keyType == 1) { //等于1  说明是ODC
 							var productsId = tempObj.data.products[1].id;
 							tempObj.data.esealProducts[i].productAmountId = productsId;
-							cont += '<div class="order"><span class="serial">' + (i + 1) + '</span><span class="sealName">' + tempObj.data.esealProducts[i].esealFullName + '</span><span class="service">' + tempObj.data.products[1].productName + '</span> <span class="price">' + tempObj.data.products[0].productAmount + '元</span></div>'
+							if(i==0){
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[1].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td><td rowspan="4">2年</td></tr>'
+							}else{
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[1].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td></tr>'
+							}
+							
 							sumPrice += Number(tempObj.data.products[1].productAmount);
 						} else {
 							var productsId = tempObj.data.products[0].id;
 							tempObj.data.esealProducts[i].productAmountId = productsId;
-							cont += '<div class="order"><span class="serial">' + (i + 1) + '</span><span class="sealName">' + tempObj.data.esealProducts[i].esealFullName + '</span><span class="service">' + tempObj.data.products[0].productName + '</span> <span class="price">' + tempObj.data.products[0].productAmount + '元</span></div>'
+							if(i==0){
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[0].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td><td rowspan="4">2年</td></tr>';
+							}else{
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[0].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td></tr>';
+							}
+							
 							sumPrice += Number(tempObj.data.products[0].productAmount);
+						}
+						if(i==tempObj.data.esealProducts.length-1){
+							cont+='<tr><td class="serial">'+(i + 2) +'</td><td class="sealName">赠送两年保修</td><td class="service"> </td><td class="price">¥0元</td></tr>'
 						}
 					} //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
 					sumPrice = this.toDecimal(sumPrice);
 					sumPrice = sumPrice.toFixed(2);
 					var paysumPrice = sumPrice;
-					$("#step4_orders").append(cont);
+					$("#step4_orders tbody ").append(cont);
 					$("#sumPrice , #sumPrice_pay").html(sumPrice + "元");
 					step4Data = {
 						"discountAmount": 0,
