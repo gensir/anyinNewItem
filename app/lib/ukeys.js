@@ -1,6 +1,9 @@
-define(["./service"], function(service) {
+define([
+    "./service",
+    "bootbox"
+], function (service, bootbox) {
     var ukeys = {
-        ukeyInit: function() {
+        ukeyInit: function () {
             // 这里就是注册表中CLSID文件夹根目录的文件夹名称
             try {
                 var ActiveXObject = window.ActiveXObject;
@@ -25,34 +28,34 @@ define(["./service"], function(service) {
             ukeyName: [],
             PINResult: null
         },
-        tip: function(text) {
-            window.bootbox.alert({
+        tip: function (text) {
+            bootbox.alert({
                 size: "small",
                 title: "提示",
                 message: text,
-                callback: function() {
+                callback: function () {
                     /* your callback code */
                 }
             });
         },
-        issupport: function() {
+        issupport: function () {
             if (!this.data.isAvailableUkey || !this.data.ukey) {
                 this.tip("请插入ukey并安装驱动后在IE浏览器下使用ukey");
                 return false;
             }
             return true;
         },
-        randomNum: function(esealCode, keyType) {
+        randomNum: function (esealCode, keyType) {
             //获取随机数
             var data = { esealCode: esealCode };
             if (keyType == 1) {
                 data = { oid: decodeURIComponent(esealCode) };
             }
             var type = keyType == 1 ? "oid" : "esealCode";
-            return service.getRandomNum(data[type]).done(function(data) {})
+            return service.getRandomNum(data[type]).done(function (data) { })
                 .responseJSON.data;
         },
-        ukeyName: function() {
+        ukeyName: function () {
             //获取所有ukey名（数组）
             if (this.issupport()) {
                 var nCount = this.data.ukey.GetCertCount();
@@ -64,61 +67,61 @@ define(["./service"], function(service) {
                 return this.data.ukeyName;
             }
         },
-        getCertSignSN: function(selectukeyInd) {
+        getCertSignSN: function (selectukeyInd) {
             //获取签名证书序列号
             if (this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(10);
             }
         },
-        getCertEncSN: function(selectukeyInd) {
+        getCertEncSN: function (selectukeyInd) {
             //获取加密证书序列号
             if (this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(11);
             }
         },
-        dCertPublicKey: function(selectukeyInd) {
+        dCertPublicKey: function (selectukeyInd) {
             //数字加密证书公钥；
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(9);
             }
         },
-        GetCertCount: function() {
+        GetCertCount: function () {
             if (this.issupport()) {
                 return this.data.ukey.GetCertCount();
             }
         },
-        PIN: function(val, selectukeyInd) {
+        PIN: function (val, selectukeyInd) {
             // 验证PIN密码
             if (val && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.SetCertPin(val); //Boolean
             }
         },
-        dSignature: function(selectukeyInd, randomNum) {
+        dSignature: function (selectukeyInd, randomNum) {
             //客户端数字签名；
             if (randomNum && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.Signature(randomNum, randomNum.length);
             }
         },
-        dCertificate: function(selectukeyInd) {
+        dCertificate: function (selectukeyInd) {
             //数字加密证书；
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertData(1);
             }
         },
-        getSignatureCert: function(selectukeyInd) {
+        getSignatureCert: function (selectukeyInd) {
             //签名证书
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertData(0);
             }
         },
-        esealCode: function(val, selectukeyInd) {
+        esealCode: function (val, selectukeyInd) {
             //印章编码
             var checkResult = null;
             if (this.PIN(val, selectukeyInd)) {
@@ -127,26 +130,26 @@ define(["./service"], function(service) {
             }
             return this.data.ukey.GetCertInfo(3);
         },
-        startDate: function(selectukeyInd) {
+        startDate: function (selectukeyInd) {
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(5);
             }
         },
-        endDate: function(selectukeyInd) {
+        endDate: function (selectukeyInd) {
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(6);
             }
         },
-        getCertType: function(selectukeyInd) {
+        getCertType: function (selectukeyInd) {
             //1==ODC OR 0==IYIN
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(2);
             }
         },
-        CertType: function(selectukeyInd) {
+        CertType: function (selectukeyInd) {
             //个人or机构==0
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
@@ -157,12 +160,12 @@ define(["./service"], function(service) {
         //     //console.log(JSON.stringify())
         //     return this.data.KeyManage.ConnectKey()
         // },
-        SetPIN: function(PassWord) {
+        SetPIN: function (PassWord) {
             if (this.issupport()) {
                 return this.data.KeyManage.SetPIN(PassWord);
             }
         },
-        ChangePIN: function(PINType, oldPIN, newPIN) {
+        ChangePIN: function (PINType, oldPIN, newPIN) {
             if (this.issupport()) {
                 return this.data.KeyManage.ChangePIN({
                     PINType: PINType,
@@ -171,24 +174,24 @@ define(["./service"], function(service) {
                 });
             }
         },
-        GetKeyID: function(PassWord) {
+        GetKeyID: function (PassWord) {
             if (this.issupport()) {
                 return this.data.KeyManage.GetKeyID();
             }
         },
-        GetOid: function(selectukeyInd) {
+        GetOid: function (selectukeyInd) {
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(1);
             }
         },
-        GetenterpriseCode: function(selectukeyInd) {
+        GetenterpriseCode: function (selectukeyInd) {
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(8);
             }
         },
-        WriteSignDataToKey: function(WriteSignDataToKeyText) {
+        WriteSignDataToKey: function (WriteSignDataToKeyText) {
             if (this.issupport()) {
                 return this.data.KeyManage.WriteSignDataToKey(
                     WriteSignDataToKeyText
