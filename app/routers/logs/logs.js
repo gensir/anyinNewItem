@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 	module.exports = Backbone.Router.extend({
 		routes: {
             "":"logs",
-            "logs2":"logs2",
+            "operateLog":"logs2",
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
         },
         logs2:function(){
             this.preRoute(false, 'logs2').then(function(){
-                require(['../../view/logs/logs2', '../../model/logs/logs2'],function(View, Model){
+                require(['../../view/logs/logs2', '../../model/logs/logs'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
