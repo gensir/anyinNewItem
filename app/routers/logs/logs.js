@@ -37,7 +37,7 @@ define(function(require, exports, module) {
             });
         },
         operateLog: function() {
-            this.preRoute(false, 'operateLog').then(function() {
+            this.preRoute(false, 'logs').then(function() {
                 require(['../../view/logs/logs2', '../../model/logs/logs'], function(View, Model) {
                     var view = new View({ model: new Model() });
                     view.render();
