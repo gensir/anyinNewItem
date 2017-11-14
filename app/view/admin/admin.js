@@ -5,10 +5,10 @@ define([
     "../../lib/public",
     "../../lib/ukeys",
     "text!../pub/tpl/dialog.html"
-], function (tpl, footer, service, public, ukeys, dialogs) {
+], function (tpl, footer, service, publicUtil, ukeys, dialogs) {
     var dialogs = $(dialogs);
-    var GetQueryString = public.GetQueryString;
-    var sendmsg = public.sendmsg;
+    var GetQueryString = publicUtil.GetQueryString;
+    var sendmsg = publicUtil.sendmsg;
     var Backbone = require('backbone');
     var template = require('art-template');
     var main = Backbone.View.extend({

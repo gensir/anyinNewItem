@@ -130,9 +130,9 @@ module.exports = function (grunt) {
             buildall: {//任务三：按原文件结构压缩js文件夹内所有JS文件
                 files: [{
                     expand:true,
-                    cwd:'app',//js目录下
+                    cwd:'app/view',//js目录下
                     src:'**/*.js',//所有js文件
-                    dest: 'dist/app'//输出到此目录下
+                    dest: 'dist/app/view'//输出到此目录下
                 }]
             },
         },
@@ -305,12 +305,19 @@ module.exports = function (grunt) {
         // "concat",
         // "watch"
     ]);
+    
     grunt.registerTask("dev",[
           "concat",
           "watch"
-    ])
+    ]);
+    
     grunt.registerTask("test",[
           "clean:init",
           "uglify:buildall"
-    ])
+    ]);
+    
+    grunt.registerTask("aaa",[
+          "clean:init",
+          "uglify"
+    ]) ;   
 };
