@@ -16,9 +16,10 @@ define(
             initialize: function() {},
             render: function(pageTag) {
                 var that = this;
-                this.$el.append(template.compile(header, {})());
-                this.$el.append(template.compile(footer, {})());
-                this.pageTagChioce(pageTag);
+                that.$el.empty().html();
+                that.$el.append(template.compile(header, {})());
+                that.$el.append(template.compile(footer, {})());
+                that.pageTagChioce(pageTag);
                 // this.login();
             },
             events: {

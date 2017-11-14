@@ -1,7 +1,7 @@
 define([
     "text!./tpl/logs2.html",
     "../../lib/service",
-], function(logsTpl, service) {
+], function(tpl, service) {
     var Backbone = require('backbone');
     var template = require('art-template');
     var esealCode = localStorage.esealCode;
@@ -12,7 +12,6 @@ define([
         el: '.contents',
         initialize: function() {},
         render: function() {
-            $(".container").empty();
             this.logslist();
         },
         events: {
@@ -37,7 +36,7 @@ define([
                 logsObj = res.data;
                 _this.model.set("totalPages", res.data.totalPages);
                 _this.model.get("tplhtml").data = logsObj;
-                _this.$el.append(template.compile(logsTpl)(_this.model.get("tplhtml")));
+                _this.$el.empty().html(template.compile(tpl)(_this.model.get("tplhtml")));
                 _this.pagination(res.data.pageNum, res.data.totalPages);
                 if (logsObj.list == "" && logsObj.list.length == 0) {
                     $(".listtext").append("<li><div class='file no'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
