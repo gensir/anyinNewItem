@@ -27,11 +27,10 @@ define(
                 that.$el.empty().html(template.compile(tpl, {})());
                 if (
                     (!!window.ActiveXObject || "ActiveXObject" in window) &&
-                    navigator.userAgent.indexOf("Opera") < 0 ) {
-                        that.$el.html(template.compile(tpl)({
-                            list: ukeys.ukeyName()
-                        })
-                    );
+                    navigator.userAgent.indexOf("Opera") < 0) {
+                    that.$el.html(template.compile(tpl)({
+                        list: ukeys.ukeyName()
+                    }));
                     $(".tipIE").hide();
                 } else {
                     that.$el.html(template.compile(tpl)({}));
@@ -88,23 +87,17 @@ define(
                 var oid = ukeys.GetOid(selectedUkey);
                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                 var randomNumKey =
-                    keyType == 1
-                        ? oid
-                        : ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                    keyType == 1 ?
+                    oid :
+                    ukeys.esealCode($("#pinwd").val(), selectedUkey);
                 var randomNum = ukeys.randomNum(randomNumKey, keyType);
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
                 localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
                     loginType: 2,
-                    esealCode:
-                        checkResult == true
-                            ? ukeys.esealCode($("#pinwd").val(), selectedUkey)
-                            : "",
+                    esealCode: checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
                     codeError: checkResult ? 0 : 1,
-                    entryptCert:
-                        checkResult == true
-                            ? ukeys.dCertificate(selectedUkey)
-                            : "",
+                    entryptCert: checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
                     keyType: checkResult == true ? keyType : "",
                     oid: oid,
                     enterpriseCode: ukeys.GetenterpriseCode(selectedUkey),
@@ -125,12 +118,8 @@ define(
                                     backdrop: true,
                                     //closeButton: false,
                                     className: "common loss",
-                                    title: dialogs.find(
-                                        ".ukeyLoginTip .title"
-                                    )[0].outerHTML,
-                                    message: dialogs.find(
-                                        ".ukeyLoginTip .msg1"
-                                    )[0].outerHTML,
+                                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                                    message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
                                     buttons: {
                                         cancel: {
                                             label: "返回",
@@ -146,26 +135,14 @@ define(
                                                 numInd++;
                                                 if (numInd == 1) {
                                                     numInd = 0;
-                                                    localStorage.firmId =
-                                                        data.data.firmId;
-                                                    localStorage.pointCode =
-                                                        data.data.pointCode;
+                                                    localStorage.firmId = data.data.firmId;
+                                                    localStorage.pointCode = data.data.pointCode;
                                                     var loginODC = data.data;
-                                                    loginODC.enterpriseName = $(
-                                                        "#seleBook option:selected"
-                                                    ).text();
+                                                    loginODC.enterpriseName = $("#seleBook option:selected").text();
                                                     loginODC.oid = oid;
-                                                    loginODC.esealCode = ukeys.esealCode(
-                                                        $("#pinwd").val(),
-                                                        selectedUkey
-                                                    );
-                                                    localStorage.loginODC = JSON.stringify(
-                                                        loginODC
-                                                    );
-                                                    window.open(
-                                                        "register.html#step2",
-                                                        "_self"
-                                                    );
+                                                    loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                                                    localStorage.loginODC = JSON.stringify(loginODC);
+                                                    window.open("register.html#step2", "_self");
                                                 } else {
                                                     this.modal("hide");
                                                 }
@@ -175,21 +152,14 @@ define(
                                     }
                                 });
                                 return;
-                            } else if (
-                                data.data.pointCode == 101 ||
-                                data.data.pointCode == 104
-                            ) {
+                            } else if (data.data.pointCode == 101 || data.data.pointCode == 104) {
                                 var numInd = 0;
                                 var dialog = bootbox.dialog({
                                     backdrop: true,
                                     //closeButton: false,
                                     className: "common loss",
-                                    title: dialogs.find(
-                                        ".ukeyLoginTip .title"
-                                    )[0].outerHTML,
-                                    message: dialogs.find(
-                                        ".ukeyLoginTip .msg1.renew"
-                                    )[0].outerHTML,
+                                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                                    message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
                                     buttons: {
                                         cancel: {
                                             label: "返回",
@@ -205,14 +175,9 @@ define(
                                                 numInd++;
                                                 if (numInd == 1) {
                                                     numInd = 0;
-                                                    localStorage.firmId =
-                                                        data.data.firmId;
-                                                    localStorage.pointCode =
-                                                        data.data.pointCode;
-                                                    window.open(
-                                                        "admin.html#renew",
-                                                        "_self"
-                                                    );
+                                                    localStorage.firmId = data.data.firmId;
+                                                    localStorage.pointCode = data.data.pointCode;
+                                                    window.open("admin.html#renew", "_self");
                                                 } else {
                                                     this.modal("hide");
                                                 }
@@ -228,12 +193,8 @@ define(
                                     backdrop: true,
                                     //closeButton: false,
                                     className: "common loss",
-                                    title: dialogs.find(
-                                        ".ukeyLoginTip .title"
-                                    )[0].outerHTML,
-                                    message: dialogs.find(
-                                        ".ukeyLoginTip .msg1.invalid"
-                                    )[0].outerHTML,
+                                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                                    message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
                                     buttons: {
                                         cancel: {
                                             label: "返回",
@@ -249,14 +210,9 @@ define(
                                                 numInd++;
                                                 if (numInd == 1) {
                                                     numInd = 0;
-                                                    localStorage.firmId =
-                                                        data.data.firmId;
-                                                    localStorage.pointCode =
-                                                        data.data.pointCode;
-                                                    window.open(
-                                                        "admin.html#renew",
-                                                        "_self"
-                                                    );
+                                                    localStorage.firmId = data.data.firmId;
+                                                    localStorage.pointCode = data.data.pointCode;
+                                                    window.open("admin.html#renew", "_self");
                                                 } else {
                                                     this.modal("hide");
                                                 }

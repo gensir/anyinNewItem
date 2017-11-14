@@ -28,7 +28,7 @@
 .intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block; vertical-align: top; border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
 .intnav .search .more .date .date-input+.placeholder { font-size: 12px; }
 .intnav .search .more .date span { position: relative; float: left; display: inline-block; height: 28px; line-height: 28px; }
-.intnav .search .more .date .xian { line-height: 28px; padding-left: 3px; padding-right: 3px; }
+.intnav .search .more .date .xian { line-height: 28px; padding-left: 2px; padding-right: 2px; }
 .intnav .search .more .date .datebox em { font-size: 12px; position: absolute; right: 8px; top: 8px; display: block; overflow: hidden; color: #999; cursor: pointer; }
 .intnav .search .more .date .datebox em:hover { color: #00acff; }
 .intnav .search .more .date .date-input:focus+em { color: #00acff; }
