@@ -3,10 +3,10 @@ define(
         "text!./tpl/login.html",
         "../../lib/service",
         "../../lib/ukeys",
-        "bootbox",
-        "text!../pub/tpl/dialog.html"
+        "text!../pub/tpl/dialog.html",
+        "jqueryPlaceholder"
     ],
-    function(tpl, service, ukeys, bootbox, dialog) {
+    function(tpl, service, ukeys, dialog, jqueryPlaceholder) {
         var Backbone = require("backbone");
         var template = require("art-template");
         var dialogs = $(dialog);

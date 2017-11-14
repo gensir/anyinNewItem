@@ -27,24 +27,24 @@ define([
         var data = {
             "enterpriseCode": enterpriseCode || "11"
         }
-        service.Operationlog(pageNum, pageSize, data).done(res => {
+        service.Operationlog(pageNum, pageSize, data).done(function(data) {
             var logsObj;
-            if (res.code != 0) {
+            if (data.code != 0) {
                 logsObj = {}
                 $(".listtext").append("<li><div class='file no'>服务器异常</div></li>").css("margin-bottom", "20px")
             } else {
-                logsObj = res.data;
-                _this.model.set("totalPages", res.data.totalPages);
+                logsObj = data.data;
+                _this.model.set("totalPages", data.data.totalPages);
                 _this.model.get("tplhtml").data = logsObj;
                 _this.$el.empty().html(template.compile(tpl)(_this.model.get("tplhtml")));
-                _this.pagination(res.data.pageNum, res.data.totalPages);
+                _this.pagination(data.data.pageNum, data.data.totalPages);
                 if (logsObj.list == "" && logsObj.list.length == 0) {
                     $(".listtext").append("<li><div class='file no'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
                 }
                 if (pageNum == 1) {
                     $("li.PreviousPage").addClass("no");
-                } else if (pageNum == res.data.totalPages) {
+                } else if (pageNum == data.data.totalPages) {
                     $("li.NextPage").addClass("no");
                 } else {
                     $("li.PreviousPage,li.NextPage").removeClass("no");

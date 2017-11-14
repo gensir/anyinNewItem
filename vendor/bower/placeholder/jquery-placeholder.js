@@ -1,5 +1,6 @@
-// JavaScript placeholder
-$(function () {
+define('jqueryPlaceholder',[
+    'jquery'
+], function(jQuery) {
     var JPlaceHolder = {
         //检测
         _check: function () {
@@ -37,7 +38,6 @@ $(function () {
         }
     };
     //执行
-    jQuery(function () {
-        JPlaceHolder.init();
-    });
-});
+    JPlaceHolder.init();
+    return JPlaceHolder;
+})

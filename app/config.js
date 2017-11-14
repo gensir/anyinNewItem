@@ -20,18 +20,19 @@ require.config({
         "bootbox":"../vendor/bower/bootbox/bootbox.min",
         "bootstrap":"../vendor/bower/bootstrap/dist/js/bootstrap.min",
         "datetimepicker": "../vendor/bower/datetimepicker/bootstrap-datetimepicker.min",
+        "datetimepickercn": "../vendor/bower/datetimepicker/locales/bootstrap-datetimepicker.zh-CN",
         "typeahead": "../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
         "colResizable": "../vendor/plugin/colResizable-1.6",
         "bootstrap-typeahead":"../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
-        "cookie":"../vendor/bower/jquery-cookie/jquery.cookie"
-        
+        "cookie":"../vendor/bower/jquery-cookie/jquery.cookie",
+        "placeholder": "../vendor/bower/placeholder/jquery-placeholder"
 	},
 	shim: {
 		// This is required to ensure Backbone works as expected within the AMD
 		// environment.
 		"backbone": {
 			// These are the two hard dependencies that will be loaded first.
-			deps: ["jquery", "underscore","art-template","cookie"],
+			deps: ["jquery","cookie", "underscore", "art-template"],
 
 			// This maps the global `Backbone` object to `require("backbone")`.
 			exports: "Backbone"
@@ -44,9 +45,9 @@ require.config({
             deps: [ 'jquery', 'bootstrap'],
             exports: 'bootbox'
         },        
-        'datetimepicker': {
-            deps: [ 'jquery' ],
-            exports: 'datetimepicker'
+        'datetimepickercn': {
+            deps: ['datetimepicker'],
+            exports: 'datetimepickercn'
         },
         'typeahead': {
             deps: [ 'jquery' ],

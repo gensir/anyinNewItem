@@ -2,8 +2,9 @@ define([
     "text!./tpl/logs.html",
     "text!./tpl/search.html",
     "../../lib/service",
-    "datetimepicker",
-], function(logsTpl, search, service, picker) {
+    "datetimepickercn",
+    "jqueryPlaceholder"
+], function(logsTpl, search, service, datetimepicker, placeholder) {
     var Backbone = require('backbone');
     var template = require('art-template');
     var esealCode = localStorage.esealCode;
@@ -32,7 +33,7 @@ define([
             'click .pagination .index': 'currentPapge'
         },
         //调取日期控件
-        form_date: function () {
+        form_date: function (event) {
             var _this = this
             $('#date1,#date2').datetimepicker({
                 language: 'zh-CN',
