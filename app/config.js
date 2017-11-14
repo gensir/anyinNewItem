@@ -15,15 +15,15 @@ require.config({
 		"jquery": "../vendor/bower/jquery/dist/jquery",
 		"backbone": "../vendor/bower/backbone/backbone",
 		"text": "../vendor/bower/text/text",
-		"art-template":"lib/template-web",
+		"art-template":"../vendor/bower/template-web/template-web",
 		"css": "../vendor/bower/require-css/css",
-        "bootbox":"lib/bootbox.min",
+        "bootbox":"../vendor/bower/bootbox/bootbox.min",
         "bootstrap":"../vendor/bower/bootstrap/dist/js/bootstrap.min",
-        "datetimepicker": "../vendor/datetimepicker/bootstrap-datetimepicker.min",
-        "typeahead": "../vendor/bootstrap-typeahead/bootstrap-typeahead",
-        "colResizable": "./../static/plugin/colResizable-1.6",
-        "bootstrap-typeahead":"lib/bootstrap-typeahead/bootstrap-typeahead",
-        "cookie":"lib/jquery.cookie"
+        "datetimepicker": "../vendor/bower/datetimepicker/bootstrap-datetimepicker.min",
+        "typeahead": "../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
+        "colResizable": "../vendor/plugin/colResizable-1.6",
+        "bootstrap-typeahead":"../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
+        "cookie":"../vendor/bower/jquery-cookie/jquery.cookie"
         
 	},
 	shim: {
