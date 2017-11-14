@@ -24,7 +24,7 @@
                 <div class="eseallist">
                     {{if data == null}}
                     <div class="listResult">无电子印章信息</div>
-                    {{/if}} {{each data as value i}}
+                    {{/if}} {{each data value i}}
                     <div class="list">
                         <ul class="nav">
                             <li class="nav1">{{value.esealFullName}}</li>
@@ -80,7 +80,7 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <!-- {{each count as value i}}
+                        <!-- {{each count value i}}
                         <li class="index"><a>{{value}}</a></li>
                          {{/each}} -->
                         <li class="appendPage NextPage">
@@ -112,7 +112,7 @@
                 <div class="eseallist">
                     {{if loginlist == ""}}
                     <div class="listResult">无电子印章信息</div>
-                    {{/if}} {{each loginlist as value i}}
+                    {{/if}} {{each loginlist value i}}
                     <div class="list">
                         <ul class="nav">
                             <li class="nav1">{{value.esealFullName}}</li>
@@ -139,7 +139,7 @@
                             </a>
                         </li>
                         <li class="index"><a>123</a></li>
-                        <!-- {{each count as value i}}
+                        <!-- {{each count value i}}
                         <li class="index"><a>{{value}}</a></li>
                          {{/each}} -->
                         <li class="appendPage NextPage">

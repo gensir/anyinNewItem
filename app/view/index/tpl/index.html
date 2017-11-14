@@ -26,7 +26,7 @@
                 {{if logdata == ""}}
                 <li><div class="file" style="cursor: default;">暂无签章记录</div></li>
                 {{/if}}
-                {{each logdata as value i}}
+                {{each logdata value i}}
                 <li>
                     <div class="file">
                         <div class="date">{{value.signTime}}</div>
@@ -65,7 +65,7 @@
             <div class="t-title">
                 <i></i><h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
             <ul class="blist boxshow">
-                {{each esealdata as value i}}
+                {{each esealdata value i}}
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date" title="{{value.validEnd}}"></span>

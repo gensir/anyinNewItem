@@ -11,7 +11,7 @@
                     <span class="title col5">状态</span>
                 </div>
                 <ul class="listtext">
-                    {{each data.list as value i}}
+                    {{each data.list value i}}
                     <li class="">
                         <div class="file">
                             <span class="text col1">{{value.signTime}}</span>
@@ -19,8 +19,7 @@
                             <span class="text col3 hide-text">{{value.esealFullName}}</span>
                             <span class="text col4">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</span>
                             <span class="text col5">
-                                {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}}
-                                {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
+                                {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}} {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
                             </span>
                         </div>
                         <div class="details">
@@ -42,8 +41,13 @@
                             </dl>
                             <dl class="signet help">
                                 <dt>需要帮助？</dt>
-                                <dd>电子印章使用记录异常？<a class="color1" href="admin.html">马上预挂失</a></dd>
-                                <dd><a class="color1" href="#">电子印章常用问题</a>，或 <a class="color1" href="#">联系客服</a></dd>
+                                <dd>电子印章使用记录异常？
+                                    <a class="color1" href="admin.html">马上预挂失</a>
+                                </dd>
+                                <dd>
+                                    <a class="color1" href="#">电子印章常用问题</a>，或
+                                    <a class="color1" href="#">联系客服</a>
+                                </dd>
                             </dl>
                             <dl class="computer">
                                 <dt>设备信息</dt>
@@ -67,7 +71,9 @@
                                 <span aria-hidden="true">«</span>
                             </a>
                         </li>
-                        <li class="index"><a>{{value}}</a></li>
+                        <li class="index">
+                            <a>{{value}}</a>
+                        </li>
                         <li class="appendPage NextPage">
                             <a aria-label="Next">
                                 <span aria-hidden="true">»</span>
@@ -76,8 +82,8 @@
                     </ul>
                 </nav>
 
-
             </div>
         </div>
 
+    </div>
 </div>
