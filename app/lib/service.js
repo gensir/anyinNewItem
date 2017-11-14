@@ -184,7 +184,7 @@ define([
 		    },
 		    //新办电子印章第一步
 		    getstep1:function(data) {
-		        return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId=" + data, async: false });
+		        return this.ajaxCall({ url: domain + basemp + "eseal/order/step1?enterpriseId=" + data,async: false });
 		    },
 		    //查询有问题的订单
 		    errorOrder:function(data) {

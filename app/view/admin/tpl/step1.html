@@ -1,0 +1,299 @@
+
+<div class="step1">
+	<div class="title">
+		新办电子印章
+	</div>
+	<div class="center">
+		<div class="Message">
+			<div class="mainmsg">
+				<div class="mainTitle">
+					主体信息
+				</div>
+				<table class="table table-bordered">
+					<tr>
+						<td class="name">单位名称：</td>
+						<td class="container1">{{data.enterpriseInfo.name||null}}</td>
+						<td class="name">单位地址：</td>
+						<td class="container2">{{data.enterpriseInfo.address}}</td>
+					</tr>
+					<tr>
+						<td class="name">营业执照号：</td>
+						<td class="container1">{{data.enterpriseInfo.businessLicenseNumber}}</td>
+						<td class="name">统一社会信用代码：</td>
+						<td class="container2">{{data.enterpriseInfo.uniformSocialCreditCode}}</td>
+					</tr>
+					<tr>
+						<td class="name">法定代表人：</td>
+						<td class="container1">{{data.enterpriseInfo.legalName}}</td>
+						<td class="name"></td>
+						<td class="container2"></td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="mainmsg sealmsg">
+				<div class="ODChide mainTitle countMessage">ODC电子云公章办理</div>
+				<div class="ODChide ODC">
+					{{each data.availableEsealList value i}}
+					<span class="{{value.esealName==1?'':'hide'}}" data-id= "{{value.esealCode}}" class="finance">{{value.esealFullName}}</span>
+					{{/each}}
+				</div>
+				<div class="mainTitle countMessage">安印电子公章办理</div>
+				<div class="sealStyle">
+					{{each data.availableEsealList value i}}
+					<span data-id= "{{value.esealCode}}" class="finance">{{value.esealFullName}}</span>
+					{{/each}}
+				</div>
+			</div>
+			
+			<div class="mainmsg operatormsg">
+				<div class="mainTitle countMessage">经办人信息</div>
+				<form class="form-horizontal">
+					<div class="form-group form-bottom">
+						<label class="col-sm-2 control-label">经办人是否为法人</label>
+						<div class="col-sm-5">
+							<label class="radio-inline">
+	  							<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" checked="checked"> 是
+							</label>
+							<label class="radio-inline">
+	  							<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0"> 否
+							</label>
+							
+						</div>
+					</div>
+					<span class="sealTips"> 经办人需要完成后续的取章业务</span>
+					<div class="islegal form-group form-bottom">
+						<label class="col-sm-2 control-label">经办人姓名：</label>
+						<div class="col-sm-3">
+							<input type="text" placeholder="" class="form-control countCode fl">
+						</div>
+						<div class="col-sm-3 countCode-error legalIDErrTip errTip"></div>
+					</div>
+					<div class="islegal form-group form-bottom">
+						<label class="col-sm-2 control-label">经办人身份证：</label>
+						<div class="col-sm-3">
+							<input type="text" maxlength="18" placeholder="" class="form-control legalID fl">
+						</div>
+						<div class="col-sm-3 legalID-error legalIDErrTip errTip"></div>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+		<div class="go">
+			<a class="btn btn-ay fr" data-id='goStep2' id="goStep2">继续</a>
+		</div>
+	</div>
+</div>
+<style>
+	.hide{
+		display: none;
+	}
+	.step {
+		color: pink;
+	}
+	
+	.step1 {
+		width: 1100px;
+		margin: 0 auto;
+	}
+	
+	.step1 .title {
+		height: 20px;
+		margin: 17px 0 20px;
+		padding-left: 15px;
+		font-size: 16px;
+		font-weight: 600;
+		border-left: 6px solid #0073bd;
+	}
+	
+	.step1 .Message {
+		margin-top: 30px;
+		border-radius: 4px;
+		box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
+	}
+	.step1 .mainmsg{
+		background: #fff;
+		margin-bottom:20px ;
+		padding-bottom: 1px;
+	}
+	.step1 .center .mainTitle {
+		height: 42px;
+		line-height: 42px;
+		/*border-bottom: 1px solid #dedede;*/
+		padding-left: 30px;
+		font-size: 14px;
+		font-weight: 700;
+	}
+	/*表格*/
+	
+	.step1 table {
+		margin: 0 25px 25px;
+		width: 1050px;
+	}
+	
+	.step1 table .name {
+		width: 190px;
+		padding-right: 30px;
+		vertical-align: middle !important;
+		text-align: right;
+	}
+	
+	.step1 table .container1 {
+		width: 335px;
+		vertical-align: middle !important;
+	}
+	
+	.step1 .sealmsg{
+		padding: 20px 0px;
+	}
+	.step1 .sealmsg .countMessage{
+		margin: 0px 20px;
+		border: 1px solid #ddd;
+	}
+	.step1 .sealStyle,.ODC{
+		margin: 0 20px;
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+	}
+	.step1 .sealStyle{
+		border-bottom: 1px solid #ddd;
+	}
+	.step1 .ODChide{
+		display: none;
+	}
+	.step1 .sealStyle span ,
+	.step1 .ODC span{
+		min-width: 115px;
+		height: 40px;
+		display: inline-block;
+		line-height: 40px;
+		text-align: center;
+		font-size: 16px;
+		border: 1px solid #dedede;
+		margin: 20px 0px 20px 20px;
+		cursor: pointer;
+		padding: 0 10px;
+	}
+	
+	.step1 .sealStyle span.choice,
+	.step1 .ODC span.choice {
+		color: #00acff;
+		border: 1px solid #00acff;
+		background: url(../../../app/asset/img/1111.png) no-repeat right bottom;
+	}
+	.step1 form .control-label{
+		font-weight: 500;
+		text-align: left;
+	}
+	.step1 form .sealTips{
+		margin-left: 170px;
+		vertical-align: middle;
+        padding: 7px;
+        display: inline-block;
+	}
+	.step1 form .errTip{
+		padding-top: 5px;
+		color: red;
+	}
+	.step1 .operatormsg{
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.step1 .operatormsg .countMessage{
+		border: 1px solid #ddd;
+	}
+	.step1 .operatormsg form{
+		padding: 0 20px;
+		border: 1px solid #ddd;
+		border-top: none;
+	}
+	.step1 .form-group{
+		margin-bottom: 0;
+	}
+	.step1 .islegal{
+		margin-bottom: 15px;
+		display: none;
+	}
+	.step1 .go{
+		height: 36px;
+		width: 170px;
+		float: right;
+	}
+	.step1 .go .btn-ay{
+		color: #FFF;
+		display: inline-block;
+		height: 36px;
+		width: 170px;
+		text-align: center;
+		font-size: 14px;
+		text-decoration: none;
+		background-color: #00acff;
+    	border-color: #00acff;
+	}
+	.alert .modal-footer{
+		display: none;
+	}
+	.alert .bootbox-body{
+		text-align: center;
+		padding: 10px 0;
+		font-size: 16px;
+	}
+	/*弹框*/
+	.errorTips .title{
+		font-weight: 600;
+	}
+	.errorTips .clear{
+		clear: both;
+	}
+	.errorTips .message .icon{
+		width: 25%;
+		height: 110px;
+		float: left;
+		padding-left: 48px;
+	}
+	.errorTips .message .icon span{
+		display: inline-block;
+		height: 46px;
+		width: 46px;
+		margin-top: 32px;
+		background: url(../../../app/asset/img/login3.png) no-repeat left bottom;
+	}
+	.errorTips .message .errorOrderTips{
+		width: 75%;
+		float: left;
+	}
+	.errorTips .message .errorOrderTitle{
+		font-size: 16px;
+		margin: 10px;
+	}
+	.errorTips .message .errorOrderSeal span{
+		display: inline-block;
+		border: 1px dashed #ddd;
+		margin: 0px 10px 10px 10px;
+		padding: 10px;
+	}
+	.errorTips .message .errorOrderRed{
+		margin-left: 10px;
+		color: #f27272;
+		font-size: 16px;
+	}
+	.errorTips .modal-footer{
+		border: none;
+		text-align: center;
+		padding: 15px 0 30px;
+	}
+	.errorTips .modal-footer .btn1{
+		width: 90px;
+		height: 32px;
+	}
+	.errorTips .modal-footer .btn2,
+	.errorTips .modal-footer .btn3{
+		width: 100px;
+		height: 32px;
+		color: #fff;
+		background: #00acff;
+		margin-left: 15px;
+	}
+</style>
+<!--http://192.168.1.237:8090/FairDemo/document/app0320171113162559.pdf-->

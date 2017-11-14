@@ -42,7 +42,7 @@ define(function(require, exports, module) {
         },
         step1:function(){
             this.preRoute(false, 'step1').then(function(){
-                require(['../view/orders/step1', '../../model/orders/step1'],function(View, Model){
+                require(['../../view/admin/step1', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
@@ -50,7 +50,7 @@ define(function(require, exports, module) {
         },
         step2:function(){
             this.preRoute(false, 'step2').then(function(){
-                require(['../../view/orders/step2', '../../../model/orders/step2'],function(View, Model){
+                require(['../../view/admin/step2', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
@@ -58,7 +58,7 @@ define(function(require, exports, module) {
         },
         step3:function(){
             this.preRoute(false, 'step3').then(function(){
-                require(['../../view/orders/step3', '../../model/orders/step3'],function(View, Model){
+                require(['../../view/admin/step3', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
@@ -66,7 +66,7 @@ define(function(require, exports, module) {
         },
         step4:function(){
             this.preRoute(false, 'step4').then(function(){
-                require(['../../view/orders/step4', '../../model/orders/step4'],function(View, Model){
+                require(['../../view/admin/step4', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
@@ -74,7 +74,7 @@ define(function(require, exports, module) {
         },
         pay_ok:function(){
             this.preRoute(false, 'pay_ok').then(function(){
-                require(['../../view/orders/pay_ok', '../../model/orders/pay_ok'],function(View, Model){
+                require(['../../view/admin/pay_ok', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
@@ -82,7 +82,7 @@ define(function(require, exports, module) {
         },
         renew:function(){
             this.preRoute(false, 'renew').then(function(){
-                require(['../../view/orders/renew', '../../model/orders/renew'],function(View, Model){
+                require(['../../view/admin/renew', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
         },
         update_key:function(){
             this.preRoute(false, 'update_key').then(function(){
-                require(['../../view/orders/update_key', '../../model/orders/update_key'],function(View, Model){
+                require(['../../view/admin/update_key', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
