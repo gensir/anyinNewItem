@@ -4,7 +4,8 @@
         <dt><span class="tximg"></span></dt>
         <dd class="name">欢迎您，<span id="username" title="{{userinfo.user.username}}">{{userinfo.user.username}}</span></dd>
         <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"></span></dd>
-        <dd class="logintime">上次登录：<span id="loginDate">{{if userinfo.user&&userinfo.user.status == 1}}{{userinfo.user.lastLoginTime==null?"第一次登录系统":userinfo.user.lastLoginTime}}{{/if}}</span></dd>
+        <!--<dd class="logintime">上次登录：<span id="loginDate">{{if userinfo.user&&userinfo.user.status == 1}}{{userinfo.user.lastLoginTime==null?"第一次登录系统":userinfo.user.lastLoginTime}}{{/if}}</span></dd>-->
+        <dd class="logintime">上次登录：10:10:10<span id="loginDate">第一次登录系统</span></dd>
     </dl>
 
     <ul class="actionlist">
@@ -17,36 +18,9 @@
 
 <!--  中间内容 -->
 <div class="page-kd content">
-    <div class="left">
-        <div class="xufei">
-            <div class="t-title">
-                <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
-            <ul class="blist boxshow">
-                {{each esealdata as value i}}
-                <li>
-                    <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
-                    <span class="date" title="{{value.validEnd}}"></span>
-                    <span class="operate">{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7}}<a class="renew" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>{{/if}}</span>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-
-        <div class="help">
-            <div class="t-title">
-                <h2>常见问题汇总</h2><a class="more" href="">更多></a></div>
-            <ul class="blist boxshow">
-                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
-                <li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
-                <li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
-            </ul>
-
-        </div>
-    </div>
-
     <div class="jilu">
         <div class="t-title">
-            <h2>电子印章签章记录</h2><a class="more" href="logs.html">详情></a></div>
+            <i></i><h2>电子印章签章记录</h2><a class="more" href="logs.html">查看更多></a></div>
         <div class="jilulist boxshow">
             <ul>
                 {{if logdata == ""}}
@@ -85,6 +59,31 @@
                 {{/each}}
             </ul>
         </div>
+    </div>
+    <div class="left">
+        <div class="xufei">
+            <div class="t-title">
+                <i></i><h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
+            <ul class="blist boxshow">
+                {{each esealdata as value i}}
+                <li>
+                    <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
+                    <span class="date" title="{{value.validEnd}}"></span>
+                    <span class="operate">{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7}}<a class="renew" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>{{/if}}</span>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
 
+        <div class="help">
+            <div class="t-title">
+                <i></i><h2>常见问题汇总</h2><a class="more" href="">更多></a></div>
+            <ul class="blist boxshow">
+                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
+                <li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
+                <li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
+            </ul>
+
+        </div>
     </div>
 </div>
