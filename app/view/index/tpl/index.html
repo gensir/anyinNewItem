@@ -3,15 +3,14 @@
     <dl class="userinfo">
         <dt><span class="tximg"></span></dt>
         <dd class="name">欢迎您，<span id="username" title="{{userinfo.user.username}}">{{userinfo.user.username}}</span></dd>
-        <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"></span></dd>
-        <!--<dd class="logintime">上次登录：<span id="loginDate">{{if userinfo.user&&userinfo.user.status == 1}}{{userinfo.user.lastLoginTime==null?"第一次登录系统":userinfo.user.lastLoginTime}}{{/if}}</span></dd>-->
-        <dd class="logintime">上次登录：10:10:10<span id="loginDate">第一次登录系统</span></dd>
+        <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"><em></em></span></dd>
+        <dd class="logintime">上次登录：<span id="loginDate">{{if userinfo.user&&userinfo.user.status == 1}}{{userinfo.user.lastLoginTime==null?"第一次登录系统":userinfo.user.lastLoginTime}}{{/if}}</span></dd>
     </dl>
 
     <ul class="actionlist">
-        <li><a href="admin.html#step1"><em class="a-icon-1"></em>新办电子印章</a></li>
-        <li><a href="admin.html"><em class="a-icon-2"></em>电子印章续费</a></li>
-        <li><a href="admin.html?page=license"><em class="a-icon-3"></em>登录权限设置</a></li>
+        <li class="nav1"><a href="admin.html#step1"><em></em>新办电子印章</a></li>
+        <li class="nav2"><a href="admin.html"><em></em>电子印章续费</a></li>
+        <li class="nav3"><a href="admin.html?page=license"><em></em>登录权限设置</a></li>
     </ul>
 
 </div>
