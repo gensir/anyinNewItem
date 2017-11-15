@@ -3,7 +3,7 @@ define([
 	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
 	"bootbox"
-], function(tpl, primary, payment, service, bootbox) {
+], function(tpl, primary, service, bootbox) {
 	var windowLocation = "orders.html";
 	var template = require('art-template');
 	var main = Backbone.View.extend({
