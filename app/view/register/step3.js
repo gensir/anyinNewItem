@@ -3,12 +3,13 @@ define([
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "bootbox",
-    "../../lib/public"
-    ],function(registerstep3,primary,service,bootbox,Util) {
+    "../../lib/public",
+    "jqueryForm"
+    ],function(registerstep3,primary,service,bootbox,publicUtil,jqueryForm) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
-    var imgModalBig=Util.imgModalBig;
+    var imgModalBig=publicUtil.imgModalBig;
 	var pictureFlag = [0, 0, 0];
 	var enterpriseCode;
 	

@@ -13,22 +13,15 @@
     </div>
 </div>
 <div class="step3">
+	
     <div class="Message">
         <div class="mainTitle">
             企业证照上传
-        </div>
+        </div>        
         <div class="legalSubstance">
             <div class="flex">
                 <div class="flexCon">
-                    <div class="unitPhotoTitle">
-                        上传单位证件照片：
-                    </div>
-                    <div class="form">
-                        <span class="nothing"></span>
-                    </div>
-                </div>
-                <div class="flexCon">
-                    <div class="title">企业法人营业执照</div>
+                    <div class="title">上传单位证件照片</div>
                     <div class="form">
                         <form id="ajaxForm0" accept-charset="utf-8" enctype="multipart/form-data">
                             <span class="licence photo" id="photo0"></span>
@@ -37,31 +30,27 @@
 								<span>重新选择</span>
 							</a>
                         </form>
+                        <div class="pictit">企业法人营业执照</div>
                     </div>
                 </div>
                 <div class="flexCon">
-                    <!--<div class="title">企业法人营业执照</div>-->
                     <div class="form">
                         <span class="shadow shadow1">
 						</span>
                         <span class="businessLicense photo"></span>
+                        <div class="pictit"></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>    
+    
+    <div class="Message">    
         <div class="mainTitle countMessage">法定代表人证照上传</div>
         <div class="mainSubstance">
             <div class="flex">
                 <div class="flexCon">
-                    <div class="unitPhotoTitle">
-                		法定代表人身份证照：
-                    </div>
-                    <div class="form">
-                        <span class="nothing"></span>
-                    </div>
-                </div>
-                <div class="flexCon">
-                    <div class="title">法定代表人身份证正面</div>
+                    <div class="title">上传法人身份证照片</div>
                     <div class="form">
                         <form id="ajaxForm1" accept-charset="utf-8" enctype="multipart/form-data">
                             <span class="licence photo" id="photo1"></span>
@@ -70,18 +59,18 @@
 								<span>重新选择</span>
 							</a>
                         </form>
-                    </div>
+                        <div class="pictit">法人身份证正面</div>
+                    </div>                    
                 </div>
                 <div class="flexCon">
-                    <!--<div class="title">法人身份证正面</div>-->
                     <div class="form">
                         <span class="shadow shadow2">
 						</span>
                         <span class="frontPhoto photo"></span>
-                    </div>
+                        <div class="pictit"></div>
+                    </div>                    
                 </div>
                 <div class="flexCon">
-                    <div class="title">法定代表人身份证反面</div>
                     <div class="form">
                         <form id="ajaxForm2" accept-charset="utf-8" enctype="multipart/form-data">
                             <span class="licence photo" id="photo2"></span>
@@ -89,7 +78,8 @@
                             <a class="reset2" href="javascript:">
 								<span>重新选择</span>
 							</a>
-                        </form>
+                        </form>  
+                        <div class="pictit">法人身份证反面</div>                        
                     </div>
                 </div>
                 <div class="flexCon">
@@ -98,7 +88,8 @@
                         <span class="shadow shadow3">
 						</span>
                         <span class="backPhoto photo"></span>
-                    </div>
+                        <div class="pictit"></div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -121,7 +112,7 @@
     .step3 {
         width: 1100px;
         /*height: 460px;*/
-        margin: 40px auto 0;
+        margin: 20px auto 0;
     }
 
     .step3 .form form span img {
@@ -130,8 +121,8 @@
     }
 
     .step3 .Message {
-        margin-top: 30px;
-        padding-bottom: 30px;
+        margin-top: 20px;
+        padding-bottom: 2px;
         background: #fff;
         border-radius: 4px;
         box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, 0.04);
@@ -141,9 +132,10 @@
         height: 42px;
         line-height: 42px;
         border-bottom: 1px solid #dedede;
-        padding-left: 30px;
+        padding-left: 20px;
         font-size: 14px;
         font-weight: 700;
+        background-color: #f6fafe;
     }
 
     .step3 .mainSubstance {
@@ -169,11 +161,15 @@
         position: relative;
         overflow: hidden;
     }
+    .step3 .flex .flexCon .form .pictit{
+    	height: 30px;
+    	line-height: 30px;
+    }
 
     .step3 .flex .flexCon .title {
         width: 170px;
         text-align: left;
-        margin: 30px 0px 20px 25px;
+        margin: 20px
     }
 
     .step3 .flex .flexCon .photo {

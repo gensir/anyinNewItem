@@ -25,7 +25,9 @@ require.config({
         "colResizable": "../vendor/plugin/colResizable-1.6",
         "bootstrap-typeahead":"../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
         "cookie":"../vendor/bower/jquery-cookie/jquery.cookie",
-        "placeholder": "../vendor/bower/placeholder/jquery-placeholder"
+        "placeholder": "../vendor/bower/placeholder/jquery-placeholder",
+        "jqueryForm":"../vendor/bower/jquery-form/jquery.form"
+        
 	},
 	shim: {
 		// This is required to ensure Backbone works as expected within the AMD
