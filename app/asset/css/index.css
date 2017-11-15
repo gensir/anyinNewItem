@@ -1,417 +1,84 @@
 /* 操作区域 */
 
-.actions {
-	background: #fff;
-	height: 128px;
-	margin-top: 20px;
-	box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.05); 
-}
-
-.actions .userinfo {
-	width: 520px;
-	float: left;
-	overflow: hidden;
-	padding-top: 24px;
-	margin: 0;
-}
-
-.actions .userinfo dt {
-	display: block;
-	float: left;
-	width: 128px;
-	padding-right: 24px;
-	padding-left: 24px;
-}
-
-.actions .userinfo dd {
-	margin-left: 128px;
-}
-
-.actions .userinfo dt .tximg {
-	display: block;
-	height: 80px;
-	width: 80px;
-	background: url(../img/companyLogo.png) no-repeat center;
-}
-
-.actions .userinfo dt .tximg img {
-	height: 68px;
-	width: 68px;
-	display: block;
-	border-radius: 50%;
-}
-
-.actions .userinfo .name {
-	font-size: 18px;
-	line-height: 18px;
-	font-weight: 600;
-	height: 20px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	padding-right: 20px;
-}
-
-.actions .userinfo .renzheng {
-	margin-top: 10px;
-}
-
-.actions .userinfo .renzheng .rzinfo {
-	height: 20px;
-	text-align: center;
-	vertical-align: top;
-	line-height: 20px;
-	font-size: 12px;
-	color: #999;
-	background: #ccc;
-	display: inline-block;
-	padding-right: 6px;
-	padding-left: 6px;
-	border-radius: 4px;
-}
-.actions .userinfo .renzheng .rzinfo:after {
-	content: "未认证企业"
-}
+.actions { background: #fff; height: 128px; margin-top: 20px; box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, .05); }
+.actions .userinfo { width: 520px; float: left; overflow: hidden; padding-top: 24px; margin: 0; }
+.actions .userinfo dt { display: block; float: left; width: 128px; padding-right: 24px; padding-left: 24px; }
+.actions .userinfo dd { margin-left: 128px; }
+.actions .userinfo dt .tximg { display: block; height: 80px; width: 80px; background: url(../img/companyLogo.png) no-repeat center; }
+.actions .userinfo dt .tximg img { height: 68px; width: 68px; display: block; border-radius: 50%; }
+.actions .userinfo .name { font-size: 18px; line-height: 18px; font-weight: 600; height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 20px; }
+.actions .userinfo .renzheng { margin-top: 10px; }
+.actions .userinfo .renzheng .rzinfo { height: 20px; text-align: center; vertical-align: top; line-height: 20px; font-size: 12px; color: #999; background: #ccc; display: inline-block; padding-right: 6px; padding-left: 6px; border-radius: 4px; }
+.actions .userinfo .renzheng .rzinfo:after { content: "未认证企业" }
 .actions .userinfo .renzheng .rzinfo em { display: inline-block; vertical-align: -3px; margin-right: 4px; width: 14px; height: 14px; background: url(../img/titlePng.png) no-repeat -105px -3px; }
-.actions .userinfo .renzheng .rzinfo.ok {
-	color: #384a5c;
-	background: #e9eef1;
-}
+.actions .userinfo .renzheng .rzinfo.ok { color: #384a5c; background: #e9eef1; }
 .actions .userinfo .renzheng .rzinfo.ok em { display: inline-block; vertical-align: -3px; margin-right: 4px; width: 14px; height: 14px; background: url(../img/titlePng.png) no-repeat -84px -3px; }
-
-.actions .userinfo .renzheng .rzinfo.ok:after {
-	content: "认证企业"
-}
-
-.actions .userinfo .logintime {
-	margin-top: 10px;
-	color: #384a5c;
-	font-size: 14px;
-	line-height: 20px;
-}
-
-.actions .actionlist {
-	float: right;
-	padding-top: 26px;
-	padding-right: 5px;
-}
-
-.actions .actionlist li {
-	vertical-align: top;
-	float: left;
-	margin-right: 10px;
-}
-
-.actions .actionlist li a {
-	height: 76px;
-	width: 175px;
-	display: block;
-	font-size: 14px;
-	line-height: 76px;
-	color: #384a5c;
-	border-radius: 6px;
-	text-decoration: none;
-	-webkit-transition: all .3s;
-	transition: all .3s;
-}
-
-.actions .actionlist li a:hover {
-	color: #fff;
-    background: #02adff;
-    
-}
-
-.actions .actionlist li a em {
-	background: url(../img/business.png) no-repeat;
-	text-align: left;
-	display: inline-block;
-	vertical-align: -7px;
-	margin-right: 15px;
-	margin-left: 15px;
-	vertical-align: middle;
-	height: 37px;
-	width: 40px;
-}
-
-.actions .actionlist li.nav1 a em {
-	background-position: 0 0;
-}
-
-.actions .actionlist li.nav2 a em {
-	background-position: -40px 0;
-}
-
-.actions .actionlist li.nav3 a em {
-	background-position: -80px 0;
-}
-.actions .actionlist li.nav1 a:hover em {
-	background-position: -130px 0;
-}
-.actions .actionlist li.nav2 a:hover em {
-	background-position: -170px 0;
-}
-.actions .actionlist li.nav3 a:hover em {
-	background-position: -210px 0;
-}
-
+.actions .userinfo .renzheng .rzinfo.ok:after { content: "认证企业" }
+.actions .userinfo .logintime { margin-top: 10px; color: #384a5c; font-size: 14px; line-height: 20px; }
+.actions .actionlist { float: right; padding-top: 26px; padding-right: 5px; }
+.actions .actionlist li { vertical-align: top; float: left; margin-right: 10px; }
+.actions .actionlist li a { height: 76px; width: 175px; display: block; font-size: 14px; line-height: 76px; color: #384a5c; border-radius: 6px; text-decoration: none; -webkit-transition: all .3s; transition: all .3s; }
+.actions .actionlist li a:hover { color: #fff; background: #02adff; }
+.actions .actionlist li a em { background: url(../img/business.png) no-repeat; text-align: left; display: inline-block; vertical-align: -7px; margin-right: 15px; margin-left: 15px; vertical-align: middle; height: 37px; width: 40px; }
+.actions .actionlist li.nav1 a em { background-position: 0 0; }
+.actions .actionlist li.nav2 a em { background-position: -40px 0; }
+.actions .actionlist li.nav3 a em { background-position: -80px 0; }
+.actions .actionlist li.nav1 a:hover em { background-position: -130px 0; }
+.actions .actionlist li.nav2 a:hover em { background-position: -170px 0; }
+.actions .actionlist li.nav3 a:hover em { background-position: -210px 0; }
 /* 中间内容*/
 
-.content {
-	overflow: hidden;
-	padding-bottom: 20px;
-	padding-top: 20px;
-}
-
-
+.content { overflow: hidden; padding-bottom: 20px; padding-top: 20px; }
 /* 中间左边内容*/
 
-.content .left {
-	width: 360px;
-	float: left;
-	margin-left: 20px;
-}
-
-.t-title {
-	height: 60px;
-	line-height: 60px;
-	padding-left: 20px;
-	background: #f6fafe;
-}
-
-.t-title i {
-	height: 20px;
-	width: 20px;
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 5px;
-	margin-bottom: 5px;
-}
-
-.t-title h2 {
-	display: inline-block;
-	font-size: 15px;
-	line-height: 60px;
-	font-weight: 600;
-	margin: 0px;
-}
-
-.t-title .more {
-	font-size: 14px;
-	color: #999;
-	float: right;
-	text-decoration: none;
-	margin-right: 20px;
-}
-
-.t-title .more:hover {
-	color: #666;
-}
-
-.blist {
-	padding: 20px 38px 38px;
-	min-height: 108px;
-}
-
-.blist li {
-	height: 50px;
-	padding: 17px 0;
-	line-height: 16px;
-	border-bottom: dashed 1px #dedede;
-}
-
-.xufei {
-	background: #fff;
-}
-
-.xufei .blist li span {
-	display: inline-block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.xufei .name {
-	width: 33%;
-}
-
-.xufei .date {
-	width: 33%;
-	text-align: center;
-}
-
-.xufei .operate {
-	text-align: right;
-	float: right;
-}
-
-.xufei .operate a {
-	color: #00acff;
-}
-
-.help {
-	margin-top: 20px;
-	background: #fff;
-}
-
-.help .blist li a {
-	color: #666;
-	text-decoration: none;
-}
-
-.help .blist li a:hover {
-	color: #333;
-}
-
-.help .blist li .arrow {
-	float: right;
-	background: url(../img/bg-all.png) no-repeat -40px -120px;
-	display: inline-block;
-	height: 14px;
-	width: 14px;
-}
-
+.content .left { width: 360px; float: left; margin-left: 20px; }
+.t-title { height: 60px; line-height: 60px; padding-left: 20px; background: #f6fafe; }
+.t-title i { height: 20px; width: 20px; display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 4px; }
+.t-title h2 { display: inline-block; font-size: 16px; line-height: 60px; font-weight: 600; margin: 0px; }
+.t-title .more { font-size: 14px; color: #666; float: right; text-decoration: none; margin-right: 20px; }
+.t-title .more:hover { color: #02adff; }
+.blist { padding: 0 20px 20px; min-height: 236px; }
+.blist li { height: 55px; padding: 17px 0 18px 10px; line-height: 20px; border-bottom: solid 1px #f1f2f1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xufei { background: #fff; }
+.xufei .blist li span { display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xufei .name { width: 50%; }
+.xufei .date { padding-left: 15px; }
+.xufei .operate { text-align: right; float: right; }
+.xufei .operate a { color: #00acff; }
+.help { margin-top: 20px; background: #fff; }
+.help .blist li a { color: #666; text-decoration: none;  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.help .blist li a:hover { color: #02adff; }
+.help .blist li .arrow { float: right; background: url(../img/bg-all.png) no-repeat -40px -122px; display: inline-block; vertical-align: middle; height: 16px; width: 16px; margin-left:15px; }
 
 /* 印章记录 */
+.content .jilu { width: 720px; float: left; background: #fff; }
+.content .jilu .t-title i { background: url(../img/titlePng.png) no-repeat; }
+.xufei .t-title i { background: url(../img/titlePng.png) no-repeat -25px; }
+.help .t-title i { background: url(../img/titlePng.png) no-repeat -54px; }
+.jilulist { padding: 20px 20px 20px; min-height: 560px; }
+.jilulist ul { margin-bottom: -20px; }
+.jilulist ul li { background: #fff; border: solid 1px #eaeaea; margin-bottom: 20px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
+.jilulist ul li:hover, .jilulist ul li.active { border-color: #02adff; box-shadow: 3px 3px 6px 0px rgba(250, 250, 250, 1); }
+.jilulist ul li .file { padding: 13px; overflow: hidden; border-radius: 4px; }
+.jilulist ul li .date { line-height: 84px; width: 105px; height: 84px; overflow: hidden; float: right; margin-top: -84px; text-align: center; border-left: 1px solid #eaeaea; color: #999; padding-left: 13px; }
+.jilulist ul li .file .filetype { float: left; width: 84px; height: 84px; line-height:84px; background: #fafafa; border: solid 1px #ecf2f5; text-align: center; }
+.jilulist ul li .file .filetype em { background-image: url(../img/file_type.png); background-repeat: no-repeat; display: inline-block; width: 46px; height: 54px; vertical-align: middle; }
+.jilulist ul li .file .filetype.pdf em { background-position: 0 0; }
+.jilulist ul li .file .filetype.doc em { background-position: 0 -60px; }
+.jilulist ul li .file .filetype.xls em { background-position: 0 120px; }
+.jilulist ul li p { margin: 0px 125px 0px 104px; line-height: 18px;}
+.jilulist ul li p span { line-height: 20px; height: 22px; min-width: 78px; padding-right: 8px; padding-left: 8px; border: solid 1px #02adff; margin-right: 6px; font-size: 12px; display: inline-block; text-align: center; border-radius: 2px; vertical-align: top; }
+.jilulist ul li p .name { background: #02adff; color: #fff; }
+.jilulist ul li p .type { color: #02adff; }
+.jilulist ul li .file .gsname { font-size: 14px; font-weight: 600; height: 18px; line-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jilulist ul li .file .yzinfo { margin-top: 18px; color: #666; }
+.jilulist ul li .file .signet-date { margin-top: 12px;  color: #666; }
 
-.content .jilu {
-	width: 720px;
-	float: left;
-	background: #fff;
-}
-.content .jilu .t-title i{
-	background: url(../img/titlePng.png) no-repeat;
-}
-.xufei .t-title i{
-	background: url(../img/titlePng.png) no-repeat -25px;
-}
-.help .t-title i{
-	background: url(../img/titlePng.png) no-repeat -54px;
-}
-.jilulist {
-	padding: 20px 20px 20px;
-}
-
-.jilulist ul {
-	margin-bottom: -20px;
-}
-
-.jilulist ul li {
-	background: #f5f5f5;
-	border-radius: 4px;
-	margin-bottom: 20px;
-	overflow: hidden;
-	-webkit-transition: all .3s;
-	transition: all .3s;
-}
-
-.jilulist ul li:hover,
-.jilulist ul li.active {
-	background: #ddd;
-}
-
-.jilulist ul li .file {
-	padding: 15px 15px;
-	overflow: hidden;
-	cursor: pointer;
-	border-radius: 4px;
-}
-
-.jilulist ul li .date {
-	float: left;
-	padding-right: 15px;
-	line-height: 50px;
-	height: 50px;
-	overflow: hidden;
-}
-
-.jilulist ul li p {
-	margin: 0px 0px 0px 160px;
-}
-
-.jilulist ul li p span {
-	line-height: 20px;
-	height: 22px;
-	min-width: 78px;
-	padding-right: 8px;
-	padding-left: 8px;
-	border: solid 1px #02adff;
-	margin-right: 6px;
-	font-size: 12px;
-	display: inline-block;
-	text-align: center;
-	border-radius: 2px;
-	vertical-align: top;
-}
-
-.jilulist ul li p .name {
-	background: #02adff;
-	color: #fff;
-}
-
-.jilulist ul li p .type {
-	color: #02adff;
-}
-
-.jilulist ul li .file .gsname {
-	font-size: 16px;
-	height: 18px;
-	line-height: 18px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.jilulist ul li .file .yzinfo {
-	margin-top: 10px;
-}
-
-.jilulist li .details {
-	background: #fff;
-	padding: 28px 0 20px 30px;
-	overflow: hidden;
-	display: none;
-	margin-left: 15px;
-	margin-right: 15px;
-	border-radius: 2px;
-	margin-bottom: 15px;
-}
-
-.details dl {
-	float: left;
-	width: 50%;
-	margin: 0px;
-	padding: 0px;
-}
-
-.details dl dd {
-	font-size: 12px;
-	line-height: 12px;
-	padding-bottom: 8px;
-	color: #444;
-}
-
-.details dl dd span {
-	color: #666;
-}
-
-.details .signet dt {
-	font-size: 14px;
-	line-height: 14px;
-	padding-bottom: 15px;
-}
-
-.details .computer {
-	width: 100%;
-}
-
-.details .computer dt {
-	font-size: 14px;
-	line-height: 14px;
-	padding-top: 12px;
-	padding-bottom: 15px;
-}
-
-.details .computer dd {
-	width: 50%;
-	float: left;
-}
+.jilulist li .details { background: #fff; padding: 28px 0 20px 30px; overflow: hidden; display: none; margin-left: 15px; margin-right: 15px; border-radius: 2px; margin-bottom: 15px; }
+.details dl { float: left; width: 50%; margin: 0px; padding: 0px; }
+.details dl dd { font-size: 12px; line-height: 12px; padding-bottom: 8px; color: #444; }
+.details dl dd span { color: #666; }
+.details .signet dt { font-size: 14px; line-height: 14px; padding-bottom: 15px; }
+.details .computer { width: 100%; }
+.details .computer dt { font-size: 14px; line-height: 14px; padding-top: 12px; padding-bottom: 15px; }
+.details .computer dd { width: 50%; float: left; }

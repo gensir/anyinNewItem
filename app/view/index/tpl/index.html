@@ -17,10 +17,10 @@
 
 <!--  中间内容 -->
 <div class="page-kd content">
-    <div class="jilu">
+    <div class="jilu boxshow">
         <div class="t-title">
             <i></i><h2>电子印章签章记录</h2><a class="more" href="logs.html">查看更多></a></div>
-        <div class="jilulist boxshow">
+        <div class="jilulist">
             <ul>
                 {{if logdata == ""}}
                 <li><div class="file" style="cursor: default;">暂无签章记录</div></li>
@@ -28,11 +28,14 @@
                 {{each logdata value i}}
                 <li>
                     <div class="file">
-                        <div class="date">{{value.signTime}}</div>
-                        <p class="gsname">{{value.signetDocument}}</p>
-                        <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</span></p>
+                        <div class="filetype"><em></em></div>
+                        <p class="gsname" title="{{value.signetDocument}}">{{value.signetDocument}}</p>
+                        <p class="yzinfo">{{value.esealFullName +"—— "}}{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</p>
+                        <!-- <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</span></p> -->
+                        <p class="signet-date">电子印章有效期：{{value.bizValidStart?value.bizValidStart.substr(0,10)+"至":""}}{{value.bizValidEnd?value.bizValidEnd.substr(0,10):""}}</p>
+                        <div class="date">{{value.signTime.substr(0,10)}}</div>
                     </div>
-                    <div class="details">
+                    <!-- <div class="details">
                         <dl class="signet">
                             <dt>操作信息</dt>
                             <dd>操作时间：<span>{{value.signTime}}</span></dd>
@@ -53,7 +56,7 @@
                             <dd>IP来源：<span>{{value.ipLocation}}</span></dd>
                             <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
                         </dl>
-                    </div>
+                    </div> -->
                 </li>
                 {{/each}}
             </ul>
@@ -81,6 +84,7 @@
                 <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
                 <li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
                 <li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
+                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题未安装驱动、驱动异常等问题</a></li>
             </ul>
 
         </div>

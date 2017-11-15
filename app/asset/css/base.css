@@ -1,11 +1,11 @@
 ﻿@charset "utf-8";
 html { height: 100%; }
-body { position: relative; min-height: 100%; box-sizing: border-box; background: #eaeef1; color: #384a5c; overflow-y: scroll;font-family: "Microsoft YaHei", "微软雅黑", "MicrosoftJhengHei"; }
+body { position: relative; min-height: 100%; box-sizing: border-box; background: #eaeef1; color: #384a5c; overflow-y: scroll; font-family: "Microsoft YaHei", "微软雅黑", "MicrosoftJhengHei"; }
 body>#main { min-height: 100%; padding-bottom: 80px; }
 ul { list-style: none; padding: 0; margin: 0; }
 .placeholder { font-size: 14px; }
 .page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
-.boxshow {  box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.05); }
+.boxshow { background: #fff; /*border-radius: 4px;*/ box-shadow: 0px 7px 12px 0px rgba(0, 0, 0, 0.05); }
 /* 按钮*/
 .btn.btn-ay { color: #fff; background-color: #00acff; border-color: #00acff; }
 .btn.btn-ay:hover { color: #fff; background-color: #009bfe; border-color: #009bfe; }

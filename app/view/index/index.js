@@ -43,7 +43,7 @@ define([
             }
         },
         events: {
-            'click .jilulist ul li .file': 'Toggleshow',
+            // 'click .jilulist ul li .file': 'Toggleshow',
             'click .renew': 'renew'
         },
         userinfo: function(event) {
@@ -195,7 +195,7 @@ define([
         getEsealList: function(data, pageNum, pageSize) {
             var _this = this
             pageNum = pageNum || 1;
-            pageSize = pageSize || 3;
+            pageSize = pageSize || 4;
             var data = {
                 "firmId": firmId
             };
