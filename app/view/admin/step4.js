@@ -37,7 +37,7 @@ define([
 		//保留小数点后两位
 		    toDecimal: function(x) {       var f = parseFloat(x);       if(isNaN(f)) {         return 0;       }       f = Math.round(x * 100) / 100;       return f;     },
 		getOrderInfo: function() {
-			service.orderStep4(orderNo).done(res => {
+			service.orderStep4(orderNo).done(function(res) {
 				var tempObj;
 				if(res.code != 0) {
 					console.log("step4无法获取到电子印章订单信息！" + res.msg);
@@ -129,7 +129,7 @@ define([
 		},
 		submitStep4: function() {
 			console.log(step4Data);
-			service.submitStep4(step4Data).done(res => {
+			service.submitStep4(step4Data).done(function(res) {
 				if(res.data.invoice) {
 					serialNo = res.data.invoice.serialNo;
 				}
@@ -175,7 +175,7 @@ define([
 				"orderNo": orderNo,
 				"payType": resPayType
 			};
-			service.payment(paymentData).done(res => {
+			service.payment(paymentData).done(function(res) {
 				if(res.code == 0) { //支付宝或者银联请求成功
 					var requestUrl = res.data.requestUrl;
 					var payDate = res.data;
@@ -220,13 +220,13 @@ define([
 				payDatexg += i + "=" + payDateURI + "&";
 			}
 			//var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
-			service.unYlyl(payDatexg).done(res => {
+			service.unYlyl(payDatexg).done(function(res) {
 				this.createIframe(res);
-			}).fail(res => {
+			}).fail(function(res) {
 				console.log(res);
 			});
 		},
-		createIframe(content, addBody) {
+		createIframe:function(content, addBody) {
 			$(".payment-modal-content").empty();
 			$("#payment").modal("show");
 			var iframe = document.createElement('iframe');
@@ -249,7 +249,7 @@ define([
 
 		payOrderStatus: function() {
 			if(payOrderStatuNum < 300) { //小于300次，就发送订单状态轮询支付请求.3秒一次
-				service.status(orderNo).done(res => {
+				service.status(orderNo).done(function(res) {
 					console.log("现在是第" + payOrderStatuNum + "次请求订单状态，当前返回的结果为 : " + res.data.orderStatus);
 					if(res.code == 0) { //订单状态查询请求成功
 						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
@@ -288,7 +288,7 @@ define([
 			var subData = {
 				"serialNo": serialNo
 			};
-			service.orderInvoice(subData).done(res => {
+			service.orderInvoice(subData).done(function(res) {
 				if(res.code == 0) {
 					console.log("开发票成功！" + res.msg);
 					console.log(res.data);

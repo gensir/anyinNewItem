@@ -314,7 +314,7 @@ define([
 		},
 		sealList: function(pageNumber, pageSize) {
 			//查询行政区
-			service.queryCodeArea(zone).done(res => {
+			service.queryCodeArea(zone).done(function(res) {
 				var tempObj;
 				if(res.data.length == 0) {
 					tempObj = {}
@@ -336,7 +336,7 @@ define([
 			})
 		},
 		// 点击上一页、下一页
-		pagediv(val, totalPages) {
+		pagediv:function(val, totalPages) {
 			if(val < 1) {
 				val = 1;
 				return;
@@ -348,7 +348,7 @@ define([
 			if(val === this.current) {
 				return;
 			}
-			this.sealShop(areaNumber, val, )
+			this.sealShop(areaNumber, val)
 		},
 		//pagination
 		pagination: function(pageNumber, totalPages) {
@@ -387,20 +387,20 @@ define([
 			}
 			this.active.addClass("active").siblings().removeClass("active")
 		},
-		currentPapge(e) {
+		currentPapge:function(e) {
 			this.active = $(e.currentTarget);
 			var pageNum = this.active.find("a").text()
 			this.pagediv(pageNum, this.model.get("totalPages"))
 		},
-		PreviousPage(e) {
+		PreviousPage:function(e) {
 			this.active = "";
 			this.pagediv(1, this.model.get("totalPages"))
 		},
-		NextPage(e) {
+		NextPage:function(e) {
 			this.active = $(".NextPage");
 			this.pagediv(this.model.get("totalPages"))
 		},
-		sealShop(areaNumber, pageNumber, pageSize) {
+		sealShop:function(areaNumber, pageNumber, pageSize) {
 			//获取印章店 	
 			$(".sealShopResult").hide();
 			var areaN = areaNumber
@@ -457,7 +457,7 @@ define([
 				}
 			});
 		},
-		option() {
+		option: function() {
 			this.active = '';
 			areaNumber = $("#area option:selected").val();
 			that.model.get("tplhtml").areaNumber = areaNumber
