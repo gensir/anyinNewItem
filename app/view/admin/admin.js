@@ -44,7 +44,7 @@ define([
             'click .pagination .index': 'currentPapge',
             'click #step': 'step'
         },
-        toggleList(event) {
+        toggleList: function(event) {
             var _this = event.currentTarget
             var ind = $(_this).parent(".list").index();
             $(".eseallist .list .toggle").slideUp();
@@ -55,7 +55,7 @@ define([
                 toggle.slideUp();
             }
         },
-        toggleTab(event, license) {
+        toggleTab: function(event, license) {
             var _this = license || event.currentTarget;
             $(_this).addClass("active").siblings().removeClass("active");
             $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
@@ -72,12 +72,12 @@ define([
             //     this.toggleTab(event, $("#loginset"))
             // }
         },
-        getSealName(target) {
+        getSealName: function(target) {
             var _this = target.currentTarget;
             var ind = $(_this).parents(".list").index();
             return this.model.get("tplhtml").loginlist[ind].esealFullName;
         },
-        shut(e) {
+        shut: function(e) {
             // function getName() {
             //     var _this = e.currentTarget;
             //     var ind = $(_this).parents(".list").index();
@@ -89,7 +89,7 @@ define([
             var _that = this, listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var dialogsText = dialogs.find(".closeAllow");
-            service.licenseLast({ enterpriseCode: this.enterpriseCode }).done((res) => {
+            service.licenseLast({ enterpriseCode: this.enterpriseCode }).done( function(res) {
                 _that.licenseLast = res.data
             })
             bootbox.dialog({
@@ -150,7 +150,7 @@ define([
                                         "esealCode": listdata.esealCode,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
-                                    service.loginLicense(data).done((res) => {
+                                    service.loginLicense(data).done( function(res) {
                                         if (res.code == 0) {
                                             var success = dialogsText.find(".success").html("已成功关闭" + listdata.esealFullName + "的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
@@ -174,7 +174,7 @@ define([
                                         "oid": GetOid,
                                         "errorCode": 1
                                     };
-                                    service.checkPIN(data).done(res => {
+                                    service.checkPIN(data).done(function(res) {
                                         if (res.code == 1) {
                                             $(_this).find("#closeCode-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
@@ -189,7 +189,7 @@ define([
             })
             return false;
         },
-        open(e) {
+        open: function(e) {
             if (!ukeys.issupport()) {
                 return false;
             }
@@ -254,7 +254,7 @@ define([
                                         "esealCode": listdata.esealCode,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
-                                    service.loginLicense(data).done((res) => {
+                                    service.loginLicense(data).done(function(res) {
                                         if (res.code == 0) {
                                             var success = dialogsText.find(".success").html("已成功开启" + listdata.esealFullName + "的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
@@ -276,7 +276,7 @@ define([
                                         "oid": GetOid,
                                         "errorCode": 1
                                     };
-                                    service.checkPIN(data).done(res => {
+                                    service.checkPIN(data).done( function(res) {
                                         if (res.code == 1) {
                                             $(_this).find("#openCode-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
@@ -295,7 +295,7 @@ define([
             return false;
         },
         //预挂失
-        loss(event) {
+        loss: function(event) {
             var _this = this;
             event.stopPropagation();
             var status = $(event.currentTarget).data('status');
@@ -328,16 +328,16 @@ define([
                                     var msg2 = dialogs.find(".msg2")[0].outerHTML;
                                     $(this).find(".bootbox-body").html(msg2);
                                     sendmsg($(this).find("#resend"));
-                                    service.getSMSVerifCode(mobile).done(res => {
+                                    service.getSMSVerifCode(mobile).done(function(res) {
                                         if (res.code == 0) {
                                             console.log("短信发送成功")
                                         } else {
                                             $("#codetip").html(res.msg).css({ "color": "red" });
                                         }
                                     })
-                                    $(this).find("#resend").unbind().click(res => {
+                                    $(this).find("#resend").unbind().click(function(res) {
                                         sendmsg($(this).find("#resend"));
-                                        service.getSMSVerifCode(mobile).done(res => {
+                                        service.getSMSVerifCode(mobile).done(function(res) {
                                             if (res.code == 0) {
                                                 console.log("短信重新发送成功")
                                             } else {
@@ -379,7 +379,7 @@ define([
                                                 "mobilePhoneNo": mobile,
                                                 "smsCode": code
                                             }
-                                            service.updatePreLossStatus(data).done(res => {
+                                            service.updatePreLossStatus(data).done(function(res) {
                                                 if (res.code == 0) {
                                                     numInd = 2;
                                                     console.log("验证成功");
@@ -412,7 +412,7 @@ define([
             }
         },
         //取消预挂失提示
-        cancelloss(event) {
+        cancelloss: function(event) {
             event.stopPropagation();
             var esealCode = $(event.currentTarget).data('code');
             var esealFullName = $(event.currentTarget).data('name');
@@ -443,9 +443,9 @@ define([
             })
         },
         //取消预挂失
-        cancellossfun(esealCode) {
+        cancellossfun: function(esealCode) {
             var data = { "esealCode": esealCode }
-            service.updateEsealStatus(data).done(res => {
+            service.updateEsealStatus(data).done(function(res) {
                 if (res.code == 0) {
                     location.reload();
                 } else {
@@ -453,7 +453,7 @@ define([
                 }
             })
         },
-        unfreeze() {
+        unfreeze: function() {
             var _outthis = this;
             var numInd = this.model.get("numInd");
             var dialogsText = dialogs.find(".unfreezeEseal")
@@ -521,7 +521,7 @@ define([
             })
             return false;
         },
-        logout() {
+        logout: function() {
             var numInd = this.model.get("numInd");
             var logoutEseal = dialogs.find(".logoutEseal")
             bootbox.dialog({
@@ -593,7 +593,7 @@ define([
             return false;
         },
         //续费操作
-        renew(event) {
+        renew: function(event) {
             event.stopPropagation();
             var GetOid = $(event.currentTarget).data('oid');
             if (!Boolean(GetOid)) {
@@ -623,11 +623,11 @@ define([
                 return false;
             }
         },
-        listPage(pageNum, pageSize) {
+        listPage: function(pageNum, pageSize) {
             pageNum = pageNum || 1;
             pageSize = pageSize || 10;
             var querydata = { "firmId": this.firmId || "nihao" }
-            service.getEsealList(pageNum, pageSize, querydata).done(res => {
+            service.getEsealList(pageNum, pageSize, querydata).done(function(res) {
                 if (res.code != 0) {
                     var tempObj = {}
                 } else {
@@ -654,13 +654,13 @@ define([
                 }
             })
         },
-        licenselist(pageNum, pageSize) {
+        licenselist: function(pageNum, pageSize) {
             var data = {
                 pageNum: pageNum || 1,
                 pageSize: pageSize || 10,
                 enterpriseCode: this.enterpriseCode || "e440301000412"
             }
-            service.licenselist(data.pageNum, data.pageSize, data).done(res => {
+            service.licenselist(data.pageNum, data.pageSize, data).done(function(res) {
                 if (res.code != 0) {
                     var tempObjs = {}
                 } else {
@@ -688,7 +688,7 @@ define([
             })
         },
         // 点击上一页、下一页
-        pagediv(val, totalPages) {
+        pagediv: function(val, totalPages) {
             if (val < 1) {
                 val = 1;
                 return;
@@ -741,16 +741,16 @@ define([
             }
             this.active.addClass("active").siblings().removeClass("active")
         },
-        currentPapge(e) {
+        currentPapge: function(e) {
             this.active = $(e.currentTarget);
             var pageNum = this.active.find("a").text()
             this.pagediv(pageNum, this.model.get("totalPages"));
         },
-        PreviousPage() {
+        PreviousPage: function() {
             this.active = "";
             this.pagediv(1, this.model.get("totalPages"))
         },
-        NextPage(e) {
+        NextPage: function(e) {
             this.active = $(".NextPage");
             console.log(this.active.text(), this.model.get("totalPages"))
             this.pagediv(this.model.get("totalPages"))

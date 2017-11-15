@@ -44,7 +44,7 @@ define([
 		},
 		getData: function() {
 			var orderNo = this.getUrlParam('num');
-			service.status(orderNo).done(res => {
+			service.status(orderNo).done( function(res) {
 				if(res.code == 0) { //订单状态查询请求成功
 					var businessType = res.data.businessType;
 					var shopAddress = res.data.shopAddress || "";
