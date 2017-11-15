@@ -80,14 +80,20 @@ define([
 		        }
 		    },
 		    toggleList: function(event) {
-		        var _this = event.currentTarget;
+		        var _this = event.currentTarget;				
 		        var ind = $(_this).parent(".list").index();
 		        $(".eseallist .list .showHide").slideUp();
 		        var toggle = $(_this).parent(".list").find(".showHide");
 		        if (toggle.is(":hidden")) {
 		            toggle.slideDown();
+		           	$(_this).addClass("nav_tac");
+		           	$(_this).next(".showHide").find(".tog_bot").click(function(){
+			            toggle.slideUp();
+			            $(_this).removeClass("nav_tac");		           		
+		           	});
 		        } else {
 		            toggle.slideUp();
+		            $(_this).removeClass("nav_tac");
 		        }
 		    },
 		    

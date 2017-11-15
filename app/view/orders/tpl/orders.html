@@ -3,137 +3,143 @@
 </div>
 <div class="eseal">
     <div class="mainbody boxmodel">
+
         <div class="accordion boxshow">
-            <ul class="nav">
-                <li class="nav0">流水号</li>
-                <li class="nav1">订单时间</li>
-                <li class="nav2">业务类型</li>
-                <li class="nav3">支付金额</li>
-                <li class="nav4">支付方式</li>
-                <li class="nav5">状态</li>
-            </ul>
-            <div class="esealtab">
-                {{each data.list value i}}
-                <div class="eseallist">
-                    <div class="list">
-                        <ul class="nav">
-                            <li class="nav0">{{value.orderNo}}</li>
-                            <li class="nav1">{{value.createTime}}</li>
-                            <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</li>
-                            <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
-                            <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
-                            <li class="nav5">
-                                {{if value.orderStatus ==1}} {{if value.businessType==1}}
-                                <a id="continue" href='javascript:;'>未支付</a>
-                                {{/if}} {{if value.businessType==2}}
-                                <input id="esealCode" type="hidden" value="{{value.commEsealInfos[0].esealCode}}">
-                                <input id="oid" type="hidden" value="{{value.mpEsealOrderExts[0].oid}}">
-                                <a id="renew" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
-                                {{/if}} {{else}} {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}} {{/if}}
-                            </li>
-                        </ul>
-                        <div class="showHide">
-                            <div class="toggle">
-                                <ul class="nav">
-                                    <li class="n1">
-                                        <p class="top f14">业务详情</p>
-                                        <p>业务类型：<span>{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</span></p>
-                                        <p>流水号：<span>{{value.orderNo}}</span></p>
-                                        <p>订单时间：<span>{{value.createTime}}</span></p>
-                                        <p>订单状态：<span>{{value.orderStatus==1?"未支付":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}</span></p>
-                                        {{if value.businessType!=2}}
-                                        <p>经办人：<span>{{value.linkMan}}</span></p>
-                                        {{/if}}
-                                    </li>
-                                    <li class="n2">
-                                        <p class="f14">支付信息</p>
-                                        <p>支付方式：<span>{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</span></p>
-                                        {{if value.businessType!=2}}
-                                        <p>受理门店：<span title="{{value.shopName && value.shopName.length>18?value.shopName:" "}}">{{value.shopName && value.shopName.length>16?value.shopName.substr(0,18)+"...":value.shopName}}</span></p>
-                                        {{/if}}
-                                        <p>支付单号：<span>{{value.transactionId}}</span></p>
-                                        <p>支付时间：<span>{{value.payTime}}</span></p>
-                                        <p></p>
-                                    </li>
-                                    <li class="n3" {{value.businessType==1? "style=display:none":value.businessType==2? "style=display:block": "style=display:block"}}>
-                                        <p class="f14">电子印章信息</p>
-                                        {{each value.commEsealInfos value i}}
-                                        <p>印章名：<span>{{value.esealFullName}}</span></p>
-                                        <p>印章编号：<span>{{value.esealCode}}</span></p>
-                                        <p>制作日期：<span>{{value.esealCreateTime}}</span></p>
-                                        <p>印章生效期：<span>{{value.bizValidStart}}</span></p>
-                                        <p>印章失效期：<span>{{value.bizValidEnd}}</span></p>
-                                        {{/each}}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="orderHelp">
-                                <ul class="nav">
-                                    <li class="n1">
-                                        <p class="top f14">订单内容</p>
-                                        {{if value.businessType==1 || value.businessType==3}} {{each value.mpEsealOrderExts value i}}
-                                        <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                        {{/each}} {{/if}} {{if value.businessType==2 }} {{each value.mpEsealOrderExts value i}}
-                                        <p><span class="sealName" style="width:130px;">{{value.esealFullName}} 续费</span><span class="sealyear">{{value.effectiveDuration}}年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                        {{/each}} {{/if}}
-                                        <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span></p>
-                                    </li>
-                                    <li class="n2">
-                                        <p class="f14">订单发票</p>
-                                        {{if value.mpElectronicInvoice == null}}
-                                        <p><span>如需电子发票，请点击 <a href="javascript:;">电子发票申请</a></span></p>
-                                        {{else}}
-                                        <p><span>您已申请电子发票，</span>
-                                            <a href="{{value.mpElectronicInvoice?value.mpElectronicInvoice.originalPdfUrl:" "}}">点击下载</a>
-                                        </p>
-                                        {{/if}}
-                                    </li>
-                                    <li class="n3">
-                                        <p class="f14">需要帮助？</p>
-                                        {{if value.businessType==1}}
-                                        <p><span>新办理的电子印章无法使用，</span>
-                                            <a href="">了解详情</a>
-                                        </p>
-                                        {{/if}} {{if value.businessType==2 || value.businessType==3}}
-                                        <p><span>续费后仍然提示已过期？</span>
-                                            <a href="admin.html#update_key">点击更新证书</a>
-                                        </p>
-                                        {{/if}}
-                                        <p>
-                                            <a>电子印章常见问题</a>，或
-                                            <a>联系客服</a>
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
+            <div class="accordion_w">
+                <ul class="nav nav_tit">
+                    <li class="nav0">流水号</li>
+                    <li class="nav1">订单时间</li>
+                    <li class="nav2">业务类型</li>
+                    <li class="nav3">支付金额</li>
+                    <li class="nav4">支付方式</li>
+                    <li class="nav5">状态</li>
+                </ul>
+                <div class="esealtab">
+                    {{each data.list value i}}
+                    <div class="eseallist">
+                        <div class="list">
+                            <ul class="nav nav_t">
+                                <li class="nav0">{{value.orderNo}}</li>
+                                <li class="nav1">{{value.createTime}}</li>
+                                <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</li>
+                                <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
+                                <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
+                                <li class="nav5">
+                                    {{if value.orderStatus ==1}} {{if value.businessType==1}}
+                                    <a id="continue" href='javascript:;'>未支付</a>
+                                    {{/if}} {{if value.businessType==2}}
+                                    <input id="esealCode" type="hidden" value="{{value.commEsealInfos[0].esealCode}}">
+                                    <input id="oid" type="hidden" value="{{value.mpEsealOrderExts[0].oid}}">
+                                    <a id="renew" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
+                                    {{/if}} {{else}} {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}} {{/if}}
+                                </li>
+                            </ul>
+                            <div class="showHide">
+                                <div class="toggle">
+                                    <ul class="nav">
+                                        <li class="n1">
+                                            <p class="top f14">业务详情</p>
+                                            <p>业务类型：<span>{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</span></p>
+                                            <p>流水号：<span>{{value.orderNo}}</span></p>
+                                            <p>订单时间：<span>{{value.createTime}}</span></p>
+                                            <p>订单状态：<span>{{value.orderStatus==1?"未支付":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}</span></p>
+                                            {{if value.businessType!=2}}
+                                            <p>经办人：<span>{{value.linkMan}}</span></p>
+                                            {{/if}}
+                                        </li>
+                                        <li class="n2">
+                                            <p class="f14">支付信息</p>
+                                            <p>支付方式：<span>{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</span></p>
+                                            {{if value.businessType!=2}}
+                                            <p>受理门店：<span title="{{value.shopName && value.shopName.length>18?value.shopName:" "}}">{{value.shopName && value.shopName.length>16?value.shopName.substr(0,18)+"...":value.shopName}}</span></p>
+                                            {{/if}}
+                                            <p>支付单号：<span>{{value.transactionId}}</span></p>
+                                            <p>支付时间：<span>{{value.payTime}}</span></p>
+                                            <p></p>
+                                        </li>
+                                        <li class="n3" {{value.businessType==1? "style=display:none":value.businessType==2? "style=display:block": "style=display:block"}}>
+                                            <p class="f14">电子印章信息</p>
+                                            {{each value.commEsealInfos value i}}
+                                            <p>印章名：<span>{{value.esealFullName}}</span></p>
+                                            <p>印章编号：<span>{{value.esealCode}}</span></p>
+                                            <p>制作日期：<span>{{value.esealCreateTime}}</span></p>
+                                            <p>印章生效期：<span>{{value.bizValidStart}}</span></p>
+                                            <p>印章失效期：<span>{{value.bizValidEnd}}</span></p>
+                                            {{/each}}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="orderHelp">
+                                    <ul class="nav">
+                                        <li class="n1">
+                                            <p class="top f14">订单内容</p>
+                                            {{if value.businessType==1 || value.businessType==3}} {{each value.mpEsealOrderExts value i}}
+                                            <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
+                                            {{/each}} {{/if}} {{if value.businessType==2 }} {{each value.mpEsealOrderExts value i}}
+                                            <p><span class="sealName" style="width:130px;">{{value.esealFullName}} 续费</span><span class="sealyear">{{value.effectiveDuration}}年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
+                                            {{/each}} {{/if}}
+                                            <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span></p>
+                                        </li>
+                                        <li class="n2">
+                                            <p class="f14">订单发票</p>
+                                            {{if value.mpElectronicInvoice == null}}
+                                            <p><span>如需电子发票，请点击 <a href="javascript:;">电子发票申请</a></span></p>
+                                            {{else}}
+                                            <p><span>您已申请电子发票，</span>
+                                                <a href="{{value.mpElectronicInvoice?value.mpElectronicInvoice.originalPdfUrl:" "}}">点击下载</a>
+                                            </p>
+                                            {{/if}}
+                                        </li>
+                                        <li class="n3">
+                                            <p class="f14">需要帮助？</p>
+                                            {{if value.businessType==1}}
+                                            <p><span>新办理的电子印章无法使用，</span>
+                                                <a href="">了解详情</a>
+                                            </p>
+                                            {{/if}} {{if value.businessType==2 || value.businessType==3}}
+                                            <p><span>续费后仍然提示已过期？</span>
+                                                <a href="admin.html#update_key">点击更新证书</a>
+                                            </p>
+                                            {{/if}}
+                                            <p>
+                                                <a>电子印章常见问题</a>，或
+                                                <a>联系客服</a>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tog_bot">▲</div>
+                            </div>                            
                         </div>
                     </div>
+                    {{/each}}
+                    <div class="listResult">没有订单信息</div>
                 </div>
-                {{/each}}
-                <div class="listResult">没有订单信息</div>
+                <!--分页-->
+
             </div>
-            <!--分页-->
-            <nav aria-label="Page navigation">
-                <ul class="pagination" id="pageLimit">
-                    <li class="PreviousPage">
-                        <a aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <!-- {{each count value i}}
-                    <li class="index"><a>{{value}}</a></li>
-                    {{/each}} -->
-                    <li class="appendPage NextPage">
-                        <a aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <!-- <li class="gopage">
-                        <label>前往<input type="text">页</label>
-                    </li> -->
-                </ul>
-            </nav>
         </div>
+		<nav aria-label="Page navigation">
+			<div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
+		    <ul class="pagination" id="pageLimit">
+		        <li class="PreviousPage">
+		            <a aria-label="Previous">
+		                <span aria-hidden="true">&laquo;</span>
+		            </a>
+		        </li>
+		        <!-- {{each count value i}}
+		                    <li class="index"><a>{{value}}</a></li>
+		                    {{/each}} -->
+		        <li class="appendPage NextPage">
+		            <a aria-label="Next">
+		                <span aria-hidden="true">&raquo;</span>
+		            </a>
+		        </li>
+		        <!-- <li class="gopage">
+		                        <label>前往<input type="text">页</label>
+		                    </li> -->
+		    </ul>
+		</nav>
     </div>
 
 </div>
@@ -157,7 +163,7 @@
     }
     
     .orderList {
-    	width: 1100px;
+        width: 1100px;
         height: 20px;
         margin: 17px auto;
         padding-left: 15px;
@@ -173,7 +179,7 @@
     }
     
     .mainbody {
-        background: #fff;
+
     }
     
     .accordion {
@@ -181,11 +187,27 @@
         padding: 20px;
     }
     
-    .accordion>.nav {
-        padding: 0 22px 18px 22px;
-        font-size: 16px;
+    .accordion_w {
+        border: 1px solid #dfe8ed;
     }
     
+    .accordion_w .nav {
+        padding:15px 20px;
+        font-size: 14px;
+        
+    }
+    .accordion_w .nav_tit{
+    	background-color: #f6fafe;
+    	font-size: 16px;
+    	
+    }
+    .accordion_w .nav_tit li{
+    	text-align: center;	
+    	font-size: 16px;
+    	color: #384a5c;
+    	font-weight: bold;
+    }   
+     
     .accordion .nav li {
         float: left;
         min-height: 20px;
@@ -229,7 +251,7 @@
     
     .accordion .listResult {
         border-radius: 4px;
-        text-indent: 22px;
+        text-indent: 20px;
         background: #f6f6f6;
         color: #666;
         font-size: 14px;
@@ -242,23 +264,28 @@
     }
     
     .eseallist .list {
-        background: #f6f6f6;
-        padding: 0px 22px 1px;
-        border-radius: 5px;
-        margin-bottom: 10px;
+        
+		border-bottom: 1px solid #dfe8ed;
     }
     
     .eseallist .list>.nav {
-        padding: 14px 0;
+        padding: 14px 20px;
         text-align: center;
         cursor: pointer;
+    }
+    
+	.nav_tac{
+    	background-color: #eaf1f7;
+    }
+    
+    .eseallist .list .nav_t:hover{
+    	background-color: #edf7fc;
     }
     
     .eseallist .list>.nav .nav5 a {
         color: #00acff;
         padding: 0 4px;
         display: inline-block;
-        background-color: #f6f6f6;
     }
     
     .eseal .accordion>.nav {
@@ -270,11 +297,15 @@
     }
     
     .eseallist .list .toggle {
-        padding: 20px 40px;
+        padding: 0px 40px;
         background: #fff;
-        margin: 0px 0 14px;
+
+ 
     }
-    
+    .eseallist .list .toggle .nav{
+    	border-bottom: 1px solid #dfe8ed;
+    }
+        
     .eseallist .list .toggle .nav .n1 {
         width: 30%;
         /* border-right: 1px dashed #dedede; */
@@ -317,9 +348,8 @@
     }
     
     .eseallist .list .orderHelp {
-        padding: 30px 40px 20px;
+        padding: 0px 40px;
         background: #fff;
-        margin: 0px 0 14px;
     }
     
     .eseallist .list .orderHelp .n1 {
@@ -388,5 +418,22 @@
     
     nav ul.pagination li a {
         cursor: pointer;
+    }
+    .eseallist .list .tog_bot{
+    	width: 100%;
+    	height: 20px;
+    	background-color: #eaf1f7;
+    	text-align: center;
+    	color: #a6becb;
+    	cursor: pointer;
+    }
+    .eseallist .list .tog_bot:hover{
+    	background-color: #edf7fc;
+    }    
+    .page_btip{
+    	display: inline-block;
+    	float: left;
+    	line-height: 70px;
+    	color: #6f7d8b;
     }
 </style>
