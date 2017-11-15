@@ -34,7 +34,7 @@ define([
 		        }
 		    	this.listPage();
 		    },
-		    continue(event) {
+		    continue: function(event) {
 		        event.stopPropagation();
 		        service.errorOrder(firmId).done(function (data) {
 		            if (data.code == 0) {
@@ -44,7 +44,7 @@ define([
 		            }
 		        })
 		    },
-		    renew(event) {
+		    renew: function(event) {
 		        event.stopPropagation();
 		        var orderNo = $(event.currentTarget).parent().siblings(".nav0").text();
 		        var esealCode = $(event.currentTarget).siblings("#esealCode").val();
@@ -79,7 +79,7 @@ define([
 		            return false;
 		        }
 		    },
-		    toggleList(event) {
+		    toggleList: function(event) {
 		        var _this = event.currentTarget;
 		        var ind = $(_this).parent(".list").index();
 		        $(".eseallist .list .showHide").slideUp();
@@ -126,7 +126,7 @@ define([
 		        })
 		    },
 		    // 点击上一页、下一页
-		    pagediv(val, totalPages) {
+		    pagediv: function(val, totalPages) {
 		        if (val < 1) {
 		            val = 1;
 		            return;
@@ -177,16 +177,16 @@ define([
 		        }
 		        this.active.addClass("active").siblings().removeClass("active")
 		    },
-		    currentPapge(e) {
+		    currentPapge: function(e) {
 		        this.active = $(e.currentTarget);
 		        var pageNum = this.active.find("a").text()
 		        this.pagediv(pageNum, this.model.get("totalPages"));
 		    },
-		    PreviousPage() {
+		    PreviousPage: function() {
 		        this.active = "";
 		        this.pagediv(1, this.model.get("totalPages"))
 		    },
-		    NextPage(e) {
+		    NextPage: function(e) {
 		        this.active = $(".NextPage");
 		        console.log(this.active.text(),this.model.get("totalPages"))
 		        this.pagediv(this.model.get("totalPages"))

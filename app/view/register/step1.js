@@ -32,7 +32,7 @@ define([
 	        'change #Ename': 'checknameerror',
 	        'blur #Ename': 'blurcheck' 
         },  
-	    rules() {
+	    rules: function() {
 	        if ($('#xieyi').is(':checked')) {
 	            $('#reguser').attr("disabled", false);
 	        } else {
@@ -40,13 +40,13 @@ define([
 	        }
 	    },
 	    //IE中重置表单内容
-	    Emptyinput() {
+	    Emptyinput: function() {
 	        window.onload = function () {
 	            document.reg.reset();
 	        }
 	    },
 	    //企业名称模糊搜索
-	    typeahead() {
+	    typeahead: function() {
 	        $('#Ename').typeahead({
 	            ajax: {
 	                url: "/mp/check_organization/web/solr/company/list",
@@ -71,18 +71,18 @@ define([
 	        })
 	    },
 	    //输入框blur后自动查询校验
-	    blurcheck() {
+	    blurcheck: function() {
 	        var _this = this, timer
 	        timer = setTimeout(function () {
 	            _this.checkname();
 	        }, 200);
 	    },
 	    //企业名称查询编码
-	    checkname() {
+	    checkname: function() {
 	        var name = $.trim($("#Ename").val());
 	        var data = { "params": { "name": name } }
 	        if (name.length > 0) {
-	            service.checkname(data).done(res => {
+	            service.checkname(data).done(function(res) {
 	                if (res.code == 0 && (res.data != "" || res.data.length != 0)) {
 	                    enterpriseCode = res.data[0].creditCode || res.data[0].organizationCode;
 	                    firmId = res.data[0].id;
@@ -101,11 +101,11 @@ define([
 	        }
 	    },
 	    //校验公司能否注册
-	    checkUserIsExist(enterpriseCode) {
+	    checkUserIsExist: function(enterpriseCode) {
 	        var data = {
 	            "enterpriseCode": enterpriseCode
 	        }
-	        service.checkUserIsExist(data).done(res => {
+	        service.checkUserIsExist(data).done(function(res) {
 	            if (res.code == 0) {
 	                cname = true;
 	                $("#Ename-error").html("该企业可注册").css({ "color": "#08c34e" });
@@ -122,22 +122,22 @@ define([
 	        })
 	    },
 	    //重置企业名称错误提示
-	    checknameerror() {
+	    checknameerror: function() {
 	        $('#Ename-error').html('').css({ "color": "#f00" });
 	    },
 	    //更换验证码
-	    CodeRefresh() {
+	    CodeRefresh: function() {
 	        $('#yzmcode-error').html('').css({ "color": "#f00" });
 	        $('#yzmcode').val("");
 	        $(".codeimg").attr('src', '/mp/captcha.jpg?' + Math.random())
 	    },
 	    //校验图片验证码
-	    checkCaptcha(data) {
+	    checkCaptcha: function(data) {
 	        if ($('#yzmcode').val().length >= 4) {
 	            var data = {
 	                "captcha": $('#yzmcode').val()
 	            }
-	            service.checkCaptcha(data).done(res => {
+	            service.checkCaptcha(data).done(function(res) {
 	                if (res.code == 0) {
 	                    flag = true;
 	                    $("#yzmcode-error").html("验证码正确").css({ "color": "#08c34e" });
@@ -152,7 +152,7 @@ define([
 	        }
 	    },
 	    //提交注册验证
-	    reguser(event) {
+	    reguser: function(event) {
 	        if ($.trim($("#Ename").val()) == "") {
 	            $("#Ename-error").html("请输入企业名称").css({ "color": "#f00" });
 	            cname = false;
@@ -169,11 +169,11 @@ define([
 	        // }
 	    },
 	    //注册进入第二步
-	    toreguser(data) {
+	    toreguser: function(data) {
 	        var data = {
 	            "firmId": firmId
 	        }
-	        service.toRegister(data).done(res => {
+	        service.toRegister(data).done(function(res) {
 	            if (res.code == 0) {
 	                localStorage.firmId = firmId;
 	                localStorage.regStep = "#step2";

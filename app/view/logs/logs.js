@@ -2,7 +2,7 @@ define([
     "text!./tpl/logs.html",
     "text!./tpl/search.html",
     "../../lib/service",
-    "datetimepickercn",
+    "datetimepicker",
     "jqueryPlaceholder"
 ], function(logsTpl, search, service, datetimepicker, placeholder) {
     var Backbone = require('backbone');

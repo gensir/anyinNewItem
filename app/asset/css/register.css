@@ -1,6 +1,5 @@
 @charset "utf-8";
-html,body {  background: #eaeef1; }
-.page-bg { background: #eaeef1; height: 100%; width: 100%; }
+html,body {  background: #f6f6f6; }
 /* 头部*/
 .header { height: 100px; padding-top: 15px; }
 .header .top-logo { background: url(../img/ay-logo.png) no-repeat; height: 54px; width: 143px; display: block; margin: 0 50px 30px; }

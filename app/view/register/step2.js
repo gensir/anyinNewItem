@@ -144,7 +144,7 @@ define([
 	                    data.oid = JSON.parse(localStorage.loginODC).oid;
 	                    data.keyType = JSON.parse(localStorage.loginODC).keyType
 	                }
-	                service.registerUser(data).done(res => {
+	                service.registerUser(data).done(function(res) {
 	                    debugger
 	                    if (res.code == 0) {
 	                        if (res.data == 100) {
@@ -178,7 +178,7 @@ define([
 	                            data.oid = JSON.parse(localStorage.loginODC).oid;
 	                            data.keyType = JSON.parse(localStorage.loginODC).keyType
 	                        }
-	                        service.registerUser(data).done(res => {
+	                        service.registerUser(data).done(function(res) {
 	                            if (res.code == 0) {
 	                                if (res.data == 100) {
 	                                    localStorage.clear();
@@ -300,7 +300,7 @@ define([
 	            }
 	        })
 	    },
-	    getcompanyODC() {
+	    getcompanyODC: function() {
 	        var data = {
 	            "enterpriseCode": JSON.parse(localStorage.loginODC).enterpriseCode,
 	            "enterpriseName": JSON.parse(localStorage.loginODC).enterpriseName,
