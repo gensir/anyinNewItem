@@ -15,7 +15,7 @@ define([
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize() {},
+		initialize:function() {},
 		events: {
 			'change #file0,#file1,#file2,#file3': 'changeImg',
 			'click .table-striped tbody tr': 'choice',
@@ -406,7 +406,7 @@ define([
 			var areaN = areaNumber
 			var pageNumber = pageNumber || 1;
 			var pageSize = pageSize || 5
-			service.getSealShop(areaN, pageNumber, pageSize).done(res => {
+			service.getSealShop(areaN, pageNumber, pageSize).done(function(res) {
 				if(res.code == 0) {
 					var temp;
 					var res = res.data;

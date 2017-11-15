@@ -11,7 +11,7 @@ define([
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize() {},
+		initialize:function() {},
 		events: {
 			'change #file0,#file1,#file2,#file3,#file4': 'changeImg',
 			'click #goStep3': 'goStep3',

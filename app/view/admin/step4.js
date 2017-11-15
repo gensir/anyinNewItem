@@ -6,7 +6,7 @@ define([
 	"bootbox"
 ], function(adminstep4, primary,payment, service, bootbox) {
 	var billType=1;
-	var step4Data;
+	var step4Data,_this;
 	var invoiceState;
 	var serialNo;  //开发票需要用的序号
 	var payOrderStatuNum=0;
@@ -14,7 +14,7 @@ define([
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize() {},
+		initialize:function() {},
 		events: {
 			'click .pay div': 'paystyle',
 			'click .account': 'gopay',
@@ -26,6 +26,7 @@ define([
 			if(localStorage.stepNum != "#step4") {
 				return;
 			}
+			_this=this;
 			var payments = $(payment);
 			this.$el.html(adminstep4);
 			$(".orderMessage").append(payments.find(".bill"));
@@ -35,7 +36,7 @@ define([
 			this.getOrderInfo();
 		},
 		//保留小数点后两位
-		    toDecimal: function(x) {       var f = parseFloat(x);       if(isNaN(f)) {         return 0;       }       f = Math.round(x * 100) / 100;       return f;     },
+		toDecimal: function(x) {       var f = parseFloat(x);       if(isNaN(f)) {         return 0;       }       f = Math.round(x * 100) / 100;       return f;     },
 		getOrderInfo: function() {
 			service.orderStep4(orderNo).done(function(res) {
 				var tempObj;
@@ -79,7 +80,7 @@ define([
 							cont+='<tr><td class="serial">'+(i + 2) +'</td><td class="sealName">赠送两年保修</td><td class="service"> </td><td class="price">¥0元</td></tr>'
 						}
 					} //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
-					sumPrice = this.toDecimal(sumPrice);
+					sumPrice = _this.toDecimal(sumPrice);
 					sumPrice = sumPrice.toFixed(2);
 					var paysumPrice = sumPrice;
 					$("#step4_orders tbody ").append(cont);
@@ -139,11 +140,11 @@ define([
 					var codeUrl = res.data.codeUrl;
 					var resPayType = step4Data.payType;
 					if(resPayType == 1) { //去处理支付宝的弹框
-						this.paymentEnter(resPayType);
+						_this.paymentEnter(resPayType);
 					} else if(resPayType == 2) { //去处理微信
-						this.weixinPay(codeUrl);
+						_this.weixinPay(codeUrl);
 					} else if(resPayType == 3) { //去处理银联
-						this.paymentEnter(resPayType);
+						_this.paymentEnter(resPayType);
 					}
 					return;
 				} else {
@@ -166,8 +167,7 @@ define([
 					}
 				}
 			});
-			var that = this;
-			setTimeout(function() { that.payOrderStatus() }, 3000);
+			setTimeout(function() { _this.payOrderStatus() }, 3000);
 
 		},
 		paymentEnter: function(resPayType) {
@@ -181,9 +181,9 @@ define([
 					var payDate = res.data;
 					delete payDate["requestUrl"];
 					if(resPayType == 1) {
-						this.payAlertPageGo(payDate, requestUrl);
+						_this.payAlertPageGo(payDate, requestUrl);
 					} else if(resPayType == 3) {
-						this.payAlertPageYL(payDate, requestUrl);
+						_this.payAlertPageYL(payDate, requestUrl);
 					}
 					return;
 				} else {
@@ -204,8 +204,7 @@ define([
 				buttons: {}
 			});
 			$("#aliiframe").attr("src", ifrSRC);
-			var that = this;
-			setTimeout(function() { that.payOrderStatus() }, 3000);
+			setTimeout(function() { _this.payOrderStatus() }, 3000);
 		},
 		payAlertPageYL: function(payDate, requestUrl) {
 			//  	var payDatexg="txnType="+payDate.txnType+"&frontUrl="+payDate.frontUrl+"&channelType="+payDate.channelType+
@@ -221,7 +220,7 @@ define([
 			}
 			//var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
 			service.unYlyl(payDatexg).done(function(res) {
-				this.createIframe(res);
+				_this.createIframe(res);
 			}).fail(function(res) {
 				console.log(res);
 			});
@@ -243,8 +242,7 @@ define([
 			ifr_doc.open();
 			ifr_doc.write(loadjs);
 			ifr_doc.close();
-			var that = this;
-			setTimeout(function() { that.payOrderStatus() }, 3000); //支付弹框出现3秒后开始查询订单状态
+			setTimeout(function() { _this.payOrderStatus() }, 3000); //支付弹框出现3秒后开始查询订单状态
 		},
 
 		payOrderStatus: function() {
@@ -269,8 +267,7 @@ define([
 
 						} else {
 							payOrderStatuNum++;
-							var that = this;
-							setTimeout(function() { that.payOrderStatus() }, 1000);
+							setTimeout(function() { _this.payOrderStatus() }, 1000);
 
 						}
 						return;

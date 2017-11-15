@@ -13,7 +13,7 @@ define([
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize() {},
+		initialize:function() {},
 		events: {
 			'click #goStep2': 'goStep2',
 			'click .sealStyle span': 'choice',
@@ -101,7 +101,7 @@ define([
 					}
 				}
 				if(!choiceflag) {
-					for(let i = 0; i < $(".ODC span").length; i++) {
+					for(var i = 0; i < $(".ODC span").length; i++) {
 						var count1 = $(".ODC span")[i].getAttribute('data-id');
 						if(count == count1) {
 							$(".ODC span")[i].style.display = 'inline-block';
@@ -112,7 +112,7 @@ define([
 				$(ele).addClass('choice');
 				sealstyle.push(count);
 
-				//			for(let i=0;i<$(".ODC span").length;i++){
+				//			for(var i=0;i<$(".ODC span").length;i++){
 				//				var count1=$(".ODC span")[i].getAttribute('data-id');
 				//				if(count==count1){
 				//					$(".ODC span")[i].removeAttribute('choice');
@@ -133,7 +133,7 @@ define([
 						sealstyle1.pop(count);
 					}
 				}
-				for(let i = 0; i < $(".sealStyle span").length; i++) {
+				for(var i = 0; i < $(".sealStyle span").length; i++) {
 					var count1 = $(".sealStyle span")[i].getAttribute('data-id');
 					if(count == count1) {
 						$(".sealStyle span")[i].style.display = 'inline-block';
@@ -144,7 +144,7 @@ define([
 				$(ele).addClass('choice');
 				$(ele).siblings().removeClass('choice');
 				sealstyle1.push(count);
-				for(let i = 0; i < $(".sealStyle span").length; i++) {
+				for(var i = 0; i < $(".sealStyle span").length; i++) {
 					var count1 = $(".sealStyle span")[i].getAttribute('data-id');
 					if(count == count1) {
 						$(".sealStyle span")[i].className = '';
