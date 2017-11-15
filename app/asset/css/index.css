@@ -58,7 +58,7 @@
 .jilulist { padding: 20px 20px 20px; min-height: 560px; }
 .jilulist ul { margin-bottom: -20px; }
 .jilulist ul li { background: #fff; border: solid 1px #eaeaea; margin-bottom: 20px; overflow: hidden; -webkit-transition: all .3s; transition: all .3s; }
-.jilulist ul li:hover, .jilulist ul li.active { border-color: #02adff; box-shadow: 3px 3px 6px 0px rgba(250, 250, 250, 1); }
+.jilulist ul li:hover, .jilulist ul li.active { border-color: #02adff; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1); }
 .jilulist ul li .file { padding: 13px; overflow: hidden; border-radius: 4px; }
 .jilulist ul li .date { line-height: 84px; width: 105px; height: 84px; overflow: hidden; float: right; margin-top: -84px; text-align: center; border-left: 1px solid #eaeaea; color: #999; padding-left: 13px; }
 .jilulist ul li .file .filetype { float: left; width: 84px; height: 84px; line-height:84px; background: #fafafa; border: solid 1px #ecf2f5; text-align: center; }
