@@ -8,7 +8,7 @@
 </div>
 
 <div class="page-kd">
-	<h2 class="m-title">操作日志</h2>
+	<h2 class="m-title"><span>操作日志</span></h2>
     <div class="mainbox">
         <div class="jilulist boxshow">
             <div class="listtitle">
@@ -30,25 +30,24 @@
                 {{/each}}
 
             </ul>
-
-            <nav class="pagelist" aria-label="Page navigation">
-                <ul class="pagination" id="pageLimit">
-                    <li class="PreviousPage">
-                        <a aria-label="Previous">
-                            <span aria-hidden="true">«</span>
-                        </a>
-                    </li>
-                    <li class="index"><a>{{value}}</a></li>
-                    <li class="appendPage NextPage">
-                        <a aria-label="Next">
-                            <span aria-hidden="true">»</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-
         </div>
+        <nav class="pagelist" aria-label="Page navigation">
+            <div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
+            <ul class="pagination" id="pageLimit">
+                <li class="PreviousPage">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                </li>
+                <li class="index"><a>{{value}}</a></li>
+                <li class="appendPage NextPage">
+                    <a aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
     </div>
 </div>
 

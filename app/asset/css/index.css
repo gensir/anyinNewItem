@@ -1,6 +1,6 @@
 /* 操作区域 */
 
-.actions { background: #fff; height: 128px; margin-top: 20px; box-shadow: 0px 5px 17px 0px rgba(0, 13, 19, .05); }
+.actions { background: #fff; height: 128px; margin-top: 20px; box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.1); }
 .actions .userinfo { width: 520px; float: left; overflow: hidden; padding-top: 24px; margin: 0; }
 .actions .userinfo dt { display: block; float: left; width: 128px; padding-right: 24px; padding-left: 24px; }
 .actions .userinfo dd { margin-left: 128px; }
@@ -28,7 +28,7 @@
 .actions .actionlist li.nav3 a:hover em { background-position: -210px 0; }
 /* 中间内容*/
 
-.content { overflow: hidden; padding-bottom: 20px; padding-top: 20px; }
+.content { padding-bottom: 20px; padding-top: 20px; min-height: 640px; }
 /* 中间左边内容*/
 
 .content .left { width: 360px; float: left; margin-left: 20px; }
@@ -37,7 +37,7 @@
 .t-title h2 { display: inline-block; font-size: 16px; line-height: 60px; font-weight: 600; margin: 0px; }
 .t-title .more { font-size: 14px; color: #666; float: right; text-decoration: none; margin-right: 20px; }
 .t-title .more:hover { color: #02adff; }
-.blist { padding: 0 20px 20px; min-height: 236px; }
+.blist { padding: 0 20px 20px; min-height: 240px; }
 .blist li { height: 55px; padding: 17px 0 18px 10px; line-height: 20px; border-bottom: solid 1px #f1f2f1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .xufei { background: #fff; }
 .xufei .blist li span { display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

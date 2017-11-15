@@ -21,6 +21,7 @@ define([
         },
         events: {
             'click .listtext li .file': 'Toggleshow',
+            "click .listtext li .togglehide": "togglehide",
             'focus #keyword': 'MoreSearch',
             'click #search_submit': 'logSearchs',
             'click .logcon,.win-close,#close': 'close',
@@ -62,6 +63,7 @@ define([
             var _this = event.currentTarget
             var ind = $(_this).parent(".listtext li").index();
             var int = $(_this).parent(".listtext li")
+            var inp = $(_this).siblings(".togglehide")
             $(".listtext li .details").slideUp();
             $(".listtext li").removeClass();
             var toggle = $(_this).parent(".jilulist li").find(".details");
@@ -72,6 +74,12 @@ define([
                 toggle.slideUp();
                 $(int).removeClass('active');
             };
+        },
+        togglehide: function (event) {
+            var _this = event.currentTarget
+            $(".listtext li .details").slideUp();
+            var toggle = $(_this).parent(".jilulist li").find(".details");
+            toggle.slideUp();
         },
         //显示详细搜索
         MoreSearch: function () {

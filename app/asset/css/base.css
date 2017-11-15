@@ -5,7 +5,7 @@ body>#main { min-height: 100%; padding-bottom: 80px; }
 ul { list-style: none; padding: 0; margin: 0; }
 .placeholder { font-size: 14px; }
 .page-kd { width: 1100px; margin-left: auto; margin-right: auto; }
-.boxshow { background: #fff; /*border-radius: 4px;*/ box-shadow: 0px 7px 12px 0px rgba(0, 0, 0, 0.05); }
+.boxshow { background: #fff; /*border-radius: 4px;*/  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.1); }
 /* 按钮*/
 .btn.btn-ay { color: #fff; background-color: #00acff; border-color: #00acff; }
 .btn.btn-ay:hover { color: #fff; background-color: #009bfe; border-color: #009bfe; }
@@ -25,9 +25,9 @@ ul { list-style: none; padding: 0; margin: 0; }
 /* 用户后台管理头部菜单*/
 .u-head { background: #0073bd; height: 80px; width: 100%; min-width: 1100px; padding-top:12px; }
 .u-head .page-kd { position: relative; }
-.u-head .top-logo { background: url(../img/logo.png) no-repeat; height: 35px; width: 306px; display: inline-block; margin: 0px; margin-top: 9px; float: left; }
+.u-head .top-logo { background: url(../img/logo.png) no-repeat; height: 35px; width: 306px; display: inline-block; margin: 0px; margin-top: 7px; float: left; }
 .u-head .hide-text { overflow: hidden; text-indent: 100%; white-space: nowrap; font-size: 14px; }
-.u-head .rightbox { position: absolute; top: 12px; right: 0; height: 32px; z-index: 1; text-align: right; display: block; overflow: hidden; }
+.u-head .rightbox { position: absolute; top: 14px; right: 0; height: 32px; z-index: 1; text-align: right; display: block; overflow: hidden; }
 .u-head .rightbox ul { list-style: none; display: inline-block; font-size: 0px; margin: 0; padding: 0; vertical-align: top; *float: left; }
 .u-head .rightbox ul li { display: inline-block; font-size: 0px; vertical-align: top; *float: left; }
 .u-head .rightbox ul li a { font-size: 14px; color: #fff; text-decoration: none; display: block; -webkit-transition: all .3s; transition: all .3s; }
@@ -84,4 +84,9 @@ ul.pagination li.no a { cursor: not-allowed; background: #eee; color: #999;  }
 .bigLogout .log1 p.agree { text-align: center }
 .bigLogout .log1 p.agree label { font-size: 14px; font-weight: normal; margin-left: 10px; color: #333; }
 .bigLogout .log1 p.agree span { margin-left: -83px; }
-
+/* 分页样式*/
+.page_btip { display: inline-block; float: left; margin-left: 20px; line-height: 70px; color: #384a5c; }
+.pagination>li>a, .pagination>li>span { padding: 4px 10px; color: #384a5c; line-height: 20px; }
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover { background-color: #02adff; border-color: #02adff; }
+.pagination>li:first-child>a, .pagination>li:first-child>span { margin-left: 0;  border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
+.pagination>li:last-child>a, .pagination>li:last-child>span { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
