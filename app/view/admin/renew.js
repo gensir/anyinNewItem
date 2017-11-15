@@ -6,7 +6,7 @@ define([
 	"bootbox"
 ], function(tpl, primary, payment, service, bootbox) {
 	var billType = 1;
-	var step4Data;
+	var step4Data,that;
 	var invoiceState;
 	var serialNo; //开发票需要用的序号
 	var payOrderStatuNum = 0;
@@ -14,13 +14,14 @@ define([
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize() {},
+		initialize:function() {},
 		events: {
 			'click .pay div': 'paystyle',
 			'click .account': 'gopay',
 			'click input[type="radio"]': 'taxType',
 		},
 		render: function(query) {
+			that = this;
 			var payments = $(payment);
 			this.$el.html(tpl);
 			$(".orderMessage").append(payments.find(".bill"));
@@ -102,9 +103,9 @@ define([
 		},
 		renewInfo: function() {
 			var _this = this
-			var esealCode = this.getUrlParam('esealcode');
-			var oid = this.getUrlParam('oid');
-			var newOrderNo = this.getUrlParam('orderNo');
+			var esealCode = that.getUrlParam('esealcode');
+			var oid = that.getUrlParam('oid');
+			var newOrderNo = that.getUrlParam('orderNo');
 			//var oid=localStorage.oid || this.getUrlParam('oid');
 			if(!Boolean(oid)) {
 				bootbox.dialog({
@@ -130,7 +131,7 @@ define([
 				'esealCode': esealCode,
 				'oid': oid
 			};
-			service.getRenewInfo(data).done(res => {
+			service.getRenewInfo(data).done(function(res) {
 				var renewData;
 				if(res.code != 0) {
 					renewData = {}
@@ -187,7 +188,6 @@ define([
 					}
 				}
 			});
-			var that = this;
 			setTimeout(function() { that.payOrderStatus() }, 3000);
 
 		},
@@ -196,15 +196,15 @@ define([
 				"orderNo": orderNo,
 				"payType": resPayType
 			};
-			service.payment(paymentData).done(res => {
+			service.payment(paymentData).done(function(res) {
 				if(res.code == 0) { //支付宝或者银联请求成功
 					var requestUrl = res.data.requestUrl;
 					var payDate = res.data;
 					delete payDate["requestUrl"];
 					if(resPayType == 1) {
-						this.payAlertPageGo(payDate, requestUrl);
+						that.payAlertPageGo(payDate, requestUrl);
 					} else if(resPayType == 3) {
-						this.payAlertPageYL(payDate, requestUrl);
+						that.payAlertPageYL(payDate, requestUrl);
 					}
 					return;
 				} else {
@@ -225,7 +225,6 @@ define([
 				buttons: {}
 			});
 			$("#aliiframe").attr("src", ifrSRC);
-			var that = this;
 			setTimeout(function() { that.payOrderStatus() }, 3000);
 		},
 		payAlertPageYL: function(payDate, requestUrl) {
@@ -241,13 +240,13 @@ define([
 				payDatexg += i + "=" + payDateURI + "&";
 			}
 			//var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
-			service.unYlyl(payDatexg).done(res => {
-				this.createIframe(res);
-			}).fail(res => {
+			service.unYlyl(payDatexg).done(function(res) {
+				that.createIframe(res);
+			}).fail(function(res) {
 				console.log(res);
 			});
 		},
-		createIframe(content, addBody) {
+		createIframe:function(content, addBody) {
 			$(".payment-modal-content").empty();
 			$("#payment").modal("show");
 			var iframe = document.createElement('iframe');
@@ -264,20 +263,19 @@ define([
 			ifr_doc.open();
 			ifr_doc.write(loadjs);
 			ifr_doc.close();
-			var that = this;
 			setTimeout(function() { that.payOrderStatus() }, 3000); //支付弹框出现3秒后开始查询订单状态
 		},
 
 		payOrderStatus: function() {
 			if(payOrderStatuNum < 300) { //小于300次，就发送订单状态轮询支付请求.3秒一次
-				service.status(orderNo).done(res => {
+				service.status(orderNo).done(function(res) {
 					console.log("现在是第" + payOrderStatuNum + "次请求订单状态，当前返回的结果为 : " + res.data.orderStatus);
 					if(res.code == 0) { //订单状态查询请求成功
 						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
 
 							//此处待测试！
 							if(serialNo) {
-								this.takeOrderInvoice(serialNo);
+								that.takeOrderInvoice(serialNo);
 							} else {
 								console.log("订单支付成功，但是该订单客户不需要开发票！")
 							}
@@ -290,7 +288,6 @@ define([
 
 						} else {
 							payOrderStatuNum++;
-							var that = this;
 							setTimeout(function() { that.payOrderStatus() }, 1000);
 
 						}
@@ -309,7 +306,7 @@ define([
 			var subData = {
 				"serialNo": serialNo
 			};
-			service.orderInvoice(subData).done(res => {
+			service.orderInvoice(subData).done(function(res) {
 				if(res.code == 0) {
 					console.log("开发票成功！" + res.msg);
 					console.log(res.data);
@@ -356,9 +353,9 @@ define([
 			})
 		},
 		gopay: function() {
-			this.invoiceStates();
+			that.invoiceStates();
 			if(invoiceState == true) {
-				this.submitStep4();
+				that.submitStep4();
 			} else {
 				console.log("发票信息不全，不能提交订单！");
 			}
@@ -366,7 +363,7 @@ define([
 		},
 		submitStep4: function() {
 			console.log(step4Data);
-			service.orderRenew(step4Data).done(res => {
+			service.orderRenew(step4Data).done(function(res) {
 				//  		if( res.data.invoice){
 				//  			serialNo=res.data.invoice.serialNo;
 				//  		}    		
@@ -379,11 +376,11 @@ define([
 
 					var resPayType = step4Data.payType;
 					if(resPayType == 1) { //去处理支付宝的弹框
-						this.paymentEnter(resPayType);
+						that.paymentEnter(resPayType);
 					} else if(resPayType == 2) { //去处理微信
-						this.weixinPay(codeUrl, orderNo, orderAmount);
+						that.weixinPay(codeUrl, orderNo, orderAmount);
 					} else if(resPayType == 3) { //去处理银联
-						this.paymentEnter(resPayType);
+						that.paymentEnter(resPayType);
 					}
 					return;
 				} else {
