@@ -1,11 +1,10 @@
 define([
     "text!./tpl/admin.html",
-    "text!../pub/tpl/footer.html",
     "../../lib/service",
     "../../lib/public",
     "../../lib/ukeys",
     "text!../pub/tpl/dialog.html"
-], function (tpl, footer, service, publicUtil, ukeys, dialogs) {
+], function (tpl, service, publicUtil, ukeys, dialogs) {
     var dialogs = $(dialogs);
     var GetQueryString = publicUtil.GetQueryString;
     var sendmsg = publicUtil.sendmsg;
@@ -26,7 +25,8 @@ define([
             this.enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
         },
         render: function () {
-            this.$el.empty().html(template.compile(tpl)({}));
+        	that = this;
+           // this.$el.empty().html(template.compile(tpl)({}));
             this.listPage();
         },
         events: {
@@ -632,11 +632,11 @@ define([
                     var tempObj = {}
                 } else {
                     var tempObj = res.data.list;
-                    this.model.set("totalPages", res.data.totalPages)
-                    this.model.get("tplhtml").data = tempObj;
+                    that.model.set("totalPages", res.data.totalPages)
+                    that.model.get("tplhtml").data = tempObj;
                     //this.$el.html(tpl(this.model.get("tplhtml")));
-                    this.$el.empty().html(template.compile(tpl)(this.model.get("tplhtml")));
-                    this.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
+                    that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
+                    that.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
                     if (GetQueryString("page") == "license" && GetQueryStringBool) {
                         this.toggleTab(event, $("#loginset"))
                     }
@@ -665,11 +665,11 @@ define([
                     var tempObjs = {}
                 } else {
                     var tempObjs = res.data.list;
-                    this.model.set("totalPages", res.data.totalPages)
-                    this.model.get("tplhtml").loginlist = tempObjs;
+                    that.model.set("totalPages", res.data.totalPages)
+                    that.model.get("tplhtml").loginlist = tempObjs;
                     //this.$el.html(tpl(this.model.get("tplhtml")));
-                    this.$el.empty().html(template.compile(tpl)(this.model.get("tplhtml")));
-                    this.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
+                    that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
+                    that.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
 
                     $("#loginset").addClass("active").siblings().removeClass("active");
                     $(".mainbody").eq(1).addClass("active").siblings(".mainbody").removeClass("active");
