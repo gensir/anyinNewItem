@@ -233,10 +233,13 @@ define([
 	        var $test3 = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)(?![\d!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$)[a-zA-Z\d!@#$%^&*<>/?,.\{\}，。\[\]\'\"\"]+$/; //强：字母+数字+特殊字符
 	        if ($test1.test($('.passwd').val())) { //满足弱
 	            $(".weak").show();
+	            $(".pswErrTip_red").hide();
 	            if ($test2.test($('.passwd').val())) { //满足中
 	                $(".pswMiddle").show();
+	                $(".pswErrTip_red").hide();
 	                if ($test3.test($('.passwd').val())) {
 	                    $(".pswStrong").show();
+	                    $(".pswErrTip_red").hide();
 	                }
 	            } else {
 	                $(".pswStrong").hide();
@@ -246,6 +249,7 @@ define([
 	            $(".weak").hide();
 	            $(".pswMiddle").hide();
 	            $(".pswStrong").hide();
+	            $(".pswErrTip_red").show();
 	        }
 	    },
 	    inputSapceTrim: function (e) {

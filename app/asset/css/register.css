@@ -1,5 +1,5 @@
 @charset "utf-8";
-html,body {  background: #f6f6f6; }
+html,body {  background: #eaeef1; }
 /* 头部*/
 .header { height: 100px; padding-top: 15px; }
 .header .top-logo { background: url(../img/ay-logo.png) no-repeat; height: 54px; width: 143px; display: block; margin: 0 50px 30px; }
@@ -54,3 +54,13 @@ html,body {  background: #f6f6f6; }
 .reg-content .regok .title { height: 48px; font-size: 20px; color: #0073bd; text-align: center; line-height: 48px; margin-top: 50px; }
 .reg-content .regok .title em { background: url(../img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }
 .reg-content .regok .text { width: 650px; border-top: dashed 2px #dedede; margin: 40px auto; padding: 50px 70px 0; text-align: center; color: #666; font-size: 14px; height: 120px; }
+
+
+
+.tb_z1{ width: 100%; padding: 20px; background-color: #fff;}
+
+.tb_z1 .tit{ font-size: 16px; color: #384a5c; font-weight: bold; padding-bottom: 10px;}
+.tb_z1 .table{ margin-bottom: 0;}
+.tb_z1 .table td{ padding: 8px 12px; border: 1px solid #dfe8ed; color:  #384a5c;; }
+.tb_z1 .table .t1{ width: 18%; text-align: right;  background-color: #f6fafe; color: #6f7d8b;}
+
