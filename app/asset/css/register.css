@@ -53,7 +53,7 @@ html,body {  background: #eaeef1; }
 /* 注册成功 */
 .reg-content .regok .title { height: 48px; font-size: 20px; color: #0073bd; text-align: center; line-height: 48px; margin-top: 50px; }
 .reg-content .regok .title em { background: url(../img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }
-.reg-content .regok .text { width: 650px; border-top: dashed 2px #dedede; margin: 40px auto; padding: 50px 70px 0; text-align: center; color: #666; font-size: 14px; height: 120px; }
+.reg-content .regok .text { width: 650px; border-top: dashed 1px #dedede; margin: 20px auto; padding: 50px 70px 0; text-align: center; color: #666; font-size: 14px; height: 120px; }
 
 
 
@@ -70,3 +70,13 @@ html,body {  background: #eaeef1; }
     	border: 1px solid #dfe8ed;
     	box-shadow: none;
     }
+.reg-content .pass_ok{
+	width: 110px; height: 110px;
+	 margin: 20px auto;
+	background:url(../img/pass_ok.png) no-repeat;
+}
+.reg-content .pass_tit{
+	font-size: 22px;
+	text-align: center;
+	font-weight: bold;
+}
