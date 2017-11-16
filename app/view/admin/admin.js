@@ -52,7 +52,7 @@ define([
             if (toggle.is(":hidden")) {
                 toggle.slideDown();
                 $(_this).addClass("nav_tac");
-                $(_this).next(".showHide").find(".tog_bot").click(function() {
+                $(_this).next(".toggle").find(".tog_bot").click(function() {
                     toggle.slideUp();
                     $(_this).removeClass("nav_tac");
                 });                
@@ -637,7 +637,7 @@ define([
                 if (res.code != 0) {
                     var tempObj = {}
                 } else {
-                    var tempObj = res.data.list;
+                    var tempObj = res.data;
                     that.model.set("totalPages", res.data.totalPages)
                     that.model.get("tplhtml").data = tempObj;
                     //this.$el.html(tpl(this.model.get("tplhtml")));

@@ -24,7 +24,7 @@
                         <div class="eseallist">
                             {{if data == null}}
                             <div class="listResult">无电子印章信息</div>
-                            {{/if}} {{each data value i}}
+                            {{/if}} {{each data.list value i}}
                             <div class="list">
                                 <ul class="nav">
                                     <li class="nav1">{{value.esealFullName}}</li>
@@ -81,7 +81,10 @@
                             </div>
                             {{/each}}
                         </div>
-                        <nav aria-label="Page navigation" id="esealNav">
+ 
+                    </div>
+                       <nav aria-label="Page navigation" id="esealNav">
+                       		<div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
                             <ul class="pagination" id="pageLimit">
                                 <li class="PreviousPage">
                                     <a aria-label="Previous">
@@ -100,8 +103,7 @@
                             <label>前往<input type="text">页</label>
                         </li> -->
                             </ul>
-                        </nav>
-                    </div>
+                        </nav>                    
                 </div>
             </div>
 
