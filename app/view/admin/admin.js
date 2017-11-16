@@ -51,8 +51,14 @@ define([
             var toggle = $(_this).parent(".list").find(".toggle");
             if (toggle.is(":hidden")) {
                 toggle.slideDown();
+                $(_this).addClass("nav_tac");
+                $(_this).next(".showHide").find(".tog_bot").click(function() {
+                    toggle.slideUp();
+                    $(_this).removeClass("nav_tac");
+                });                
             } else {
                 toggle.slideUp();
+                $(_this).removeClass("nav_tac");
             }
         },
         toggleTab: function(event, license) {
