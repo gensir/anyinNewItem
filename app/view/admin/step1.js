@@ -21,25 +21,16 @@ define([
 			'change input:radio': 'islegal',
 		},
 		render: function(query) {
-			
 			that = this;
 			sealstyle = [];
-			var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
+			var isODC = localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1;
 			//2为ODC
-			//如果是ODC登录
+            //如果是ODC登录
+			firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId)||'440311064427';
+			that.getstep1(firmId);            
 			if(isODC == 2) {
-				firmId = localStorage.indexFirmid||'440311064427';
-				that.getstep1(firmId);
 				$(".ODChide").show();
-			} else {
-				//如果不是ODC登录
-//				firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
-				firmId = "440311064427";
-				this.getstep1(firmId);
-				// $(".ODChide").show();
 			}
-			
-			
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
 		},
 		goStep2: function(event) {

@@ -12,37 +12,16 @@ define([
     var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
     var esealCode = localStorage.esealCode;
     var PKSC7 = localStorage.dSignature;
-    if (!firmId) {
-        bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
-        return;
-    }
     var main = Backbone.View.extend({
         el: '.contents',
         initialize: function () { },
         render: function () {
             var _this = this;
-            // this.$el.html(template.compile(indextpl)({}));
-            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
-            //2为ODC
-            //如果是ODC登录
-            if (isODC == 2) {
-                var company = {
-                    "params": { "name": JSON.parse($.cookie('loginadmin')).user.username }
-                }
-                service.getAreaByCom(company).done(function (data) {
-                    if (data.code == 0) {
-                        firmId = data.data[0].id;
-                        localStorage.indexFirmid = firmId;
-                        _this.userinfo();
-                        _this.logslist();
-                    } else {
-                        bootbox.alert(data.msg);
-                    }
-                })
-            } else {
-                firmId = udata && udata.user && udata.user.firmId;
-                _this.userinfo();
-                _this.logslist();
+            _this.userinfo();
+            _this.logslist();
+            if (!firmId&&$.cookie('loginadmin') !== undefined) {
+                bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
+                return;
             }
         },
         events: {
