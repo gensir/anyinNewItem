@@ -8,7 +8,9 @@ define([
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize() {},
+		initialize: function () {
+			//nothing
+		},
 		jump: function() {
 			var time = setInterval(showTime, 1000);
 			var second = 6;

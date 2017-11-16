@@ -5,20 +5,15 @@ module.exports = function (grunt) {
         // Wipe out previous builds and test reporting.
         clean: {
             init:["dist/", "test/reports"],
-            after:["dist/app/lib",
-            "dist/app/model",
-            "dist/app/modules",
-            "dist/app/css",
-            "dist/app/templates",
-            "dist/app/tpl",
-            "dist/app/view",
-            "dist/app/app.js",
-            "dist/app/config.js",
-            "dist/app/css-builder.js",
-            "dist/app/css.js",
-            "dist/app/main.js",
-            "dist/app/normalize.js",
-            "dist/app/router.js",
+            after:["dist/app/asset/img/bg-all.psd",
+            "dist/vendor/bower/almond",
+            "dist/vendor/bower/mocha",
+            "dist/vendor/bower/sinon",
+            "dist/vendor/bower/chai",            
+            "dist/vendor/bower/html5-boilerplate",            
+            "dist/vendor/bower/qunit",            
+            "dist/vendor/bower/requireCss",           
+            "dist/vendor/bower/vendor"                        
             ]
         },
 
@@ -130,9 +125,9 @@ module.exports = function (grunt) {
             buildall: {//任务三：按原文件结构压缩js文件夹内所有JS文件
                 files: [{
                     expand:true,
-                    cwd:'app/view',//js目录下
+                    cwd:'app/lib',//js目录下
                     src:'**/*.js',//所有js文件
-                    dest: 'dist/app/view'//输出到此目录下
+                    dest: 'dist/app/lib'//输出到此目录下
                 }]
             },
         },
@@ -146,10 +141,6 @@ module.exports = function (grunt) {
                     },
                     {
                         src: "vendor/**",
-                        dest: "dist/"
-                    },
-                    {
-                        src: "static/**",
                         dest: "dist/"
                     },
                     {
@@ -290,8 +281,8 @@ module.exports = function (grunt) {
     // Create an aliased test task.
     // grunt.registerTask("test", ["karma:run"]);
 
-    // When running the default Grunt command, just lint the code.
-    grunt.registerTask("default", [
+
+    grunt.registerTask("old", [
         "clean:init",
         // "jshint",
         "processhtml",
@@ -316,8 +307,19 @@ module.exports = function (grunt) {
           "uglify:buildall"
     ]);
     
-    grunt.registerTask("aaa",[
+    grunt.registerTask("build",[
           "clean:init",
-          "uglify"
+          "copy",
+          "uglify",
+          "clean:after"
     ]) ;   
+    
+    // When running the default Grunt command, just lint the code.    
+    grunt.registerTask("default",[
+          "clean:init",
+          "copy",
+          "uglify",
+          "clean:after"
+    ]) ;      
+    
 };
