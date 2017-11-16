@@ -2,7 +2,7 @@ define([
     "text!./tpl/index.html",
     "../../lib/service",
     "bootbox",
-], function(indextpl, service, bootbox) {
+], function (indextpl, service, bootbox) {
     var Backbone = require('backbone');
     var template = require('art-template');
 
@@ -12,11 +12,14 @@ define([
     var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
     var esealCode = localStorage.esealCode;
     var PKSC7 = localStorage.dSignature;
-
+    if (!firmId) {
+        bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
+        return;
+    }
     var main = Backbone.View.extend({
         el: '.contents',
-        initialize: function() {},
-        render: function() {
+        initialize: function () { },
+        render: function () {
             var _this = this;
             // this.$el.html(template.compile(indextpl)({}));
             var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
@@ -26,7 +29,7 @@ define([
                 var company = {
                     "params": { "name": JSON.parse($.cookie('loginadmin')).user.username }
                 }
-                service.getAreaByCom(company).done(function(data) {
+                service.getAreaByCom(company).done(function (data) {
                     if (data.code == 0) {
                         firmId = data.data[0].id;
                         localStorage.indexFirmid = firmId;
@@ -46,7 +49,7 @@ define([
             // 'click .jilulist ul li .file': 'Toggleshow',
             'click .renew': 'renew'
         },
-        userinfo: function(event) {
+        userinfo: function (event) {
             var _this = this
             var userdata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || { user: {}, menuList: {} }
             _this.model.get("tpl").userinfo = userdata;
@@ -60,7 +63,7 @@ define([
             }
         },
         //续费操作
-        renew: function(event) {
+        renew: function (event) {
             event.stopPropagation();
             var GetOid = $(event.currentTarget).data('oid');
             if (!Boolean(GetOid)) {
@@ -74,14 +77,14 @@ define([
                         cancel: {
                             label: "取消",
                             className: "btn1",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
@@ -91,7 +94,7 @@ define([
             }
         },
         //签章记录弹出详细记录
-        Toggleshow: function(event) {
+        Toggleshow: function (event) {
             var _this = event.currentTarget
             var ind = $(_this).parent(".jilulist ul li").index();
             var int = $(_this).parent(".jilulist ul li")
@@ -106,7 +109,7 @@ define([
                 $(int).removeClass('active');
             };
         },
-        realname_Unknown: function() {
+        realname_Unknown: function () {
             bootbox.dialog({
                 backdrop: true,
                 closeButton: false,
@@ -117,7 +120,7 @@ define([
                     cancel: {
                         label: "返回",
                         className: "btn1",
-                        callback: function(result) {
+                        callback: function (result) {
                             localStorage.clear();
                             $.removeCookie('loginadmin');
                             result.cancelable = window.open('login.html', '_self');
@@ -127,7 +130,7 @@ define([
             })
             return false;
         },
-        realname_no: function() {
+        realname_no: function () {
             var _this = this
             bootbox.dialog({
                 backdrop: true,
@@ -139,7 +142,7 @@ define([
                     cancel: {
                         label: "重新实名",
                         className: "btn2",
-                        callback: function(result) {
+                        callback: function (result) {
                             result.cancelable = window.open('register.html#step3', '_self');
                         }
                     },
@@ -147,7 +150,7 @@ define([
             })
             return false;
         },
-        realname: function() {
+        realname: function () {
             var _this = this
             bootbox.dialog({
                 backdrop: true,
@@ -159,7 +162,7 @@ define([
                     cancel: {
                         label: "我要实名认证",
                         className: "btn2",
-                        callback: function(result) {
+                        callback: function (result) {
                             result.cancelable = window.open('register.html#step3', '_self');
                         }
                     },
@@ -168,7 +171,7 @@ define([
             return false;
         },
         //获取签章记录数据
-        logslist: function(pageNum, pageSize, data) {
+        logslist: function (pageNum, pageSize, data) {
             var _this = this
             pageNum = pageNum || 1;
             pageSize = pageSize || 5;
@@ -177,7 +180,7 @@ define([
                 "enterpriseCode": enterpriseCode,
                 "PKSC7": PKSC7,
             };
-            service.commSignetLog(pageNum, pageSize, data).done(function(data) {
+            service.commSignetLog(pageNum, pageSize, data).done(function (data) {
                 var logsObj;
                 if (data.code != 0) {
                     logsObj = {}
@@ -192,14 +195,14 @@ define([
         },
 
         //获取印章数据
-        getEsealList: function(data, pageNum, pageSize) {
+        getEsealList: function (data, pageNum, pageSize) {
             var _this = this
             pageNum = pageNum || 1;
             pageSize = pageSize || 4;
             var data = {
                 "firmId": firmId
             };
-            service.getEsealList(pageNum, pageSize, data).done(function(data) {
+            service.getEsealList(pageNum, pageSize, data).done(function (data) {
                 var Esealobj;
                 if (data.code != 0) {
                     $(".xufei ul").append("<li>接口数据请求失败！</li>");

@@ -129,7 +129,7 @@ define([
             var code = $(".countCode").val();
             var phone = $(".countPhone").val();
             if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
-                bootbox.alert("获取firmId异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+                bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
                 return;
             }
             if (code == "000000") {
@@ -277,7 +277,7 @@ define([
             }
             service.toRegister(data).done(function (data) {
                 if (data.data == null) {
-                    bootbox.alert("firmId异常，无法获取到注册用户的信息", function () { window.open('login.html', '_self'); })
+                    bootbox.alert("单位id异常，无法获取到注册用户的信息", function () { window.open('login.html', '_self'); })
                     return;
                 }
                 if (data.code == 0) {
@@ -344,7 +344,7 @@ define([
                     that.$el.append(template.compile(primary, {})());
                     // that.$el.html(tpl({ data: result }));
                     if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
-                        bootbox.alert("获取firmId异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+                        bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
                         return;
                     }
                 } else {
