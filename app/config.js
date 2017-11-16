@@ -22,7 +22,6 @@ require.config({
         "datetimepicker": "../vendor/bower/datetimepicker/bootstrap-datetimepicker.min",
         "datetimepickercn": "../vendor/bower/datetimepicker/locales/bootstrap-datetimepicker.zh-CN",
         "typeahead": "../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
-        "colResizable": "../vendor/plugin/colResizable-1.6",
         "bootstrap-typeahead":"../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
         "cookie":"../vendor/bower/jquery-cookie/jquery.cookie",
         "placeholder": "../vendor/bower/placeholder/jquery-placeholder",
@@ -54,10 +53,6 @@ require.config({
         'typeahead': {
             deps: [ 'jquery' ],
             exports: 'typeahead'
-        },
-        'colResizable':{
-            deps: [ 'jquery' ],
-            exports: 'colResizable'
         }
 	}
 });

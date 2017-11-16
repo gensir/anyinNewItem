@@ -25,7 +25,7 @@
                             {{if data == null}}
                             <div class="listResult">无电子印章信息</div>
                             {{/if}} {{each data.list value i}}
-                            <div class="list">
+                            <div class="list listbl">
                                 <ul class="nav">
                                     <li class="nav1">{{value.esealFullName}}</li>
                                     <li class="nav2">{{value.esealCode}}</li>
@@ -263,19 +263,21 @@
         }
         
 	    .accordion_w {
-	        border: 1px solid #dfe8ed;
+	        
 	    }
 
     .accordion_w .nav {
         padding:20px 20px;
         font-size: 14px;
+        border-left: 1px solid #dfe8ed;
+        border-right: 1px solid #dfe8ed;
         
     }
     
     .accordion_w .nav_tit{
     	background-color: #f6fafe;
     	font-size: 16px;
-    	border-bottom: 1px solid #dfe8ed;
+    	border: 1px solid #dfe8ed;
     	
     	
     }
@@ -340,9 +342,11 @@
         }
         
         .eseallist .list {
-            border-bottom: 1px solid #dfe8ed;
+            
         }
-        
+        .eseallist .listbl{
+        	border-bottom: 1px solid #dfe8ed;
+        } 
         .eseallist .list>.nav {
             height: 48px;
             line-height: 48px;
@@ -474,6 +478,7 @@
     	text-align: center;
     	color: #a6becb;
     	cursor: pointer;
+    	margin-bottom: 10px;
     }
     .eseallist .list .tog_bot:hover{
     	background-color: #edf7fc;
