@@ -23,7 +23,7 @@ var step2 = Backbone.View.extend({
         pointCode = localStorage.pointCode || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
         //      firmId = "440311062534"
         if (!firmId) {
-            window.open("register.html#step1","_self");
+            window.open("register.html#step1", "_self");
             return;
         }
         if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
@@ -116,6 +116,10 @@ var step2 = Backbone.View.extend({
         var validflag = this.model.isValid()
         var code = $(".countCode").val();
         var phone = $(".countPhone").val();
+        if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
+            bootbox.alert("获取firmId异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+            return;
+        }
         if (code == "000000") {
             if (!validflag) {
                 enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
@@ -133,7 +137,6 @@ var step2 = Backbone.View.extend({
                     data.keyType = JSON.parse(localStorage.loginODC).keyType
                 }
                 service.registerUser(data).done(res => {
-                    debugger
                     if (res.code == 0) {
                         if (res.data == 100) {
                             localStorage.clear();
@@ -292,7 +295,6 @@ var step2 = Backbone.View.extend({
             "pointCode": JSON.parse(localStorage.loginODC).pointCode
         }
         service.toRegisterOdc(data).done(function (data) {
-            console.log(data)
             if (data.data == null) {
                 bootbox.alert(data.msg, function () { window.open('login.html', '_self'); })
                 return;
@@ -317,6 +319,10 @@ var step2 = Backbone.View.extend({
                 username = data.data.name
                 localStorage.enterpriseCode = result.uniformSocialCreditCode || result.organizationCode;
                 that.$el.html(tpl({ data: result }));
+                if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
+                    bootbox.alert("获取firmId异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+                    return;
+                }
             } else {
                 bootbox.alert(data.msg);
             }
