@@ -117,7 +117,7 @@ var step2 = Backbone.View.extend({
         var code = $(".countCode").val();
         var phone = $(".countPhone").val();
         if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
-            bootbox.alert("获取firmId异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+            bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
             return;
         }
         if (code == "000000") {
@@ -260,7 +260,7 @@ var step2 = Backbone.View.extend({
         }
         service.toRegister(data).done(function (data) {
             if (data.data == null) {
-                bootbox.alert("firmId异常，无法获取到注册用户的信息", function () { window.open('login.html', '_self'); })
+                bootbox.alert("单位id异常，无法获取到注册用户的信息", function () { window.open('login.html', '_self'); })
                 return;
             }
             if (data.code == 0) {
@@ -320,7 +320,7 @@ var step2 = Backbone.View.extend({
                 localStorage.enterpriseCode = result.uniformSocialCreditCode || result.organizationCode;
                 that.$el.html(tpl({ data: result }));
                 if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
-                    bootbox.alert("获取firmId异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+                    bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
                     return;
                 }
             } else {

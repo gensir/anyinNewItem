@@ -9,34 +9,18 @@ var firmId = udata && udata.user && udata.user.firmId;
 var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
 var esealCode = localStorage.esealCode;
 var PKSC7 = localStorage.dSignature;
+
 var index = Backbone.View.extend({
     el: '.container',
     initialize() {
     },
     render: function () {
         var that = this;
-        //this.$el.html(tpl);
-        var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
-        //2为ODC
-        //如果是ODC登录
-        if (isODC == 2) {
-            var company = {
-                "params": { "name": JSON.parse($.cookie('loginadmin')).user.username }
-            }
-            service.getAreaByCom(company).done(function (data) {
-                if (data.code == 0) {
-                    firmId = data.data[0].id;
-                    localStorage.indexFirmid = firmId;
-                    that.userinfo();
-                    that.logslist();
-                } else {
-                    bootbox.alert(data.msg);
-                }
-            })
-        } else {
-            firmId = udata && udata.user && udata.user.firmId;
-            that.userinfo();
-            that.logslist();
+        that.userinfo();
+        that.logslist();
+        if (!firmId&&$.cookie('loginadmin') !== undefined) {
+            bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+            return;
         }
     },
     events: {
