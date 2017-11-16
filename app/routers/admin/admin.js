@@ -1,9 +1,11 @@
 define(function(require, exports, module) {
 	"use strict";
+	var stepNum;
+
 
 	// External dependencies.
 	var Backbone = require("backbone");
-
+	
 	// Defining the application router.
 	module.exports = Backbone.Router.extend({
 		routes: {
@@ -18,6 +20,9 @@ define(function(require, exports, module) {
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
+        	if(!/#license|#renew|#update_key|#pay_ok/.test(location.hash)){
+	            this.hashChange();
+	        }
             var dtd = $.Deferred(), that = this;
             $(".datetimepicker").remove();
             if(clearMain){
@@ -42,6 +47,7 @@ define(function(require, exports, module) {
             });
         },
         step1:function(){
+        	localStorage.stepNum="#step1";
             this.preRoute(false, 'step1').then(function(){
                 require(['../../view/admin/step1', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
@@ -96,6 +102,24 @@ define(function(require, exports, module) {
                     view.render();
                 });
             });
-        }
+        },
+        hashChange: function () {
+	        var order = localStorage.orderNo;
+	        stepNum = localStorage.stepNum;
+	        if (window.location.hash != "") {
+	            if (order) {
+	                if (stepNum != window.location.hash) {
+	                    service.status(order).done(function (data) {
+	                        if (data.code == 0) {
+	                            localStorage.stepNum = "#step" + data.data.operateStep;
+	                            window.open("admin.html#step" + data.data.operateStep, '_self')
+	                        }
+	                    })
+	                }
+	            } else {
+	                window.open("admin.html#step1", '_self')
+	            }
+	        }
+	    }
 	});
 });
