@@ -23,7 +23,7 @@ define([
 		render: function(query) {
 			that = this;
 			sealstyle = [];
-			isODC = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin')).keyType == 1;
+			isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 			//keyType==1为ODC
 			firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId)||'440311064427';
 			that.getstep1(firmId);  
