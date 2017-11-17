@@ -184,6 +184,7 @@ var step1 = Backbone.View.extend({
                 for (var i = 0; i < sealstyle.length; i++) {
                     for (var j = 0; j < localSeal.length; j++) {
                         if (sealstyle[i] == localSeal[j].esealCode) {
+                        	localSeal[j].keyType = 2
                             sealList.push(localSeal[j]);
                         }
                     }
