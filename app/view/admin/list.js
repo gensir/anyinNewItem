@@ -32,8 +32,8 @@ var list = Backbone.View.extend({
     render: function (query) {
         $(".container").empty();
         this.listPage();
-        if (!firmId && $.cookie('loginadmin') !== undefined) {
-            bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+        if (!this.firmId && $.cookie('loginadmin') !== undefined) {
+            bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
             return;
         }
         //this.licenselist()
