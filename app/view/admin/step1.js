@@ -24,8 +24,7 @@ define([
 			that = this;
 			sealstyle = [];
 			isODC = localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1;
-			//2为ODC
-            //如果是ODC登录
+			//keyType==1为ODC
 			firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId)||'440311064427';
 			that.getstep1(firmId);  
 			document.body.scrollTop = document.documentElement.scrollTop = 0;

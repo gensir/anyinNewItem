@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	"use strict";
 	var stepNum;
-	var service = require('../../../app/lib/service').default;
+	var service = require('../../../app/lib/service');
 
 
 	// External dependencies.
@@ -15,7 +15,7 @@ define(function(require, exports, module) {
             "step2": "step2",
             "step3": "step3",
             "step4": "step4",
-            "renew": "renew",
+            "renew?:query": "renew",
             "pay_ok": "pay_ok",
             "update_key": "update_key"
         },
