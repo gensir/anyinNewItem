@@ -6,7 +6,7 @@ define([
 ], function(adminstep1, primary, service, bootbox) {
 	var sealstyle = [],
 		sealstyle1 = [],
-		result, firmId, that, localSeal;
+		result, firmId, that, localSeal,isODC;
 	var sealList = [];
 	var choiceflag = false;
 	var gotoflag = false;
@@ -23,14 +23,11 @@ define([
 		render: function(query) {
 			that = this;
 			sealstyle = [];
-			var isODC = localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1;
+			isODC = localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1;
 			//2为ODC
             //如果是ODC登录
 			firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId)||'440311064427';
-			that.getstep1(firmId);            
-			if(isODC == 2) {
-				$(".ODChide").show();
-			}
+			that.getstep1(firmId);  
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
 		},
 		goStep2: function(event) {
@@ -159,6 +156,9 @@ define([
 					$(".contents").empty();
 					that.$el.html(template.compile(adminstep1)({ data: result }));
 		        	that.$el.append(template.compile(primary,{})());
+		        	if(isODC) {
+						$(".ODChide").show();
+					}
 				} else {
 					bootbox.alert(data.msg);
 				}
