@@ -10,16 +10,9 @@ var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.m
 var list = Backbone.View.extend({
     el: '.contents',
     initialize() {
-        var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
-        //2为ODC
-        //如果是ODC登录
-        if (isODC == 2) {
-            firmId = localStorage.indexFirmid;
-        } else {
-            this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
-        }
-
+        this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
         this.enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
+
     },
     events: {
         'click .eseallist .list>.nav': 'toggleList',
@@ -39,6 +32,10 @@ var list = Backbone.View.extend({
     render: function (query) {
         $(".container").empty();
         this.listPage();
+        if (!firmId && $.cookie('loginadmin') !== undefined) {
+            bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+            return;
+        }
         //this.licenselist()
 
     },
@@ -327,7 +324,7 @@ var list = Backbone.View.extend({
                                 $(this).find(".bootbox-body").html(msg2);
                                 sendmsg($(this).find("#resend"));
                                 service.getSMSVerifCode(mobile).done(res => {
-                                    if (res.code==0) {
+                                    if (res.code == 0) {
                                         console.log("短信发送成功")
                                     } else {
                                         $("#codetip").html(res.msg).css({ "color": "red" });
@@ -336,7 +333,7 @@ var list = Backbone.View.extend({
                                 $(this).find("#resend").unbind().click(res => {
                                     sendmsg($(this).find("#resend"));
                                     service.getSMSVerifCode(mobile).done(res => {
-                                        if (res.code==0) {
+                                        if (res.code == 0) {
                                             console.log("短信重新发送成功")
                                         } else {
                                             $("#codetip").html(res.msg).css({ "color": "red" });
