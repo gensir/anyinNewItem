@@ -76,34 +76,34 @@
                                             </p>
                                         </li>
                                     </ul>
-                            	<div class="tog_bot">▲</div>    
-                                </div>                         	           
+                                    <div class="tog_bot">▲</div>
+                                </div>
                             </div>
                             {{/each}}
                         </div>
- 
+
                     </div>
-                       <nav aria-label="Page navigation" id="esealNav">
-                       		<div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
-                            <ul class="pagination" id="pageLimit">
-                                <li class="PreviousPage">
-                                    <a aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <!-- {{each count value i}}
+                    <nav aria-label="Page navigation" id="esealNav">
+                        <div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
+                        <ul class="pagination" id="pageLimit">
+                            <li class="PreviousPage">
+                                <a aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- {{each count value i}}
                         <li class="index"><a>{{value}}</a></li>
                          {{/each}} -->
-                                <li class="appendPage NextPage">
-                                    <a aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                <!-- <li class="gopage">
+                            <li class="appendPage NextPage">
+                                <a aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <!-- <li class="gopage">
                             <label>前往<input type="text">页</label>
                         </li> -->
-                            </ul>
-                        </nav>                    
+                        </ul>
+                    </nav>
                 </div>
             </div>
 
@@ -113,26 +113,27 @@
                 <!--<a href="">办理电子印章&gt;</a>-->
             </h2>
                 <div class="accordion boxshow">
-                    <ul class="nav">
-                        <li class="nav1">电子印章名称</li>
-                        <li class="nav2">电子印章编码</li>
-                        <li class="nav3">当前登录权限</li>
-                        <li class="nav4">管理操作</li>
-                    </ul>
-                    <div class="eseallist">
-                        {{if loginlist == ""}}
-                        <div class="listResult">无电子印章信息</div>
-                        {{/if}} {{each loginlist value i}}
-                        <div class="list">
-                            <ul class="nav">
-                                <li class="nav1">{{value.esealFullName}}</li>
-                                <li class="nav2">{{value.esealCode}}</li>
-                                <li class="nav3">{{value.keyStatus==0?"禁用":"启用"}}</li>
-                                <li class="nav4 shut">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</li>
-                            </ul>
-                        </div>
-                        {{/each}}
-                        <!--div class="list">
+                    <div class="accordion_w">
+                        <ul class="nav nav_tit">
+                            <li class="nav1">电子印章名称</li>
+                            <li class="nav2">电子印章编码</li>
+                            <li class="nav3">当前登录权限</li>
+                            <li class="nav4">管理操作</li>
+                        </ul>
+                        <div class="eseallist">
+                            {{if loginlist == ""}}
+                            <div class="listResult">无电子印章信息</div>
+                            {{/if}} {{each loginlist value i}}
+                            <div class="list">
+                                <ul class="nav nav_con">
+                                    <li class="nav1">{{value.esealFullName}}</li>
+                                    <li class="nav2">{{value.esealCode}}</li>
+                                    <li class="nav3">{{value.keyStatus==0?"关闭登录":"允许登录"}}</li>
+                                    <li class="nav4 shut"><p class="open {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p></li>
+                                </ul>
+                            </div>
+                            {{/each}}
+                            <!--div class="list">
                         <ul class="nav">
                             <li class="nav1">电子印章样品专用章（01）</li>
                             <li class="nav2">e441231541021</li>
@@ -140,6 +141,7 @@
                             <li class="nav4 open">开启登录权限</li>
                         </ul>
                     </div-->
+                        </div>
                     </div>
                     <nav aria-label="Page navigation" id="licenseNav">
                         <ul class="pagination" id="pageLimit">
@@ -262,33 +264,29 @@
             padding: 20px;
         }
         
-	    .accordion_w {
-	        
-	    }
-
-    .accordion_w .nav {
-        padding:20px 20px;
-        font-size: 14px;
-        border-left: 1px solid #dfe8ed;
-        border-right: 1px solid #dfe8ed;
+        .accordion_w {}
         
-    }
-    
-    .accordion_w .nav_tit{
-    	background-color: #f6fafe;
-    	font-size: 16px;
-    	border: 1px solid #dfe8ed;
-    	
-    	
-    }
-    .accordion_w .nav_tit li{
-    	text-align: left;	
-    	font-size: 16px;
-    	color: #384a5c;
-    	font-weight: bold;
-    	padding: 16px 0;
-    }   
-                
+        .accordion_w .nav {
+            padding: 20px 20px;
+            font-size: 14px;
+            border-left: 1px solid #dfe8ed;
+            border-right: 1px solid #dfe8ed;
+        }
+        
+        .accordion_w .nav_tit {
+            background-color: #f6fafe;
+            font-size: 16px;
+            border: 1px solid #dfe8ed;
+        }
+        
+        .accordion_w .nav_tit li {
+            text-align: left;
+            font-size: 16px;
+            color: #384a5c;
+            font-weight: bold;
+            padding: 16px 0;
+        }
+        
         .accordion .nav {
             padding: 0 20px;
             font-size: 14px;
@@ -298,21 +296,22 @@
             float: left;
         }
         
-        
-        
         .eseallist .nav li {
             min-height: 48px;
         }
         
-     .eseallist{
-     background-color: #fff;
-    }       
-            
-     .eseallist .list:nth-child(2n) {
-     background-color: #f6fafe;
-    }       
-
-    
+        .eseallist {
+            background-color: #fff;
+        }
+        
+        .eseallist .list:hover {
+            background-color: #edf7fc;
+        }
+        
+        .eseallist .list:nth-child(2n) {
+            background-color: #f6fafe;
+        }
+        
         .accordion .nav .nav1 {
             min-width: 250px;
         }
@@ -341,12 +340,14 @@
             min-width: 80px;
         }
         
-        .eseallist .list {
-            
-        }
-        .eseallist .listbl{
+        .eseallist .list .nav_con{
         	border-bottom: 1px solid #dfe8ed;
-        } 
+        }
+        
+        .eseallist .listbl {
+            border-bottom: 1px solid #dfe8ed;
+        }
+        
         .eseallist .list>.nav {
             height: 48px;
             line-height: 48px;
@@ -363,10 +364,11 @@
             padding: 0;
             background: #fff;
         }
-        .eseallist .list .toggle .nav{
-        	padding: 20px 40px;	
-        }   
-             
+        
+        .eseallist .list .toggle .nav {
+            padding: 20px 40px;
+        }
+        
         .eseallist .list .toggle .nav .n1 {
             width: 26%;
             margin-right: 7%;
@@ -376,7 +378,7 @@
         .eseallist .list .toggle .nav .n2 {
             width: 31%;
             margin-right: 5%;
-            border-right: 1px dashed #c6c6c6;            
+            border-right: 1px dashed #c6c6c6;
         }
         
         .eseallist .list .toggle .nav .n3 {
@@ -440,9 +442,22 @@
         }
         
         .license .accordion .nav .shut {
-            color: #00acff;
+			padding-top: 8px;
         }
+        .license .accordion .nav .shut .open{
+        	            color: #fff;
+            padding:2px 26px ;
+            background-color: #21d3a6;
+            border-radius: 4px;
+            display: block;
+            line-height: 26px;
+            height: 30px;           
+        }   
         
+        .license .accordion .nav .shut .closee{
+        	background-color: #ff7a7a;
+        }         
+             
         .license .accordion .nav .shut,
         .license .accordion .nav .open {
             cursor: pointer;
@@ -471,28 +486,30 @@
             background-color: transparent;
         }
         
-    .eseallist .list .tog_bot{
-    	width: 100%;
-    	height: 20px;
-    	background-color: #eaf1f7;
-    	text-align: center;
-    	color: #a6becb;
-    	cursor: pointer;
-    	margin-bottom: 10px;
-    }
-    .eseallist .list .tog_bot:hover{
-    	background-color: #edf7fc;
-    }    
-    .page_btip{
-    	display: inline-block;
-    	float: left;
-    	line-height: 70px;
-    	color: #6f7d8b;
-    }        
-	.nav_tac{
-    	background-color: #eaf1f7;
-    }        
- 
+        .eseallist .list .tog_bot {
+            width: 100%;
+            height: 20px;
+            background-color: #eaf1f7;
+            text-align: center;
+            color: #a6becb;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .eseallist .list .tog_bot:hover {
+            background-color: #edf7fc;
+        }
+        
+        .page_btip {
+            display: inline-block;
+            float: left;
+            line-height: 70px;
+            color: #6f7d8b;
+        }
+        
+        .nav_tac {
+            background-color: #eaf1f7;
+        }
     </style>
 
 </div>

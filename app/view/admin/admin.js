@@ -51,17 +51,19 @@ define([
             var toggle = $(_this).parent(".list").find(".toggle");
             if (toggle.is(":hidden")) {
                 toggle.slideDown();
+                $(".nav").removeClass("nav_tac");
                 $(_this).addClass("nav_tac");                
-                $(_this).parent(".list").removeClass("listbl");
+                //$(_this).parent(".list").removeClass("listbl");
                 
                 $(_this).next(".toggle").find(".tog_bot").click(function() {
                     toggle.slideUp();
-                    $(_this).removeClass("nav_tac");                    
+                    $(".nav").removeClass("nav_tac");
+                    //$(_this).parent(".list").addClass("listbl");
                 });                
             } else {
                 toggle.slideUp();
-                $(_this).removeClass("nav_tac");
-                $(_this).parent(".list").addClass("listbl");
+                $(".nav").removeClass("nav_tac");
+                //$(_this).parent(".list").addClass("listbl");
             }
         },
         toggleTab: function(event, license) {
