@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	"use strict";
 	var stepNum;
+	var service = require('../../../app/lib/service').default;
 
 
 	// External dependencies.
