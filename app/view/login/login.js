@@ -91,7 +91,7 @@ define(
                     oid :
                     ukeys.esealCode($("#pinwd").val(), selectedUkey);
                 var randomNum = ukeys.randomNum(randomNumKey, keyType);
-                var PKSC7 = ukeys.dSignature(selectedUkey, randomNum);
+                var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
                 localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
                     loginType: 2,
@@ -237,7 +237,7 @@ define(
                         //window.open("index.html", "_self")
                     });
                 } else {
-                    $.verify("ukeytip", "#pinwd", "获取签名失败，请确认PIN输入正确");
+                    $.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
                 }
             },
             phoneLogin: function(event, itemEle) {

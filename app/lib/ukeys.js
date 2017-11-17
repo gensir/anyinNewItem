@@ -100,10 +100,11 @@ define([
                 return this.data.ukey.SetCertPin(val); //Boolean
             }
         },
-        dSignature: function (selectukeyInd, randomNum) {
+        dSignature: function (selectukeyInd, randomNum, getPwd) {
             //客户端数字签名；
             if (randomNum && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
+                this.data.ukey.SetCertPin(getPwd);
                 return this.data.ukey.Signature(randomNum, randomNum.length);
             }
         },
