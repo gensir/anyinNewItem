@@ -18,9 +18,8 @@ var step1 = Backbone.View.extend({
         //		firmId=localStorage.firmId||440311285096;
         //		firmId=440304599542		
         sealstyle = [];
-        var isODC = localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1
-        //2为ODC
-        //如果是ODC登录
+        var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1
+        //1为ODC
         firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
         that.getstep1(firmId);
         that.$el.html(tpl({ data: result }));
