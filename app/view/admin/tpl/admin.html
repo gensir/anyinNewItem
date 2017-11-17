@@ -81,30 +81,30 @@
                             </div>
                             {{/each}}
                         </div>
-
                     </div>
-                    <nav aria-label="Page navigation" id="esealNav">
-                        <div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
-                        <ul class="pagination" id="pageLimit">
-                            <li class="PreviousPage">
-                                <a aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <!-- {{each count value i}}
+                </div>
+                <nav aria-label="Page navigation" id="esealNav">
+                    <div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
+                    <ul class="pagination" id="pageLimit">
+                        <li class="PreviousPage">
+                            <a aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!-- {{each count value i}}
                         <li class="index"><a>{{value}}</a></li>
                          {{/each}} -->
-                            <li class="appendPage NextPage">
-                                <a aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <!-- <li class="gopage">
+                        <li class="appendPage NextPage">
+                            <a aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <!-- <li class="gopage">
                             <label>前往<input type="text">页</label>
                         </li> -->
-                        </ul>
-                    </nav>
-                </div>
+                    </ul>
+                </nav>
+
             </div>
 
             <div class="mainbody boxmodel license">
@@ -129,7 +129,9 @@
                                     <li class="nav1">{{value.esealFullName}}</li>
                                     <li class="nav2">{{value.esealCode}}</li>
                                     <li class="nav3">{{value.keyStatus==0?"关闭登录":"允许登录"}}</li>
-                                    <li class="nav4 shut"><p class="open {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p></li>
+                                    <li class="nav4 shut">
+                                        <p class="open {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p>
+                                    </li>
                                 </ul>
                             </div>
                             {{/each}}
@@ -143,31 +145,30 @@
                     </div-->
                         </div>
                     </div>
-                    <nav aria-label="Page navigation" id="licenseNav">
-                        <ul class="pagination" id="pageLimit">
-                            <li class="PreviousPage no">
-                                <a aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="index">
-                                <a>123</a>
-                            </li>
-                            <!-- {{each count value i}}
-                        <li class="index"><a>{{value}}</a></li>
-                         {{/each}} -->
-                            <li class="appendPage NextPage">
-                                <a aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <!-- <li class="gopage">
-                            <label>前往<input type="text">页</label>
-                        </li> -->
-                        </ul>
-                    </nav>
 
                 </div>
+
+                <nav aria-label="Page navigation" id="esealNav">
+                    <div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
+                    <ul class="pagination" id="pageLimit">
+                        <li class="PreviousPage">
+                            <a aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!-- {{each count value i}}
+                <li class="index"><a>{{value}}</a></li>
+                 {{/each}} -->
+                        <li class="appendPage NextPage">
+                            <a aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <!-- <li class="gopage">
+                    <label>前往<input type="text">页</label>
+                </li> -->
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -340,8 +341,8 @@
             min-width: 80px;
         }
         
-        .eseallist .list .nav_con{
-        	border-bottom: 1px solid #dfe8ed;
+        .eseallist .list .nav_con {
+            border-bottom: 1px solid #dfe8ed;
         }
         
         .eseallist .listbl {
@@ -442,22 +443,23 @@
         }
         
         .license .accordion .nav .shut {
-			padding-top: 8px;
+            padding-top: 8px;
         }
-        .license .accordion .nav .shut .open{
-        	            color: #fff;
-            padding:2px 26px ;
+        
+        .license .accordion .nav .shut .open {
+            color: #fff;
+            padding: 2px 26px;
             background-color: #21d3a6;
             border-radius: 4px;
             display: block;
             line-height: 26px;
-            height: 30px;           
-        }   
+            height: 30px;
+        }
         
-        .license .accordion .nav .shut .closee{
-        	background-color: #ff7a7a;
-        }         
-             
+        .license .accordion .nav .shut .closee {
+            background-color: #ff7a7a;
+        }
+        
         .license .accordion .nav .shut,
         .license .accordion .nav .open {
             cursor: pointer;
