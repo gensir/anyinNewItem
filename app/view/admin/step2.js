@@ -290,7 +290,7 @@ define([
 								signalDate = obj;
 							}
 							if(isdelete) {
-								service.deletePhoto(data).done(function(data) {
+								service.deletePhoto(deleteData).done(function(data) {
 									if(data.code == 0) {
 										pictureFlag[num] = 0;
 									} else {
