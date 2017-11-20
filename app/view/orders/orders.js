@@ -8,7 +8,7 @@ define([
     var template = require('art-template');
     var that;
     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
-    var firmId;
+    var firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 
     var main = Backbone.View.extend({
         el: '.contents',
@@ -23,14 +23,7 @@ define([
         }, //this.$el.empty().html(template.compile(orders)({}));    
         render: function(query) {
             that = this;
-            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
-            //2为ODC
-            //如果是ODC登录
-            if(isODC == 2) {
-                firmId = localStorage.indexFirmid;
-            } else {
-                this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
-            }
+            
             this.listPage();
         },
         
