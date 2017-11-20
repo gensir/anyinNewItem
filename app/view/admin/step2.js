@@ -25,12 +25,9 @@ define([
 			var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
 			//2为ODC
 			//如果是ODC登录
-			if(isODC == 2) {
-				firmId = localStorage.indexFirmid;
-			} else {
-				firmId = '440311064427';
-//				this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
-			}
+
+//			firmId = '440311064427';
+			firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 //			this.$el.html(adminstep2);
 			this.$el.html(template.compile(adminstep2)());
 		    this.$el.append(template.compile(primary,{})());
