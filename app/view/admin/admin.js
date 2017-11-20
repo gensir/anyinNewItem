@@ -3,8 +3,9 @@ define([
     "../../lib/service",
     "../../lib/public",
     "../../lib/ukeys",
-    "text!../pub/tpl/dialog.html"
-], function (tpl, service, publicUtil, ukeys, dialogs) {
+    "text!../pub/tpl/dialog.html",
+    "bootbox"    
+], function (tpl, service, publicUtil, ukeys, dialogs,bootbox) {
     var dialogs = $(dialogs);
     var GetQueryString = publicUtil.GetQueryString;
     var sendmsg = publicUtil.sendmsg;
@@ -20,7 +21,7 @@ define([
             that = this;
             // this.$el.empty().html(template.compile(tpl)({}));
             this.listPage();
-            if (!firmId && $.cookie('loginadmin') !== undefined) {
+            if (!this.firmId && $.cookie('loginadmin') !== undefined) {
                 bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
                 return;
             }
