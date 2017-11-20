@@ -23,11 +23,7 @@ var step2 = Backbone.View.extend({
 		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).loginType;
         //2为ODC
         //如果是ODC登录
-        if(isODC==2){			
-        	firmId = localStorage.indexFirmid;
-        }else{
-        	this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
-        }
+        firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 		this.$el.html(tpl);
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/lince.jpg' });
