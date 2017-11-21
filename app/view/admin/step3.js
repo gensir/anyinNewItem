@@ -293,7 +293,6 @@ define([
 		},
 		choice: function(event) {
 			flag = false;
-			debugger;
 			var ele = event.target;
 			var ind = $(ele).parent("tr").index();
 			$('.step3 tr').css({ 'background': '#fff' })
@@ -433,10 +432,10 @@ define([
 						}
 					}
 					$(".result table").append(str);
-					imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../asset/img/apply.jpg' });
-					imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../asset/img/proxy.jpg' });
-					imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../asset/img/bank.jpg' });
-					imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../asset/img/trade.jpg' });
+					imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../app/asset/img/apply.jpg' });
+					imgModalBig('.shadow2', { 'width': 500, 'src': '../../../../app/asset/img/proxy.jpg' });
+					imgModalBig('.shadow3', { 'width': 500, 'src': '../../../../app/asset/img/bank.jpg' });
+					imgModalBig('.shadow4', { 'width': 500, 'src': '../../../../app/asset/img/trade.jpg' });
 					if(pageNumber == 1) {
 						$("li.PreviousPage").addClass("no");
 					} else if(pageNumber == Math.ceil(res.count / res.size)) {
