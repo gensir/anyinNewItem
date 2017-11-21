@@ -8,7 +8,7 @@ define([
     	
     var Backbone = require('backbone');
     var template = require('art-template');
-	var firmId, enterpriseCode;
+	var firmId, enterpriseCode,that;
 	var flag = false;
 	var cname = false;    
     var main = Backbone.View.extend({
@@ -16,6 +16,7 @@ define([
         initialize:function () {
         },
         render: function(param) {
+        	that = this;
 			this.$el.empty().html(template.compile(registerstep1,{})());
 			this.$el.append(template.compile(primary,{})());
 	        this.Emptyinput();
@@ -91,7 +92,7 @@ define([
 	                        $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
 	                    } else {
 	                        cname = true;
-	                        this.checkUserIsExist(enterpriseCode);
+	                        that.checkUserIsExist(enterpriseCode);
 	                    }
 	                } else {
 	                    cname = false;
