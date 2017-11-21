@@ -284,7 +284,7 @@ var step2 = Backbone.View.extend({
 						if(isdelete){
 							service.deletePhoto(deleteData).done(function(data) {
 								if(data.code == 0) {
-									pictureFlag[num] = 0;
+//									pictureFlag[num] = 0;
 								} else {
 									bootbox.alert(data.msg);
 								}
@@ -329,6 +329,7 @@ var step2 = Backbone.View.extend({
 	},
 	goStep3: function() {
 		for(var i = 0; i < pictureFlag.length; i++) {
+			debugger;
 			if(pictureFlag[i] == 0) {
 				var dialog = bootbox.alert({
 					className: "uploadPhoto",
