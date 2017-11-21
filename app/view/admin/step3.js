@@ -3,8 +3,9 @@ define([
 	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
 	"bootbox",
-	"../../lib/public"
-], function(adminstep3, primary, service, bootbox,Util) {
+	"../../lib/public",
+	"jqueryForm"
+], function(adminstep3, primary, service, bootbox,Util,jqueryForm) {
 	var pictureFlag;
 	var imgModalBig=Util.imgModalBig;
 	var flag = true;
@@ -292,6 +293,7 @@ define([
 		},
 		choice: function(event) {
 			flag = false;
+			debugger;
 			var ele = event.target;
 			var ind = $(ele).parent("tr").index();
 			$('.step3 tr').css({ 'background': '#fff' })
@@ -421,7 +423,7 @@ define([
 						var order;
 						for(var i = 0; i < res.data.length; i++) {
 							order=pageNumber*5-5+i+1;
-							str += '<tr class="sealshopcontent"><td class="right"><div></div></td>' +
+							str += '<tr class="sealshopcontent"><td class="right"></td>' +
 								'<td class="order">' + order + '</td>'+
 								'<td class="sealName">' + temp[i].name + '</td>' +
 								'<td class="address">' + temp[i].address + '</td>' +

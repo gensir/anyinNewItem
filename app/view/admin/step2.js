@@ -3,8 +3,9 @@ define([
 	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
 	"bootbox",
-	"../../lib/public"
-], function(adminstep2, primary, service, bootbox,Util) {
+	"../../lib/public",
+	"jqueryForm"
+], function(adminstep2, primary, service, bootbox,Util,jqueryForm) {
 	var pictureFlag = [];
 	var imgModalBig=Util.imgModalBig;
 	var stepResult, length, enterpriseCode, firmId;
