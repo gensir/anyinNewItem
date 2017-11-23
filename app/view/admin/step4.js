@@ -59,9 +59,9 @@ define([
 							var productsId = tempObj.data.products[1].id;
 							tempObj.data.esealProducts[i].productAmountId = productsId;
 							if(i==0){
-								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[1].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td><td rowspan="4">2年</td></tr>'
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[1].productName +'</td><td class="price pricecolor">¥'+ tempObj.data.products[0].productAmount +'元</td><td rowspan="4"  class="twoyear">2年</td></tr>'
 							}else{
-								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[1].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td></tr>'
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[1].productName +'</td><td class="price pricecolor">¥'+ tempObj.data.products[0].productAmount +'元</td></tr>'
 							}
 							
 							sumPrice += Number(tempObj.data.products[1].productAmount);
@@ -69,15 +69,15 @@ define([
 							var productsId = tempObj.data.products[0].id;
 							tempObj.data.esealProducts[i].productAmountId = productsId;
 							if(i==0){
-								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[0].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td><td rowspan="4">2年</td></tr>';
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[0].productName +'</td><td class="price pricecolor">¥'+ tempObj.data.products[0].productAmount +'元</td><td rowspan="4" class="twoyear">2年</td></tr>';
 							}else{
-								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[0].productName +'</td><td class="price">¥'+ tempObj.data.products[0].productAmount +'元</td></tr>';
+								cont += '<tr><td class="serial">'+(i + 1) +'</td><td class="sealName">'+ tempObj.data.esealProducts[i].esealFullName +'</td><td class="service">'+ tempObj.data.products[0].productName +'</td><td class="price pricecolor">¥'+ tempObj.data.products[0].productAmount +'元</td></tr>';
 							}
 							
 							sumPrice += Number(tempObj.data.products[0].productAmount);
 						}
 						if(i==tempObj.data.esealProducts.length-1){
-							cont+='<tr><td class="serial">'+(i + 2) +'</td><td class="sealName">赠送两年保修</td><td class="service"> </td><td class="price">¥0元</td></tr>'
+							cont+='<tr><td class="serial">'+(i + 2) +'</td><td class="sealName">赠送两年保修</td><td class="service"> </td><td class="price pricecolor">¥0元</td></tr>'
 						}
 					} //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
 					sumPrice = _this.toDecimal(sumPrice);
