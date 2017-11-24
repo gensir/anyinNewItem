@@ -92,6 +92,7 @@ define(
                     ukeys.esealCode($("#pinwd").val(), selectedUkey);
                 var randomNum = ukeys.randomNum(randomNumKey, keyType);
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
+                
                 localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
                     loginType: 2,
@@ -102,7 +103,8 @@ define(
                     oid: oid,
                     enterpriseCode: ukeys.GetenterpriseCode(selectedUkey),
                     randomNum: randomNum,
-                    signature: PKSC7
+                    signature: PKSC7,
+                    signCertificateSn:ukeys.getCertSignSN(selectedUkey)
                 };
                 if (Boolean(PKSC7)) {
                     service.userlogin(data).done(function(data) {
