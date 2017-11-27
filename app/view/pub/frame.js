@@ -20,7 +20,7 @@ define(
                 that.$el.append(template.compile(header, {})());
                 that.$el.append(template.compile(footer, {})());
                 that.pageTagChioce(pageTag);
-                // this.login();
+                that.login();
             },
             events: {
                 "click .rightbox a.locked": "lock",
