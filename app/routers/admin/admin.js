@@ -17,7 +17,7 @@ define(function(require, exports, module) {
             "step4": "step4",
             "renew?:query": "renew",
             "pay_ok": "pay_ok",
-            "update_key": "update_key"
+            "updata_key": "updata_key"
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
@@ -96,9 +96,9 @@ define(function(require, exports, module) {
                 });
             });
         },
-        update_key:function(){
-            this.preRoute(false, 'update_key').then(function(){
-                require(['../../view/admin/update_key', '../../model/admin/admin'],function(View, Model){
+        updata_key:function(){
+            this.preRoute(false, 'updata_key').then(function(){
+                require(['../../view/admin/updata_key', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });
