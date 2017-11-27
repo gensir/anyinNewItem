@@ -84,7 +84,6 @@ define(
                     return;
                 }
                 var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
-                var oid = ukeys.GetOid(selectedUkey);
                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                 var randomNumKey =
                     keyType == 1 ?
@@ -92,6 +91,7 @@ define(
                     ukeys.esealCode($("#pinwd").val(), selectedUkey);
                 var randomNum = ukeys.randomNum(randomNumKey, keyType);
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
+                var oid = ukeys.GetOid(selectedUkey);
                 
                 localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {

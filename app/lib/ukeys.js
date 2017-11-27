@@ -126,7 +126,7 @@ define([
             //印章编码
             var checkResult = null;
             if (this.PIN(val, selectukeyInd)) {
-                this.data.ukey.SetCertIndex(selectukeyInd);
+                //this.data.ukey.SetCertIndex(selectukeyInd);
                 checkResult = this.data.ukey.SetCertPin(val);
             }
             return this.data.ukey.GetCertInfo(3);
@@ -146,7 +146,8 @@ define([
         getCertType: function (selectukeyInd) {
             //1==ODC OR 0==IYIN
             if (selectukeyInd !== undefined && this.issupport()) {
-                this.data.ukey.SetCertIndex(selectukeyInd);
+                //this.data.ukey.SetCertIndex(selectukeyInd);
+                
                 return this.data.ukey.GetCertInfo(2);
             }
         },
