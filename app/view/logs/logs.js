@@ -23,6 +23,7 @@ define([
             'click .listtext li .file': 'Toggleshow',
             "click .listtext li .togglehide": "togglehide",
             'focus #keyword': 'MoreSearch',
+			'blur #keyword': 'keywordblur',
             'click #search_submit': 'logSearchs',
             'click .logcon,.win-close,#close': 'close',
             'change #s_state': 'operateStatus',
@@ -83,16 +84,21 @@ define([
         },
         //显示详细搜索
         MoreSearch: function () {
-            $(".search .more").show()
+            $(".search .more").show();
+			$(".inputbox").addClass('active');
         },
         //禁用搜索提示
         nosearch: function () {
             $(".search .nosearch").show()
         },
+		keywordblur: function () {
+			$(".inputbox").removeClass('active');
+		},
         //关闭更多搜索
         close: function () {
             $(".search .nosearch").hide();
             $(".search .more").hide();
+			$(".inputbox").removeClass('active');
         },
         //选择签章状态
         operateStatus: function (event) {

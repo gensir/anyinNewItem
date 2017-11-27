@@ -10,15 +10,14 @@
 .intnav .page-kd { position: relative; }
 .intnav .search { position: absolute; right: 0; top: 0; width: 310px; outline: none; z-index: 2 }
 .intnav .inputbox { position: relative; margin-top: 13px; line-height: 30px; }
-.intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; position: relative; background: #fafafa; z-index: 2; }
-.intnav .search .inputbox .search-input:focus,
-.intnav .search .inputbox .search-input:focus+.submit { background: transparent; }
+.intnav .search .inputbox .search-input { border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); height: 30px; line-height: 14px; position: relative; background: transparent; z-index: 2; }
 .intnav .search .inputbox .search-input+.placeholder { font-size: 14px; z-index: 3; }
 .intnav .search .inputbox .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: transparent; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }
 .intnav .search .inputbox .submit em { background: url(../img/bg-all.png) no-repeat -80px -290px; display: block; height: 24px; width: 24px; }
-.intnav .search .inputbox .search-input:focus+.submit em,
-.intnav .search .submit:hover em { background: url(../img/bg-all.png) no-repeat -104px -290px; }
-.intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; border: solid 1px #eee; border-top: 0; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 63px 20px 20px; display: none; outline: none; }
+.intnav .search .inputbox.active .search-input:focus+.submit em,
+.intnav .search .submit:hover em,
+.intnav .search .inputbox.active .submit em { background: #fff url(../img/bg-all.png) no-repeat -104px -290px; }
+.intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; border: solid 1px #eee; border-top: 0; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); bolder: solid 1px #f0f0f0; background: #fff; padding: 63px 20px 20px; display: none; outline: none; }
 .intnav .search .more .state { float: left; margin-right: 20px; }
 .intnav .search .more .labelname { font-size: 12px; color: #666; display: inline-block; float: left; line-height: 28px; }
 .intnav .search .more .closes { width: 16px; height: 16px;  background: url(../img/bg-all.png) no-repeat -160px -290px; position: absolute; top: 136px; right: 8px; z-index: 4; cursor: pointer;}
@@ -28,13 +27,14 @@
 .select-box select { border: 0; padding-left: 6px; color: #666; background: #fff; -webkit-appearance: none; width: 150%; outline: none; }
 .intnav .search .more .date { padding-top: 20px; color: #666; }
 .intnav .search .more .date .date-input { width: 125px; height: 28px; line-height: 14px; font-size: 12px; display: inline-block; vertical-align: top; border-radius: 2px; box-shadow: 0 0px 0px rgba(0,0,0,.075); }
+.intnav .search .more .date [readonly].date-input { background: #fff; }
 .intnav .search .more .date .date-input+.placeholder { font-size: 12px; }
 .intnav .search .more .date span { position: relative; float: left; display: inline-block; height: 28px; line-height: 28px; }
 .intnav .search .more .date .xian { line-height: 28px; padding-left: 2px; padding-right: 2px; }
 .intnav .search .more .date .datebox em { font-size: 12px; position: absolute; right: 8px; top: 8px; display: block; overflow: hidden; color: #999; cursor: pointer; }
 .intnav .search .more .date .datebox em:hover { color: #00acff; }
 .intnav .search .more .date .date-input:focus+em { color: #00acff; }
-.intnav .search .nosearch { position: absolute; z-index: 4; right: -15px; top: 0px; width: 340px; height: 160px; padding-top: 65px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); background: #fff; padding: 64px 20px 20px; display: none; text-align: center; color: #666; }
+.intnav .search .nosearch { position: absolute; z-index: 4; right: -15px; top: 0px; width: 340px; height: 160px; padding-top: 65px; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); border: solid 1px #f0f0f0; background: #fff; padding: 64px 20px 20px; display: none; text-align: center; color: #666; }
 .intnav .search .nosearch em { width: 32px; height: 32px; display: inline-block; margin-right: 15px; background: #fff url(../img/bg-all.png) no-repeat 0 -314px; vertical-align: middle;}
 .intnav .search .nosearch i { width: 16px; height: 16px;  position: absolute; top: 12px; right: 12px; z-index: 4; cursor: pointer;background: url(../img/bg-all.png) no-repeat -160px -290px; }
 .intnav .search .nosearch i:hover { background: url(../img/bg-all.png) no-repeat -180px -290px; }
