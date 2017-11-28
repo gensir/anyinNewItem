@@ -144,7 +144,7 @@ module.exports = function (grunt) {
                         dest: "dist/"
                     },
                     {
-                        src: "*.html",
+                        src: ["*.html",'favicon.ico'],
                         dest: "dist/"
                     }
                 ]
