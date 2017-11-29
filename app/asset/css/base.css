@@ -88,8 +88,8 @@ ul.pagination li.no a { cursor: not-allowed; background: #eee; color: #999;  }
 .bigLogout .log1 p.agree label { font-size: 14px; font-weight: normal; margin-left: 10px; color: #333; }
 .bigLogout .log1 p.agree span { margin-left: -83px; }
 /* 分页样式*/
-.page_btip { display: inline-block; float: left; margin-left: 20px; line-height: 70px; color: #384a5c; }
-.pagination>li>a, .pagination>li>span { padding: 4px 10px; color: #384a5c; line-height: 20px; }
-.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover { background-color: #02adff; border-color: #02adff; }
-.pagination>li:first-child>a, .pagination>li:first-child>span { margin-left: 0;  border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
-.pagination>li:last-child>a, .pagination>li:last-child>span { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+nav .page_btip { display: inline-block; float: left; margin-left: 20px; line-height: 70px; color: #384a5c; }
+nav .pagination>li>a, .pagination>li>span { padding: 4px 10px; color: #384a5c; line-height: 20px; }
+nav .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover { background-color: #02adff; border-color: #02adff; }
+nav .pagination>li:first-child>a, .pagination>li:first-child>span { margin-left: 0;  border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
+nav .pagination>li:last-child>a, .pagination>li:last-child>span { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
