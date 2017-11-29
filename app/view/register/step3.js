@@ -146,13 +146,22 @@ define([
 									imgModalBig('#photo' + num, { 'width': 500, 'src': pictureFlag[num] });
 								}
 							}	
+							var certificateType;
+							if(num==0){
+								certificateType="0002";
+							}else if(num==1){
+								certificateType="0032";
+							}else if(num==2){
+								certificateType="0044";
+							}
 							var obj = {
 								"bizType": 5,
 								"enterpriseCode": enterpriseCode, //组织机构代码 或 统一社会信用代码（优先）
-								"urls": "["+data+"]"
+								"urls": "["+data+"]",
+								"certificateType":certificateType
 							}
-							var urls="?urls="+obj.urls+"&bizType="+obj.bizType+"&enterpriseCode="+obj.enterpriseCode
-							service.attach(obj,urls).done(function(res) {
+//							var urls="?urls="+obj.urls+"&bizType="+obj.bizType+"&enterpriseCode="+obj.enterpriseCode
+							service.attach(obj).done(function(res) {
 								if(res.code == 0) {
 									
 								} else {
