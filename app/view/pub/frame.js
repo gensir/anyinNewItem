@@ -59,6 +59,7 @@ define(
             //退出
             logout: function() {
                 var _this = this;
+                bootbox.hideAll();
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: true,
@@ -91,6 +92,7 @@ define(
                 var _outthis = this;
                 var numInd = 0;
                 var dialogsText = dialogs.find(".unlock");
+                bootbox.hideAll();
                 bootbox.dialog({
                     backdrop: true,
                     //closeButton: false,
