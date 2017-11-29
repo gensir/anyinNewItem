@@ -24,7 +24,6 @@ define(
                 "keyup .ukeyKeyup": "ukeyKeyup"
             },
             render: function(param) {
-                console.log(bootbox)
                 var that = this;
                 that.$el.empty().html(template.compile(tpl, {})());
                 if (
@@ -110,7 +109,6 @@ define(
                 };
                 if (Boolean(PKSC7)) {
                     service.userlogin(data).done(function(data) {
-                        debugger
                         if (!data.msg && data.code != 0) {
                             $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                             return;
