@@ -30,7 +30,7 @@ define(
                     (!!window.ActiveXObject || "ActiveXObject" in window) &&
                     navigator.userAgent.indexOf("Opera") < 0) {
                     that.$el.html(template.compile(tpl)({
-                        list: ukeys.ukeyName()
+                        list: ukeys.GetCertCount() && ukeys.ukeyName()
                     }));
                     $(".tipIE").hide();
                 } else {
@@ -93,7 +93,7 @@ define(
                 var randomNum = ukeys.randomNum(randomNumKey, keyType);
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
                 var oid = ukeys.GetOid(selectedUkey);
-                
+
                 localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
                     loginType: 2,
@@ -105,7 +105,7 @@ define(
                     enterpriseCode: ukeys.GetenterpriseCode(selectedUkey),
                     randomNum: randomNum,
                     signature: PKSC7,
-                    signCertificateSn:ukeys.getCertSignSN(selectedUkey)
+                    signCertificateSn: ukeys.getCertSignSN(selectedUkey)
                 };
                 if (Boolean(PKSC7)) {
                     service.userlogin(data).done(function(data) {
