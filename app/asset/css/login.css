@@ -18,25 +18,28 @@
    select {
        outline: none;
    }
-   body>#main { min-height: 100%; padding-bottom: 0px; }
+   body>#main { height: 100%; padding-bottom: 0px; }
    .wrapper {
        position: relative;
        width: 100%;
        min-height: 810px;
        height: 100%;
-       background: url('../../asset/img/login2.jpg') no-repeat center center;
+       background: #24497e url('../../asset/img/login2.jpg') no-repeat center center;
    }
    
    .wrapper .main {
        width: 796px;
        height: 532px;
-       background: #fff;
+       background: rgba(255, 255, 255, .94);
+       filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#f0ffffff,endColorstr=#f0ffffff);    
        margin: 0 auto;
        position: relative;
        top: 140px;
        overflow: hidden;
    }
    
+   :root .wrapper .main { filter: none; }
+
    .wrapper .main .head {
        border-bottom: 4px solid #48BAF1;
        height: 101px;
