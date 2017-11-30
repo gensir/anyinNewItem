@@ -1,9 +1,8 @@
 define([
 	"text!./tpl/step1.html",
-	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
 	"bootbox"
-], function(adminstep1, primary, service, bootbox) {
+], function(adminstep1, service, bootbox) {
 	var sealstyle = [],
 		sealstyle1 = [],
 		result, firmId, that, localSeal,isODC;
@@ -154,7 +153,6 @@ define([
 					localSeal = result.availableEsealList;
 					$(".contents").empty();
 					that.$el.html(template.compile(adminstep1)({ data: result }));
-		        	that.$el.append(template.compile(primary,{})());
 		        	if(isODC) {
 						$(".ODChide").show();
 					}
