@@ -16,7 +16,7 @@ define(function(require, exports, module) {
             "step3": "step3",
             "step4": "step4",
             "renew?:query": "renew",
-            "pay_ok": "pay_ok",
+            "pay_ok?:query": "pay_ok",
             "update_key": "update_key"
         },
         frameView:null,
