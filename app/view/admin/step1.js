@@ -152,7 +152,11 @@ define([
 					result = data.data;
 					localSeal = result.availableEsealList;
 					$(".contents").empty();
-					that.$el.html(template.compile(adminstep1)({ data: result }));
+					if(result.enterpriseInfo==null ){
+						bootbox.alert("获取单位主体信息为空，请稍后再试");
+					}else{
+						that.$el.html(template.compile(adminstep1)({ data: result }));
+					}										
 		        	if(isODC) {
 						$(".ODChide").show();
 					}
