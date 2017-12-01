@@ -249,7 +249,7 @@ define([
 							if(isdelete) {
 								service.deletePhoto(deleteData).done(function(data) {
 									if(data.code == 0) {
-										pictureFlag[num] = 1;
+//										pictureFlag[num] = 1;
 									} else {
 										bootbox.alert(data.msg);
 									}
