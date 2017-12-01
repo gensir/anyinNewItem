@@ -107,141 +107,141 @@ define(
                     signature: PKSC7,
                     signCertificateSn: ukeys.getCertSignSN(selectedUkey)
                 };
-                if (Boolean(PKSC7)) {
-                    service.userlogin(data).done(function(data) {
-                        if (!data.msg && data.code != 0) {
-                            $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
+                service.userlogin(data).done(function(data) {
+                    if (!data.msg && data.code != 0) {
+                        $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
+                        return;
+                    }
+                    if (data.code === 0) {
+                        //$.verify("passwd", "#passwd");
+                        if (data.data.pointCode == 100) {
+                            var numInd = 0;
+                            var dialog = bootbox.dialog({
+                                backdrop: true,
+                                //closeButton: false,
+                                className: "common loss",
+                                title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                                message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
+                                buttons: {
+                                    cancel: {
+                                        label: "返回",
+                                        className: "btn1",
+                                        callback: function(result) {
+                                            result.cancelable = false;
+                                        }
+                                    },
+                                    confirm: {
+                                        label: "继续",
+                                        className: "btn2 sureLoss",
+                                        callback: function(event) {
+                                            numInd++;
+                                            if (numInd == 1) {
+                                                numInd = 0;
+                                                localStorage.firmId = data.data.firmId;
+                                                localStorage.pointCode = data.data.pointCode;
+                                                var loginODC = data.data;
+                                                loginODC.enterpriseName = $("#seleBook option:selected").text();
+                                                loginODC.oid = oid;
+                                                loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                                                localStorage.loginODC = JSON.stringify(loginODC);
+                                                window.open("register.html#step2", "_self");
+                                            } else {
+                                                this.modal("hide");
+                                            }
+                                            return false;
+                                        }
+                                    }
+                                }
+                            });
                             return;
+                        } else if (data.data.pointCode == 101 || data.data.pointCode == 104) {
+                            var numInd = 0;
+                            var dialog = bootbox.dialog({
+                                backdrop: true,
+                                //closeButton: false,
+                                className: "common loss",
+                                title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                                message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
+                                buttons: {
+                                    cancel: {
+                                        label: "返回",
+                                        className: "btn1",
+                                        callback: function(result) {
+                                            result.cancelable = false;
+                                        }
+                                    },
+                                    confirm: {
+                                        label: "继续",
+                                        className: "btn2 sureLoss",
+                                        callback: function(event) {
+                                            numInd++;
+                                            if (numInd == 1) {
+                                                numInd = 0;
+                                                localStorage.firmId = data.data.firmId;
+                                                localStorage.pointCode = data.data.pointCode;
+                                                window.open("admin.html#renew", "_self");
+                                            } else {
+                                                this.modal("hide");
+                                            }
+                                            return false;
+                                        }
+                                    }
+                                }
+                            });
+                            return;
+                        } else if (data.data.pointCode == 102) {
+                            var numInd = 0;
+                            var dialog = bootbox.dialog({
+                                backdrop: true,
+                                //closeButton: false,
+                                className: "common loss",
+                                title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
+                                message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
+                                buttons: {
+                                    cancel: {
+                                        label: "返回",
+                                        className: "btn1",
+                                        callback: function(result) {
+                                            result.cancelable = false;
+                                        }
+                                    },
+                                    confirm: {
+                                        label: "继续",
+                                        className: "btn2 sureLoss",
+                                        callback: function(event) {
+                                            numInd++;
+                                            if (numInd == 1) {
+                                                numInd = 0;
+                                                localStorage.firmId = data.data.firmId;
+                                                localStorage.pointCode = data.data.pointCode;
+                                                window.open("admin.html#renew", "_self");
+                                            } else {
+                                                this.modal("hide");
+                                            }
+                                            return false;
+                                        }
+                                    }
+                                }
+                            });
+                            return;
+                        } else if (data.data.pointCode == 106) {
+                            localStorage.oid = oid;
                         }
-                        if (data.code === 0) {
-                            //$.verify("passwd", "#passwd");
-                            if (data.data.pointCode == 100) {
-                                var numInd = 0;
-                                var dialog = bootbox.dialog({
-                                    backdrop: true,
-                                    //closeButton: false,
-                                    className: "common loss",
-                                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                                    message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
-                                    buttons: {
-                                        cancel: {
-                                            label: "返回",
-                                            className: "btn1",
-                                            callback: function(result) {
-                                                result.cancelable = false;
-                                            }
-                                        },
-                                        confirm: {
-                                            label: "继续",
-                                            className: "btn2 sureLoss",
-                                            callback: function(event) {
-                                                numInd++;
-                                                if (numInd == 1) {
-                                                    numInd = 0;
-                                                    localStorage.firmId = data.data.firmId;
-                                                    localStorage.pointCode = data.data.pointCode;
-                                                    var loginODC = data.data;
-                                                    loginODC.enterpriseName = $("#seleBook option:selected").text();
-                                                    loginODC.oid = oid;
-                                                    loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
-                                                    localStorage.loginODC = JSON.stringify(loginODC);
-                                                    window.open("register.html#step2", "_self");
-                                                } else {
-                                                    this.modal("hide");
-                                                }
-                                                return false;
-                                            }
-                                        }
-                                    }
-                                });
-                                return;
-                            } else if (data.data.pointCode == 101 || data.data.pointCode == 104) {
-                                var numInd = 0;
-                                var dialog = bootbox.dialog({
-                                    backdrop: true,
-                                    //closeButton: false,
-                                    className: "common loss",
-                                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                                    message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
-                                    buttons: {
-                                        cancel: {
-                                            label: "返回",
-                                            className: "btn1",
-                                            callback: function(result) {
-                                                result.cancelable = false;
-                                            }
-                                        },
-                                        confirm: {
-                                            label: "继续",
-                                            className: "btn2 sureLoss",
-                                            callback: function(event) {
-                                                numInd++;
-                                                if (numInd == 1) {
-                                                    numInd = 0;
-                                                    localStorage.firmId = data.data.firmId;
-                                                    localStorage.pointCode = data.data.pointCode;
-                                                    window.open("admin.html#renew", "_self");
-                                                } else {
-                                                    this.modal("hide");
-                                                }
-                                                return false;
-                                            }
-                                        }
-                                    }
-                                });
-                                return;
-                            } else if (data.data.pointCode == 102) {
-                                var numInd = 0;
-                                var dialog = bootbox.dialog({
-                                    backdrop: true,
-                                    //closeButton: false,
-                                    className: "common loss",
-                                    title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                                    message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
-                                    buttons: {
-                                        cancel: {
-                                            label: "返回",
-                                            className: "btn1",
-                                            callback: function(result) {
-                                                result.cancelable = false;
-                                            }
-                                        },
-                                        confirm: {
-                                            label: "继续",
-                                            className: "btn2 sureLoss",
-                                            callback: function(event) {
-                                                numInd++;
-                                                if (numInd == 1) {
-                                                    numInd = 0;
-                                                    localStorage.firmId = data.data.firmId;
-                                                    localStorage.pointCode = data.data.pointCode;
-                                                    window.open("admin.html#renew", "_self");
-                                                } else {
-                                                    this.modal("hide");
-                                                }
-                                                return false;
-                                            }
-                                        }
-                                    }
-                                });
-                                return;
-                            } else if (data.data.pointCode == 106) {
-                                localStorage.oid = oid;
-                            }
-                            $.cookie("loginadmin", JSON.stringify(data.data));
-                            window.open("index.html", "_self");
-                        } else if (data.code == 4) {
-                            $.verify("passwd", "#passwd", "后台返回error");
-                        } else if (data.code == "500") {
-                            $.verify("ukeytip", "#seleBook", data.msg);
-                        } else {
-                            $.verify("ukeytip", "#seleBook", data.msg);
-                        }
-                        //window.open("index.html", "_self")
-                    });
-                } else {
-                    $.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
-                }
+                        $.cookie("loginadmin", JSON.stringify(data.data));
+                        window.open("index.html", "_self");
+                    } else if (data.code == 4) {
+                        $.verify("passwd", "#passwd", "后台返回error");
+                    } else if (data.code == "500") {
+                        $.verify("ukeytip", "#seleBook", data.msg);
+                    } else {
+                        $.verify("ukeytip", "#seleBook", data.msg);
+                    }
+                    if (!Boolean(PKSC7)) {
+                        $.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
+                    }
+                    //window.open("index.html", "_self")
+                });
+
             },
             phoneLogin: function(event, itemEle) {
                 // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
