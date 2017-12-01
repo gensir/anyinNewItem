@@ -149,7 +149,7 @@ define([
 							var obj = {
 								"bizType": 5,
 								"enterpriseCode": enterpriseCode, //组织机构代码 或 统一社会信用代码（优先）
-								"urls": "["+data+"]",
+								"urls": data,
 								"certificateType":"",
 								"certificateName":"",
 								"certificateNo":""
