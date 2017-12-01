@@ -156,29 +156,22 @@ define(
                                     } else {
                                         var selectedUkey = $("#seleBook option:selected").index() - 1;
                                         if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
-                                            // var esealCode = ukeys.esealCode($("#unlockCode").val(), selectedUkey);
-                                            // var randomNum = ukeys.randomNum(esealCode);
-                                            var oid = ukeys.GetOid(
-                                                selectedUkey
-                                            );
+                                            var oid = ukeys.GetOid(selectedUkey);
                                             var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
                                             var randomNumKey = keyType == 1 ? oid : ukeys.esealCode($("#unlockCode").val(),selectedUkey);
                                             var randomNum = ukeys.randomNum(randomNumKey,keyType);
-                                            var PKSC7 = ukeys.dSignature(selectedUkey,randomNum);
+                                            var PKSC7 = ukeys.dSignature(selectedUkey,randomNum,$("#unlockCode").val());
                                             localStorage.removeItem("dSignature");
                                             var enterpriseCode = $.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).user.enterpriseCode;
-                                            //console.log("印章编码：" + esealCode)
-                                            //console.log("随机码：" + randomNum)
-                                            //console.log("签名：\n" + PKSC7)
-                                            //document.write("获取客户端数字签名：\n" + PKSC7);
+                                            // console.log("印章编码：" + randomNumKey)
+                                            // console.log("随机码：" + randomNum)
+                                            // console.log("签名：\n" + PKSC7)
+                                            // document.write("获取客户端数字签名：\n" + PKSC7);
                                             if (!Boolean(PKSC7)) {
                                                 numInd = 0;
                                                 $(_this).find(".bootbox-body")
-                                                    .html(
-                                                        "<div class='msgcenter'><em></em><span>" +
-                                                            "无法获取证书签名，解密失败！" +
-                                                            "</span></div>"
-                                                    );
+                                                    .html("<div class='msgcenter'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>"
+                                                );
                                                 $(_this).find(".btn2").show().html("重试");
                                             } else {
                                                 var data = {
@@ -190,37 +183,26 @@ define(
                                                     if (data.code == 0) {
                                                             localStorage.esealCode = randomNumKey;
                                                             localStorage.dSignature = PKSC7;
-                                                            var success = dialogsText.find(
-                                                                ".success"
-                                                            )[0].outerHTML;
+                                                            var success = dialogsText.find(".success")[0].outerHTML;
                                                             $(_this).find(".bootbox-body").html(success);
                                                             $(_this).find(".btn1,.btn2").hide();
                                                             setTimeout(
                                                                 function() {
                                                                     _this.modal("hide");
                                                                     location.reload();
-                                                                },
-                                                                1000
-                                                            );
+                                                                },1000 );
                                                         } else {
                                                             numInd = 0;
-                                                            // var msg7 = dialogsText.find(".msg7")[0].outerHTML
-                                                            // $(_this).find(".bootbox-body").html(msg7);
                                                             $(_this).find(".bootbox-body")
-                                                                .html(
-                                                                    "<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" +
-                                                                        data.msg +
-                                                                        "</span></div>"
-                                                                );
+                                                                .html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + data.msg + "</span></div>"
+                                                            );
                                                             $(_this).find(".btn2").show().html("重试");
                                                         }
                                                     });
                                             }
                                         } else {
                                             numInd = 1;
-                                            var GetOid = ukeys.GetOid(
-                                                selectedUkey
-                                            );
+                                            var GetOid = ukeys.GetOid(selectedUkey);
                                             localStorage.GetOid = GetOid;
                                             var data = {
                                                 oid: GetOid,
