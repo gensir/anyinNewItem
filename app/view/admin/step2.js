@@ -233,6 +233,8 @@ define([
 								if(length < 3) {
 									obj.filePath = data;
 									obj.certificateType = '0002';
+									obj.certificateNo='0002';
+									obj.certificateName="营业执照";
 									signalDate = obj
 								}
 							};
@@ -247,6 +249,8 @@ define([
 								if(length < 3) {
 									obj.filePath = data;
 									obj.certificateType = '0032';
+									obj.certificateNo='0032';
+									obj.certificateName="法人身份证";
 									signalDate = obj;
 								}
 							};
@@ -261,6 +265,8 @@ define([
 								if(length < 3) {
 									obj.filePath = data;
 									obj.certificateType = '0044';
+									obj.certificateNo='0044';
+									obj.certificateName="法人身份证反面";
 									signalDate = obj;
 								}
 							};
@@ -275,6 +281,8 @@ define([
 							} else if(num == 3) {
 								obj.filePath = data;
 								obj.certificateType = "0033";
+								obj.certificateNo='0033';
+									obj.certificateName="经办人身份证";
 								signalDate = obj;
 							};
 							if(num == 4 && length > 3) {
@@ -288,6 +296,8 @@ define([
 							} else if(num == 4) {
 								obj.filePath = data;
 								obj.certificateType = "0045";
+								obj.certificateNo='0002';
+								obj.certificateName="经办人身份证反面";
 								signalDate = obj;
 							}
 							if(isdelete) {

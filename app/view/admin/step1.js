@@ -56,7 +56,9 @@ define([
 									className: "btn2",
 									callback: function() {
 										localStorage.orderNo = data.data.list[0].orderNo;
-										result.cancelable = window.open('admin.html#step' + data.data.list[0].operateStep, '_self');
+										setTimeout(function(){
+											result.cancelable = window.open('admin.html#step' + data.data.list[0].operateStep, '_self');
+										},100)
 									}
 								},
 								confirm2: {
