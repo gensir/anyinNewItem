@@ -1,11 +1,10 @@
 define([
 	"text!./tpl/step2.html",
-	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
 	"bootbox",
 	"../../lib/public",
 	"jqueryForm"
-], function(adminstep2, primary, service, bootbox,Util,jqueryForm) {
+], function(adminstep2, service, bootbox,Util,jqueryForm) {
 	var pictureFlag = [];
 	var imgModalBig=Util.imgModalBig;
 	var stepResult, length, enterpriseCode, firmId;
@@ -31,7 +30,6 @@ define([
 			firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
 //			this.$el.html(adminstep2);
 			this.$el.html(template.compile(adminstep2)());
-		    this.$el.append(template.compile(primary,{})());
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
 			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../app/asset/img/lince.jpg' });
 			imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../app/asset/img/ID-front.png' });
