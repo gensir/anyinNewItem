@@ -2,9 +2,11 @@ define([
     "text!./tpl/index.html",
     "../../lib/service",
     "bootbox",
-], function (indextpl, service, bootbox) {
+    "text!../pub/tpl/dialog.html",
+], function (indextpl, service, bootbox, dialog) {
     var Backbone = require('backbone');
     var template = require('art-template');
+    var dialogs = $(dialog);
 
     var udata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || { user: {}, menuList: {} }
     var enterpriseCode = udata && udata.user && udata.user.enterpriseCode;
