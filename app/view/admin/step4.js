@@ -1,10 +1,9 @@
 define([
 	"text!./tpl/step4.html",
-	"text!../pub/tpl/footer.html",
 	"text!./tpl/payment.html",
 	"../../../app/lib/service",
 	"bootbox"
-], function(adminstep4, primary,payment, service, bootbox) {
+], function(adminstep4,payment, service, bootbox) {
 	var billType=1;
 	var step4Data,_this;
 	var invoiceState;

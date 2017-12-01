@@ -1,11 +1,10 @@
 define([
 	"text!./tpl/step3.html",
-	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
 	"bootbox",
 	"../../lib/public",
 	"jqueryForm"
-], function(adminstep3, primary, service, bootbox,Util,jqueryForm) {
+], function(adminstep3, service, bootbox,Util,jqueryForm) {
 	var pictureFlag;
 	var imgModalBig=Util.imgModalBig;
 	var flag = true;
