@@ -29,11 +29,12 @@ define([
         
         continueGo: function(event) {       	
             event.stopPropagation();
-            service.errorOrder(firmId).done(function(data) {
+            var orderNo = $(event.currentTarget).parent().siblings(".nav0").text();
+            service.status(orderNo).done(function(data) {
                 if(data.code == 0) {
-                    localStorage.orderNo = data.data.list[0].orderNo;
-                    localStorage.stepNum = "#step" + data.data.list[0].operateStep
-                    window.location.href = "admin.html#step" + data.data.list[0].operateStep;
+                    localStorage.orderNo = data.data.orderNo;
+                    localStorage.stepNum = "#step" + data.data.operateStep;
+                    window.location.href = "admin.html#step" + data.data.operateStep;
                 }
             })
         },
