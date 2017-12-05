@@ -251,7 +251,6 @@ define([
 					if(res.code == 0) { //订单状态查询请求成功
 						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
 
-							//此处待测试！
 							if(serialNo) {
 								this.takeOrderInvoice(serialNo);
 							} else {
@@ -262,6 +261,35 @@ define([
 							localStorage.removeItem("orderNo");
 							$(".closepayalert").trigger("click");
 							$(".bootbox-close-button").trigger("click");
+							
+							var certData={
+								"validStart":"",
+								"validEnd":"",
+								"esealCode":"",
+								"oid":"cdcdsafsddweww",
+								"enterpriseCode":"24154555455",
+								"enterpriseName":"大河酒业",
+								"issuer":"GDCA",
+								"certificateFirms":1,
+								"certificateType":2,
+								"certificateAssigned":1,
+								"signCertificate":"33433343343fdf3r33",
+								"encryptCertificate":"zxcsadwqerewdvdvdfe"
+								"signCertificateSn":"343ef4543tg43t3454",
+								"encryptCertificateSn":"32fvbfgrrtrer434343"
+							}
+							service.writeCert(certData).done(function(res){
+								if(res.code==0){
+									
+								}else{
+									var dialog = bootbox.alert({
+										className: "alert",
+										message: "印章产品信息不存在，请核对数据！",
+									})
+								}
+							})
+							
+							
 							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 
 						} else {

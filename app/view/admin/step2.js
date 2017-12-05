@@ -353,8 +353,22 @@ define([
 					return;
 				}
 			};
-			localStorage.stepNum = "#step3";
-			window.open('admin.html#step3', '_self');
+			var stepData=stepResult;
+			for(var i=0;i<stepData.attaches.length;i++){
+				stepData.attaches[i].orderNo=stepResult.orderNo;
+			}
+			service.poststep2(stepData).done(function(res){
+				if(res.data==0){
+					localStorage.stepNum = "#step3";
+					window.open('admin.html#step3', '_self');
+				}else{
+					var dialog = bootbox.alert({
+						className: "uploadPhoto",
+						message: res.msg,
+					})
+				}
+			})
+			
 		},
 		gostep1: function() {
 			localStorage.stepNum = "#step1"

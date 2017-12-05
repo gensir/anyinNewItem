@@ -4,6 +4,7 @@ define([
     var domain = "";
     var baseUrl = "/api/";
     var basemp = "/mp/";
+    var baseps = "/ps/";
     var gateway = "/gateway/";
 	//var basemps = "/mps/";
 	//var oldBaseUrl = "/";
@@ -300,6 +301,10 @@ define([
 		    //PIN码错误次数校验
 		    checkPIN:function(data) {
 		        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
+		    },
+		    //申请证书成功回写证书信息
+		    writeCert(data){
+		    	return this.ajaxCall({ url: domain + baseps + "eseal/gdca/write_cert", data: data }, "post");
 		    }
 
 
