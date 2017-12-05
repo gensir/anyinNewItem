@@ -303,7 +303,7 @@ define([
 		        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
 		    },
 		    //申请证书成功回写证书信息
-		    writeCert(data){
+		    writeCert:function(data){
 		    	return this.ajaxCall({ url: domain + baseps + "eseal/gdca/write_cert", data: data }, "post");
 		    }
 
