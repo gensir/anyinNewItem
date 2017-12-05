@@ -1,12 +1,13 @@
 define([
 	"text!./tpl/step4.html",
 	"text!./tpl/payment.html",
+	"../../lib/ukeys",
 	"../../../app/lib/service",
 	"bootbox"
-], function(adminstep4,payment, service, bootbox) {
+], function(adminstep4,payment,ukeys, service, bootbox) {
 	var billType=1;
 	var step4Data,_this;
-	var invoiceState;
+	var invoiceState,validStart,validEnd,esealCode;
 	var serialNo;  //开发票需要用的序号
 	var payOrderStatuNum=0;
 	var orderNo = localStorage.orderNo || "APPLY11071125189290";
@@ -55,6 +56,10 @@ define([
 					$(".product").html(tempObj.data.esealProducts.length+1);
 					for(var i = 0; i < tempObj.data.esealProducts.length; i++) {
 						if(tempObj.data.esealProducts[i].keyType == 1) { //等于1  说明是ODC
+							localStorage.validStart=tempObj.dataesealProducts[i].validStart;
+							localStorage.validEnd=tempObj.dataesealProducts[i].validEnd;
+							localStorage.esealCode=tempObj.dataesealProducts[i].esealCode
+							
 							var productsId = tempObj.data.products[1].id;
 							tempObj.data.esealProducts[i].productAmountId = productsId;
 							if(i==0){
@@ -261,35 +266,6 @@ define([
 							localStorage.removeItem("orderNo");
 							$(".closepayalert").trigger("click");
 							$(".bootbox-close-button").trigger("click");
-							
-							var certData={
-								"validStart":"",
-								"validEnd":"",
-								"esealCode":"",
-								"oid":"cdcdsafsddweww",
-								"enterpriseCode":"24154555455",
-								"enterpriseName":"大河酒业",
-								"issuer":"GDCA",
-								"certificateFirms":1,
-								"certificateType":2,
-								"certificateAssigned":1,
-								"signCertificate":"33433343343fdf3r33",
-								"encryptCertificate":"zxcsadwqerewdvdvdfe"
-								"signCertificateSn":"343ef4543tg43t3454",
-								"encryptCertificateSn":"32fvbfgrrtrer434343"
-							}
-							service.writeCert(certData).done(function(res){
-								if(res.code==0){
-									
-								}else{
-									var dialog = bootbox.alert({
-										className: "alert",
-										message: "印章产品信息不存在，请核对数据！",
-									})
-								}
-							})
-							
-							
 							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 
 						} else {

@@ -85,7 +85,7 @@ define([
 				$(ele).removeClass('choice');
 				for(var i = 0; i < sealstyle.length; i++) {
 					if(sealstyle[i] == count) {
-						sealstyle.pop(count);
+						sealstyle.splice(i,1);
 					}
 				}
 				if(!choiceflag) {
@@ -118,7 +118,7 @@ define([
 				choiceflag = false;
 				for(var i = 0; i < sealstyle1.length; i++) {
 					if(sealstyle1[i] == count) {
-						sealstyle1.pop(count);
+						sealstyle1.splice(i,1);
 					}
 				}
 				for(var i = 0; i < $(".sealStyle span").length; i++) {
@@ -186,6 +186,7 @@ define([
 		},
 		goonstep: function(event) {
 			sealList = [];
+			debugger;
 			var isLegal = $('input:radio:checked').val();
 			//		localStorage.isLegal=isLegal;
 			if($('.sealStyle span').hasClass('choice') || $('.ODC span').hasClass('choice')) {
@@ -220,7 +221,7 @@ define([
 					if(!isValid) {
 						result.operatorIdCard = $(".legalID").val();
 						result.operatorName = $(".countCode").val();
-						this.poststep1(result);
+						that.poststep1(result);
 					} else {
 						return;
 					}
@@ -228,7 +229,7 @@ define([
 					result.isDelUnpayed = 1;
 					result.isOperatorLegalPersion = 1;
 					//				result.enterpriseInfo.uniformSocialCreditCode="14236578624"
-					this.poststep1(result);
+					that.poststep1(result);
 				}
 			} else {
 				var dialog = bootbox.alert({

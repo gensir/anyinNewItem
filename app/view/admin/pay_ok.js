@@ -2,8 +2,9 @@ define([
 	"text!./tpl/pay_ok.html",
 	"text!../pub/tpl/footer.html",
 	"../../../app/lib/service",
+	"../../lib/ukeys",
 	"bootbox"
-], function(tpl, primary, service, bootbox) {
+], function(tpl, primary, service,ukeys,bootbox) {
 	var windowLocation = "orders.html";
 	var template = require('art-template');
 	var main = Backbone.View.extend({
@@ -27,7 +28,41 @@ define([
 
 		render: function(query) {
 			this.$el.html(tpl);
+			var that=this;
 			this.jump();
+
+//			var oid = ukeys.GetOid(selectedUkey);
+//			var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
+//			var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
+//			var certData={
+//				"validStart":localStorage.validStart,
+//				"validEnd":localStorage.validEnd,
+//				"esealCode":localStorage.esealCode,
+//				"oid":oid,
+//				"enterpriseCode":enterpriseCode,
+//				"enterpriseName":enterpriseName,
+//				"issuer":"GDCA",                             //数字证书颁发者
+//				"certificateFirms":1,                        //证书厂商
+//				"certificateType":2,                         //证书类型 
+//				"certificateAssigned":ukeys.CertType,                     //数字证书归属者
+//				"signCertificate":"33433343343fdf3r33",      //签名证书或路径
+//				"encryptCertificate":"zxcsadwqerewdvdvdfe"   //加密证书文件或者路径
+//				"signCertificateSn":ukeys.getCertSignSN,    //签名证书序列号
+//				"encryptCertificateSn": ukeys.getCertEncSN  //加密证书序列号
+//			}
+//			service.writeCert(certData).done(function(res){
+//				if(res.code==0){
+//					that.jump();
+//				}else{
+//					var dialog = bootbox.alert({
+//						className: "alert",
+//						message: "印章产品信息不存在，请核对数据！",
+//					})
+//				}
+//			})
+
+
+
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
 			this.getData();
 
