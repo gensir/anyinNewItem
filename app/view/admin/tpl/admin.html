@@ -37,8 +37,11 @@
                                         <!-- <span class="unfreeze">解冻</span> -->
                                         <!--a class="logout">注销</a-->
                                         {{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7 }}
-                                        <a class="loss" data-status="{{value.esealStatus}}" data-code="{{value.esealCode}}" data-name="{{value.esealFullName}}">预挂失</a>{{/if}} {{if value.esealStatus==9}}
-                                        <a class="cancelloss" data-code="{{value.esealCode}}" data-name="{{value.esealFullName}}">取消预挂失</a>{{/if}}
+                                        <a class="loss" data-status="{{value.esealStatus}}" data-code="{{value.esealCode}}" data-name="{{value.esealFullName}}">预挂失</a>
+                                        {{/if}}
+                                        {{if value.esealStatus==9}}
+                                        <a class="cancelloss" data-code="{{value.esealCode}}" data-name="{{value.esealFullName}}">取消预挂失</a>
+                                        {{/if}}
                                     </li>
                                 </ul>
                                 <div class="toggle">

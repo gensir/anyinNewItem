@@ -1,4 +1,4 @@
-define([
+﻿define([
     'bootbox'
 ], function(bootbox) {    
     var domain = "";
@@ -302,12 +302,18 @@ define([
 		    checkPIN:function(data) {
 		        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/checkPIN", data: data }, "post");
 		    },
-		    //申请证书成功回写证书信息
-		    writeCert:function(data){
+            //线上预挂失
+            updatePreLossStatus:function(data) {
+                return this.ajaxCall({ url: domain + basemp + "esealReportLossInfo/updatePreLossStatus", data: data }, "post");
+            },
+            //取消预挂失
+            updateEsealStatus:function(data) {
+                return this.ajaxCall({ url: domain + basemp + "esealReportLossInfo/updateEsealStatus", data: data }, "post");
+            },
+            //申请证书成功回写证书信息
+            writeCert:function(data){
 		    	return this.ajaxCall({ url: domain + baseps + "eseal/gdca/write_cert", data: data }, "post");
 		    }
-
-
         }
     return allFun;
 });

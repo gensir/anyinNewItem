@@ -317,6 +317,8 @@ define([
             var status = $(event.currentTarget).data('status');
             var esealFullName = $(event.currentTarget).data('name');
             var esealCode = $(event.currentTarget).data('code');
+            var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
+            // var mobile = "13590435949"
             var numInd = this.model.get("numInd");
             if(status == 1 || status == 6 || status == 7) {
                 var dialog = bootbox.dialog({
@@ -342,63 +344,42 @@ define([
                                 var _this = this;
                                 if(numInd == 1) {
                                     var msg2 = dialogs.find(".msg2")[0].outerHTML;
-                                    $(this).find(".bootbox-body").html(msg2);
-                                    sendmsg($(this).find("#resend"));
+                                    $(_this).find(".bootbox-body").html(msg2);
+                                    sendmsg($(_this).find("#resend"));
                                     service.getSMSVerifCode(mobile).done(function(res) {
                                         if(res.code == 0) {
                                             console.log("短信发送成功")
                                         } else {
-                                            $("#codetip").html(res.msg).css({
-                                                "color": "red"
-                                            });
+                                            $("#codetip").html(res.msg).css({"color": "red"});
                                         }
                                     })
-                                    $(this).find("#resend").unbind().click(function(res) {
-                                        sendmsg($(this).find("#resend"));
+                                    $(_this).find("#resend").unbind().click(function(res) {
+                                        sendmsg($(_this).find("#resend"));
                                         service.getSMSVerifCode(mobile).done(function(res) {
                                             if(res.code == 0) {
                                                 console.log("短信重新发送成功")
                                             } else {
-                                                $("#codetip").html(res.msg).css({
-                                                    "color": "red"
-                                                });
+                                                $("#codetip").html(res.msg).css({"color": "red"});
                                             }
                                         })
                                     })
                                 } else if(numInd == 2) {
-                                    // let ele = $(this).find(".sureLoss");
-                                    // ele.attr("data-id", "lossCheck")
-                                    // _this.model.set({ "clickEle": ele.data('id') })
-                                    // var isValid = _this.model.isValid();
-                                    // if (isValid) {
-                                    //     numInd--
-                                    //     $(".checkSmsCode").css({ "border-color": "red" })
-                                    //     return false;
-                                    // } else {
-                                    //     $(".checkSmsCode").css({ "border-color": "#ccc" })
-                                    // }
-                                    var code = $(this).find(".checkSmsCode").val();
+                                    var code = $(_this).find(".checkSmsCode").val();
                                     if(code.length < 6) {
                                         numInd = 1;
-                                        $("#codetip").html("请输入6位验证码").css({
-                                            "color": "red"
-                                        });
-                                        $(".checkSmsCode").css({
-                                            "border-color": "red"
-                                        });
+                                        $("#codetip").html("请输入6位验证码").css({"color": "red"});
+                                        $(".checkSmsCode").css({"border-color": "red"});
                                         $(".checkSmsCode").keyup(function() {
                                             $("#codetip").html("");
-                                            $(".checkSmsCode").css({
-                                                "border-color": "#ccc"
-                                            })
+                                            $(".checkSmsCode").css({"border-color": "#ccc"})
                                         });
                                     } else {
                                         if(code == "000000") {
                                             numInd = 2;
                                             console.log("验证成功");
-                                            $(this).find(".btn2").show().html("确定");
-                                            $(this).find(".btn1").hide();
-                                            $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
+                                            $(_this).find(".btn2").show().html("确定");
+                                            $(_this).find(".btn1").hide();
+                                            $(_this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
                                         } else {
                                             var data = {
                                                 "esealCode": esealCode,
@@ -409,15 +390,15 @@ define([
                                                 if(res.code == 0) {
                                                     numInd = 2;
                                                     console.log("验证成功");
-                                                    $(this).find(".btn2").show().html("确定");
-                                                    $(this).find(".btn1").hide();
-                                                    $(this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
+                                                    $(_this).find(".btn2").show().html("确定");
+                                                    $(_this).find(".btn1").hide();
+                                                    $(_this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
                                                 } else {
                                                     numInd = 2;
                                                     console.log("验证失败");
-                                                    $(this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
-                                                    $(this).find(".btn1").show();
-                                                    $(this).find(".btn2").hide();
+                                                    $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
+                                                    $(_this).find(".btn1").show();
+                                                    $(_this).find(".btn2").hide();
                                                 }
                                             })
                                         }
