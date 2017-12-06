@@ -4,12 +4,13 @@ define(
         "../../lib/service",
         "../../lib/ukeys",
         "text!../pub/tpl/dialog.html",
-        "jqueryPlaceholder"
+        "../../lib/public",
     ],
-    function(tpl, service, ukeys, dialog, jqueryPlaceholder) {
+    function(tpl, service, ukeys, dialog, publicUtil) {
         var Backbone = require("backbone");
         var template = require("art-template");
         var bootbox = require("bootbox")
+        var placeholder = publicUtil.placeholder;
         var dialogs = $(dialog);
 
         var main = Backbone.View.extend({
@@ -38,6 +39,7 @@ define(
                     $(".tipIE").show();
                 }
                 that.toggleTab();
+                placeholder();
             },
             ukeyKeyup: function(event) {
                 var event = event || window.event;

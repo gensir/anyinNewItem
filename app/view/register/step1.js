@@ -2,12 +2,14 @@ define([
     "text!./tpl/step1.html",
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
+    "../../lib/public",
     "bootbox",
     "bootstrap-typeahead"
-    ],function(registerstep1,primary,service,bootbox,typeahead) {
+    ],function(registerstep1,primary,service,publicUtil,bootbox,typeahead) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
+    var placeholder = publicUtil.placeholder;
 	var firmId, enterpriseCode,that;
 	var flag = false;
 	var cname = false;    
@@ -22,7 +24,8 @@ define([
 	        this.Emptyinput();
 	        this.rules();
 	        this.typeahead();
-	        localStorage.clear();
+            localStorage.clear();
+            placeholder();
 	        document.body.scrollTop = document.documentElement.scrollTop = 0;
         },
         events: {

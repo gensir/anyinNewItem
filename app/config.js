@@ -24,7 +24,6 @@ require.config({
         "typeahead": "../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
         "bootstrap-typeahead":"../vendor/bower/bootstrap-typeahead/bootstrap-typeahead",
         "cookie":"../vendor/bower/jquery-cookie/jquery.cookie",
-        "placeholder": "../vendor/bower/placeholder/jquery-placeholder",
         "jqueryForm":"../vendor/bower/jquery-form/jquery.form"
         
 	},
@@ -39,7 +38,7 @@ require.config({
 			exports: "Backbone"
         },
         "bootstrap": {
-            deps: [ 'jquery' ],
+            deps: [ 'jquery'],
             exports: 'bootstrap'
         },
         "bootbox": {

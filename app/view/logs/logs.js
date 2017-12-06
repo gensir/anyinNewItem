@@ -2,11 +2,13 @@ define([
 	"text!./tpl/logs.html",
 	"text!./tpl/search.html",
 	"../../lib/service",
+    "../../lib/public",
 	"datetimepickercn",
 	"jqueryPlaceholder"
-], function(logsTpl, search, service, datetimepicker, placeholder) {
+], function(logsTpl, search, service, publicUtil, datetimepicker, placeholder) {
 	var Backbone = require('backbone');
 	var template = require('art-template');
+    var placeholder = publicUtil.placeholder;
 	var esealCode = localStorage.esealCode;
 	var PKSC7 = localStorage.dSignature;
 	var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;

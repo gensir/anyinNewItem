@@ -3,14 +3,14 @@ define([
     "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "../../../app/lib/ukeys",
+    "../../lib/public",
     "bootbox"
-], function (registerstep2, primary, service, ukeys, bootbox) {
+], function (registerstep2, primary, service, ukeys, publicUtil, bootbox) {
     var IDNo, enterpriseCode, result, that, username, id, firmId, pointCode;
     var flag = 0;
     var Backbone = require('backbone');
     var template = require('art-template');
-
-
+    var placeholder = publicUtil.placeholder;
     var main = Backbone.View.extend({
         el: '#main',
         initialize: function () {
@@ -26,6 +26,7 @@ define([
             'keyup .countPhone': 'changePhone'
         },
         render: function (param) {
+            // service.jqueryplaceholder();
             //			this.$el.empty().html(template.compile(registerstep2,{})());
             //			this.$el.append(template.compile(primary,{})());
 
@@ -149,7 +150,6 @@ define([
                         data.keyType = JSON.parse(localStorage.loginODC).keyType
                     }
                     service.registerUser(data).done(function (res) {
-                        debugger
                         if (res.code == 0) {
                             if (res.data == 100) {
                                 localStorage.clear();
@@ -301,11 +301,10 @@ define([
                     localStorage.enterpriseCode = result.uniformSocialCreditCode || result.organizationCode;
                     that.$el.html(template.compile(registerstep2)({ data: result }));
                     that.$el.append(template.compile(primary, {})());
-
-
                 } else {
                     bootbox.alert(data.msg);
                 }
+                placeholder();
             })
         },
         getcompanyODC: function () {
