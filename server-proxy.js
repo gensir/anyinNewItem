@@ -16,12 +16,18 @@ var config = {
         disableHostCheck:true,
         //contentBase:"./app/page/index",
         proxy: {
-             '/gateway': {
+            '/gateway': {
             	target: proxy.unyl, //pathRewrite: {'^/column' : '/column'},            	
                 secure: false,
                 changeOrigin: true
             },        	       	
             '/mp': {
+            	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},            	
+	           //  target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
+                secure: false,
+                changeOrigin: true
+            },
+            '/ps': {
             	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},            	
 	           //  target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
                 secure: false,

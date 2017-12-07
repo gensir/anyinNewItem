@@ -6,6 +6,7 @@ define([
 	"bootbox"
 ], function(tpl, primary, service,ukeys,bootbox) {
 	var windowLocation = "orders.html";
+	var isODC;
 	var template = require('art-template');
 	var main = Backbone.View.extend({
 		el: '.contents',
@@ -29,7 +30,7 @@ define([
 		render: function(query) {
 			this.$el.html(tpl);
 			var that=this;
-			this.jump();
+//			this.jump();
 
 //			var oid = ukeys.GetOid(selectedUkey);
 //			var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
@@ -88,14 +89,29 @@ define([
 					var totalFee = res.data.totalFee;
 					$(".totalFee").text(totalFee);
 					$(".shop_address").text(shopAddress);
+					//申请的时候只有ODC的时候才会需要回写
+					isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+					//businessType==1是新办，businessType==2是续期
 					if(businessType == 1) {
-						$(".text_tip").show();
-						$(".lcocation_page").text("订单中心页面");
-						windowLocation = "orders.html";
+						if(isODC){
+							$(".text_tip").hide();
+							$(".lcocation_page").text("证书更新页面")
+							windowLocation = "#update_key?oid="+localStorage.oid;
+						}else{
+							$(".text_tip").show();
+							$(".lcocation_page").text("订单中心页面");
+							windowLocation = "orders.html";
+						}
 					} else if(businessType == 2) {
-						$(".text_tip").hide();
-						$(".lcocation_page").text("证书更新页面")
-						windowLocation = "#update_key";
+						if(isODC){
+							$(".text_tip").show();
+							$(".lcocation_page").text("订单中心页面");
+							windowLocation = "orders.html";
+						}else{
+							$(".text_tip").hide();
+							$(".lcocation_page").text("证书更新页面")
+							windowLocation = "#update_key?oid="+localStorage.oid;
+						}
 					}
 				} else { //订单状态查询请求失败
 					console.log(res.msg)

@@ -312,8 +312,22 @@
             },
             //申请证书成功回写证书信息
             writeCert:function(data){
-		    	return this.ajaxCall({ url: domain + baseps + "eseal/gdca/write_cert", data: data }, "post");
+		    	return this.ajaxCall({ url: domain + basemp + "commEsealEquipmentInfo/getListByOid", data: data });
 		    }
+		    //GDCA 续费支付成功
+		    renew_certGDCA:function(data){
+		    	return this.ajaxCall({ url: domain + baseps + "order/renew_cert/gdca", data: data }, "post");
+		    },
+		    //GDCA写入证书验证；
+		    write_cert_GDCA:function(data) { 
+	            return this.ajaxCall({ url: domain + baseps + "eseal/write_cert", data: data }, 'post')
+	        },
+		    //根据OID查询证书接口
+		    getListByOid:function(data){
+		    	return this.ajaxCall({ url: domain + basemp + "commEsealEquipmentInfo/getListByOid", data: data });
+		    }
+
+
         }
     return allFun;
 });

@@ -186,7 +186,6 @@ define([
 		},
 		goonstep: function(event) {
 			sealList = [];
-			debugger;
 			var isLegal = $('input:radio:checked').val();
 			//		localStorage.isLegal=isLegal;
 			if($('.sealStyle span').hasClass('choice') || $('.ODC span').hasClass('choice')) {

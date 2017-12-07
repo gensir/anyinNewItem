@@ -3,8 +3,9 @@ define([
 	"text!../pub/tpl/footer.html",
 	"text!./tpl/payment.html",
 	"../../../app/lib/service",
+	"../../lib/ukeys",
 	"bootbox"
-], function(tpl, primary, payment, service, bootbox) {
+], function(tpl, primary, payment, service, ukeys, bootbox) {
 	var billType = 1;
 	var step4Data,that;
 	var invoiceState;
@@ -384,7 +385,7 @@ define([
 					}
 					return;
 				} else {
-					console.log(res.msg);
+					bootbox.alert(res.msg);
 				}
 			});
 		}

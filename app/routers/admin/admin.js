@@ -17,7 +17,7 @@ define(function(require, exports, module) {
             "step4": "step4",
             "renew?:query": "renew",
             "pay_ok?:query": "pay_ok",
-            "update_key": "update_key"
+            "update_key?:query": "update_key"
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
