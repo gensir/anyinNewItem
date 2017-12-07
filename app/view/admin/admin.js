@@ -9,6 +9,7 @@ define([
     var dialogs = $(dialogs);
     var GetQueryString = publicUtil.GetQueryString;
     var sendmsg = publicUtil.sendmsg;
+    var GetQueryStringBool = true;
     var Backbone = require('backbone');
     var template = require('art-template');
     var main = Backbone.View.extend({
@@ -76,11 +77,6 @@ define([
                 this.active = ""
                 this.listPage(1);
             }
-            // if (GetQueryString("page") == "license" || $(_this)[0].id == "loginset") {
-            //     alert($(_this)[0].id)
-            //     this.licenselist()
-            //     this.toggleTab(event, $("#loginset"))
-            // }
         },
         getSealName: function(target) {
             var _this = target.currentTarget;
@@ -651,7 +647,7 @@ define([
                     that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
                     that.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
                     if(GetQueryString("page") == "license" && GetQueryStringBool) {
-                        this.toggleTab(event, $("#loginset"))
+                        that.toggleTab(event, $("#loginset"))
                     }
                     GetQueryStringBool = false;
                     if(res.data && (!res.data.list || res.data.list.length == 0)) {
