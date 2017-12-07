@@ -114,6 +114,20 @@ define([
             }
             if ($(".passwd").val() != $(".checkPasswd").val()) {
                 $(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写").show();
+                $(".passwd").keyup(function(){
+					if ($(".passwd").val() == $(".checkPasswd").val()){
+						$(".checkPasswdErrTip").html("").hide();
+					}else{
+						$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写").show();	
+					}
+                })
+                $(".checkPasswd").keyup(function(){
+                	if ($(".passwd").val() == $(".checkPasswd").val()){
+						$(".checkPasswdErrTip").html("").hide();
+					}else{
+						$(".checkPasswdErrTip").html("您两次输入的密码不一致，请重新填写").show();
+					}
+                })                
                 return;
             } else {
                 $(".checkPasswdErrTip").hide();
