@@ -109,7 +109,7 @@ define([
                 return;
             }
             if ($(".passwd").val().length < 8) {
-                $(".pswErrTip").html("密码为8-20位数字、字母、特殊符号").css("color", "red").show();
+                $(".pswErrTip").html("*密码为8-20位数字、字母、特殊符号").css("color", "red").show();
                 return;
             }
             if ($(".passwd").val() != $(".checkPasswd").val()) {
@@ -211,7 +211,7 @@ define([
                 var phone = $(".countPhone").val();
                 if (code == "000000") {
                     flag = 1;
-                    $(".codeErrTip").html("请求成功").css({ "color": "#08c34e" }).show();
+                    $(".codeErrTip").html("校验成功").css({ "color": "#08c34e" }).show();
                 } else {
                     service.checkSmsCode(code, phone).done(function (data) {
                         if (data.code == 0) {
