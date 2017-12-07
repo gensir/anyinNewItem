@@ -313,7 +313,7 @@
             //申请证书成功回写证书信息
             writeCert:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "commEsealEquipmentInfo/getListByOid", data: data });
-		    }
+		    },
 		    //GDCA 续费支付成功
 		    renew_certGDCA:function(data){
 		    	return this.ajaxCall({ url: domain + baseps + "order/renew_cert/gdca", data: data }, "post");
@@ -326,8 +326,6 @@
 		    getListByOid:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "commEsealEquipmentInfo/getListByOid", data: data });
 		    }
-
-
         }
     return allFun;
 });
