@@ -191,7 +191,7 @@ define([
                                 "firmId": id,
                                 "pointCode": pointCode
                             };
-                            if (JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+                            if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
                                 data.esealCode = JSON.parse(localStorage.loginODC).esealCode || "12345678";
                                 data.oid = JSON.parse(localStorage.loginODC).oid;
                                 data.keyType = JSON.parse(localStorage.loginODC).keyType
