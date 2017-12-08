@@ -104,7 +104,7 @@ define([
             bootbox.dialog({
                 backdrop: true,
                 //closeButton: false,
-                className: "closeAllow common",
+                className: "common closeAllow",
                 title: dialogsText.find(".title")[0].outerHTML,
                 message: (_that.licenseLast <= 1) ? dialogsText.find(".msgcenter")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
                 buttons: {
@@ -210,7 +210,7 @@ define([
             bootbox.dialog({
                 backdrop: true,
                 //closeButton: false,
-                className: "openAllow common",
+                className: "common openAllow",
                 title: dialogsText.find(".title")[0].outerHTML,
                 message: dialogsText.find(".msg1").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
                 buttons: {

@@ -6,7 +6,6 @@ define([
 	"../../lib/ukeys",
 	"../../lib/cert",
 	"../../lib/netca",
-	
 	"bootbox"
 ], function(tpl, primary,dialog, service,ukeys,certUtil,netca,bootbox) {
 	var template = require('art-template');
@@ -208,7 +207,7 @@ define([
 					                                            p10: p10 ? p10 : 'p10',
 					                                            symmAlgo: symmAlgo ? symmAlgo : 12345678
 					                                        };
-					                                        that.renew_cert(data).done(ret => {
+					                                        that.renew_cert(data).done(function (ret) {
 					                                            if (ret.code == 0) {
 					                                                if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
 					                                                    window.bootbox.alert({
@@ -260,7 +259,7 @@ define([
 					                                                        orderNo: item.orderNo,
 					                                                        signCertContent: write_cert.certSign
 					                                                    };
-					                                                    that.netcaCallBack(data).done(ret => {
+					                                                    that.netcaCallBack(data).done(function (ret) {
 					                                                        $(_this).find(".btn2").hide();
 					                                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
 					                                                    });
@@ -276,7 +275,7 @@ define([
 					                                        var data = {
 					                                            signCertContent: ukeys.getSignatureCert(selectedUkey)
 					                                        };
-					                                        that.isNeedChangeCert(data).done(ret => {
+					                                        that.isNeedChangeCert(data).done(function (ret) {
 					                                            if (ret.data) {
 					                                                var jsonVal = certUtil.getCertInfo(
 					                                                    ukeys.dCertificate(selectedUkey)
@@ -307,7 +306,7 @@ define([
 					                                                // }
 					                                            }
 					                                        };
-					                                        that.renew_certGDCA(dataGDCA).done(ret => {
+					                                        that.renew_certGDCA(dataGDCA).done(function (ret) {
 					                                            if (ret.code == 0) {
 					                                                window.open(ret.data, '_blank');
 					                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");

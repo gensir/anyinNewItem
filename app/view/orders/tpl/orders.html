@@ -73,11 +73,12 @@
                                     <ul class="nav">
                                         <li class="n1">
                                             <p class="top f14">订单内容</p>
-                                            {{if value.businessType==1 || value.businessType==3}} {{each value.mpEsealOrderExts value i}}
-                                            <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                            {{/each}} {{/if}} {{if value.businessType==2 }} {{each value.mpEsealOrderExts value i}}
+                                            {{if value.businessType==1 || value.businessType==3}}{{each value.mpEsealOrderExts value i}}
+                                                <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
+                                            {{/each}}{{/if}}
+                                            {{if value.businessType==2 }}{{each value.mpEsealOrderExts value i}}
                                             <p><span class="sealName" style="width:130px;">{{value.esealFullName}} 续费</span><span class="sealyear">{{value.effectiveDuration}}年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                            {{/each}} {{/if}}
+                                            {{/each}}{{/if}}
                                             <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span></p>
                                         </li>
                                         <li class="n2">
@@ -96,9 +97,10 @@
                                             <p><span>新办理的电子印章无法使用，</span>
                                                 <a href="">了解详情</a>
                                             </p>
-                                            {{/if}} {{if value.businessType==2 || value.businessType==3}}
+                                            {{/if}}
+                                            {{if value.businessType==2 || value.businessType==3}}
                                             <p><span>续费后仍然提示已过期？</span>
-                                                <a id="update_key" data-order="{{value.orderNo}}" data-code="{{value.mpEsealOrderExts[0].esealCode}}" data-oid="{{value.mpEsealOrderExts[0].oid}}" href="admin.html#update_key?orderNo={{value.orderNo}}&esealCode={{value.mpEsealOrderExts[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}">点击更新证书</a>
+                                                <a id="update_key" data-status="{{value.commEsealInfos[0].esealStatus}}" data-order="{{value.orderNo}}" data-code="{{value.mpEsealOrderExts[0].esealCode}}" data-oid="{{value.mpEsealOrderExts[0].oid}}" href="admin.html#update_key?orderNo={{value.orderNo}}&esealCode={{value.mpEsealOrderExts[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}">点击更新证书</a>
                                             </p>
                                             {{/if}}
                                             <p>

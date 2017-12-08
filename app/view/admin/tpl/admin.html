@@ -31,9 +31,8 @@
                                     <li class="nav2">{{value.esealCode}}</li>
                                     <li class="nav3">{{value.createTime}}</li>
                                     <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
-                                    <li class="nav5">
-                                        <input class="oid" type="hidden" value="{{value.oid}}"> {{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7}}
-                                        <a class="renew" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}" target="_self">续费</a>{{/if}}
+                                    <li class="nav5">{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7 || value.esealStatus==14}}
+                                        <a class="renew" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">续费</a>{{/if}}
                                         <!-- <a class="unfreeze">解冻</a> -->
                                         <!--a class="logout">注销</a-->
                                         {{if value.esealStatus==1 || value.esealStatus==6}}
@@ -43,7 +42,7 @@
                                         <a class="cancelloss" data-code="{{value.esealCode}}" data-name="{{value.esealFullName}}">取消预挂失</a>
                                         {{/if}}
                                         {{if value.esealStatus==7}}
-                                        <a class="renew updata_key" href="admin.html#update_key?esealcode={{value.esealCode}}&oid={{value.oid}}" target="_self">更新证书</a>
+                                        <a class="renew updata_key" href="admin.html#update_key?esealcode={{value.esealCode}}&oid={{value.oid}}">更新证书</a>
                                         {{/if}}
                                     </li>
                                 </ul>
@@ -66,7 +65,7 @@
                                             {{else}}
                                             <p>统一社会信用代码：<span>{{value.enterpriseCode}}</span></p>
                                             {{/if}}
-                                            <p>电子印章状态：<span>{{value.esealStatus==1?"正常":value.esealStatus==2?"待审核":value.esealStatus==3?"审核不通过":value.esealStatus==4?"待制作":value.esealStatus==5?"待交付":value.esealStatus==6?"已过期":value.esealStatus==7?"需更新证书":value.esealStatus==8?"被禁用":value.esealStatus==9?"预挂失中":value.esealStatus==10?"挂失":value.esealStatus==11?"注销":value.esealStatus==12?"交付待审批":"其他"}}</span></p>
+                                            <p>电子印章状态：<span>{{value.esealStatus==1?"正常":value.esealStatus==2?"待审核":value.esealStatus==3?"审核不通过":value.esealStatus==4?"待制作":value.esealStatus==5?"待交付":value.esealStatus==6?"已过期":value.esealStatus==7?"需更新证书":value.esealStatus==8?"被禁用":value.esealStatus==9?"预挂失中":value.esealStatus==10?"挂失":value.esealStatus==11?"注销":value.esealStatus==12?"交付待审批":value.esealStatus==13?"待补办":value.esealStatus==14?"待续费":value.esealStatus==15?"待挂失":value.esealStatus==16?"待补办":"其他"}}</span></p>
                                         </li>
                                         <li class="n3">
                                             <p class="f14">需要帮助？</p>
@@ -136,19 +135,19 @@
                                     <li class="nav2">{{value.esealCode}}</li>
                                     <li class="nav3">{{value.keyStatus==0?"关闭登录":"允许登录"}}</li>
                                     <li class="nav4 shut">
-                                        <p class="open {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p>
+                                        <p class="opens {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p>
                                     </li>
                                 </ul>
                             </div>
                             {{/each}}
                             <!--div class="list">
-                        <ul class="nav">
-                            <li class="nav1">电子印章样品专用章（01）</li>
-                            <li class="nav2">e441231541021</li>
-                            <li class="nav3">关闭登录</li>
-                            <li class="nav4 open">开启登录权限</li>
-                        </ul>
-                    </div-->
+                                <ul class="nav">
+                                    <li class="nav1">电子印章样品专用章（01）</li>
+                                    <li class="nav2">e441231541021</li>
+                                    <li class="nav3">关闭登录</li>
+                                    <li class="nav4 open">开启登录权限</li>
+                                </ul>
+                            </div-->
                         </div>
                     </div>
 
@@ -448,18 +447,21 @@
             width: auto;
         }
         
-        .license .accordion .nav .shut {
+        .license .accordion .nav .shut,
+        .license .accordion .nav .open {
             padding-top: 8px;
         }
         
-        .license .accordion .nav .shut .open {
+        .license .accordion .nav .shut .opens,
+        .license .accordion .nav .open .opens {
             color: #fff;
-            padding: 2px 26px;
+            padding: 2px 12px;
             background-color: #21d3a6;
             border-radius: 4px;
             display: block;
             line-height: 26px;
             height: 30px;
+            margin-bottom: 0;
         }
         
         .license .accordion .nav .shut .closee {
@@ -467,7 +469,7 @@
         }
         
         .license .accordion .nav .shut,
-        .license .accordion .nav .open {
+        .license .accordion .nav .opens {
             cursor: pointer;
         }
         
