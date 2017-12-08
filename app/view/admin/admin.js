@@ -676,6 +676,10 @@ define([
                     var tempObjs = res.data.list;
                     that.model.set("totalPages", res.data.totalPages)
                     that.model.get("tplhtml").loginlist = tempObjs;
+                    that.model.get("tplhtml").license_pageNum=res.data.pageNum;
+                    that.model.get("tplhtml").license_totalPages=res.data.totalPages;
+                    that.model.get("tplhtml").license_totalRows=res.data.totalRows;
+                    
                     //this.$el.html(tpl(this.model.get("tplhtml")));
                     that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
                     that.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
