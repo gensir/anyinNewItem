@@ -90,6 +90,7 @@ define([
                 $(int).removeClass('active');
             };
         },
+        //认证审核中
         realname_Unknown: function () {
             bootbox.dialog({
                 backdrop: true,
@@ -111,6 +112,7 @@ define([
             })
             return false;
         },
+        //审核未通过
         realname_no: function () {
             var _this = this
             bootbox.dialog({
@@ -131,6 +133,7 @@ define([
             })
             return false;
         },
+        //未实名
         realname: function () {
             var _this = this
             bootbox.dialog({
@@ -155,7 +158,7 @@ define([
         logslist: function (pageNum, pageSize, data) {
             var _this = this
             pageNum = pageNum || 1;
-            pageSize = pageSize || 5;
+            pageSize = pageSize || 4;
             var data = {
                 "esealCode": esealCode,
                 "enterpriseCode": enterpriseCode,

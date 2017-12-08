@@ -4,11 +4,10 @@ define([
 	"../../lib/service",
     "../../lib/public",
 	"datetimepickercn",
-	"jqueryPlaceholder"
-], function(logsTpl, search, service, publicUtil, datetimepicker, placeholder) {
+], function(logsTpl, search, service, publicUtil, datetimepicker) {
 	var Backbone = require('backbone');
 	var template = require('art-template');
-    var placeholder = publicUtil.placeholder;
+    // var placeholder = publicUtil.placeholder;
 	var esealCode = localStorage.esealCode;
 	var PKSC7 = localStorage.dSignature;
 	var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
@@ -19,7 +18,8 @@ define([
 		render: function() {
 			this.$el.html(template.compile(search, {})());
 			$(".container").empty();
-			this.logslist();
+            this.logslist();
+            publicUtil.placeholder();
 		},
 		events: {
 			'click .listtext li .file': 'Toggleshow',

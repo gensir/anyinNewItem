@@ -46,7 +46,26 @@ define([
             var orderNo = $(event.currentTarget).data('order');
             var esealCode = $(event.currentTarget).data('code');
             var oid = $(event.currentTarget).data('oid');
-            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+            var esealStatus = $(event.currentTarget).data('status');
+            if (esealStatus != 7) {
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>您的证书正常，暂不需要更新！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,

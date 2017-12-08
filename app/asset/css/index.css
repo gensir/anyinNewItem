@@ -28,10 +28,10 @@
 .actions .actionlist li.nav3 a:hover em { background-position: -210px 0; }
 /* 中间内容*/
 
-.content { padding-bottom: 20px; padding-top: 20px; min-height: 640px; }
+.content { padding-top: 20px; min-height: 640px; }
 /* 中间左边内容*/
 
-.content .left { width: 360px; float: left; margin-left: 20px; }
+.content .left { width: 360px;  /* float: left; */ margin-left: 740px; }
 .t-title { height: 60px; line-height: 60px; padding-left: 20px; background: #f6fafe; }
 .t-title i { height: 20px; width: 20px; display: inline-block; vertical-align: middle; margin-right: 4px; margin-bottom: 4px; }
 .t-title h2 { display: inline-block; font-size: 16px; line-height: 60px; font-weight: 600; margin: 0px; }
