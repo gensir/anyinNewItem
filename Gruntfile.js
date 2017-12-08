@@ -1,19 +1,19 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     "use strict";
 
     grunt.initConfig({
         // Wipe out previous builds and test reporting.
         clean: {
-            init:["dist/", "test/reports"],
-            after:["dist/app/asset/img/bg-all.psd",
-            "dist/vendor/bower/almond",
-            "dist/vendor/bower/mocha",
-            "dist/vendor/bower/sinon",
-            "dist/vendor/bower/chai",            
-            "dist/vendor/bower/html5-boilerplate",            
-            "dist/vendor/bower/qunit",            
-            "dist/vendor/bower/requireCss",           
-            "dist/vendor/bower/vendor"                        
+            init: ["dist/", "test/reports"],
+            after: ["dist/app/asset/img/bg-all.psd",
+                "dist/vendor/bower/almond",
+                "dist/vendor/bower/mocha",
+                "dist/vendor/bower/sinon",
+                "dist/vendor/bower/chai",
+                "dist/vendor/bower/html5-boilerplate",
+                "dist/vendor/bower/qunit",
+                "dist/vendor/bower/requireCss",
+                "dist/vendor/bower/vendor"
             ]
         },
 
@@ -79,16 +79,16 @@ module.exports = function (grunt) {
             options: {
                 mergeIntoShorthands: false,
                 roundingPrecision: -1,
-                  beautify: {
-                     //中文ascii化，非常有用！防止中文乱码的神配置
-                     ascii_only: true
+                beautify: {
+                    //中文ascii化，非常有用！防止中文乱码的神配置
+                    ascii_only: true
                 }
             },
             minify: {
-                	expand: true,
-                	cwd: 'app/',
-                	src: ['app/styles/css/*.css'],
-                	dest: 'dist/app/styles/css'
+                expand: true,
+                cwd: 'app/',
+                src: ['app/styles/css/*.css'],
+                dest: 'dist/app/styles/css'
             }
         },
 
@@ -121,21 +121,39 @@ module.exports = function (grunt) {
                 }
             }
         },
-        uglify:{
-            buildall: {//任务三：按原文件结构压缩js文件夹内所有JS文件
+        uglify: {
+            options: {
+                mangle: true,
+                ie8: true,
+                sourceMap: false,
+                beautify: false,
+                mangle: false,
+                ie8: true,
+                compress: {
+                    drop_console: true
+                }
+            },
+            buildall: { //任务三：按原文件结构压缩js文件夹内所有JS文件
                 files: [{
-                    expand:true,
-                    cwd:'app/lib',//js目录下
-                    src:'**/*.js',//所有js文件
-                    dest: 'dist/app/lib'//输出到此目录下
+                    expand: true,
+                    cwd: 'app/lib', //js目录下
+                    src: '**/*.js', //所有js文件
+                    dest: 'dist/app/lib' //输出到此目录下
                 }]
             },
+            drop: {
+                files: [{
+                    expand: true,
+                    cwd: 'dist', //js目录下
+                    src: ['app/*.js', 'app/{lib,view}/*.js', 'app/{model,routers}/**/*.js', 'vendor/bower/{,*/,**/*/,**/**/*/}*.js', '!vendor/bower/jquery/src/*.js', '!vendor/bower/sinon/test/sinon/util/*.js'], //所有js文件
+                    dest: 'dist' //输出到此目录下
+                }]
+            }
         },
         // Move vendor and app logic during a build.
         copy: {
             release: {
-                files: [
-                    {
+                files: [{
                         src: ["app/**"],
                         dest: "dist/"
                     },
@@ -144,7 +162,7 @@ module.exports = function (grunt) {
                         dest: "dist/"
                     },
                     {
-                        src: ["*.html",'favicon.ico'],
+                        src: ["*.html", 'favicon.ico'],
                         dest: "dist/"
                     }
                 ]
@@ -247,14 +265,14 @@ module.exports = function (grunt) {
         },
         concat: {
             options: {
-               
+
             },
             dist: {
                 src: ['app/styles/css/*.css'],
                 dest: 'app/styles/index.css'
             }
         }
-  
+
     });
 
     // Grunt contribution tasks.
@@ -286,7 +304,7 @@ module.exports = function (grunt) {
         "clean:init",
         // "jshint",
         "processhtml",
-        "uglify:buildall",        
+        "uglify:buildall",
         "copy",
         // "requirejs",
         "cssmin"
@@ -296,30 +314,30 @@ module.exports = function (grunt) {
         // "concat",
         // "watch"
     ]);
-    
-    grunt.registerTask("dev",[
-          "concat",
-          "watch"
+
+    grunt.registerTask("dev", [
+        "concat",
+        "watch"
     ]);
-    
-    grunt.registerTask("test",[
-          "clean:init",
-          "uglify:buildall"
+
+    grunt.registerTask("test", [
+        "clean:init",
+        "uglify:buildall"
     ]);
-    
-    grunt.registerTask("build",[
-          "clean:init",
-          "copy",
-          "uglify",
-          "clean:after"
-    ]) ;   
-    
+
+    grunt.registerTask("build", [
+        "clean:init",
+        "copy",
+        "uglify:buildall",
+        "clean:after"
+    ]);
+
     // When running the default Grunt command, just lint the code.    
-    grunt.registerTask("default",[
-          "clean:init",
-          "copy",
-          "uglify",
-          "clean:after"
-    ]) ;      
-    
+    grunt.registerTask("default", [
+        "clean:init",
+        "copy",
+        "uglify:buildall",
+        "clean:after"
+    ]);
+
 };
