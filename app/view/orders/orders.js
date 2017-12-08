@@ -1,11 +1,14 @@
 define([
     "text!./tpl/orders.html",
     "../../lib/service",
-    "../../lib/public"
-], function(orderstpl, service, publicUtil) {
+    "../../lib/public",
+    "text!../pub/tpl/dialog.html",
+    "bootbox"
+], function(orderstpl, service, publicUtil, dialog, bootbox) {
 
     var Backbone = require('backbone');
     var template = require('art-template');
+    var dialogs = $(dialogs);
     var that;
     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
     var firmId=$.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
@@ -19,11 +22,10 @@ define([
             'click .pagination .NextPage:not(".no")': 'NextPage',
             'click .pagination .index': 'currentPapge',
             'click #continue': 'continueGo',
-            'click #renew': 'renew'
+            'click #update_key': 'update_key'
         }, //this.$el.empty().html(template.compile(orders)({}));    
         render: function(query) {
             that = this;
-            
             this.listPage();
         },
         
@@ -38,40 +40,34 @@ define([
                 }
             })
         },
-        renew: function(event) {
+        //更新证书
+        update_key: function(event) {
             event.stopPropagation();
-            var orderNo = $(event.currentTarget).parent().siblings(".nav0").text();
-            var esealCode = $(event.currentTarget).siblings("#esealCode").val();
-            var oid = $(event.currentTarget).siblings("#oid").val();
-            if(!Boolean(oid)) {
+            var orderNo = $(event.currentTarget).data('order');
+            var esealCode = $(event.currentTarget).data('code');
+            var oid = $(event.currentTarget).data('oid');
+            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
                     className: "common",
-                    title: "登录提示",
-                    message: '<div class="msgcenter"><em></em><span>订单已失效，不支持支付！</span></div',
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
                     buttons: {
-                        cancel: {
-                            label: "取消",
-                            className: "btn1",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
                         confirm: {
                             label: "确定",
                             className: "btn2",
                             callback: function(result) {
                                 result.cancelable = false;
-                                // localStorage.clear();
-                                // $.removeCookie('loginadmin');
-                                // result.cancelable = window.open('login.html', '_self');
                             }
                         },
                     }
                 })
                 return false;
             }
+            //  else {
+            //     window.location.href = "admin.html#update_key?orderNo=?" + orderNo + "&esealCode=" + esealCode + "&oid=" + oid;
+            // }
         },
         toggleList: function(event) {
             var _this = event.currentTarget;

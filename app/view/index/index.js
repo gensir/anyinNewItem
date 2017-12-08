@@ -44,28 +44,28 @@ define([
             }
         },
         //续费操作
-        renew: function (event) {
+        renew: function(event) {
             event.stopPropagation();
             var GetOid = $(event.currentTarget).data('oid');
-            if (!Boolean(GetOid)) {
+            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
                     className: "common",
-                    title: "续费提示",
-                    message: '<div class="msgcenter"><em></em><span>印章数据异常，不支持在线续费！</span></div',
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
                     buttons: {
-                        cancel: {
-                            label: "取消",
-                            className: "btn1",
-                            callback: function (result) {
-                                result.cancelable = false;
-                            }
-                        },
+                        // cancel: {
+                        //     label: "取消",
+                        //     className: "btn1",
+                        //     callback: function(result) {
+                        //         result.cancelable = false;
+                        //     }
+                        // },
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function (result) {
+                            callback: function(result) {
                                 result.cancelable = false;
                             }
                         },

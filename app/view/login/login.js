@@ -27,9 +27,7 @@ define(
             render: function(param) {
                 var that = this;
                 that.$el.empty().html(template.compile(tpl, {})());
-                if (
-                    (!!window.ActiveXObject || "ActiveXObject" in window) &&
-                    navigator.userAgent.indexOf("Opera") < 0) {
+                if ((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0) {
                     that.$el.html(template.compile(tpl)({
                         list: ukeys.GetCertCount() && ukeys.ukeyName()
                     }));
