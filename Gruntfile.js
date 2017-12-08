@@ -123,8 +123,6 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                mangle: true,
-                ie8: true,
                 sourceMap: false,
                 beautify: false,
                 mangle: false,
