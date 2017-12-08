@@ -390,11 +390,15 @@ define([
                                                     $(_this).find(".btn1").hide();
                                                     $(_this).find(".bootbox-body").html('<div class="msg3" style="color:#333">已成功预挂失“' + esealFullName + '”，请在7个工作日内携带法人身份证、营业执照（副本）前往门店完成挂失操作。</div>');
                                                 } else {
-                                                    numInd = 2;
+                                                    numInd = 1;
                                                     console.log("验证失败");
-                                                    $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
-                                                    $(_this).find(".btn1").show();
-                                                    $(_this).find(".btn2").hide();
+                                                    $("#codetip").html("验证码无效，印章预挂失失败").css({"color": "red"});
+                                                    $(".checkSmsCode").css({"border-color": "red"});
+                                                    // $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
+                                                    $(".checkSmsCode").keyup(function() {
+                                                        $("#codetip").html("");
+                                                        $(".checkSmsCode").css({"border-color": "#ccc"})
+                                                    });
                                                 }
                                             })
                                         }
