@@ -318,9 +318,13 @@
 		    renew_certGDCA:function(data){
 		    	return this.ajaxCall({ url: domain + baseps + "order/renew_cert/gdca", data: data }, "post");
 		    },
-		    //GDCA写入证书验证；
+		    //所有CA 新办和续期写入证书；
 		    write_cert_GDCA:function(data) { 
 	            return this.ajaxCall({ url: domain + baseps + "eseal/write_cert", data: data }, 'post')
+	        },
+	        //netca 续期回调
+	        netcaCallBack:function(data) {
+	            return this.ajaxCall({ url: domain + basemp + "order/renew_cert/netcaCallBack", data: data }, 'get')
 	        },
 		    //根据OID查询证书接口
 		    getListByOid:function(data){
