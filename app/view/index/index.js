@@ -25,6 +25,14 @@ define([
                 bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
                 return;
             }
+            
+            //屏蔽非ODC的电子印章申请
+            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+//          		isODC为1的时候是ODC登录的
+			if(!isODC){
+				$(".actionlist .nav1").css("visibility","hidden");
+			}
+			
         },
         events: {
             // 'click .jilulist ul li .file': 'Toggleshow',
@@ -173,6 +181,16 @@ define([
                     logsObj = data.data.list;
                     _this.model.get("tpl").logdata = logsObj;
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
+                    
+                    
+                     //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+//          		isODC为1的时候是ODC登录的
+					if(!isODC){
+						$(".actionlist .nav1").css("visibility","hidden");
+					}
+					
+					
                 }
                 _this.getEsealList();
             });
@@ -194,6 +212,14 @@ define([
                     Esealobj = data.data.list;
                     _this.model.get("tpl").esealdata = Esealobj;
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
+                    
+                    //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+//          		isODC为1的时候是ODC登录的
+					if(!isODC){
+						$(".actionlist .nav1").css("visibility","hidden");
+					}
+                    
                     if (!Boolean(Esealobj)) {
                         $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
                     } else {

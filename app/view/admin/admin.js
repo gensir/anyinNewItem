@@ -657,6 +657,15 @@ define([
                     if(res.data && (!res.data.list || res.data.list.length == 0)) {
                         $("#esealNav").hide();
                     }
+                    
+                    //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+//          		isODC为1的时候是ODC登录的
+					if(!isODC){
+						$(".listTop a").css("visibility","hidden");
+					}
+                    
+                    
                 }
                 if(pageNum == 1) {
                     $("li.PreviousPage").addClass("no");
