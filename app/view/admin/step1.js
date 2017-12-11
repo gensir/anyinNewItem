@@ -24,12 +24,17 @@ define([
 			sealstyle = [];
 			isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 			//keyType==1为ODC
-			firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId)||'440311064427';
+			firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
 			that.getstep1(firmId);  
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
 		},
 		goStep2: function(event) {
-			service.errorOrder(firmId).done(function(data) {
+			var godata={
+				"firmId":firmId,
+				"orderStatus":1,
+				"businessType":1    //业务类型(1、开通 2、续费 3、退款)
+			}
+			service.errorOrder(godata).done(function(data) {
 				if(data.code == 0) {
 					if(data.data.list != null) {
 						var length = data.data.list[0].orderDetails;
