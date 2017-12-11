@@ -6,29 +6,29 @@
 				<tr>
 					<th>单位名称：</th>
 					<td>
-						<span class="ok">
-							<span class="text">深圳市安印科技有限公司</span>
-							<span class="bginfo"></span>
+						<span class="">
+							<span class="text">{{data.enterpriseInfoDTO.name}}</span>
+							<span class={{data.enterpriseInfoDTO.name?"bginfo":null}}></span>
 						</span>
-						<span class="new">深圳市安印科技有限责任公司</span>
+						<span class="new"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>单位地址：</th>
 					<td>
-						<div class="ok">
-							<span class="text">深圳市南山区粤海街道科技园科技中一路创业印章大厦二楼</span>
-							<span class="bginfo"></span>
+						<div class="">
+							<span class="text">{{data.enterpriseInfoDTO.address}}</span>
+							<span class={{data.enterpriseInfoDTO.address?"bginfo":null}}></span>
 						</div>
-						<div class="new">深圳市南山区粤海街道科技园科技中一路创业印章大厦三楼</div>
+						<div class="new"></div>
 					</td>
 				</tr>
 				<tr>
 					<th>营业执照：</th>
 					<td>
 						<span class="">
-							<span class="text">440301112242166</span>
-							<span class="bginfo"></span>
+							<span class="text">{{data.enterpriseInfoDTO.businessLicenseNumber}}</span>
+							<span class={{data.enterpriseInfoDTO.businessLicenseNumber?"bginfo":null}}></span>
 						</span>
 						<span class="new"></span>
 					</td>
@@ -37,8 +37,8 @@
 					<th>统一社会信用代码：</th>
 					<td>
 						<span class="">
-							<span class="text">91440330326535080A</span>
-							<span class="bginfo"></span>
+							<span class="text">{{data.enterpriseInfoDTO.uniformSocialCreditCode}}</span>
+							<span class={{data.enterpriseInfoDTO.uniformSocialCreditCode?"bginfo":null}}></span>
 						</span>
 						<span class="new"></span>
 					</td>
@@ -47,8 +47,8 @@
 					<th>法定代表人：</th>
 					<td>
 						<span class="">
-							<span class="text">杨瑞香</span>
-							<span class="bginfo"></span>
+							<span class="text">{{data.enterpriseInfoDTO.legalName}}</span>
+							<span class={{data.enterpriseInfoDTO.legalName?"bginfo":null}}></span>
 						</span>
 						<span class="new"></span>
 					</td>
@@ -63,18 +63,18 @@
 				<tr class="esealName">
 					<th>印章名称：</th>
 					<td>
-						<div class="ok">
-							<span class="text">电子印章样品专用章（01）</span>
+						<div class="">
+							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].esealFullName}}</span>
 							<span class="bginfo"></span>
 						</div>
-						<div class="new">电子行政章</div>
+						<div class="new"></div>
 					</td>
 				</tr>
 				<tr class="esealCode">
 					<th>印章编号：</th>
 					<td>
 						<span class="">
-							<span class="text">e4451231541021</span>
+							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].esealCode}}</span>
 							<span class="bginfo"></span>
 						</span>
 						<span class="new"></span>
@@ -83,21 +83,21 @@
 				<tr class="vaildStart">
 					<th>印章生效时间：</th>
 					<td>
-						<span class="">
-							<span class="text">2017/2/2 00:00:00</span>
+						<span class={{data.mpEsealOrderExtChangeVOS[0].validStart?"ok":null}}>
+							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].validStart}}</span>
 							<span class="bginfo"></span>
 						</span>
-						<span class="new"></span>
+						<span class="new">{{data.mpEsealOrderExtChangeVOS[0].oldValidStart}}</span>
 					</td>
 				</tr>
 				<tr class="validEnd">
 					<th>印章失效时间：</th>
 					<td>
-						<span class="ok">
-							<span class="text">2019/2/2 00:00:00</span>
+						<span class={{data.mpEsealOrderExtChangeVOS[0].validEnd?"ok":null}}>
+							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].oldValidEnd}}</span>
 							<span class="bginfo"></span>
 						</span>
-						<span class="new">2021/2/2 00:00:00</span>
+						<span class="new">{{data.mpEsealOrderExtChangeVOS[0].validEnd}}</span>
 					</td>
 				</tr>
 			</tbody>

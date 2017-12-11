@@ -189,7 +189,7 @@
 		    },
 		    //查询有问题的订单
 		    errorOrder:function(data) {
-		        return this.ajaxCall({ url: domain + basemp + "eseal/order/list/1/5?orderStatus=1&firmId=" + data, async: false });
+		        return this.ajaxCall({ url: domain + basemp + "eseal/order/list/1/5", data:data, async: false });
 		    },
 		    //提交第一步
 		    poststep1:function(data) {
@@ -327,8 +327,8 @@
 	            return this.ajaxCall({ url: domain + basemp + "order/renew_cert/netcaCallBack", data: data }, 'get')
 	        },
 		    //根据OID查询证书接口
-		    getListByOid:function(data){
-		    	return this.ajaxCall({ url: domain + basemp + "commEsealEquipmentInfo/getListByOid", data: data });
+		    getListByOrderNo:function(data){
+		    	return this.ajaxCall({ url: domain + basemp + "/mpEsealOrderExt/getCommEsealEquipmentMapChangeVO", data: data },'get');
 		    }
         }
     return allFun;

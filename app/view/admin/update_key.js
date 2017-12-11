@@ -37,11 +37,13 @@ define([
 			}
 		},
 		updataInfo:function(){
-			var oidUrl = this.getUrlParam("oid");
+			var orderNo = this.getUrlParam("orderNo");
+			var firmId=firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
 			var data={
-				"oid":oidUrl
+				"orderNo":"RENEW09201990457425",
+				"firmId":440305438270
 			}
-			service.getListByOid(data).done(function(res){
+			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
 //					that.$el.html(tpl);
 					var result = res.data;
@@ -63,11 +65,11 @@ define([
                 backdrop: true,
                 //closeButton: false,
                 className: "common unlock",
-                title: "证书更新",
+                title: "璇佷功鏇存柊",
                 message: dialogsText.find(".msg1.msg0")[0].outerHTML,
                 buttons: {
                     cancel: {
-                        label: "取消",
+                        label: "鍙栨秷",
                         className: "btn1",
                         callback: function(result) {
                             //console.log(result, "cancel")
@@ -75,7 +77,7 @@ define([
                         }
                     },
                     confirm: {
-                        label: "继续",
+                        label: "缁х画",
                         className: "btn2",
                         callback: function(event) {
                             numInd++;
@@ -92,7 +94,7 @@ define([
                                         var msg3 = dialogsText.find(".msg3")[0].outerHTML;
                                         $(_this).find(".bootbox-body").html(msg3);
                                         $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("重试");
+                                        $(_this).find(".btn2").show().html("閲嶈瘯");
                                     } else {
                                         var msg6 = dialogsText.find(".msg6")[0].outerHTML;
                                         $(_this).find(".bootbox-body").html(msg6);
@@ -100,7 +102,7 @@ define([
                                             $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
                                         });
                                         $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("继续");
+                                        $(_this).find(".btn2").show().html("缁х画");
                                     }
                                 }, 1000);
                             } else if (numInd == 2) {
@@ -108,15 +110,15 @@ define([
                                 var unlockCode = $("#unlockCode").val();
                                 if (selectedUkey == "") {
                                     numInd = 1;
-                                    $(_this).find("#seleBook-error").html("请选择一个证书");
-                                    $(_this).find(".btn2").show().html("继续");
+                                    $(_this).find("#seleBook-error").html("璇烽€夋嫨涓€涓瘉涔);
+                                    $(_this).find(".btn2").show().html("缁х画");
                                     $("#seleBook").change(function() {
                                         $("#seleBook-error").html("");
                                     });
                                 } else if (unlockCode.length < 6) {
                                     numInd = 1;
-                                    $(_this).find("#unlock-error").html("请输入6位以上PIN码");
-                                    $(_this).find(".btn2").show().html("继续");
+                                    $(_this).find("#unlock-error").html("璇疯緭鍏浣嶄互涓奝IN鐮);
+                                    $(_this).find(".btn2").show().html("缁х画");
                                     $("#unlockCode").keyup(function() {
                                         $("#unlock-error").html("");
                                     });
@@ -125,11 +127,12 @@ define([
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl=that.getUrlParam("oid");
-                                    if(oid==oidUrl){
+                                    if(true){
                                     	if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
-                                    		//如果PIN正确
+                                    		//濡傛灉PIN姝ｇ‘
+                                    		debugger;
                                     		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                                    		if(isODC){  //ODC新办
+                                    		if(isODC){  //ODC鏂板姙
                                     			var oid = ukeys.GetOid(selectedUkey);
 				                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
 												var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
@@ -141,28 +144,28 @@ define([
 													"oid":oid,
 													"enterpriseCode":enterpriseCode,
 													"enterpriseName":enterpriseName,
-													"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //数字证书颁发者
-													"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //证书厂商
-													"certificateType":keyType,                                //证书类型 
-													"certificateAssigned":ukeys.CertType(selectedUkey),                     //数字证书归属者
-													"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //签名证书序列号
-													"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //加密证书序列号
+													"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //鏁板瓧璇佷功棰佸彂鑰
+													"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //璇佷功鍘傚晢
+													"certificateType":keyType,                                //璇佷功绫诲瀷 
+													"certificateAssigned":ukeys.CertType(selectedUkey),                     //鏁板瓧璇佷功褰掑睘鑰
+													"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //绛惧悕璇佷功搴忓垪鍙
+													"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //鍔犲瘑璇佷功搴忓垪鍙
 												}
 												if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
 				                                    $(_this).find(".btn2").hide();
-				                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
+				                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缂哄皯蹇呭～椤鐢靛瓙鍗扮珷缁湡澶辫触锛);
 				                                    return false;
 				                                }
 				                                service.write_cert_GDCA(realdata).done(function(res) {
 				                                    if (res.code == 0) {
 				                                        $(_this).find(".btn2").hide();
-				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
+				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("鐢靛瓙鍗扮珷缁湡鎴愬姛锛);
 				                                    } else {
 				                                        $(_this).find(".btn2").hide();
 				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
 				                                    }
 				                                });
-                                    		}else{    //anyin续期
+                                    		}else{    //anyin缁湡
                                     			if(certificateFirms==1){    //GDCA
 	                                    			var dataGDCA = {
 			                                            orderNo: "",
@@ -172,18 +175,18 @@ define([
 			                                                c: 'CN',
 			                                                publicKey: ukeys.trustId(selectedUkey),
 			                                                orgCode: ukeys.GetenterpriseCode(selectedUkey),
-			                                                busyType: 'RENEW',//默认更新两年时为RENEW，当为其他年份时用下划线隔开，ef:RENEW_3
+			                                                busyType: 'RENEW',//榛樿鏇存柊涓ゅ勾鏃朵负RENEW锛屽綋涓哄叾浠栧勾浠芥椂鐢ㄤ笅鍒掔嚎闅斿紑锛宔f:RENEW_3
 			                                                certType: certificateType
 			                                            }
 			                                        };
 			                                        service.renew_certGDCA(dataGDCA).done(function(ret) {
 			                                            if (ret.code == 0) {
 			                                                window.open(ret.data, '_blank');
-			                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");
+			                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("缁湡鎴愬姛鍚庤鐐瑰嚮缁х画锛);
 			                                            } else {
 			                                                numInd = 1;
 			                                                $(_this).find("#writezm-error").html(ret.msg);
-			                                                $(_this).find(".btn2").show().html("重试");
+			                                                $(_this).find(".btn2").show().html("閲嶈瘯");
 			                                            }
 			                                            console.log(ret)
 			                                        })
@@ -192,8 +195,8 @@ define([
 	                                  				var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
 	                                    			if (ukeys.PIN(getPIN, selectedUkey)) {
 					                                    if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
-					                                        $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
-					                                        $(_this).find(".btn2").show().html("重试");
+					                                        $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("鎮ㄦ彃鍏ョ殑UKEY涓庢墍閫塙KEY涓嶇锛岃閲嶆柊鎻掑叆");
+					                                        $(_this).find(".btn2").show().html("閲嶈瘯");
 					                                        numInd = 0;
 					                                        return false;
 					                                    }
@@ -203,16 +206,16 @@ define([
 					                                            orderNo: item.orderNo,//"RENEW11090365271661"
 					                                            esealCode: item.esealCode,
 					                                            signCertContent: ukeys.getSignatureCert(selectedUkey),
-					                                            year: item.effectivedeDuration ? item.effectivedeDuration : 2, //待定
+					                                            year: item.effectivedeDuration ? item.effectivedeDuration : 2, //寰呭畾
 					                                            p10: p10 ? p10 : 'p10',
 					                                            symmAlgo: symmAlgo ? symmAlgo : 12345678
 					                                        };
-					                                        that.renew_cert(data).done(function (ret) {
+					                                        that.renew_cert(data).done(function(ret) {
 					                                            if (ret.code == 0) {
 					                                                if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
 					                                                    window.bootbox.alert({
 					                                                        size: "small",
-					                                                        title: "提示",
+					                                                        title: "鎻愮ず",
 					                                                        message:
 					                                                        ret.data.bpmsResponse.responseResult.msg,
 					                                                        callback: function () {
@@ -223,12 +226,12 @@ define([
 					                                                }
 					                                                if (item.caType == 2) {
 					                                                    if (isNeedChangeCert && !(netca.delCert() == "deleSuccess")) {
-					                                                        //如果删除成功，就写入证书；
+					                                                        //濡傛灉鍒犻櫎鎴愬姛锛屽氨鍐欏叆璇佷功锛
 					                                                        window.bootbox.alert({
 					                                                            size: "small",
-					                                                            title: "提示",
+					                                                            title: "鎻愮ず",
 					                                                            message:
-					                                                            "删除旧证书失败，无法写入新证书",
+					                                                            "鍒犻櫎鏃ц瘉涔﹀け璐ワ紝鏃犳硶鍐欏叆鏂拌瘉涔,
 					                                                            callback: function () {
 					                                                                /* your callback code */
 					                                                            }
@@ -259,15 +262,15 @@ define([
 					                                                        orderNo: item.orderNo,
 					                                                        signCertContent: write_cert.certSign
 					                                                    };
-					                                                    that.netcaCallBack(data).done(function (ret) {
+					                                                    that.netcaCallBack(data).done(function(ret) {
 					                                                        $(_this).find(".btn2").hide();
-					                                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
+					                                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("鐢靛瓙鍗扮珷缁湡鎴愬姛锛);
 					                                                    });
 					                                                }
 					                                            } else {
 					                                                numInd = 1;
 					                                                $(_this).find("#writezm-error").html(ret.msg);
-					                                                $(_this).find(".btn2").show().html("重试");
+					                                                $(_this).find(".btn2").show().html("閲嶈瘯");
 					                                            }
 					                                        });
 					                                    }
@@ -275,7 +278,7 @@ define([
 					                                        var data = {
 					                                            signCertContent: ukeys.getSignatureCert(selectedUkey)
 					                                        };
-					                                        that.isNeedChangeCert(data).done(function (ret) {
+					                                        that.isNeedChangeCert(data).done(function(ret) {
 					                                            if (ret.data) {
 					                                                var jsonVal = certUtil.getCertInfo(
 					                                                    ukeys.dCertificate(selectedUkey)
@@ -306,22 +309,22 @@ define([
 					                                                // }
 					                                            }
 					                                        };
-					                                        that.renew_certGDCA(dataGDCA).done(function (ret) {
+					                                        that.renew_certGDCA(dataGDCA).done(function(ret) {
 					                                            if (ret.code == 0) {
 					                                                window.open(ret.data, '_blank');
-					                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");
+					                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("缁湡鎴愬姛鍚庤鐐瑰嚮缁х画锛);
 					                                            } else {
 					                                                numInd = 1;
 					                                                $(_this).find("#writezm-error").html(ret.msg);
-					                                                $(_this).find(".btn2").show().html("重试");
+					                                                $(_this).find(".btn2").show().html("閲嶈瘯");
 					                                            }
 					                                            console.log(ret)
 					                                        })
 					                                    }
 					                                } else {
 					                                    numInd = 1;
-					                                    $(_this).find("#writezm-error").html("PIN码不正确，请重试");
-					                                    $(_this).find(".btn2").show().html("重试");
+					                                    $(_this).find("#writezm-error").html("PIN鐮佷笉姝ｇ‘锛岃閲嶈瘯");
+					                                    $(_this).find(".btn2").show().html("閲嶈瘯");
 					                                }
 	                                    		} 
                                     		}  
@@ -336,7 +339,7 @@ define([
 	                                        service.checkPIN(data).done(function(data) {
 	                                            if (data.code == 1) {
 	                                                $(_this).find("#unlock-error").html(data.msg);
-	                                                $(_this).find(".btn2").show().html("重试");
+	                                                $(_this).find(".btn2").show().html("閲嶈瘯");
 	                                            }
 	                                            $("#unlockCode").change(function() {
 	                                                $("#unlock-error").html("");
@@ -359,22 +362,22 @@ define([
 									"oid":oid,
 									"enterpriseCode":enterpriseCode,
 									"enterpriseName":enterpriseName,
-									"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //数字证书颁发者
-									"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //证书厂商
-									"certificateType":keyType,                                //证书类型 
-									"certificateAssigned":ukeys.CertType(selectedUkey),                     //数字证书归属者
-									"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //签名证书序列号
-									"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //加密证书序列号
+									"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //鏁板瓧璇佷功棰佸彂鑰
+									"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //璇佷功鍘傚晢
+									"certificateType":keyType,                                //璇佷功绫诲瀷 
+									"certificateAssigned":ukeys.CertType(selectedUkey),                     //鏁板瓧璇佷功褰掑睘鑰
+									"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //绛惧悕璇佷功搴忓垪鍙
+									"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //鍔犲瘑璇佷功搴忓垪鍙
 								}
 								if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
                                     $(_this).find(".btn2").hide();
-                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
+                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缂哄皯蹇呭～椤鐢靛瓙鍗扮珷缁湡澶辫触锛);
                                     return false;
                                 }
                                 service.write_cert_GDCA(realdata).done(function(res) {
                                     if (res.code == 0) {
                                         $(_this).find(".btn2").hide();
-                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
+                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("鐢靛瓙鍗扮珷缁湡鎴愬姛锛);
                                     } else {
                                         $(_this).find(".btn2").hide();
                                         $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
