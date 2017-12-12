@@ -4,6 +4,7 @@ var proxy = {
     anyinUrl:"http://218.17.157.119:3380",
     //anyinUrl:'http://192.168.1.159:9500',
     lsq2: 'http://10.9.33.115:8080',
+    lsq3: 'http://10.9.2.157:8080',
     unyl:"https://gateway.95516.com" 
 }
 var config = {

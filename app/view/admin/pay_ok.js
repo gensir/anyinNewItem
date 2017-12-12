@@ -30,7 +30,7 @@ define([
 		render: function(query) {
 			this.$el.html(tpl);
 			var that=this;
-//			this.jump();
+			this.jump();
 
 //			var oid = ukeys.GetOid(selectedUkey);
 //			var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
