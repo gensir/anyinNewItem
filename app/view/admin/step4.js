@@ -56,9 +56,9 @@ define([
 					$(".product").html(tempObj.data.esealProducts.length+1);
 					for(var i = 0; i < tempObj.data.esealProducts.length; i++) {
 						if(tempObj.data.esealProducts[i].keyType == 1) { //等于1  说明是ODC
-							localStorage.validStart=tempObj.dataesealProducts[i].validStart;
-							localStorage.validEnd=tempObj.dataesealProducts[i].validEnd;
-							localStorage.esealCode=tempObj.dataesealProducts[i].esealCode
+							localStorage.validStart=tempObj.data.esealProducts[i].validStart;
+							localStorage.validEnd=tempObj.data.esealProducts[i].validEnd;
+							localStorage.esealCode=tempObj.data.esealProducts[i].esealCode
 							
 							var productsId = tempObj.data.products[1].id;
 							tempObj.data.esealProducts[i].productAmountId = productsId;
