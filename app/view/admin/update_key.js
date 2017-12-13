@@ -24,6 +24,40 @@ define([
 	        
 	        document.body.scrollTop = document.documentElement.scrollTop = 0;
 	    },
+	    getDate:function(year){
+	    	var date = new Date();
+		    var seperator1 = "-";
+		    var seperator2 = ":";
+		    var month = date.getMonth() + 1;
+		    var strDate = date.getDate();
+		    var hours = date.getHours();
+		    var min = date.getMinutes();
+		    var sec = date.getSeconds();
+		    if (month >= 1 && month <= 9) {
+		        month = "0" + month;
+		    }
+		    if (strDate >= 0 && strDate <= 9) {
+		        strDate = "0" + strDate;
+		    }
+		    if (hours >= 0 && hours <= 9) {
+		        hours = "0" + hours;
+		    }
+		    if (min >= 0 && min <= 9) {
+		        min = "0" + min;
+		    }
+		    if (sec >= 0 && sec <= 9) {
+		        sec = "0" + sec;
+		    }
+		    var str = seperator1 + month + seperator1 + strDate
+		            + " " + hours + seperator2 + min
+		            + seperator2 + sec;
+		    var currentdate1 = date.getFullYear() + str;
+		    var currentdate2 = date.getFullYear()-0+ year + str;      
+		    var arr=[];
+		    arr[0]=currentdate1;
+		    arr[1]=currentdate2;
+		    return arr;
+	    },
         getUrlParam: function(name) {
 			var after = window.location.hash.split("?")[1];
 			if(after) {
@@ -38,15 +72,22 @@ define([
 		},
 		updataInfo:function(){
 			var orderNo = this.getUrlParam("orderNo");
-			var firmId=firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
+			var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
 			var data={
-				"orderNo":"RENEW09201990457425",
+				"orderNo":"APPLY12051278482404",
 				"firmId":440305438270
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
 //					that.$el.html(tpl);
+					
+					var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 					var result = res.data;
+					var year = result.mpEsealOrderExtChangeVO.effectiveDuration||2;
+//					if(isODC){
+						result.mpEsealOrderExtChangeVO.validStart=that.getDate(year)[0];
+						result.mpEsealOrderExtChangeVO.validEnd=that.getDate(year)[1];
+//					}
 					that.$el.html(template.compile(tpl)({ data: result }));
 				}else{
 					bootbox.alert(res.msg)
@@ -130,7 +171,6 @@ define([
                                     if(true){
                                     	if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                     		//如果pin正确
-                                    		debugger;
                                     		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                                     		if(isODC){  //ODC新办
                                     			var oid = ukeys.GetOid(selectedUkey);
@@ -210,7 +250,7 @@ define([
 					                                            p10: p10 ? p10 : 'p10',
 					                                            symmAlgo: symmAlgo ? symmAlgo : 12345678
 					                                        };
-					                                        that.renew_cert(data).done(function(ret) {
+					                                        service.renew_cert(data).done(function(ret) {
 					                                            if (ret.code == 0) {
 					                                                if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
 					                                                    window.bootbox.alert({
@@ -262,7 +302,7 @@ define([
 					                                                        orderNo: item.orderNo,
 					                                                        signCertContent: write_cert.certSign
 					                                                    };
-					                                                    that.netcaCallBack(data).done(function(ret) {
+					                                                    service.netcaCallBack(data).done(function(ret) {
 					                                                        $(_this).find(".btn2").hide();
 					                                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
 					                                                    });
@@ -278,7 +318,7 @@ define([
 					                                        var data = {
 					                                            signCertContent: ukeys.getSignatureCert(selectedUkey)
 					                                        };
-					                                        that.isNeedChangeCert(data).done(function(ret) {
+					                                        service.isNeedChangeCert(data).done(function(ret) {
 					                                            if (ret.data) {
 					                                                var jsonVal = certUtil.getCertInfo(
 					                                                    ukeys.dCertificate(selectedUkey)
@@ -309,7 +349,7 @@ define([
 					                                                // }
 					                                            }
 					                                        };
-					                                        that.renew_certGDCA(dataGDCA).done(function(ret) {
+					                                        service.renew_certGDCA(dataGDCA).done(function(ret) {
 					                                            if (ret.code == 0) {
 					                                                window.open(ret.data, '_blank');
 					                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");

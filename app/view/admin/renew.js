@@ -290,7 +290,6 @@ define([
 						} else {
 							payOrderStatuNum++;
 							setTimeout(function() { that.payOrderStatus() }, 1000);
-
 						}
 						return;
 					} else { //订单状态查询请求失败

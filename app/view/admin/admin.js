@@ -658,12 +658,12 @@ define([
                         $("#esealNav").hide();
                     }
                     
-                    //屏蔽非ODC的电子印章申请
-                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-//          		isODC为1的时候是ODC登录的
-					if(!isODC){
-						$(".listTop a").css("visibility","hidden");
-					}
+//                  //屏蔽非ODC的电子印章申请
+//                  var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+////          		isODC为1的时候是ODC登录的
+//					if(!isODC){
+//						$(".listTop a").css("visibility","hidden");
+//					}
                     
                     
                 }

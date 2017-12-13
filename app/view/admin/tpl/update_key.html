@@ -63,18 +63,18 @@
 				<tr class="esealName">
 					<th>印章名称：</th>
 					<td>
-						<div class="">
-							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].esealFullName}}</span>
+						<span class="">
+							<span class="text">{{data.mpEsealOrderExtChangeVO.esealFullName}}</span>
 							<span class="bginfo"></span>
-						</div>
-						<div class="new"></div>
+						</span>
+						<span class="new"></span>
 					</td>
 				</tr>
 				<tr class="esealCode">
 					<th>印章编号：</th>
 					<td>
 						<span class="">
-							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].esealCode}}</span>
+							<span class="text">{{data.mpEsealOrderExtChangeVO.esealCode}}</span>
 							<span class="bginfo"></span>
 						</span>
 						<span class="new"></span>
@@ -83,21 +83,21 @@
 				<tr class="vaildStart">
 					<th>印章生效时间：</th>
 					<td>
-						<span class={{data.mpEsealOrderExtChangeVOS[0].validStart?"ok":null}}>
-							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].oldvalidStart}}</span>
+						<span class={{data.mpEsealOrderExtChangeVO.validStart?"ok":null}}>
+							<span class="text">{{data.mpEsealOrderExtChangeVO.oldvalidStart}}</span>
 							<span class="bginfo"></span>
 						</span>
-						<span class="new">{{data.mpEsealOrderExtChangeVOS[0].validStart}}</span>
+						<span class="new">{{data.mpEsealOrderExtChangeVO.validStart}}</span>
 					</td>
 				</tr>
 				<tr class="validEnd">
 					<th>印章失效时间：</th>
 					<td>
-						<span class={{data.mpEsealOrderExtChangeVOS[0].validEnd?"ok":null}}>
-							<span class="text">{{data.mpEsealOrderExtChangeVOS[0].oldValidEnd}}</span>
+						<span class={{data.mpEsealOrderExtChangeVO.validEnd?"ok":null}}>
+							<span class="text">{{data.mpEsealOrderExtChangeVO.oldValidEnd}}</span>
 							<span class="bginfo"></span>
 						</span>
-						<span class="new">{{data.mpEsealOrderExtChangeVOS[0].validEnd}}</span>
+						<span class="new">{{data.mpEsealOrderExtChangeVO.validEnd}}</span>
 					</td>
 				</tr>
 			</tbody>
