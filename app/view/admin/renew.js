@@ -156,16 +156,16 @@ define([
 
 					$("#sumPrice_pay").text(res.data[0].totalPrice + "元")
 					$(".priceUnitNum").text(res.data[0].price);
-					$(".date1").text(res.data[0].validStart);
-					$(".date2").text(res.data[0].validEnd);
+					$(".date1").text(res.data[0].validStart.substr(0,11)+"00:00:00");
+					$(".date2").text(res.data[0].validEnd.substr(0,11)+"00:00:00");
 
 					$("#validz .time").click(function() {
 						var i = $(this).attr("name");
 						$("#validz .time").removeClass("active");
 						$(this).addClass("active");
 						$(".priceUnitNum").text(res.data[i].price);
-						$(".date1").text(res.data[i].validStart);
-						$(".date2").text(res.data[i].validEnd);
+						$(".date1").text(res.data[i].validStart.substr(0,11)+"00:00:00");
+						$(".date2").text(res.data[i].validEnd.substr(0,11)+"00:00:00");
 						$("#sumPrice_pay").text(res.data[i].totalPrice + "元")
 						step4Data.eseal = res.data[i]
 					});
