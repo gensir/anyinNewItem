@@ -490,6 +490,10 @@ define([
 								$("#file0").css({ "height": "24px" });
 								$(".reset0").show();
 								$("#ajaxForm0 .digitalUpload").css({ "background": "url(" + scan[i].filePath + ") no-repeat" }).css({ "background-size": "163px 112px" })
+								.css({
+										"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')",
+										"-ms-filter": " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')"
+									});
 								imgModalBig('#photo0', { 'width': 500, 'src': scan[i].filePath });
 							}
 							if(scan[i].certificateType == "0047") {
@@ -498,6 +502,10 @@ define([
 								$("#file1").css({ "height": "24px" })
 								$(".reset1").show();
 								$("#ajaxForm1 .digitalUpload").css({ "background": "url(" + scan[i].filePath + ") no-repeat" }).css({ "background-size": "163px 112px" })
+								.css({
+										"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')",
+										"-ms-filter": " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')"
+									});
 								imgModalBig('#photo1', { 'width': 500, 'src': scan[i].filePath });
 							}
 							if(scan[i].certificateType == "0048") { //银行开户证明 暂时48
@@ -506,6 +514,10 @@ define([
 								$("#file2").css({ "height": "24px" })
 								$(".reset2").show();
 								$("#ajaxForm2 .digitalUpload").css({ "background": "url(" + scan[i].filePath + ") no-repeat" }).css({ "background-size": "163px 112px" })
+								.css({
+										"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')",
+										"-ms-filter": " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')"
+									});
 								imgModalBig('#photo2', { 'width': 500, 'src': scan[i].filePath });
 							}
 							if(scan[i].certificateType == "0049") { //对外贸易许可证 暂时49
@@ -514,6 +526,10 @@ define([
 								$("#file3").css({ "height": "24px" })
 								$(".reset3").show();
 								$("#ajaxForm3 .digitalUpload").css({ "background": "url(" + scan[i].filePath + ") no-repeat" }).css({ "background-size": "163px 112px" })
+								.css({
+										"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')",
+										"-ms-filter": " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + scan[i].filePath + ", sizingMethod='scale')"
+									});
 								imgModalBig('#photo3', { 'width': 500, 'src': scan[i].filePath });
 							}
 						}
