@@ -237,7 +237,7 @@ define(
                         $.verify("ukeytip", "#seleBook", data.msg);
                     }
                     if (!Boolean(PKSC7)) {
-                        $.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
+                        //$.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
                     }
                     //window.open("index.html", "_self")
                 });
