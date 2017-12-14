@@ -94,7 +94,6 @@ define([
 	                        cname = false;
 	                        $("#Ename-error").html("企业信息异常，不可注册").css({ "color": "#f00" });
 	                    } else {
-	                        cname = true;
 	                        that.checkUserIsExist(enterpriseCode);
 	                    }
 	                } else {
