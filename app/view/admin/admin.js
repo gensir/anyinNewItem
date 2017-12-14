@@ -76,6 +76,13 @@ define([
             } else {
                 this.active = ""
                 this.listPage(1);
+
+                //屏蔽非ODC的电子印章申请
+                var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                //  isODC为1的时候是ODC登录的
+                if(!isODC){
+                    $("#step").hide();
+                }
             }
         },
         getSealName: function(target) {
@@ -586,6 +593,7 @@ define([
                 return false;
             }
         },
+        //印章管理列表
         listPage: function(pageNum, pageSize) {
             pageNum = pageNum || 1;
             pageSize = pageSize || 10;
@@ -610,13 +618,12 @@ define([
                         $("#esealNav").hide();
                     }
                     
-//                  //屏蔽非ODC的电子印章申请
-//                  var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-////          		isODC为1的时候是ODC登录的
-//					if(!isODC){
-//						$(".listTop a").css("visibility","hidden");
-//					}
-                    
+                    //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    //  isODC为1的时候是ODC登录的
+                    if(!isODC){
+                        $("#step").hide();
+                    }
                     
                 }
                 if(pageNum == 1) {
@@ -628,6 +635,7 @@ define([
                 }
             })
         },
+        //权限管理列表
         licenselist: function(pageNum, pageSize) {
             var data = {
                 pageNum: pageNum || 1,

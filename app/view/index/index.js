@@ -183,11 +183,12 @@ define([
                     logsObj = data.data.list;
                     _this.model.get("tpl").logdata = logsObj;
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
+
                     //屏蔽非ODC的电子印章申请
                     var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                     //  isODC为1的时候是ODC登录的
 					if(!isODC){
-						$(".actionlist .nav1").css("visibility","hidden");
+						$(".actionlist .nav1").hide();
 					}
                 }
                 _this.getEsealList();
@@ -215,7 +216,7 @@ define([
                     var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                     //  isODC为1的时候是ODC登录的
 					if(!isODC){
-						$(".actionlist .nav1").css("visibility","hidden");
+						$(".actionlist .nav1").hide();
 					}
                     
                     if (!Boolean(Esealobj)) {
