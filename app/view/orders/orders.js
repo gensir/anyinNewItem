@@ -22,7 +22,8 @@ define([
             'click .pagination .NextPage:not(".no")': 'NextPage',
             'click .pagination .index': 'currentPapge',
             'click #continue': 'continueGo',
-            'click #update_key': 'update_key'
+            'click #update_key': 'update_key',
+            'click #renew': 'renew'
         }, //this.$el.empty().html(template.compile(orders)({}));    
         render: function(query) {
             that = this;
@@ -39,6 +40,31 @@ define([
                     window.location.href = "admin.html#step" + data.data.operateStep;
                 }
             })
+        },
+        //续费未完成再支付
+        renew: function (event) {
+            event.stopPropagation();
+            localStorage.keyType = $(event.currentTarget).data('type');
+            localStorage.certificateFirm = $(event.currentTarget).data('cert');
+            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            }
         },
         //更新证书
         update_key: function(event) {

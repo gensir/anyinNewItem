@@ -29,7 +29,7 @@
                                     <a id="continue" href='javascript:;'>未支付</a>
                                     {{/if}}
                                     {{if value.businessType==2}}
-                                    <a id="renew" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
+                                    <a id="renew" data-type="{{value.mpEsealOrderExts[0].keyType}}" data-cert="{{value.mpEsealOrderExts[0].certificateFirm}}" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
                                     {{/if}}
                                     {{else}} {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}{{/if}}
                                 </li>
@@ -95,7 +95,7 @@
                                             <p class="f14">需要帮助？</p>
                                             {{if value.businessType==1}}
                                             <p><span>新办理的电子印章无法使用，</span>
-                                                <a href="">了解详情</a>
+                                                <a href="#">了解详情</a>
                                             </p>
                                             {{/if}}
                                             {{if value.businessType==2 || value.businessType==3}}

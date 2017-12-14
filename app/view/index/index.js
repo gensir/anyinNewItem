@@ -55,6 +55,8 @@ define([
         renew: function(event) {
             event.stopPropagation();
             var GetOid = $(event.currentTarget).data('oid');
+            localStorage.keyType = $(event.currentTarget).data('type');
+            localStorage.certificateFirm = $(event.currentTarget).data('cert');
             if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
@@ -181,16 +183,12 @@ define([
                     logsObj = data.data.list;
                     _this.model.get("tpl").logdata = logsObj;
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
-                    
-                    
-//                   //屏蔽非ODC的电子印章申请
-//                  var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-////          		isODC为1的时候是ODC登录的
-//					if(!isODC){
-//						$(".actionlist .nav1").css("visibility","hidden");
-//					}
-					
-					
+                    //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    //  isODC为1的时候是ODC登录的
+					if(!isODC){
+						$(".actionlist .nav1").css("visibility","hidden");
+					}
                 }
                 _this.getEsealList();
             });
@@ -213,12 +211,12 @@ define([
                     _this.model.get("tpl").esealdata = Esealobj;
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                     
-//                  //屏蔽非ODC的电子印章申请
-//                  var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-////          		isODC为1的时候是ODC登录的
-//					if(!isODC){
-//						$(".actionlist .nav1").css("visibility","hidden");
-//					}
+                    //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    //  isODC为1的时候是ODC登录的
+					if(!isODC){
+						$(".actionlist .nav1").css("visibility","hidden");
+					}
                     
                     if (!Boolean(Esealobj)) {
                         $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");

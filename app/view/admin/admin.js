@@ -83,6 +83,7 @@ define([
             var ind = $(_this).parents(".list").index();
             return this.model.get("tplhtml").loginlist[ind].esealFullName;
         },
+        //关闭登录权限
         shut: function(e) {
             // function getName() {
             //     var _this = e.currentTarget;
@@ -199,6 +200,7 @@ define([
             })
             return false;
         },
+        //打开登录权限
         open: function(e) {
             if(!ukeys.issupport()) {
                 return false;
@@ -415,7 +417,22 @@ define([
                     }
                 })
             } else {
-                bootbox.alert("该印章当前状态不允许此操作")
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common loss",
+                    title: "预挂失",
+                    message: '<div class="msgcenter"><em></em><span>该印章当前状态不允许此操作！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
             }
         },
         //取消预挂失提示
@@ -462,74 +479,7 @@ define([
                 }
             })
         },
-        unfreeze: function() {
-            var _outthis = this;
-            var numInd = this.model.get("numInd");
-            var dialogsText = dialogs.find(".unfreezeEseal")
-            bootbox.dialog({
-                backdrop: true,
-                //closeButton: false,
-                className: "common unfreezeEseal",
-                title: dialogsText.find(".title")[0].outerHTML,
-                message: dialogsText.find(".msg1")[0].outerHTML,
-                buttons: {
-                    cancel: {
-                        label: "返回",
-                        className: "btn1",
-                        callback: function(result) {
-                            result.cancelable = false;
-                        }
-                    },
-                    confirm: {
-                        label: "继续",
-                        className: "btn2",
-                        callback: function(event) {
-                            numInd++;
-                            var _this = this;
-                            if(numInd == 1) {
-                                var msg4 = dialogsText.find(".msg4")[0].outerHTML
-                                //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
-                                $(this).find(".bootbox-body").html(msg4);
-                                $(this).find(".btn1,.btn2").hide();
-                                setTimeout(function() {
-                                    if(!ukeys.ukeyName().length) {
-                                        numInd = 0;
-                                        var msg3 = dialogsText.find(".msg3")[0].outerHTML
-                                        $(_this).find(".bootbox-body").html(msg3);
-                                        $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("重试");
-                                    } else {
-                                        var msg6 = dialogsText.find(".msg6")[0].outerHTML
-                                        $(_this).find(".bootbox-body").html(msg6);
-                                        $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("继续");
-
-                                    }
-                                }, 1000)
-                            } else if(numInd == 2) {
-                                // 验证KEY密码
-                                if(ukeys.PIN($("#unfreezeCode").val(), 0)) {
-                                    var success = dialogsText.find(".success")[0].outerHTML
-                                    $(_this).find(".bootbox-body").html(success);
-                                    $(_this).find(".btn1,.btn2").hide();
-                                    setTimeout(function() {
-                                        _this.modal('hide');
-                                    }, 1200)
-                                } else {
-                                    numInd = 1;
-                                    $(_this).find("#unfreezeCode-error").html("PIN码不正确，请重试")
-                                    $(_this).find(".btn2").show().html("重试");
-                                }
-                            }
-                            //this.modal('hide');
-
-                            return false;
-                        }
-                    }
-                }
-            })
-            return false;
-        },
+        //印章注销
         logout: function() {
             var numInd = this.model.get("numInd");
             var logoutEseal = dialogs.find(".logoutEseal")
@@ -607,6 +557,8 @@ define([
         renew: function(event) {
             event.stopPropagation();
             var GetOid = $(event.currentTarget).data('oid');
+            localStorage.keyType = $(event.currentTarget).data('type');
+            localStorage.certificateFirm = $(event.currentTarget).data('cert');
             if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,

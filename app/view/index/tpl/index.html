@@ -71,7 +71,7 @@
                 <li>
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date" title="{{value.validEnd}}"></span>
-                    <span class="operate">{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7}}<a class="renew" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>{{/if}}</span>
+                    <span class="operate">{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==7}}<a class="renew" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>{{/if}}</span>
                 </li>
                 {{/each}}
             </ul>
@@ -79,12 +79,12 @@
 
         <div class="help boxshow">
             <div class="t-title">
-                <i></i><h2>常见问题汇总</h2><a class="more" href="">更多></a></div>
+                <i></i><h2>常见问题汇总</h2><a class="more" href="#">更多></a></div>
             <ul class="blist">
-                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题</a></li>
-                <li><span class="arrow"></span><a href="">单位印章未信息化备案问题</a></li>
-                <li><span class="arrow"></span><a href="">公章未备案，非公章已备案问题</a></li>
-                <li><span class="arrow"></span><a href="">未安装驱动、驱动异常等问题未安装驱动、驱动异常等问题</a></li>
+                <li><span class="arrow"></span><a href="#">未安装驱动、驱动异常等问题</a></li>
+                <li><span class="arrow"></span><a href="#">单位印章未信息化备案问题</a></li>
+                <li><span class="arrow"></span><a href="#">公章未备案，非公章已备案问题</a></li>
+                <li><span class="arrow"></span><a href="#">未安装驱动、驱动异常等问题未安装驱动、驱动异常等问题</a></li>
             </ul>
 
         </div>
