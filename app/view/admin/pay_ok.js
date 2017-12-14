@@ -111,7 +111,7 @@ define([
 							if(localStorage.certificateFirm==1||localStorage.certificateFirm==2){  //1为GDCA  2为NETCA
 								$(".text_tip").hide();
 								$(".lcocation_page").text("证书更新页面")
-								windowLocation = "#update_key?oid="+localStorage.oid+"&orderNo"+orderNo;
+								windowLocation = "#update_key?oid="+localStorage.oid+"&orderNo="+orderNo;
 							}else{
 								$(".text_tip").show();
 								$(".lcocation_page").text("订单中心页面");

@@ -20,8 +20,7 @@ define([
 		render: function (query) {
 			that = this;
 			orderNo= that.getUrlParam("orderNo");
-			this.updataInfo();
-			var certOn=ukeys.getCertIssuer(0);
+			that.updataInfo();
 	        
 	        document.body.scrollTop = document.documentElement.scrollTop = 0;
 	    },
@@ -59,6 +58,20 @@ define([
 		    arr[1]=currentdate2;
 		    return arr;
 	    },
+	    changeDate: function(date1,date2,year){
+	    	var str1 = date1.split("-")[0]-0+year; //2017
+	    	var str3 = date1.split("-")[1];    //12
+	    	var str5 = date1.split("-")[2];    //13 17:40:18
+	    	var str2 = date2.split("-")[0]-0+year;
+	    	var str4 = date2.split("-")[1];
+	    	var str6 = date2.split("-")[2];
+	    	str1 = str1+"-"+str3+"-"+str5;
+	    	str2 = str2+"-"+str4+"-"+str6;
+	    	var arr=[];
+	    	arr[0]=str1;
+	    	arr[1]=str2;
+	    	return arr;
+	    },
         getUrlParam: function(name) {
 			var after = window.location.hash.split("?")[1];
 			if(after) {
@@ -72,16 +85,17 @@ define([
 			}
 		},
 		updataInfo:function(){
-			var data={
-				"firmId":440305438270
-			};
+			
 			var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
 			var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+			var data={
+				"firmId":firmId
+			};
 			if(isODC){
 				data.orderNo=this.getUrlParam("orderNo")||APPLY12051278482404;
 			}else{
-				data.oid=localStorage.oid||"399@5007ZZ1OTI0NDAzMDBNQTVFVzJGMzlX";
-				data.esealCode=localStorage.esealCode||4403055074501;
+				data.oid=that.getUrlParam("oid");
+				data.esealCode=localStorage.esealCode||"4403055074475";
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
@@ -93,6 +107,11 @@ define([
 					if(isODC){
 						result.mpEsealOrderExtChangeVO.validStart=that.getDates(year)[0];
 						result.mpEsealOrderExtChangeVO.validEnd=that.getDates(year)[1];
+					}else{
+						var date1=result.mpEsealOrderExtChangeVO.oldValidStart;
+						var date2=result.mpEsealOrderExtChangeVO.oldValidEnd;
+//						result.mpEsealOrderExtChangeVO.validStart=that.changeDate(date1,date2,year)[0];
+						result.mpEsealOrderExtChangeVO.validEnd=that.changeDate(date1,date2,year)[1];
 					}
 					that.$el.html(template.compile(tpl)({ data: result }));
 				}else{
@@ -153,6 +172,7 @@ define([
                                     }
                                 }, 1000);
                             } else if (numInd == 2) {
+                            	debugger;
                                 var selectedUkey = $("#seleBook option:selected").val();
                                 var unlockCode = $("#unlockCode").val();
                                 if (selectedUkey == "") {
@@ -213,16 +233,22 @@ define([
 				                                });
                                     		}else{    //anyin续期
                                     			if(certificateFirms==1){    //GDCA
+                                    				var renew;
+                                    				if(year==2){
+                                    					renew="RENEW"
+                                    				}else{
+                                    					renew="RENEW_"+year;
+                                    				}
 	                                    			var dataGDCA = {
 			                                            orderNo: that.getUrlParam("orderNo"),
 			                                            gdcaRequest: {
 			                                                trustId: ukeys.trustId(selectedUkey),
 			                                                cn: ukeys.getCertIssuer(selectedUkey).certCn,
 			                                                c: 'CN',
-			                                                publicKey: ukeys.trustId(selectedUkey),
+			                                                publicKey: ukeys.dCertPublicKey(selectedUkey),
 			                                                orgCode: ukeys.GetenterpriseCode(selectedUkey),
-			                                                busyType: 'RENEW_'+year,//默认更新两年时为RENEW，当为其他年份时用下划线隔开，ef:RENEW_3
-			                                                certType: certificateType
+			                                                busyType: renew,//默认更新两年时为RENEW，当为其他年份时用下划线隔开，ef:RENEW_3
+			                                                certType: 2
 			                                            }
 			                                        };
 			                                        service.renew_certGDCA(dataGDCA).done(function(ret) {
@@ -231,7 +257,7 @@ define([
 			                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");
 			                                            } else {
 			                                                numInd = 1;
-			                                                $(_this).find("#writezm-error").html(ret.msg);
+			                                                $(_this).find("#unlock-error").html(ret.msg);
 			                                                $(_this).find(".btn2").show().html("重试");
 			                                            }
 			                                            console.log(ret)
@@ -396,7 +422,8 @@ define([
                                     }
                                 }
                             }else if (numInd == 3) {
-                            	var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .new").val()), newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
+                            	var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .new").val())),
+                            	newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
                                 if (newDate <= oldDate ) {
                                     $(_this).find(".btn2").hide();
                                     $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("证书时间未更新，电子印章续期失败！");
