@@ -316,11 +316,11 @@
 		    },
 		    //GDCA 续费支付成功
 		    renew_certGDCA:function(data){
-		    	return this.ajaxCall({ url: domain + baseps + "order/renew_cert/gdca", data: data }, "post");
+		    	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/gdca", data: data }, "post");
 		    },
 		    //所有CA 新办和续期写入证书；
 		    write_cert_GDCA:function(data) { 
-	            return this.ajaxCall({ url: domain + baseps + "eseal/write_cert", data: data }, 'post')
+	            return this.ajaxCall({ url: domain + basemp + "eseal/write_cert", data: data }, 'post')
 	        },
 	        //netca 续期回调
 	        netcaCallBack:function(data) {

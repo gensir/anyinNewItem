@@ -29,7 +29,8 @@ define([
 			$(".step4").append(payments.find(".gopay"));
 			this.$el.append(payments.find(".paymentStyle"));
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-
+			localStorage.esealCode=that.getUrlParam('esealcode');
+			localStorage.oid=that.getUrlParam('oid');
 			this.renewInfo();
 		},
 		paystyle: function(event) {
@@ -281,11 +282,11 @@ define([
 								console.log("订单支付成功，但是该订单客户不需要开发票！")
 							}
 							console.log("支付成功了！");
-							localStorage.removeItem("stepNum");
-							localStorage.removeItem("orderNo");
 							$(".closepayalert").trigger("click");
 							$(".bootbox-close-button").trigger("click");
 							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
+							localStorage.removeItem("stepNum");
+							localStorage.removeItem("orderNo");
 
 						} else {
 							payOrderStatuNum++;

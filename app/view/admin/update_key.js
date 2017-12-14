@@ -10,7 +10,7 @@ define([
 ], function(tpl, primary,dialog, service,ukeys,certUtil,netca,bootbox) {
 	var template = require('art-template');
 	var dialogs = $(dialog);
-	var that;
+	var that,year,orderNo;
 	var main = Backbone.View.extend({
 		el: '.contents',
 		initialize:function() {},
@@ -19,12 +19,13 @@ define([
 		},
 		render: function (query) {
 			that = this;
+			orderNo= that.getUrlParam("orderNo");
 			this.updataInfo();
 			var certOn=ukeys.getCertIssuer(0);
 	        
 	        document.body.scrollTop = document.documentElement.scrollTop = 0;
 	    },
-	    getDate:function(year){
+	    getDates:function(year){
 	    	var date = new Date();
 		    var seperator1 = "-";
 		    var seperator2 = ":";
@@ -71,11 +72,16 @@ define([
 			}
 		},
 		updataInfo:function(){
-			var orderNo = this.getUrlParam("orderNo");
-			var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
 			var data={
-				"orderNo":"APPLY12051278482404",
 				"firmId":440305438270
+			};
+			var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
+			var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+			if(isODC){
+				data.orderNo=this.getUrlParam("orderNo")||APPLY12051278482404;
+			}else{
+				data.oid=localStorage.oid||"399@5007ZZ1OTI0NDAzMDBNQTVFVzJGMzlX";
+				data.esealCode=localStorage.esealCode||4403055074501;
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
@@ -83,11 +89,11 @@ define([
 					
 					var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 					var result = res.data;
-					var year = result.mpEsealOrderExtChangeVO.effectiveDuration||2;
-//					if(isODC){
-						result.mpEsealOrderExtChangeVO.validStart=that.getDate(year)[0];
-						result.mpEsealOrderExtChangeVO.validEnd=that.getDate(year)[1];
-//					}
+					year = result.mpEsealOrderExtChangeVO.effectiveDuration;
+					if(isODC){
+						result.mpEsealOrderExtChangeVO.validStart=that.getDates(year)[0];
+						result.mpEsealOrderExtChangeVO.validEnd=that.getDates(year)[1];
+					}
 					that.$el.html(template.compile(tpl)({ data: result }));
 				}else{
 					bootbox.alert(res.msg)
@@ -208,14 +214,14 @@ define([
                                     		}else{    //anyin续期
                                     			if(certificateFirms==1){    //GDCA
 	                                    			var dataGDCA = {
-			                                            orderNo: "",
+			                                            orderNo: that.getUrlParam("orderNo"),
 			                                            gdcaRequest: {
 			                                                trustId: ukeys.trustId(selectedUkey),
 			                                                cn: ukeys.getCertIssuer(selectedUkey).certCn,
 			                                                c: 'CN',
 			                                                publicKey: ukeys.trustId(selectedUkey),
 			                                                orgCode: ukeys.GetenterpriseCode(selectedUkey),
-			                                                busyType: 'RENEW',//默认更新两年时为RENEW，当为其他年份时用下划线隔开，ef:RENEW_3
+			                                                busyType: 'RENEW_'+year,//默认更新两年时为RENEW，当为其他年份时用下划线隔开，ef:RENEW_3
 			                                                certType: certificateType
 			                                            }
 			                                        };
@@ -230,8 +236,7 @@ define([
 			                                            }
 			                                            console.log(ret)
 			                                        })
-	                                  			}else if(certificateFirms==2){    //netCA
-	                                  				ukeys.ChangePin(1, "", "");
+	                                  			}else if(certificateFirms==200000){    //netCA
 	                                  				var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
 	                                    			if (ukeys.PIN(getPIN, selectedUkey)) {
 					                                    if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
@@ -243,10 +248,10 @@ define([
 					                                    function inRenewFun(p10, symmAlgo, isNeedChangeCert) {
 					                                        var data = {
 					                                            oid: ukeys.GetOid(selectedUkey),
-					                                            orderNo: item.orderNo,//"RENEW11090365271661"
-					                                            esealCode: item.esealCode,
+					                                            orderNo: orderNo,
+					                                            esealCode: localStorage.esealCode,
 					                                            signCertContent: ukeys.getSignatureCert(selectedUkey),
-					                                            year: item.effectivedeDuration ? item.effectivedeDuration : 2, //待定
+					                                            year: year, 
 					                                            p10: p10 ? p10 : 'p10',
 					                                            symmAlgo: symmAlgo ? symmAlgo : 12345678
 					                                        };
@@ -391,6 +396,12 @@ define([
                                     }
                                 }
                             }else if (numInd == 3) {
+                            	var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .new").val()), newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
+                                if (newDate <= oldDate ) {
+                                    $(_this).find(".btn2").hide();
+                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("证书时间未更新，电子印章续期失败！");
+                                    return false;
+                                }
                         		var oid = ukeys.GetOid(selectedUkey);
                                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
 								var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
