@@ -48,13 +48,13 @@ define([
             var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if (!keyType && !certificateFirm) {
+            if ((!keyType && !certificateFirm) || (keyType ==2 && certificateFirm == 2 )) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
                     className: "common",
                     title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>订单参数异常，不允许再操作，请重新下单！</span></div',
+                    message: '<div class="msgcenter"><em></em><span>该订单不支持再次支付操作，请重新下单！</span></div',
                     buttons: {
                         confirm: {
                             label: "确定",

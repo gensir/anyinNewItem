@@ -564,9 +564,29 @@ define([
         renew: function(event) {
             event.stopPropagation();
             var GetOid = $(event.currentTarget).data('oid');
+            var keyType = $(event.currentTarget).data('type');
+            var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+            if ((!certificateFirm) || (keyType ==2 && certificateFirm == 2) ){
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>暂不支持该类型电子印章在线续费！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
