@@ -10,7 +10,7 @@ define([
 ], function(tpl, primary,dialog, service,ukeys,certUtil,netca,bootbox) {
 	var template = require('art-template');
 	var dialogs = $(dialog);
-	var that,year,orderNo;
+	var that,year,orderNo,realdata;
 	var main = Backbone.View.extend({
 		el: '.contents',
 		initialize:function() {},
@@ -95,7 +95,7 @@ define([
 				data.orderNo=that.getUrlParam("orderNo");//||APPLY12051278482404
 			}else{
 				data.oid=that.getUrlParam("oid");
-				data.esealCode=localStorage.esealCode||"4403055074475";//||"4403055074475"
+				data.esealCode=localStorage.esealCode||"4403055074475";
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
@@ -151,7 +151,8 @@ define([
                             numInd++;
                             var _this = this;
                             var certificateFirms;
-                            var selectedUkey,oid;
+                            var realdata;
+                            var oid;
                             if (numInd == 1) {
                             	var msg4 = dialogsText.find(".msg4")[0].outerHTML;
                                 $(this).find(".bootbox-body").html(msg4);
@@ -198,13 +199,19 @@ define([
                                     if(true){
                                     	if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                     		//如果pin正确
+                                    		numInd = 2;
                                     		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                                     		if(isODC){  //ODC新办
                                     			var oid = ukeys.GetOid(selectedUkey);
 				                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
+				                                var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
+				                                var certificateAssigned =  ukeys.CertType(selectedUkey)-0;
+				                                var certificateFirms = ukeys.certificateFirms(selectedUkey);
+				                                var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
+				                                var encryptCertificateSn=ukeys.getCertEncSN(selectedUkey);
 												var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 												var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
-												var realdata={
+												realdata={
 													"orderNo":that.getUrlParam("orderNo")||"APPLY12150870748477",
 													"validStart":$(".vaildStart .new").text(),
 													"validEnd":$(".validEnd .new").text()||"2019-12-14 21:06:00",
@@ -212,12 +219,12 @@ define([
 													"oid":oid,
 													"enterpriseCode":enterpriseCode,
 													"enterpriseName":enterpriseName,
-													"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //数字证书颁发者
-													"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //证书厂商
+													"issuer":issuer,                             //数字证书颁发者
+													"certificateFirms":certificateFirms,                        //证书厂商
 													"certificateType":keyType,                                //证书类型 
-													"certificateAssigned":ukeys.CertType(selectedUkey)-0,                     //数字证书归属者
-													"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //签名证书序列号
-													"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //加密证书序列号
+													"certificateAssigned":certificateAssigned,                     //数字证书归属者
+													"signCertificateSn":signCertificateSn ,    //签名证书序列号
+													"encryptCertificateSn": encryptCertificateSn  //加密证书序列号
 												}
 												if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
 				                                    $(_this).find(".btn2").hide();
@@ -237,8 +244,8 @@ define([
 				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
 				                                    }
 				                                });
-                                    		}else{    //anyin续期
-                                    			if(certificateFirms==1){    //GDCA
+                                    		} else {    //anyin续期
+                                    			if(certificateFirms==1){  //GDCA
                                     				var renew;
                                     				if(year==2){
                                     					renew="RENEW"
@@ -257,22 +264,50 @@ define([
 			                                                certType: 2
 			                                            }
 			                                        };
+			                                        var oid = that.getUrlParam("oid");
+					                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
+					                                var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
+					                                var certificateAssigned =  ukeys.CertType(selectedUkey)-0;
+					                                var certificateFirms = ukeys.certificateFirms(selectedUkey);
+					                                var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
+					                                var encryptCertificateSn=ukeys.getCertEncSN(selectedUkey);
+													var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
+													var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
+													realdata = {
+														"validStart":$(".vaildStart .text").text(),
+														"validEnd":$(".validEnd .new").text(),
+														"esealCode":$(".esealCode .text").text(),
+														"oid":oid,
+														"businessType":"2",
+														"enterpriseCode":enterpriseCode,
+														"enterpriseName":enterpriseName,
+														"issuer":issuer,                             //数字证书颁发者
+														"certificateFirms":certificateFirms,                        //证书厂商
+														"certificateType":keyType,                                //证书类型 
+														"certificateAssigned":certificateAssigned,                     //数字证书归属者
+														"signCertificateSn":signCertificateSn,    //签名证书序列号
+														"encryptCertificateSn": encryptCertificateSn  //加密证书序列号
+													};
+													localStorage.realdata=JSON.stringify(realdata);
+													$(_this).find(".btn2").show().html("重试");
 			                                        service.renew_certGDCA(dataGDCA).done(function(ret) {
 			                                            if (ret.code == 0) {
 			                                                window.open(ret.data, '_blank');
-			                                                $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");
+			                                                $(_this).find("#unlock-error").html("续期成功后请点击继续！");
+			                                                $(_this).find(".btn2").html("继续").show();
 			                                            } else {
-			                                                numInd = 1;
+			                                                numInd = 1; 
 			                                                $(_this).find("#unlock-error").html(ret.msg);
 			                                                $(_this).find(".btn2").show().html("重试");
 			                                            }
-			                                            console.log(ret)
 			                                        })
+													
 	                                  			}else if(certificateFirms==200000){    //netCA
 	                                  				var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
 	                                    			if (ukeys.PIN(getPIN, selectedUkey)) {
 					                                    if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
-					                                        $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
+				                                        	$(_this).find("#seleBook-error").html("您插入的UKEY与所选UKEY不符，请重新插入！");
+//					                                        $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
 					                                        $(_this).find(".btn2").show().html("重试");
 					                                        numInd = 0;
 					                                        return false;
@@ -428,31 +463,15 @@ define([
                                     }
                                 }
                             }else if (numInd == 3) {
-                            	var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .new").val())),
+                            	numInd=3;
+								var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .new").text())),
                             	newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
                                 if (newDate <= oldDate ) {
                                     $(_this).find(".btn2").hide();
-                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("证书时间未更新，电子印章续期失败！");
+                                    $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg4'>证书时间未更新，电子印章续期失败！</div>");
                                     return false;
                                 }
-                        		var oid = ukeys.GetOid(selectedUkey);
-                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
-								var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
-								var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
-								var realdata={
-									"validStart":$(".vaildStart .text").text(),
-									"validEnd":$(".vaildEnd .new").text()||$(".vaildEnd .text").text(),
-									"esealCode":$(".esealCode .text").text(),
-									"oid":oid,
-									"enterpriseCode":enterpriseCode,
-									"enterpriseName":enterpriseName,
-									"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //数字证书颁发者
-									"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //证书厂商
-									"certificateType":keyType,                                //证书类型 
-									"certificateAssigned":ukeys.CertType(selectedUkey),                     //数字证书归属者
-									"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //签名证书序列号
-									"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //加密证书序列号
-								}
+                        		var realdata = JSON.parse(localStorage.realdata);
 								if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
                                     $(_this).find(".btn2").hide();
                                     $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
@@ -460,11 +479,13 @@ define([
                                 }
                                 service.write_cert_GDCA(realdata).done(function(res) {
                                     if (res.code == 0) {
-                                        $(_this).find(".btn2").hide();
-                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
+                                    	numInd = 3
+                                    	$(_this).find(".btn2").html("确定");
+                                        $(_this).find(".bootbox-body").html("<div class='msg4'>电子印章续期成功</div>");
                                     } else {
-                                        $(_this).find(".btn2").hide();
-                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
+                                    	numInd = 0
+                                    	$(_this).find(".btn2").html("重试");
+                                        $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
                                     }
                                 });
                             }else if(numInd == 4){
