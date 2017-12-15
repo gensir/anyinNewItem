@@ -32,6 +32,7 @@ define([
         events: {
             'click .eseallist .list>.nav': 'toggleList',
             'click .eseallist .renew': 'renew',
+            'click .eseallist .renew2': 'renew2',
             'click .eseallist .updata_key': 'updata_key',
             'click .eseallist .list>.nav .loss,.eseallist .list>.toggle>.nav>.n3 .loss': 'loss',
             'click .eseallist .list>.nav .cancelloss': 'cancelloss',
@@ -570,6 +571,80 @@ define([
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
             if ((!certificateFirm) || (certificateFirm == 2) ){
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>暂不支持该类型电子印章在线续费！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
+                    buttons: {
+                        // cancel: {
+                        //     label: "取消",
+                        //     className: "btn1",
+                        //     callback: function(result) {
+                        //         result.cancelable = false;
+                        //     }
+                        // },
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            }
+        },
+        //续费操作2
+        renew2: function(event) {
+            debugger
+            event.stopPropagation();
+            var that = this;
+            var GetOid = $(event.currentTarget).data('oid');
+            var keyType = $(event.currentTarget).data('type');
+            var certificateFirm = $(event.currentTarget).data('cert');
+            var esealStatus = $(event.currentTarget).data('status');
+            localStorage.keyType = $(event.currentTarget).data('type');
+            localStorage.certificateFirm = $(event.currentTarget).data('cert');
+            if (esealStatus !=1){
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>该电子印章状态不支持续费操作！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function (result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            } else if ((!certificateFirm) || (certificateFirm == 2) ){
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
