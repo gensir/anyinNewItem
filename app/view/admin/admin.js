@@ -32,6 +32,7 @@ define([
         events: {
             'click .eseallist .list>.nav': 'toggleList',
             'click .eseallist .renew': 'renew',
+            'click .eseallist .renew.updata_key': 'updata_key',
             'click .eseallist .list>.nav .loss,.eseallist .list>.toggle>.nav>.n3 .loss': 'loss',
             'click .eseallist .list>.nav .cancelloss': 'cancelloss',
             'click .eseallist .list>.nav .unfreeze': 'unfreeze',
@@ -601,6 +602,32 @@ define([
                         //         result.cancelable = false;
                         //     }
                         // },
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            }
+        },
+        //更新证书
+        updata_key: function(event) {
+            event.stopPropagation();
+            localStorage.keyType = $(event.currentTarget).data('type');
+            localStorage.certificateFirm = $(event.currentTarget).data('cert');
+            localStorage.esealCode = $(event.currentTarget).data('code');
+            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
+                    buttons: {
                         confirm: {
                             label: "确定",
                             className: "btn2",
