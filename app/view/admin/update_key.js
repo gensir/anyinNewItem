@@ -465,7 +465,7 @@ define([
                                 }
                             }else if (numInd == 3) {
                             	numInd=3;
-								var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .new").text())),
+								var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .text").text())),
                             	newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
                                 if (newDate <= oldDate ) {
                                     $(_this).find(".btn2").hide();
