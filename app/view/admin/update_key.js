@@ -196,7 +196,7 @@ define([
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl=that.getUrlParam("oid");
-                                    if(true){
+                                    if(oid == oidUrl){
                                     	if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                     		//如果pin正确
                                     		numInd = 2;
@@ -306,7 +306,7 @@ define([
 	                                  				var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
 	                                    			if (ukeys.PIN(getPIN, selectedUkey)) {
 					                                    if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
-				                                        	$(_this).find("#seleBook-error").html("您插入的UKEY与所选UKEY不符，请重新插入！");
+				                                        	$(_this).find("#seleBook-error").html("您选择的UKEY与续费的印章不符，请更换UKEY！");
 //					                                        $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
 					                                        $(_this).find(".btn2").show().html("重试");
 					                                        numInd = 0;
@@ -458,8 +458,9 @@ define([
 	                                            });
 	                                        });
 	                                    }
-                                    }else{
-                                    	numInd = 1;
+                                    } else {
+                                        numInd = 1;
+                                        $(_this).find("#seleBook-error").html("您选择的UKEY与续费的印章不符，请更换UKEY！");
                                     }
                                 }
                             }else if (numInd == 3) {
