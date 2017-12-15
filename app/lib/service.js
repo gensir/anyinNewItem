@@ -328,7 +328,7 @@
 	        },
 		    //根据OID查询证书接口
 		    getListByOrderNo:function(data){
-		    	return this.ajaxCall({ url: domain + basemp + "/mpEsealOrderExt/getCommEsealEquipmentMapChangeVO", data: data },'get');
+		    	return this.ajaxCall({ url: domain + basemp + "mpEsealOrderExt/getCommEsealEquipmentMapChangeVO", data: data },'get');
 		    }
         }
     return allFun;

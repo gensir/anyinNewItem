@@ -96,7 +96,7 @@ define([
 						if(isODC){
 							$(".text_tip").hide();
 							$(".lcocation_page").text("证书更新页面")
-							windowLocation = "#update_key?orderNO="+orderNo;
+							windowLocation = "#update_key?orderNo="+orderNo;
 						}else{
 							$(".text_tip").show();
 							$(".lcocation_page").text("订单中心页面");

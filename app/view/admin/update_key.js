@@ -92,7 +92,7 @@ define([
 				"firmId":firmId
 			};
 			if(isODC){
-				data.orderNo=this.getUrlParam("orderNo");//||APPLY12051278482404
+				data.orderNo=that.getUrlParam("orderNo");//||APPLY12051278482404
 			}else{
 				data.oid=that.getUrlParam("oid");
 				data.esealCode=localStorage.esealCode;//||"4403055074475"
@@ -174,7 +174,6 @@ define([
                                     }
                                 }, 1000);
                             } else if (numInd == 2) {
-                            	debugger;
                                 var selectedUkey = $("#seleBook option:selected").val();
                                 var unlockCode = $("#unlockCode").val();
                                 if (selectedUkey == "") {
@@ -206,9 +205,10 @@ define([
 												var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 												var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
 												var realdata={
+													"orderNo":that.getUrlParam("orderNo")||"APPLY12150870748477",
 													"validStart":$(".vaildStart .new").text(),
 													"validEnd":$(".validEnd .new").text()||"2019-12-14 21:06:00",
-													"esealCode":$(".esealCode .text").val(),
+													"esealCode":$(".esealCode .new").text()||$(".esealCode .text").text(),
 													"oid":oid,
 													"enterpriseCode":enterpriseCode,
 													"enterpriseName":enterpriseName,
@@ -224,11 +224,15 @@ define([
 				                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
 				                                    return false;
 				                                }
+												
 				                                service.write_cert_GDCA(realdata).done(function(res) {
 				                                    if (res.code == 0) {
-				                                        $(_this).find(".btn2").hide();
-				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
+				                                        numInd=3;
+														$(_this).find(".btn1").hide();
+														$(_this).find(".btn2").html("确定");
+						                                $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
 				                                    } else {
+				                                    	$(_this).find("#unlock-error").html(res.msg);
 				                                        $(_this).find(".btn2").hide();
 				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
 				                                    }
@@ -436,9 +440,9 @@ define([
 								var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 								var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
 								var realdata={
-									"validStart":$(".vaildStart .new").val()||$(".vaildStart .text").val(),
-									"validEnd":$(".vaildEnd .new").val()||$(".vaildEnd .text").val(),
-									"esealCode":$(".esealCode .text").val(),
+									"validStart":$(".vaildStart .text").text(),
+									"validEnd":$(".vaildEnd .new").text()||$(".vaildEnd .text").text(),
+									"esealCode":$(".esealCode .text").text(),
 									"oid":oid,
 									"enterpriseCode":enterpriseCode,
 									"enterpriseName":enterpriseName,
@@ -463,9 +467,11 @@ define([
                                         $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
                                     }
                                 });
+                            }else if(numInd == 4){
+                            	this.modal('hide')
                             }
 
-                            //this.modal('hide');
+//                            this.modal('hide');
                             return false;
                         }
                     }
