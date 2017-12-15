@@ -95,7 +95,7 @@ define([
 				data.orderNo=that.getUrlParam("orderNo");//||APPLY12051278482404
 			}else{
 				data.oid=that.getUrlParam("oid");
-				data.esealCode=localStorage.esealCode;//||"4403055074475"
+				data.esealCode=localStorage.esealCode||"4403055074475";//||"4403055074475"
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
@@ -249,7 +249,7 @@ define([
 			                                            orderNo: that.getUrlParam("orderNo"),
 			                                            gdcaRequest: {
 			                                                trustId: ukeys.trustId(selectedUkey),
-			                                                cn: "安印科技",
+			                                                cn: ukeys.getCertIssuer(selectedUkey).certCn,
 			                                                c: 'CN',
 			                                                publicKey: ukeys.dCertPublicKey(selectedUkey),
 			                                                orgCode: ukeys.GetenterpriseCode(selectedUkey),
