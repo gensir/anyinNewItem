@@ -92,10 +92,10 @@ define([
 				"firmId":firmId
 			};
 			if(isODC){
-				data.orderNo=this.getUrlParam("orderNo")||APPLY12051278482404;
+				data.orderNo=this.getUrlParam("orderNo");//||APPLY12051278482404
 			}else{
 				data.oid=that.getUrlParam("oid");
-				data.esealCode=localStorage.esealCode||"4403055074475";
+				data.esealCode=localStorage.esealCode;//||"4403055074475"
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
@@ -103,6 +103,8 @@ define([
 					
 					var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 					var result = res.data;
+					result.mpEsealOrderExtChangeVO.oldValidStart="2017-12-14 18:49:57";
+					result.mpEsealOrderExtChangeVO.oldValidEnd="2019-12-14 18:49:57";
 					year = result.mpEsealOrderExtChangeVO.effectiveDuration;
 					if(isODC){
 						result.mpEsealOrderExtChangeVO.validStart=that.getDates(year)[0];
@@ -204,8 +206,8 @@ define([
 												var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 												var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
 												var realdata={
-													"validStart":$(".vaildStart .new").val()||$(".vaildStart .text").val(),
-													"validEnd":$(".vaildEnd .new").val()||$(".vaildEnd .text").val(),
+													"validStart":$(".vaildStart .new").text(),
+													"validEnd":$(".validEnd .new").text()||"2019-12-14 21:06:00",
 													"esealCode":$(".esealCode .text").val(),
 													"oid":oid,
 													"enterpriseCode":enterpriseCode,
@@ -213,7 +215,7 @@ define([
 													"issuer":ukeys.getCertIssuer(selectedUkey).certCn,                             //数字证书颁发者
 													"certificateFirms":ukeys.certificateFirms(selectedUkey),                        //证书厂商
 													"certificateType":keyType,                                //证书类型 
-													"certificateAssigned":ukeys.CertType(selectedUkey),                     //数字证书归属者
+													"certificateAssigned":ukeys.CertType(selectedUkey)-0,                     //数字证书归属者
 													"signCertificateSn":ukeys.getCertSignSN(selectedUkey),    //签名证书序列号
 													"encryptCertificateSn": ukeys.getCertEncSN(selectedUkey)  //加密证书序列号
 												}
@@ -243,7 +245,7 @@ define([
 			                                            orderNo: that.getUrlParam("orderNo"),
 			                                            gdcaRequest: {
 			                                                trustId: ukeys.trustId(selectedUkey),
-			                                                cn: ukeys.getCertIssuer(selectedUkey).certCn,
+			                                                cn: "安印科技",
 			                                                c: 'CN',
 			                                                publicKey: ukeys.dCertPublicKey(selectedUkey),
 			                                                orgCode: ukeys.GetenterpriseCode(selectedUkey),
