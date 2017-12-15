@@ -294,7 +294,7 @@ define([
 			                                        service.renew_certGDCA(dataGDCA).done(function(ret) {
 			                                            if (ret.code == 0) {
 			                                                window.open(ret.data, '_blank');
-			                                                $(_this).find("#unlock-error").html("续期成功后请点击继续！");
+			                                                $(_this).find("#unlock-error").html("证书更新成功后请点击继续！");
 			                                                $(_this).find(".btn2").html("继续").show();
 			                                            } else {
 			                                                numInd = 1; 
@@ -491,9 +491,9 @@ define([
                                     }
                                 });
                             }else if(numInd == 4){
-                            	this.modal('hide')
+                                this.modal('hide')
+                                window.location.href = "admin.html";
                             }
-
 //                            this.modal('hide');
                             return false;
                         }
