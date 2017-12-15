@@ -115,6 +115,7 @@ define([
 //						result.mpEsealOrderExtChangeVO.validStart=that.changeDate(date1,date2,year)[0];
 						result.mpEsealOrderExtChangeVO.validEnd=that.changeDate(date1,date2,year)[1];
 					}
+					orderNo = result.mpEsealOrderExtChangeVO.orderNo;
 					that.$el.html(template.compile(tpl)({ data: result }));
 				}else{
 					bootbox.alert(res.msg)
@@ -214,7 +215,7 @@ define([
 												realdata={
 													"orderNo":that.getUrlParam("orderNo")||"APPLY12150870748477",
 													"validStart":$(".vaildStart .new").text(),
-													"validEnd":$(".validEnd .new").text()||"2019-12-14 21:06:00",
+													"validEnd":$(".validEnd .new").text(),
 													"esealCode":$(".esealCode .new").text()||$(".esealCode .text").text(),
 													"oid":oid,
 													"enterpriseCode":enterpriseCode,
@@ -253,7 +254,7 @@ define([
                                     					renew="RENEW_"+year;
                                     				}
 	                                    			var dataGDCA = {
-			                                            orderNo: that.getUrlParam("orderNo"),
+			                                            orderNo: that.getUrlParam("orderNo")||orderNo,
 			                                            gdcaRequest: {
 			                                                trustId: ukeys.trustId(selectedUkey),
 			                                                cn: ukeys.getCertIssuer(selectedUkey).certCn,
