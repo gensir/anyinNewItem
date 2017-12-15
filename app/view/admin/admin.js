@@ -32,7 +32,7 @@ define([
         events: {
             'click .eseallist .list>.nav': 'toggleList',
             'click .eseallist .renew': 'renew',
-            'click .eseallist .renew.updata_key': 'updata_key',
+            'click .eseallist .updata_key': 'updata_key',
             'click .eseallist .list>.nav .loss,.eseallist .list>.toggle>.nav>.n3 .loss': 'loss',
             'click .eseallist .list>.nav .cancelloss': 'cancelloss',
             'click .eseallist .list>.nav .unfreeze': 'unfreeze',

@@ -37,7 +37,7 @@ define([
         events: {
             // 'click .jilulist ul li .file': 'Toggleshow',
             'click .renew': 'renew',
-            'click .renew.updata_key': 'updata_key',
+            'click .updata_key': 'updata_key',
         },
         userinfo: function (event) {
             var _this = this
