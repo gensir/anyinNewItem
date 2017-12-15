@@ -305,13 +305,12 @@ define([
 	                                  			}else if(certificateFirms==200000){    //netCA
 	                                  				var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
 	                                    			if (ukeys.PIN(getPIN, selectedUkey)) {
-					                                    if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
-				                                        	$(_this).find("#seleBook-error").html("您选择的UKEY与续费的印章不符，请更换UKEY！");
-//					                                        $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
-					                                        $(_this).find(".btn2").show().html("重试");
-					                                        numInd = 0;
-					                                        return false;
-					                                    }
+                                                        if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
+                                                            numInd = 0;
+                                                            $(_this).find("#unlock-error").html("您选择的UKEY与续费的印章不符，请更换UKEY后重试！");
+                                                            $(_this).find(".btn2").show().html("重试");
+                                                            return false;
+                                                        }
 					                                    function inRenewFun(p10, symmAlgo, isNeedChangeCert) {
 					                                        var data = {
 					                                            oid: ukeys.GetOid(selectedUkey),
@@ -433,11 +432,11 @@ define([
 					                                            console.log(ret)
 					                                        })
 					                                    }
-					                                } else {
-					                                    numInd = 1;
-					                                    $(_this).find("#writezm-error").html("PIN码不正确，请重试");
-					                                    $(_this).find(".btn2").show().html("重试");
-					                                }
+                                                    } else {
+                                                        numInd = 1;
+                                                        $(_this).find("#writezm-error").html("PIN码不正确，请重试");
+                                                        $(_this).find(".btn2").show().html("重试");
+                                                    }
 	                                    		} 
                                     		}  
 	                                    } else {
@@ -459,8 +458,9 @@ define([
 	                                        });
 	                                    }
                                     } else {
-                                        numInd = 1;
-                                        $(_this).find("#seleBook-error").html("您选择的UKEY与续费的印章不符，请更换UKEY！");
+                                        numInd = 0;
+                                        $(_this).find("#unlock-error").html("您选择的UKEY与续费的印章不符，请更换UKEY后重试！");
+                                        $(_this).find(".btn2").show().html("重试");
                                     }
                                 }
                             }else if (numInd == 3) {
