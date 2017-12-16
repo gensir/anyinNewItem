@@ -99,12 +99,11 @@ define([
 			}
 			service.getListByOrderNo(data).done(function(res){
 				if(res.code==0){
-//					that.$el.html(tpl);
 					
 					var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 					var result = res.data;
-					result.mpEsealOrderExtChangeVO.oldValidStart="2017-12-14 18:49:57";
-					result.mpEsealOrderExtChangeVO.oldValidEnd="2019-12-14 18:49:57";
+					result.mpEsealOrderExtChangeVO.oldValidStart;
+					result.mpEsealOrderExtChangeVO.oldValidEnd;
 					year = result.mpEsealOrderExtChangeVO.effectiveDuration;
 					if(isODC){
 						result.mpEsealOrderExtChangeVO.validStart=that.getDates(year)[0];
@@ -112,7 +111,6 @@ define([
 					}else{
 						var date1=result.mpEsealOrderExtChangeVO.oldValidStart;
 						var date2=result.mpEsealOrderExtChangeVO.oldValidEnd;
-//						result.mpEsealOrderExtChangeVO.validStart=that.changeDate(date1,date2,year)[0];
 						result.mpEsealOrderExtChangeVO.validEnd=that.changeDate(date1,date2,year)[1];
 					}
 					orderNo = result.mpEsealOrderExtChangeVO.orderNo;

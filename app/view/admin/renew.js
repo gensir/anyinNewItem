@@ -274,8 +274,8 @@ define([
 					console.log("现在是第" + payOrderStatuNum + "次请求订单状态，当前返回的结果为 : " + res.data.orderStatus);
 					if(res.code == 0) { //订单状态查询请求成功
 						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
-
-							//此处待测试！
+                            //此处待测试！
+                            debugger
 							if(serialNo) {
 								that.takeOrderInvoice(serialNo);
 							} else {
@@ -284,7 +284,7 @@ define([
 							console.log("支付成功了！");
 							$(".closepayalert").trigger("click");
 							$(".bootbox-close-button").trigger("click");
-							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
+							// window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 							localStorage.removeItem("stepNum");
 							localStorage.removeItem("orderNo");
 
@@ -299,21 +299,22 @@ define([
 				});
 			} else { //大于300次，不发送订单状态轮询支付请求
 				console.log("五分钟内未付款成功，订单重置!");
+                bootbox.alert("五分钟内未付款成功，订单重置!")
 				location.reload();
-				alert("五分钟内未付款成功，订单重置!");
 			}
 		},
 		takeOrderInvoice: function(serialNo) {
+            debugger
 			var subData = {
 				"serialNo": serialNo
 			};
 			service.orderInvoice(subData).done(function(res) {
 				if(res.code == 0) {
 					console.log("开发票成功！" + res.msg);
-					console.log(res.data);
-
 				} else {
-					console.log("由于数据原因，开发票失败！" + res.msg);
+                    bootbox.alert("由于数据原因，开具发票失败!" + res.msg)
+                    console.log("由于数据原因，开发票失败！" + res.msg);
+                    return false;
 				}
 			});
 		},
@@ -358,17 +359,17 @@ define([
 			if(invoiceState == true) {
 				that.submitStep4();
 			} else {
-				console.log("发票信息不全，不能提交订单！");
+                bootbox.alert("请正确填写开具发票信息！！");
+				console.log("请正确填写开具发票信息！");
 			}
 
 		},
 		submitStep4: function() {
-			console.log(step4Data);
+            console.log(step4Data);
 			service.orderRenew(step4Data).done(function(res) {
-				//  		if( res.data.invoice){
-				//  			serialNo=res.data.invoice.serialNo;
-				//  		}    		
-				//alert(serialNo);
+                if (res.data.invoice) {
+                    serialNo = res.data.invoice.serialNo;
+                }
 				if(res.code == 0) {
 					//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
 					var codeUrl = res.data.codeUrl;

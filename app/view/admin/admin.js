@@ -617,7 +617,6 @@ define([
         },
         //续费操作2
         renew2: function(event) {
-            debugger
             event.stopPropagation();
             var that = this;
             var GetOid = $(event.currentTarget).data('oid');
@@ -626,7 +625,14 @@ define([
             var esealStatus = $(event.currentTarget).data('status');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if (esealStatus !=1){
+            //可续费状态数组
+            var arr = new Array([1, 6, 14]);
+            Array.prototype.in_array = function (e) {
+                var r = new RegExp(',' + e + ',');
+                return (r.test(',' + this.join(this.S) + ','));
+            };
+            
+            if (!arr.in_array(esealStatus)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -650,7 +656,7 @@ define([
                     closeButton: false,
                     className: "common",
                     title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>暂不支持该类型电子印章在线续费！</span></div',
+                    message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
                     buttons: {
                         confirm: {
                             label: "确定",

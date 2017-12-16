@@ -21,24 +21,13 @@ define([
             var _this = this;
             _this.userinfo();
             _this.logslist();
-            if (!firmId&&$.cookie('loginadmin') !== undefined) {
-                bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
-                return;
-            }
-            
-            //屏蔽非ODC的电子印章申请
-            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-            // isODC为1的时候是ODC登录的
-			if(!isODC){
-				$(".actionlist .nav1").css("visibility","hidden");
-			}
-			
         },
         events: {
             // 'click .jilulist ul li .file': 'Toggleshow',
             'click .renew': 'renew',
             'click .updata_key': 'updata_key',
         },
+        //公司基本信息
         userinfo: function (event) {
             var _this = this
             var userdata = $.cookie('loginadmin') && (JSON.parse($.cookie('loginadmin'))) || { user: {}, menuList: {} }
@@ -50,6 +39,32 @@ define([
                 _this.realname_no();
             } else if (userdata.user.status == 3) {
                 _this.realname();
+            }
+            _this.firmId();
+        },
+        //是否有firmId
+        firmId: function() {
+            if (!firmId && $.cookie('loginadmin') !== undefined) {
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>无单位id信息，不能进行下一步操作！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function (result) {
+                                localStorage.clear();
+                                $.removeCookie('loginadmin');
+                                result.cancelable = window.location.href ='login.html';
+                            }
+                        },
+                    }
+                })
+                return false;
+                // bootbox.alert("获取单位id异常，无权限访问", function () { window.open('login.html', '_self'); })
             }
         },
         //续费操作
@@ -66,7 +81,7 @@ define([
                     closeButton: false,
                     className: "common",
                     title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>暂不支持该类型电子印章在线续费！</span></div',
+                    message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
                     buttons: {
                         confirm: {
                             label: "确定",
