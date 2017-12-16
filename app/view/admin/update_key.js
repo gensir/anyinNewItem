@@ -195,8 +195,7 @@ define([
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl=that.getUrlParam("oid");
-                                    // if(oid == oidUrl){
-                                    if(oid){
+                                    if(oid == oidUrl){
                                     	if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                     		//如果pin正确
                                     		numInd = 2;
