@@ -274,8 +274,7 @@ define([
 					console.log("现在是第" + payOrderStatuNum + "次请求订单状态，当前返回的结果为 : " + res.data.orderStatus);
 					if(res.code == 0) { //订单状态查询请求成功
 						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
-                            //此处待测试！
-                            debugger
+                            //订单支付完成后去开具发票
 							if(serialNo) {
 								that.takeOrderInvoice(serialNo);
 							} else {
@@ -302,9 +301,9 @@ define([
                 bootbox.alert("五分钟内未付款成功，订单重置!")
 				location.reload();
 			}
-		},
+        },
+        //申请百望电子发票
 		takeOrderInvoice: function(serialNo) {
-            debugger
 			var subData = {
 				"serialNo": serialNo
 			};
@@ -315,7 +314,8 @@ define([
                     bootbox.alert("由于数据原因，开具发票失败!" + res.msg)
                     console.log("由于数据原因，开发票失败！" + res.msg);
                     return false;
-				}
+                }
+                window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 			});
 		},
 
@@ -359,8 +359,8 @@ define([
 			if(invoiceState == true) {
 				that.submitStep4();
 			} else {
-                bootbox.alert("请正确填写开具发票信息！！");
-				console.log("请正确填写开具发票信息！");
+                bootbox.alert("请正确填写开具发票的信息！");
+				console.log("请正确填写开具发票的信息！");
 			}
 
 		},

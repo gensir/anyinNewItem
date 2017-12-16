@@ -133,7 +133,7 @@ define([
                 //closeButton: false,
                 className: "common unlock",
                 title: "证书更新",
-                message: dialogsText.find(".msg1.msg0")[0].outerHTML,
+                message: dialogsText.find(".msgcenter")[0].outerHTML,
                 buttons: {
                     cancel: {
                         label: "取消",
