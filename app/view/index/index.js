@@ -282,7 +282,8 @@ define([
 					}
                     
                     if (!Boolean(Esealobj)) {
-                        $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
+                        // $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
+                        $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span></li>");
                     } else {
                         for (var i = 0; i < Esealobj.length; i++) {
                             var date1 = new Date(),
