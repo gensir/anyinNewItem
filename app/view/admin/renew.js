@@ -279,13 +279,13 @@ define([
 								that.takeOrderInvoice(serialNo);
 							} else {
 								console.log("订单支付成功，但是该订单客户不需要开发票！")
-							}
-							console.log("支付成功了！");
-							$(".closepayalert").trigger("click");
-							$(".bootbox-close-button").trigger("click");
-							// window.open('admin.html#pay_ok?num=' + orderNo, '_self');
-							localStorage.removeItem("stepNum");
-							localStorage.removeItem("orderNo");
+                            }
+                            console.log("支付成功了！");
+                            $(".closepayalert").trigger("click");
+                            $(".bootbox-close-button").trigger("click");
+                            window.open('admin.html#pay_ok?num=' + orderNo, '_self');
+                            localStorage.removeItem("stepNum");
+                            localStorage.removeItem("orderNo");
 
 						} else {
 							payOrderStatuNum++;
@@ -315,7 +315,6 @@ define([
                     console.log("由于数据原因，开发票失败！" + res.msg);
                     return false;
                 }
-                window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 			});
 		},
 
@@ -359,7 +358,6 @@ define([
 			if(invoiceState == true) {
 				that.submitStep4();
 			} else {
-                bootbox.alert("请正确填写开具发票的信息！");
 				console.log("请正确填写开具发票的信息！");
 			}
 

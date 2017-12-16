@@ -195,11 +195,16 @@ define([
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl=that.getUrlParam("oid");
-                                    if(oid == oidUrl){
+                                    // if(oid == oidUrl){
+                                    if(oid){
                                     	if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                     		//如果pin正确
                                     		numInd = 2;
-                                    		var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                                            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                                            $(_this).find("#seleBook,#unlockCode").attr("disabled", true);
+                                            $(_this).find("#unlock-error").html("正在读取UKEY内容，请稍候……");
+                                            $(_this).find(".btn2").attr("disabled", true);
+                                            
                                     		if(isODC){  //ODC新办
                                     			var oid = ukeys.GetOid(selectedUkey);
 				                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
@@ -235,7 +240,7 @@ define([
 				                                    if (res.code == 0) {
 				                                        numInd=3;
 														$(_this).find(".btn1").hide();
-														$(_this).find(".btn2").html("确定");
+														$(_this).find(".btn2").html("确定").attr("disabled", false);
 						                                $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
 				                                    } else {
 				                                    	$(_this).find("#unlock-error").html(res.msg);
@@ -243,14 +248,16 @@ define([
 				                                        $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
 				                                    }
 				                                });
-                                    		} else {    //anyin续期
-                                    			if(certificateFirms==1){  //GDCA
-                                    				var renew;
-                                    				if(year==2){
-                                    					renew="RENEW"
-                                    				}else{
-                                    					renew="RENEW_"+year;
-                                    				}
+                                    		} else {
+                                                //anyin续期
+                                    			if(certificateFirms==1) {  //GDCA
+                                                    var renew;
+                                                    if (year == 2) {
+                                                        renew = "RENEW"
+                                                    } else {
+                                                        renew = "RENEW_" + year;
+                                                    }
+
 	                                    			var dataGDCA = {
 			                                            orderNo: that.getUrlParam("orderNo")||orderNo,
 			                                            gdcaRequest: {
@@ -287,27 +294,27 @@ define([
 														"signCertificateSn":signCertificateSn,    //签名证书序列号
 														"encryptCertificateSn": encryptCertificateSn  //加密证书序列号
 													};
-													localStorage.realdata=JSON.stringify(realdata);
-													$(_this).find(".btn2").show().html("重试");
+                                                    localStorage.realdata = JSON.stringify(realdata);
+                                                    
 			                                        service.renew_certGDCA(dataGDCA).done(function(ret) {
 			                                            if (ret.code == 0) {
 			                                                window.open(ret.data, '_blank');
-			                                                $(_this).find("#unlock-error").html("证书更新成功后请点击继续！");
-			                                                $(_this).find(".btn2").html("继续").show();
+			                                                $(_this).find("#unlock-error").html("请在弹出的新窗口内更新证书，完成后请点击继续！");
+			                                                $(_this).find(".btn2").html("继续").show().attr("disabled", false);
 			                                            } else {
 			                                                numInd = 1; 
 			                                                $(_this).find("#unlock-error").html(ret.msg);
-			                                                $(_this).find(".btn2").show().html("重试");
+			                                                $(_this).find(".btn2").show().html("重试").attr("disabled", false);
 			                                            }
 			                                        })
 													
-	                                  			}else if(certificateFirms==200000){    //netCA
+	                                  			} else if (certificateFirms==2) {    //netCA
 	                                  				var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
 	                                    			if (ukeys.PIN(getPIN, selectedUkey)) {
                                                         if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
                                                             numInd = 0;
                                                             $(_this).find("#unlock-error").html("您选择的UKEY与续费的印章不符，请更换UKEY后重试！");
-                                                            $(_this).find(".btn2").show().html("重试");
+                                                            $(_this).find(".btn2").show().html("重试").attr("disabled", false);
                                                             return false;
                                                         }
 					                                    function inRenewFun(p10, symmAlgo, isNeedChangeCert) {
@@ -380,7 +387,7 @@ define([
 					                                            } else {
 					                                                numInd = 1;
 					                                                $(_this).find("#writezm-error").html(ret.msg);
-					                                                $(_this).find(".btn2").show().html("重试");
+					                                                $(_this).find(".btn2").show().html("重试").attr("disabled", false);
 					                                            }
 					                                        });
 					                                    }
@@ -426,7 +433,7 @@ define([
 					                                            } else {
 					                                                numInd = 1;
 					                                                $(_this).find("#writezm-error").html(ret.msg);
-					                                                $(_this).find(".btn2").show().html("重试");
+					                                                $(_this).find(".btn2").show().html("重试").attr("disabled", false);
 					                                            }
 					                                            console.log(ret)
 					                                        })
@@ -441,7 +448,6 @@ define([
 	                                    } else {
 	                                        numInd = 1;
 	                                        var GetOid = ukeys.GetOid(selectedUkey);
-	                                        localStorage.GetOid = GetOid;
 	                                        var data = {
 	                                            oid: GetOid,
 	                                            errorCode: 1

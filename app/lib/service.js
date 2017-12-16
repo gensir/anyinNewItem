@@ -274,7 +274,7 @@
 		    },
 		    //通过发票流水号生成百望电子发票
 		    orderInvoice:function(data) {
-		        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice", data: data }, "POST");
+		        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice", data: data, async: false }, "POST");
 		    },
 		    //手机号是否存在
 		    mobileIsNotExist:function(data) {
