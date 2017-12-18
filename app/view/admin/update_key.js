@@ -264,7 +264,7 @@ define([
                                                         orderNo: that.getUrlParam("orderNo") || orderNo,
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
-                                                            cn: ukeys.getCertIssuer(selectedUkey).certCn,
+                                                            cn: ukeys.getCertOwner(selectedUkey).certCn,
                                                             c: 'CN',
                                                             publicKey: ukeys.dCertPublicKey(selectedUkey),
                                                             orgCode: ukeys.GetenterpriseCode(selectedUkey),

@@ -214,6 +214,13 @@ define([
                 return JSON.parse(this.data.ukey.GetCertInfo(14));
             }
         },
+        //获取证书拥有者信息
+        getCertOwner:function(){
+        	if (selectukeyInd !== undefined && this.issupport()) {
+                this.data.ukey.SetCertIndex(selectukeyInd);
+                return JSON.parse(this.data.ukey.GetCertInfo(13));
+            }
+        },
         trustId:function(selectukeyInd){ //GDCA 信任号；
 	        if (this.issupport()) {
 	            this.data.ukey.SetCertIndex(selectukeyInd);
