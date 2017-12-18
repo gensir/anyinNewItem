@@ -261,7 +261,7 @@
 		        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectEsealInfoList/" + pageNum + "/" + pageSize, data: data });
 		    },
 		    //登录权限最后一个关闭控制
-		    licenseLast:function(data) {
+		    islicenseLast:function(data) {
 		        return this.ajaxCall({ url: domain + basemp + "mpkeyuserinfo/selectCountByEnterpriseCode", data: data, async: false });
 		    },
 		    //更新状态

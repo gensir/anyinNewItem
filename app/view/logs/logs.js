@@ -138,11 +138,11 @@ define([
 				"signTimeStart": $("#date1").val(),
 				"signTimeEnd": $("#date2").val(),
 			};
-			if(!Boolean(PKSC7)) {
-				$("#keyword,#s_state,#s_type,#date1,#date2").val("");
-				this.nosearch();
-				return false;
-			} else {
+			// if(!Boolean(PKSC7)) {
+			// 	$("#keyword,#s_state,#s_type,#date1,#date2").val("");
+			// 	this.nosearch();
+			// 	return false;
+			// } else {
 				service.commSignetLog(pageNum, pageSize, data).done(function(data) {
 					var logsObj;
 					if(data.code != 0) {
@@ -170,7 +170,7 @@ define([
 						_this.form_date();
 					}
 				});
-			}
+			// }
 		},
 		//获取数据
 		logslist: function(data, pageNum, pageSize) {
@@ -181,6 +181,11 @@ define([
 				"esealCode": esealCode,
 				"enterpriseCode": enterpriseCode,
 				"PKSC7": PKSC7,
+				"importName": $("#keyword").val(),
+				"operateStatus": $("#s_state").val(),
+				"signType": $("#s_type").val(),
+				"signTimeStart": $("#date1").val(),
+				"signTimeEnd": $("#date2").val(),
 			};
 			service.commSignetLog(pageNum, pageSize, data).done(function(data) {
 				var logsObj;
@@ -231,7 +236,7 @@ define([
 				"signType": $("#s_type").val(),
 				"signTimeStart": $("#date1").val(),
 				"signTimeEnd": $("#date2").val(),
-			}
+            }
 			this.logslist(obj, val)
 		},
 		//pagination

@@ -106,9 +106,8 @@ define([
                 listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var dialogsText = dialogs.find(".closeAllow");
-            service.licenseLast({
-                enterpriseCode: this.enterpriseCode
-            }).done(function(res) {
+            //判断有几个可以登录的UKEY
+            service.islicenseLast({enterpriseCode: this.enterpriseCode}).done(function(res) {
                 _that.licenseLast = res.data
             })
             bootbox.dialog({
@@ -816,9 +815,9 @@ define([
             }
             var _that = this;
             if($("h3.boxmodel .active")[0].id == "loginset") {
-                this.licenselist(val)
+                _that.licenselist(val)
             } else {
-                this.listPage(val)
+                _that.listPage(val)
             }
         },
         //pagination
