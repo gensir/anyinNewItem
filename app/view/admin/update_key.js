@@ -460,7 +460,7 @@ define([
                                 var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
                                 var oid = that.getUrlParam("oid");
                                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
-//                              var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
+                                var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
                                 
                                 var certificateFirms = ukeys.certificateFirms(selectedUkey);
                                 var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
