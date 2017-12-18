@@ -22,7 +22,7 @@ define([
             that = this;
             // this.$el.empty().html(template.compile(tpl)({}));
             this.listPage();
-            if(!this.firmId && $.cookie('loginadmin') !== undefined) {
+            if (!this.firmId && $.cookie('loginadmin') !== undefined) {
                 bootbox.alert("获取单位id异常，无权限访问", function() {
                     window.open('login.html', '_self');
                 })
@@ -51,7 +51,7 @@ define([
             var ind = $(_this).parent(".list").index();
             $(".eseallist .list .toggle").slideUp();
             var toggle = $(_this).parent(".list").find(".toggle");
-            if(toggle.is(":hidden")) {
+            if (toggle.is(":hidden")) {
                 toggle.slideDown();
                 $(".nav").removeClass("nav_tac");
                 $(_this).addClass("nav_tac");
@@ -72,7 +72,7 @@ define([
             var _this = license || event.currentTarget;
             $(_this).addClass("active").siblings().removeClass("active");
             $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
-            if($(_this)[0].id == "loginset") {
+            if ($(_this)[0].id == "loginset") {
                 this.active = ""
                 this.licenselist(1)
             } else {
@@ -82,7 +82,7 @@ define([
                 //屏蔽非ODC的电子印章申请
                 var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                 //  isODC为1的时候是ODC登录的
-                if(!isODC){
+                if (!isODC) {
                     $("#step").hide();
                 }
             }
@@ -99,7 +99,7 @@ define([
             //     var ind = $(_this).parents(".list").index();
             //     return this.model.get("tplhtml").loginlist[ind].esealFullName;
             // }
-            if(!ukeys.issupport()) {
+            if (!ukeys.issupport()) {
                 return false;
             }
             var _that = this,
@@ -107,7 +107,7 @@ define([
             var numInd = this.model.get("numInd");
             var dialogsText = dialogs.find(".closeAllow");
             //判断有几个可以登录的UKEY
-            service.islicenseLast({enterpriseCode: this.enterpriseCode}).done(function(res) {
+            service.islicenseLast({ enterpriseCode: this.enterpriseCode }).done(function(res) {
                 _that.licenseLast = res.data
             })
             bootbox.dialog({
@@ -133,12 +133,12 @@ define([
                             var msg3 = dialogsText.find(".msg3")[0].outerHTML
                             var msg4 = dialogsText.find(".msg4")[0].outerHTML
                             var msg6 = dialogsText.find(".msg6")[0].outerHTML
-                            if(numInd == 1) {
+                            if (numInd == 1) {
                                 //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                                 $(this).find(".bootbox-body").html(msg4);
                                 $(this).find(".btn1,.btn2").hide();
                                 setTimeout(function() {
-                                    if(ukeys.GetCertCount() == 0) {
+                                    if (ukeys.GetCertCount() == 0) {
                                         numInd = 0;
                                         $(_this).find(".bootbox-body").html(msg3);
                                         $(_this).find(".btn1,.btn2").show();
@@ -153,12 +153,12 @@ define([
 
                                     }
                                 }, 1000)
-                            } else if(numInd == 2) {
+                            } else if (numInd == 2) {
                                 // 验证KEY密码
                                 var getPIN = $("#closeCode").val(),
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                if(ukeys.PIN($("#closeCode").val(), 0)) {
-                                    if(listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
+                                if (ukeys.PIN($("#closeCode").val(), 0)) {
+                                    if (listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
                                         $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                         $(_this).find(".btn2").show().html("重试");
                                         numInd = 0;
@@ -170,7 +170,7 @@ define([
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function(res) {
-                                        if(res.code == 0) {
+                                        if (res.code == 0) {
                                             var success = dialogsText.find(".success").html("已成功关闭" + listdata.esealFullName + "的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
@@ -194,7 +194,7 @@ define([
                                         "errorCode": 1
                                     };
                                     service.checkPIN(data).done(function(res) {
-                                        if(res.code == 1) {
+                                        if (res.code == 1) {
                                             $(_this).find("#closeCode-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
                                         }
@@ -210,7 +210,7 @@ define([
         },
         //打开登录权限
         open: function(e) {
-            if(!ukeys.issupport()) {
+            if (!ukeys.issupport()) {
                 return false;
             }
             var _that = this,
@@ -240,12 +240,12 @@ define([
                             var msg3 = dialogsText.find(".msg3")[0].outerHTML
                             var msg4 = dialogsText.find(".msg4")[0].outerHTML
                             var msg6 = dialogsText.find(".msg6")[0].outerHTML
-                            if(numInd == 1) {
+                            if (numInd == 1) {
                                 //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                                 $(this).find(".bootbox-body").html(msg4);
                                 $(this).find(".btn1,.btn2").hide();
                                 setTimeout(function() {
-                                    if(ukeys.GetCertCount() == 0) {
+                                    if (ukeys.GetCertCount() == 0) {
                                         numInd = 0;
                                         $(_this).find(".bootbox-body").html(msg3);
                                         $(_this).find(".btn1,.btn2").show();
@@ -260,12 +260,12 @@ define([
 
                                     }
                                 }, 1000)
-                            } else if(numInd == 2) {
+                            } else if (numInd == 2) {
                                 // 验证KEY密码
                                 var getPIN = $("#openCode").val(),
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                if(ukeys.PIN($("#openCode").val(), 0)) {
-                                    if(listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
+                                if (ukeys.PIN($("#openCode").val(), 0)) {
+                                    if (listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
                                         $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                         $(_this).find(".btn2").show().html("重试");
                                         numInd = 0;
@@ -277,7 +277,7 @@ define([
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function(res) {
-                                        if(res.code == 0) {
+                                        if (res.code == 0) {
                                             var success = dialogsText.find(".success").html("已成功开启" + listdata.esealFullName + "的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
@@ -299,7 +299,7 @@ define([
                                         "errorCode": 1
                                     };
                                     service.checkPIN(data).done(function(res) {
-                                        if(res.code == 1) {
+                                        if (res.code == 1) {
                                             $(_this).find("#openCode-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
                                         }
@@ -324,9 +324,9 @@ define([
             var esealFullName = $(event.currentTarget).data('name');
             var esealCode = $(event.currentTarget).data('code');
             var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
-            // var mobile = "13590435949"
+                // var mobile = "13590435949"
             var numInd = this.model.get("numInd");
-            if(status == 1 || status == 6 || status == 7) {
+            if (status == 1 || status == 6 || status == 7) {
                 var dialog = bootbox.dialog({
                     backdrop: true,
                     //closeButton: false,
@@ -348,39 +348,39 @@ define([
                             callback: function(event) {
                                 numInd++;
                                 var _this = this;
-                                if(numInd == 1) {
+                                if (numInd == 1) {
                                     var msg2 = dialogs.find(".msg2")[0].outerHTML;
                                     $(_this).find(".bootbox-body").html(msg2);
                                     sendmsg($(_this).find("#resend"));
                                     service.getSMSVerifCode(mobile).done(function(res) {
-                                        if(res.code == 0) {
+                                        if (res.code == 0) {
                                             console.log("短信发送成功")
                                         } else {
-                                            $("#codetip").html(res.msg).css({"color": "red"});
+                                            $("#codetip").html(res.msg).css({ "color": "red" });
                                         }
                                     })
                                     $(_this).find("#resend").unbind().click(function(res) {
                                         sendmsg($(_this).find("#resend"));
                                         service.getSMSVerifCode(mobile).done(function(res) {
-                                            if(res.code == 0) {
+                                            if (res.code == 0) {
                                                 console.log("短信重新发送成功")
                                             } else {
-                                                $("#codetip").html(res.msg).css({"color": "red"});
+                                                $("#codetip").html(res.msg).css({ "color": "red" });
                                             }
                                         })
                                     })
-                                } else if(numInd == 2) {
+                                } else if (numInd == 2) {
                                     var code = $(_this).find(".checkSmsCode").val();
-                                    if(code.length < 6) {
+                                    if (code.length < 6) {
                                         numInd = 1;
-                                        $("#codetip").html("请输入6位验证码").css({"color": "red"});
-                                        $(".checkSmsCode").css({"border-color": "red"});
+                                        $("#codetip").html("请输入6位验证码").css({ "color": "red" });
+                                        $(".checkSmsCode").css({ "border-color": "red" });
                                         $(".checkSmsCode").keyup(function() {
                                             $("#codetip").html("");
-                                            $(".checkSmsCode").css({"border-color": "#ccc"})
+                                            $(".checkSmsCode").css({ "border-color": "#ccc" })
                                         });
                                     } else {
-                                        if(code == "000000") {
+                                        if (code == "000000") {
                                             numInd = 2;
                                             console.log("验证成功");
                                             $(_this).find(".btn2").show().html("确定");
@@ -393,7 +393,7 @@ define([
                                                 "smsCode": code
                                             }
                                             service.updatePreLossStatus(data).done(function(res) {
-                                                if(res.code == 0) {
+                                                if (res.code == 0) {
                                                     numInd = 2;
                                                     console.log("验证成功");
                                                     $(_this).find(".btn2").show().html("确定");
@@ -402,18 +402,18 @@ define([
                                                 } else {
                                                     numInd = 1;
                                                     console.log("验证失败");
-                                                    $("#codetip").html("验证码无效，印章预挂失失败").css({"color": "red"});
-                                                    $(".checkSmsCode").css({"border-color": "red"});
+                                                    $("#codetip").html("验证码无效，印章预挂失失败").css({ "color": "red" });
+                                                    $(".checkSmsCode").css({ "border-color": "red" });
                                                     // $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
                                                     $(".checkSmsCode").keyup(function() {
                                                         $("#codetip").html("");
-                                                        $(".checkSmsCode").css({"border-color": "#ccc"})
+                                                        $(".checkSmsCode").css({ "border-color": "#ccc" })
                                                     });
                                                 }
                                             })
                                         }
                                     }
-                                } else if(numInd == 3) {
+                                } else if (numInd == 3) {
                                     _this.modal('hide');
                                     location.reload();
                                 } else {
@@ -480,7 +480,7 @@ define([
                 "esealCode": esealCode
             }
             service.updateEsealStatus(data).done(function(res) {
-                if(res.code == 0) {
+                if (res.code == 0) {
                     location.reload();
                 } else {
                     bootbox.alert(res.msg);
@@ -511,39 +511,39 @@ define([
                         callback: function(event) {
                             numInd++;
                             var _this = this;
-                            if(true) {
+                            if (true) {
                                 var msg1 = logoutEseal.find(".msg1")[0].outerHTML
                                 var msg2 = logoutEseal.find(".msg2")[0].outerHTML
-                                // var msg3 = logoutEseal.find(".msg3")[0].outerHTML
+                                    // var msg3 = logoutEseal.find(".msg3")[0].outerHTML
                                 var msg4 = logoutEseal.find(".msg4")[0].outerHTML
                                 var msg5 = logoutEseal.find(".msg5")[0].outerHTML
                                 var msg6 = logoutEseal.find(".msg6")[0].outerHTML
-                                //var msg7 = logoutEseal.find(".msg7")[0].outerHTML
+                                    //var msg7 = logoutEseal.find(".msg7")[0].outerHTML
                                 $(this).removeClass("bigLogout ")
-                                //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
+                                    //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                                 $(this).find(".bootbox-body").html(msg2);
                                 // $(this).find(".btn1,.btn2").hide();
-                                if(numInd == 1) {
+                                if (numInd == 1) {
                                     var msg3 = logoutEseal.find(".msg1")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg1);
                                     $(_this).find(".btn1").show();
                                     $(_this).find(".btn2").show().html("重试");
-                                } else if(numInd == 2) {
+                                } else if (numInd == 2) {
                                     var msg3 = logoutEseal.find(".msg1")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg1);
                                     $(_this).find(".btn1").show();
                                     $(_this).find(".btn2").show().html("重试");
-                                } else if(numInd == 3) {
+                                } else if (numInd == 3) {
                                     var msg4 = logoutEseal.find(".msg4")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg4);
                                     $(_this).find(".btn1").show();
                                     $(_this).find(".btn2").show().html("重试");
-                                } else if(numInd == 4) {
+                                } else if (numInd == 4) {
                                     var msg5 = logoutEseal.find(".msg5")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg5);
                                     $(_this).find(".btn1").show();
                                     $(_this).find(".btn2").show().html("重试");
-                                } else if(numInd == 5) {
+                                } else if (numInd == 5) {
                                     var msg6 = logoutEseal.find(".msg6")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $(_this).find(".btn1,.btn2").hide();
@@ -569,7 +569,7 @@ define([
             var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if ((!certificateFirm) || (certificateFirm == 2) ){
+            if ((!certificateFirm) || (certificateFirm == 2)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -580,7 +580,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function (result) {
+                            callback: function(result) {
                                 result.cancelable = false;
                             }
                         },
@@ -626,11 +626,11 @@ define([
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
             //可续费状态数组
             var arr = new Array([1, 6, 14]);
-            Array.prototype.in_array = function (e) {
+            Array.prototype.in_array = function(e) {
                 var r = new RegExp(',' + e + ',');
                 return (r.test(',' + this.join(this.S) + ','));
             };
-            
+
             if (!arr.in_array(esealStatus)) {
                 bootbox.dialog({
                     backdrop: true,
@@ -642,14 +642,14 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function (result) {
+                            callback: function(result) {
                                 result.cancelable = false;
                             }
                         },
                     }
                 })
                 return false;
-            } else if ((!certificateFirm) || (certificateFirm == 2) ){
+            } else if ((!certificateFirm) || (certificateFirm == 2)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -660,7 +660,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function (result) {
+                            callback: function(result) {
                                 result.cancelable = false;
                             }
                         },
@@ -728,7 +728,7 @@ define([
                 "firmId": this.firmId || "nihao"
             }
             service.getEsealList(pageNum, pageSize, querydata).done(function(res) {
-                if(res.code != 0) {
+                if (res.code != 0) {
                     var tempObj = {}
                 } else {
                     var tempObj = res.data;
@@ -736,26 +736,26 @@ define([
                     that.model.get("tplhtml").data = tempObj;
                     //this.$el.html(tpl(this.model.get("tplhtml")));
                     that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
-                    that.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
-                    if(GetQueryString("page") == "license" && GetQueryStringBool) {
-                        that.toggleTab(event, $("#loginset"))
+                    if (GetQueryString("page") == "license" && GetQueryStringBool) {
+                        that.toggleTab(event, $("#loginset"));
                     }
+                    that.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
                     GetQueryStringBool = false;
-                    if(res.data && (!res.data.list || res.data.list.length == 0)) {
+                    if (res.data && (!res.data.list || res.data.list.length == 0)) {
                         $("#esealNav").hide();
                     }
-                    
+
                     //屏蔽非ODC的电子印章申请
                     var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                     //  isODC为1的时候是ODC登录的
-                    if(!isODC){
+                    if (!isODC) {
                         $("#step").hide();
                     }
-                    
+
                 }
-                if(pageNum == 1) {
+                if (pageNum == 1) {
                     $("li.PreviousPage").addClass("no");
-                } else if(pageNum == res.data.totalPages) {
+                } else if (pageNum == res.data.totalPages) {
                     $("li.NextPage").addClass("no");
                 } else {
                     $("li.PreviousPage,li.NextPage").removeClass("no");
@@ -770,30 +770,30 @@ define([
                 enterpriseCode: this.enterpriseCode || "e440301000412"
             }
             service.licenselist(data.pageNum, data.pageSize, data).done(function(res) {
-                if(res.code != 0) {
+                if (res.code != 0) {
                     var tempObjs = {}
                 } else {
                     var tempObjs = res.data.list;
                     that.model.set("totalPages", res.data.totalPages)
                     that.model.get("tplhtml").loginlist = tempObjs;
-                    that.model.get("tplhtml").license_pageNum=res.data.pageNum;
-                    that.model.get("tplhtml").license_totalPages=res.data.totalPages;
-                    that.model.get("tplhtml").license_totalRows=res.data.totalRows;
-                    
-                    //this.$el.html(tpl(this.model.get("tplhtml")));
-                    that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
-                    that.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
+                    that.model.get("tplhtml").license_pageNum = res.data.pageNum;
+                    that.model.get("tplhtml").license_totalPages = res.data.totalPages;
+                    that.model.get("tplhtml").license_totalRows = res.data.totalRows;
 
+                    //this.$el.html(tpl(this.model.get("tplhtml")));
+                    console.log(that.$el, 'that')
+                    that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
                     $("#loginset").addClass("active").siblings().removeClass("active");
                     $(".mainbody").eq(1).addClass("active").siblings(".mainbody").removeClass("active");
+                    that.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
                     $(".license li.nav4:contains('开启登录权限')").attr("class", "nav4 open")
-                    if(res.data && (!res.data.list || res.data.list.length == 0)) {
+                    if (res.data && (!res.data.list || res.data.list.length == 0)) {
                         $("#licenseNav").hide();
                     }
                 }
-                if(data.pageNum == 1) {
+                if (data.pageNum == 1) {
                     $("li.PreviousPage").addClass("no");
-                } else if(data.pageNum == res.data.totalPages) {
+                } else if (data.pageNum == res.data.totalPages) {
                     $("li.NextPage").addClass("no");
                 } else {
                     $("li.PreviousPage,li.NextPage").removeClass("no");
@@ -802,19 +802,19 @@ define([
         },
         // 点击上一页、下一页
         pagediv: function(val, totalPages) {
-            if(val < 1) {
+            if (val < 1) {
                 val = 1;
                 return;
             }
-            if(val > totalPages) {
+            if (val > totalPages) {
                 val = totalPages;
                 return;
             }
-            if(val === this.current) {
+            if (val === this.current) {
                 return;
             }
             var _that = this;
-            if($("h3.boxmodel .active")[0].id == "loginset") {
+            if ($("h3.boxmodel .active")[0].id == "loginset") {
                 _that.licenselist(val)
             } else {
                 _that.listPage(val)
@@ -822,35 +822,35 @@ define([
         },
         //pagination
         pagination: function(pageNumber, totalPages) {
-            $("#pageLimit li.index").remove();
+            $(".mainbody.active #pageLimit li.index").remove();
             var firstShowPage, maxShowPage = 5
-            if(pageNumber <= 3) {
+            if (pageNumber <= 3) {
                 firstShowPage = 1
             } else {
                 firstShowPage = pageNumber - 2;
             }
             var lastShowPage = maxShowPage + firstShowPage - 1;
-            if(lastShowPage > totalPages) {
+            if (lastShowPage > totalPages) {
                 lastShowPage = totalPages;
             }
             this.model.get("tplhtml").count = [];
-            for(var i = firstShowPage; i <= lastShowPage; i++) {
+            for (var i = firstShowPage; i <= lastShowPage; i++) {
                 var pageIndex = '<li class="index"><a>' + i + '</a></li>';
                 $(".appendPage").before(pageIndex)
             };
-            if(!this.active) {
-                this.active = $("#pageLimit .index").eq(0)
+            if (!this.active) {
+                this.active = $(".mainbody.active #pageLimit .index").eq(0);
             } else {
-                if(this.active.hasClass("NextPage")) {
+                if (this.active.hasClass("NextPage")) {
                     this.active = $(".NextPage");
                 }
-                if(isNaN(this.active.find('a').text()) && this.active.prev().text() != this.model.get("totalPages")) {
-                    this.active = $("#pageLimit .index").eq(0)
+                if (isNaN(this.active.find('a').text()) && this.active.prev().text() != this.model.get("totalPages")) {
+                    this.active = $(".mainbody.active #pageLimit .index").eq(0)
                 }
-                if(this.active.prev().text() == this.model.get("totalPages")) {
+                if (this.active.prev().text() == this.model.get("totalPages")) {
                     this.active = this.active.prev()
                 }
-                this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
+                this.active = $(".mainbody.active #pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
             }
             this.active.addClass("active").siblings().removeClass("active")
         },
