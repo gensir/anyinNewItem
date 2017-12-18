@@ -194,6 +194,7 @@ define([
                                 } else {
                                     certificateFirms = ukeys.certificateFirms(selectedUkey);
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
+                                    localStorage.selectedUkey = selectedUkey;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl = that.getUrlParam("oid");
                                     if (oid == oidUrl) {
@@ -259,7 +260,7 @@ define([
                                                     } else {
                                                         renew = "RENEW_" + year;
                                                     }
-
+                                                    var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
                                                     var dataGDCA = {
                                                         orderNo: that.getUrlParam("orderNo") || orderNo,
                                                         gdcaRequest: {
@@ -269,35 +270,9 @@ define([
                                                             publicKey: ukeys.dCertPublicKey(selectedUkey),
                                                             orgCode: ukeys.GetenterpriseCode(selectedUkey),
                                                             busyType: renew,//默认更新两年时为RENEW，当为其他年份时用下划线隔开，ef:RENEW_3
-                                                            certType: 2
+                                                            certType: certificateAssigned
                                                         }
                                                     };
-                                                    var oid = that.getUrlParam("oid");
-                                                    var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
-                                                    var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
-                                                    var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
-                                                    var certificateFirms = ukeys.certificateFirms(selectedUkey);
-                                                    var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
-                                                    var encryptCertificateSn = ukeys.getCertEncSN(selectedUkey);
-                                                    var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
-                                                    var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
-                                                    realdata = {
-                                                        "validStart": $(".vaildStart .text").text(),
-                                                        "validEnd": $(".validEnd .new").text(),
-                                                        "esealCode": $(".esealCode .text").text(),
-                                                        "oid": oid,
-                                                        "businessType": "2",
-                                                        "enterpriseCode": enterpriseCode,
-                                                        "enterpriseName": enterpriseName,
-                                                        "issuer": issuer,                             //数字证书颁发者
-                                                        "certificateFirms": certificateFirms,                        //证书厂商
-                                                        "certificateType": keyType,                                //证书类型 
-                                                        "certificateAssigned": certificateAssigned,                     //数字证书归属者
-                                                        "signCertificateSn": signCertificateSn,    //签名证书序列号
-                                                        "encryptCertificateSn": encryptCertificateSn  //加密证书序列号
-                                                    };
-                                                    localStorage.realdata = JSON.stringify(realdata);
-
                                                     service.renew_certGDCA(dataGDCA).done(function (ret) {
                                                         if (ret.code == 0) {
                                                             window.open(ret.data, '_blank');
@@ -473,19 +448,45 @@ define([
                                 }
                             } else if (numInd == 3) {
                                 numInd = 3;
+                                var selectedUkey = localStorage.selectedUkey;
                                 var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .text").text())),
                                     newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
                                 if (newDate <= oldDate) {
-                                    $(_this).find(".btn2").hide();
+                                	numInd = 2;
+//                                  $(_this).find(".btn2").hide();
                                     $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg4'>证书时间未更新，电子印章续期失败！</div>");
                                     return false;
                                 }
-                                var realdata = JSON.parse(localStorage.realdata);
-                                if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
-                                    $(_this).find(".btn2").hide();
-                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
-                                    return false;
-                                }
+                                var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
+                                var oid = that.getUrlParam("oid");
+                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+//                              var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
+                                
+                                var certificateFirms = ukeys.certificateFirms(selectedUkey);
+                                var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
+                                var encryptCertificateSn = ukeys.getCertEncSN(selectedUkey);
+                                var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
+                                var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
+                                realdata = {
+                                    "validStart": $(".vaildStart .text").text(),
+                                    "validEnd": $(".validEnd .new").text(),
+                                    "esealCode": $(".esealCode .text").text(),
+                                    "oid": oid,
+                                    "businessType": "2",
+                                    "enterpriseCode": enterpriseCode,
+                                    "enterpriseName": enterpriseName,
+                                    "issuer": issuer,                             //数字证书颁发者
+                                    "certificateFirms": certificateFirms,                        //证书厂商
+                                    "certificateType": keyType,                                //证书类型 
+                                    "certificateAssigned": ukeys.CertType(selectedUkey) - 0,                     //数字证书归属者
+                                    "signCertificateSn": signCertificateSn,    //签名证书序列号
+                                    "encryptCertificateSn": encryptCertificateSn  //加密证书序列号
+                                };
+//                              if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
+//                                  $(_this).find(".btn2").hide();
+//                                  $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
+//                                  return false;
+//                              }
                                 service.write_cert_GDCA(realdata).done(function (res) {
                                     if (res.code == 0) {
                                         numInd = 3

@@ -215,7 +215,7 @@ define([
             }
         },
         //获取证书拥有者信息
-        getCertOwner:function(){
+        getCertOwner:function(selectukeyInd){
         	if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return JSON.parse(this.data.ukey.GetCertInfo(13));
