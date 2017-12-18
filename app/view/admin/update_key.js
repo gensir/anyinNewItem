@@ -468,6 +468,7 @@ define([
                                 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                 var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
                                 realdata = {
+                                	"orderNo":orderNo,
                                     "validStart": $(".vaildStart .text").text(),
                                     "validEnd": $(".validEnd .new").text(),
                                     "esealCode": $(".esealCode .text").text(),
