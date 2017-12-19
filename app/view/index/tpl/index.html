@@ -8,7 +8,8 @@
     </dl>
 
     <ul class="actionlist">
-        <li class="nav1"><!-- <a href="admin.html#step1"><em></em>新办电子印章</a> --></li>
+        <li class="nav1">
+            <!-- <a href="admin.html#step1"><em></em>新办电子印章</a> --></li>
         <li class="nav2"><a href="admin.html"><em></em>电子印章续费</a></li>
         <li class="nav3"><a href="admin.html?page=license"><em></em>登录权限设置</a></li>
     </ul>
@@ -19,18 +20,20 @@
 <div class="page-kd content">
     <div class="jilu boxshow">
         <div class="t-title">
-            <i></i><h2>电子印章签章记录</h2><a class="more" href="logs.html">查看更多></a></div>
+            <i></i>
+            <h2>电子印章签章记录</h2><a class="more" href="logs.html">查看更多></a></div>
         <div class="jilulist">
             <ul>
                 {{if logdata == ""}}
-                <li><div class="file" style="cursor: default;">暂无签章记录</div></li>
-                {{/if}}
-                {{each logdata value i}}
+                <li>
+                    <div class="file" style="cursor: default;">暂无签章记录</div>
+                </li>
+                {{/if}} {{each logdata value i}}
                 <li>
                     <div class="file">
                         <div class="filetype"><em></em></div>
                         <p class="gsname" title="{{value.signetDocument}}">{{value.signetDocument}}</p>
-                        <p class="yzinfo">{{value.esealFullName +"—— "}}{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</p>
+                        <p class="yzinfo">{{value.esealFullName +"—— "}}{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章": "撤章"}}</p>
                         <!-- <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</span></p> -->
                         <p class="signet-date">电子印章有效期：{{value.bizValidStart?value.bizValidStart.substr(0,10)+"至":""}}{{value.bizValidEnd?value.bizValidEnd.substr(0,10):""}}</p>
                         <div class="date">{{value.signTime.substr(0,10)}}</div>
@@ -65,7 +68,8 @@
     <div class="left">
         <div class="xufei boxshow">
             <div class="t-title">
-                <i></i><h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
+                <i></i>
+                <h2>电子印章有效期</h2><a class="more" href="admin.html">详情></a></div>
             <ul class="blist">
                 {{each esealdata value i}}
                 <li>
@@ -75,7 +79,6 @@
                         {{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==14}}
                         <a class="renew" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>
                         {{/if}}
-                    
                         {{if value.esealStatus==7}}
                         <a class="updata_key" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-code="{{value.esealCode}}" href="admin.html#update_key?esealcode={{value.esealCode}}&oid={{value.oid}}">更新证书></a>
                         {{/if}}
@@ -87,7 +90,8 @@
 
         <div class="help boxshow">
             <div class="t-title">
-                <i></i><h2>常见问题汇总</h2><a class="more" href="//www.i-yin.net/index.php?c=article&a=type&tid=27" target="_blank">更多></a></div>
+                <i></i>
+                <h2>常见问题汇总</h2><a class="more" href="//www.i-yin.net/index.php?c=article&a=type&tid=27" target="_blank">更多></a></div>
             <ul class="blist">
                 <li><span class="arrow"></span><a href="//www.i-yin.net/index.php?c=article&id=253" target="_blank">电子印章被锁了怎么办？</a></li>
                 <li><span class="arrow"></span><a href="//www.i-yin.net/index.php?c=article&id=262" target="_blank">文档签章后如何修改内容？</a></li>
