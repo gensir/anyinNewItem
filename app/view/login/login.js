@@ -57,15 +57,8 @@ define(
             },
             toggleTab: function() {
                 $(".head div.but").on("click", "span", function() {
-                    $(this)
-                        .addClass("active")
-                        .siblings()
-                        .removeClass("active");
-                    $(".mainbody ul li")
-                        .eq($(this).index())
-                        .addClass("active")
-                        .siblings()
-                        .removeClass("active");
+                    $(this).addClass("active").siblings().removeClass("active");
+                    $(".mainbody ul li").eq($(this).index()).addClass("active").siblings().removeClass("active");
                 });
             },
             goregister: function() {
@@ -131,7 +124,7 @@ define(
                                         }
                                     },
                                     confirm: {
-                                        label: "继续",
+                                        label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
                                             numInd++;
@@ -161,7 +154,7 @@ define(
                                 //closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                                message: dialogs.find(".ukeyLoginTip .msg1.updata_key")[0].outerHTML,
+                                message: dialogs.find(".ukeyLoginTip .msgcenter.updata_key")[0].outerHTML,
                                 buttons: {
                                     cancel: {
                                         label: "返回",
@@ -171,7 +164,7 @@ define(
                                         }
                                     },
                                     confirm: {
-                                        label: "继续",
+                                        label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
                                             numInd++;
@@ -179,6 +172,7 @@ define(
                                                 numInd = 0;
                                                 localStorage.firmId = data.data.firmId;
                                                 localStorage.pointCode = data.data.pointCode;
+                                                $.cookie("loginadmin", JSON.stringify(data.data));
                                                 window.open("admin.html#update_key?esealcode=" + randomNumKey + "&oid=" + oid, "_self");
                                             } else {
                                                 this.modal("hide");
@@ -196,7 +190,7 @@ define(
                                 //closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                                message: dialogs.find(".ukeyLoginTip .msg1.invalid")[0].outerHTML,
+                                message: dialogs.find(".ukeyLoginTip .msgcenter.invalid")[0].outerHTML,
                                 buttons: {
                                     cancel: {
                                         label: "返回",
@@ -206,7 +200,7 @@ define(
                                         }
                                     },
                                     confirm: {
-                                        label: "继续",
+                                        label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
                                             numInd++;
@@ -214,6 +208,7 @@ define(
                                                 numInd = 0;
                                                 localStorage.firmId = data.data.firmId;
                                                 localStorage.pointCode = data.data.pointCode;
+                                                $.cookie("loginadmin", JSON.stringify(data.data));
                                                 window.open("admin.html#renew", "_self");
                                             } else {
                                                 this.modal("hide");
@@ -231,7 +226,7 @@ define(
                                 //closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
-                                message: dialogs.find(".ukeyLoginTip .msg1.renew")[0].outerHTML,
+                                message: dialogs.find(".ukeyLoginTip .msgcenter.renew")[0].outerHTML,
                                 buttons: {
                                     cancel: {
                                         label: "返回",
@@ -241,7 +236,7 @@ define(
                                         }
                                     },
                                     confirm: {
-                                        label: "继续",
+                                        label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
                                             numInd++;
@@ -249,6 +244,7 @@ define(
                                                 numInd = 0;
                                                 localStorage.firmId = data.data.firmId;
                                                 localStorage.pointCode = data.data.pointCode;
+                                                $.cookie("loginadmin", JSON.stringify(data.data));
                                                 window.open("admin.html#renew?esealcode=" + randomNumKey + "&oid=" + oid, "_self");
                                             } else {
                                                 this.modal("hide");
