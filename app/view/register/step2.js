@@ -38,7 +38,8 @@ define([
                 window.open("register.html#step1", "_self");
                 return;
             }
-            if (!firmId) {//localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0
+            debugger
+            if ((!firmId||firmId=="null")&&ukeys.GetCertCount() != 0) {//localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0
                 this.getcompanyODC()
             } else {
                 this.getcompany(firmId);
