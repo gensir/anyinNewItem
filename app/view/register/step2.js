@@ -38,7 +38,7 @@ define([
                 window.open("register.html#step1", "_self");
                 return;
             }
-            if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+            if (!firmId) {//localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0
                 this.getcompanyODC()
             } else {
                 this.getcompany(firmId);
@@ -356,10 +356,10 @@ define([
                     that.$el.html(template.compile(registerstep2)({ data: result }));
                     that.$el.append(template.compile(primary, {})());
                     // that.$el.html(tpl({ data: result }));
-                    if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
-                        bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
-                        return;
-                    }
+                    // if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
+                    //     bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+                    //     return;
+                    // }
                 } else {
                     bootbox.alert(data.msg);
                 }
