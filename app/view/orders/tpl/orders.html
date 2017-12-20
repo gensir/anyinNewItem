@@ -25,8 +25,14 @@
                                 <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
                                 <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
                                 <li class="nav5">
-                                    {{if value.orderStatus ==1}} {{if value.businessType==1}}<a id="continue" href='javascript:;'>未支付</a>{{/if}} {{if value.businessType==2}}<a id="renew" data-type="{{value.mpEsealOrderExts[0].keyType}}" data-cert="{{value.mpEsealOrderExts[0].certificateFirm}}"
-                                        href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a> {{/if}}{{else}}{{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}{{/if}}
+                                    {{if value.orderStatus ==1}}
+                                        {{if value.businessType==1}}<a id="continue" href='javascript:;'>未支付</a>{{/if}}
+                                        {{if value.businessType==2}}
+                                        <a id="renew" data-type="{{value.mpEsealOrderExts[0].keyType}}" data-cert="{{value.mpEsealOrderExts[0].certificateFirm}}" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
+                                        {{/if}}
+                                    {{else}}
+                                        {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}
+                                    {{/if}}
                                 </li>
                             </ul>
                             <div class="showHide">
@@ -91,7 +97,8 @@
                                             <p><span>新办理的电子印章无法使用，</span>
                                                 <a href="//www.i-yin.net/index.php?c=article&a=type&tid=46" target="_blank">了解详情</a>
                                             </p>
-                                            {{/if}} {{if value.businessType==2 || value.businessType==3}}
+                                            {{/if}}
+                                            {{if value.businessType==2 || value.businessType==3}}
                                             <p><span>续费后仍然提示已过期？</span>
                                                 <a id="update_key" data-status="{{value.commEsealInfos[0].esealStatus}}" data-order="{{value.orderNo}}" data-code="{{value.mpEsealOrderExts[0].esealCode}}" data-oid="{{value.mpEsealOrderExts[0].oid}}" href="admin.html#update_key?orderNo={{value.orderNo}}&esealCode={{value.mpEsealOrderExts[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}">点击更新证书</a>
                                             </p>
