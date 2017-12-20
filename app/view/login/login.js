@@ -130,10 +130,10 @@ define(
                                             numInd++;
                                             if (numInd == 1) {
                                                 numInd = 0;
-                                                localStorage.firmId = data.data.firmId;
-                                                localStorage.pointCode = data.data.pointCode;
                                                 var loginODC = data.data;
-                                                loginODC.enterpriseName = $("#seleBook option:selected").text();
+                                                localStorage.firmId = loginODC.firmId;
+                                                localStorage.pointCode = loginODC.pointCode;
+                                                loginODC.enterpriseName = loginODC.enterpriseName || $("#seleBook option:selected").text();
                                                 loginODC.oid = oid;
                                                 loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
                                                 localStorage.loginODC = JSON.stringify(loginODC);

@@ -31,9 +31,9 @@ define([
 //			this.$el.html(adminstep2);
 			this.$el.html(template.compile(adminstep2)());
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			imgModalBig('.shadow1', { 'width': 500, 'src': '../../../../app/asset/img/lince.jpg' });
-			imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': '../../../../app/asset/img/ID-front.png' });
-			imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': '../../../../app/asset/img/ID-back.png' });
+			imgModalBig('.shadow1', { 'width': 500, 'src': './app/asset/img/lince.jpg' });
+			imgModalBig('.shadow2,.shadow4', { 'width': 500, 'src': './app/asset/img/ID-front.png' });
+			imgModalBig('.shadow3,.shadow5', { 'width': 500, 'src': './app/asset/img/ID-back.png' });
 			var orderNo = localStorage.orderNo;
 //			if(!orderNo) {
 //				return;
