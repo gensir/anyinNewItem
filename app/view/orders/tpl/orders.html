@@ -25,13 +25,8 @@
                                 <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
                                 <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
                                 <li class="nav5">
-                                    {{if value.orderStatus ==1}} {{if value.businessType==1}}
-                                    <a id="continue" href='javascript:;'>未支付</a>
-                                    {{/if}}
-                                    {{if value.businessType==2}}
-                                    <a id="renew" data-type="{{value.mpEsealOrderExts[0].keyType}}" data-cert="{{value.mpEsealOrderExts[0].certificateFirm}}" href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a>
-                                    {{/if}}
-                                    {{else}} {{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}{{/if}}
+                                    {{if value.orderStatus ==1}} {{if value.businessType==1}}<a id="continue" href='javascript:;'>未支付</a>{{/if}} {{if value.businessType==2}}<a id="renew" data-type="{{value.mpEsealOrderExts[0].keyType}}" data-cert="{{value.mpEsealOrderExts[0].certificateFirm}}"
+                                        href='admin.html#renew?esealcode={{value.commEsealInfos[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}&orderNo={{value.orderNo}}'>未支付</a> {{/if}}{{else}}{{value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}{{/if}}
                                 </li>
                             </ul>
                             <div class="showHide">
@@ -74,9 +69,8 @@
                                         <li class="n1">
                                             <p class="top f14">订单内容</p>
                                             {{if value.businessType==1 || value.businessType==3}}{{each value.mpEsealOrderExts value i}}
-                                                <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                            {{/each}}{{/if}}
-                                            {{if value.businessType==2 }}{{each value.mpEsealOrderExts value i}}
+                                            <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
+                                            {{/each}}{{/if}} {{if value.businessType==2 }}{{each value.mpEsealOrderExts value i}}
                                             <p><span class="sealName" style="width:130px;">{{value.esealFullName}} 续费</span><span class="sealyear">{{value.effectiveDuration}}年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
                                             {{/each}}{{/if}}
                                             <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span></p>
@@ -87,7 +81,7 @@
                                             <p class="f14">订单发票</p>
                                             <!-- <p><span>如需电子发票，请点击 <a href="javascript:;">电子发票申请</a></span></p> -->
                                             <p><span>您已申请电子发票，</span>
-                                                <a href="{{value.mpElectronicInvoice?value.mpElectronicInvoice.dfsPdfUrl : "#"}}">点击下载</a>
+                                                <a href="{{value.mpElectronicInvoice?value.mpElectronicInvoice.dfsPdfUrl : " # "}}">点击下载</a>
                                             </p>
                                             {{/if}}
                                         </li>
@@ -97,8 +91,7 @@
                                             <p><span>新办理的电子印章无法使用，</span>
                                                 <a href="//www.i-yin.net/index.php?c=article&a=type&tid=46" target="_blank">了解详情</a>
                                             </p>
-                                            {{/if}}
-                                            {{if value.businessType==2 || value.businessType==3}}
+                                            {{/if}} {{if value.businessType==2 || value.businessType==3}}
                                             <p><span>续费后仍然提示已过期？</span>
                                                 <a id="update_key" data-status="{{value.commEsealInfos[0].esealStatus}}" data-order="{{value.orderNo}}" data-code="{{value.mpEsealOrderExts[0].esealCode}}" data-oid="{{value.mpEsealOrderExts[0].oid}}" href="admin.html#update_key?orderNo={{value.orderNo}}&esealCode={{value.mpEsealOrderExts[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}">点击更新证书</a>
                                             </p>
@@ -111,7 +104,7 @@
                                     </ul>
                                 </div>
                                 <div class="tog_bot">▲</div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     {{/each}}
@@ -121,27 +114,27 @@
 
             </div>
         </div>
-		<nav aria-label="Page navigation">
-			<div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
-		    <ul class="pagination" id="pageLimit">
-		        <li class="PreviousPage">
-		            <a aria-label="Previous">
-		                <span aria-hidden="true">&laquo;</span>
-		            </a>
-		        </li>
-		        <!-- {{each count value i}}
+        <nav aria-label="Page navigation">
+            <div class="page_btip">当前第 {{ data.pageNum }}/{{ data.totalPages }} 页，共 {{ data.totalRows }} 条记录 </div>
+            <ul class="pagination" id="pageLimit">
+                <li class="PreviousPage">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <!-- {{each count value i}}
 		                    <li class="index"><a>{{value}}</a></li>
 		                    {{/each}} -->
-		        <li class="appendPage NextPage">
-		            <a aria-label="Next">
-		                <span aria-hidden="true">&raquo;</span>
-		            </a>
-		        </li>
-		        <!-- <li class="gopage">
+                <li class="appendPage NextPage">
+                    <a aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <!-- <li class="gopage">
 		                        <label>前往<input type="text">页</label>
 		                    </li> -->
-		    </ul>
-		</nav>
+            </ul>
+        </nav>
     </div>
 
 </div>
@@ -180,37 +173,33 @@
         margin: 0 auto;
     }
     
-    .mainbody {
-
-    }
+    .mainbody {}
     
     .accordion {
         background: #fff;
         padding: 20px;
     }
     
-    .accordion_w {
-        
-    }
+    .accordion_w {}
     
     .accordion_w .nav {
-        padding:15px 20px;
-        font-size: 14px;        
-        
+        padding: 15px 20px;
+        font-size: 14px;
     }
-    .accordion_w .nav_tit{
-    	background-color: #f6fafe;
-    	font-size: 16px;
-    	border: 1px solid #dfe8ed;
-    	
+    
+    .accordion_w .nav_tit {
+        background-color: #f6fafe;
+        font-size: 16px;
+        border: 1px solid #dfe8ed;
     }
-    .accordion_w .nav_tit li{
-    	text-align: center;	
-    	font-size: 16px;
-    	color: #384a5c;
-    	font-weight: bold;
-    }   
-     
+    
+    .accordion_w .nav_tit li {
+        text-align: center;
+        font-size: 16px;
+        color: #384a5c;
+        font-weight: bold;
+    }
+    
     .accordion .nav li {
         float: left;
         min-height: 20px;
@@ -266,8 +255,8 @@
         min-height: 340px;
     }
     
-    .eseallist .list {       
-		border-bottom: 1px solid #dfe8ed;
+    .eseallist .list {
+        border-bottom: 1px solid #dfe8ed;
     }
     
     .eseallist .list>.nav {
@@ -276,15 +265,14 @@
         cursor: pointer;
         border-right: 1px solid #dfe8ed;
         border-left: 1px solid #dfe8ed;
-        
     }
     
-	.nav_tac{
-    	background-color: #eaf1f7;
+    .nav_tac {
+        background-color: #eaf1f7;
     }
     
-    .eseallist .list .nav_t:hover{
-    	background-color: #edf7fc;
+    .eseallist .list .nav_t:hover {
+        background-color: #edf7fc;
     }
     
     .eseallist .list>.nav .nav5 a {
@@ -306,12 +294,13 @@
         padding: 0px 40px;
         background: #fff;
         border-right: 1px solid #dfe8ed;
-        border-left: 1px solid #dfe8ed; 
+        border-left: 1px solid #dfe8ed;
     }
-    .eseallist .list .toggle .nav{
-    	border-bottom: 1px solid #dfe8ed;
+    
+    .eseallist .list .toggle .nav {
+        border-bottom: 1px solid #dfe8ed;
     }
-        
+    
     .eseallist .list .toggle .nav .n1 {
         width: 30%;
         /* border-right: 1px dashed #dedede; */
@@ -357,7 +346,7 @@
         padding: 0px 40px;
         background: #fff;
         border-right: 1px solid #dfe8ed;
-        border-left: 1px solid #dfe8ed;        
+        border-left: 1px solid #dfe8ed;
     }
     
     .eseallist .list .orderHelp .n1 {
@@ -427,26 +416,29 @@
     nav ul.pagination li a {
         cursor: pointer;
     }
-    .eseallist .list .tog_bot{
-    	width: 100%;
-    	height: 20px;
-    	background-color: #eaf1f7;
-    	text-align: center;
-    	color: #a6becb;
-    	cursor: pointer;
-    	margin-bottom: 10px;
+    
+    .eseallist .list .tog_bot {
+        width: 100%;
+        height: 20px;
+        background-color: #eaf1f7;
+        text-align: center;
+        color: #a6becb;
+        cursor: pointer;
+        margin-bottom: 10px;
     }
-    .eseallist .list .tog_bot:hover{
-    	background-color: #edf7fc;
-    }    
-    .page_btip{
-    	display: inline-block;
-    	float: left;
-    	line-height: 70px;
-    	color: #6f7d8b;
+    
+    .eseallist .list .tog_bot:hover {
+        background-color: #edf7fc;
+    }
+    
+    .page_btip {
+        display: inline-block;
+        float: left;
+        line-height: 70px;
+        color: #6f7d8b;
     }
     
     .eseallist:nth-child(2n) {
-     background-color: #f6fafe;
+        background-color: #f6fafe;
     }
 </style>
