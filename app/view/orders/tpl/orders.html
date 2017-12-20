@@ -83,11 +83,11 @@
                                         </li>
                                         <li class="n2">
                                             <!-- "dfsPdfUrl"为公司发票下载地址,"originalPdfUrl"为百望下载地址 -->
-                                            {{if value.mpElectronicInvoice != null && (value.mpElectronicInvoice.dfsPdfUrl != null || value.mpElectronicInvoice.dfsPdfUrl != "empty")}}
+                                            {{if value.mpElectronicInvoice != null && (value.mpElectronicInvoice.dfsPdfUrl != null || value.mpElectronicInvoice.dfsPdfUrl != "" || value.mpElectronicInvoice.dfsPdfUrl != "empty")}}
                                             <p class="f14">订单发票</p>
                                             <!-- <p><span>如需电子发票，请点击 <a href="javascript:;">电子发票申请</a></span></p> -->
                                             <p><span>您已申请电子发票，</span>
-                                                <a href="{{value.mpElectronicInvoice?value.mpElectronicInvoice.dfsPdfUrl : " # "}}">点击下载</a>
+                                                <a href="{{value.mpElectronicInvoice.dfsPdfUrl}}">点击下载</a>
                                             </p>
                                             {{/if}}
                                         </li>
