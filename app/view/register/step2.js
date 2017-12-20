@@ -143,10 +143,10 @@ define([
             var validflag = this.model.isValid()
             var code = $(".countCode").val();
             var phone = $(".countPhone").val();
-            if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
-                bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
-                return;
-            }
+            // if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
+            //     bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
+            //     return;
+            // }
             if (code == "000000") {
                 if (!validflag) {
                     enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
