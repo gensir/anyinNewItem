@@ -725,7 +725,8 @@ define([
             pageNum = pageNum || 1;
             pageSize = pageSize || 10;
             var querydata = {
-                "firmId": this.firmId || "nihao"
+                "firmId": this.firmId,
+                "enterpriseCode": this.enterpriseCode
             }
             service.getEsealList(pageNum, pageSize, querydata).done(function(res) {
                 if (res.code != 0) {
@@ -767,7 +768,7 @@ define([
             var data = {
                 pageNum: pageNum || 1,
                 pageSize: pageSize || 10,
-                enterpriseCode: this.enterpriseCode || "e440301000412"
+                enterpriseCode: this.enterpriseCode
             }
             service.licenselist(data.pageNum, data.pageSize, data).done(function(res) {
                 if (res.code != 0) {
