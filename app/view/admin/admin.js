@@ -837,13 +837,13 @@ define([
             this.model.get("tplhtml").count = [];
             for (var i = firstShowPage; i <= lastShowPage; i++) {
                 var pageIndex = '<li class="index"><a>' + i + '</a></li>';
-                $(".mainbody.active .appendPage").before(pageIndex)
+                $(".mainbody.active #pageLimit .appendPage").before(pageIndex)
             };
             if (!this.active) {
                 this.active = $(".mainbody.active #pageLimit .index").eq(0);
             } else {
                 if (this.active.hasClass("NextPage")) {
-                    this.active = $(".mainbody.active .NextPage");
+                    this.active = $(".mainbody.active #pageLimit .NextPage");
                 }
                 if (isNaN(this.active.find('a').text()) && this.active.prev().text() != this.model.get("totalPages")) {
                     this.active = $(".mainbody.active #pageLimit .index").eq(0)
@@ -865,8 +865,8 @@ define([
             this.pagediv(1, this.model.get("totalPages"))
         },
         NextPage: function(e) {
-            this.active = $(".mainbody.active .NextPage");
-            console.log(this.active.text(), this.model.get("totalPages"))
+            this.active = $(".mainbody.active #pageLimit .NextPage");
+            console.log(this.model.get("totalPages"))
             this.pagediv(this.model.get("totalPages"),this.model.get("totalPages"))
         },
         step: function() {
