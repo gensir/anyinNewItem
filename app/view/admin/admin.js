@@ -725,7 +725,6 @@ define([
             pageNum = pageNum || 1;
             pageSize = pageSize || 10;
             var querydata = {
-                "firmId": this.firmId,
                 "enterpriseCode": this.enterpriseCode
             }
             service.getEsealList(pageNum, pageSize, querydata).done(function(res) {

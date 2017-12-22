@@ -263,7 +263,6 @@ define([
             pageNum = pageNum || 1;
             pageSize = pageSize || 4;
             var data = {
-                "firmId": firmId,
                 "enterpriseCode": enterpriseCode
             };
             service.getEsealList(pageNum, pageSize, data).done(function (data) {
