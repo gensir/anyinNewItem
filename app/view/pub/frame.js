@@ -157,14 +157,16 @@ define(
                                         var selectedUkey = $("#seleBook option:selected").index() - 1;
                                         if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                             var oid = ukeys.GetOid(selectedUkey);
+                                            var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
                                             var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
                                             var randomNumKey = keyType == 1 ? oid : ukeys.esealCode($("#unlockCode").val(),selectedUkey);
                                             var randomNum = ukeys.randomNum(randomNumKey,keyType);
                                             var PKSC7 = ukeys.dSignature(selectedUkey,randomNum,$("#unlockCode").val());
                                             localStorage.removeItem("dSignature");
                                             var enterpriseCode = $.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).user.enterpriseCode;
-                                            // console.log("印章编码：" + randomNumKey)
-                                            // console.log("随机码：" + randomNum)
+                                            console.log("印章编码：" + oid)
+                                            console.log("印章编码：" + randomNumKey)
+                                            console.log("随机码：" + randomNum)
                                             // console.log("签名：\n" + PKSC7)
                                             // document.write("获取客户端数字签名：\n" + PKSC7);
                                             if (!Boolean(PKSC7)) {
@@ -175,9 +177,10 @@ define(
                                                 $(_this).find(".btn2").show().html("重试");
                                             } else {
                                                 var data = {
-                                                    esealCode: randomNumKey,
-                                                    enterpriseCode: enterpriseCode,
-                                                    PKSC7: PKSC7
+                                                    "esealCode": esealCode,
+                                                    "oid": oid,
+                                                    "enterpriseCode": enterpriseCode,
+                                                    "PKSC7": PKSC7
                                                 };
                                                 service.commSignetLog(1, 1, data).done(function(data) {
                                                     if (data.code == 0) {
@@ -205,8 +208,8 @@ define(
                                             var GetOid = ukeys.GetOid(selectedUkey);
                                             localStorage.GetOid = GetOid;
                                             var data = {
-                                                oid: GetOid,
-                                                errorCode: 1
+                                                "oid": GetOid,
+                                                "errorCode": 1
                                             };
                                             service.checkPIN(data).done(function(data) {
                                                 if (data.code == 1) {
