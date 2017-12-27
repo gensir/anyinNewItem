@@ -131,13 +131,14 @@
                         <div class="eseallist">
                             {{if loginlist == ""}}
                             <div class="listResult">无电子印章信息</div>
-                            {{/if}} {{each loginlist value i}}
+                            {{/if}}
+                            {{each loginlist value i}}
                             <div class="list">
                                 <ul class="nav nav_con">
                                     <li class="nav1">{{value.esealFullName}}</li>
                                     <li class="nav2">{{value.esealCode}}</li>
                                     <li class="nav3">{{value.keyStatus==0?"关闭登录":"允许登录"}}</li>
-                                    <li class="nav4 shut">
+                                    <li data-oid="{{value.oid}}" class="nav4 shut">
                                         <p class="opens {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p>
                                     </li>
                                 </ul>

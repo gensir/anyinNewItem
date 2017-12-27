@@ -93,7 +93,7 @@ define([
             return this.model.get("tplhtml").loginlist[ind].esealFullName;
         },
         //关闭登录权限
-        shut: function(e) {
+        shut: function(event) {
             // function getName() {
             //     var _this = e.currentTarget;
             //     var ind = $(_this).parents(".list").index();
@@ -103,8 +103,9 @@ define([
                 return false;
             }
             var _that = this,
-                listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
+                listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
+            var Oid = $(event.currentTarget).data('oid');
             var dialogsText = dialogs.find(".closeAllow");
             //判断有几个可以登录的UKEY
             service.islicenseLast({ enterpriseCode: this.enterpriseCode }).done(function(res) {
@@ -115,7 +116,7 @@ define([
                 //closeButton: false,
                 className: "common closeAllow",
                 title: dialogsText.find(".title")[0].outerHTML,
-                message: (_that.licenseLast <= 1) ? dialogsText.find(".msgcenter")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
+                message: (_that.licenseLast <= 1) ? dialogsText.find(".msgcenter")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(event) + '"').end()[0].outerHTML,
                 buttons: {
                     cancel: {
                         label: "返回",
@@ -158,7 +159,7 @@ define([
                                 var getPIN = $("#closeCode").val(),
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                                 if (ukeys.PIN($("#closeCode").val(), 0)) {
-                                    if (listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
+                                    if (Oid != ukeys.GetOid(selectedUkey)) {
                                         $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                         $(_this).find(".btn2").show().html("重试");
                                         numInd = 0;
@@ -166,7 +167,7 @@ define([
                                         return false;
                                     }
                                     var data = {
-                                        "esealCode": listdata.esealCode,
+                                        "oid": GetOid,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function(res) {
@@ -209,20 +210,23 @@ define([
             return false;
         },
         //打开登录权限
-        open: function(e) {
+        open: function(event) {
+            event.stopPropagation();
             if (!ukeys.issupport()) {
                 return false;
             }
             var _that = this,
-                listdata = _that.model.get("tplhtml").loginlist[$(e.currentTarget).parents(".list").index()]
+                listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
+            var Oid = $(event.currentTarget).data('oid');
+            debugger
             var dialogsText = dialogs.find(".openAllow");
             bootbox.dialog({
                 backdrop: true,
                 //closeButton: false,
                 className: "common openAllow",
                 title: dialogsText.find(".title")[0].outerHTML,
-                message: dialogsText.find(".msg1").find("span").text('"' + _that.getSealName(e) + '"').end()[0].outerHTML,
+                message: dialogsText.find(".msg1").find("span").text('"' + _that.getSealName(event) + '"').end()[0].outerHTML,
                 buttons: {
                     cancel: {
                         label: "返回",
@@ -265,7 +269,7 @@ define([
                                 var getPIN = $("#openCode").val(),
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                                 if (ukeys.PIN($("#openCode").val(), 0)) {
-                                    if (listdata.esealCode != ukeys.esealCode(getPIN, selectedUkey)) {
+                                    if (Oid != ukeys.GetOid(selectedUkey)) {
                                         $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
                                         $(_this).find(".btn2").show().html("重试");
                                         numInd = 0;
@@ -273,7 +277,7 @@ define([
                                         return false;
                                     }
                                     var data = {
-                                        "esealCode": listdata.esealCode,
+                                        "oid": GetOid,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function(res) {

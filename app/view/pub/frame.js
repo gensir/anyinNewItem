@@ -165,7 +165,7 @@ define(
                                             localStorage.removeItem("dSignature");
                                             var enterpriseCode = $.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).user.enterpriseCode;
                                             console.log("证书标识：" + oid)
-                                            console.log("印章编码：" + randomNumKey)
+                                            console.log("印章编码：" + esealCode)
                                             console.log("随机码：" + randomNum)
                                             // console.log("签名：\n" + PKSC7)
                                             // document.write("获取客户端数字签名：\n" + PKSC7);
