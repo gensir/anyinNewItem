@@ -9,6 +9,7 @@ define([
 	var template = require('art-template');
     // var placeholder = publicUtil.placeholder;
 	var esealCode = localStorage.esealCode;
+	var oid = localStorage.oid;
 	var PKSC7 = localStorage.dSignature;
 	var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 
@@ -130,6 +131,7 @@ define([
 			}
 			var data = {
 				"esealCode": esealCode,
+				"oid": oid,
 				"enterpriseCode": enterpriseCode,
 				"PKSC7": PKSC7,
 				"importName": $("#keyword").val(),
@@ -179,6 +181,7 @@ define([
 			pageSize = pageSize || 10;
 			var data = {
 				"esealCode": esealCode,
+				"oid": oid,
 				"enterpriseCode": enterpriseCode,
 				"PKSC7": PKSC7,
 				"importName": $("#keyword").val(),
@@ -229,6 +232,7 @@ define([
 			}
 			var obj = {
 				"esealCode": esealCode,
+				"oid": oid,
 				"enterpriseCode": enterpriseCode,
 				"PKSC7": PKSC7,
 				"importName": $("#keyword").val(),

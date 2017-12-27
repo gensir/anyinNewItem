@@ -13,6 +13,7 @@ define([
     var firmId = udata && udata.user && udata.user.firmId;
     var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
     var esealCode = localStorage.esealCode;
+    var oid = localStorage.oid;
     var PKSC7 = localStorage.dSignature;
     var main = Backbone.View.extend({
         el: '.contents',
@@ -233,6 +234,7 @@ define([
             pageSize = pageSize || 4;
             var data = {
                 "esealCode": esealCode,
+                "oid": oid,
                 "enterpriseCode": enterpriseCode,
                 "PKSC7": PKSC7,
             };

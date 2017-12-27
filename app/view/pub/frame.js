@@ -158,13 +158,13 @@ define(
                                         if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                             var oid = ukeys.GetOid(selectedUkey);
                                             var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
-                                            var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1: 2;
-                                            var randomNumKey = keyType == 1 ? oid : ukeys.esealCode($("#unlockCode").val(),selectedUkey);
+                                            var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+                                            var randomNumKey = keyType == 1 ? oid : esealCode;
                                             var randomNum = ukeys.randomNum(randomNumKey,keyType);
                                             var PKSC7 = ukeys.dSignature(selectedUkey,randomNum,$("#unlockCode").val());
                                             localStorage.removeItem("dSignature");
                                             var enterpriseCode = $.cookie("loginadmin") && JSON.parse($.cookie("loginadmin")).user.enterpriseCode;
-                                            console.log("印章编码：" + oid)
+                                            console.log("证书标识：" + oid)
                                             console.log("印章编码：" + randomNumKey)
                                             console.log("随机码：" + randomNum)
                                             // console.log("签名：\n" + PKSC7)
@@ -184,7 +184,8 @@ define(
                                                 };
                                                 service.commSignetLog(1, 1, data).done(function(data) {
                                                     if (data.code == 0) {
-                                                            localStorage.esealCode = randomNumKey;
+                                                            localStorage.esealCode = esealCode;
+                                                            localStorage.oid = oid;
                                                             localStorage.dSignature = PKSC7;
                                                             var success = dialogsText.find(".success")[0].outerHTML;
                                                             $(_this).find(".bootbox-body").html(success);
