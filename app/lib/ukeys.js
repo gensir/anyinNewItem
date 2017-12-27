@@ -181,7 +181,7 @@ define([
         },
         GetOid: function(selectukeyInd) {
             if (selectukeyInd !== undefined && this.issupport()) {
-                this.data.ukey.SetCertIndex(selectukeyInd);
+                //this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(1);
             }
         },
