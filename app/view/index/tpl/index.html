@@ -82,6 +82,9 @@
                         {{if value.esealStatus==7}}
                         <a class="updata_key" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-code="{{value.esealCode}}" href="admin.html#update_key?esealcode={{value.esealCode}}&oid={{value.oid}}">更新证书></a>
                         {{/if}}
+                        {{if value.keyType==1}}{{
+	                    <span class="updata_key" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-code="{{value.esealCode}}"></span>
+	                    }}
                     </span>
                 </li>
                 {{/each}}
