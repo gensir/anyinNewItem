@@ -102,8 +102,8 @@ define([
             if (!ukeys.issupport()) {
                 return false;
             }
-            var _that = this,
-                listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
+            var _that = this;
+            var listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var Oid = $(event.currentTarget).data('oid');
             var dialogsText = dialogs.find(".closeAllow");
@@ -135,7 +135,6 @@ define([
                             var msg4 = dialogsText.find(".msg4")[0].outerHTML
                             var msg6 = dialogsText.find(".msg6")[0].outerHTML
                             if (numInd == 1) {
-                                //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                                 $(this).find(".bootbox-body").html(msg4);
                                 $(this).find(".btn1,.btn2").hide();
                                 setTimeout(function() {
@@ -172,25 +171,25 @@ define([
                                     }
                                     service.loginLicense(data).done(function(res) {
                                         if (res.code == 0) {
-                                            var success = dialogsText.find(".success").html("已成功关闭" + listdata.esealFullName + "的登录权限").get(0).outerHTML
+                                            var success = dialogsText.find(".success").html("已成功关闭“" + listdata.esealFullName + "”的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
+                                            //如果是已解密日志的ukey，则移除解密时保存的信息
                                             if (Oid == localStorage.logs_oid) {
                                                 localStorage.removeItem("logs_dSignature");
                                                 localStorage.removeItem("logs_esealCode");
                                                 localStorage.removeItem("logs_oid");
                                             }
-                                            window.open("admin.html?page=license", "_self")
                                         } else {
                                             var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
                                         }
-
                                         setTimeout(function() {
                                             window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
                                         }, 3000)
+
                                     })
                                 } else {
                                     numInd = 1;
@@ -220,8 +219,8 @@ define([
             if (!ukeys.issupport()) {
                 return false;
             }
-            var _that = this,
-                listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
+            var _that = this;
+            var listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var Oid = $(event.currentTarget).data('oid');
             var dialogsText = dialogs.find(".openAllow");
@@ -286,7 +285,7 @@ define([
                                     }
                                     service.loginLicense(data).done(function(res) {
                                         if (res.code == 0) {
-                                            var success = dialogsText.find(".success").html("已成功开启" + listdata.esealFullName + "的登录权限").get(0).outerHTML
+                                            var success = dialogsText.find(".success").html("已成功开启“" + listdata.esealFullName + "”的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
                                         } else {
@@ -312,9 +311,6 @@ define([
                                             $(_this).find(".btn2").show().html("重试");
                                         }
                                     });
-
-                                    //$(_this).find("#openCode-error").html("PIN码不正确，请重试")
-                                    //$(_this).find(".btn2").show().html("重试");
                                 }
                             }
                             return false;

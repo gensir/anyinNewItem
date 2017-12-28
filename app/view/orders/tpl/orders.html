@@ -19,7 +19,7 @@
                     <div class="eseallist">
                         <div class="list">
                             <ul class="nav nav_t">
-                                <li class="nav0">{{value.orderNo}}</li>
+                                <li class="nav0" title="{{value.orderNo}}">{{value.orderNo}}</li>
                                 <li class="nav1">{{value.createTime}}</li>
                                 <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</li>
                                 <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
@@ -41,7 +41,7 @@
                                         <li class="n1">
                                             <p class="top f14">业务详情</p>
                                             <p>业务类型：<span>{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</span></p>
-                                            <p>流水号：<span>{{value.orderNo}}</span></p>
+                                            <p style="white-space: nowrap">流水号：<span>{{value.orderNo}}</span></p>
                                             <p>订单时间：<span>{{value.createTime}}</span></p>
                                             <p>订单状态：<span>{{value.orderStatus==1?"未支付":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}</span></p>
                                             {{if value.businessType!=2}}
@@ -190,13 +190,14 @@
     .accordion_w {}
     
     .accordion_w .nav {
-        padding: 15px 20px;
+        padding: 15px 0;
         font-size: 14px;
     }
     
     .accordion_w .nav_tit {
         background-color: #f6fafe;
         font-size: 16px;
+        padding: 15px 20px;
         border: 1px solid #dfe8ed;
     }
     
@@ -249,9 +250,9 @@
     }
     
     .accordion .listResult {
-        border-radius: 4px;
         text-indent: 20px;
-        background: #f6f6f6;
+        border: 1px solid #dfe8ed;
+        border-top: 0;
         color: #666;
         font-size: 14px;
         line-height: 48px;
