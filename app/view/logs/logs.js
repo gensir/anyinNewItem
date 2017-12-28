@@ -8,9 +8,9 @@ define([
 	var Backbone = require('backbone');
 	var template = require('art-template');
     // var placeholder = publicUtil.placeholder;
-	var esealCode = localStorage.esealCode;
-	var oid = localStorage.oid;
-	var PKSC7 = localStorage.dSignature;
+	var esealCode = localStorage.logs_esealCode;
+	var oid = localStorage.logs_oid;
+	var PKSC7 = localStorage.logs_dSignature;
 	var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 
 	var main = Backbone.View.extend({

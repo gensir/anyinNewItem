@@ -160,7 +160,7 @@ define([
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                                 if (ukeys.PIN($("#closeCode").val(), 0)) {
                                     if (Oid != ukeys.GetOid(selectedUkey)) {
-                                        $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
+                                        $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与选择的印章不符，请更换UKEY!");
                                         $(_this).find(".btn2").show().html("重试");
                                         numInd = 0;
                                         $(_this).find(".btn1,.btn2").show();
@@ -175,6 +175,11 @@ define([
                                             var success = dialogsText.find(".success").html("已成功关闭" + listdata.esealFullName + "的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
+                                            if (Oid == localStorage.logs_oid) {
+                                                localStorage.removeItem("logs_dSignature");
+                                                localStorage.removeItem("logs_esealCode");
+                                                localStorage.removeItem("logs_oid");
+                                            }
                                             window.open("admin.html?page=license", "_self")
                                         } else {
                                             var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
@@ -185,7 +190,7 @@ define([
                                         setTimeout(function() {
                                             window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
-                                        }, 1500)
+                                        }, 3000)
                                     })
                                 } else {
                                     numInd = 1;
@@ -269,7 +274,7 @@ define([
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                                 if (ukeys.PIN($("#openCode").val(), 0)) {
                                     if (Oid != ukeys.GetOid(selectedUkey)) {
-                                        $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与所选UKEY不符，请重新插入");
+                                        $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与选择的印章不符，请更换UKEY!");
                                         $(_this).find(".btn2").show().html("重试");
                                         numInd = 0;
                                         $(_this).find(".btn1,.btn2").show();
@@ -292,7 +297,7 @@ define([
                                         setTimeout(function() {
                                             window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
-                                        }, 1500)
+                                        }, 3000)
                                     })
                                 } else {
                                     numInd = 1;

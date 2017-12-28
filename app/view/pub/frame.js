@@ -184,9 +184,9 @@ define(
                                                 };
                                                 service.commSignetLog(1, 1, data).done(function(data) {
                                                     if (data.code == 0) {
-                                                            localStorage.esealCode = esealCode;
-                                                            localStorage.oid = oid;
-                                                            localStorage.dSignature = PKSC7;
+                                                            localStorage.logs_esealCode = esealCode;
+                                                            localStorage.logs_oid = oid;
+                                                            localStorage.logs_dSignature = PKSC7;
                                                             var success = dialogsText.find(".success")[0].outerHTML;
                                                             $(_this).find(".bootbox-body").html(success);
                                                             $(_this).find(".btn1,.btn2").hide();
@@ -194,7 +194,7 @@ define(
                                                                 function() {
                                                                     _this.modal("hide");
                                                                     location.reload();
-                                                                },1000 );
+                                                                },3000 );
                                                         } else {
                                                             numInd = 0;
                                                             $(_this).find(".bootbox-body")

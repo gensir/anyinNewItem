@@ -12,9 +12,9 @@ define([
     var enterpriseCode = udata && udata.user && udata.user.enterpriseCode;
     var firmId = udata && udata.user && udata.user.firmId;
     var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
-    var esealCode = localStorage.esealCode;
-    var oid = localStorage.oid;
-    var PKSC7 = localStorage.dSignature;
+    var esealCode = localStorage.logs_esealCode;
+    var oid = localStorage.logs_oid;
+    var PKSC7 = localStorage.logs_dSignature;
     var main = Backbone.View.extend({
         el: '.contents',
         initialize: function () { },
