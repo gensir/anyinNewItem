@@ -167,7 +167,7 @@ define([
                                         return false;
                                     }
                                     var data = {
-                                        "oid": GetOid,
+                                        "oid": Oid,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function(res) {
@@ -277,7 +277,7 @@ define([
                                         return false;
                                     }
                                     var data = {
-                                        "oid": GetOid,
+                                        "oid": Oid,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function(res) {
