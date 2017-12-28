@@ -452,7 +452,7 @@ define([
                                 var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .text").text())),
                                     newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
                                 if (newDate <= oldDate) {
-                                	numInd = 2;
+                                	numInd = 0;
 //                                  $(_this).find(".btn2").hide();
                                     $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg4'>证书时间未更新，电子印章续期失败！</div>");
                                     return false;
