@@ -219,7 +219,6 @@ define([
                 listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var Oid = $(event.currentTarget).data('oid');
-            debugger
             var dialogsText = dialogs.find(".openAllow");
             bootbox.dialog({
                 backdrop: true,
