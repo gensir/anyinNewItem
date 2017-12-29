@@ -573,13 +573,13 @@ define([
             var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if ((!certificateFirm) || (certificateFirm == 2)) {
+            if (keyType != 2) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
                     className: "common",
                     title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>暂不支持该类型电子印章在线续费！</span></div',
+                    message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
                     buttons: {
                         confirm: {
                             label: "确定",
@@ -653,7 +653,8 @@ define([
                     }
                 })
                 return false;
-            } else if ((!certificateFirm) || (certificateFirm == 2)) {
+            // } else if ((!certificateFirm) || (certificateFirm == 2)) {
+            } else if (keyType != 2) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
