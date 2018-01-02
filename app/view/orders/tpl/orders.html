@@ -21,7 +21,8 @@
                             <ul class="nav nav_t">
                                 <li class="nav0" title="{{value.orderNo}}">{{value.orderNo}}</li>
                                 <li class="nav1">{{value.createTime}}</li>
-                                <li class="nav2">{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</li>
+                                <!-- 业务类型(1、开通 2、续费 3、挂失4、补办5、杂章申请6、私章申请7、系统登录8、新申请写章模9.补办写章摸，10、冻结电子印章，11、撤销电子印章) -->
+                                <li class="nav2">{{value.businessType==1?"开通":value.businessType==2?"续费":value.businessType==3?"挂失":value.businessType==4?"补办":value.businessType==5?"杂章申请":value.businessType==6?"私章申请":value.businessType==7?"系统登录":value.businessType==8?"新申请写章模":value.businessType==9?"补办写章摸":value.businessType==10?"冻结电子印章":value.businessType==11?"撤销电子印章":value.businessType}}</li>
                                 <li class="nav3">{{value.actualAmount==null?"0元":value.actualAmount+"元"}}</li>
                                 <li class="nav4">{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</li>
                                 <li class="nav5">
@@ -40,25 +41,25 @@
                                     <ul class="nav">
                                         <li class="n1">
                                             <p class="top f14">业务详情</p>
-                                            <p>业务类型：<span>{{value.businessType==1?"电子印章开通":value.businessType==2?"电子印章续费":value.businessType==3?"电子印章退款":value.businessType}}</span></p>
+                                            <p>业务类型：<span>{{value.businessType==1?"开通":value.businessType==2?"续费":value.businessType==3?"挂失":value.businessType==4?"补办":value.businessType==5?"杂章申请":value.businessType==6?"私章申请":value.businessType==7?"系统登录":value.businessType==8?"新申请写章模":value.businessType==9?"补办写章摸":value.businessType==10?"冻结电子印章":value.businessType==11?"撤销电子印章":value.businessType}}</span></p>
                                             <p style="white-space: nowrap">流水号：<span>{{value.orderNo}}</span></p>
                                             <p>订单时间：<span>{{value.createTime}}</span></p>
                                             <p>订单状态：<span>{{value.orderStatus==1?"未支付":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}</span></p>
-                                            {{if value.businessType!=2}}
+                                            {{if value.businessType==1}}
                                             <p>经办人：<span>{{value.linkMan}}</span></p>
                                             {{/if}}
                                         </li>
                                         <li class="n2">
                                             <p class="f14">支付信息</p>
                                             <p>支付方式：<span>{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</span></p>
-                                            {{if value.businessType!=2}}
+                                            {{if value.businessType==1}}
                                             <p>受理门店：<span title="{{value.shopName && value.shopName.length>18?value.shopName:" "}}">{{value.shopName && value.shopName.length>16?value.shopName.substr(0,18)+"...":value.shopName}}</span></p>
                                             {{/if}}
                                             <p>支付单号：<span>{{value.transactionId}}</span></p>
                                             <p>支付时间：<span>{{value.payTime}}</span></p>
                                             <p></p>
                                         </li>
-                                        <li class="n3" {{value.businessType==1? "style=display:none":value.businessType==2? "style=display:block": "style=display:block"}}>
+                                        <li class="n3" {{value.businessType==1 || value.businessType==5 || value.businessType==6? "style=display:none":value.businessType==2? "style=display:block": "style=display:none"}}>
                                             <p class="f14">电子印章信息</p>
                                             {{each value.commEsealInfos value i}}
                                             <p>印章名：<span>{{value.esealFullName}}</span></p>
@@ -74,11 +75,16 @@
                                     <ul class="nav">
                                         <li class="n1">
                                             <p class="top f14">订单内容</p>
-                                            {{if value.businessType==1 || value.businessType==3}}{{each value.mpEsealOrderExts value i}}
+                                            {{if value.businessType==1 || value.businessType==5 || value.businessType==6}}
+                                            {{each value.mpEsealOrderExts value i}}
                                             <p><span class="sealName">{{value.esealFullName}}</span><span class="">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                            {{/each}}{{/if}} {{if value.businessType==2 }}{{each value.mpEsealOrderExts value i}}
+                                            {{/each}}
+                                            {{/if}}
+                                            {{if value.businessType==2 }}
+                                            {{each value.mpEsealOrderExts value i}}
                                             <p><span class="sealName" style="width:130px;">{{value.esealFullName}} 续费</span><span class="sealyear">{{value.effectiveDuration}}年</span><span>￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span></p>
-                                            {{/each}}{{/if}}
+                                            {{/each}}
+                                            {{/if}}
                                             <p class="orderTotal"><span class="sealTotal">总计</span><span></span><span class="totalMoney">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span></p>
                                         </li>
                                         <li class="n2">
@@ -93,12 +99,12 @@
                                         </li>
                                         <li class="n3">
                                             <p class="f14">需要帮助？</p>
-                                            {{if value.businessType==1}}
+                                            {{if value.businessType==1 || value.businessType==5 ||  value.businessType==6}}
                                             <p><span>新办理的电子印章无法使用，</span>
                                                 <a href="//www.i-yin.net/index.php?c=article&a=type&tid=46" target="_blank">了解详情</a>
                                             </p>
                                             {{/if}}
-                                            {{if value.businessType==2 || value.businessType==3}}
+                                            {{if value.businessType==2}}
                                             <p><span>续费后仍然提示已过期？</span>
                                                 <a id="update_key" data-status="{{value.commEsealInfos[0] && value.commEsealInfos[0].esealStatus != null ? value.commEsealInfos[0].esealStatus : ''}}" data-order="{{value.orderNo}}" data-code="{{value.mpEsealOrderExts[0] ? value.mpEsealOrderExts[0].esealCode : ''}}" data-oid="{{value.mpEsealOrderExts[0] ? value.mpEsealOrderExts[0].oid : ''}}" href="admin.html#update_key?orderNo={{value.orderNo}}&esealCode={{value.mpEsealOrderExts[0].esealCode}}&oid={{value.mpEsealOrderExts[0].oid}}">点击更新证书</a>
                                             </p>
