@@ -76,7 +76,7 @@ define([
             var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if ((!certificateFirm) || (certificateFirm == 2) ){
+            if (keyType != 2){
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
