@@ -153,7 +153,7 @@ define([
             //个人or机构==0
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
-                return this.data.ukey.GetCertInfo(4);
+                return this.data.ukey.GetCertInfo(4)==0?"1":"2";
             }
         },
         // ConnectKey:function(dwKeyIndex, bandRates) {//检测ukey
