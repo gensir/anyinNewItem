@@ -325,7 +325,7 @@
 	        //netca 续期请求url
 	        renewNetca:function(data){
 	        	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/netca", data: data }, 'post')
-	        }
+	        },
 	        //netca 续期回调
 	        netcaCallBack:function(data) {
 	            return this.ajaxCall({ url: domain + basemp + "order/renew_cert/netcaCallBack", data: data }, 'get')
