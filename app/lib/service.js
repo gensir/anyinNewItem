@@ -322,6 +322,10 @@
 		    write_cert_GDCA:function(data) { 
 	            return this.ajaxCall({ url: domain + basemp + "eseal/write_cert", data: data }, 'post')
 	        },
+	        //netca 续期请求url
+	        renewNetca:function(data){
+	        	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/netca", data: data }, 'post')
+	        }
 	        //netca 续期回调
 	        netcaCallBack:function(data) {
 	            return this.ajaxCall({ url: domain + basemp + "order/renew_cert/netcaCallBack", data: data }, 'get')
@@ -329,6 +333,10 @@
 		    //根据OID查询证书接口
 		    getListByOrderNo:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "mpEsealOrderExt/getCommEsealEquipmentMapChangeVO", data: data },'get');
+		    },
+		    //判断netca是否可以进行换体续期
+		    isNeedChangeCert:function(data){
+		    	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/isNeedChangeCert", data: data },'get');
 		    }
         }
     return allFun;

@@ -305,7 +305,7 @@ define([
                                                                 p10: p10 ? p10 : 'p10',
                                                                 symmAlgo: symmAlgo ? symmAlgo : 12345678
                                                             };
-                                                            service.renew_cert(data).done(function (ret) {
+                                                            service.renewNetca(data).done(function (ret) {
                                                                 if (ret.code == 0) {
                                                                     if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
                                                                         window.bootbox.alert({
@@ -319,22 +319,6 @@ define([
                                                                         });
                                                                         return;
                                                                     }
-                                                                    if (item.caType == 2) {
-                                                                        if (isNeedChangeCert && !(netca.delCert() == "deleSuccess")) {
-                                                                            //如果删除成功，就写入证书；
-                                                                            window.bootbox.alert({
-                                                                                size: "small",
-                                                                                title: "提示",
-                                                                                message:
-                                                                                    "删除旧证书失败，无法写入新证书",
-                                                                                callback: function () {
-                                                                                    /* your callback code */
-                                                                                }
-                                                                            });
-                                                                            return;
-                                                                        }
-                                                                    }
-
                                                                     var correctData = ret.data.bpmsResponse;
                                                                     var write_cert = {
                                                                         certEnc: "",
@@ -348,9 +332,7 @@ define([
                                                                         } else if (v.certUsage == 2) {
                                                                             write_cert.certSign = v.certContent;
                                                                         }
-                                                                    }
-                                                                    );
-
+                                                                    });
                                                                     if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
                                                                         var data = {
                                                                             reqId: ret.data && ret.data.bpmsResponse.reqId,
@@ -446,7 +428,7 @@ define([
                                         $(_this).find(".btn2").show().html("重试");
                                     }
                                 }
-                            } else if (numInd == 3) {
+                            } else if (numInd ==3 && certificateFirms==1) {
                                 numInd = 3;
                                 var selectedUkey = localStorage.selectedUkey;
                                 var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .text").text())),
