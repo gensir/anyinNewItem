@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	module.exports = Backbone.Router.extend({
 		routes: {
 		    "": "orders",
-		    "invoice": "invoice",
+		    "invoice?:query": "invoice",
 		    "invoice_ok": "invoice_ok"
         },
         frameView:null,

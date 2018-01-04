@@ -1,9 +1,8 @@
 define([
     "text!./tpl/invoice_ok.html",
-    "text!../pub/tpl/footer.html",
     "../../../app/lib/service",
     "bootbox"
-    ],function(tpl,footer,service,bootbox) {
+    ],function(tpl,service,bootbox) {
     	
     var Backbone = require('backbone');
     var template = require('art-template');
@@ -12,14 +11,27 @@ define([
         initialize:function () {
         	
         },
-        render: function(param) {
+        render: function(query) {
+            $(".text_tip a").attr("href",localStorage.dfsPdfUrl)
 			this.$el.empty().html(template.compile(tpl,{})());
-			this.$el.append(template.compile(footer,{})());
-        	document.body.scrollTop = document.documentElement.scrollTop = 0;
+			this.jump();
         },
         events: {
          
-        }
+        },
+		jump: function() {
+			var time = setInterval(showTime, 1000);
+			var second = 5;
+
+			function showTime() {
+				if(second == 0) {
+					window.location = 'orders.html';
+					clearInterval(time);
+				}
+				$("#mes").html(second);
+				second--;
+			}
+		},
     });
     return main;
 });
