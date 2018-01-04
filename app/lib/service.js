@@ -276,6 +276,10 @@
 		    orderInvoice:function(data) {
 		        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice", data: data, async: false }, "POST");
 		    },
+		    //手动生成百望电子发票（补开发票）
+		    invoice_apply:function(data) {
+		        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice_apply", data: data }, "POST");
+		    },
 		    //手机号是否存在
 		    mobileIsNotExist:function(data) {
 		        return this.ajaxCall({ url: domain + basemp + "common/mobileIsNotExist", data: data });
@@ -337,6 +341,10 @@
 		    //判断netca是否可以进行换体续期
 		    isNeedChangeCert:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/isNeedChangeCert", data: data },'get');
+		    },
+		    //3053 NETCA续费前校验证书是否已过期
+		    check_cert_valid:function(data){
+		    	return this.ajaxCall({ url: domain + basemp + "common/check_cert_valid", data: data },'get');
 		    }
         }
     return allFun;
