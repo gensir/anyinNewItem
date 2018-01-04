@@ -1,21 +1,64 @@
-
-var ActiveXObject = window.ActiveXObject, utils;
+var ActiveXObject = window.ActiveXObject,
+    utils, singer;
 //依赖网证通NetcaPki NetcaRAClientCom控件(安装客户端即可)，依赖json2.js
-var certUtil = (function () {
+var certUtil = (function() {
     /*设备标志*/
     var NETCAPKI_DEVICETYPE_ANY = -1;
     var NETCAPKI_DEVICEFLAG_CAN_INSTALL_CERT = 256;
 
     //var NETCARACLIENT_ENCODE_BASE64_NO_NL = 1;//为不分行的BASE64编码
 
-    var NETCAPKI_UIFLAG_ALWAYS_UI = 3;//显示UI
+    var NETCAPKI_UIFLAG_ALWAYS_UI = 3; //显示UI
 
+    var NETCAPKI_ALGORITHM_SHA1WITHRSA = 2;
+    var NETCAPKI_CMS_ENCODE_BASE64 = 2;
+    var NETCAPKI_CP_UTF8 = 65001;
+
+    /**
+     * 签名
+     * @param algorithm 签名算法
+     * @param encode 签名后的编码
+     * @param pwd 使用设备的私钥密码
+     * @param isNotHasSource 为真表示不带原文，为假表示带
+     * @param cp 将原文字符串转成byte数组的编码
+     * @param cert 使用的签名证书
+     * @param plainText 原文数据
+     * @returns 签名后的数据
+     */
+    function signData(algorithm, encode, pwd, isNotHasSource, cp, cert, plainText) {
+        isNotHasSource = (isNotHasSource) ? isNotHasSource : false;
+        algorithm = (algorithm) ? algorithm : NETCAPKI_ALGORITHM_SHA1WITHRSA;
+        encode = (encode) ? encode : NETCAPKI_CMS_ENCODE_BASE64;
+        pwd = (pwd) ? pwd : "";
+        cp = (cp) ? cp : NETCAPKI_CP_UTF8;
+        utils = null;
+        singer = null;
+        try {
+            utils = certUtil.createActiveXObject("NetcaPki.Utilities");
+            //singer = createActiveXObject("NetcaPki.SignedData");
+            singer = utils.CreateSignedDataObject();
+            singer.SetSignCertificate(cert, pwd, false);
+            singer.SetSignAlgorithm(-1, algorithm);
+            singer.Detached = isNotHasSource;
+            var tbs = utils.Encode(plainText, cp);
+            var str = singer.Sign(tbs, encode);
+            console.log(str);
+            return str;
+        } finally {
+            if (singer != null) {
+                singer = null;
+            }
+            if (utils != null) {
+                utils = null;
+            }
+        }
+    }
     //描述：创建一个ActiveXObject对象 
     function createActiveXObject(str, isAlert) {
         isAlert = (isAlert == undefined) ? true : isAlert;
         try {
             var obj = new ActiveXObject(str);
-            if (typeof (obj) == "object") {
+            if (typeof(obj) == "object") {
                 return obj;
             } else {
                 if (isAlert == true) {
@@ -46,6 +89,8 @@ var certUtil = (function () {
             }
         }
     }
+
+
     //描述：返回所有的设备对象
     function getUserDevice(logSN, isAlert, tips) {
         isAlert = (isAlert == undefined) ? true : isAlert;
@@ -158,7 +203,7 @@ var certUtil = (function () {
         try {
             var key = new ActiveXObject("NetcaRAClientCom.Key");
             key.DelKeypair(operatorKeyType, operatorKeySN, query ? JSON.stringify(query) : 0);
-            return "deleSuccess" 
+            return "deleSuccess"
         } catch (e) {
             console.log(e);
             alert(e);
@@ -242,7 +287,7 @@ var certUtil = (function () {
                 "hashAlgo": 4
             };
         } catch (e) {
-            console.log(e,'getCertInfo');
+            console.log(e, 'getCertInfo');
             cert = null;
         }
         //return cert;
@@ -255,7 +300,8 @@ var certUtil = (function () {
         delCertInDevice: delCertInDevice,
         getCertFromDeviceByCrypto: getCertFromDeviceByCrypto,
         getSymmAlgoFromKey: getSymmAlgoFromKey,
-        getCertInfo: getCertInfo
+        getCertInfo: getCertInfo,
+        signData: signData
     };
 })();
 //export default certUtil;
