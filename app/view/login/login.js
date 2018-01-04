@@ -100,6 +100,10 @@ define(
                     signature: PKSC7,
                     signCertificateSn: ukeys.getCertSignSN(selectedUkey)
                 };
+                if(!ukeys.GetCertCount()){
+                    $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
+                    return;
+                }
                 service.userlogin(data).done(function(data) {
                     if (!data.msg && data.code != 0) {
                         $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
