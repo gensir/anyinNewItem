@@ -278,7 +278,7 @@
 		    },
 		    //手动生成百望电子发票（补开发票）
 		    invoice_apply:function(data) {
-		        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice_apply", data: data }, "POST");
+		        return this.ajaxCall({ url: domain + basemp + "eseal/order/invoice_apply", data: data }, "post");
 		    },
 		    //手机号是否存在
 		    mobileIsNotExist:function(data) {
@@ -349,6 +349,10 @@
 		    //3053 NETCA续费前校验证书是否已过期
 		    check_cert_valid:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "common/check_cert_valid", data: data },'get');
+		    },
+		    //3004-8订单号查找订单信息
+		    OrderDetail:function(data){
+		    	return this.ajaxCall({ url: domain + basemp + "mpEsealOrder/queryInvoiceOrderDetailByOrderNo", data: data },'get');
 		    }
         }
     return allFun;

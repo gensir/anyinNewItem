@@ -292,8 +292,8 @@ define([
 				if(res.code == 0) {
 					console.log("开发票成功！" + res.msg);
 					console.log(res.data);
-
 				} else {
+                    bootbox.alert("由于数据原因，开具发票失败!" + res.msg)
 					console.log("由于数据原因，开发票失败！" + res.msg);
 				}
 			});

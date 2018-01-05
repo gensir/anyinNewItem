@@ -86,7 +86,7 @@
                                                     <a href="{{value.mpElectronicInvoice.dfsPdfUrl}}" target="_blank">点击下载</a>
                                                 </p>
                                                 {{else}}
-                                                <p><span>如需电子发票，请点击<a href="#invoice"> 申请电子发票</a></span></p>
+                                                <p><span>如需电子发票，请点击 <a href="#invoice?orderNo={{value.orderNo}}">申请电子发票</a></span></p>
                                                 {{/if}}
                                             </div>
                                         </li>
@@ -106,7 +106,7 @@
                                                 {{if value.businessType==1 || value.businessType==5 || value.businessType==6}}
                                                 {{each value.mpEsealOrderExts value i}}
                                                 <p class="orderinfo">
-                                                    <span class="sealName">{{value.esealFullName}}</span>
+                                                    <span class="sealName max">{{value.esealFullName}}</span>
                                                     <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                                                 </p>
                                                 {{/each}}
@@ -333,7 +333,7 @@
     .eseallist .list .toggle .nav .item.order { margin-bottom: 0; }
     .eseallist .list .toggle .nav .item.order .orderinfo { height: 24px; }
     .eseallist .list .toggle .nav .item.order .right { float: right; }
-    .eseallist .list .toggle .nav .item.min { min-height: 144px; }  
+    .eseallist .list .toggle .nav .item.min { min-height: 154px; }  
     .eseallist .list .nav .item .mar-t10 { margin-top: 10px; }
     .eseallist .list .nav .item.order span {
         display: inline-block;
@@ -345,7 +345,7 @@
         overflow: hidden;
         float: left;
     }
-    
+    .eseallist .list .nav .item.order .sealName.max { width: 220px;}
     .eseallist .list .nav .item.order .sealyear {
     }
     
@@ -361,7 +361,7 @@
         line-height: 16px;
     }
     .eseallist .list .nav .item.order .sealTotal {
-        width: 190px;
+        /* width: 190px; */
         font-size: 14px;
         font-weight: 600;
         color: #20a0ff;
@@ -385,7 +385,7 @@
     }
     .eseallist .list .toggle .nav .n2 {
         width: 33%;
-        min-height: 258px;
+        min-height: 260px;
         margin-left: 3%;
         padding-right: 3%;
         border-right: 1px solid #dfe8ed;
@@ -396,7 +396,7 @@
     }
     .eseallist .list .toggle .nav p {
         font-size: 12px;
-        /* height: 14px; */
+        height: 24px;
         line-height: 14px;
         margin: 0;
         padding-bottom: 10px;
@@ -405,6 +405,7 @@
     .eseallist .list .toggle .nav .f14 {
         font-size: 14px;
         font-weight: 600;
+        height: 34px;
         padding-bottom: 20px;
     }
     

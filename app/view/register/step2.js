@@ -78,7 +78,7 @@ define([
                         };
                         settime();
                         var code = $(".countCode").val();
-                        if (code != "000000") {
+                        if (code != "zzzzzz") {
                             service.getSMSVerifCode(phone).done(function (data) {
                                 if (data.code == 0) {
 
@@ -147,7 +147,7 @@ define([
             //     bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
             //     return;
             // }
-            if (code == "000000") {
+            if (code == "zzzzzz") {
                 if (!validflag) {
                     enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
                     var data = {
@@ -223,7 +223,7 @@ define([
             if ($('.countCode').val().length == 6) {
                 var code = $(".countCode").val();
                 var phone = $(".countPhone").val();
-                if (code == "000000") {
+                if (code == "zzzzzz") {
                     flag = 1;
                     $(".codeErrTip").html("校验成功").css({ "color": "#08c34e" }).show();
                 } else {

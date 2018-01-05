@@ -1,1 +1,155 @@
-发票申请
+<div class="invoiceTitle page-kd">发票申请</div>
+
+<div class="invoice boxshow page-kd">
+    <!-- 订单详情 -->
+    <div class="eseallist">
+        <ul class="nav">
+            <li class="n1">
+                <div class="item min">
+                    <p class="top f14">业务详情</p>
+                    <p>业务类型：<span>{{value.businessType==1?"开通":value.businessType==2?"续费":value.businessType==3?"挂失":value.businessType==4?"补办":value.businessType==5?"杂章申请":value.businessType==6?"私章申请":value.businessType==7?"系统登录":value.businessType==8?"新申请写章模":value.businessType==9?"补办写章摸":value.businessType==10?"冻结电子印章":value.businessType==11?"撤销电子印章":value.businessType}}</span></p>
+                    <p style="white-space: nowrap">流水号：<span>{{value.orderNo}}</span></p>
+                    <p>订单时间：<span>{{value.createTime}}</span></p>
+                    <p>订单状态：<span>{{value.orderStatus==1?"未支付":value.orderStatus==2?"支付中":value.orderStatus==3?"支付失败":value.orderStatus==4?"已支付":value.orderStatus==5?"已完成":value.orderStatus==6?"退款中":value.orderStatus==7?"已退款":value.orderStatus==8?"交易关闭":value.orderStatus}}</span></p>
+                    <p>{{if value.businessType==1}}经办人：<span>{{value.linkMan}}</span>{{/if}}</p>
+                </div>
+            </li>
+            <li class="n2">
+                <div class="item min">
+                    <p class="f14">支付信息</p>
+                    <p>支付方式：<span>{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</span></p>
+                    {{if value.businessType==1}}
+                    <p>受理门店：<span title="{{value.shopName && value.shopName.length>18?value.shopName:" "}}">{{value.shopName && value.shopName.length>16?value.shopName.substr(0,18)+"...":value.shopName}}</span></p>
+                    {{/if}}
+                    <p>支付单号：<span>{{value.transactionId}}</span></p>
+                    <p>支付时间：<span>{{value.payTime}}</span></p>
+                    <p></p>
+                </div>
+            </li>
+            <li class="n3">
+                <div class="item order">
+                    <p class="top f14">订单内容</p>
+                    {{if value.businessType==1 || value.businessType==5 || value.businessType==6}}
+                    {{each value.listExt value i}}
+                    <p class="orderinfo">
+                        <span class="sealName max">{{value.esealFullName}}</span>
+                        <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
+                    </p>
+                    {{/each}}
+                    {{/if}}
+                    {{if value.businessType==2 }}
+                    {{each value.listExt value i}}
+                    <p class="orderinfo">
+                        <span class="sealName">{{value.esealFullName}} 续费</span>
+                        <span class="sealyear">{{value.effectiveDuration}}年</span>
+                        <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
+                    </p>
+                    {{/each}}
+                    {{/if}}
+                    <p class="orderTotal">
+                        <span class="sealTotal">总计</span>
+                        <span class="totalMoney right">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="idcode">
+        <!-- 选择发票类型 -->
+        <div class="id-type">
+            <div class="left">发票类型：</div>
+            <div class="idname">
+                <label><input name="invoice_type" value="1" type="radio" checked>个人发票</label>
+                <label><input name="invoice_type" value="2" type="radio">企业发票</label>
+            </div>
+        </div>
+        <!-- 个人发票 -->
+        <div id="person">
+            <div class="checkin-box">
+                <div class="left"></div>
+                <div class="input-text">
+                    <input class="reginput form-control" id="invoice_user" name="invoice_user" type="text" placeholder="发票抬头填写个人名称" value="" maxlength="20">
+                    <div class="regtip idcode-error" id="invoice_user-error"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 企业发票 -->
+        <div id="company">
+            <div class="checkin-box">
+                <div class="left"></div>
+                <div class="input-text">
+                    <input class="reginput form-control" id="invoice_company" name="invoice_company" type="text" placeholder="发票抬头填写企业名称" value="" maxlength="30">
+                    <div class="regtip idcode-error" id="invoice_company-error"></div>
+                </div>
+            </div>
+            <div class="checkin-box">
+                <div class="left"></div>
+                <div class="input-text">
+                    <input class="reginput form-control" id="invoice_taxpayer" name="invoice_taxpayer" type="text" placeholder="请填写纳税人识别号" value="" maxlength="20">
+                    <div class="regtip idcode-error" id="invoice_taxpayer-error"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkin-box">
+            <div class="left"></div>
+            该订单仅提供电子发票。
+            <a href="https://www.i-yin.net/index.php?c=article&id=301" target="_blank">什么是电子发票？</a>
+        </div>
+    </div>
+
+    <div class="btnbox">
+        <button class="btn btn-ay" id="invoice_Apply" type="button">立即申请</button>
+    </div>
+
+</div>
+
+</div>
+
+<style>
+.invoiceTitle { width: 1100px; height: 20px; margin: 17px auto; padding-left: 15px;font-size: 16px; font-weight: 600; border-left: 6px solid #0073bd; }
+.eseallist { padding: 0px 40px; background: #f6fafe; overflow: hidden; }
+.eseallist .nav { padding-top: 35px; padding-bottom: 35px; }
+.eseallist .nav > li { position: relative; display: block; }
+.eseallist .nav li { float: left; min-height: 20px; }
+.eseallist .nav .n1 { width: 32%; min-height: 154px; padding-right: 3%; border-right: 1px solid #dfe8ed; }
+.eseallist .nav .n2 { width: 33%; min-height: 154px; margin-left: 3%; padding-right: 3%; border-right: 1px solid #dfe8ed; }
+.eseallist .nav .n3 { width: 32%; padding-left: 3%; }
+.eseallist .nav .item { margin-bottom: 20px; }
+.eseallist .nav .item.min { min-height: 154px; }
+.eseallist .nav .item.order { margin-bottom: 0px; }
+.eseallist .nav p { font-size: 12px; height: 24px; line-height: 14px; margin: 0; padding-bottom: 10px; }
+.eseallist .nav .f14 { font-size: 14px; font-weight: 600; height: 34px; padding-bottom: 20px; }
+.eseallist .nav .item.order .orderinfo { height: 24px; }
+.eseallist .nav .item.order .orderTotal { margin-bottom: 0px; padding-top: 10px; border-top: 1px solid #dfe8ed; height: 26px; line-height: 16px; }
+.eseallist .nav p span { color: #666; }
+.eseallist .nav .item.order span { display: inline-block; }
+.eseallist .nav .item.order .sealTotal { width: 190px; font-size: 14px; font-weight: 600; color: #20a0ff; }
+.eseallist .nav .item.order .totalMoney { font-size: 14px; font-weight: 600; white-space: nowrap; color: #20a0ff; }
+.eseallist .nav .item.order .right { float: right; }
+.eseallist .nav .item.order .sealName { width: 180px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; float: left; }
+.eseallist .nav a { color: #20a0ff; }
+
+
+.idcode { border-top: 1px solid #dfe8ed; border-bottom: 1px solid #dfe8ed; padding: 30px 40px; }
+.idcode .id-type { font-size: 15px; }
+.idcode .id-type .left { float: left; width: 200px; height: 30px; text-align: right; line-height: 30px; padding-right: 10px; font-weight: 600; }
+.idcode .id-type .idname { line-height: 30px; margin: 0px; }
+.idcode .id-type .idname label { margin-right: 20px; font-weight: 400; margin-bottom: 0; }
+.idcode .id-type .idname label input { margin-right: 6px; }
+.idcode .tip-content { font-size: 16px; margin-left: 120px; }
+.idcode .checkin-box { margin-top: 30px; line-height: 36px; height:36px; }
+.idcode .checkin-box .left { width: 200px; text-align: right; padding-right: 10px; height: 36px; float: left; }
+.idcode .checkin-box .reginput { width: 360px; /* text-transform: uppercase;  */}
+.idcode .checkin-box .input-text { margin-left: 200px; position: relative; }
+.idcode .checkin-box .input-text .regtip { font-size: 14px; line-height: 20px; color: #f00; position: absolute; z-index: 2; height: 20px; left: 0px; bottom: -24px; }
+.idcode .checkin-box .input-text input { height: 36px; }
+.idcode .checkin-box .input-text .code { width: 100px; float: left; }
+.idcode .checkin-box .input-text .codeimg {  border: solid 1px #ccc; display: block; float:left; margin-left: 12px; /* width:78px; */ height: 36px; }
+.idcode .checkin-box .input-text .upcodeimg { margin-left: 12px; color: #00acff; }
+.idcode .checkin-box .input-text .upcodeimg a { color: #f00 }
+.idcode a { color: #00acff; }
+.btnbox { padding: 40px 40px 80px; text-align: right; }
+.btnbox button { width: 160px; height: 46px; }
+#company { display: none; }
+</style>

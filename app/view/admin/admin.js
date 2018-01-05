@@ -80,11 +80,11 @@ define([
                 this.listPage(1);
 
                 //屏蔽非ODC的电子印章申请
-                var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                //  isODC为1的时候是ODC登录的
-                if (!isODC) {
-                    $("#step").hide();
-                }
+                // var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                // //  isODC为1的时候是ODC登录的
+                // if (!isODC) {
+                //     $("#step").hide();
+                // }
             }
         },
         getSealName: function(target) {
@@ -573,7 +573,7 @@ define([
             var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if (keyType != 2) {
+            if (keyType == 2 && certificateFirm ==2) {//安印的NETCA暂不开放续费
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -653,8 +653,7 @@ define([
                     }
                 })
                 return false;
-            // } else if ((!certificateFirm) || (certificateFirm == 2)) {
-            } else if (keyType != 2) {
+            } else if (keyType == 2 && certificateFirm ==2) {//安印的NETCA暂不开放续费
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -751,11 +750,11 @@ define([
                     }
 
                     //屏蔽非ODC的电子印章申请
-                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                    //  isODC为1的时候是ODC登录的
-                    if (!isODC) {
-                        $("#step").hide();
-                    }
+                    // var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    // //  isODC为1的时候是ODC登录的
+                    // if (!isODC) {
+                    //     $("#step").hide();
+                    // }
 
                 }
                 if (pageNum == 1) {

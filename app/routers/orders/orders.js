@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	module.exports = Backbone.Router.extend({
 		routes: {
 		    "": "orders",
-		    "invoice": "invoice",
+		    "invoice?:query": "invoice",
 		    "invoice_ok": "invoice_ok"
         },
         frameView:null,
@@ -38,7 +38,7 @@ define(function(require, exports, module) {
             });
         },
         invoice:function(){
-            this.preRoute(false, 'invoice').then(function(){
+            this.preRoute(false, 'orders').then(function(){
                 require(['../../view/orders/invoice', '../../model/orders/orders'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
@@ -46,7 +46,7 @@ define(function(require, exports, module) {
             });
         },
         invoice_ok:function(){
-            this.preRoute(false, 'invoice_ok').then(function(){
+            this.preRoute(false, 'orders').then(function(){
                 require(['../../view/orders/invoice_ok', '../../model/orders/orders'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
