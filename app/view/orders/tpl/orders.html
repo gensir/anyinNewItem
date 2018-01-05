@@ -91,7 +91,7 @@
                                             </div>
                                         </li>
                                         <li class="n3">
-                                            <div class="item min" {{value.businessType==1 || value.businessType==5 || value.businessType==6? "style=display:none":value.businessType==2? "style=display:block": "style=display:none"}}>
+                                            <div class="item min" {{value.businessType == 2 || value.businessType == 3 ? "style=display:block": "style=display:none"}}>
                                                 <p class="f14">电子印章信息</p>
                                                 {{each value.commEsealInfos value i}}
                                                 <p>印章名：<span>{{value.esealFullName}}</span></p>
@@ -103,23 +103,21 @@
                                             </div>
                                             <div class="item order">
                                                 <p class="top f14">订单内容</p>
-                                                {{if value.businessType == 1 || value.businessType == 5 || value.businessType == 6}}
                                                 {{each value.mpEsealOrderExts value i}}
+                                                {{if value.businessType == 1 || value.businessType == 5 || value.businessType == 6}}
                                                 <p class="orderinfo">
-                                                    <span class="sealName max">{{value.esealFullName}} 开通</span>
+                                                    <span class="sealName max">{{value.esealFullName}}</span>
                                                     <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                                                 </p>
-                                                {{/each}}
                                                 {{/if}}
                                                 {{if value.businessType== 2 || value.businessType== 3 }}
-                                                {{each value.mpEsealOrderExts value i}}
                                                 <p class="orderinfo">
                                                     <span class="sealName">{{value.esealFullName}} {{value.businessType ==2 ? "续费" : "挂失"}}</span>
                                                     <span class="sealyear">{{value.effectiveDuration}}年</span>
                                                     <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                                                 </p>
-                                                {{/each}}
                                                 {{/if}}
+                                                {{/each}}
                                                 <p class="orderTotal">
                                                     <span class="sealTotal">总计</span>
                                                     <span class="totalMoney right">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span>
@@ -503,9 +501,7 @@
         margin-bottom: 4px;
     }
     .eseallist .list .tog_bot:hover em { background-position: -230px -290px; }
-    .eseallist .list .tog_bot:hover {
-        background-color: #deeaf1;
-    }
+    .eseallist .list .tog_bot:hover { background-color: #deeaf1; }
     
     .page_btip {
         display: inline-block;

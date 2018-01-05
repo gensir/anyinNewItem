@@ -228,7 +228,7 @@ define([
                 })
                 return false;
             } else {
-                window.location.href = "admin.html#renew?esealCode=" + esealCode + "&oid=" + GetOid;
+                window.location.href = "admin.html#renew?esealCode=" + r_esealCode + "&oid=" + r_Oid;
             }
         },
         //更新证书
