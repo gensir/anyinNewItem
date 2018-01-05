@@ -29,23 +29,21 @@
             <li class="n3">
                 <div class="item order">
                     <p class="top f14">订单内容</p>
-                    {{if value.businessType==1 || value.businessType==5 || value.businessType==6}}
                     {{each value.listExt value i}}
+                    {{if value.businessType == 1 || value.businessType == 5 || value.businessType == 6}}
                     <p class="orderinfo">
                         <span class="sealName max">{{value.esealFullName}}</span>
                         <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                     </p>
-                    {{/each}}
                     {{/if}}
-                    {{if value.businessType==2 }}
-                    {{each value.listExt value i}}
+                    {{if value.businessType == 2 ||  value.businessType == 3}}
                     <p class="orderinfo">
                         <span class="sealName">{{value.esealFullName}} 续费</span>
                         <span class="sealyear">{{value.effectiveDuration}}年</span>
                         <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                     </p>
-                    {{/each}}
                     {{/if}}
+                    {{/each}}
                     <p class="orderTotal">
                         <span class="sealTotal">总计</span>
                         <span class="totalMoney right">￥{{value.actualAmount ==null?"0元":value.actualAmount+"元"}}</span>

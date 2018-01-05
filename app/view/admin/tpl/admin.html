@@ -89,7 +89,7 @@
                                             </p>
                                         </li>
                                     </ul>
-                                    <div class="tog_bot">▲</div>
+                                    <div class="tog_bot"><em></em></div>
                                 </div>
                             </div>
                             {{/each}}
@@ -284,8 +284,6 @@
         .accordion_w .nav {
             padding: 20px 20px;
             font-size: 14px;
-            border-left: 1px solid #dfe8ed;
-            border-right: 1px solid #dfe8ed;
         }
         
         .accordion_w .nav_tit {
@@ -359,11 +357,9 @@
             min-width: 80px;
         }
         
-        .eseallist .list .nav_con {
-            border-bottom: 1px solid #dfe8ed;
-        }
-        
-        .eseallist .listbl {
+        .eseallist .list {
+            border-left: 1px solid #dfe8ed;
+            border-right: 1px solid #dfe8ed;
             border-bottom: 1px solid #dfe8ed;
         }
         
@@ -513,18 +509,24 @@
         
         .eseallist .list .tog_bot {
             width: 100%;
-            height: 20px;
+            height: 16px;
+            line-height: 16px;
             background-color: #eaf1f7;
             text-align: center;
             color: #a6becb;
             cursor: pointer;
-            margin-bottom: 10px;
+            border-top: solid 1px #dfe8ed;
         }
-        
-        .eseallist .list .tog_bot:hover {
-            background-color: #edf7fc;
+        .eseallist .list .tog_bot em {
+            display: inline-block;
+            width: 14px;
+            height: 6px;
+            vertical-align: middle;
+            background: url(./app/asset/img/bg-all.png) no-repeat -206px -290px;
+            margin-bottom: 4px;
         }
-        
+        .eseallist .list .tog_bot:hover em { background-position: -230px -290px; }
+        .eseallist .list .tog_bot:hover { background-color: #deeaf1; }
         .page_btip {
             display: inline-block;
             float: left;
