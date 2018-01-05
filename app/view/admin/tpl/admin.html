@@ -34,7 +34,8 @@
                                     <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
                                     <li class="nav5">
                                     	{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==14}}
-                                        <a class="renew" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">续费</a>
+                                        <!-- <a class="renew" data-code="{{value.esealCode}}" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">续费</a> -->
+                                        <a class="renew" data-code="{{value.esealCode}}" data-status="{{value.esealStatus}}" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="javascript:;">续费</a>
                                         {{/if}}
                                         <!--a class="logout">注销</a-->
                                         <!-- 隐藏预挂失功能，暂不上线 -->
@@ -75,7 +76,7 @@
                                             <p class="f14">需要帮助？</p>
                                             <p>
                                                 <span>我的电子印章快过有效期了，</span>
-		                                        <a class="renew2" data-status="{{value.esealStatus}}" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">马上续费</a>
+		                                        <a class="renew" data-code="{{value.esealCode}}" data-status="{{value.esealStatus}}" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="javascript:;">马上续费</a>
 		                                    </p>
                                             <!-- <p>
                                                 <span>我的电子印章可能遗失或被人盗用</span>
@@ -505,8 +506,8 @@
             padding: 0 4px;
             display: inline-block;
         }
-        
-        .eseallist>.list>ul>.nav5>a:hover {
+        .eseallist>.list>ul>.nav5>a:hover,
+        .eseallist>.list>ul>.nav5>a:focus {
             background-color: transparent;
         }
         

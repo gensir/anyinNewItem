@@ -344,7 +344,7 @@
 		    },
 		    //3053 NETCA续费前校验证书是否已过期
 		    check_cert_valid:function(data){
-		    	return this.ajaxCall({ url: domain + basemp + "common/check_cert_valid", data: data },'get');
+		    	return this.ajaxCall({ url: domain + basemp + "common/check_cert_valid", data: data });
 		    },
 		    //3004-8订单号查找订单信息
 		    OrderDetail:function(data){

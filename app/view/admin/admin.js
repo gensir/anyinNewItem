@@ -12,6 +12,7 @@ define([
     var GetQueryStringBool = true;
     var Backbone = require('backbone');
     var template = require('art-template');
+    var r_Oid, r_esealCode, r_keyType, r_certificateFirm, r_esealStatus;
     var main = Backbone.View.extend({
         el: '.contents',
         initialize: function() {
@@ -32,7 +33,6 @@ define([
         events: {
             'click .eseallist .list>.nav': 'toggleList',
             'click .eseallist .renew': 'renew',
-            'click .eseallist .renew2': 'renew2',
             'click .eseallist .updata_key': 'updata_key',
             'click .eseallist .list>.nav .loss,.eseallist .list>.toggle>.nav>.n3 .loss': 'loss',
             'click .eseallist .list>.nav .cancelloss': 'cancelloss',
@@ -479,7 +479,7 @@ define([
             })
         },
         //取消预挂失
-        cancellossfun: function(esealCode) {
+        cancellossfun: function() {
             var data = {
                 "esealCode": esealCode
             }
@@ -565,69 +565,104 @@ define([
             })
             return false;
         },
-        //续费操作
+        //续费操作证书有效期验证
         renew: function(event) {
             event.stopPropagation();
-            var GetOid = $(event.currentTarget).data('oid');
-            var keyType = $(event.currentTarget).data('type');
-            var certificateFirm = $(event.currentTarget).data('cert');
-            localStorage.keyType = $(event.currentTarget).data('type');
-            localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if (keyType == 2 && certificateFirm ==2) {//安印的NETCA暂不开放续费
-                bootbox.dialog({
-                    backdrop: true,
-                    closeButton: false,
-                    className: "common",
-                    title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
-                    buttons: {
-                        confirm: {
-                            label: "确定",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
-                    }
-                })
-                return false;
-            } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
-                bootbox.dialog({
-                    backdrop: true,
-                    closeButton: false,
-                    className: "common",
-                    title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
-                    buttons: {
-                        // cancel: {
-                        //     label: "取消",
-                        //     className: "btn1",
-                        //     callback: function(result) {
-                        //         result.cancelable = false;
-                        //     }
-                        // },
-                        confirm: {
-                            label: "确定",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
-                    }
-                })
-                return false;
-            }
-        },
-        //续费操作2
-        renew2: function(event) {
-            event.stopPropagation();
             var that = this;
-            var GetOid = $(event.currentTarget).data('oid');
-            var keyType = $(event.currentTarget).data('type');
-            var certificateFirm = $(event.currentTarget).data('cert');
-            var esealStatus = $(event.currentTarget).data('status');
-            localStorage.keyType = $(event.currentTarget).data('type');
-            localStorage.certificateFirm = $(event.currentTarget).data('cert');
+            r_Oid = $(event.currentTarget).data('oid');
+            r_esealCode = $(event.currentTarget).data('code');
+            r_keyType = $(event.currentTarget).data('type');
+            r_certificateFirm = $(event.currentTarget).data('cert');
+            r_esealStatus = $(event.currentTarget).data('status');
+            localStorage.keyType = r_keyType;
+            localStorage.certificateFirm = r_certificateFirm;
+            var data = {
+                "oid": r_Oid,
+                "esealCode": r_esealCode,
+                "keyType": r_keyType,
+                "caType": r_certificateFirm
+
+            };
+            //有效期时长判断请求
+            service.check_cert_valid(data).done(function(res) {
+                if (res.code == 0) {
+                    var pointCode = res.data.pointCode;
+                    console.log(pointCode)
+                    if (pointCode ==1) {
+                        //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
+                        bootbox.dialog({
+                            backdrop: true,
+                            closeButton: false,
+                            className: "common",
+                            title: "操作提示",
+                            message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
+                            buttons: {
+                                confirm: {
+                                    label: "确定",
+                                    className: "btn2",
+                                    callback: function(result) {
+                                        result.cancelable = false;
+                                    }
+                                },
+                            }
+                        })
+                        setTimeout(function() {
+                            bootbox.hideAll();
+                        }, 3000)
+                        return false;
+                    } else if (pointCode ==2) {
+                        //只可进行2年有效期续期
+                        console.log("可进行2年续期")
+                        localStorage.rennw_year = pointCode;
+                        that.certType_Status();
+                    } else if (pointCode == 3 || pointCode == 4) {
+                        //可进行2年、3年有效期续期
+                        console.log("可进行2,3年续期")
+                        localStorage.rennw_year = 3;
+                        that.certType_Status();
+                    } else if (pointCode ==5) {
+                        //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
+                        bootbox.dialog({
+                            backdrop: true,
+                            closeButton: false,
+                            className: "common",
+                            title: "操作提示",
+                            message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
+                            buttons: {
+                                confirm: {
+                                    label: "确定",
+                                    className: "btn2",
+                                    callback: function(result) {
+                                        result.cancelable = false;
+                                    }
+                                },
+                            }
+                        })
+                        return false;
+                    }
+                } else {
+                    bootbox.dialog({
+                        backdrop: true,
+                        closeButton: false,
+                        className: "common",
+                        title: "操作提示",
+                        message: '<div class="msgcenter"><em></em><span>' + res.msg + '</span></div',
+                        buttons: {
+                            confirm: {
+                                label: "确定",
+                                className: "btn2",
+                                callback: function(result) {
+                                    result.cancelable = false;
+                                }
+                            },
+                        }
+                    })
+                    return false;
+                }
+            });
+        },
+        //续费状态及证书控制
+        certType_Status: function() {
             //可续费状态数组
             var arr = new Array([1, 6, 14]);
             Array.prototype.in_array = function(e) {
@@ -635,7 +670,7 @@ define([
                 return (r.test(',' + this.join(this.S) + ','));
             };
 
-            if (!arr.in_array(esealStatus)) {
+            if (!arr.in_array(r_esealStatus)) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -653,7 +688,7 @@ define([
                     }
                 })
                 return false;
-            } else if (keyType == 2 && certificateFirm ==2) {//安印的NETCA暂不开放续费
+            } else if (r_keyType == 2 && r_certificateFirm ==2) {//安印的NETCA暂不开放续费
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -679,13 +714,6 @@ define([
                     title: "操作提示",
                     message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
                     buttons: {
-                        // cancel: {
-                        //     label: "取消",
-                        //     className: "btn1",
-                        //     callback: function(result) {
-                        //         result.cancelable = false;
-                        //     }
-                        // },
                         confirm: {
                             label: "确定",
                             className: "btn2",
@@ -696,6 +724,8 @@ define([
                     }
                 })
                 return false;
+            } else {
+                window.location.href = "admin.html#renew?esealCode=" + esealCode + "&oid=" + GetOid;
             }
         },
         //更新证书
