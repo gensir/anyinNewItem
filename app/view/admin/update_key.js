@@ -150,7 +150,7 @@ define([
                 return false;
             }
             if(!isODC){
-            	if(!keyType){
+            	if(!keyStyle){
 	            	bootbox.alert("获取不到印章类型");
 	            	return;
 	            }
@@ -273,7 +273,7 @@ define([
                                                         numInd = 3;
                                                         $(_this).find(".btn1").hide();
                                                         $(_this).find(".btn2").html("确定").attr("disabled", false);
-                                                        $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
+                                                        $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>ODC新办电子印章成功！</div>");
                                                     } else {
                                                         $(_this).find("#unlock-error").html(res.msg);
                                                         $(_this).find(".btn2").hide();
