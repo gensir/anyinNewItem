@@ -10,7 +10,8 @@ define([
 ], function (tpl, primary, dialog, service, ukeys, certUtil, netca, bootbox) {
     var template = require('art-template');
     var dialogs = $(dialog);
-    var that, year, orderNo, realdata;
+    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+    var that, year, orderNo, realdata, keyStyle;
     var main = Backbone.View.extend({
         el: '.contents',
         initialize: function () { },
@@ -87,28 +88,28 @@ define([
         updataInfo: function () {
 
             var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
-            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+            keyStyle = that.getUrlParam("keyType");
             var data = {
                 "firmId": firmId
             };
-            if (isODC) {
+            if (keyStyle==2||isODC) {//ODC
                 data.orderNo = that.getUrlParam("orderNo");//||APPLY12051278482404
-            } else {
+            } else if(keyStyle==1){//IYIN
                 data.oid = that.getUrlParam("oid");
                 data.esealCode = localStorage.esealCode;
+            }else{
             }
             service.getListByOrderNo(data).done(function (res) {
                 if (res.code == 0) {
-
-                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                    var result = res.data;
+                	var result = res.data;
                     result.mpEsealOrderExtChangeVO.oldValidStart;
                     result.mpEsealOrderExtChangeVO.oldValidEnd;
                     year = result.mpEsealOrderExtChangeVO.effectiveDuration;
-                    if (isODC) {
+                    if (keyStyle==1||isODC) {    //如果是ODC
                         result.mpEsealOrderExtChangeVO.validStart = that.getDates(year)[0];
                         result.mpEsealOrderExtChangeVO.validEnd = that.getDates(year)[1];
                     } else {
+                    	result.mpEsealOrderExtChangeVO.validStart = '';
                         var date1 = result.mpEsealOrderExtChangeVO.oldValidStart;
                         var date2 = result.mpEsealOrderExtChangeVO.oldValidEnd;
                         //取后台返回的值，前端不计算
@@ -148,6 +149,13 @@ define([
             if (!ukeys.issupport()) {
                 return false;
             }
+            if(!isODC){
+            	if(!keyType){
+	            	bootbox.alert("获取不到印章类型");
+	            	return;
+	            }
+            }
+            
             var that = this;
             var numInd = 0;
             var dialogsText = dialogs.find(".unlock");
@@ -224,12 +232,11 @@ define([
                                         if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
                                             //如果pin正确
                                             numInd = 2;
-                                            var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
                                             $(_this).find("#seleBook,#unlockCode").attr("disabled", true);
                                             $(_this).find("#unlock-error").html("正在读取UKEY内容，请稍候……");
                                             $(_this).find(".btn2").attr("disabled", true);
 
-                                            if (isODC) {
+                                            if (keyStyle==1||isODC) {
                                                 //ODC新办
                                                 var oid = ukeys.GetOid(selectedUkey);
                                                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
