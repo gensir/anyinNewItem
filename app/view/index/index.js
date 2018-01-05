@@ -77,8 +77,8 @@ define([
             r_keyType = $(event.currentTarget).data('type');
             r_certificateFirm = $(event.currentTarget).data('cert');
             r_esealStatus = $(event.currentTarget).data('status');
-            localStorage.keyType = r_keyType;
-            localStorage.certificateFirm = r_certificateFirm;
+            localStorage.u_keyType = r_keyType;
+            localStorage.u_certificateFirm = r_certificateFirm;
             var data = {
                 "oid": r_Oid,
                 "esealCode": r_esealCode,
