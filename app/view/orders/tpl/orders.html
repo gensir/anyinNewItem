@@ -91,7 +91,7 @@
                                             </div>
                                         </li>
                                         <li class="n3">
-                                            <div class="item min" {{value.businessType == 2 || value.businessType == 3 ? "style=display:block": "style=display:none"}}>
+                                            <div class="item min" {{value.businessType == 2 ? "style=display:block": "style=display:none"}}>
                                                 <p class="f14">电子印章信息</p>
                                                 {{each value.commEsealInfos value i}}
                                                 <p>印章名：<span>{{value.esealFullName}}</span></p>
