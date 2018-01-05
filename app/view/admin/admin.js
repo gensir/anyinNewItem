@@ -574,8 +574,8 @@ define([
             r_keyType = $(event.currentTarget).data('type');
             r_certificateFirm = $(event.currentTarget).data('cert');
             r_esealStatus = $(event.currentTarget).data('status');
-            localStorage.keyType = r_keyType;
-            localStorage.certificateFirm = r_certificateFirm;
+            localStorage.u_keyType = r_keyType;
+            localStorage.u_certificateFirm = r_certificateFirm;
             var data = {
                 "oid": r_Oid,
                 "esealCode": r_esealCode,
@@ -731,9 +731,8 @@ define([
         //更新证书
         updata_key: function(event) {
             event.stopPropagation();
-            localStorage.keyType = $(event.currentTarget).data('type');
-            localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            localStorage.esealCode = $(event.currentTarget).data('code');
+            localStorage.u_keyType = $(event.currentTarget).data('type');
+            localStorage.u_certificateFirm = $(event.currentTarget).data('cert');
             if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,

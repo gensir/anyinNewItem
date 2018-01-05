@@ -27,11 +27,12 @@ define([
         },
         //this.$el.empty().html(template.compile(orders)({}));    
         render: function(query) {
-        	localStorage.removeItem("keyType");
+        	localStorage.removeItem("u_keyType");
+        	localStorage.removeItem("u_certificateFirm");
             that = this;
             that.listPage();
         },
-
+        //新办订单未支付时跳去支付
         continueGo: function(event) {
             event.stopPropagation();
             var orderNo = $(event.currentTarget).parent().siblings(".nav0").text();
@@ -43,14 +44,14 @@ define([
                 }
             })
         },
-        //续费未完成再支付
+        //续费订单未支付再次支付
         renew: function(event) {
             event.stopPropagation();
-            var keyType = $(event.currentTarget).data('type');
-            var certificateFirm = $(event.currentTarget).data('cert');
-            localStorage.keyType = $(event.currentTarget).data('type');
-            localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if ((!keyType && !certificateFirm) || (certificateFirm == 2)) {
+            var r_keyType = $(event.currentTarget).data('type');
+            var r_certificateFirm = $(event.currentTarget).data('cert');
+            localStorage.u_keyType = r_keyType;
+            localStorage.u_certificateFirm = r_certificateFirm;
+            if (r_keyType == 2 && r_certificateFirm ==2) {//安印的NETCA暂不开放续费
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -95,6 +96,10 @@ define([
             var esealCode = $(event.currentTarget).data('code');
             var oid = $(event.currentTarget).data('oid');
             var esealStatus = $(event.currentTarget).data('status');
+            var r_keyType = $(event.currentTarget).data('type');
+            var r_certificateFirm = $(event.currentTarget).data('cert');
+            localStorage.u_keyType = r_keyType;
+            localStorage.u_certificateFirm = r_certificateFirm;
             if (esealStatus != 7) {
                 bootbox.dialog({
                     backdrop: true,
