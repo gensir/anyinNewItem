@@ -27,6 +27,7 @@ define([
         },
         //this.$el.empty().html(template.compile(orders)({}));    
         render: function(query) {
+        	localStorage.removeItem("keyType");
             that = this;
             that.listPage();
         },

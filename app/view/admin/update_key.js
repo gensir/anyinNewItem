@@ -15,7 +15,7 @@ define([
         el: '.contents',
         initialize: function () { },
         events: {
-            'click .update #updatekey': 'updatekey'
+            'click .update #updatekey': 'check'
         },
         render: function (query) {
             that = this;
@@ -120,6 +120,29 @@ define([
                     bootbox.alert(res.msg)
                 }
             })
+        },
+        check:function(){
+        	if(localStorage.keyType==2&&localStorage.certificateFirm==2){
+            	var data={};
+            	data.oid = this.getUrlParam("oid");
+            	data.esealCode = this.getUrlParam("esealcode");
+            	data.caType = localStorage.certificateFirm;
+            	data.keyType= localStorage.keyType;
+            	service.check_cert_valid(data).done(function(res){
+            		if(res.code==0){
+            			if(res.data.pointCode==5){
+            				bootbox.alert("该电子印章已过期，请前往电子印章受理门店办理续期业务");
+            				return;
+            			}
+            		}else{
+            			bootbox.alert(res.msg);
+            			return;
+            		}
+            		that.updatekey();
+            	})
+            }else{
+            	that.updatekey();
+            }
         },
         updatekey: function () {
             if (!ukeys.issupport()) {
