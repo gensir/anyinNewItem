@@ -76,7 +76,7 @@ define([
             var certificateFirm = $(event.currentTarget).data('cert');
             localStorage.keyType = $(event.currentTarget).data('type');
             localStorage.certificateFirm = $(event.currentTarget).data('cert');
-            if (keyType != 2){
+            if (keyType == 2 && certificateFirm ==2){//安印的NETCA暂不开放续费
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -249,11 +249,11 @@ define([
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
 
                     //屏蔽非ODC的电子印章申请
-                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                    //  isODC为1的时候是ODC登录的
-					if(!isODC){
-						$(".actionlist .nav1").hide();
-					}
+                    // var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    // //  isODC为1的时候是ODC登录的
+					// if(!isODC){
+					// 	$(".actionlist .nav1").hide();
+					// }
                 }
                 _this.getEsealList();
             });
@@ -277,14 +277,14 @@ define([
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                     
                     //屏蔽非ODC的电子印章申请
-                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                    //  isODC为1的时候是ODC登录的
-					if(!isODC){
-						$(".actionlist .nav1").hide();
-					}
+                    // var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    // //  isODC为1的时候是ODC登录的
+					// if(!isODC){
+					// 	$(".actionlist .nav1").hide();
+					// }
                     
                     if (!Boolean(Esealobj)) {
-                        // $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
+                        $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span><span class='operate'><a href='admin.html#step1'>我要申请</a></span></li>");
                         $(".xufei ul.blist").append("<li><span class='name'>无电子印章</span></li>");
                     } else {
                         for (var i = 0; i < Esealobj.length; i++) {
