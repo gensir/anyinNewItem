@@ -123,12 +123,12 @@ define([
             })
         },
         check:function(){
-        	if(localStorage.keyType==2&&localStorage.certificateFirm==2){
+        	if(localStorage.u_keyType==2&&localStorage.u_certificateFirm==2){
             	var data={};
             	data.oid = this.getUrlParam("oid");
             	data.esealCode = this.getUrlParam("esealcode");
-            	data.caType = localStorage.certificateFirm;
-            	data.keyType= localStorage.keyType;
+            	data.caType = localStorage.u_certificateFirm;
+            	data.keyType= localStorage.u_keyType;
             	service.check_cert_valid(data).done(function(res){
             		if(res.code==0){
             			if(res.data.pointCode==5){
