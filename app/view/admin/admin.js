@@ -583,89 +583,51 @@ define([
                 "caType": r_certificateFirm
 
             };
-            if (!r_Oid && !r_keyType && !r_certificateFirm) {
-                bootbox.dialog({
-                    backdrop: true,
-                    closeButton: false,
-                    className: "common",
-                    title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章参数异常，不能进行续期操作！</span></div',
-                    buttons: {
-                        confirm: {
-                            label: "确定",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
-                    }
-                })
-                return false;
-            } else {
-                //有效期时长判断请求
-                service.check_cert_valid(data).done(function(res) {
-                    if (res.code == 0) {
-                        var pointCode = res.data.pointCode;
-                        console.log(pointCode)
-                        if (pointCode ==1) {
-                            //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
-                            bootbox.dialog({
-                                backdrop: true,
-                                closeButton: false,
-                                className: "common",
-                                title: "操作提示",
-                                message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
-                                buttons: {
-                                    confirm: {
-                                        label: "确定",
-                                        className: "btn2",
-                                        callback: function(result) {
-                                            result.cancelable = false;
-                                        }
-                                    },
-                                }
-                            })
-                            setTimeout(function() {
-                                bootbox.hideAll();
-                            }, 3000)
-                            return false;
-                        } else if (pointCode ==2) {
-                            //只可进行2年有效期续期
-                            console.log("可进行2年续期")
-                            localStorage.rennw_year = pointCode;
-                            that.certType_Status();
-                        } else if (pointCode == 3 || pointCode == 4) {
-                            //可进行2年、3年有效期续期
-                            console.log("可进行2,3年续期")
-                            localStorage.rennw_year = 3;
-                            that.certType_Status();
-                        } else if (pointCode ==5) {
-                            //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
-                            bootbox.dialog({
-                                backdrop: true,
-                                closeButton: false,
-                                className: "common",
-                                title: "操作提示",
-                                message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
-                                buttons: {
-                                    confirm: {
-                                        label: "确定",
-                                        className: "btn2",
-                                        callback: function(result) {
-                                            result.cancelable = false;
-                                        }
-                                    },
-                                }
-                            })
-                            return false;
-                        }
-                    } else {
+            //有效期时长判断请求
+            service.check_cert_valid(data).done(function(res) {
+                if (res.code == 0) {
+                    var pointCode = res.data.pointCode;
+                    console.log(pointCode)
+                    if (pointCode ==1) {
+                        //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
                         bootbox.dialog({
                             backdrop: true,
                             closeButton: false,
                             className: "common",
                             title: "操作提示",
-                            message: '<div class="msgcenter"><em></em><span>' + res.msg + '</span></div',
+                            message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
+                            buttons: {
+                                confirm: {
+                                    label: "确定",
+                                    className: "btn2",
+                                    callback: function(result) {
+                                        result.cancelable = false;
+                                    }
+                                },
+                            }
+                        })
+                        setTimeout(function() {
+                            bootbox.hideAll();
+                        }, 3000)
+                        return false;
+                    } else if (pointCode ==2) {
+                        //只可进行2年有效期续期
+                        console.log("可进行2年续期")
+                        localStorage.rennw_year = pointCode;
+                        that.certType_Status();
+                    } else if (pointCode == 3 || pointCode == 4) {
+                        //可进行2年、3年有效期续期
+                        console.log("可进行2,3年续期")
+                        localStorage.rennw_year = 3;
+                        that.certType_Status();
+                    } else if (pointCode ==5) {
+                        //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
+                        bootbox.dialog({
+                            backdrop: true,
+                            closeButton: false,
+                            className: "common",
+                            title: "操作提示",
+                            message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
                             buttons: {
                                 confirm: {
                                     label: "确定",
@@ -678,8 +640,26 @@ define([
                         })
                         return false;
                     }
-                });
-            }
+                } else {
+                    bootbox.dialog({
+                        backdrop: true,
+                        closeButton: false,
+                        className: "common",
+                        title: "操作提示",
+                        message: '<div class="msgcenter"><em></em><span>' + res.msg + '</span></div',
+                        buttons: {
+                            confirm: {
+                                label: "确定",
+                                className: "btn2",
+                                callback: function(result) {
+                                    result.cancelable = false;
+                                }
+                            },
+                        }
+                    })
+                    return false;
+                }
+            });
         },
         //续费状态及证书控制
         certType_Status: function() {
@@ -745,7 +725,7 @@ define([
                 })
                 return false;
             } else {
-                window.location.href = "admin.html#renew?esealCode=" + esealCode + "&oid=" + GetOid;
+                window.location.href = "admin.html#renew?esealCode=" + r_esealCode + "&oid=" + r_Oid;
             }
         },
         //更新证书

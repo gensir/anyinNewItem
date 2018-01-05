@@ -29,7 +29,7 @@ define([
 			$(".step4").append(payments.find(".gopay"));
 			this.$el.append(payments.find(".paymentStyle"));
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			localStorage.esealCode=that.getUrlParam('esealcode');
+			localStorage.esealCode=that.getUrlParam('esealCode');
 			localStorage.oid=that.getUrlParam('oid');
 			this.renewInfo();
 		},
@@ -105,7 +105,7 @@ define([
 		},
 		renewInfo: function() {
 			var _this = this
-			var esealCode = that.getUrlParam('esealcode');
+			var esealCode = that.getUrlParam('esealCode');
 			var oid = that.getUrlParam('oid');
 			var newOrderNo = that.getUrlParam('orderNo');
 			//var oid=localStorage.oid || this.getUrlParam('oid');
@@ -131,7 +131,10 @@ define([
 			//		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
 			var data = {
 				'esealCode': esealCode,
-				'oid': oid
+				'oid': oid,
+				'caType': 2,
+				'keyType': 2
+
 			};
 			service.getRenewInfo(data).done(function(res) {
 				var renewData;
