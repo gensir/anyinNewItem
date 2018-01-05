@@ -118,6 +118,7 @@ define([
 			var ele = event.target;
 			var count = $(ele).data('id');
 			if($(ele).hasClass('choice')) {
+				localStorage.ODCchoice=false;
 				$(ele).removeClass('choice');
 				$(ele).siblings().removeClass('choice');
 				choiceflag = false;
@@ -133,6 +134,7 @@ define([
 					}
 				}
 			} else {
+				localStorage.ODCchoice=true;
 				choiceflag = true;
 				$(ele).addClass('choice');
 				$(ele).siblings().removeClass('choice');

@@ -197,7 +197,7 @@ define([
                                     localStorage.selectedUkey = selectedUkey;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl = that.getUrlParam("oid");
-                                    if (oid == oidUrl) {
+                                    if (oid==oidUrl||localStorage.ODCchoice) {
                                         if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
                                             //如果pin正确
                                             numInd = 2;
@@ -352,6 +352,23 @@ define([
                                                             });
                                                         }
                                                         if (item.caType == 2) {
+                                                        	
+                                                        	var obj={
+                                                        		"oid":"",
+                                                        		"orderNo":"",
+                                                        		"esealCode":"",
+                                                        		"signCertContent":"",
+                                                        		"year":"",
+                                                        		"p10":"",
+                                                        		"symmAlgo":"",
+                                                        		"isChangeBody":""
+                                                        	};
+                                                        	service.getPlaintext(data).done(function(res){
+                                                        		
+                                                        	})
+                                                        	
+                                                        	
+                                                        	
                                                             var data = {
                                                                 signCertContent: ukeys.getSignatureCert(selectedUkey)
                                                             };

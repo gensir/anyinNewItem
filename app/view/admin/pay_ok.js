@@ -93,7 +93,8 @@ define([
 					isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 					//businessType==1是新办，businessType==2是续期
 					if(businessType == 1) {
-						if(isODC){
+//						如果选择了ODC
+						if(localStorage.ODCchoice){
 							$(".text_tip").hide();
 							$(".lcocation_page").text("证书更新页面")
 							windowLocation = "#update_key?orderNo="+orderNo;
