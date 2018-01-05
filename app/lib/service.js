@@ -322,9 +322,13 @@
 		    renew_certGDCA:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/gdca", data: data }, "post");
 		    },
-		    //所有CA 新办和续期写入证书；
+		    //所有CA 新办和续期写入证书；3014-6
 		    write_cert_GDCA:function(data) { 
 	            return this.ajaxCall({ url: domain + basemp + "eseal/write_cert", data: data }, 'post')
+	        },
+	        //netca获取续期签名原文
+	        getPlaintext:function(data){
+	        	return this.ajaxCall({ url: domain + basemp + "order/renew_cert/get_netca_sign_plaintext", data: data }, 'post')
 	        },
 	        //netca 续期请求url
 	        renewNetca:function(data){
