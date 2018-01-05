@@ -103,18 +103,18 @@
                                             </div>
                                             <div class="item order">
                                                 <p class="top f14">订单内容</p>
-                                                {{if value.businessType==1 || value.businessType==5 || value.businessType==6}}
+                                                {{if value.businessType == 1 || value.businessType == 5 || value.businessType == 6}}
                                                 {{each value.mpEsealOrderExts value i}}
                                                 <p class="orderinfo">
-                                                    <span class="sealName max">{{value.esealFullName}}</span>
+                                                    <span class="sealName max">{{value.esealFullName}} 开通</span>
                                                     <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                                                 </p>
                                                 {{/each}}
                                                 {{/if}}
-                                                {{if value.businessType==2 }}
+                                                {{if value.businessType== 2 || value.businessType== 3 }}
                                                 {{each value.mpEsealOrderExts value i}}
                                                 <p class="orderinfo">
-                                                    <span class="sealName">{{value.esealFullName}} 续费</span>
+                                                    <span class="sealName">{{value.esealFullName}} {{value.businessType ==2 ? "续费" : "挂失"}}</span>
                                                     <span class="sealyear">{{value.effectiveDuration}}年</span>
                                                     <span class="right">￥{{value.payAmount==null?"0元":value.payAmount+"元"}}</span>
                                                 </p>
@@ -128,16 +128,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- <div class="orderHelp">
-                                    <ul class="nav">
-                                        <li class="n1">
-                                        </li>
-                                        <li class="n2">
-                                        </li>
-                                        <li class="n3">
-                                        </li>
-                                    </ul>
-                                </div> -->
                                 <div class="tog_bot"><em></em></div>
                             </div>
                         </div>
@@ -157,17 +147,14 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <!-- {{each count value i}}
-		                    <li class="index"><a>{{value}}</a></li>
-		                    {{/each}} -->
                 <li class="appendPage NextPage">
                     <a aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
                 <!-- <li class="gopage">
-		                        <label>前往<input type="text">页</label>
-		                    </li> -->
+		            <label>前往<input type="text">页</label>
+		        </li> -->
             </ul>
         </nav>
     </div>

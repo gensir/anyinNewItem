@@ -93,6 +93,9 @@ define([
                     window.location.href = "#invoice_ok";
                 } else if (res.code == 40008) {
                     var errortip = res.msg + "，请勿重复提交信息！"
+                    that.dialog_tip(errortip, 1, "返回")
+                } else if (res.code == 50004) {
+                    var errortip = "开票服务请求失败，请稍后重试！"
                     that.dialog_tip(errortip)
                 } else {
                     that.dialog_tip(res.msg)
@@ -101,27 +104,30 @@ define([
         },
         
         //弹窗提示
-        dialog_tip: function(data) {
-            // if (Status != 7) {
-                bootbox.dialog({
-                    backdrop: true,
-                    closeButton: false,
-                    className: "common",
-                    title: "异常信息",
-                    message: '<div class="msgcenter"><em></em><span>' + data + '</span></div',
-                    buttons: {
-                        confirm: {
-                            label: "返回订单列表",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = window.location.href ='orders.html';
-                                // result.cancelable = false;
+        dialog_tip: function(data, errorcode, text) {
+            //data 为提示内容，errorcode为错误代码,text为按钮文字
+            bootbox.dialog({
+                backdrop: true,
+                closeButton: false,
+                className: "common",
+                title: "异常信息",
+                message: '<div class="msgcenter"><em></em><span>' + data + '</span></div',
+                buttons: {
+                    confirm: {
+                        label: text || "确定",
+                        className: "btn2",
+                        callback: function(result) {
+                            if (errorcode == 1) {
+                                result.cancelable = window.location.href = 'orders.html';
+                            } else {
+                                result.cancelable = false;
+                                $("#invoice_Apply").attr("disabled", false);
                             }
-                        },
-                    }
-                })
-                return false;
-            // }
+                        }
+                    },
+                }
+            })
+            return false;
         },
         //选择发票类型
 		idType: function(event) {
@@ -149,6 +155,11 @@ define([
                     tempObj = res.data;
                     _this.model.get("tplhtml").value = tempObj;
                     _this.$el.html(template.compile(tpl)(_this.model.get("tplhtml")));
+                    console.log(tempObj.orderStatus);
+                    if ((tempObj.orderStatus != 4) && (tempObj.orderStatus != 5) ) {
+                        $("#invoice_Apply").attr("disabled", true);
+                        _this.dialog_tip("该订单状态不支持申请发票！", 1, "返回")
+                    }
                 }
             })
         },

@@ -29,13 +29,13 @@
                 <li>
                     <div class="file" style="cursor: default;">暂无签章记录</div>
                 </li>
-                {{/if}} {{each logdata value i}}
+                {{/if}}
+                {{each logdata value i}}
                 <li>
                     <div class="file">
                         <div class="filetype"><em></em></div>
                         <p class="gsname" title="{{value.signetDocument}}">{{value.signetDocument}}</p>
                         <p class="yzinfo">{{value.esealFullName +"—— "}}{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章": "撤章"}}</p>
-                        <!-- <p class="yzinfo"><span class="name">{{value.esealFullName}}</span><span class="type">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":value.signType}}</span></p> -->
                         <p class="signet-date">电子印章有效期：{{value.bizValidStart?value.bizValidStart.substr(0,10)+"至":""}}{{value.bizValidEnd?value.bizValidEnd.substr(0,10):""}}</p>
                         <div class="date">{{value.signTime.substr(0,10)}}</div>
                     </div>
@@ -78,7 +78,7 @@
                     <span class="date" title="{{value.validEnd}}"></span>
                     <span class="operate">
                         {{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==14}}
-                        <a class="renew" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">立即续费></a>
+                        <a class="renew" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-status="{{value.esealStatus}}" data-code="{{value.esealCode}}" data-oid="{{value.oid}}" href="javascript:;">立即续费></a>
                         {{/if}}
                         {{if value.esealStatus==7}}
                         <a class="updata_key" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-code="{{value.esealCode}}" href="admin.html#update_key?esealcode={{value.esealCode}}&oid={{value.oid}}">更新证书></a>

@@ -22,7 +22,7 @@ var config = {
             	target: proxy.unyl, //pathRewrite: {'^/column' : '/column'},            	
                 secure: false,
                 changeOrigin: true
-            },        	       	
+            },
             '/mp': {
             	target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},            	
 	           //  target: proxy.anyinUrl, //pathRewrite: {'^/column' : '/column'},
