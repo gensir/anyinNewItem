@@ -248,7 +248,7 @@ define([
                                                 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                                 var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
                                                 realdata = {
-                                                    "orderNo": that.getUrlParam("orderNo"),
+                                                    "orderNo": orderNo,
                                                     "validStart": $(".vaildStart .new").text(),
                                                     "validEnd": $(".validEnd .new").text(),
                                                     "esealCode": $(".esealCode .new").text() || $(".esealCode .text").text(),
@@ -316,135 +316,113 @@ define([
                                                     })
 
                                                 } else if (certificateFirms == 2) {
-                                                    //netCA
-                                                    var getPIN = $("#writezmCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
+                                                    //netCA   首先判断是否能进行换体续期调3035接口-->调3054接口获取签名原文进行签名，得到得userSignature作为续期接口得入参-->调用3031续期接口
+                                                    var getPIN = $("#unlockCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
                                                     if (ukeys.PIN(getPIN, selectedUkey)) {
-                                                        if (!(item.esealCode == ukeys.esealCode(getPIN, selectedUkey))) {
+                                                        if (!($(".esealCode .text").text() == ukeys.esealCode(getPIN, selectedUkey))) {
                                                             numInd = 0;
                                                             $(_this).find("#unlock-error").html("您选择的UKEY与续费的印章不符，请更换UKEY后重试！");
                                                             $(_this).find(".btn2").show().html("重试").attr("disabled", false);
                                                             return false;
                                                         }
+                                                        function netcaFun(isNeedChangeCert,data){
+                                                        	service.renewNetca(data).done(function(res){
+                                                        		if(res.code==0){
+                                                        			if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
+					                                                    window.bootbox.alert({
+					                                                        size: "small",
+					                                                        title: "提示",
+					                                                        message:
+					                                                        ret.data.bpmsResponse.responseResult.msg,
+					                                                        callback: function () {
+					                                                            /* your callback code */
+					                                                        }
+					                                                    });
+					                                                    return;
+					                                                }
+                                                        			if (isNeedChangeCert && !(netca.delCert() == "deleSuccess")) {
+				                                                        //如果删除成功，就写入证书；
+				                                                        window.bootbox.alert({
+				                                                            size: "small",
+				                                                            title: "提示",
+				                                                            message:
+				                                                            "删除旧证书失败，无法写入新证书",
+				                                                            callback: function () {
+				                                                                /* your callback code */
+				                                                            }
+				                                                        });
+				                                                        return;
+				                                                    }
+                                                        			var correctData = res.data.bpmsResponse;
+					                                                var write_cert = {
+					                                                    certEnc: "",
+					                                                    certSign: "",
+					                                                    encPair: ""
+					                                                };
+					                                                $.each(correctData.certInfo, function (i, v) {
+					                                                    if (v.certUsage == 1) {
+					                                                        write_cert.certEnc = v.certContent;
+					                                                        write_cert.encPair = v.enckeyPair || "";
+					                                                    } else if (v.certUsage == 2) {
+					                                                        write_cert.certSign = v.certContent;
+					                                                    }
+					                                                });
+                                                        			var obj={
+                                                        				"reqId":res.data.bpmsResponse.reqId,
+                                                        				"orderNo":orderNo,
+                                                        				"signCertContent":write_cert.certSign,
+                                                        				"esealCode":$(".esealCode .text").text()
+                                                        			}
+                                                        			service.netcaCallBack(obj).done(function(){
+                                                        				
+                                                        			})
+                                                        		}else{
+                                                        			
+                                                        		}
+                                                        	})
+                                                        }
                                                         function inRenewFun(p10, symmAlgo, isNeedChangeCert) {
                                                             var data = {
                                                                 oid: ukeys.GetOid(selectedUkey),
                                                                 orderNo: orderNo,
-                                                                esealCode: localStorage.esealCode,
+                                                                esealCode: $(".esealCode .text").text(),
                                                                 signCertContent: ukeys.getSignatureCert(selectedUkey),
                                                                 year: year,
                                                                 p10: p10 ? p10 : 'p10',
-                                                                symmAlgo: symmAlgo ? symmAlgo : 12345678
+                                                                symmAlgo: symmAlgo ? symmAlgo : 12345678,
+                                                                isChangeBody:isNeedChangeCert
                                                             };
-                                                            service.renewNetca(data).done(function (ret) {
+                                                            service.getPlaintext(data).done(function (ret) {
                                                                 if (ret.code == 0) {
-                                                                    if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
-                                                                        window.bootbox.alert({
-                                                                            size: "small",
-                                                                            title: "提示",
-                                                                            message:
-                                                                                ret.data.bpmsResponse.responseResult.msg,
-                                                                            callback: function () {
-                                                                                /* your callback code */
-                                                                            }
-                                                                        });
-                                                                        return;
-                                                                    }
-                                                                    var correctData = ret.data.bpmsResponse;
-                                                                    var write_cert = {
-                                                                        certEnc: "",
-                                                                        certSign: "",
-                                                                        encPair: ""
-                                                                    };
-                                                                    $.each(correctData.certInfo, function (i, v) {
-                                                                        if (v.certUsage == 1) {
-                                                                            write_cert.certEnc = v.certContent;
-                                                                            write_cert.encPair = v.enckeyPair || "";
-                                                                        } else if (v.certUsage == 2) {
-                                                                            write_cert.certSign = v.certContent;
-                                                                        }
-                                                                    });
-                                                                    if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
-                                                                        var data = {
-                                                                            reqId: ret.data && ret.data.bpmsResponse.reqId,
-                                                                            orderNo: item.orderNo,
-                                                                            signCertContent: write_cert.certSign
-                                                                        };
-                                                                        service.netcaCallBack(data).done(function (ret) {
-                                                                            $(_this).find(".btn2").hide();
-                                                                            $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
-                                                                        });
-                                                                    }
+                                                                    netcaFun(isNeedChangeCert,data);
                                                                 } else {
                                                                     numInd = 1;
-                                                                    $(_this).find("#writezm-error").html(ret.msg);
+                                                                    $(_this).find("#unlock-error").html(ret.msg);
                                                                     $(_this).find(".btn2").show().html("重试").attr("disabled", false);
                                                                 }
                                                             });
                                                         }
-                                                        if (item.caType == 2) {
-                                                        	
-                                                        	var obj={
-                                                        		"oid":"",
-                                                        		"orderNo":"",
-                                                        		"esealCode":"",
-                                                        		"signCertContent":"",
-                                                        		"year":"",
-                                                        		"p10":"",
-                                                        		"symmAlgo":"",
-                                                        		"isChangeBody":""
-                                                        	};
-                                                        	service.getPlaintext(data).done(function(res){
-                                                        		
-                                                        	})
-                                                        	
-                                                        	
-                                                        	
-                                                            var data = {
-                                                                signCertContent: ukeys.getSignatureCert(selectedUkey)
-                                                            };
-                                                            service.isNeedChangeCert(data).done(function (ret) {
-                                                                if (ret.data) {
-                                                                    var jsonVal = certUtil.getCertInfo(
-                                                                        ukeys.dCertificate(selectedUkey)
-                                                                    );
-                                                                    var p10 = jsonVal && netca.buildParamForRequestCa(jsonVal)["p10"];
-                                                                    var symmAlgo = netca.getSymmAlgo();
-                                                                } else {
-                                                                    var p10 = "p10",
-                                                                        symmAlgo = 12345678,
-                                                                        isNeedChangeCert = ret.data;
-                                                                }
-                                                                inRenewFun(p10, symmAlgo, isNeedChangeCert);
-                                                            });
-                                                        } else if (item.caType == 1) {
-                                                            var dataGDCA = {
-                                                                orderNo: item.orderNo,
-                                                                gdcaRequest: {
-                                                                    trustId: ukeys.trustId(selectedUkey),
-                                                                    cn: item.enterpriseName,
-                                                                    c: 'CN',
-                                                                    publicKey: ukeys.trustId(selectedUkey),
-                                                                    orgCode: ukeys.GetenterpriseCode(selectedUkey),
-                                                                    busyType: item.effectivedeDuration ? 'RENEW_' + item.effectivedeDuration : 'RENEW',
-                                                                    certType: item.caType
-                                                                    // contact: {
-                                                                    //     ctName: 'wt',
-                                                                    //     ctCertificate: '430989199011001100'
-                                                                    // }
-                                                                }
-                                                            };
-                                                            service.renew_certGDCA(dataGDCA).done(function (ret) {
-                                                                if (ret.code == 0) {
-                                                                    window.open(ret.data, '_blank');
-                                                                    $(_this).find(".bootbox-body").html(that.msg4).end().find(".msg4").text("续期成功后请点击继续！");
-                                                                } else {
-                                                                    numInd = 1;
-                                                                    $(_this).find("#writezm-error").html(ret.msg);
-                                                                    $(_this).find(".btn2").show().html("重试").attr("disabled", false);
-                                                                }
-                                                                console.log(ret)
-                                                            })
-                                                        }
+                                                        var data = {
+                                                            signCertContent: ukeys.getSignatureCert(selectedUkey)
+                                                        };
+                                                        service.isNeedChangeCert(data).done(function (ret) {
+                                                        	if(ret.code==0){
+                                                        		var isNeedChangeCert = ret.data;
+                                                        		if(ret.data){
+                                                        			var jsonVal = certUtil.getCertInfo(
+	                                                                    ukeys.dCertificate(selectedUkey)
+	                                                                );
+	                                                                var p10 = jsonVal && netca.buildParamForRequestCa(jsonVal)["p10"];
+	                                                                var symmAlgo = netca.getSymmAlgo();
+                                                        		}else{
+                                                        			var p10 = "p10",symmAlgo = 12345678;
+                                                        		}
+                                                        	}else{
+                                                        		bootbox.alert(ret.msg);
+                                                        	}
+                                                            inRenewFun(p10, symmAlgo, isNeedChangeCert);
+                                                        });
+                                                        
                                                     } else {
                                                         numInd = 1;
                                                         $(_this).find("#writezm-error").html("PIN码不正确，请重试");
