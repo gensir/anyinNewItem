@@ -40,7 +40,7 @@ msg6 有input的单行；
     </div>
 
     <div class="lossEseal">
-        <div class="title">预挂失电子印章提示</div>
+        <div class="title">预挂失电子印章</div>
         <div class="msg1">您选择预挂失<span></span></br>该电子印章相关功能将暂停使用</div>
         <div class="msg2">
             <div class="input-group">
@@ -53,8 +53,8 @@ msg6 有input的单行；
     </div>
 
     <div class="unfreezeEseal">
-        <div class="title">解冻电子印章提示</div>
-        <div class="msg1">您选择解冻<span></span></br>请插入相对应的电子印章后点击“继续”</div>
+        <div class="title">取消预挂失</div>
+        <div class="msg1">您选择取消<span></span>预挂失</br>请插入相对应的电子印章后点击“继续”</div>
         <div class="msg4">正在读取UKEY,请稍后......</div>
         <div class="msg3">未检测到UKEY，请确保UKEY已正确插入电脑并 安装 <a href="https://www.i-yin.net/index.php?c=article&a=type&tid=3">电子印章驱动程序</a></div>
         <div class='msg5 discrepancy'>您插入的UKEY与所选UKEY不符，请重新插入</a>
@@ -64,15 +64,16 @@ msg6 有input的单行；
                 <select class="form-control seleBook" style="border-radius: 4px;" id="seleBook" name="seleBook">
                     <option value="">------------------<span> 选择证书 </span>------------------</option>
                 </select>
+                <p id="seleBook-error"></p>
             </div>
             <div class="input-group">
                 <label for="">请输入PIN码</label>
-                <input type="password" id="unfreezeCode" style="border-radius: 4px;" maxlength="16" minlength="6" class="form-control" placeholder="请输入PIN码" aria-describedby="basic-addon1">
-                <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
+                <input type="password" id="unlockCode" maxlength="16" minlength="6" class="form-control" style="border-radius: 4px;" placeholder="请输入PIN码">
             </div>
-            <p id="unfreezeCode-error"></p>
+            <p id="unlock-error"></p>
+            <div class="Loading">正在解密日志，读取UKEY中，请稍后......</div>
         </div>
-        <div class="msg5 success">已成功解冻“电子印章样品专用章（01）”正在读取UKEY,请稍后......</div>
+        <div class="msg5 success">已成功解冻“<span>电子印章样品专用章（01）</span>”正在读取UKEY,请稍后......</div>
     </div>
 
     <div class="logoutEseal">
@@ -205,7 +206,6 @@ msg6 有input的单行；
             <div class="input-group">
                 <label for="">请输入PIN码</label>
                 <input type="password" id="unlockCode" maxlength="16" minlength="6" class="form-control" style="border-radius: 4px;" placeholder="请输入PIN码" aria-describedby="basic-addon1">
-                <!--<span class="input-group-addon" id="basic-addon1">重新发送</span>-->
             </div>
             <p id="unlock-error"></p>
             <div class="Loading">正在解密日志，读取UKEY中，请稍后......</div>

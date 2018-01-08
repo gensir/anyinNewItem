@@ -89,7 +89,6 @@ define(
             },
             //解密
             lock: function() {
-                var _outthis = this;
                 var numInd = 0;
                 var dialogsText = dialogs.find(".unlock");
                 bootbox.hideAll();
@@ -207,7 +206,6 @@ define(
                                         } else {
                                             numInd = 1;
                                             var GetOid = ukeys.GetOid(selectedUkey);
-                                            localStorage.GetOid = GetOid;
                                             var data = {
                                                 "oid": GetOid,
                                                 "errorCode": 1

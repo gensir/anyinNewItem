@@ -327,8 +327,8 @@ define([
             var status = $(event.currentTarget).data('status');
             var esealFullName = $(event.currentTarget).data('name');
             var esealCode = $(event.currentTarget).data('code');
-            var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
-                // var mobile = "13590435949"
+            // var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
+            var mobile = "13590435949"
             var numInd = this.model.get("numInd");
             if (status == 1 || status == 6 || status == 7) {
                 var dialog = bootbox.dialog({
@@ -336,7 +336,6 @@ define([
                     //closeButton: false,
                     className: "common loss",
                     title: dialogs.find(".lossEseal .title")[0].outerHTML,
-                    // message: dialogs.find(".lossEseal .msg1")[0].outerHTML,
                     message: '<div class="msg1">您选择预挂失 <span>“' + esealFullName + '”</span></br>该电子印章相关功能将暂停使用</div>',
                     buttons: {
                         cancel: {
@@ -447,19 +446,22 @@ define([
                 })
             }
         },
-        //取消预挂失提示
+        //取消预挂失
         cancelloss: function(event) {
             event.stopPropagation();
+            var list_oid = $(event.currentTarget).data('oid');
             var esealCode = $(event.currentTarget).data('code');
             var esealFullName = $(event.currentTarget).data('name');
-            var numInd = this.model.get("numInd");
-            var _this = this
+            var enterpriseCode = this.enterpriseCode;
+            var numInd = 0;
+            var dialogsText = dialogs.find(".unfreezeEseal");
             bootbox.dialog({
                 backdrop: true,
                 closeButton: false,
-                className: "common loss",
-                title: "取消预挂失",
-                message: '<div class="msgcenter"><em></em><span>确认取消已预挂失的“' + esealFullName + '”？</span></div',
+                className: "common unfreezeEseal",
+                title: dialogsText.find(".title")[0].outerHTML,
+                message: dialogsText.find(".msg1").find("span").text('“' + esealFullName + '”').end()[0].outerHTML,
+                // message: '<div class="msgcenter"><em></em><span>确认取消已预挂失的“' + esealFullName + '”？</span></div',
                 buttons: {
                     cancel: {
                         label: "取消",
@@ -469,10 +471,106 @@ define([
                         }
                     },
                     confirm: {
-                        label: "确定",
+                        label: "继续",
                         className: "btn2",
-                        callback: function(result) {
-                            _this.cancellossfun(esealCode);
+                        callback: function(event) {
+                                numInd++;
+                                var _this = this;
+                                if (numInd == 1) {
+                                    var msg4 = dialogsText.find(".msg4")[0].outerHTML;
+                                    $(this).find(".bootbox-body").html(msg4);
+                                    $(this).find(".btn1,.btn2").hide();
+                                    setTimeout(function() {
+                                        if (!ukeys.ukeyName().length) {
+                                            numInd = 0;
+                                            var msg3 = dialogsText.find(".msg3")[0].outerHTML;
+                                            $(_this).find(".bootbox-body").html(msg3);
+                                            $(_this).find(".btn1,.btn2").show();
+                                            $(_this).find(".btn2").show().html("重试");
+                                        } else {
+                                            var msg6 = dialogsText.find(".msg6")[0].outerHTML;
+                                            $(_this).find(".bootbox-body").html(msg6);
+                                            $.each(ukeys.ukeyName(), function(ind,val) {
+                                                $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
+                                            });
+                                            $(_this).find(".btn1,.btn2").show();
+                                            $(_this).find(".btn2").show().html("确定");
+                                        }
+                                    }, 1000);
+                                } else if (numInd == 2) {
+                                    // 验证KEY密码
+                                    var selectedUkey = $("#seleBook option:selected").val();
+                                    var unlockCode = $("#unlockCode").val();
+                                    if (selectedUkey == "") {
+                                        numInd = 1;
+                                        $(_this).find("#seleBook-error").html("请选择一个证书");
+                                        $(_this).find(".btn2").show().html("确定");
+                                        $("#seleBook").change(function() {
+                                            $("#seleBook-error").html("");
+                                        });
+                                    } else if (unlockCode.length < 6) {
+                                        numInd = 1;
+                                        $(_this).find("#unlock-error").html("请输入6位以上PIN码");
+                                        $(_this).find(".btn2").show().html("确定");
+                                        $("#unlockCode").keyup(function() {
+                                            $("#unlock-error").html("");
+                                        });
+                                    } else {
+                                        var selectedUkey = $("#seleBook option:selected").index() - 1;
+                                        var ukey_oid = ukeys.GetOid(selectedUkey);
+                                        console.log("证书标识：" + ukey_oid)
+                                        console.log("Ukey：" + selectedUkey)
+                                        if (ukey_oid != list_oid) {
+                                            numInd = 0;
+                                            // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });
+                                            $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "您选择的UKEY与印章不符，请更换UKEY后重试" + "</span></div>");
+                                            $(_this).find(".btn2").show().html("重试");
+                                        } else {
+                                            if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
+                                                var data = {
+                                                    "esealCode": esealCode,
+                                                    "oid": ukey_oid,
+                                                    "enterpriseCode": enterpriseCode
+                                                };
+                                                service.updateEsealStatus(data).done(function(data) {
+                                                    if (data.code == 1) {
+                                                            var success = dialogsText.find(".success").html("已成功取消“" + esealFullName + "”的预挂失").get(0).outerHTML;
+                                                            $(_this).find(".bootbox-body").html(success);
+                                                            $(_this).find(".btn1,.btn2").hide();
+                                                            setTimeout(
+                                                                function() {
+                                                                    _this.modal("hide");
+                                                                    location.reload();
+                                                                },3000 );
+                                                        } else {
+                                                            numInd = 0;
+                                                            $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + data.msg + "</span></div>");
+                                                            $(_this).find(".btn2").show().html("重试");
+                                                        }
+                                                    });
+                                            } else {
+                                                numInd = 1;
+                                                var GetOid = ukeys.GetOid(selectedUkey);
+                                                var data = {
+                                                    "oid": GetOid,
+                                                    "errorCode": 1
+                                                };
+                                                service.checkPIN(data).done(function(data) {
+                                                    if (data.code == 1) {
+                                                        $(_this).find("#unlock-error").html(data.msg);
+                                                        $(_this).find(".btn2").show().html("重试");
+                                                    }
+                                                    $("#unlockCode").change(function() {
+                                                        $("#unlock-error").html("");
+                                                    });
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //this.modal('hide');
+                                return false;
                         }
                     },
                 }
