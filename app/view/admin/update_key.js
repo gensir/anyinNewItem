@@ -88,13 +88,16 @@ define([
         updataInfo: function () {
 
             var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
+            var orgCode = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode);
+            var enterpriseName = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username);
             keyStyle = that.getUrlParam("keyType");
             var data = {
-                "firmId": firmId
+                "firmId": firmId,
+                "enterpriseName":enterpriseName
             };
-            if (keyStyle==2||isODC) {//ODC
+            if (keyStyle==1||isODC) {//ODC
                 data.orderNo = that.getUrlParam("orderNo");//||APPLY12051278482404
-            } else if(keyStyle==1){//IYIN
+            } else if(keyStyle==2){//IYIN
                 data.oid = that.getUrlParam("oid");
                 data.esealCode = localStorage.esealCode;
             }else{

@@ -1,4 +1,4 @@
-define(function() {
+define([],function() {
 	var ActiveXObject = window.ActiveXObject,
 		utils, singer;
 	//依赖网证通NetcaPki NetcaRAClientCom控件(安装客户端即可)，依赖json2.js
