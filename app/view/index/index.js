@@ -90,7 +90,7 @@ define([
             if (!r_Oid && !r_keyType && !r_certificateFirm) {
                 bootbox.dialog({
                     backdrop: true,
-                    closeButton: false,
+                    // closeButton: false,
                     className: "common",
                     title: "操作提示",
                     message: '<div class="msgcenter"><em></em><span>该电子印章参数异常，不能进行续期操作！</span></div',
@@ -115,7 +115,7 @@ define([
                             //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
                             bootbox.dialog({
                                 backdrop: true,
-                                closeButton: false,
+                                // closeButton: false,
                                 className: "common",
                                 title: "操作提示",
                                 message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
@@ -147,7 +147,7 @@ define([
                             //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
                             bootbox.dialog({
                                 backdrop: true,
-                                closeButton: false,
+                                // closeButton: false,
                                 className: "common",
                                 title: "操作提示",
                                 message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
@@ -166,7 +166,7 @@ define([
                     } else {
                         bootbox.dialog({
                             backdrop: true,
-                            closeButton: false,
+                            // closeButton: false,
                             className: "common",
                             title: "操作提示",
                             message: '<div class="msgcenter"><em></em><span>' + res.msg + '</span></div',
@@ -197,7 +197,7 @@ define([
             if (!arr.in_array(r_esealStatus)) {
                 bootbox.dialog({
                     backdrop: true,
-                    closeButton: false,
+                    // closeButton: false,
                     className: "common",
                     title: "操作提示",
                     message: '<div class="msgcenter"><em></em><span>该电子印章状态不支持续费操作！</span></div',
@@ -215,7 +215,7 @@ define([
             } else if (r_keyType == 2 && r_certificateFirm ==2) {//安印的NETCA暂不开放续费
                 bootbox.dialog({
                     backdrop: true,
-                    closeButton: false,
+                    // closeButton: false,
                     className: "common",
                     title: "操作提示",
                     message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
@@ -233,7 +233,7 @@ define([
             } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
-                    closeButton: false,
+                    // closeButton: false,
                     className: "common",
                     title: "操作提示",
                     message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
@@ -260,7 +260,7 @@ define([
             if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
-                    closeButton: false,
+                    // closeButton: false,
                     className: "common",
                     title: "操作提示",
                     message: '<div class="msgcenter"><em></em><span>此功能只支持在IE浏览器中使用！</span></div',
