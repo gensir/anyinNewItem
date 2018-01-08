@@ -576,19 +576,6 @@ define([
                 }
             })
         },
-        //取消预挂失
-        cancellossfun: function() {
-            var data = {
-                "esealCode": esealCode
-            }
-            service.updateEsealStatus(data).done(function(res) {
-                if (res.code == 0) {
-                    location.reload();
-                } else {
-                    bootbox.alert(res.msg);
-                }
-            })
-        },
         //印章注销
         logout: function() {
             var numInd = this.model.get("numInd");
@@ -807,24 +794,24 @@ define([
                     }
                 })
                 return false;
-            } else if (r_keyType == 2 && r_certificateFirm ==2) {//安印的NETCA暂不开放续费
-                bootbox.dialog({
-                    backdrop: true,
-                    // closeButton: false,
-                    className: "common",
-                    title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
-                    buttons: {
-                        confirm: {
-                            label: "确定",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
-                    }
-                })
-                return false;
+            // } else if (r_keyType == 2 && r_certificateFirm ==2) {//安印的NETCA暂不开放续费
+            //     bootbox.dialog({
+            //         backdrop: true,
+            //         // closeButton: false,
+            //         className: "common",
+            //         title: "操作提示",
+            //         message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
+            //         buttons: {
+            //             confirm: {
+            //                 label: "确定",
+            //                 className: "btn2",
+            //                 callback: function(result) {
+            //                     result.cancelable = false;
+            //                 }
+            //             },
+            //         }
+            //     })
+            //     return false;
             } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
