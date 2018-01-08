@@ -78,7 +78,8 @@ define([
                         };
                         settime();
                         var code = $(".countCode").val();
-                        if (code != "zzzzzz") {
+                        //关闭测试验证码=000000
+                        // if (code != "zzzzzz") {
                             service.getSMSVerifCode(phone).done(function (data) {
                                 if (data.code == 0) {
 
@@ -86,7 +87,7 @@ define([
                                     $(".phoneErrTip").html(data.msg).show();
                                 }
                             })
-                        }
+                        // }
                     } else if (data.code == 1) {
                         bootbox.alert(data.msg);
                     } else {
@@ -147,38 +148,39 @@ define([
             //     bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })
             //     return;
             // }
-            if (code == "zzzzzz") {
-                if (!validflag) {
-                    enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
-                    var data = {
-                        "mobile": mobile,
-                        "password": passwd,
-                        "enterpriseCode": enterpriseCode,
-                        "username": username,
-                        "firmId": id,
-                        "pointCode": pointCode
-                    };
-                    if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
-                        data.esealCode = JSON.parse(localStorage.loginODC).esealCode || "12345678";
-                        data.oid = JSON.parse(localStorage.loginODC).oid;
-                        data.keyType = JSON.parse(localStorage.loginODC).keyType
-                    }
-                    service.registerUser(data).done(function (res) {
-                        if (res.code == 0) {
-                            if (res.data == 100) {
-                                localStorage.clear();
-                                window.open('register.html#step5', '_self')
-                            } else {
-                                localStorage.regStep = "#step3";
-                                localStorage.removeItem("firmId");
-                                window.open('register.html#step3', '_self')
-                            }
-                        } else {
-                            bootbox.alert(res.msg);
-                        }
-                    })
-                }
-            } else {
+            //关闭测试验证码=000000
+            // if (code == "zzzzzz") {
+            //     if (!validflag) {
+            //         enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
+            //         var data = {
+            //             "mobile": mobile,
+            //             "password": passwd,
+            //             "enterpriseCode": enterpriseCode,
+            //             "username": username,
+            //             "firmId": id,
+            //             "pointCode": pointCode
+            //         };
+            //         if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0) {
+            //             data.esealCode = JSON.parse(localStorage.loginODC).esealCode || "12345678";
+            //             data.oid = JSON.parse(localStorage.loginODC).oid;
+            //             data.keyType = JSON.parse(localStorage.loginODC).keyType
+            //         }
+            //         service.registerUser(data).done(function (res) {
+            //             if (res.code == 0) {
+            //                 if (res.data == 100) {
+            //                     localStorage.clear();
+            //                     window.open('register.html#step5', '_self')
+            //                 } else {
+            //                     localStorage.regStep = "#step3";
+            //                     localStorage.removeItem("firmId");
+            //                     window.open('register.html#step3', '_self')
+            //                 }
+            //             } else {
+            //                 bootbox.alert(res.msg);
+            //             }
+            //         })
+            //     }
+            // } else {
                 service.checkSmsCode(code, phone).done(function (data) {
                     if (data.code == 0) {
                         if (!validflag) {
@@ -217,16 +219,17 @@ define([
                         return;
                     }
                 })
-            }
+            // }
         },
         checkCode: function () {
             if ($('.countCode').val().length == 6) {
                 var code = $(".countCode").val();
                 var phone = $(".countPhone").val();
-                if (code == "zzzzzz") {
-                    flag = 1;
-                    $(".codeErrTip").html("校验成功").css({ "color": "#08c34e" }).show();
-                } else {
+                //关闭测试验证码=000000
+                // if (code == "zzzzzz") {
+                //     flag = 1;
+                //     $(".codeErrTip").html("校验成功").css({ "color": "#08c34e" }).show();
+                // } else {
                     service.checkSmsCode(code, phone).done(function (data) {
                         if (data.code == 0) {
                             flag = 1;
@@ -237,7 +240,7 @@ define([
                             return;
                         }
                     })
-                }
+                // }
 
             } else {
                 flag = 0;
