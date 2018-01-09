@@ -80,17 +80,17 @@ define(
                 var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                 var oid = ukeys.GetOid(selectedUkey);
-                var randomNumKey =
-                    keyType == 1 ?
-                    oid :
-                    ukeys.esealCode($("#pinwd").val(), selectedUkey);
-                var randomNum = ukeys.randomNum(randomNumKey, keyType);
+                var esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                var randomNumKey = keyType == 1 ? oid : esealCode;
+                if (randomNumKey) {
+                    var randomNum = ukeys.randomNum(randomNumKey, keyType);
+                }
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
 
-                localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
+                // localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
                     loginType: 2,
-                    esealCode: checkResult == true ? ukeys.esealCode($("#pinwd").val(), selectedUkey) : "",
+                    esealCode: checkResult == true ? esealCode : "",
                     codeError: checkResult ? 0 : 1,
                     entryptCert: checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
                     keyType: checkResult == true ? keyType : "",
@@ -136,7 +136,7 @@ define(
                                             localStorage.pointCode = loginODC.pointCode;
                                             loginODC.enterpriseName = loginODC.enterpriseName || $("#seleBook option:selected").text();
                                             loginODC.oid = oid;
-                                            loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                                            loginODC.esealCode = esealCode;
                                             localStorage.loginODC = JSON.stringify(loginODC);
                                             window.open("register.html#step2", "_self");
                                             return false;
@@ -167,7 +167,7 @@ define(
                                         callback: function(event) {
                                             var l_esealcode = data.data.esealCode;
                                             var l_oid = data.data.oid;
-                                            var l_keytype = data.data.keyType;
+                                            var l_keytype = keyType;
                                             $.cookie("loginadmin", JSON.stringify(data.data));
                                             window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid +"keyType=" + l_keytype, "_self");
                                             return false;
@@ -196,8 +196,11 @@ define(
                                         label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
+                                            var l_esealcode = data.data.esealCode;
+                                            var l_oid = data.data.oid;
+                                            localStorage.u_keyType = keyType;
                                             $.cookie("loginadmin", JSON.stringify(data.data));
-                                            window.open("admin.html", "_self");
+                                            window.open("admin.html#renew?esealcode=" + l_esealcode + "&oid=" + l_oid, "_self");
                                             return false;
                                         }
                                     }
@@ -224,8 +227,11 @@ define(
                                         label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
+                                            var l_esealcode = data.data.esealCode;
+                                            var l_oid = data.data.oid;
+                                            localStorage.u_keyType = keyType;
                                             $.cookie("loginadmin", JSON.stringify(data.data));
-                                            window.open("admin.html", "_self");
+                                            window.open("admin.html#renew?esealcode=" + l_esealcode + "&oid=" + l_oid, "_self");
                                             return false;
                                         }
                                     }

@@ -660,7 +660,7 @@ define([
             r_certificateFirm = $(event.currentTarget).data('cert');
             r_esealStatus = $(event.currentTarget).data('status');
             localStorage.u_keyType = r_keyType;
-            localStorage.u_certificateFirm = r_certificateFirm;
+            // localStorage.u_certificateFirm = r_certificateFirm;
             var data = {
                 "oid": r_Oid,
                 "esealCode": r_esealCode,
@@ -711,9 +711,9 @@ define([
                                     },
                                 }
                             })
-                            setTimeout(function() {
-                                bootbox.hideAll();
-                            }, 3000)
+                            // setTimeout(function() {
+                            //     bootbox.hideAll();
+                            // }, 3000)
                             return false;
                         } else if (pointCode ==2) {
                             //只可进行2年有效期续期
@@ -838,7 +838,7 @@ define([
         updata_key: function(event) {
             event.stopPropagation();
             localStorage.u_keyType = $(event.currentTarget).data('type');
-            localStorage.u_certificateFirm = $(event.currentTarget).data('cert');
+            // localStorage.u_certificateFirm = $(event.currentTarget).data('cert');
             if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
                 bootbox.dialog({
                     backdrop: true,
