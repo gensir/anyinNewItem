@@ -90,12 +90,11 @@ define([
             var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
             var orgCode = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode);
             var enterpriseName = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username);
-            keyStyle = that.getUrlParam("keyType")||($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType);
+            keyStyle = that.getUrlParam("keyType")||localStorage.u_keyType;
             var data = {
                 "firmId": firmId,
                 "enterpriseName":enterpriseName
             };
-            keyType=1;
             if (keyStyle==1) {//ODC
             	data.esealCode = that.getUrlParam("esealcode");
                 data.orderNo = that.getUrlParam("orderNo");//||APPLY12051278482404
@@ -104,6 +103,7 @@ define([
                 data.esealCode = localStorage.esealCode;
             }else{
             	bootbox.alert("获取不到Ukey类型");
+            	return;
             }
             service.getListByOrderNo(data).done(function (res) {
                 if (res.code == 0) {
