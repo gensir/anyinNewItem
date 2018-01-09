@@ -95,12 +95,15 @@ define([
                 "firmId": firmId,
                 "enterpriseName":enterpriseName
             };
-            if (keyStyle==1||isODC) {//ODC
+            keyType=1;
+            if (keyStyle==1) {//ODC
+            	data.esealCode = that.getUrlParam("esealcode");
                 data.orderNo = that.getUrlParam("orderNo");//||APPLY12051278482404
             } else if(keyStyle==2){//IYIN
                 data.oid = that.getUrlParam("oid")||($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).oid);
                 data.esealCode = localStorage.esealCode;
             }else{
+            	bootbox.alert("获取不到Ukey类型");
             }
             service.getListByOrderNo(data).done(function (res) {
                 if (res.code == 0) {
@@ -108,7 +111,8 @@ define([
                     result.mpEsealOrderExtChangeVO.oldValidStart;
                     result.mpEsealOrderExtChangeVO.oldValidEnd;
                     year = result.mpEsealOrderExtChangeVO.effectiveDuration;
-                    if (keyStyle==1||isODC) {    //如果是ODC
+                    if (keyStyle==1) {    //如果是ODC
+//                  	result.mpEsealOrderExtChangeVO.oldValidStart = result.mpEsealOrderExtChangeVO.validStart;
                         result.mpEsealOrderExtChangeVO.validStart = that.getDates(year)[0];
                         result.mpEsealOrderExtChangeVO.validEnd = that.getDates(year)[1];
                     } else {
@@ -356,7 +360,7 @@ define([
 				                                                        });
 				                                                        return;
 				                                                    }
-                                                        			var correctData = res.data.bpmsResponse;
+                                                        			var correctData = ret.data.bpmsResponse;
 					                                                var write_cert = {
 					                                                    certEnc: "",
 					                                                    certSign: "",
@@ -377,7 +381,8 @@ define([
                                                         				"esealCode":$(".esealCode .text").text()
                                                         			}
                                                         			service.netcaCallBack(obj).done(function(){
-                                                        				
+                                                        				$(_this).find(".btn2").hide();
+                                										$(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
                                                         			})
                                                         		}else{
                                                         			
