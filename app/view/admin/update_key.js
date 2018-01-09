@@ -381,8 +381,10 @@ define([
                                                         				"esealCode":$(".esealCode .text").text()
                                                         			}
                                                         			service.netcaCallBack(obj).done(function(){
-                                                        				$(_this).find(".btn2").hide();
-                                										$(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("电子印章续期成功！");
+                                                        				numInd = 3;
+				                                                        $(_this).find(".btn1").hide();
+				                                                        $(_this).find(".btn2").html("确定").attr("disabled", false);
+				                                                        $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
                                                         			})
                                                         		}else{
                                                         			
