@@ -141,8 +141,7 @@ define([
             var passwd = $(".passwd").val();
             var code = $(".countCode").val();
             this.model.set({ "clickEle": $(event.target).data('id') })
-            var validflag = this.model.isValid()
-            var code = $(".countCode").val();
+            var validflag = this.model.isValid();
             var phone = $(".countPhone").val();
             // if (localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0 && !id) {
             //     bootbox.alert("获取单位id异常，无法完成ODC注册", function () { window.open('login.html', '_self'); })

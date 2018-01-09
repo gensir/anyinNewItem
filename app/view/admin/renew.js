@@ -29,7 +29,7 @@ define([
 			$(".step4").append(payments.find(".gopay"));
 			this.$el.append(payments.find(".paymentStyle"));
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			localStorage.esealCode=that.getUrlParam('esealCode');
+			localStorage.esealCode=that.getUrlParam('esealcode');
 			localStorage.oid=that.getUrlParam('oid');
 			this.renewInfo();
 		},
@@ -105,7 +105,7 @@ define([
 		},
 		renewInfo: function() {
 			var _this = this
-			var esealCode = that.getUrlParam('esealCode');
+			var esealCode = that.getUrlParam('esealcode');
 			var oid = that.getUrlParam('oid');
 			var newOrderNo = that.getUrlParam('orderNo');
 			//var oid=localStorage.oid || this.getUrlParam('oid');
@@ -146,6 +146,11 @@ define([
 					}
 					$("#validz").append(cont);
 					$("#validz .time").eq(0).addClass("active");
+
+					//365天<电子印章有效时长<=730天，只可进行2年续期，在续费页面只展示2年有效期 谭振修改于2018-01-09
+					if (localStorage.rennw_year == 2) {
+						$("#validz .time").eq(1).remove();
+					}
 
 					step4Data = {
 						"payType": 2, //默认微信支付是2

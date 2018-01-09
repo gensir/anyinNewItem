@@ -131,20 +131,14 @@ define(
                                         label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
-                                            numInd++;
-                                            if (numInd == 1) {
-                                                numInd = 0;
-                                                var loginODC = data.data;
-                                                localStorage.firmId = loginODC.firmId;
-                                                localStorage.pointCode = loginODC.pointCode;
-                                                loginODC.enterpriseName = loginODC.enterpriseName || $("#seleBook option:selected").text();
-                                                loginODC.oid = oid;
-                                                loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
-                                                localStorage.loginODC = JSON.stringify(loginODC);
-                                                window.open("register.html#step2", "_self");
-                                            } else {
-                                                this.modal("hide");
-                                            }
+                                            var loginODC = data.data;
+                                            localStorage.firmId = loginODC.firmId;
+                                            localStorage.pointCode = loginODC.pointCode;
+                                            loginODC.enterpriseName = loginODC.enterpriseName || $("#seleBook option:selected").text();
+                                            loginODC.oid = oid;
+                                            loginODC.esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
+                                            localStorage.loginODC = JSON.stringify(loginODC);
+                                            window.open("register.html#step2", "_self");
                                             return false;
                                         }
                                     }
@@ -171,16 +165,11 @@ define(
                                         label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
-                                            numInd++;
-                                            if (numInd == 1) {
-                                                numInd = 0;
-                                                localStorage.firmId = data.data.firmId;
-                                                localStorage.pointCode = data.data.pointCode;
-                                                $.cookie("loginadmin", JSON.stringify(data.data));
-                                                window.open("admin.html#update_key?esealcode=" + randomNumKey + "&oid=" + oid, "_self");
-                                            } else {
-                                                this.modal("hide");
-                                            }
+                                            var l_esealcode = data.data.esealCode;
+                                            var l_oid = data.data.oid;
+                                            var l_keytype = data.data.keyType;
+                                            $.cookie("loginadmin", JSON.stringify(data.data));
+                                            window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid +"keyType=" + l_keytype, "_self");
                                             return false;
                                         }
                                     }
@@ -207,16 +196,8 @@ define(
                                         label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
-                                            numInd++;
-                                            if (numInd == 1) {
-                                                numInd = 0;
-                                                localStorage.firmId = data.data.firmId;
-                                                localStorage.pointCode = data.data.pointCode;
-                                                $.cookie("loginadmin", JSON.stringify(data.data));
-                                                window.open("admin.html#renew", "_self");
-                                            } else {
-                                                this.modal("hide");
-                                            }
+                                            $.cookie("loginadmin", JSON.stringify(data.data));
+                                            window.open("admin.html", "_self");
                                             return false;
                                         }
                                     }
@@ -243,16 +224,8 @@ define(
                                         label: "确定",
                                         className: "btn2 sureLoss",
                                         callback: function(event) {
-                                            numInd++;
-                                            if (numInd == 1) {
-                                                numInd = 0;
-                                                localStorage.firmId = data.data.firmId;
-                                                localStorage.pointCode = data.data.pointCode;
-                                                $.cookie("loginadmin", JSON.stringify(data.data));
-                                                window.open("admin.html#renew?esealcode=" + randomNumKey + "&oid=" + oid, "_self");
-                                            } else {
-                                                this.modal("hide");
-                                            }
+                                            $.cookie("loginadmin", JSON.stringify(data.data));
+                                            window.open("admin.html", "_self");
                                             return false;
                                         }
                                     }
@@ -274,7 +247,6 @@ define(
                     if (!Boolean(PKSC7)) {
                         //$.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
                     }
-                    //window.open("index.html", "_self")
                 });
 
             },

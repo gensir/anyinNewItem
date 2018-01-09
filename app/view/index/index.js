@@ -249,7 +249,7 @@ define([
                 })
                 return false;
             } else {
-                window.location.href = "admin.html#renew?esealCode=" + r_esealCode + "&oid=" + r_Oid;
+                window.location.href = "admin.html#renew?esealcode=" + r_esealCode + "&oid=" + r_Oid;
             }
         },
         //更新证书提示
