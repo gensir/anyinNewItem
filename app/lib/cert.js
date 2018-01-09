@@ -2,7 +2,6 @@ define([],function() {
 	var ActiveXObject = window.ActiveXObject,
 		utils, singer;
 	//依赖网证通NetcaPki NetcaRAClientCom控件(安装客户端即可)，依赖json2.js
-	var certUtil = (function() {
 		/*设备标志*/
 		var NETCAPKI_DEVICETYPE_ANY = -1;
 		var NETCAPKI_DEVICEFLAG_CAN_INSTALL_CERT = 256;
@@ -35,7 +34,7 @@ define([],function() {
 			utils = null;
 			singer = null;
 			try {
-				utils = certUtil.createActiveXObject("NetcaPki.Utilities");
+				utils = createActiveXObject("NetcaPki.Utilities");
 				//singer = createActiveXObject("NetcaPki.SignedData");
 				singer = utils.CreateSignedDataObject();
 				singer.SetSignCertificate(cert, pwd, false);
@@ -301,7 +300,7 @@ define([],function() {
 			getCertInfo: getCertInfo,
 			signData: signData
 		};
-	})();
+	
 })
 
 //export default certUtil;

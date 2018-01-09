@@ -90,7 +90,7 @@ define([
             var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
             var orgCode = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode);
             var enterpriseName = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username);
-            keyStyle = that.getUrlParam("keyType");
+            keyStyle = that.getUrlParam("keyType")||($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType);
             var data = {
                 "firmId": firmId,
                 "enterpriseName":enterpriseName
@@ -98,7 +98,7 @@ define([
             if (keyStyle==1||isODC) {//ODC
                 data.orderNo = that.getUrlParam("orderNo");//||APPLY12051278482404
             } else if(keyStyle==2){//IYIN
-                data.oid = that.getUrlParam("oid");
+                data.oid = that.getUrlParam("oid")||($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).oid);
                 data.esealCode = localStorage.esealCode;
             }else{
             }
@@ -329,8 +329,8 @@ define([
                                                             return false;
                                                         }
                                                         function netcaFun(isNeedChangeCert,data){
-                                                        	service.renewNetca(data).done(function(res){
-                                                        		if(res.code==0){
+                                                        	service.renewNetca(data).done(function(ret){
+                                                        		if(ret.code==0){
                                                         			if (!(ret.data.bpmsResponse.certInfo && Object.keys(ret.data.bpmsResponse.certInfo).length != 0)) {
 					                                                    window.bootbox.alert({
 					                                                        size: "small",
@@ -371,7 +371,7 @@ define([
 					                                                    }
 					                                                });
                                                         			var obj={
-                                                        				"reqId":res.data.bpmsResponse.reqId,
+                                                        				"reqId":ret.data.bpmsResponse.reqId,
                                                         				"orderNo":orderNo,
                                                         				"signCertContent":write_cert.certSign,
                                                         				"esealCode":$(".esealCode .text").text()
@@ -393,16 +393,15 @@ define([
                                                                 year: year,
                                                                 p10: p10 ? p10 : 'p10',
                                                                 symmAlgo: symmAlgo ? symmAlgo : 12345678,
-                                                                isChangeBody:isNeedChangeCert
+                                                                isChangeBody:isNeedChangeCert?1:0
                                                             };
                                                             service.getPlaintext(data).done(function (ret) {
-                                                                if (ret.code == 0) {
-                                                                    netcaFun(isNeedChangeCert,data);
-                                                                } else {
-                                                                    numInd = 1;
-                                                                    $(_this).find("#unlock-error").html(ret.msg);
-                                                                    $(_this).find(".btn2").show().html("重试").attr("disabled", false);
-                                                                }
+                                                            	if (typeof ret !== "string") {
+				                                                    ret = JSON.stringify(ret)
+				                                                }
+                                                            	data.userSignature = netca.signData(ret);
+                                                            	var ret = JSON.parse(ret);
+                                                                netcaFun(isNeedChangeCert,data);
                                                             });
                                                         }
                                                         var data = {
@@ -410,11 +409,9 @@ define([
                                                         };
                                                         service.isNeedChangeCert(data).done(function (ret) {
                                                         	if(ret.code==0){
-                                                        		var isNeedChangeCert = ret.data;
+                                                        		var isNeedChangeCert=ret.data
                                                         		if(ret.data){
-                                                        			var jsonVal = certUtil.getCertInfo(
-	                                                                    ukeys.dCertificate(selectedUkey)
-	                                                                );
+                                                        			var jsonVal = certUtil.getCertInfo(ukeys.dCertificate(selectedUkey));
 	                                                                var p10 = jsonVal && netca.buildParamForRequestCa(jsonVal)["p10"];
 	                                                                var symmAlgo = netca.getSymmAlgo();
                                                         		}else{

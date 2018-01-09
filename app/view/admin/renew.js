@@ -131,10 +131,7 @@ define([
 			//		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
 			var data = {
 				'esealCode': esealCode,
-				'oid': oid,
-				'caType': 2,
-				'keyType': 2
-
+				'oid': oid
 			};
 			service.getRenewInfo(data).done(function(res) {
 				var renewData;
