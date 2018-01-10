@@ -83,7 +83,7 @@ define([
 						if(i==tempObj.data.esealProducts.length-1){
 							cont+='<tr><td class="serial">'+(i + 2) +'</td><td class="sealName">赠送两年保修</td><td class="service"> </td><td class="price pricecolor">¥0元</td></tr>'
 						}
-					} //现在就有一种产品 新办理的产品 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
+					}       // 只有一种新办理的产品时候 ，所以就只选第一种价格和名称，全是两年， 全是一个金额，所以才会 tempObj.data.products[0].productName。                              
 					sumPrice = _this.toDecimal(sumPrice);
 					sumPrice = sumPrice.toFixed(2);
 					var paysumPrice = sumPrice;
@@ -138,7 +138,6 @@ define([
 				if(res.data.invoice) {
 					serialNo = res.data.invoice.serialNo;
 				}
-				//alert(serialNo);
 				if(res.code == 0) {
 					//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
 					var codeUrl = res.data.codeUrl;
@@ -271,7 +270,6 @@ define([
 						} else {
 							payOrderStatuNum++;
 							setTimeout(function() { _this.payOrderStatus() }, 1000);
-
 						}
 						return;
 					} else { //订单状态查询请求失败
@@ -341,7 +339,6 @@ define([
 			} else {
 				console.log("发票信息不全，不能提交订单！");
 			}
-
 		},
 		gostep3: function() {
 			localStorage.stepNum = "#step3"

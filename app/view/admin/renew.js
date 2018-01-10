@@ -322,7 +322,7 @@ define([
                 }
 			});
 		},
-
+		//发票是否触发状态
 		invoiceStates: function(event) {
 			if(billType == 1) {
 				if($("#invoice_user").val() == "") {
@@ -368,7 +368,7 @@ define([
 
 		},
 		submitStep4: function() {
-            console.log(step4Data);
+            //console.log(step4Data);
 			service.orderRenew(step4Data).done(function(res) {
                 if (res.data.invoice) {
                     serialNo = res.data.invoice.serialNo;
@@ -378,7 +378,6 @@ define([
 					var codeUrl = res.data.codeUrl;
 					orderNo = res.data.order.orderNo;
 					var orderAmount = res.data.order.orderAmount
-
 					var resPayType = step4Data.payType;
 					if(resPayType == 1) { //去处理支付宝的弹框
 						that.paymentEnter(resPayType);
