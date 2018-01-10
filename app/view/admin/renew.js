@@ -29,8 +29,8 @@ define([
 			$(".step4").append(payments.find(".gopay"));
 			this.$el.append(payments.find(".paymentStyle"));
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			localStorage.esealCode=that.getUrlParam('esealcode');
-			localStorage.oid=that.getUrlParam('oid');
+			localStorage.UesealCode=that.getUrlParam('esealcode');
+			localStorage.Uoid=that.getUrlParam('oid');
 			this.renewInfo();
 		},
 		paystyle: function(event) {

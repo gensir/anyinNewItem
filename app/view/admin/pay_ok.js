@@ -96,23 +96,23 @@ define([
 //						如果选择了ODC
 						if(localStorage.ODCchoice){
 							$(".text_tip").hide();
-							$(".lcocation_page").text("证书更新页面")
-							windowLocation = "#update_key?orderNo="+orderNo;
+							$(".lcocation_page").text("证书更新页面");
+							windowLocation = "#update_key?oid="+localStorage.Uoid+"&esealcode="+localStorage.UesealCode;
 						}else{
 							$(".text_tip").show();
 							$(".lcocation_page").text("订单中心页面");
 							windowLocation = "orders.html";
 						}
 					} else if(businessType == 2) {
-						if(localStorage.keyType ==1){  //1为ODC
+						if(localStorage.u_keyType ==1){  //1为ODC
 							$(".text_tip").show();
 							$(".lcocation_page").text("订单中心页面");
 							windowLocation = "orders.html";
 						}else{
-							if(localStorage.certificateFirm==1||localStorage.certificateFirm==2){  //1为GDCA  2为NETCA
+							if(localStorage.u_certificateFirm==1||localStorage.u_certificateFirm==2){  //1为GDCA  2为NETCA
 								$(".text_tip").hide();
-								$(".lcocation_page").text("证书更新页面")
-								windowLocation = "#update_key?oid="+localStorage.oid+"&orderNo="+orderNo;
+								$(".lcocation_page").text("证书更新页面");
+								windowLocation = "#update_key?oid="+localStorage.Uoid+"&esealcode="+localStorage.UesealCode;
 							}else{
 								$(".text_tip").show();
 								$(".lcocation_page").text("订单中心页面");

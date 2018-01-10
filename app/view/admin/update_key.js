@@ -19,10 +19,11 @@ define([
             'click .update #updatekey': 'check'
         },
         render: function (query) {
+        	localStorage.removeItem("ODCchoice");
+        	localStorage.removeItem("u_keyType");
+        	localStorage.removeItem("u_certificateFirm");
             that = this;
-            orderNo = that.getUrlParam("orderNo");
             that.updataInfo();
-
             document.body.scrollTop = document.documentElement.scrollTop = 0;
         },
         getDates: function (year) {
@@ -86,41 +87,24 @@ define([
             }
         },
         updataInfo: function () {
-
             var firmId = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId);
             var orgCode = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode);
             var enterpriseName = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username);
+            var oid = that.getUrlParam("oid"); 
             keyStyle = that.getUrlParam("keyType")||localStorage.u_keyType;
             var data = {
                 "firmId": firmId,
-                "enterpriseName":enterpriseName
+                "orgCode":orgCode,
+                "enterpriseName":enterpriseName,
+                "oid" : oid,
+                "esealCode" : that.getUrlParam("esealcode")
             };
-            if (keyStyle==1) {//ODC
-            	data.esealCode = that.getUrlParam("esealcode");
-                data.orderNo = that.getUrlParam("orderNo");//||APPLY12051278482404
-            } else if(keyStyle==2){//IYIN
-                data.oid = that.getUrlParam("oid")||($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).oid);
-                data.esealCode = localStorage.esealCode;
-            }else{
-            	bootbox.alert("获取不到Ukey类型");
-            	return;
-            }
             service.getListByOrderNo(data).done(function (res) {
                 if (res.code == 0) {
                 	var result = res.data;
-                    result.mpEsealOrderExtChangeVO.oldValidStart;
-                    result.mpEsealOrderExtChangeVO.oldValidEnd;
                     year = result.mpEsealOrderExtChangeVO.effectiveDuration;
-                    if (keyStyle==1) {    //如果是ODC
-//                  	result.mpEsealOrderExtChangeVO.oldValidStart = result.mpEsealOrderExtChangeVO.validStart;
-                        result.mpEsealOrderExtChangeVO.validStart = that.getDates(year)[0];
-                        result.mpEsealOrderExtChangeVO.validEnd = that.getDates(year)[1];
-                    } else {
+                    if(result.mpEsealOrderExtChangeVO.validStart&&result.mpEsealOrderExtChangeVO.oldValidStart){
                     	result.mpEsealOrderExtChangeVO.validStart = '';
-                        var date1 = result.mpEsealOrderExtChangeVO.oldValidStart;
-                        var date2 = result.mpEsealOrderExtChangeVO.oldValidEnd;
-                        //取后台返回的值，前端不计算
-                        // result.mpEsealOrderExtChangeVO.validEnd = that.changeDate(date1, date2, year)[1];
                     }
                     orderNo = result.mpEsealOrderExtChangeVO.orderNo;
                     that.$el.html(template.compile(tpl)({ data: result }));
@@ -155,12 +139,6 @@ define([
         updatekey: function () {
             if (!ukeys.issupport()) {
                 return false;
-            }
-            if(!isODC){
-            	if(!keyStyle){
-	            	bootbox.alert("获取不到印章类型");
-	            	return;
-	            }
             }
             
             var that = this;
@@ -235,21 +213,20 @@ define([
                                     localStorage.selectedUkey = selectedUkey;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl = that.getUrlParam("oid");
-                                    if (oid==oidUrl||localStorage.ODCchoice) {
+                                    if (true) {
                                         if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
                                             //如果pin正确
                                             numInd = 2;
                                             $(_this).find("#seleBook,#unlockCode").attr("disabled", true);
                                             $(_this).find("#unlock-error").html("正在读取UKEY内容，请稍候……");
                                             $(_this).find(".btn2").attr("disabled", true);
+                                            var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
 
-                                            if (keyStyle==1||isODC) {
+                                            if (keyType==1) {
                                                 //ODC新办
                                                 var oid = ukeys.GetOid(selectedUkey);
-                                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                                                 var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
                                                 var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
-                                                var certificateFirms = ukeys.certificateFirms(selectedUkey);
                                                 var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
                                                 var encryptCertificateSn = ukeys.getCertEncSN(selectedUkey);
                                                 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
@@ -287,7 +264,7 @@ define([
                                                         $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text(res.msg);
                                                     }
                                                 });
-                                            } else {
+                                            } else if(keyType==2){
                                                 //anyin续期
                                                 if (certificateFirms == 1) {
                                                     //GDCA证书
@@ -299,7 +276,7 @@ define([
                                                     }
                                                     var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
                                                     var dataGDCA = {
-                                                        orderNo: that.getUrlParam("orderNo") || orderNo,
+                                                        orderNo: orderNo,
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
                                                             cn: ukeys.getCertOwner(selectedUkey).certCn,
@@ -497,11 +474,11 @@ define([
                                     "signCertificateSn": signCertificateSn,    //签名证书序列号
                                     "encryptCertificateSn": encryptCertificateSn  //加密证书序列号
                                 };
-//                              if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
-//                                  $(_this).find(".btn2").hide();
-//                                  $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
-//                                  return false;
-//                              }
+                                if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
+                                    $(_this).find(".btn2").hide();
+                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
+                                    return false;
+                                }
                                 service.write_cert_GDCA(realdata).done(function (res) {
                                     if (res.code == 0) {
                                         numInd = 3
