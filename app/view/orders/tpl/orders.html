@@ -77,6 +77,8 @@
                                                 <p>支付时间：<span>{{value.payTime}}</span></p>
                                                 <p></p>
                                             </div>
+                                            {{if value.payType !=4 }}
+                                            <!-- ERP支付不显示发票信息 -->
                                             <div class="item order">
                                                 <!-- "dfsPdfUrl"为公司发票下载地址,"originalPdfUrl"为百望下载地址 -->
                                                 <p class="f14">订单发票</p>
@@ -89,6 +91,7 @@
                                                 <p><span>如需电子发票，请点击 <a href="#invoice?orderNo={{value.orderNo}}">申请电子发票</a></span></p>
                                                 {{/if}}
                                             </div>
+                                            {{/if}}
                                         </li>
                                         <li class="n3">
                                             <div class="item min" {{value.businessType == 2 ? "style=display:block": "style=display:none"}}>
