@@ -36,7 +36,15 @@
 	        },
 	        data: {},
 	        cache: false
-	    }
+	    },
+		'put': {
+			dataType: "json",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			data: {},
+			cache: false
+		}
 	};
 	
     var autoAjaxCall = function (setting, type) {
@@ -353,7 +361,11 @@
 		    //3004-8订单号查找订单信息
 		    OrderDetail:function(data){
 		    	return this.ajaxCall({ url: domain + basemp + "mpEsealOrder/queryInvoiceOrderDetailByOrderNo", data: data },'get');
-		    }
+		    },
+		    //前端读UKEY更新印章管理列表的UKEY类型 
+		    updata_ukeyType:function(esealCode,oid,caType,mediumType) {
+		        return this.ajaxCall({ url: domain + basemp + "signer/renew?esealCode=" + esealCode + "&oid=" + oid  + "&caType=" + caType + "&mediumType=" + mediumType}, "put");
+		    },
         }
     return allFun;
 });

@@ -168,6 +168,11 @@ define(
                                             console.log("随机码：" + randomNum)
                                             // console.log("签名：\n" + PKSC7)
                                             // document.write("获取客户端数字签名：\n" + PKSC7);
+                                            if(!ukeys.GetCertCount()){
+                                                numInd = 1;
+                                                $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                                return false;
+                                            } 
                                             if (!Boolean(PKSC7)) {
                                                 numInd = 0;
                                                 $(_this).find(".bootbox-body")

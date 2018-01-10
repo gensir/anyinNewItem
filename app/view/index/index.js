@@ -68,7 +68,7 @@ define([
                 return false;
             }
         },
-        //续费操作证书有效期验证
+        //续费操作证书验证
         renew: function(event) {
             event.stopPropagation();
             var that = this;
@@ -79,21 +79,23 @@ define([
             r_esealStatus = $(event.currentTarget).data('status');
             localStorage.u_keyType = r_keyType;
             // localStorage.u_certificateFirm = r_certificateFirm;
-            var data = {
-                "oid": r_Oid,
-                "esealCode": r_esealCode,
-                "keyType": r_keyType,
-                "caType": r_certificateFirm
-
+            var numInd = 0;
+            var dialogsText = dialogs.find(".unlock");
+            
+            //可续费状态数组
+            var arr = new Array([1, 6, 14]);
+            Array.prototype.in_array = function(e) {
+                var r = new RegExp(',' + e + ',');
+                return (r.test(',' + this.join(this.S) + ','));
             };
-            //印章参数判断
-            if (!r_Oid && !r_keyType && !r_certificateFirm) {
+            //证书参数异常校验
+            if (!r_Oid) {
                 bootbox.dialog({
                     backdrop: true,
                     // closeButton: false,
                     className: "common",
                     title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章参数异常，不能进行续期操作！</span></div',
+                    message: '<div class="msgcenter"><em></em><span>该电子印章OID不存在，不能进行续期操作！</span></div',
                     buttons: {
                         confirm: {
                             label: "确定",
@@ -102,11 +104,159 @@ define([
                                 result.cancelable = false;
                             }
                         },
-                        }
+                    }
                 })
                 return false;
+            } else if (!arr.in_array(r_esealStatus)) {
+                //电子印章状态不为1, 6, 14不允许续费
+                bootbox.dialog({
+                    backdrop: true,
+                    // closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>该电子印章状态不支持续费操作！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            } else if (!r_keyType || !r_certificateFirm) {
+                //keyType为空时要求读取UKEY数据后进行回写
+                bootbox.dialog({
+                    backdrop: true,
+                    // closeButton: false,
+                    className: "common unlock",
+                    title: "UKEY校验",
+                    message: '<div class="msg1">该电子印章数据缺失，需要进行UKEY校验</br>请插入相对应的UKEY后点击“继续”</div',
+                    buttons: {
+                        cancel: {
+                            label: "取消",
+                            className: "btn1",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                        confirm: {
+                            label: "继续",
+                            className: "btn2",
+                            callback: function(event) {
+                                    numInd++;
+                                    var _this = this;
+                                    if (numInd == 1) {
+                                        var msg4 = dialogsText.find(".msg4")[0].outerHTML;
+                                        $(this).find(".bootbox-body").html(msg4);
+                                        $(this).find(".btn1,.btn2").hide();
+                                        setTimeout(function() {
+                                            if (!ukeys.ukeyName().length) {
+                                                numInd = 0;
+                                                var msg3 = dialogsText.find(".msg3")[0].outerHTML;
+                                                $(_this).find(".bootbox-body").html(msg3);
+                                                $(_this).find(".btn1,.btn2").show();
+                                                $(_this).find(".btn2").show().html("重试");
+                                            } else {
+                                                var msg6 = dialogsText.find(".msg6")[0].outerHTML;
+                                                $(_this).find(".bootbox-body").html(msg6);
+                                                $.each(ukeys.ukeyName(), function(ind,val) {
+                                                    $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
+                                                });
+                                                $(_this).find(".btn1,.btn2").show();
+                                                $(_this).find(".btn2").show().html("确定");
+                                            }
+                                        }, 1000);
+                                    } else if (numInd == 2) {
+                                        // 验证KEY密码
+                                        var selectedUkey = $("#seleBook option:selected").val();
+                                        var unlockCode = $("#unlockCode").val();
+                                        if (selectedUkey == "") {
+                                            numInd = 1;
+                                            $(_this).find("#seleBook-error").html("请选择一个证书");
+                                            $(_this).find(".btn2").show().html("确定");
+                                            $("#seleBook").change(function() {
+                                                $("#seleBook-error").html("");
+                                            });
+                                        } else if (unlockCode.length < 6) {
+                                            numInd = 1;
+                                            $(_this).find("#unlock-error").html("请输入6位以上PIN码");
+                                            $(_this).find(".btn2").show().html("确定");
+                                            $("#unlockCode").keyup(function() {
+                                                $("#unlock-error").html("");
+                                            });
+                                        } else {
+                                            var selectedUkey = $("#seleBook option:selected").index() - 1;
+                                            var ukey_oid = ukeys.GetOid(selectedUkey);
+                                            var ukey_certificateFirms = ukeys.certificateFirms(selectedUkey);
+                                            var ukey_keyType = ukeys.getCertType(selectedUkey) == "1" ? 1 : 2;
+                                            console.log("证书OID：" + ukey_oid);
+                                            console.log("caType：" + ukey_certificateFirms);
+                                            console.log("keyType" + ukey_keyType);
+                                            if(!ukeys.GetCertCount()){
+                                                numInd = 1;
+                                                $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                                return false;
+                                            }
+                                            if (ukey_oid != r_Oid) {
+                                                numInd = 0;
+                                                // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });
+                                                $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "您选择的UKEY与印章不符，请更换UKEY后重试" + "</span></div>");
+                                                $(_this).find(".btn2").show().html("重试");
+                                            } else {
+                                                if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
+                                                    service.updata_ukeyType(r_esealCode,ukey_oid,ukey_certificateFirms,ukey_keyType).done(function(data) {
+                                                        if (data.code == 0) {
+                                                                $(_this).find(".bootbox-body").html("您的证书校验成功，请重新进行续费操作！");
+                                                                $(_this).find(".btn1,.btn2").hide();
+                                                                setTimeout(
+                                                                    function() {
+                                                                        _this.modal("hide");
+                                                                        location.reload();
+                                                                    },3000 );
+                                                            } else {
+                                                                numInd = 0;
+                                                                $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + data.msg + "</span></div>");
+                                                                $(_this).find(".btn2").show().html("重试");
+                                                            }
+                                                        });
+                                                } else {
+                                                    numInd = 1;
+                                                    var GetOid = ukeys.GetOid(selectedUkey);
+                                                    var data = {
+                                                        "oid": GetOid,
+                                                        "errorCode": 1
+                                                    };
+                                                    service.checkPIN(data).done(function(data) {
+                                                        if (data.code == 1) {
+                                                            $(_this).find("#unlock-error").html(data.msg);
+                                                            $(_this).find(".btn2").show().html("重试");
+                                                        }
+                                                        $("#unlockCode").change(function() {
+                                                            $("#unlock-error").html("");
+                                                        });
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //this.modal('hide');
+                                    return false;
+                            }
+                        },
+                    }
+                })
             } else {
                 //有效期时长判断请求
+                var data = {
+                    "oid": r_Oid,
+                    "esealCode": r_esealCode,
+                    "keyType": r_keyType,
+                    "caType": r_certificateFirm
+
+                };
                 service.check_cert_valid(data).done(function(res) {
                     if (res.code == 0) {
                         var pointCode = res.data.pointCode;
@@ -185,52 +335,30 @@ define([
                 });
             }
         },
-        //续费状态及证书控制
+        //浏览器判断及跳转
         certType_Status: function() {
-            //可续费状态数组
-            var arr = new Array([1, 6, 14]);
-            Array.prototype.in_array = function(e) {
-                var r = new RegExp(',' + e + ',');
-                return (r.test(',' + this.join(this.S) + ','));
-            };
-            //电子印章状态不为1, 6, 14不允许续费
-            if (!arr.in_array(r_esealStatus)) {
-                bootbox.dialog({
-                    backdrop: true,
-                    // closeButton: false,
-                    className: "common",
-                    title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章状态不支持续费操作！</span></div',
-                    buttons: {
-                        confirm: {
-                            label: "确定",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
-                    }
-                })
-                return false;
-            } else if (r_keyType == 2 && r_certificateFirm ==2) {//安印的NETCA暂不开放续费
-                bootbox.dialog({
-                    backdrop: true,
-                    // closeButton: false,
-                    className: "common",
-                    title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
-                    buttons: {
-                        confirm: {
-                            label: "确定",
-                            className: "btn2",
-                            callback: function(result) {
-                                result.cancelable = false;
-                            }
-                        },
-                    }
-                })
-                return false;
-            } else if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+            // // 安印的NETCA暂不开放续费
+            // if (r_keyType == 2 && r_certificateFirm ==2) {
+            //     bootbox.dialog({
+            //         backdrop: true,
+            //         // closeButton: false,
+            //         className: "common",
+            //         title: "操作提示",
+            //         message: '<div class="msgcenter"><em></em><span>该电子印章的证书暂不支持在线续费！</span></div',
+            //         buttons: {
+            //             confirm: {
+            //                 label: "确定",
+            //                 className: "btn2",
+            //                 callback: function(result) {
+            //                     result.cancelable = false;
+            //                 }
+            //             },
+            //         }
+            //     })
+            //     return false;
+            // } else 
+            if (!((!!window.ActiveXObject || "ActiveXObject" in window) && navigator.userAgent.indexOf("Opera") < 0)) {
+                //浏览器判断
                 bootbox.dialog({
                     backdrop: true,
                     // closeButton: false,
