@@ -78,6 +78,12 @@ define([
             } else {
                 this.active = ""
                 this.listPage(1);
+                //屏蔽非ODC的电子印章申请
+                var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                //  isODC为1的时候是ODC登录的
+                if (!isODC) {
+                    $("#step").hide();
+                }
             }
         },
         getSealName: function(target) {
@@ -1016,6 +1022,12 @@ define([
                     GetQueryStringBool = false;
                     if (res.data && (!res.data.list || res.data.list.length == 0)) {
                         $("#esealNav").hide();
+                    }
+                    //屏蔽非ODC的电子印章申请
+                    var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
+                    //  isODC为1的时候是ODC登录的
+                    if (!isODC) {
+                        $("#step").hide();
                     }
                 }
                 if (pageNum == 1) {
