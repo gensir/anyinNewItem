@@ -335,8 +335,8 @@ define([
             var status = $(event.currentTarget).data('status');
             var esealFullName = $(event.currentTarget).data('name');
             var esealCode = $(event.currentTarget).data('code');
-            // var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
-            var mobile = "13590435949"
+            var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile
+            // var mobile = "13590435949"
             var numInd = this.model.get("numInd");
             if (status == 1 || status == 6 || status == 7) {
                 var dialog = bootbox.dialog({
@@ -854,8 +854,13 @@ define([
                 service.check_cert_valid(data).done(function(res) {
                     if (res.code == 0) {
                         var pointCode = res.data.pointCode;
-                        console.log(pointCode)
-                        if (pointCode ==1) {
+                        console.log("pointCode:" + pointCode)
+                        if (pointCode == 0) {
+                            //只可进行2年有效期续期
+                            console.log("可进行2年续期")
+                            localStorage.rennw_year = 2;
+                            that.certType_Status();
+                        } else  if (pointCode == 1) {
                             //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
                             bootbox.dialog({
                                 backdrop: true,
@@ -877,17 +882,17 @@ define([
                             //     bootbox.hideAll();
                             // }, 3000)
                             return false;
-                        } else if (pointCode ==2) {
+                        } else if (pointCode == 2) {
                             //只可进行2年有效期续期
                             console.log("可进行2年续期")
-                            localStorage.rennw_year = pointCode;
+                            localStorage.rennw_year = 2;
                             that.certType_Status();
                         } else if (pointCode == 3 || pointCode == 4) {
                             //可进行2年、3年有效期续期
                             console.log("可进行2,3年续期")
                             localStorage.rennw_year = 3;
                             that.certType_Status();
-                        } else if (pointCode ==5) {
+                        } else if (pointCode == 5) {
                             //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
                             bootbox.dialog({
                                 backdrop: true,

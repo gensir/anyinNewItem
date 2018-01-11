@@ -173,7 +173,7 @@ define([
             bootbox.hideAll();
             bootbox.dialog({
                 backdrop: true,
-                //closeButton: false,
+                closeButton: false,
                 className: "common unlock",
                 title: "证书更新",
                 message: dialogsText.find(".msgcenter")[0].outerHTML,
