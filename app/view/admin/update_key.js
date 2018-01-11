@@ -277,6 +277,7 @@ define([
                                                     var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
                                                     var dataGDCA = {
                                                         orderNo: orderNo,
+                                                        esealCode : $(".esealCode .new").text(),
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
                                                             cn: ukeys.getCertOwner(selectedUkey).certCn,
@@ -289,8 +290,13 @@ define([
                                                     };
                                                     service.renew_certGDCA(dataGDCA).done(function (ret) {
                                                         if (ret.code == 0) {
+                                                            numInd = 8;
                                                             window.open(ret.data, '_blank');
                                                             $(_this).find("#unlock-error").html("请在弹出的新窗口内更新证书，完成后请点击继续！");
+                                                            $(_this).find(".btn2").html("继续").show().attr("disabled", false);
+                                                        }else if(ret.code == 40035){
+                                                            numInd = 8;
+                                                            $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
                                                             $(_this).find(".btn2").html("继续").show().attr("disabled", false);
                                                         } else {
                                                             numInd = 1;
@@ -364,7 +370,7 @@ define([
 				                                                        $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
                                                         			})
                                                         		}else{
-                                                        			
+                                                        			$(_this).find("#unlock-error").html(ret.msg);
                                                         		}
                                                         	})
                                                         }
@@ -437,8 +443,7 @@ define([
                                         $(_this).find(".btn2").show().html("重试");
                                     }
                                 }
-                            } else if (numInd ==3 && certificateFirms==1) {
-                                numInd = 3;
+                            } else if (numInd == 9) {
                                 var selectedUkey = localStorage.selectedUkey;
                                 var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .text").text())),
                                     newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
@@ -481,7 +486,8 @@ define([
                                 }
                                 service.write_cert_GDCA(realdata).done(function (res) {
                                     if (res.code == 0) {
-                                        numInd = 3
+                                        numInd = 3;
+                                        $(_this).find(".btn1").hide();
                                         $(_this).find(".btn2").html("确定");
                                         $(_this).find(".bootbox-body").html("<div class='msg4'>电子印章续期成功</div>");
                                     } else {
@@ -490,10 +496,10 @@ define([
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
                                     }
                                 });
-                            } else if (numInd == 4) {
+                            } else (numInd == 4) {
                                 this.modal('hide')
                                 window.location.href = "admin.html";
-                            }
+                            } 
                             //                            this.modal('hide');
                             return false;
                         }
