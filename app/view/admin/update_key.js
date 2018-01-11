@@ -11,7 +11,7 @@ define([
     var template = require('art-template');
     var dialogs = $(dialog);
     var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-    var that, year, orderNo, realdata, keyStyle;
+    var that, year, orderNo, realdata, keyStyle ,time;
     var main = Backbone.View.extend({
         el: '.contents',
         initialize: function () { },
@@ -131,6 +131,7 @@ define([
                     if(result.mpEsealOrderExtChangeVO.validStart&&result.mpEsealOrderExtChangeVO.oldValidStart){
                     	result.mpEsealOrderExtChangeVO.validStart = '';
                     }
+                    time = result.mpEsealOrderExtChangeVO.validEnd.split("-")[0];
                     orderNo = result.mpEsealOrderExtChangeVO.orderNo;
                     that.$el.html(template.compile(tpl)({ data: result }));
                 } else {
@@ -313,22 +314,30 @@ define([
                                                             certType: certificateAssigned
                                                         }
                                                     };
-                                                    service.renew_certGDCA(dataGDCA).done(function (ret) {
-                                                        if (ret.code == 0) {
-                                                            numInd = 8;
-                                                            window.open(ret.data, '_blank');
-                                                            $(_this).find("#unlock-error").html("请在弹出的新窗口内更新证书，完成后请点击继续！");
-                                                            $(_this).find(".btn2").html("继续").show().attr("disabled", false);
-                                                        }else if(ret.code == 40035){
-                                                            numInd = 8;
-                                                            $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
-                                                            $(_this).find(".btn2").html("继续").show().attr("disabled", false);
-                                                        } else {
-                                                            numInd = 1;
-                                                            $(_this).find("#unlock-error").html(ret.msg);
-                                                            $(_this).find(".btn2").show().html("重试").attr("disabled", false);
-                                                        }
-                                                    })
+                                                    var newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];//key里面的时间
+                                                    if(newDate>=time ){//如果key里面的年和接口返回的年一样
+                                                        numInd = 8;
+                                                        $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
+                                                        $(_this).find(".btn2").html("继续").show().attr("disabled", false);
+                                                    }else{
+                                                        
+                                                        service.renew_certGDCA(dataGDCA).done(function (ret) {
+                                                            if (ret.code == 0) {
+                                                                numInd = 8;
+                                                                window.open(ret.data, '_blank');
+                                                                $(_this).find("#unlock-error").html("请在弹出的新窗口内更新证书，完成后请点击继续！");
+                                                                $(_this).find(".btn2").html("继续").show().attr("disabled", false);
+                                                            }else if(ret.code == 40035){
+                                                                numInd = 8;
+                                                                $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
+                                                                $(_this).find(".btn2").html("继续").show().attr("disabled", false);
+                                                            } else {
+                                                                numInd = 1;
+                                                                $(_this).find("#unlock-error").html(ret.msg);
+                                                                $(_this).find(".btn2").show().html("重试").attr("disabled", false);
+                                                            }
+                                                        })
+                                                    }
 
                                                 } else if (certificateFirms == 2) {
                                                     //netCA   首先判断是否能进行换体续期调3035接口-->调3054接口获取签名原文进行签名，得到得userSignature作为续期接口得入参-->调用3031续期接口
@@ -388,11 +397,18 @@ define([
                                                         				"signCertContent":write_cert.certSign,
                                                         				"esealCode":$(".esealCode .text").text()
                                                         			}
-                                                        			service.netcaCallBack(obj).done(function(){
-                                                        				numInd = 3;
-				                                                        $(_this).find(".btn1").hide();
-				                                                        $(_this).find(".btn2").html("确定").attr("disabled", false);
-				                                                        $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
+                                                        			service.netcaCallBack(obj).done(function(res){
+                                                        			    if(res.code==0){
+                                                        			        numInd = 3;
+                                                                            $(_this).find(".btn1").hide();
+                                                                            $(_this).find(".btn2").html("确定").attr("disabled", false);
+                                                                            $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
+                                                        			    }else{
+                                                        			        numInd = 3;
+                                                                            $(_this).find(".btn1").hide();
+                                                                            $(_this).find(".btn2").html("确定").attr("disabled", false);
+                                                                            $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期失败！</div>");
+                                                        			    }
                                                         			})
                                                         		}else{
                                                         			$(_this).find("#unlock-error").html(ret.msg);
