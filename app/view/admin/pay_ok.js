@@ -105,7 +105,7 @@ define([
 						}
 					} else if(businessType == 2) {
 						if(localStorage.u_keyType ==1){  //1为ODC
-							$(".text_tip").show();
+							$(".text_tip").hide();
 							$(".lcocation_page").text("订单中心页面");
 							windowLocation = "orders.html";
 						}else{
@@ -114,7 +114,7 @@ define([
 								$(".lcocation_page").text("证书更新页面");
 								windowLocation = "#update_key?oid="+localStorage.Uoid+"&esealcode="+localStorage.UesealCode;
 							}else{
-								$(".text_tip").show();
+								$(".text_tip").hide();
 								$(".lcocation_page").text("订单中心页面");
 								windowLocation = "orders.html";
 							}
