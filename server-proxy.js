@@ -4,6 +4,7 @@ var proxy = {
     anyinUrl:"http://218.17.157.119:3380",//测试环境
     // anyinUrl:'http://10.9.2.143:8080',//麦达剑
     // anyinUrl:'http://10.9.2.82:8080',//陈春亮
+    // anyinUrl:'http://10.9.2.157:8080',//lsq
     lsq3: 'http://10.9.2.157:8080',
     unyl:"https://gateway.95516.com" 
 }

@@ -102,6 +102,31 @@ define([
             service.getListByOrderNo(data).done(function (res) {
                 if (res.code == 0) {
                 	var result = res.data;
+                	if(!result.mpEsealOrderExtChangeVO){
+                        bootbox.dialog({
+                            className: "common unlock",
+                            title: "证书更新",
+                            message:"订单内查询不到印章信息,请到订单中心进行更新证书操作！",
+                            buttons:{
+                                cancel: {
+                                    label: "取消",
+                                    className: "btn1",
+                                    callback: function (result) {
+                                        //console.log(result, "cancel")
+                                        result.cancelable = false;
+                                    }
+                                },
+                                confirm:{
+                                    label: "继续",
+                                    className: "btn2",
+                                    callback: function (event) {
+                                        window.location = "orders.html";
+                                    }
+                                }
+                            }
+                        });
+                        return;
+                    }
                     year = result.mpEsealOrderExtChangeVO.effectiveDuration;
                     if(result.mpEsealOrderExtChangeVO.validStart&&result.mpEsealOrderExtChangeVO.oldValidStart){
                     	result.mpEsealOrderExtChangeVO.validStart = '';
@@ -496,7 +521,7 @@ define([
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
                                     }
                                 });
-                            } else (numInd == 4) {
+                            } else if(numInd == 4) {
                                 this.modal('hide')
                                 window.location.href = "admin.html";
                             } 

@@ -89,15 +89,15 @@ define([
 					var totalFee = res.data.totalFee;
 					$(".totalFee").text(totalFee);
 					$(".shop_address").text(shopAddress);
+					resData = res.data.odcList;
 					//申请的时候只有ODC的时候才会需要回写
-					isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
 					//businessType==1是新办，businessType==2是续期
 					if(businessType == 1) {
 //						如果选择了ODC
-						if(localStorage.ODCchoice){
+						if(resData && resData.length>0){
 							$(".text_tip").hide();
 							$(".lcocation_page").text("证书更新页面");
-							windowLocation = "#update_key?oid="+localStorage.Uoid+"&esealcode="+localStorage.UesealCode;
+							windowLocation = "#update_key?oid="+resData[0].oid+"&esealcode="+resData[0].esealCode;
 						}else{
 							$(".text_tip").show();
 							$(".lcocation_page").text("订单中心页面");
