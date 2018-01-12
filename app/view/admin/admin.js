@@ -158,6 +158,7 @@ define([
                                 if(!ukeys.GetCertCount()){
                                     numInd = 1;
                                     $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                    $(_this).find(".btn2").show().html("重试");
                                     return false;
                                 };
                                 if (ukeys.PIN($("#closeCode").val(), 0)) {
@@ -277,6 +278,7 @@ define([
                                 if(!ukeys.GetCertCount()){
                                     numInd = 1;
                                     $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                    $(_this).find(".btn2").show().html("重试");
                                     return false;
                                 };
                                 if (ukeys.PIN($("#openCode").val(), 0)) {
@@ -531,6 +533,7 @@ define([
                                         if(!ukeys.GetCertCount()){
                                             numInd = 1;
                                             $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                            $(_this).find(".btn2").show().html("重试");
                                             return false;
                                         };
                                         if (ukey_oid != list_oid) {
@@ -792,6 +795,7 @@ define([
                                             if(!ukeys.GetCertCount()){
                                                 numInd = 1;
                                                 $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                                $(_this).find(".btn2").show().html("重试");
                                                 return false;
                                             }
                                             if (ukey_oid != r_Oid) {

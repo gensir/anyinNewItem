@@ -118,6 +118,25 @@ define([
             var r_certificateFirm = $(event.currentTarget).data('cert');
             localStorage.u_keyType = r_keyType;
             localStorage.u_certificateFirm = r_certificateFirm;
+            if (!oid || !r_keyType) {
+                bootbox.dialog({
+                    backdrop: true,
+                    // closeButton: false,
+                    className: "common",
+                    title: "操作提示",
+                    message: '<div class="msgcenter"><em></em><span>您的印章信息异常，请联系客服处理！</span></div',
+                    buttons: {
+                        confirm: {
+                            label: "确定",
+                            className: "btn2",
+                            callback: function(result) {
+                                result.cancelable = false;
+                            }
+                        },
+                    }
+                })
+                return false;
+            } else
             if (esealStatus != 7) {
                 bootbox.dialog({
                     backdrop: true,
