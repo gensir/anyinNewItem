@@ -217,10 +217,6 @@ define([
                                     }
                                 }, 1000);
                             } else if (numInd == 2) {
-                                if(!ukeys.GetCertCount()){
-                                    $(_this).find("#unlock-error").html("未检测到ukey,请插入ukey后重试");
-                                    return;
-                                }
                                 var selectedUkey = $("#seleBook option:selected").val();
                                 var unlockCode = $("#unlockCode").val();
                                 if (selectedUkey == "") {
@@ -238,6 +234,11 @@ define([
                                         $("#unlock-error").html("");
                                     });
                                 } else {
+                                    if(!ukeys.GetCertCount()){
+                                        numInd = 1;
+                                        $(_this).find("#unlock-error").html("未检测到ukey,请插入ukey后重试");
+                                        return false;
+                                    }
                                     certificateFirms = ukeys.certificateFirms(selectedUkey);
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
                                     localStorage.selectedUkey = selectedUkey;
