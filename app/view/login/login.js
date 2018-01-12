@@ -239,7 +239,7 @@ define(
                             });
                             return;
                         } else if (data.data.pointCode == 106) {
-                            localStorage.oid = oid;
+                            localStorage.ODCoid = oid;
                         }
                         $.cookie("loginadmin", JSON.stringify(data.data));
                         window.open("index.html", "_self");

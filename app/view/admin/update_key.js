@@ -391,25 +391,28 @@ define([
 					                                                        write_cert.certSign = v.certContent;
 					                                                    }
 					                                                });
-                                                        			var obj={
-                                                        				"reqId":ret.data.bpmsResponse.reqId,
-                                                        				"orderNo":orderNo,
-                                                        				"signCertContent":write_cert.certSign,
-                                                        				"esealCode":$(".esealCode .text").text()
-                                                        			}
-                                                        			service.netcaCallBack(obj).done(function(res){
-                                                        			    if(res.code==0){
-                                                        			        numInd = 3;
-                                                                            $(_this).find(".btn1").hide();
-                                                                            $(_this).find(".btn2").html("确定").attr("disabled", false);
-                                                                            $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
-                                                        			    }else{
-                                                        			        numInd = 3;
-                                                                            $(_this).find(".btn1").hide();
-                                                                            $(_this).find(".btn2").html("确定").attr("disabled", false);
-                                                                            $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期失败！</div>");
-                                                        			    }
-                                                        			})
+					                                                netca.installCa(write_cert)
+					                                                if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
+					                                                   var obj={
+                                                                            "reqId":ret.data.bpmsResponse.reqId,
+                                                                            "orderNo":orderNo,
+                                                                            "signCertContent": ukeys.getSignatureCert(selectedUkey),//write_cert.certSign,
+                                                                            "esealCode":$(".esealCode .text").text()
+                                                                        }
+                                                                        service.netcaCallBack(obj).done(function(res){
+                                                                            if(res.code==0){
+                                                                                numInd = 3;
+                                                                                $(_this).find(".btn1").hide();
+                                                                                $(_this).find(".btn2").html("确定").attr("disabled", false);
+                                                                                $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
+                                                                            }else{
+                                                                                numInd = 1;
+                                                                                $(_this).find(".btn1").hide();
+                                                                                $(_this).find(".btn2").html("重试").attr("disabled", false);
+                                                                                $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期失败！</div>");
+                                                                            }
+                                                                        }) 
+					                                                }
                                                         		}else{
                                                         			$(_this).find("#unlock-error").html(ret.msg);
                                                         		}

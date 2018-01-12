@@ -207,10 +207,12 @@ define([
 						}
 					}
 				}
+				//选择ODC
 				if($('.ODC span').hasClass('choice')) {
 					for(var j = 0; j < localSeal.length; j++) {
 						if(sealstyle1[0] == localSeal[j].esealCode) {
-							localSeal[j].keyType = 1
+							localSeal[j].keyType = 1;
+							localSeal[j].oid = localStorage.ODCoid;
 							sealList.push(localSeal[j]);
 						}
 					}
