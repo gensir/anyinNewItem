@@ -123,7 +123,7 @@ define([
                                     label: "确定",
                                     className: "btn2",
                                     callback: function (event) {
-                                        window.location = "orders.html";
+                                        window.location = "admin.html";
                                     }
                                 }
                             }
