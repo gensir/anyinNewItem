@@ -200,7 +200,7 @@ define([
                                                 $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
                                                 $(_this).find(".btn2").show().html("重试");
                                                 return false;
-                                            }
+                                            };
                                             if (ukey_oid != r_Oid) {
                                                 numInd = 0;
                                                 // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });

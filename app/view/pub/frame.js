@@ -154,6 +154,12 @@ define(
                                         });
                                     } else {
                                         var selectedUkey = $("#seleBook option:selected").index() - 1;
+                                        if(!ukeys.GetCertCount()){
+                                            numInd = 1;
+                                            $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                            $(_this).find(".btn2").show().html("重试");
+                                            return false;
+                                        };
                                         if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                             var oid = ukeys.GetOid(selectedUkey);
                                             var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
@@ -168,12 +174,6 @@ define(
                                             console.log("随机码：" + randomNum)
                                             // console.log("签名：\n" + PKSC7)
                                             // document.write("获取客户端数字签名：\n" + PKSC7);
-                                            if(!ukeys.GetCertCount()){
-                                                numInd = 1;
-                                                $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
-                                                $(_this).find(".btn2").show().html("重试");
-                                                return false;
-                                            } 
                                             if (!Boolean(PKSC7)) {
                                                 numInd = 0;
                                                 $(_this).find(".bootbox-body")
