@@ -309,7 +309,7 @@ define([
                                                     var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
                                                     var dataGDCA = {
                                                         orderNo: orderNo,
-                                                        esealCode : $(".esealCode .new").text(),
+                                                        esealCode : $(".esealCode .new").text()||$(".esealCode .text").text(),
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
                                                             cn: ukeys.getCertOwner(selectedUkey).certCn,
