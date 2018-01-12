@@ -217,6 +217,10 @@ define([
                                     }
                                 }, 1000);
                             } else if (numInd == 2) {
+                                if(!ukeys.GetCertCount()){
+                                    $(_this).find("#unlock-error").html("未检测到ukey,请插入ukey后重试");
+                                    return;
+                                }
                                 var selectedUkey = $("#seleBook option:selected").val();
                                 var unlockCode = $("#unlockCode").val();
                                 if (selectedUkey == "") {
@@ -239,7 +243,7 @@ define([
                                     localStorage.selectedUkey = selectedUkey;
                                     oid = ukeys.GetOid(selectedUkey);
                                     var oidUrl = that.getUrlParam("oid");
-                                    if (true) {
+                                    if (oid == oidUrl) {
                                         if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
                                             //如果pin正确
                                             numInd = 2;
