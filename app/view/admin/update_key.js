@@ -396,15 +396,44 @@ define([
 					                                                        write_cert.certSign = v.certContent;
 					                                                    }
 					                                                });
-					                                                netca.installCa(write_cert)
-					                                                if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
-					                                                   var obj={
-                                                                            "reqId":ret.data.bpmsResponse.reqId,
-                                                                            "orderNo":orderNo,
-                                                                            "signCertContent": ukeys.getSignatureCert(selectedUkey),//write_cert.certSign,
-                                                                            "esealCode":$(".esealCode .text").text()
+					                                                var obj={
+                                                                        "reqId":ret.data.bpmsResponse.reqId,
+                                                                        "orderNo":orderNo,
+                                                                        "signCertContent": ukeys.getSignatureCert(selectedUkey),//write_cert.certSign,
+                                                                        "esealCode":$(".esealCode .text").text()
+                                                                    }
+					                                                if(ukeys.getSignatureCert(selectedUkey)!=write_cert.certSign){
+					                                                    //不相等 说明返回的和key里面的证书不一样  需要往key里面写证书；
+					                                                    netca.installCa(write_cert);
+					                                                    if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
+                                                                            service.netcaCallBack(obj).done(function(res){
+                                                                                if(res.code==0){
+                                                                                    numInd = 3;
+                                                                                    $(_this).find(".btn1").hide();
+                                                                                    $(_this).find(".btn2").html("确定").attr("disabled", false);
+                                                                                    $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期成功！</div>");
+                                                                                }else{
+                                                                                    numInd = 1;
+                                                                                    $(_this).find(".btn1").hide();
+                                                                                    $(_this).find(".btn2").html("重试").attr("disabled", false);
+                                                                                    $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期失败！</div>");
+                                                                                }
+                                                                            }) 
+                                                                        }else{
+                                                                            //如果key写入证书失败；
+                                                                            window.bootbox.alert({
+                                                                                size: "small",
+                                                                                title: "提示",
+                                                                                message:
+                                                                                "删除旧证书失败，无法写入新证书",
+                                                                                callback: function () {
+                                                                                    /* your callback code */
+                                                                                }
+                                                                            });
+                                                                            return;
                                                                         }
-                                                                        service.netcaCallBack(obj).done(function(res){
+					                                                }else{
+					                                                    service.netcaCallBack(obj).done(function(res){
                                                                             if(res.code==0){
                                                                                 numInd = 3;
                                                                                 $(_this).find(".btn1").hide();
@@ -418,6 +447,7 @@ define([
                                                                             }
                                                                         }) 
 					                                                }
+					                                                
                                                         		}else{
                                                         			$(_this).find("#unlock-error").html(ret.msg);
                                                         		}
