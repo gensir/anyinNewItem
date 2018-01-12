@@ -104,20 +104,23 @@ define([
                 	var result = res.data;
                 	if(!result.mpEsealOrderExtChangeVO){
                         bootbox.dialog({
+                            backdrop: true,
+                            closeButton: false,
                             className: "common unlock",
                             title: "证书更新",
-                            message:"订单内查询不到印章信息,请到订单中心进行更新证书操作！",
+                            // message:"订单内查询不到印章信息,请到订单中心进行更新证书操作！",
+                            message: '<div class="msgcenter"><em></em><span>查询不到印章信息，请到印章管理中进行更新证书！</span></div',
                             buttons:{
-                                cancel: {
-                                    label: "取消",
-                                    className: "btn1",
-                                    callback: function (result) {
-                                        //console.log(result, "cancel")
-                                        result.cancelable = false;
-                                    }
-                                },
+                                // cancel: {
+                                //     label: "取消",
+                                //     className: "btn1",
+                                //     callback: function (result) {
+                                //         //console.log(result, "cancel")
+                                //         result.cancelable = false;
+                                //     }
+                                // },
                                 confirm:{
-                                    label: "继续",
+                                    label: "确定",
                                     className: "btn2",
                                     callback: function (event) {
                                         window.location = "orders.html";
