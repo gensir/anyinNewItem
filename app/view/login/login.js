@@ -1,4 +1,4 @@
-define(
+﻿define(
     [
         "text!./tpl/login.html",
         "../../lib/service",
@@ -105,11 +105,15 @@ define(
                     signature: PKSC7,
                     signCertificateSn: ukeys.getCertSignSN(selectedUkey)
                 };
+                if(!ukeys.GetCertCount()){
+                    $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
+                    return false;
+                };
                 service.userlogin(data).done(function(data) {
                     $("#ukeyLogin").attr("disabled",false).css('cursor','default');
                     if (!data.msg && data.code != 0) {
                         $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
-                        return;
+                        return false;
                     }
                     return;
                     if (data.code === 0) {
