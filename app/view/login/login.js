@@ -65,6 +65,10 @@ define(
                 window.open("register.html#step1", "_self");
             },
             ukeyLogin: function(event, itemEle) {
+                if(!ukeys.GetCertCount()){
+                    $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
+                    return;
+                }
                 var that = this;
                 that.model.set({
                     clickEle: itemEle || $(event.target).data("id")
@@ -77,6 +81,7 @@ define(
                 if (selectedUkey == -1) {
                     return;
                 }
+                $("#ukeyLogin").attr("disabled",true).css('cursor','no-drop');
                 var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                 var oid = ukeys.GetOid(selectedUkey);
@@ -100,15 +105,13 @@ define(
                     signature: PKSC7,
                     signCertificateSn: ukeys.getCertSignSN(selectedUkey)
                 };
-                if(!ukeys.GetCertCount()){
-                    $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
-                    return;
-                }
                 service.userlogin(data).done(function(data) {
+                    $("#ukeyLogin").attr("disabled",false).css('cursor','default');
                     if (!data.msg && data.code != 0) {
                         $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                         return;
                     }
+                    return;
                     if (data.code === 0) {
                         //$.verify("passwd", "#passwd");
                         if (data.data.pointCode == 100) {
@@ -265,6 +268,7 @@ define(
                 if (isValid) {
                     return;
                 }
+                $("#phoneLogin").attr("disabled",true).css('cursor','no-drop');
                 var data = {
                     mobile: $("#userName").val() || "13527761888,13926993742",
                     password: $("#passwd").val() || "123456",
@@ -272,6 +276,7 @@ define(
                     loginType: 1
                 };
                 service.userlogin(data).done(function(data) {
+                    $("#phoneLogin").attr("disabled",false).css('cursor','default');
                     if (!data.msg && data.code != 0) {
                         $.verify("phone", "#userName", "您输入的用户名或密码错误");
                         return;
