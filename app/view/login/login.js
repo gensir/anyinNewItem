@@ -115,7 +115,6 @@
                         $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                         return false;
                     }
-                    return;
                     if (data.code === 0) {
                         //$.verify("passwd", "#passwd");
                         if (data.data.pointCode == 100) {

@@ -256,7 +256,7 @@ define([
 						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
 
 							if(serialNo) {
-								this.takeOrderInvoice(serialNo);
+								_this.takeOrderInvoice(serialNo);
 							} else {
 								console.log("订单支付成功，但是该订单客户不需要开发票！")
 							}
@@ -333,9 +333,9 @@ define([
 		},
 		gopay: function() {
 			//console.log(step4Data.actualAmount);
-			this.invoiceStates();
+			_this.invoiceStates();
 			if(invoiceState == true) {
-				this.submitStep4();
+				_this.submitStep4();
 			} else {
 				console.log("发票信息不全，不能提交订单！");
 			}
