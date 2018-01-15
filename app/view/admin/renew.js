@@ -289,6 +289,7 @@ define([
                             $(".closepayalert").trigger("click");
                             $(".bootbox-close-button").trigger("click");
                             window.open('admin.html#pay_ok?num=' + orderNo, '_self');
+                            $(".modal-backdrop").hide();
                             localStorage.removeItem("stepNum");
                             localStorage.removeItem("orderNo");
 
