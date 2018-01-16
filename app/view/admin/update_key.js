@@ -313,6 +313,7 @@ define([
                                                     var dataGDCA = {
                                                         orderNo: orderNo,
                                                         esealCode : $(".esealCode .new").text()||$(".esealCode .text").text(),
+                                                        keyEnd: ukeys.endDate(selectedUkey),
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
                                                             cn: ukeys.getCertOwner(selectedUkey).certCn,
@@ -323,7 +324,7 @@ define([
                                                             certType: certificateAssigned
                                                         }
                                                     };
-                                                    var newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];//key里面的时间
+                                                    var newDate = /[0-9]{4}/.exec(ukeys.endDate(selectedUkey))[0];//key里面的时间
                                                     if(newDate>=time ){//如果key里面的年和接口返回的年一样
                                                         numInd = 8;
                                                         $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
@@ -506,6 +507,7 @@ define([
                                     $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg4'>证书时间未更新，电子印章续期失败！</div>");
                                     return false;
                                 }
+                                $(_this).find(".btn2").attr("disabled", true);
                                 var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
                                 var oid = that.getUrlParam("oid");
                                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
@@ -539,11 +541,13 @@ define([
                                 }
                                 service.write_cert_GDCA(realdata).done(function (res) {
                                     if (res.code == 0) {
+                                        $(_this).find(".btn2").attr("disabled", false);
                                         numInd = 3;
                                         $(_this).find(".btn1").hide();
                                         $(_this).find(".btn2").html("确定");
                                         $(_this).find(".bootbox-body").html("<div class='msg4'>电子印章续期成功</div>");
                                     } else {
+                                        $(_this).find(".btn2").attr("disabled", false);
                                         numInd = 0
                                         $(_this).find(".btn2").html("重试");
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
