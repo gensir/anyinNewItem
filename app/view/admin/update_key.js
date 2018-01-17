@@ -325,7 +325,7 @@ define([
                                                         }
                                                     };
                                                     var newDate = /[0-9]{4}/.exec(ukeys.endDate(selectedUkey))[0];//key里面的时间
-                                                    if(newDate>=time ){//如果key里面的年和接口返回的年一样
+                                                    if( false ){//如果key里面的年和接口返回的年一样     newDate>=time    方便测试写死false
                                                         numInd = 8;
                                                         $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
                                                         $(_this).find(".btn2").html("继续").show().attr("disabled", false);
