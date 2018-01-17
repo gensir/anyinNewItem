@@ -231,7 +231,7 @@ define([
                                     });
                                 } else if (unlockCode.length < 6) {
                                     numInd = 1;
-                                    $(_this).find("#unlock-error").html("请输入6位以上的PIN码");
+                                    $(_this).find("#unlock-error").html("请输入6位或6位以上的PIN码");
                                     $(_this).find(".btn2").show().html("继续");
                                     $("#unlockCode").keyup(function () {
                                         $("#unlock-error").html("");
@@ -493,7 +493,7 @@ define([
                                         }
                                     } else {
                                         numInd = 0;
-                                        $(_this).find("#unlock-error").html("您选择的UKEY与续费的印章不符，请更换UKEY后重试！");
+                                        $(_this).find("#unlock-error").html("您选择的UKEY不正确，请更换UKEY后重试！");
                                         $(_this).find(".btn2").show().html("重试");
                                     }
                                 }
