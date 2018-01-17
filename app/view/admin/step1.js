@@ -185,7 +185,8 @@ define([
 						localStorage.stepNum = "#step4";
 						window.open('admin.html#step4', '_self');
 					}
-
+				} else if(data.code == "40034"){
+				    bootbox.alert(data.msg);
 				} else {
 					bootbox.alert("很抱歉，您的企业无法在线上申请电子印章，请前往刻章店申请");
 				}
