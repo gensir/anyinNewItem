@@ -313,7 +313,7 @@ define([
                                                     var dataGDCA = {
                                                         orderNo: orderNo,
                                                         esealCode : $(".esealCode .new").text()||$(".esealCode .text").text(),
-                                                        keyEnd: ukeys.endDate(selectedUkey),
+                                                        keyEnd: "2020-12-17 00:00:00",//  ukeys.endDate(selectedUkey)先写死方便 测试
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
                                                             cn: ukeys.getCertOwner(selectedUkey).certCn,
