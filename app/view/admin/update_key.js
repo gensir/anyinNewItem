@@ -269,7 +269,7 @@ define([
                                                 realdata = {
                                                     "orderNo": orderNo,
                                                     "validStart": $(".vaildStart .new").text(),
-                                                    "validEnd": $(".validEnd .new").text(),
+                                                    "validEnd": ukeys.endDate(selectedUkey),
                                                     "esealCode": $(".esealCode .new").text() || $(".esealCode .text").text(),
                                                     "oid": oid,
                                                     "enterpriseCode": enterpriseCode,
