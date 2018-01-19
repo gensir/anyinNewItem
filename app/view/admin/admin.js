@@ -415,9 +415,9 @@ define([
                                                 } else {
                                                     numInd = 1;
                                                     console.log("验证失败");
-                                                    $("#codetip").html("验证码无效，印章预挂失失败").css({ "color": "red" });
+                                                    $("#codetip").html("手机验证码错误！").css({ "color": "red" });
                                                     $(".checkSmsCode").css({ "border-color": "red" });
-                                                    // $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>验证无效，印章预挂失失败！</span></div');
+                                                    // $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>手机验证码错误！</span></div');
                                                     $(".checkSmsCode").keyup(function() {
                                                         $("#codetip").html("");
                                                         $(".checkSmsCode").css({ "border-color": "#ccc" })
@@ -520,7 +520,7 @@ define([
                                         });
                                     } else if (unlockCode.length < 6) {
                                         numInd = 1;
-                                        $(_this).find("#unlock-error").html("请输入6位以上PIN码");
+                                        $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
                                         $(_this).find(".btn2").show().html("确定");
                                         $("#unlockCode").keyup(function() {
                                             $("#unlock-error").html("");
@@ -779,7 +779,7 @@ define([
                                             });
                                         } else if (unlockCode.length < 6) {
                                             numInd = 1;
-                                            $(_this).find("#unlock-error").html("请输入6位以上PIN码");
+                                            $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
                                             $(_this).find(".btn2").show().html("确定");
                                             $("#unlockCode").keyup(function() {
                                                 $("#unlock-error").html("");

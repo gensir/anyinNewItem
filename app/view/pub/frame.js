@@ -147,7 +147,7 @@ define(
                                         });
                                     } else if (unlockCode.length < 6) {
                                         numInd = 1;
-                                        $(_this).find("#unlock-error").html("请输入6位以上PIN码");
+                                        $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
                                         $(_this).find(".btn2").show().html("解密");
                                         $("#unlockCode").keyup(function() {
                                             $("#unlock-error").html("");
