@@ -313,7 +313,7 @@ define([
                                                     var dataGDCA = {
                                                         orderNo: orderNo,
                                                         esealCode : $(".esealCode .new").text()||$(".esealCode .text").text(),
-                                                        keyEnd: $(".validEnd .text").text(),//  ukeys.endDate(selectedUkey)先写死方便 测试
+                                                        keyEnd: ukeys.endDate(selectedUkey),
                                                         gdcaRequest: {
                                                             trustId: ukeys.trustId(selectedUkey),
                                                             cn: ukeys.getCertOwner(selectedUkey).certCn,
@@ -325,7 +325,7 @@ define([
                                                         }
                                                     };
                                                     var newDate = /[0-9]{4}/.exec(ukeys.endDate(selectedUkey))[0];//key里面的时间
-                                                    if( false ){//如果key里面的年和接口返回的年一样     newDate>=time    方便测试写死false
+                                                    if( newDate>=time ){//如果key里面的年和接口返回的年一样     newDate>=time   
                                                         numInd = 8;
                                                         $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
                                                         $(_this).find(".btn2").html("继续").show().attr("disabled", false);
@@ -509,7 +509,7 @@ define([
                                 }
                                 $(_this).find(".btn2").attr("disabled", true);
                                 var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
-                                var oid = that.getUrlParam("oid");
+                                var oid = ukeys.GetOid(selectedUkey);
                                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                                 var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
                                 

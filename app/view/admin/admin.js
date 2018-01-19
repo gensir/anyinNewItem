@@ -859,63 +859,64 @@ define([
                     if (res.code == 0) {
                         var pointCode = res.data.pointCode;
                         console.log("pointCode:" + pointCode)
-                        if (pointCode == 0) {
-                            //只可进行2年有效期续期
-                            console.log("可进行2年续期")
-                            localStorage.rennw_year = 2;
-                            that.certType_Status();
-                        } else  if (pointCode == 1) {
-                            //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
-                            bootbox.dialog({
-                                backdrop: true,
-                                // closeButton: false,
-                                className: "common",
-                                title: "操作提示",
-                                message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
-                                buttons: {
-                                    confirm: {
-                                        label: "确定",
-                                        className: "btn2",
-                                        callback: function(result) {
-                                            result.cancelable = false;
-                                        }
-                                    },
-                                }
-                            })
-                            // setTimeout(function() {
-                            //     bootbox.hideAll();
-                            // }, 3000)
-                            return false;
-                        } else if (pointCode == 2) {
-                            //只可进行2年有效期续期
-                            console.log("可进行2年续期")
-                            localStorage.rennw_year = 2;
-                            that.certType_Status();
-                        } else if (pointCode == 3 || pointCode == 4) {
-                            //可进行2年、3年有效期续期
-                            console.log("可进行2,3年续期")
-                            localStorage.rennw_year = 3;
-                            that.certType_Status();
-                        } else if (pointCode == 5) {
-                            //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
-                            bootbox.dialog({
-                                backdrop: true,
-                                // closeButton: false,
-                                className: "common",
-                                title: "操作提示",
-                                message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
-                                buttons: {
-                                    confirm: {
-                                        label: "确定",
-                                        className: "btn2",
-                                        callback: function(result) {
-                                            result.cancelable = false;
-                                        }
-                                    },
-                                }
-                            })
-                            return false;
-                        }
+                        that.certType_Status();
+//                      if (pointCode == 0) {
+//                          //只可进行2年有效期续期
+//                          console.log("可进行2年续期")
+//                          localStorage.rennw_year = 2;
+//                          that.certType_Status();
+//                      } else  if (pointCode == 1) {
+//                          //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
+//                          bootbox.dialog({
+//                              backdrop: true,
+//                              // closeButton: false,
+//                              className: "common",
+//                              title: "操作提示",
+//                              message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
+//                              buttons: {
+//                                  confirm: {
+//                                      label: "确定",
+//                                      className: "btn2",
+//                                      callback: function(result) {
+//                                          result.cancelable = false;
+//                                      }
+//                                  },
+//                              }
+//                          })
+//                          // setTimeout(function() {
+//                          //     bootbox.hideAll();
+//                          // }, 3000)
+//                          return false;
+//                      } else if (pointCode == 2) {
+//                          //只可进行2年有效期续期
+//                          console.log("可进行2年续期")
+//                          localStorage.rennw_year = 2;
+//                          that.certType_Status();
+//                      } else if (pointCode == 3 || pointCode == 4) {
+//                          //可进行2年、3年有效期续期
+//                          console.log("可进行2,3年续期")
+//                          localStorage.rennw_year = 3;
+//                          that.certType_Status();
+//                      } else if (pointCode == 5) {
+//                          //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
+//                          bootbox.dialog({
+//                              backdrop: true,
+//                              // closeButton: false,
+//                              className: "common",
+//                              title: "操作提示",
+//                              message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
+//                              buttons: {
+//                                  confirm: {
+//                                      label: "确定",
+//                                      className: "btn2",
+//                                      callback: function(result) {
+//                                          result.cancelable = false;
+//                                      }
+//                                  },
+//                              }
+//                          })
+//                          return false;
+//                      }
                     } else {
                         bootbox.dialog({
                             backdrop: true,
