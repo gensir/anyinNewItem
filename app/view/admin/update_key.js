@@ -332,7 +332,7 @@ define([
                                                     }else{
                                                         if(!dataGDCA.orderNo||!dataGDCA.esealCode||!dataGDCA.keyEnd){
                                                             $(_this).find(".btn2").hide();
-                                                            $(_this).find("#unlock-error").html("参数不全，无法完成后续操作！");
+                                                            $(_this).find("#unlock-error").html("参数不全，请联系安印技术支持！");
                                                             return false;
                                                         }
                                                         service.renew_certGDCA(dataGDCA).done(function (ret) {
