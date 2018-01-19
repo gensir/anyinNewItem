@@ -330,7 +330,11 @@ define([
                                                         $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
                                                         $(_this).find(".btn2").html("继续").show().attr("disabled", false);
                                                     }else{
-                                                        
+                                                        if(!dataGDCA.orderNo||!dataGDCA.esealCode||!dataGDCA.keyEnd){
+                                                            $(_this).find(".btn2").hide();
+                                                            $(_this).find("#unlock-error").html("参数不全，无法完成后续操作！");
+                                                            return false;
+                                                        }
                                                         service.renew_certGDCA(dataGDCA).done(function (ret) {
                                                             if (ret.code == 0) {
                                                                 numInd = 8;
