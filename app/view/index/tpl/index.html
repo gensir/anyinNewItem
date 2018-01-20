@@ -27,7 +27,11 @@
             <h2>电子印章签章记录</h2><a class="more" href="logs.html">查看更多></a></div>
         <div class="jilulist">
             <ul>
-                {{if logdata == ""}}
+                {{if logdata == 1}}
+                <li>
+                    <div class="file" style="cursor: default;">接口数据请求失败！</div>
+                </li>
+                {{else if logdata == ""}}
                 <li>
                     <div class="file" style="cursor: default;">暂无签章记录</div>
                 </li>

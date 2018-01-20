@@ -8,9 +8,10 @@ define([
 	var Backbone = require('backbone');
 	var template = require('art-template');
     // var placeholder = publicUtil.placeholder;
-	var esealCode = localStorage.logs_esealCode;
-	var oid = localStorage.logs_oid;
-	var PKSC7 = localStorage.logs_dSignature;
+    var Decrypt = $.cookie("logs_Decrypt") && JSON.parse($.cookie('logs_Decrypt'));
+    var d_esealCode = Decrypt && Decrypt.logs_esealCode;
+    var d_oid = Decrypt && Decrypt.logs_oid;
+    var d_PKSC7 = Decrypt && Decrypt.logs_dSignature;
 	var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
 
 	var main = Backbone.View.extend({
@@ -130,10 +131,10 @@ define([
 				return false;
 			}
 			var data = {
-				"esealCode": esealCode,
-				"oid": oid,
+				"esealCode": d_esealCode,
+				"oid": d_oid,
 				"enterpriseCode": enterpriseCode,
-				"PKSC7": PKSC7,
+				"PKSC7": d_PKSC7,
 				"importName": $("#keyword").val(),
 				"operateStatus": $("#s_state").val(),
 				"signType": $("#s_type").val(),
@@ -180,10 +181,10 @@ define([
 			pageNum = pageNum || 1;
 			pageSize = pageSize || 10;
 			var data = {
-				"esealCode": esealCode,
-				"oid": oid,
+				"esealCode": d_esealCode,
+				"oid": d_oid,
 				"enterpriseCode": enterpriseCode,
-				"PKSC7": PKSC7,
+				"PKSC7": d_PKSC7,
 				"importName": $("#keyword").val(),
 				"operateStatus": $("#s_state").val(),
 				"signType": $("#s_type").val(),
@@ -231,10 +232,10 @@ define([
 				return;
 			}
 			var obj = {
-				"esealCode": esealCode,
-				"oid": oid,
+				"esealCode": d_esealCode,
+				"oid": d_oid,
 				"enterpriseCode": enterpriseCode,
-				"PKSC7": PKSC7,
+				"PKSC7": d_PKSC7,
 				"importName": $("#keyword").val(),
 				"operateStatus": $("#s_state").val(),
 				"signType": $("#s_type").val(),

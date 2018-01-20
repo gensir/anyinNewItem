@@ -179,10 +179,9 @@ define([
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
                                             //如果是已解密日志的ukey，则移除解密时保存的信息
-                                            if (Oid == localStorage.logs_oid) {
-                                                localStorage.removeItem("logs_dSignature");
-                                                localStorage.removeItem("logs_esealCode");
-                                                localStorage.removeItem("logs_oid");
+                                            var logs_oid = $.cookie("logs_Decrypt") && JSON.parse($.cookie('logs_Decrypt')).logs_oid;
+                                            if (Oid == logs_oid) {
+                                                $.removeCookie("logs_Decrypt");
                                             }
                                         } else {
                                             var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML

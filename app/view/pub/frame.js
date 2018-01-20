@@ -79,6 +79,7 @@ define(
                             className: "btn2",
                             callback: function(result) {
                                 localStorage.clear();
+                                $.removeCookie("logs_Decrypt");
                                 $.removeCookie("loginadmin");
                                 result.cancelable = window.open("login.html", "_self");
                             }
@@ -189,9 +190,13 @@ define(
                                                 };
                                                 service.commSignetLog(1, 1, data).done(function(data) {
                                                     if (data.code == 0) {
-                                                            localStorage.logs_esealCode = esealCode;
-                                                            localStorage.logs_oid = oid;
-                                                            localStorage.logs_dSignature = PKSC7;
+                                                            //解密后的信息更改存储在cookie里，和登录信息保持一致，不然不退出关闭浏览器再次登录日志请求出错 /tan 2018-01-20
+                                                            var Decrypt = {
+                                                                "logs_esealCode" : esealCode,
+                                                                "logs_oid" : oid,
+                                                                "logs_dSignature" : PKSC7
+                                                            }
+                                                            $.cookie("logs_Decrypt", JSON.stringify(Decrypt));
                                                             var success = dialogsText.find(".success")[0].outerHTML;
                                                             $(_this).find(".bootbox-body").html(success);
                                                             $(_this).find(".btn1,.btn2").hide();

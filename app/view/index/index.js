@@ -12,9 +12,10 @@ define([
     var enterpriseCode = udata && udata.user && udata.user.enterpriseCode;
     var firmId = udata && udata.user && udata.user.firmId;
     var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
-    var esealCode = localStorage.logs_esealCode;
-    var oid = localStorage.logs_oid;
-    var PKSC7 = localStorage.logs_dSignature;
+    var Decrypt = $.cookie("logs_Decrypt") && JSON.parse($.cookie('logs_Decrypt'));
+    var d_esealCode = Decrypt && Decrypt.logs_esealCode;
+    var d_oid = Decrypt && Decrypt.logs_oid;
+    var d_PKSC7 = Decrypt && Decrypt.logs_dSignature;
     var r_Oid, r_esealCode, r_keyType, r_certificateFirm, r_esealStatus;
     var main = Backbone.View.extend({
         el: '.contents',
@@ -497,16 +498,17 @@ define([
             pageNum = pageNum || 1;
             pageSize = pageSize || 4;
             var data = {
-                "esealCode": esealCode,
-                "oid": oid,
+                "esealCode": d_esealCode,
+                "oid": d_oid,
                 "enterpriseCode": enterpriseCode,
-                "PKSC7": PKSC7,
+                "PKSC7": d_PKSC7,
             };
             service.commSignetLog(pageNum, pageSize, data).done(function (data) {
                 var logsObj;
                 if (data.code != 0) {
-                    logsObj = {}
-                    $(".jilulist ul").append("<li><div class='file'>接口数据请求失败！</div></li>");
+                    logsObj = 1;
+                    _this.model.get("tpl").logdata = logsObj;
+                    _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                 } else {
                     logsObj = data.data.list;
                     _this.model.get("tpl").logdata = logsObj;
