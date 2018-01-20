@@ -55,7 +55,7 @@
                                     <ul class="nav">
                                         <li class="n1">
                                             <p class="top f14">电子印章信息<span>正常</span></p>
-                                            <p style="overflow: hidden;text-overflow: ellipsis; white-space: nowrap;" title="{{value.esealFullName}}">印章名：<span>{{value.esealFullName}}</span></p>
+                                            <p class="hide-text" title="{{value.esealFullName}}">印章名：<span>{{value.esealFullName}}</span></p>
                                             <p>印章编号：<span>{{value.esealCode}}</span></p>
                                             <p>制作日期：<span>{{value.esealCreateTime}}</span></p>
                                             <p>印章生效期：<span>{{value.validStart}}</span></p>
@@ -63,10 +63,10 @@
                                         </li>
                                         <li class="n2">
                                             <p class="f14">企业信息</p>
-                                            <p>企业名称：<span>{{value.enterpriseName}}</span></p>
+                                            <p class="hide-text">企业名称：<span title="{{value.enterpriseName}}">{{value.enterpriseName}}</span></p>
                                             <!-- 判断是否为组织机构代码 -->
                                             {{if /^[a-zA-Z0-9]{8}[a-zA-Z0-9]$/.test(value.enterpriseName)}}
-                                            <p>组织机构代码： <span>  {{value.enterpriseCode}}</span></p>
+                                            <p>组织机构代码：<span>{{value.enterpriseCode}}</span></p>
                                             {{else}}
                                             <p>统一社会信用代码：<span>{{value.enterpriseCode}}</span></p>
                                             {{/if}}
@@ -216,7 +216,7 @@
         }
         
         .topseal {
-            background: #fff;
+            background: #fafafa;
             border-bottom: 1px solid #dce0e3;
             height: 56px;
         }
@@ -232,11 +232,12 @@
             height: 56px;
             line-height: 56px;
             cursor: pointer;
-            padding: 0 12px;
+            padding: 0 10px;
         }
         
         .topseal h3 span.active {
             color: #333;
+            font-weight: 600;
             border-bottom: 2px solid #00acff;
         }
         
@@ -251,11 +252,11 @@
         .mainbody .listTop {
             width: 1100px;
             height: 20px;
-            margin: 17px auto;
+            margin: 15px auto;
             padding-left: 15px;
             font-size: 16px;
             font-weight: 600;
-            border-left: 6px solid #0073bd;
+            border-left: 4px solid #02adff;
         }
         
         .mainbody .listTop .aa {
@@ -294,7 +295,7 @@
         
         .accordion_w .nav_tit li {
             text-align: left;
-            font-size: 16px;
+            font-size: 15px;
             color: #384a5c;
             font-weight: bold;
             padding: 16px 0;
@@ -382,24 +383,27 @@
         }
         
         .eseallist .list .toggle .nav {
-            padding: 20px 40px;
+            padding: 30px 40px;
         }
         
         .eseallist .list .toggle .nav .n1 {
-            width: 26%;
-            padding-right: 2%;
-            margin-right: 5%;
-            border-right: 1px dashed #c6c6c6;
+            width: 32%;
+            padding-right: 3%;
+            border-right: 1px solid #dfe8ed;
+            min-height: 165px;
         }
         
         .eseallist .list .toggle .nav .n2 {
-            width: 31%;
-            margin-right: 5%;
-            border-right: 1px dashed #c6c6c6;
+            width: 33%;
+            margin-left: 3%;
+            padding-right:3%;
+            border-right: 1px solid #dfe8ed;
+            min-height: 165px;
         }
         
         .eseallist .list .toggle .nav .n3 {
-            width: 30%
+            width: 32%;
+            padding-left:3%;
         }
         
         .eseallist .list .toggle .nav p {

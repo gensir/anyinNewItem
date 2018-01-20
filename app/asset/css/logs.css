@@ -5,7 +5,7 @@
 .intnav ul li { float: left; height: 56px; margin-right: 60px; }
 .intnav ul li a { display: block; height: 56px; line-height: 56px; color: #999; padding-left: 10px; padding-right: 10px; text-decoration: none; }
 .intnav ul li a:hover { color: #384a5c; }
-.intnav ul li a.active { border-bottom: solid 2px #00acff; color: #384a5c; font-weight: 600; }
+.intnav ul li a.active { border-bottom: solid 2px #00acff; color: #333; font-weight: 600; }
 /* 搜索 */
 .intnav .page-kd { position: relative; }
 .intnav .search { position: absolute; right: 0; top: 0; width: 310px; outline: none; z-index: 2 }
@@ -39,11 +39,11 @@
 .intnav .search .nosearch i { width: 16px; height: 16px;  position: absolute; top: 12px; right: 12px; z-index: 4; cursor: pointer;background: url(../img/bg-all.png) no-repeat -160px -290px; }
 .intnav .search .nosearch i:hover { background: url(../img/bg-all.png) no-repeat -180px -290px; }
 /*签章列表 */
-.m-title { padding-top: 14px; padding-bottom: 14px; margin: 0; font-size: 16px; line-height: 20px; font-weight: 600; overflow: hidden; }
-.m-title span { height: 20px; display: inline-block; padding-left: 10px; border-left: 4px solid #02adff; }
+.m-title { padding-top: 15px; padding-bottom: 15px; margin: 0; font-size: 16px; line-height: 20px; font-weight: 600; overflow: hidden; }
+.m-title span { height: 20px; display: inline-block; padding-left: 15px; border-left: 4px solid #02adff; }
 .jilulist { padding: 20px; }
 .jilulist .listtitle { height: 52px; width: 100%; line-height: 50px; padding-left: 40px; padding-right: 40px; background: #f6fafe; border: solid 1px #dfe8ed; }
-.jilulist .listtitle .title { font-size: 16px; font-weight: 600; }
+.jilulist .listtitle .title { font-size: 15px; font-weight: 600; }
 .jilulist .listtext .text { font-size: 14px; color: #666; height: 20px; }
 .jilulist .col1 { width: 20%; display: block; float: left; }
 .jilulist .col2 { width: 35%; display: block; float: left; }
@@ -59,18 +59,18 @@
 .jilulist ul.listtext li.active .text { color: #333; }
 .jilulist ul.listtext li .file { padding: 14px 40px; overflow: hidden; cursor: pointer; }
 .jilulist ul.listtext li .file.no { cursor: default; color: #666; }
-.jilulist li .details { background: #fff; padding: 20px 40px 0px; overflow: hidden; display: none; }
+.jilulist li .details { background: #fff; padding: 30px 40px 0px; overflow: hidden; display: none; }
 .jilulist .hide-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
 .details dl { float: left; margin: 0px; padding: 0; }
 .details dt { font-size: 14px; height: 20px; line-height: 20px; margin-bottom: 12px; }
 .details dl dd { font-size: 12px; line-height: 14px; padding-bottom: 10px; color: #666; }
 .details dl dd span { color: #666; }
 .details .signet.help,
-.details .computer dd.help { width: 30%; padding-right: 0; }
-.details .signet { width: 40%; padding-bottom: 10px; padding-right: 40px; }
+.details .computer dd.help { width: 30%; padding-right: 30px; }
+.details .signet { width: 40%; padding-bottom: 20px; padding-right: 40px; }
 .details .signet .state { display: inline-block; padding-left: 12px; padding-right: 12px; height: 20px; margin-left: 100px; background: #08c34e; color: #fff; font-weight: 400; border-radius: 2px; }
 .details .signet .state.no { background: #f00; color: #fff; }
-.details .computer { width: 100%; border-top: solid 1px #dfe8ed; padding-bottom: 10px; }
+.details .computer { width: 100%; border-top: solid 1px #dfe8ed; padding-bottom: 20px; }
 .details .computer dt { margin-top: 20px; }
 .details .computer dd { width: 35%; float: left; padding-right: 10px; }
 .details .computer.help dd { width: 100%; }

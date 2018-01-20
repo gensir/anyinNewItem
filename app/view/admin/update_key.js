@@ -356,7 +356,7 @@ define([
                                                 } else if (certificateFirms == 2) {
                                                     //netCA   首先判断是否能进行换体续期调3035接口-->调3054接口获取签名原文进行签名，得到得userSignature作为续期接口得入参-->调用3031续期接口
                                                     var getPIN = $("#unlockCode").val(), selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                                    if (ukeys.PIN(getPIN, selectedUkey)) {
+                                                    // if (ukeys.PIN(getPIN, selectedUkey)) { // 密码已经验证过了，没必要再验证一次密码tanzhen2018-01-20
                                                         if (!($(".esealCode .text").text() == ukeys.esealCode(getPIN, selectedUkey))) {
                                                             numInd = 0;
                                                             $(_this).find("#unlock-error").html("您选择的UKEY与续费的印章不符，请更换UKEY后重试！");
@@ -471,11 +471,11 @@ define([
                                                             inRenewFun(p10, symmAlgo, isNeedChangeCert);
                                                         });
                                                         
-                                                    } else {
-                                                        numInd = 1;
-                                                        $(_this).find("#writezm-error").html("PIN码不正确，请重试");
-                                                        $(_this).find(".btn2").show().html("重试");
-                                                    }
+                                                    // } else {
+                                                    //     numInd = 1;
+                                                    //     $(_this).find("#writezm-error").html("PIN码不正确，请重试");
+                                                    //     $(_this).find(".btn2").show().html("重试");
+                                                    // }
                                                 }
                                             }
                                         } else {
@@ -552,7 +552,8 @@ define([
                                         $(_this).find(".bootbox-body").html("<div class='msg4'>电子印章续期成功</div>");
                                     } else {
                                         $(_this).find(".btn2").attr("disabled", false);
-                                        numInd = 0
+                                        // 如果回写DB接口失败，可再次直接在这步重新回写DB，没必要更新流程再跑一次。
+                                        numInd = 8
                                         $(_this).find(".btn2").html("重试");
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
                                     }
@@ -561,7 +562,7 @@ define([
                                 this.modal('hide')
                                 window.location.href = "admin.html";
                             } 
-                            //                            this.modal('hide');
+                            // this.modal('hide');
                             return false;
                         }
                     }
