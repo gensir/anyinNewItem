@@ -267,8 +267,8 @@ define([
                                                 var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
                                                 var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
                                                 realdata = {
-                                                    "orderNo": orderNo,
-                                                    "validStart": $(".vaildStart .new").text(),
+                                                    "orderNo": orderNo,   
+                                                    "validStart": ukeys.startDate(selectedUkey),
                                                     "validEnd": ukeys.endDate(selectedUkey),
                                                     "esealCode": $(".esealCode .new").text() || $(".esealCode .text").text(),
                                                     "oid": oid,
@@ -405,15 +405,14 @@ define([
 					                                                        write_cert.certSign = v.certContent;
 					                                                    }
 					                                                });
-					                                                var obj={
-                                                                        "reqId":ret.data.bpmsResponse.reqId,
-                                                                        "orderNo":orderNo,
-                                                                        "signCertContent": ukeys.getSignatureCert(selectedUkey),//write_cert.certSign,
-                                                                        "esealCode":$(".esealCode .text").text()
-                                                                    }
-					                                                netca.installCa(write_cert);
-				                                                    if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
-                                                                        service.netcaCallBack(obj).done(function(res){
+					                                                function netcaCallBack() {
+					                                                    var obj={
+                                                                            "reqId":ret.data.bpmsResponse.reqId,
+                                                                            "orderNo":orderNo,
+                                                                            "signCertContent": ukeys.getSignatureCert(selectedUkey),//write_cert.certSign,
+                                                                            "esealCode":$(".esealCode .text").text()
+                                                                        }
+					                                                    service.netcaCallBack(obj).done(function(res){
                                                                             if(res.code==0){
                                                                                 numInd = 3;
                                                                                 $(_this).find(".btn1").hide();
@@ -426,7 +425,16 @@ define([
                                                                                 $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>电子印章续期失败！</div>");
                                                                             }
                                                                         }) 
-					                                                } 
+					                                                }
+					                                                //判断是否已续期；
+                                                                    if (correctData.certInfo[1].certContent == ukeys.getSignatureCert(selectedUkey ? selectedUkey : 0)) {
+                                                                        netcaCallBack();
+                                                                    }else{
+                                                                        netca.installCa(write_cert);
+                                                                        if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
+                                                                            netcaCallBack()
+                                                                        } 
+                                                                    }
                                                         		}else{
                                                         			$(_this).find("#unlock-error").html(ret.msg);
                                                         		}
