@@ -175,7 +175,7 @@
                                             var l_oid = data.data.oid;
                                             var l_keytype = keyType;
                                             $.cookie("loginadmin", JSON.stringify(data.data));
-                                            window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid +"keyType=" + l_keytype, "_self");
+                                            window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid +"&keyType=" + l_keytype, "_self");
                                             return false;
                                         }
                                     }
