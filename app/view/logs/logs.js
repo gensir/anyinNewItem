@@ -141,7 +141,7 @@ define([
 				"signTimeStart": $("#date1").val(),
 				"signTimeEnd": $("#date2").val(),
 			};
-			if(!Boolean(PKSC7)) {
+			if(!Boolean(d_PKSC7)) {
 				$("#keyword,#s_state,#s_type,#date1,#date2").val("");
 				this.nosearch();
 				return false;
