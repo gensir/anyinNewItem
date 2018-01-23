@@ -92,7 +92,7 @@
                 }
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
                 if(!PKSC7){
-                    $.verify("ukeytip", "#seleBook", "登录失败，数字签名PKSC7不能为空");
+                    $.verify("ukeytip", "#seleBook", "数字签名失败，请确定证书是否过期，请用企业用户登录续费。");
                     return;
                 }else if(!oid){
                     $.verify("ukeytip", "#seleBook", "登录失败，oid不能为空");
