@@ -17,7 +17,7 @@
                             <span class="text col1">{{value.signTime}}</span>
                             <span class="text col2 hide-text" title="{{value.signetDocument}}">{{value.signetDocument}}</span>
                             <span class="text col3 hide-text">{{value.esealFullName}}</span>
-                            <span class="text col4">{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":"撤章"}}</span>
+                            <span class="text col4">{{value.signType==1?"单页签章":value.signType==2?"骑缝签章":value.signType==3?"手写签章":value.signType==4?"多页签章": "撤章"}}</span>
                             <span class="text col5">
                                 {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}} {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
                             </span>
@@ -29,7 +29,7 @@
                                 <dd>签章时间：<span>{{value.signTime}}</span></dd>
                                 <dd>文档大小：<span>{{value.signetDocumentSize==null?"0":value.signetDocumentSize}}M</span></dd>
                                 <dd>文档哈希值：<span>{{value.signetDocumentHash}}</span></dd>
-                                <dd>签章类型：<span>{{value.signType==1?"单页签章":value.signType==2?"批量签章":value.signType==3?"骑缝签章":value.signType==4?"手写签章":"撤章"}}</span></dd>
+                                <dd>签章类型：<span>{{value.signType==1?"单页签章":value.signType==2?"骑缝签章":value.signType==3?"手写签章":value.signType==4?"多页签章": "撤章"}}</span></dd>
                             </dl>
                             <dl class="signet help">
                                 <dt>印章信息</dt>
