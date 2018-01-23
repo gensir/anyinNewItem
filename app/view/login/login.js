@@ -91,7 +91,16 @@
                     var randomNum = ukeys.randomNum(randomNumKey, keyType);
                 }
                 var PKSC7 = ukeys.dSignature(selectedUkey, randomNum, $("#pinwd").val());
-
+                if(!PKSC7){
+                    $.verify("ukeytip", "#seleBook", "登录失败，数字签名PKSC7不能为空");
+                    return;
+                }else if(!oid){
+                    $.verify("ukeytip", "#seleBook", "登录失败，oid不能为空");
+                    return;
+                }else if(!randomNum){
+                    $.verify("ukeytip", "#seleBook", "登录失败，randomNum不能为空");
+                    return;                    
+                }
                 // localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
                     loginType: 2,
