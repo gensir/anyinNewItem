@@ -691,7 +691,7 @@ define([
                     // closeButton: false,
                     className: "common",
                     title: "操作提示",
-                    message: '<div class="msgcenter"><em></em><span>该电子印章OID不存在，不能进行续期操作！</span></div',
+                    message: '<div class="msgcenter"><em></em><span>该电子印章无OID，不能进行续期操作！</span></div',
                     buttons: {
                         confirm: {
                             label: "确定",
@@ -806,7 +806,7 @@ define([
                                                 if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
                                                     service.updata_ukeyType(r_esealCode,ukey_oid,ukey_certificateFirms,ukey_keyType).done(function(data) {
                                                         if (data.code == 0) {
-                                                                $(_this).find(".bootbox-body").html("您的证书校验成功，请重新进行续费操作！");
+                                                                $(_this).find(".bootbox-body").html("<div class='msgcenter'><span>您的证书校验成功，请重新进行续费操作！</span></div>");
                                                                 $(_this).find(".btn1,.btn2").hide();
                                                                 setTimeout(
                                                                     function() {
