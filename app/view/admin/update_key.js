@@ -91,7 +91,7 @@ define([
             var orgCode = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode);
             var enterpriseName = ($.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username);
             var oid = that.getUrlParam("oid"); 
-            keyStyle = that.getUrlParam("keyType")||localStorage.u_keyType;
+            keyStyle = that.getUrlParam("keytype")||localStorage.u_keyType;
             var data = {
                 "firmId": firmId,
                 "orgCode":orgCode,
@@ -243,6 +243,7 @@ define([
                                         $(_this).find(".btn2").show().html("重试");
                                         return false;
                                     }
+                                    $(_this).find("#unlock-error").html("正在读取UKEY内容，请稍候……");
                                     certificateFirms = ukeys.certificateFirms(selectedUkey);
                                     selectedUkey = $("#seleBook option:selected").index() - 1;
                                     localStorage.selectedUkey = selectedUkey;
@@ -290,6 +291,7 @@ define([
                                                 service.write_cert_GDCA(realdata).done(function (res) {
                                                     if (res.code == 0) {
                                                         numInd = 3;
+                                                        $(_this).find(".btn2").attr("disabled", false);
                                                         $(_this).find(".btn1").hide();
                                                         $(_this).find(".btn2").html("确定").attr("disabled", false);
                                                         $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg5 success'>ODC新办电子印章成功！</div>");
@@ -336,6 +338,7 @@ define([
                                                             return false;
                                                         }
                                                         service.renew_certGDCA(dataGDCA).done(function (ret) {
+                                                            $(_this).find(".btn2").attr("disabled", false);
                                                             if (ret.code == 0) {
                                                                 numInd = 8;
                                                                 window.open(ret.data, '_blank');
@@ -413,6 +416,7 @@ define([
                                                                             "esealCode":$(".esealCode .text").text()
                                                                         }
 					                                                    service.netcaCallBack(obj).done(function(res){
+					                                                        $(_this).find(".btn2").attr("disabled", false);
                                                                             if(res.code==0){
                                                                                 numInd = 3;
                                                                                 $(_this).find(".btn1").hide();
@@ -436,6 +440,7 @@ define([
                                                                         } 
                                                                     }
                                                         		}else{
+                                                        		    $(_this).find(".btn2").hide();
                                                         			$(_this).find("#unlock-error").html(ret.msg);
                                                         		}
                                                         	})
@@ -505,6 +510,7 @@ define([
                                         }
                                     } else {
                                         numInd = 0;
+                                        $(_this).find(".btn2").attr("disabled", false);
                                         $(_this).find("#unlock-error").html("您选择的UKEY不正确，请更换UKEY后重试！");
                                         $(_this).find(".btn2").show().html("重试");
                                     }
