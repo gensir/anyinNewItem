@@ -15,8 +15,8 @@
 .intnav .search .inputbox .submit { height: 28px; position: absolute; top: 1px; right: 1px; background: transparent; border-width: 0px; text-align: center; padding: 0px 8px; width: auto; z-index: 2; outline: none; }
 .intnav .search .inputbox .submit em { background: url(../img/bg-all.png) no-repeat -80px -290px; display: block; height: 24px; width: 24px; }
 .intnav .search .inputbox.active .search-input:focus+.submit em,
-.intnav .search .submit:hover em,
-.intnav .search .inputbox.active .submit em { background: url(../img/bg-all.png) no-repeat -104px -290px; }
+.intnav .search .inputbox .submit:hover em { background: url(../img/bg-all.png) no-repeat -104px -290px; }
+.intnav .search .inputbox.active .submit em { background: #fff url(../img/bg-all.png) no-repeat -104px -290px; }
 .intnav .search .more { position: absolute; top: 0; left: -15px; z-index: 1; width: 340px; border: solid 1px #eee; border-top: 0; box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.1); border: solid 1px #f0f0f0; background: #fff; padding: 63px 20px 20px; display: none; outline: none; }
 .intnav .search .more .state { float: left; margin-right: 20px; }
 .intnav .search .more .labelname { font-size: 12px; color: #666; display: inline-block; float: left; line-height: 28px; }
