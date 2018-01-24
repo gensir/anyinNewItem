@@ -81,7 +81,6 @@
                 if (selectedUkey == -1) {
                     return;
                 }
-                $("#ukeyLogin").attr("disabled",true).css('cursor','no-drop');
                 var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
                 var oid = ukeys.GetOid(selectedUkey);
@@ -118,6 +117,7 @@
                     $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
                     return false;
                 };
+                $("#ukeyLogin").attr("disabled",true).css('cursor','no-drop');
                 service.userlogin(data).done(function(data) {
                     $("#ukeyLogin").attr("disabled",false).css('cursor','default');
                     if (!data.msg && data.code != 0) {
@@ -130,13 +130,13 @@
                             var numInd = 0;
                             var dialog = bootbox.dialog({
                                 backdrop: true,
-                                //closeButton: false,
+                                closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
                                 message: dialogs.find(".ukeyLoginTip .msg1")[0].outerHTML,
                                 buttons: {
                                     cancel: {
-                                        label: "返回",
+                                        label: "取消",
                                         className: "btn1",
                                         callback: function(result) {
                                             result.cancelable = false;
@@ -161,19 +161,19 @@
                             });
                             return;
                         } else if (data.data.pointCode == 101) {
-                            var numInd = 0;
+                            $.cookie("loginadmin", JSON.stringify(data.data));
                             var dialog = bootbox.dialog({
                                 backdrop: true,
-                                //closeButton: false,
+                                closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
                                 message: dialogs.find(".ukeyLoginTip .msgcenter.updata_key")[0].outerHTML,
                                 buttons: {
                                     cancel: {
-                                        label: "返回",
+                                        label: "取消",
                                         className: "btn1",
                                         callback: function(result) {
-                                            result.cancelable = false;
+                                            result.cancelable = window.open('index.html', '_self');
                                         }
                                     },
                                     confirm: {
@@ -183,7 +183,6 @@
                                             var l_esealcode = data.data.esealCode;
                                             var l_oid = data.data.oid;
                                             var l_keytype = keyType;
-                                            $.cookie("loginadmin", JSON.stringify(data.data));
                                             window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid +"&keyType=" + l_keytype, "_self");
                                             return false;
                                         }
@@ -192,19 +191,19 @@
                             });
                             return;
                         } else if (data.data.pointCode == 102) {
-                            var numInd = 0;
+                            $.cookie("loginadmin", JSON.stringify(data.data));
                             var dialog = bootbox.dialog({
                                 backdrop: true,
-                                //closeButton: false,
+                                closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
                                 message: dialogs.find(".ukeyLoginTip .msgcenter.invalid")[0].outerHTML,
                                 buttons: {
                                     cancel: {
-                                        label: "返回",
+                                        label: "取消",
                                         className: "btn1",
                                         callback: function(result) {
-                                            result.cancelable = false;
+                                            result.cancelable = window.open('index.html', '_self');
                                         }
                                     },
                                     confirm: {
@@ -214,7 +213,6 @@
                                             var l_esealcode = data.data.esealCode;
                                             var l_oid = data.data.oid;
                                             localStorage.u_keyType = keyType;
-                                            $.cookie("loginadmin", JSON.stringify(data.data));
                                             window.open("admin.html#renew?esealcode=" + l_esealcode + "&oid=" + l_oid, "_self");
                                             return false;
                                         }
@@ -223,19 +221,19 @@
                             });
                             return;
                         } else if (data.data.pointCode == 104) {
-                            var numInd = 0;
+                            $.cookie("loginadmin", JSON.stringify(data.data));
                             var dialog = bootbox.dialog({
                                 backdrop: true,
-                                //closeButton: false,
+                                closeButton: false,
                                 className: "common loss",
                                 title: dialogs.find(".ukeyLoginTip .title")[0].outerHTML,
                                 message: dialogs.find(".ukeyLoginTip .msgcenter.renew")[0].outerHTML,
                                 buttons: {
                                     cancel: {
-                                        label: "返回",
+                                        label: "取消",
                                         className: "btn1",
                                         callback: function(result) {
-                                            result.cancelable = false;
+                                            result.cancelable = window.open('index.html', '_self');
                                         }
                                     },
                                     confirm: {
@@ -245,7 +243,6 @@
                                             var l_esealcode = data.data.esealCode;
                                             var l_oid = data.data.oid;
                                             localStorage.u_keyType = keyType;
-                                            $.cookie("loginadmin", JSON.stringify(data.data));
                                             window.open("admin.html#renew?esealcode=" + l_esealcode + "&oid=" + l_oid, "_self");
                                             return false;
                                         }
@@ -264,9 +261,6 @@
                         $.verify("ukeytip", "#seleBook", data.msg);
                     } else {
                         $.verify("ukeytip", "#seleBook", data.msg);
-                    }
-                    if (!Boolean(PKSC7)) {
-                        //$.verify("ukeytip", "#pinwd", "ukey异常，获取客户端数字签名失败");
                     }
                 });
 
