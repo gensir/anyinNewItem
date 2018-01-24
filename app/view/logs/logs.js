@@ -4,7 +4,8 @@ define([
 	"../../lib/service",
     "../../lib/public",
 	"datetimepickercn",
-], function(logsTpl, search, service, publicUtil, datetimepicker) {
+	"bootbox"
+], function(logsTpl, search, service, publicUtil, datetimepicker,bootbox) {
 	var Backbone = require('backbone');
 	var template = require('art-template');
     // var placeholder = publicUtil.placeholder;
@@ -28,12 +29,12 @@ define([
 			"click .listtext li .togglehide": "togglehide",
 			'focus #keyword': 'MoreSearch',
 			'blur #keyword': 'keywordblur',
-			'click #search_submit': 'logSearchs',
+			'click #search_submit': 'keysearchs',
 			'click .logcon,.win-close,#close': 'close',
 			'change #s_state': 'operateStatus',
 			'change #s_type': 'signType',
-			'click #date1+em': 'remove_date',
-			'click #date2+em': 'remove_date2',
+			'click #s_date_1 em': 'remove_date',
+			'click #s_date_2 em': 'remove_date2',
 			'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
 			'click .pagination .NextPage:not(".no")': 'NextPage',
 			'click .pagination .index': 'currentPapge'
@@ -41,7 +42,7 @@ define([
 		//调取日期控件
 		form_date: function(event) {
 			var _this = this
-			$('#date1,#date2').datetimepicker({
+			$('#s_date_1 input').datetimepicker({
 				language: 'zh-CN',
 				weekStart: 1,
 				todayBtn: 1,
@@ -53,14 +54,30 @@ define([
 				endDate: new Date(),
 				forceParse: 0,
 			}).unbind("changeDate").on('changeDate', function(e) {
+				$('#s_date_1 .placeholder').hide();
 				_this.logSearchs();
-			})
+			});
+			$('#s_date_2 input').datetimepicker({
+				language: 'zh-CN',
+				weekStart: 1,
+				todayBtn: 1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				minView: 2,
+				format: 'yyyy-mm-dd',
+				endDate: new Date(),
+				forceParse: 0,
+			}).unbind("changeDate").on('changeDate', function(e) {
+				$('#s_date_2 .placeholder').hide();
+				_this.logSearchs();
+			});
 		},
 		remove_date: function() {
-			$('#date1').val("");
+			$('#s_date_1 input').val("");
 		},
 		remove_date2: function() {
-			$('#date2').val("");
+			$('#s_date_2 input').val("");
 		},
 
 		//签章记录显示详细记录
@@ -119,15 +136,31 @@ define([
 			//console.log('签章状态：' + text);
 			_this.logSearchs();
 		},
-
+		//关键字搜索
+		keysearchs: function(event) {
+			if ($("#keyword").val() == "") {
+				bootbox.alert({ 
+					size: "small",
+					title: "提示",
+					message: "请输入文档名/印章名", 
+				  });
+				return false;
+			} else {
+				_this.logSearchs();
+			}
+		},
 		//数据搜索
 		logSearchs: function(data, pageNum, pageSize) {
 			var _this = this
 			pageNum = pageNum || 1;
 			pageSize = pageSize || 10;
-			if($("#date2").val() !== "" & $("#date2").val() < $("#date1").val()) {
-				alert("结束日期不能少于开始日期");
-				$("#date2").focus();
+			if($("#s_date_2 input").val() !== "" && $("#s_date_2 input").val() < $("#s_date_1 input").val()) {
+				bootbox.alert({ 
+					size: "small",
+					title: "提示",
+					message: "结束日期不能少于开始日期", 
+				  });
+				$("#s_date_2 input").focus();
 				return false;
 			}
 			var data = {
@@ -138,11 +171,11 @@ define([
 				"importName": $("#keyword").val(),
 				"operateStatus": $("#s_state").val(),
 				"signType": $("#s_type").val(),
-				"signTimeStart": $("#date1").val(),
-				"signTimeEnd": $("#date2").val(),
+				"signTimeStart": $("#s_date_1 input").val(),
+				"signTimeEnd": $("#s_date_2 input").val(),
 			};
 			if(!Boolean(d_PKSC7)) {
-				$("#keyword,#s_state,#s_type,#date1,#date2").val("");
+				$("#keyword,#s_state,#s_type,#s_date_1 input,#s_date_2 input").val("");
 				this.nosearch();
 				return false;
 			} else {
@@ -188,8 +221,8 @@ define([
 				"importName": $("#keyword").val(),
 				"operateStatus": $("#s_state").val(),
 				"signType": $("#s_type").val(),
-				"signTimeStart": $("#date1").val(),
-				"signTimeEnd": $("#date2").val(),
+				"signTimeStart": $("#s_date_1 input").val(),
+				"signTimeEnd": $("#s_date_2 input").val(),
 			};
 			service.commSignetLog(pageNum, pageSize, data).done(function(data) {
 				var logsObj;
@@ -239,8 +272,8 @@ define([
 				"importName": $("#keyword").val(),
 				"operateStatus": $("#s_state").val(),
 				"signType": $("#s_type").val(),
-				"signTimeStart": $("#date1").val(),
-				"signTimeEnd": $("#date2").val(),
+				"signTimeStart": $("#s_date_1 input").val(),
+				"signTimeEnd": $("#s_date_2 input").val(),
             }
 			this.logslist(obj, val)
 		},

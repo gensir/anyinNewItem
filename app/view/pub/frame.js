@@ -162,6 +162,7 @@ define(
                                             return false;
                                         };
                                         if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
+                                            $(_this).find(".btn2").attr("disabled",true).css('cursor','no-drop');
                                             var oid = ukeys.GetOid(selectedUkey);
                                             var esealCode = ukeys.esealCode($("#unlockCode").val(),selectedUkey)
                                             var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
@@ -189,6 +190,7 @@ define(
                                                     "PKSC7": PKSC7
                                                 };
                                                 service.commSignetLog(1, 1, data).done(function(data) {
+                                                    $(_this).find(".btn2").attr("disabled",false).css('cursor','default');
                                                     if (data.code == 0) {
                                                             //解密后的信息更改存储在cookie里，和登录信息保持一致，不然不退出关闭浏览器再次登录日志请求出错 /tan 2018-01-20
                                                             var Decrypt = {
