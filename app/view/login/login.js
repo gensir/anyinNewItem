@@ -106,7 +106,7 @@
                     esealCode: checkResult == true ? esealCode : "",
                     codeError: checkResult ? 0 : 1,
                     entryptCert: checkResult == true ? ukeys.dCertificate(selectedUkey) : "",
-                    keyType: checkResult == true ? keyType : "",
+                    keyType: keyType,
                     oid: oid,
                     enterpriseCode: ukeys.GetenterpriseCode(selectedUkey),
                     randomNum: randomNum,
