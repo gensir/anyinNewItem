@@ -97,4 +97,4 @@ nav .pagination>li>a, .pagination>li>span { padding: 4px 10px; color: #384a5c; l
 nav .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover { background-color: #02adff; border-color: #02adff; }
 nav .pagination>li:first-child>a, .pagination>li:first-child>span { margin-left: 0;  border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
 nav .pagination>li:last-child>a, .pagination>li:last-child>span { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
-body .modal-dialog { margin-top: 300px; }
+body .modal-dialog.modal-sm { margin-top: 300px; }
