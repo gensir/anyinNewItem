@@ -345,9 +345,62 @@ define([
                                                                 $(_this).find("#unlock-error").html("请在弹出的新窗口内更新证书，完成后请点击继续！");
                                                                 $(_this).find(".btn2").html("继续").show().attr("disabled", false);
                                                             }else if(ret.code == 40035){
-                                                                numInd = 8;
-                                                                $(_this).find("#unlock-error").html("请点击继续按钮，完成后续操作！");
-                                                                $(_this).find(".btn2").html("继续").show().attr("disabled", false);
+                                                                var selectedUkey = localStorage.selectedUkey;
+                                                                var oldDate = Number(/[0-9]{4}/.exec($(".validEnd .text").text())),
+                                                                    newDate = /[0-9]{4}/.exec(ukeys.endDate(0))[0];
+                                                                if (newDate <= oldDate) {
+                                                                    numInd = 0;
+                                //                                  $(_this).find(".btn2").hide();
+                                                                    $(_this).find(".bootbox-body").addClass("isreload").html("<div class='msg4'>证书时间未更新，电子印章续期失败！</div>");
+                                                                    return false;
+                                                                }
+                                                                $(_this).find(".btn2").attr("disabled", true);
+                                                                var certificateAssigned = ukeys.CertType(selectedUkey) - 0;
+                                                                var oid = ukeys.GetOid(selectedUkey);
+                                                                var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+                                                                var issuer = ukeys.getCertIssuer(selectedUkey).certCn;
+                                                                
+                                                                var certificateFirms = ukeys.certificateFirms(selectedUkey);
+                                                                var signCertificateSn = ukeys.getCertSignSN(selectedUkey);
+                                                                var encryptCertificateSn = ukeys.getCertEncSN(selectedUkey);
+                                                                var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
+                                                                var enterpriseName = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.username;
+                                                                realdata = {
+                                                                    "orderNo":orderNo,
+                                                                    "validStart": ukeys.startDate(selectedUkey),
+                                                                    "validEnd": ukeys.endDate(selectedUkey),
+                                                                    "esealCode": $(".esealCode .text").text(),
+                                                                    "oid": oid,
+                                                                    "businessType": "2",
+                                                                    "enterpriseCode": enterpriseCode,
+                                                                    "enterpriseName": enterpriseName,
+                                                                    "issuer": issuer,                             //数字证书颁发者
+                                                                    "certificateFirms": certificateFirms,                        //证书厂商
+                                                                    "certificateType": keyType,                                //证书类型 
+                                                                    "certificateAssigned": ukeys.CertType(selectedUkey) - 0,                     //数字证书归属者
+                                                                    "signCertificateSn": signCertificateSn,    //签名证书序列号
+                                                                    "encryptCertificateSn": encryptCertificateSn  //加密证书序列号
+                                                                };
+                                                                if (!realdata.certificateAssigned || !realdata.signCertificateSn || !realdata.encryptCertificateSn || !realdata.certificateFirms) {
+                                                                    $(_this).find(".btn2").hide();
+                                                                    $(_this).find(".bootbox-body").addClass("isreload").html(that.msg4).end().find(".msg4").text("缺少必填项,电子印章续期失败！");
+                                                                    return false;
+                                                                }
+                                                                service.write_cert_GDCA(realdata).done(function (res) {
+                                                                    if (res.code == 0) {
+                                                                        $(_this).find(".btn2").attr("disabled", false);
+                                                                        numInd = 3;
+                                                                        $(_this).find(".btn1").hide();
+                                                                        $(_this).find(".btn2").html("确定");
+                                                                        $(_this).find(".bootbox-body").html("<div class='msg4'>电子印章续期成功</div>");
+                                                                    } else {
+                                                                        $(_this).find(".btn2").attr("disabled", false);
+                                                                        // 如果回写DB接口失败，可再次直接在这步重新回写DB，没必要更新流程再跑一次。
+                                                                        numInd = 1
+                                                                        $(_this).find(".btn2").html("重试");
+                                                                        $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
+                                                                    }
+                                                                });
                                                             } else {
                                                                 numInd = 1;
                                                                 $(_this).find("#unlock-error").html(ret.msg);
@@ -567,7 +620,7 @@ define([
                                     } else {
                                         $(_this).find(".btn2").attr("disabled", false);
                                         // 如果回写DB接口失败，可再次直接在这步重新回写DB，没必要更新流程再跑一次。
-                                        numInd = 8
+                                        numInd = 1
                                         $(_this).find(".btn2").html("重试");
                                         $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em>" + res.msg + "</div>");
                                     }
