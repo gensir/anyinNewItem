@@ -5,7 +5,7 @@ define([
     "../../lib/ukeys",
     "text!../pub/tpl/dialog.html",
     "bootbox"
-], function(tpl, service, publicUtil, ukeys, dialogs, bootbox) {
+], function (tpl, service, publicUtil, ukeys, dialogs, bootbox) {
     var dialogs = $(dialogs);
     var GetQueryString = publicUtil.GetQueryString;
     var sendmsg = publicUtil.sendmsg;
@@ -15,16 +15,16 @@ define([
     var r_Oid, r_esealCode, r_keyType, r_certificateFirm, r_esealStatus;
     var main = Backbone.View.extend({
         el: '.contents',
-        initialize: function() {
+        initialize: function () {
             this.firmId = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId
             this.enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode
         },
-        render: function() {
+        render: function () {
             that = this;
             // this.$el.empty().html(template.compile(tpl)({}));
             this.listPage();
             if (!this.firmId && $.cookie('loginadmin') !== undefined) {
-                bootbox.alert("获取单位id异常，无权限访问", function() {
+                bootbox.alert("获取单位id异常，无权限访问", function () {
                     window.open('login.html', '_self');
                 })
                 return;
@@ -46,7 +46,7 @@ define([
             'click .pagination .index': 'currentPapge',
             'click #step': 'step'
         },
-        toggleList: function(event) {
+        toggleList: function (event) {
             var _this = event.currentTarget
             var ind = $(_this).parent(".list").index();
             $(".eseallist .list .toggle").slideUp();
@@ -57,7 +57,7 @@ define([
                 $(_this).addClass("nav_tac");
                 //$(_this).parent(".list").removeClass("listbl");
 
-                $(_this).next(".toggle").find(".tog_bot").click(function() {
+                $(_this).next(".toggle").find(".tog_bot").click(function () {
                     toggle.slideUp();
                     $(".nav").removeClass("nav_tac");
                     //$(_this).parent(".list").addClass("listbl");
@@ -68,7 +68,7 @@ define([
                 //$(_this).parent(".list").addClass("listbl");
             }
         },
-        toggleTab: function(event, license) {
+        toggleTab: function (event, license) {
             var _this = license || event.currentTarget;
             $(_this).addClass("active").siblings().removeClass("active");
             $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
@@ -86,13 +86,13 @@ define([
                 }
             }
         },
-        getSealName: function(target) {
+        getSealName: function (target) {
             var _this = target.currentTarget;
             var ind = $(_this).parents(".list").index();
             return this.model.get("tplhtml").loginlist[ind].esealFullName;
         },
         //关闭登录权限
-        shut: function(event) {
+        shut: function (event) {
             // function getName() {
             //     var _this = e.currentTarget;
             //     var ind = $(_this).parents(".list").index();
@@ -107,7 +107,7 @@ define([
             var Oid = $(event.currentTarget).data('oid');
             var dialogsText = dialogs.find(".closeAllow");
             //判断有几个可以登录的UKEY
-            service.islicenseLast({ enterpriseCode: this.enterpriseCode }).done(function(res) {
+            service.islicenseLast({ enterpriseCode: this.enterpriseCode }).done(function (res) {
                 _that.licenseLast = res.data
             })
             bootbox.dialog({
@@ -120,14 +120,14 @@ define([
                     cancel: {
                         label: "返回",
                         className: "btn1",
-                        callback: function(result) {
+                        callback: function (result) {
                             result.cancelable = false;
                         }
                     },
                     confirm: {
                         label: "继续",
                         className: (_that.licenseLast <= 1) ? "btn2 closeAllowbtn2" : "btn2",
-                        callback: function(event) {
+                        callback: function (event) {
                             numInd++;
                             var _this = this;
                             var msg3 = dialogsText.find(".msg3")[0].outerHTML
@@ -136,7 +136,7 @@ define([
                             if (numInd == 1) {
                                 $(this).find(".bootbox-body").html(msg4);
                                 $(this).find(".btn1,.btn2").hide();
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     if (ukeys.GetCertCount() == 0) {
                                         numInd = 0;
                                         $(_this).find(".bootbox-body").html(msg3);
@@ -146,7 +146,7 @@ define([
                                         $(_this).find(".bootbox-body").html(msg6);
                                         $(_this).find(".btn1,.btn2").show();
                                         $(_this).find(".btn2").show().html("继续");
-                                        $.each(ukeys.ukeyName(), function(ind, val) {
+                                        $.each(ukeys.ukeyName(), function (ind, val) {
                                             $(_this).find("#seleBook").append("<option>" + val + "</option>")
                                         })
                                     }
@@ -155,7 +155,7 @@ define([
                                 // 验证KEY密码
                                 var getPIN = $("#closeCode").val();
                                 var selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                if(!ukeys.GetCertCount()){
+                                if (!ukeys.GetCertCount()) {
                                     numInd = 1;
                                     $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
                                     $(_this).find(".btn2").show().html("重试");
@@ -173,7 +173,7 @@ define([
                                         "oid": Oid,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
-                                    service.loginLicense(data).done(function(res) {
+                                    service.loginLicense(data).done(function (res) {
                                         if (res.code == 0) {
                                             var success = dialogsText.find(".success").html("已成功关闭“" + listdata.esealFullName + "”的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
@@ -188,7 +188,7 @@ define([
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
                                         }
-                                        setTimeout(function() {
+                                        setTimeout(function () {
                                             window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
                                         }, 3000)
@@ -201,7 +201,7 @@ define([
                                         "oid": GetOid,
                                         "errorCode": 1
                                     };
-                                    service.checkPIN(data).done(function(res) {
+                                    service.checkPIN(data).done(function (res) {
                                         if (res.code == 1) {
                                             $(_this).find("#closeCode-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
@@ -217,7 +217,7 @@ define([
             return false;
         },
         //打开登录权限
-        open: function(event) {
+        open: function (event) {
             event.stopPropagation();
             if (!ukeys.issupport()) {
                 return false;
@@ -237,14 +237,14 @@ define([
                     cancel: {
                         label: "返回",
                         className: "btn1",
-                        callback: function(result) {
+                        callback: function (result) {
                             result.cancelable = false;
                         }
                     },
                     confirm: {
                         label: "继续",
                         className: "btn2",
-                        callback: function(event) {
+                        callback: function (event) {
                             numInd++;
                             var _this = this;
                             var msg3 = dialogsText.find(".msg3")[0].outerHTML
@@ -254,7 +254,7 @@ define([
                                 //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                                 $(this).find(".bootbox-body").html(msg4);
                                 $(this).find(".btn1,.btn2").hide();
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     if (ukeys.GetCertCount() == 0) {
                                         numInd = 0;
                                         $(_this).find(".bootbox-body").html(msg3);
@@ -264,7 +264,7 @@ define([
                                         $(_this).find(".bootbox-body").html(msg6);
                                         $(_this).find(".btn1,.btn2").show();
                                         $(_this).find(".btn2").show().html("继续");
-                                        $.each(ukeys.ukeyName(), function(ind, val) {
+                                        $.each(ukeys.ukeyName(), function (ind, val) {
                                             $(_this).find("#seleBook").append("<option>" + val + "</option>")
                                         })
 
@@ -274,7 +274,7 @@ define([
                                 // 验证KEY密码
                                 var getPIN = $("#openCode").val(),
                                     selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                if(!ukeys.GetCertCount()){
+                                if (!ukeys.GetCertCount()) {
                                     numInd = 1;
                                     $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
                                     $(_this).find(".btn2").show().html("重试");
@@ -292,7 +292,7 @@ define([
                                         "oid": Oid,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
-                                    service.loginLicense(data).done(function(res) {
+                                    service.loginLicense(data).done(function (res) {
                                         if (res.code == 0) {
                                             var success = dialogsText.find(".success").html("已成功开启“" + listdata.esealFullName + "”的登录权限").get(0).outerHTML
                                             $(_this).find(".bootbox-body").html(success);
@@ -302,7 +302,7 @@ define([
                                             $(_this).find(".bootbox-body").html(success);
                                             $(_this).find(".btn1,.btn2").hide();
                                         }
-                                        setTimeout(function() {
+                                        setTimeout(function () {
                                             window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
                                         }, 3000)
@@ -314,7 +314,7 @@ define([
                                         "oid": GetOid,
                                         "errorCode": 1
                                     };
-                                    service.checkPIN(data).done(function(res) {
+                                    service.checkPIN(data).done(function (res) {
                                         if (res.code == 1) {
                                             $(_this).find("#openCode-error").html(res.msg);
                                             $(_this).find(".btn2").show().html("重试");
@@ -330,7 +330,7 @@ define([
             return false;
         },
         //预挂失
-        loss: function(event) {
+        loss: function (event) {
             var _this = this;
             event.stopPropagation();
             var status = $(event.currentTarget).data('status');
@@ -350,30 +350,30 @@ define([
                         cancel: {
                             label: "返回",
                             className: "btn1",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
                         confirm: {
                             label: "继续",
                             className: "btn2 sureLoss",
-                            callback: function(event) {
+                            callback: function (event) {
                                 numInd++;
                                 var _this = this;
                                 if (numInd == 1) {
                                     var msg2 = dialogs.find(".msg2")[0].outerHTML;
                                     $(_this).find(".bootbox-body").html(msg2);
                                     sendmsg($(_this).find("#resend"));
-                                    service.getSMSVerifCode(mobile).done(function(res) {
+                                    service.getSMSVerifCode(mobile).done(function (res) {
                                         if (res.code == 0) {
                                             console.log("短信发送成功")
                                         } else {
                                             $("#codetip").html(res.msg).css({ "color": "red" });
                                         }
                                     })
-                                    $(_this).find("#resend").unbind().click(function(res) {
+                                    $(_this).find("#resend").unbind().click(function (res) {
                                         sendmsg($(_this).find("#resend"));
-                                        service.getSMSVerifCode(mobile).done(function(res) {
+                                        service.getSMSVerifCode(mobile).done(function (res) {
                                             if (res.code == 0) {
                                                 console.log("短信重新发送成功")
                                             } else {
@@ -387,7 +387,7 @@ define([
                                         numInd = 1;
                                         $("#codetip").html("请输入6位验证码").css({ "color": "red" });
                                         $(".checkSmsCode").css({ "border-color": "red" });
-                                        $(".checkSmsCode").keyup(function() {
+                                        $(".checkSmsCode").keyup(function () {
                                             $("#codetip").html("");
                                             $(".checkSmsCode").css({ "border-color": "#ccc" })
                                         });
@@ -404,7 +404,7 @@ define([
                                                 "mobilePhoneNo": mobile,
                                                 "smsCode": code
                                             }
-                                            service.updatePreLossStatus(data).done(function(res) {
+                                            service.updatePreLossStatus(data).done(function (res) {
                                                 if (res.code == 0) {
                                                     numInd = 2;
                                                     console.log("验证成功");
@@ -417,7 +417,7 @@ define([
                                                     $("#codetip").html("手机验证码错误或超时，请重新获取").css({ "color": "red" });
                                                     $(".checkSmsCode").css({ "border-color": "red" });
                                                     // $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>手机验证码错误！</span></div');
-                                                    $(".checkSmsCode").keyup(function() {
+                                                    $(".checkSmsCode").keyup(function () {
                                                         $("#codetip").html("");
                                                         $(".checkSmsCode").css({ "border-color": "#ccc" })
                                                     });
@@ -445,7 +445,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
@@ -454,7 +454,7 @@ define([
             }
         },
         //取消预挂失
-        cancelloss: function(event) {
+        cancelloss: function (event) {
             event.stopPropagation();
             var list_oid = $(event.currentTarget).data('oid');
             var esealCode = $(event.currentTarget).data('code');
@@ -473,123 +473,123 @@ define([
                     cancel: {
                         label: "取消",
                         className: "btn1",
-                        callback: function(result) {
+                        callback: function (result) {
                             result.cancelable = false;
                         }
                     },
                     confirm: {
                         label: "继续",
                         className: "btn2",
-                        callback: function(event) {
-                                numInd++;
-                                var _this = this;
-                                if (numInd == 1) {
-                                    var msg4 = dialogsText.find(".msg4")[0].outerHTML;
-                                    $(this).find(".bootbox-body").html(msg4);
-                                    $(this).find(".btn1,.btn2").hide();
-                                    setTimeout(function() {
-                                        if (!ukeys.ukeyName().length) {
-                                            numInd = 0;
-                                            var msg3 = dialogsText.find(".msg3")[0].outerHTML;
-                                            $(_this).find(".bootbox-body").html(msg3);
-                                            $(_this).find(".btn1,.btn2").show();
-                                            $(_this).find(".btn2").show().html("重试");
-                                        } else {
-                                            var msg6 = dialogsText.find(".msg6")[0].outerHTML;
-                                            $(_this).find(".bootbox-body").html(msg6);
-                                            $.each(ukeys.ukeyName(), function(ind,val) {
-                                                $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
-                                            });
-                                            $(_this).find(".btn1,.btn2").show();
-                                            $(_this).find(".btn2").show().html("确定");
-                                        }
-                                    }, 1000);
-                                } else if (numInd == 2) {
-                                    // 验证KEY密码
-                                    var selectedUkey = $("#seleBook option:selected").val();
-                                    var unlockCode = $("#unlockCode").val();
-                                    if (selectedUkey == "") {
-                                        numInd = 1;
-                                        $(_this).find("#seleBook-error").html("请选择一个证书");
-                                        $(_this).find(".btn2").show().html("确定");
-                                        $("#seleBook").change(function() {
-                                            $("#seleBook-error").html("");
-                                        });
-                                    } else if (unlockCode.length < 6) {
-                                        numInd = 1;
-                                        $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
-                                        $(_this).find(".btn2").show().html("确定");
-                                        $("#unlockCode").keyup(function() {
-                                            $("#unlock-error").html("");
-                                        });
+                        callback: function (event) {
+                            numInd++;
+                            var _this = this;
+                            if (numInd == 1) {
+                                var msg4 = dialogsText.find(".msg4")[0].outerHTML;
+                                $(this).find(".bootbox-body").html(msg4);
+                                $(this).find(".btn1,.btn2").hide();
+                                setTimeout(function () {
+                                    if (!ukeys.ukeyName().length) {
+                                        numInd = 0;
+                                        var msg3 = dialogsText.find(".msg3")[0].outerHTML;
+                                        $(_this).find(".bootbox-body").html(msg3);
+                                        $(_this).find(".btn1,.btn2").show();
+                                        $(_this).find(".btn2").show().html("重试");
                                     } else {
-                                        var selectedUkey = $("#seleBook option:selected").index() - 1;
-                                        var ukey_oid = ukeys.GetOid(selectedUkey);
-                                        console.log("证书标识：" + ukey_oid);
-                                        console.log("Ukey：" + selectedUkey);
-                                        if(!ukeys.GetCertCount()){
-                                            numInd = 1;
-                                            $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
-                                            $(_this).find(".btn2").show().html("重试");
-                                            return false;
-                                        };
-                                        if (ukey_oid != list_oid) {
-                                            numInd = 0;
-                                            // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });
-                                            $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "您选择的UKEY与印章不符，请更换UKEY后重试" + "</span></div>");
-                                            $(_this).find(".btn2").show().html("重试");
+                                        var msg6 = dialogsText.find(".msg6")[0].outerHTML;
+                                        $(_this).find(".bootbox-body").html(msg6);
+                                        $.each(ukeys.ukeyName(), function (ind, val) {
+                                            $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
+                                        });
+                                        $(_this).find(".btn1,.btn2").show();
+                                        $(_this).find(".btn2").show().html("确定");
+                                    }
+                                }, 1000);
+                            } else if (numInd == 2) {
+                                // 验证KEY密码
+                                var selectedUkey = $("#seleBook option:selected").val();
+                                var unlockCode = $("#unlockCode").val();
+                                if (selectedUkey == "") {
+                                    numInd = 1;
+                                    $(_this).find("#seleBook-error").html("请选择一个证书");
+                                    $(_this).find(".btn2").show().html("确定");
+                                    $("#seleBook").change(function () {
+                                        $("#seleBook-error").html("");
+                                    });
+                                } else if (unlockCode.length < 6) {
+                                    numInd = 1;
+                                    $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
+                                    $(_this).find(".btn2").show().html("确定");
+                                    $("#unlockCode").keyup(function () {
+                                        $("#unlock-error").html("");
+                                    });
+                                } else {
+                                    var selectedUkey = $("#seleBook option:selected").index() - 1;
+                                    var ukey_oid = ukeys.GetOid(selectedUkey);
+                                    console.log("证书标识：" + ukey_oid);
+                                    console.log("Ukey：" + selectedUkey);
+                                    if (!ukeys.GetCertCount()) {
+                                        numInd = 1;
+                                        $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                        $(_this).find(".btn2").show().html("重试");
+                                        return false;
+                                    };
+                                    if (ukey_oid != list_oid) {
+                                        numInd = 0;
+                                        // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });
+                                        $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "您选择的UKEY与印章不符，请更换UKEY后重试" + "</span></div>");
+                                        $(_this).find(".btn2").show().html("重试");
+                                    } else {
+                                        if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
+                                            var data = {
+                                                "esealCode": esealCode,
+                                                "oid": ukey_oid,
+                                                "enterpriseCode": enterpriseCode
+                                            };
+                                            service.updateEsealStatus(data).done(function (data) {
+                                                if (data.code == 0) {
+                                                    var success = dialogsText.find(".success").html("已成功取消“" + esealFullName + "”的预挂失").get(0).outerHTML;
+                                                    $(_this).find(".bootbox-body").html(success);
+                                                    $(_this).find(".btn1,.btn2").hide();
+                                                    setTimeout(
+                                                        function () {
+                                                            _this.modal("hide");
+                                                            location.reload();
+                                                        }, 3000);
+                                                } else {
+                                                    numInd = 0;
+                                                    $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + data.msg + "</span></div>");
+                                                    $(_this).find(".btn2").show().html("重试");
+                                                }
+                                            });
                                         } else {
-                                            if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
-                                                var data = {
-                                                    "esealCode": esealCode,
-                                                    "oid": ukey_oid,
-                                                    "enterpriseCode": enterpriseCode
-                                                };
-                                                service.updateEsealStatus(data).done(function(data) {
-                                                    if (data.code == 0) {
-                                                            var success = dialogsText.find(".success").html("已成功取消“" + esealFullName + "”的预挂失").get(0).outerHTML;
-                                                            $(_this).find(".bootbox-body").html(success);
-                                                            $(_this).find(".btn1,.btn2").hide();
-                                                            setTimeout(
-                                                                function() {
-                                                                    _this.modal("hide");
-                                                                    location.reload();
-                                                                },3000 );
-                                                        } else {
-                                                            numInd = 0;
-                                                            $(_this).find(".bootbox-body").html("<div class='msgcenter' style='font-size: 14px; white-space:nowrap;'><em></em><span>" + data.msg + "</span></div>");
-                                                            $(_this).find(".btn2").show().html("重试");
-                                                        }
-                                                    });
-                                            } else {
-                                                numInd = 1;
-                                                var GetOid = ukeys.GetOid(selectedUkey);
-                                                var data = {
-                                                    "oid": GetOid,
-                                                    "errorCode": 1
-                                                };
-                                                service.checkPIN(data).done(function(data) {
-                                                    if (data.code == 1) {
-                                                        $(_this).find("#unlock-error").html(data.msg);
-                                                        $(_this).find(".btn2").show().html("重试");
-                                                    }
-                                                    $("#unlockCode").change(function() {
-                                                        $("#unlock-error").html("");
-                                                    });
+                                            numInd = 1;
+                                            var GetOid = ukeys.GetOid(selectedUkey);
+                                            var data = {
+                                                "oid": GetOid,
+                                                "errorCode": 1
+                                            };
+                                            service.checkPIN(data).done(function (data) {
+                                                if (data.code == 1) {
+                                                    $(_this).find("#unlock-error").html(data.msg);
+                                                    $(_this).find(".btn2").show().html("重试");
+                                                }
+                                                $("#unlockCode").change(function () {
+                                                    $("#unlock-error").html("");
                                                 });
-                                            }
+                                            });
                                         }
                                     }
                                 }
-                                //this.modal('hide');
-                                return false;
+                            }
+                            //this.modal('hide');
+                            return false;
                         }
                     },
                 }
             })
         },
         //印章注销
-        logout: function() {
+        logout: function () {
             var numInd = this.model.get("numInd");
             var logoutEseal = dialogs.find(".logoutEseal")
             bootbox.dialog({
@@ -602,26 +602,26 @@ define([
                     cancel: {
                         label: "返回",
                         className: "btn1",
-                        callback: function(result) {
+                        callback: function (result) {
                             //result.cancelable = false;
                         }
                     },
                     confirm: {
                         label: "继续",
                         className: "btn2",
-                        callback: function(event) {
+                        callback: function (event) {
                             numInd++;
                             var _this = this;
                             if (true) {
                                 var msg1 = logoutEseal.find(".msg1")[0].outerHTML
                                 var msg2 = logoutEseal.find(".msg2")[0].outerHTML
-                                    // var msg3 = logoutEseal.find(".msg3")[0].outerHTML
+                                // var msg3 = logoutEseal.find(".msg3")[0].outerHTML
                                 var msg4 = logoutEseal.find(".msg4")[0].outerHTML
                                 var msg5 = logoutEseal.find(".msg5")[0].outerHTML
                                 var msg6 = logoutEseal.find(".msg6")[0].outerHTML
-                                    //var msg7 = logoutEseal.find(".msg7")[0].outerHTML
+                                //var msg7 = logoutEseal.find(".msg7")[0].outerHTML
                                 $(this).removeClass("bigLogout ")
-                                    //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
+                                //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
                                 $(this).find(".bootbox-body").html(msg2);
                                 // $(this).find(".btn1,.btn2").hide();
                                 if (numInd == 1) {
@@ -648,7 +648,7 @@ define([
                                     var msg6 = logoutEseal.find(".msg6")[0].outerHTML
                                     $(_this).find(".bootbox-body").html(msg6);
                                     $(_this).find(".btn1,.btn2").hide();
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         _this.modal('hide');
                                     }, 2000)
                                 }
@@ -663,7 +663,7 @@ define([
             return false;
         },
         //续费操作证书验证
-        renew: function(event) {
+        renew: function (event) {
             event.stopPropagation();
             var that = this;
             r_Oid = $(event.currentTarget).data('oid');
@@ -675,10 +675,10 @@ define([
             localStorage.u_certificateFirm = r_certificateFirm;
             var numInd = 0;
             var dialogsText = dialogs.find(".unlock");
-            
+
             //可续费状态数组
             var arr = new Array([1, 6, 14]);
-            Array.prototype.in_array = function(e) {
+            Array.prototype.in_array = function (e) {
                 var r = new RegExp(',' + e + ',');
                 return (r.test(',' + this.join(this.S) + ','));
             };
@@ -694,7 +694,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
@@ -713,7 +713,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
@@ -732,113 +732,113 @@ define([
                         cancel: {
                             label: "取消",
                             className: "btn1",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
                         confirm: {
                             label: "继续",
                             className: "btn2",
-                            callback: function(event) {
-                                    numInd++;
-                                    var _this = this;
-                                    if (numInd == 1) {
-                                        var msg4 = dialogsText.find(".msg4")[0].outerHTML;
-                                        $(this).find(".bootbox-body").html(msg4);
-                                        $(this).find(".btn1,.btn2").hide();
-                                        setTimeout(function() {
-                                            if (!ukeys.ukeyName().length) {
-                                                numInd = 0;
-                                                var msg3 = dialogsText.find(".msg3")[0].outerHTML;
-                                                $(_this).find(".bootbox-body").html(msg3);
-                                                $(_this).find(".btn1,.btn2").show();
-                                                $(_this).find(".btn2").show().html("重试");
-                                            } else {
-                                                var msg6 = dialogsText.find(".msg6")[0].outerHTML;
-                                                $(_this).find(".bootbox-body").html(msg6);
-                                                $.each(ukeys.ukeyName(), function(ind,val) {
-                                                    $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
-                                                });
-                                                $(_this).find(".btn1,.btn2").show();
-                                                $(_this).find(".btn2").show().html("确定");
-                                            }
-                                        }, 1000);
-                                    } else if (numInd == 2) {
-                                        // 验证KEY密码
-                                        var selectedUkey = $("#seleBook option:selected").val();
-                                        var unlockCode = $("#unlockCode").val();
-                                        if (selectedUkey == "") {
-                                            numInd = 1;
-                                            $(_this).find("#seleBook-error").html("请选择一个证书");
-                                            $(_this).find(".btn2").show().html("确定");
-                                            $("#seleBook").change(function() {
-                                                $("#seleBook-error").html("");
-                                            });
-                                        } else if (unlockCode.length < 6) {
-                                            numInd = 1;
-                                            $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
-                                            $(_this).find(".btn2").show().html("确定");
-                                            $("#unlockCode").keyup(function() {
-                                                $("#unlock-error").html("");
-                                            });
+                            callback: function (event) {
+                                numInd++;
+                                var _this = this;
+                                if (numInd == 1) {
+                                    var msg4 = dialogsText.find(".msg4")[0].outerHTML;
+                                    $(this).find(".bootbox-body").html(msg4);
+                                    $(this).find(".btn1,.btn2").hide();
+                                    setTimeout(function () {
+                                        if (!ukeys.ukeyName().length) {
+                                            numInd = 0;
+                                            var msg3 = dialogsText.find(".msg3")[0].outerHTML;
+                                            $(_this).find(".bootbox-body").html(msg3);
+                                            $(_this).find(".btn1,.btn2").show();
+                                            $(_this).find(".btn2").show().html("重试");
                                         } else {
-                                            var selectedUkey = $("#seleBook option:selected").index() - 1;
-                                            var ukey_oid = ukeys.GetOid(selectedUkey);
-                                            var ukey_certificateFirms = ukeys.certificateFirms(selectedUkey);
-                                            var ukey_keyType = ukeys.getCertType(selectedUkey) == "1" ? 1 : 2;
-                                            console.log("证书OID：" + ukey_oid);
-                                            console.log("caType：" + ukey_certificateFirms);
-                                            console.log("keyType" + ukey_keyType);
-                                            if(!ukeys.GetCertCount()){
-                                                numInd = 1;
-                                                $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
-                                                $(_this).find(".btn2").show().html("重试");
-                                                return false;
-                                            };
-                                            if (ukey_oid != r_Oid) {
-                                                numInd = 0;
-                                                // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });
-                                                $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "您选择的UKEY与印章不符，请更换UKEY后重试" + "</span></div>");
-                                                $(_this).find(".btn2").show().html("重试");
+                                            var msg6 = dialogsText.find(".msg6")[0].outerHTML;
+                                            $(_this).find(".bootbox-body").html(msg6);
+                                            $.each(ukeys.ukeyName(), function (ind, val) {
+                                                $("#seleBook").append("<Option value='ind'>" + val + "</Option>");
+                                            });
+                                            $(_this).find(".btn1,.btn2").show();
+                                            $(_this).find(".btn2").show().html("确定");
+                                        }
+                                    }, 1000);
+                                } else if (numInd == 2) {
+                                    // 验证KEY密码
+                                    var selectedUkey = $("#seleBook option:selected").val();
+                                    var unlockCode = $("#unlockCode").val();
+                                    if (selectedUkey == "") {
+                                        numInd = 1;
+                                        $(_this).find("#seleBook-error").html("请选择一个证书");
+                                        $(_this).find(".btn2").show().html("确定");
+                                        $("#seleBook").change(function () {
+                                            $("#seleBook-error").html("");
+                                        });
+                                    } else if (unlockCode.length < 6) {
+                                        numInd = 1;
+                                        $(_this).find("#unlock-error").html("请输入6位或6位以上pin码");
+                                        $(_this).find(".btn2").show().html("确定");
+                                        $("#unlockCode").keyup(function () {
+                                            $("#unlock-error").html("");
+                                        });
+                                    } else {
+                                        var selectedUkey = $("#seleBook option:selected").index() - 1;
+                                        var ukey_oid = ukeys.GetOid(selectedUkey);
+                                        var ukey_certificateFirms = ukeys.certificateFirms(selectedUkey);
+                                        var ukey_keyType = ukeys.getCertType(selectedUkey) == "1" ? 1 : 2;
+                                        console.log("证书OID：" + ukey_oid);
+                                        console.log("caType：" + ukey_certificateFirms);
+                                        console.log("keyType" + ukey_keyType);
+                                        if (!ukeys.GetCertCount()) {
+                                            numInd = 1;
+                                            $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
+                                            $(_this).find(".btn2").show().html("重试");
+                                            return false;
+                                        };
+                                        if (ukey_oid != r_Oid) {
+                                            numInd = 0;
+                                            // $(_this).find("#unlock-error").html("您选择的UKEY与印章不符，请更换UKEY后重试").css({ "color": "red" });
+                                            $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + "您选择的UKEY与印章不符，请更换UKEY后重试" + "</span></div>");
+                                            $(_this).find(".btn2").show().html("重试");
+                                        } else {
+                                            if (ukeys.PIN($("#unlockCode").val(), selectedUkey)) {
+                                                service.updata_ukeyType(r_esealCode, ukey_oid, ukey_certificateFirms, ukey_keyType).done(function (data) {
+                                                    if (data.code == 0) {
+                                                        $(_this).find(".bootbox-body").html("<div class='msgcenter'><span>您的证书校验成功，请重新进行续费操作！</span></div>");
+                                                        $(_this).find(".btn1,.btn2").hide();
+                                                        setTimeout(
+                                                            function () {
+                                                                _this.modal("hide");
+                                                                location.reload();
+                                                            }, 3000);
+                                                    } else {
+                                                        numInd = 0;
+                                                        $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + data.msg + "</span></div>");
+                                                        $(_this).find(".btn2").show().html("重试");
+                                                    }
+                                                });
                                             } else {
-                                                if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
-                                                    service.updata_ukeyType(r_esealCode,ukey_oid,ukey_certificateFirms,ukey_keyType).done(function(data) {
-                                                        if (data.code == 0) {
-                                                                $(_this).find(".bootbox-body").html("<div class='msgcenter'><span>您的证书校验成功，请重新进行续费操作！</span></div>");
-                                                                $(_this).find(".btn1,.btn2").hide();
-                                                                setTimeout(
-                                                                    function() {
-                                                                        _this.modal("hide");
-                                                                        location.reload();
-                                                                    },3000 );
-                                                            } else {
-                                                                numInd = 0;
-                                                                $(_this).find(".bootbox-body").html("<div class='msgcenter'><em></em><span>" + data.msg + "</span></div>");
-                                                                $(_this).find(".btn2").show().html("重试");
-                                                            }
-                                                        });
-                                                } else {
-                                                    numInd = 1;
-                                                    var GetOid = ukeys.GetOid(selectedUkey);
-                                                    var data = {
-                                                        "oid": GetOid,
-                                                        "errorCode": 1
-                                                    };
-                                                    service.checkPIN(data).done(function(data) {
-                                                        if (data.code == 1) {
-                                                            $(_this).find("#unlock-error").html(data.msg);
-                                                            $(_this).find(".btn2").show().html("重试");
-                                                        }
-                                                        $("#unlockCode").change(function() {
-                                                            $("#unlock-error").html("");
-                                                        });
+                                                numInd = 1;
+                                                var GetOid = ukeys.GetOid(selectedUkey);
+                                                var data = {
+                                                    "oid": GetOid,
+                                                    "errorCode": 1
+                                                };
+                                                service.checkPIN(data).done(function (data) {
+                                                    if (data.code == 1) {
+                                                        $(_this).find("#unlock-error").html(data.msg);
+                                                        $(_this).find(".btn2").show().html("重试");
+                                                    }
+                                                    $("#unlockCode").change(function () {
+                                                        $("#unlock-error").html("");
                                                     });
-                                                }
+                                                });
                                             }
                                         }
                                     }
-                                    //this.modal('hide');
-                                    return false;
+                                }
+                                //this.modal('hide');
+                                return false;
                             }
                         },
                     }
@@ -850,70 +850,68 @@ define([
                     "esealCode": r_esealCode,
                     "keyType": r_keyType,
                     "caType": r_certificateFirm
-
                 };
-                service.check_cert_valid(data).done(function(res) {
+                service.check_cert_valid(data).done(function (res) {
                     if (res.code == 0) {
                         var pointCode = res.data.pointCode;
                         console.log("pointCode:" + pointCode)
-                        that.certType_Status();
-//                      if (pointCode == 0) {
-//                          //只可进行2年有效期续期
-//                          console.log("可进行2年续期")
-//                          localStorage.rennw_year = 2;
-//                          that.certType_Status();
-//                      } else  if (pointCode == 1) {
-//                          //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
-//                          bootbox.dialog({
-//                              backdrop: true,
-//                              // closeButton: false,
-//                              className: "common",
-//                              title: "操作提示",
-//                              message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
-//                              buttons: {
-//                                  confirm: {
-//                                      label: "确定",
-//                                      className: "btn2",
-//                                      callback: function(result) {
-//                                          result.cancelable = false;
-//                                      }
-//                                  },
-//                              }
-//                          })
-//                          // setTimeout(function() {
-//                          //     bootbox.hideAll();
-//                          // }, 3000)
-//                          return false;
-//                      } else if (pointCode == 2) {
-//                          //只可进行2年有效期续期
-//                          console.log("可进行2年续期")
-//                          localStorage.rennw_year = 2;
-//                          that.certType_Status();
-//                      } else if (pointCode == 3 || pointCode == 4) {
-//                          //可进行2年、3年有效期续期
-//                          console.log("可进行2,3年续期")
-//                          localStorage.rennw_year = 3;
-//                          that.certType_Status();
-//                      } else if (pointCode == 5) {
-//                          //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
-//                          bootbox.dialog({
-//                              backdrop: true,
-//                              // closeButton: false,
-//                              className: "common",
-//                              title: "操作提示",
-//                              message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
-//                              buttons: {
-//                                  confirm: {
-//                                      label: "确定",
-//                                      className: "btn2",
-//                                      callback: function(result) {
-//                                          result.cancelable = false;
-//                                      }
-//                                  },
-//                              }
-//                          })
-//                          return false;
-//                      }
+                        if (pointCode == 0) {
+                            //只可进行2年有效期续期
+                            console.log("可进行2年续期")
+                            localStorage.rennw_year = 2;
+                            that.certType_Status();
+                        } else if (pointCode == 1) {
+                            //电子印章有效时长>730天，不可进行续期,弹出提示框“该电子印章有效时长大于两年，无需进行续期”，3s后隐藏
+                            bootbox.dialog({
+                                backdrop: true,
+                                // closeButton: false,
+                                className: "common",
+                                title: "操作提示",
+                                message: '<div class="msgcenter"><em></em><span>该电子印章有效时长大于两年，无需进行续期！</span></div',
+                                buttons: {
+                                    confirm: {
+                                        label: "确定",
+                                        className: "btn2",
+                                        callback: function (result) {
+                                            result.cancelable = false;
+                                        }
+                                    },
+                                }
+                            })
+                            // setTimeout(function() {
+                            //     bootbox.hideAll();
+                            // }, 3000)
+                            return false;
+                        } else if (pointCode == 2) {
+                            //只可进行2年有效期续期
+                            console.log("可进行2年续期")
+                            localStorage.rennw_year = 2;
+                            that.certType_Status();
+                        } else if (pointCode == 3 || pointCode == 4) {
+                            //可进行2年、3年有效期续期
+                            console.log("可进行2,3年续期")
+                            localStorage.rennw_year = 3;
+                            that.certType_Status();
+                        } else if (pointCode == 5) {
+                            //IYIN的NETCA电子印章有效时长<0，弹出提示框“该电子印章已过期，请前往电子印章受理门店办理续期业务”
+                            bootbox.dialog({
+                                backdrop: true,
+                                // closeButton: false,
+                                className: "common",
+                                title: "操作提示",
+                                message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
+                                buttons: {
+                                    confirm: {
+                                        label: "确定",
+                                        className: "btn2",
+                                        callback: function (result) {
+                                            result.cancelable = false;
+                                        }
+                                    },
+                                }
+                            })
+                            return false;
+                        }
                     } else {
                         bootbox.dialog({
                             backdrop: true,
@@ -925,7 +923,7 @@ define([
                                 confirm: {
                                     label: "确定",
                                     className: "btn2",
-                                    callback: function(result) {
+                                    callback: function (result) {
                                         result.cancelable = false;
                                     }
                                 },
@@ -937,7 +935,7 @@ define([
             }
         },
         //浏览器判断及跳转
-        certType_Status: function() {
+        certType_Status: function () {
             // // 安印的NETCA暂不开放续费
             // if (r_keyType == 2 && r_certificateFirm ==2) {
             //     bootbox.dialog({
@@ -970,7 +968,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
@@ -982,7 +980,7 @@ define([
             }
         },
         //更新证书提示
-        updata_key: function(event) {
+        updata_key: function (event) {
             event.stopPropagation();
             localStorage.u_keyType = $(event.currentTarget).data('type');
             localStorage.u_certificateFirm = $(event.currentTarget).data('cert');
@@ -997,7 +995,7 @@ define([
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
@@ -1007,13 +1005,13 @@ define([
             }
         },
         //印章管理列表
-        listPage: function(pageNum, pageSize) {
+        listPage: function (pageNum, pageSize) {
             pageNum = pageNum || 1;
             pageSize = pageSize || 10;
             var querydata = {
                 "enterpriseCode": this.enterpriseCode
             }
-            service.getEsealList(pageNum, pageSize, querydata).done(function(res) {
+            service.getEsealList(pageNum, pageSize, querydata).done(function (res) {
                 if (res.code != 0) {
                     var tempObj = {}
                 } else {
@@ -1047,13 +1045,13 @@ define([
             })
         },
         //权限管理列表
-        licenselist: function(pageNum, pageSize) {
+        licenselist: function (pageNum, pageSize) {
             var data = {
                 pageNum: pageNum || 1,
                 pageSize: pageSize || 10,
                 enterpriseCode: this.enterpriseCode
             }
-            service.licenselist(data.pageNum, data.pageSize, data).done(function(res) {
+            service.licenselist(data.pageNum, data.pageSize, data).done(function (res) {
                 if (res.code != 0) {
                     var tempObjs = {}
                 } else {
@@ -1085,7 +1083,7 @@ define([
             })
         },
         // 点击上一页、下一页
-        pagediv: function(val, totalPages) {
+        pagediv: function (val, totalPages) {
             if (val < 1) {
                 val = 1;
                 return;
@@ -1105,7 +1103,7 @@ define([
             }
         },
         //pagination
-        pagination: function(pageNumber, totalPages) {
+        pagination: function (pageNumber, totalPages) {
             $(".mainbody.active #pageLimit li.index").remove();
             var firstShowPage, maxShowPage = 5
             if (pageNumber <= 3) {
@@ -1138,21 +1136,21 @@ define([
             }
             this.active.addClass("active").siblings().removeClass("active")
         },
-        currentPapge: function(e) {
+        currentPapge: function (e) {
             this.active = $(e.currentTarget);
             var pageNum = this.active.find("a").text()
             this.pagediv(pageNum, this.model.get("totalPages"));
         },
-        PreviousPage: function() {
+        PreviousPage: function () {
             this.active = "";
             this.pagediv(1, this.model.get("totalPages"))
         },
-        NextPage: function(e) {
+        NextPage: function (e) {
             this.active = $(".mainbody.active #pageLimit .NextPage");
             console.log(this.model.get("totalPages"))
-            this.pagediv(this.model.get("totalPages"),this.model.get("totalPages"))
+            this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
         },
-        step: function() {
+        step: function () {
             localStorage.stepNum = "#step1"
         }
     });
