@@ -414,7 +414,7 @@ define([
                                                 } else {
                                                     numInd = 1;
                                                     console.log("验证失败");
-                                                    $("#codetip").html("手机验证码错误！").css({ "color": "red" });
+                                                    $("#codetip").html("手机验证码错误或超时，请重新获取").css({ "color": "red" });
                                                     $(".checkSmsCode").css({ "border-color": "red" });
                                                     // $(_this).find(".bootbox-body").html('<div class="msgcenter"><em></em><span>手机验证码错误！</span></div');
                                                     $(".checkSmsCode").keyup(function() {
@@ -425,11 +425,9 @@ define([
                                             })
                                         }
                                     }
-                                } else if (numInd == 3) {
-                                    _this.modal('hide');
-                                    location.reload();
                                 } else {
                                     _this.modal('hide');
+                                    location.reload();
                                 }
                                 return false;
                             }
