@@ -33,7 +33,7 @@
                                     <li class="nav3">{{value.createTime}}</li>
                                     <li class="nav4">{{value.validStart?value.validStart.substr(0,10):""}}{{value.validStart?" 至 "+value.validEnd.substr(0,10):""}}</li>
                                     <li class="nav5">
-                                    	{{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==14}}
+                                    	{{if value.esealStatus==1 || value.esealStatus==6}}
                                         <!-- <a class="renew" data-code="{{value.esealCode}}" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="admin.html#renew?esealcode={{value.esealCode}}&oid={{value.oid}}">续费</a> -->
                                         <a class="renew" data-code="{{value.esealCode}}" data-status="{{value.esealStatus}}" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-oid="{{value.oid}}" href="javascript:;">续费</a>
                                         {{/if}}

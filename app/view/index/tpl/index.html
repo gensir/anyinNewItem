@@ -83,7 +83,7 @@
                     <span class="name" title="{{value.esealFullName}}">{{value.esealFullName}}</span>
                     <span class="date" title="{{value.validEnd}}"></span>
                     <span class="operate">
-                        {{if value.esealStatus==1 || value.esealStatus==6 || value.esealStatus==14}}
+                        {{if value.esealStatus==1 || value.esealStatus==6}}
                         <a class="renew" data-type="{{value.keyType}}" data-cert="{{value.certificateFirm}}" data-status="{{value.esealStatus}}" data-code="{{value.esealCode}}" data-oid="{{value.oid}}" href="javascript:;">立即续费></a>
                         {{/if}}
                         {{if value.esealStatus==7}}
