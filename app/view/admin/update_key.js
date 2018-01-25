@@ -452,8 +452,8 @@ define([
                                                                 esealCode: $(".esealCode .text").text(),
                                                                 signCertContent: ukeys.getSignatureCert(selectedUkey),
                                                                 year: year,
-                                                                p10: p10 ? p10 : 'p10',
-                                                                symmAlgo: symmAlgo ? symmAlgo : 12345678,
+                                                                p10: p10 ? p10 : null,
+                                                                symmAlgo: symmAlgo ? symmAlgo : null,
                                                                 isChangeBody:isNeedChangeCert?1:0
                                                             };
                                                             service.getPlaintext(data).done(function (ret) {
@@ -476,7 +476,7 @@ define([
 	                                                                var p10 = jsonVal && netca.buildParamForRequestCa(jsonVal)["p10"];
 	                                                                var symmAlgo = netca.getSymmAlgo();
                                                         		}else{
-                                                        			var p10 = "p10",symmAlgo = 12345678;
+                                                        			var p10 = null,symmAlgo = null;
                                                         		}
                                                         	}else{
                                                         		bootbox.alert(ret.msg);
