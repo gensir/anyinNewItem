@@ -272,11 +272,12 @@ define([
 								console.log("订单支付成功，但是该订单客户不需要开发票！")
 							}
 							console.log("支付成功了！");
-							localStorage.removeItem("stepNum");
-							localStorage.removeItem("orderNo");
 							$(".closepayalert").trigger("click");
 							$(".bootbox-close-button").trigger("click");
 							$(".modal-backdrop").hide();
+							bootbox.hideAll();
+							localStorage.removeItem("stepNum");
+							localStorage.removeItem("orderNo");
 							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 						} else {
 							payOrderStatuNum++;
