@@ -206,13 +206,16 @@ define([
                 var tempObj;
                 if (res.code != 0) {
                     tempObj = {}
+                    _this.model.get("tplhtml").data = tempObj;
+                    _this.$el.html(template.compile(orderstpl)(_this.model.get("tplhtml")));
+                    $(".esealtab").append('<div class="listno">接口数据请求失败！</div>');
+                    $("nav").hide();
                 } else {
                     tempObj = res.data;
                     _this.model.set("totalPages", res.data.totalPages)
                     _this.model.get("tplhtml").data = tempObj;
                     _this.$el.html(template.compile(orderstpl)(_this.model.get("tplhtml")));
-                    _this.pagination(pageNum, res.data.totalPages)
-
+                    _this.pagination(pageNum, res.data.totalPages);
                     if (res.data.list.length == 0) {
                         $(".listResult").show();
                         $("nav").hide();
