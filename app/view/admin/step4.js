@@ -134,7 +134,8 @@ define([
 			}
 		},
 		submitStep4: function() {
-			console.log(step4Data);
+			console.log(step4Data.payType);
+			$(".account.fr").attr("disabled", true).css({'cursor':'no-drop','background': '#999999;'});
 			service.submitStep4(step4Data).done(function(res) {
 				if(res.data.invoice) {
 					serialNo = res.data.invoice.serialNo;
@@ -169,8 +170,9 @@ define([
 					cancel: {
 						label: "返回订单",
 						className: "btn1 closepayalert",
-						callback: function(result) {
+						callback: function (result) {
 							_this.stopCount();
+							$(".account.fr").attr("disabled", false).css({'cursor':'default','background': '#03adff;'});
 						}
 					}
 				}
@@ -210,18 +212,21 @@ define([
 				className: "alipayAlert",
 				closeButton: false,
 				message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
-				buttons: {}
+				buttons: {
+					cancel: {
+						label: "返回订单",
+						className: "btn1 closepayalert",
+						callback: function (result) {
+							_this.stopCount();
+							$(".account.fr").attr("disabled", false).css({'cursor':'default','background': '#03adff;'});
+						}
+					}
+				}
 			});
 			$("#aliiframe").attr("src", ifrSRC);
 			setTimeout(function() { _this.payOrderStatus() }, 3000);
 		},
 		payAlertPageYL: function(payDate, requestUrl) {
-			//  	var payDatexg="txnType="+payDate.txnType+"&frontUrl="+payDate.frontUrl+"&channelType="+payDate.channelType+
-			//  								"&currencyCode="+payDate.currencyCode+
-			//  								"&merId="+payDate.merId+"&txnSubType="+payDate.txnSubType+"&txnAmt="+payDate.txnAmt+"&version="+payDate.version+"&signMethod="+payDate.signMethod+
-			//  								"&backUrl="+payDate.backUrl+"&certId="+payDate.certId+"&encoding="+payDate.encoding+"&bizType="+payDate.bizType+"&signature="+payDate.signature+"&orderId="+payDate.orderId+
-			//  								"&accessType="+payDate.accessType+"&txnTime="+payDate.txnTime
-
 			var payDatexg = "";
 			for(var i in payDate) {
 				var payDateURI = encodeURIComponent(payDate[i]);
@@ -271,8 +276,8 @@ define([
 							localStorage.removeItem("orderNo");
 							$(".closepayalert").trigger("click");
 							$(".bootbox-close-button").trigger("click");
-							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 							$(".modal-backdrop").hide();
+							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 						} else {
 							payOrderStatuNum++;
 							timeID = setTimeout(function() { _this.payOrderStatus() }, 1000);

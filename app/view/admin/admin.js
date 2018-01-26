@@ -899,7 +899,7 @@ define([
                                 // closeButton: false,
                                 className: "common",
                                 title: "操作提示",
-                                message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往门店办理续期！</span></div',
+                                message: '<div class="msgcenter"><em></em><span>该电子印章已过期，请前往受理门店办理续期业务！</span></div',
                                 buttons: {
                                     confirm: {
                                         label: "确定",

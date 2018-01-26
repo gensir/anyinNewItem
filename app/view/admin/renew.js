@@ -5,9 +5,9 @@ define([
 	"../../../app/lib/service",
 	"../../lib/ukeys",
 	"bootbox"
-], function(tpl, primary, payment, service, ukeys, bootbox) {
+], function (tpl, primary, payment, service, ukeys, bootbox) {
 	var billType = 1;
-	var step4Data,that;
+	var step4Data, that;
 	var invoiceState;
 	var serialNo; //开发票需要用的序号
 	var payOrderStatuNum = 0;
@@ -16,13 +16,13 @@ define([
 	var timeID;
 	var main = Backbone.View.extend({
 		el: '.contents',
-		initialize:function() {},
+		initialize: function () { },
 		events: {
 			'click .pay div': 'paystyle',
 			'click .account': 'gopay',
 			'click input[type="radio"]': 'taxType',
 		},
-		render: function(query) {
+		render: function (query) {
 			that = this;
 			var payments = $(payment);
 			this.$el.html(tpl);
@@ -30,31 +30,31 @@ define([
 			$(".step4").append(payments.find(".gopay"));
 			this.$el.append(payments.find(".paymentStyle"));
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			localStorage.UesealCode=that.getUrlParam('esealcode');
-			localStorage.Uoid=that.getUrlParam('oid');
+			localStorage.UesealCode = that.getUrlParam('esealcode');
+			localStorage.Uoid = that.getUrlParam('oid');
 			this.renewInfo();
 		},
-		paystyle: function(event) {
+		paystyle: function (event) {
 			$('.pay .payway').removeClass("active")
 			var ele = event.target;
 			$(ele).addClass("active")
 			step4Data.payType = $(ele).attr("name");
 		},
-		taxType: function(event) {
+		taxType: function (event) {
 			billType = event.target.value;
 			$("#taxTips").text("");
-			if(billType == 1) {
+			if (billType == 1) {
 				$(".company").hide();
 				$(".person").show();
-			} else if(billType == 2) {
+			} else if (billType == 2) {
 				$(".company").show();
 				$(".person").hide();
-			} else if(billType == 3) {
+			} else if (billType == 3) {
 				$(".company").hide();
 				$(".person").hide();
 			}
 		},
-		gopay1: function() {
+		gopay1: function () {
 			bootbox.dialog({
 				className: "errorTips",
 				title: "<div class='title'>未实名提示</div>",
@@ -73,10 +73,10 @@ define([
 					confirm1: {
 						label: "继续该订单",
 						className: "btn2",
-						callback: function() {
+						callback: function () {
 							$(this).find(".message").html(123);
 							console.log($(this).find(".message").html())
-							if(i = 5) {
+							if (i = 5) {
 								return false;
 							}
 						}
@@ -84,32 +84,31 @@ define([
 					confirm2: {
 						label: "新建订单",
 						className: "btn3",
-						callback: function() {
+						callback: function () {
 							window.location.href = "order.html#step1";
 						}
 					}
 				}
 			})
 		},
-		getUrlParam: function(name) {
+		getUrlParam: function (name) {
 			var after = window.location.hash.split("?")[1];
-			if(after) {
+			if (after) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 				var r = after.match(reg);
-				if(r != null) {
+				if (r != null) {
 					return decodeURIComponent(r[2]);
 				} else {
 					return null;
 				}
 			}
 		},
-		renewInfo: function() {
+		renewInfo: function () {
 			var _this = this
 			var esealCode = that.getUrlParam('esealcode');
 			var oid = that.getUrlParam('oid');
 			var newOrderNo = that.getUrlParam('orderNo');
-			//var oid=localStorage.oid || this.getUrlParam('oid');
-			if(!Boolean(oid)) {
+			if (!Boolean(oid)) {
 				bootbox.dialog({
 					className: "errorTips",
 					title: '<div class="title">电子印章续费提示</div>',
@@ -130,15 +129,15 @@ define([
 				'esealCode': esealCode,
 				'oid': oid
 			};
-			service.getRenewInfo(data).done(function(res) {
+			service.getRenewInfo(data).done(function (res) {
 				var renewData;
-				if(res.code != 0) {
+				if (res.code != 0) {
 					renewData = {}
 					$(".mainTitle").append("(当前接口请求失败 | " + res.msg + ")");
 				} else {
 					renewData = res.data;
 					var cont = "";
-					for(var i = 0; i < res.data.length; i++) {
+					for (var i = 0; i < res.data.length; i++) {
 						cont += '<span class="time" name="' + i + '">' + res.data[i].productName + '</span>'
 					}
 					$("#validz").append(cont);
@@ -159,16 +158,16 @@ define([
 
 					$("#sumPrice_pay").text(res.data[0].totalPrice + "元")
 					$(".priceUnitNum").text(res.data[0].price);
-					$(".date1").text(res.data[0].validStart.substr(0,11)+"00:00:00");
-					$(".date2").text(res.data[0].validEnd.substr(0,11)+"00:00:00");
+					$(".date1").text(res.data[0].validStart.substr(0, 11) + "00:00:00");
+					$(".date2").text(res.data[0].validEnd.substr(0, 11) + "00:00:00");
 
-					$("#validz .time").click(function() {
+					$("#validz .time").click(function () {
 						var i = $(this).attr("name");
 						$("#validz .time").removeClass("active");
 						$(this).addClass("active");
 						$(".priceUnitNum").text(res.data[i].price);
-						$(".date1").text(res.data[i].validStart.substr(0,11)+"00:00:00");
-						$(".date2").text(res.data[i].validEnd.substr(0,11)+"00:00:00");
+						$(".date1").text(res.data[i].validStart.substr(0, 11) + "00:00:00");
+						$(".date2").text(res.data[i].validEnd.substr(0, 11) + "00:00:00");
 						$("#sumPrice_pay").text(res.data[i].totalPrice + "元")
 						step4Data.eseal = res.data[i]
 					});
@@ -177,7 +176,7 @@ define([
 			});
 
 		},
-		weixinPay: function(codeUrl, orderNo, orderAmount) {
+		weixinPay: function (codeUrl, orderNo, orderAmount) {
 			var wxQrImgSrc = service.qrCode(codeUrl);
 			bootbox.dialog({
 				className: "payTips",
@@ -189,28 +188,29 @@ define([
 					cancel: {
 						label: "返回订单",
 						className: "btn1 closepayalert",
-						callback: function(result) {
+						callback: function (result) {
 							that.stopCount();
+							$(".account.fr").attr("disabled", false).css({'cursor':'default','background': '#03adff;'});
 						}
 					}
 				}
 			});
-			setTimeout(function() { that.payOrderStatus() }, 3000);
+			setTimeout(function () { that.payOrderStatus() }, 3000);
 
 		},
-		paymentEnter: function(resPayType) {
+		paymentEnter: function (resPayType) {
 			var paymentData = {
 				"orderNo": orderNo,
 				"payType": resPayType
 			};
-			service.payment(paymentData).done(function(res) {
-				if(res.code == 0) { //支付宝或者银联请求成功
+			service.payment(paymentData).done(function (res) {
+				if (res.code == 0) { //支付宝或者银联请求成功
 					var requestUrl = res.data.requestUrl;
 					var payDate = res.data;
 					delete payDate["requestUrl"];
-					if(resPayType == 1) {
+					if (resPayType == 1) {
 						that.payAlertPageGo(payDate, requestUrl);
-					} else if(resPayType == 3) {
+					} else if (resPayType == 3) {
 						that.payAlertPageYL(payDate, requestUrl);
 					}
 					return;
@@ -220,9 +220,9 @@ define([
 			});
 
 		},
-		payAlertPageGo: function(payDate, requestUrl) {
+		payAlertPageGo: function (payDate, requestUrl) {
 			var temp = "";
-			for(var i in payDate) {
+			for (var i in payDate) {
 				temp += i + "=" + payDate[i] + "&";
 			}
 			var ifrSRC = requestUrl + "?" + temp;
@@ -230,31 +230,33 @@ define([
 				className: "alipayAlert",
 				closeButton: false,
 				message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
-				buttons: {}
+				buttons: {
+					cancel: {
+						label: "返回订单",
+						className: "btn1 closepayalert",
+						callback: function (result) {
+							that.stopCount();
+							$(".account.fr").attr("disabled", false).css({'cursor':'default','background': '#03adff;'});
+						}
+					}
+				}
 			});
 			$("#aliiframe").attr("src", ifrSRC);
-			setTimeout(function() { that.payOrderStatus() }, 3000);
+			setTimeout(function () { that.payOrderStatus() }, 3000);
 		},
-		payAlertPageYL: function(payDate, requestUrl) {
-			//  	var payDatexg="txnType="+payDate.txnType+"&frontUrl="+payDate.frontUrl+"&channelType="+payDate.channelType+
-			//  								"&currencyCode="+payDate.currencyCode+
-			//  								"&merId="+payDate.merId+"&txnSubType="+payDate.txnSubType+"&txnAmt="+payDate.txnAmt+"&version="+payDate.version+"&signMethod="+payDate.signMethod+
-			//  								"&backUrl="+payDate.backUrl+"&certId="+payDate.certId+"&encoding="+payDate.encoding+"&bizType="+payDate.bizType+"&signature="+payDate.signature+"&orderId="+payDate.orderId+
-			//  								"&accessType="+payDate.accessType+"&txnTime="+payDate.txnTime
-
+		payAlertPageYL: function (payDate, requestUrl) {
 			var payDatexg = "";
-			for(var i in payDate) {
+			for (var i in payDate) {
 				var payDateURI = encodeURIComponent(payDate[i]);
 				payDatexg += i + "=" + payDateURI + "&";
 			}
-			//var payDatexg="txnType=01&frontUrl=http%3A%2F%2F183.62.140.54%2Fyzpm_dev%2FMenuController%2Fapp.yzpm.signet.SignetRenewHistoryPanel&channelType=07&currencyCode=156&merId=898110273110130&txnSubType=01&txnAmt=1&version=5.0.0&signMethod=01&backUrl=http%3A%2F%2F183.62.140.54%2Feseal%2Forder%2FunionpayNotify&certId=69933950484&encoding=UTF-8&bizType=000201&signature=cPngSNV5q4jykBye77t5NX7LIu%2BXUxHBaqBx6nhbbdYrWiz%2FQA947PYaTfZZFPifqwWwnQcjfSX4IT7WoYLK93WgYrCHEBiJToeEjtxDLdjUUYwpgtzVabwt5oUj%2F7N%2Bjjobo4IZm%2F34OaYNXpGDhbeBAU49K14WNSKsEdsB6gho3s6xisHtGRurg6U%2FhXs1sfNPoAsmXpp%2FADL%2B79cxEpCmAdcjC7fNHezYLsq3k0ZLpD%2FYoPWm0WCig2W1lKIukSqLiAjJc5YejX6etWV%2B1kqKP92mb93cAi0xarg0NyBuISLVlT7Xy8LmuqOad3wrqnD9XHe2QmX3BzRTnZsFTg%3D%3D&orderId=OFFLINE08071088058690&txnTime=20170809113200&accessType=0"
-			service.unYlyl(payDatexg).done(function(res) {
+			service.unYlyl(payDatexg).done(function (res) {
 				that.createIframe(res);
-			}).fail(function(res) {
+			}).fail(function (res) {
 				console.log(res);
 			});
 		},
-		createIframe:function(content, addBody) {
+		createIframe: function (content, addBody) {
 			$(".payment-modal-content").empty();
 			$("#payment").modal("show");
 			var iframe = document.createElement('iframe');
@@ -265,38 +267,37 @@ define([
 			ifr.width = '100%';
 			ifr.style.display = 'inline';
 			var loadjs = content;
-			if(addBody) {
+			if (addBody) {
 				loadjs = '<html><body clss="body_iframe">' + loadjs + '</body></html>';
 			}
 			ifr_doc.open();
 			ifr_doc.write(loadjs);
 			ifr_doc.close();
-			setTimeout(function() { that.payOrderStatus() }, 3000); //支付弹框出现3秒后开始查询订单状态
+			setTimeout(function () { that.payOrderStatus() }, 3000); //支付弹框出现3秒后开始查询订单状态
 		},
 
-		payOrderStatus: function() {
-			if(payOrderStatuNum < 300) { //小于300次，就发送订单状态轮询支付请求.3秒一次
-				service.status(orderNo).done(function(res) {
+		payOrderStatus: function () {
+			if (payOrderStatuNum < 300) { //小于300次，就发送订单状态轮询支付请求.3秒一次
+				service.status(orderNo).done(function (res) {
 					console.log("现在是第" + payOrderStatuNum + "次请求订单状态，当前返回的结果为 : " + res.data.orderStatus);
-					if(res.code == 0) { //订单状态查询请求成功
-						if(res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
-                            //订单支付完成后去开具发票
-							if(serialNo) {
+					if (res.code == 0) { //订单状态查询请求成功
+						if (res.data.orderStatus == "SUCCESS" || res.data.orderStatus == "COMPLETED") {
+							//订单支付完成后去开具发票
+							if (serialNo) {
 								that.takeOrderInvoice(serialNo);
 							} else {
 								console.log("订单支付成功，但是该订单客户不需要开发票！")
-                            }
-                            console.log("支付成功了！");
-                            $(".closepayalert").trigger("click");
-                            $(".bootbox-close-button").trigger("click");
-                            window.open('admin.html#pay_ok?num=' + orderNo, '_self');
-                            $(".modal-backdrop").hide();
-                            localStorage.removeItem("stepNum");
-                            localStorage.removeItem("orderNo");
-
+							}
+							console.log("支付成功了！");
+							$(".closepayalert").trigger("click");
+							$(".bootbox-close-button").trigger("click");
+							$(".modal-backdrop").hide();
+							localStorage.removeItem("stepNum");
+							localStorage.removeItem("orderNo");
+							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
 						} else {
 							payOrderStatuNum++;
-							timeID = setTimeout(function() { that.payOrderStatus() }, 1000);
+							timeID = setTimeout(function () { that.payOrderStatus() }, 1000);
 						}
 						return;
 					} else { //订单状态查询请求失败
@@ -305,7 +306,7 @@ define([
 				});
 			} else { //大于300次，不发送订单状态轮询支付请求
 				console.log("五分钟内未付款成功，订单重置!");
-                bootbox.alert("五分钟内未付款成功，订单重置!")
+				bootbox.alert("五分钟内未付款成功，订单重置!")
 				location.reload();
 			}
 		},
@@ -313,25 +314,25 @@ define([
 		stopCount: function () {
 			clearTimeout(timeID);
 		},
-        //申请百望电子发票
-		takeOrderInvoice: function(serialNo) {
+		//申请百望电子发票
+		takeOrderInvoice: function (serialNo) {
 			var subData = {
 				"serialNo": serialNo
 			};
-			service.orderInvoice(subData).done(function(res) {
-				if(res.code == 0) {
+			service.orderInvoice(subData).done(function (res) {
+				if (res.code == 0) {
 					console.log("开发票成功！" + res.msg);
 				} else {
-                    bootbox.alert("由于数据原因，开具发票失败!" + res.msg)
-                    console.log("由于数据原因，开发票失败！" + res.msg);
-                    return false;
-                }
+					bootbox.alert("由于数据原因，开具发票失败!" + res.msg)
+					console.log("由于数据原因，开发票失败！" + res.msg);
+					return false;
+				}
 			});
 		},
 		//发票是否触发状态
-		invoiceStates: function(event) {
-			if(billType == 1) {
-				if($("#invoice_user").val() == "") {
+		invoiceStates: function (event) {
+			if (billType == 1) {
+				if ($("#invoice_user").val() == "") {
 					invoiceState = false;
 					$("#taxTips").text("请填写个人发票抬头！")
 				} else {
@@ -343,8 +344,8 @@ define([
 					step4Data.invoice = invoice1;
 					invoiceState = true;
 				}
-			} else if(billType == 2) {
-				if($("#invoice_company").val() == "" || $("#invoice_taxpayer").val().length != 15 && $("#invoice_taxpayer").val().length != 18 && $("#invoice_taxpayer").val().length != 20) {
+			} else if (billType == 2) {
+				if ($("#invoice_company").val() == "" || $("#invoice_taxpayer").val().length != 15 && $("#invoice_taxpayer").val().length != 18 && $("#invoice_taxpayer").val().length != 20) {
 					invoiceState = false;
 					$("#taxTips").text("请填写企业发票抬头，并输入15、18或20位的纳税人识别号！")
 				} else {
@@ -357,40 +358,40 @@ define([
 					step4Data.invoice = invoice2;
 					invoiceState = true;
 				}
-			} else if(billType == 3) {
+			} else if (billType == 3) {
 				invoiceState = true;
 			}
-			$(".taxBox input").keyup(function() {
+			$(".taxBox input").keyup(function () {
 				$("#taxTips").text("");
 			})
 		},
-		gopay: function() {
+		gopay: function (event) {
 			that.invoiceStates();
 			that.stopCount();
-			if(invoiceState == true) {
+			if (invoiceState == true) {
 				that.submitStep4();
 			} else {
 				console.log("请正确填写开具发票的信息！");
 			}
-
 		},
-		submitStep4: function() {
-			//console.log(step4Data);
-			service.orderRenew(step4Data).done(function(res) {
-                if (res.data.invoice) {
-                    serialNo = res.data.invoice.serialNo;
-                }
-				if(res.code == 0) {
+		submitStep4: function () {
+			console.log(step4Data.payType);
+			$(".account.fr").attr("disabled", true).css({'cursor':'no-drop','background': '#999999;'});
+			service.orderRenew(step4Data).done(function (res) {
+				if (res.data.invoice) {
+					serialNo = res.data.invoice.serialNo;
+				}
+				if (res.code == 0) {
 					//console.log(res.data.codeUrl);   	 //返回微信的连接codeUrl
 					var codeUrl = res.data.codeUrl;
 					orderNo = res.data.order.orderNo;
 					var orderAmount = res.data.order.orderAmount
 					var resPayType = step4Data.payType;
-					if(resPayType == 1) { //去处理支付宝的弹框
+					if (resPayType == 1) { //去处理支付宝的弹框
 						that.paymentEnter(resPayType);
-					} else if(resPayType == 2) { //去处理微信
+					} else if (resPayType == 2) { //去处理微信
 						that.weixinPay(codeUrl, orderNo, orderAmount);
-					} else if(resPayType == 3) { //去处理银联
+					} else if (resPayType == 3) { //去处理银联
 						that.paymentEnter(resPayType);
 					}
 					return;
