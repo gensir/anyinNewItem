@@ -434,7 +434,17 @@ define([
 					                                                    });
 					                                                    return;
 					                                                }
-                                                        			if (isNeedChangeCert && !(netca.delCert() == "deleSuccess")) {
+                                                        			var deleteCert = ret.data.bpmsResponse.deleteCert;
+                                                        			var deleteCertList = [];
+                                                        			for(var i=0;i<deleteCert.length;i++){
+                                                        			    var obj = {
+                                                        			        "issuer":deleteCert[i].issure,
+                                                        			        "sn":deleteCert[i].sn
+                                                        			        
+                                                        			    }
+                                                        			    deleteCertList[i] = obj;
+                                                        			}
+                                                        			if (isNeedChangeCert && !(netca.delCert(deleteCertList) == "deleSuccess")) {
 				                                                        //如果删除成功，就写入证书；
 				                                                        window.bootbox.alert({
 				                                                            size: "small",
@@ -531,10 +541,11 @@ define([
                                                         		}else{
                                                         			var p10 = null,symmAlgo = null;
                                                         		}
+                                                        		inRenewFun(p10, symmAlgo, isNeedChangeCert);
                                                         	}else{
-                                                        		bootbox.alert(ret.msg);
+                                                        	    $(_this).find(".btn2").show().html("重试").attr("disabled", false);
+                                                        	    $(_this).find("#unlock-error").html(ret.msg);
                                                         	}
-                                                            inRenewFun(p10, symmAlgo, isNeedChangeCert);
                                                         });
                                                         
                                                     // } else {

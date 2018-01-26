@@ -187,22 +187,13 @@ define([
     /**
      * 删除证书，建议从后台返回旧的签名和加密证书的颁发者和序列号
      */
-    function delCert() {
-        var cert = certUtil.getCertFromDeviceByCrypto(null, null, null, null, null);
-        var issuerHex = cert.GetStringInfo(53);
-        var certSn = cert.SerialNumber;
-
-        var deleteCertList = [{
-            "issuer": issuerHex,
-            "sn": certSn
-        }];
+    function delCert(deleteCertList) {
         var query = {
             deleteCertList: deleteCertList
         };
         //query 填null时显示所有证书
         var isSuccess = certUtil.delCertInDevice("-1", "-1", null); //query设置为空
         return isSuccess;
-
     }
 
     return {
