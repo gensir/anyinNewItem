@@ -13,6 +13,7 @@ define([
 	var payOrderStatuNum = 0;
 	var orderNo;
 	var template = require('art-template');
+	var timeID;
 	var main = Backbone.View.extend({
 		el: '.contents',
 		initialize:function() {},
@@ -78,7 +79,6 @@ define([
 							if(i = 5) {
 								return false;
 							}
-
 						}
 					},
 					confirm2: {
@@ -126,9 +126,6 @@ define([
 					}
 				});
 			}
-
-			//		var esealCode='4403048020393';	
-			//		var oid='999@5007ZZ1OTE0NDAzMDBNQTVFTkpFWTNR';
 			var data = {
 				'esealCode': esealCode,
 				'oid': oid
@@ -182,16 +179,19 @@ define([
 		},
 		weixinPay: function(codeUrl, orderNo, orderAmount) {
 			var wxQrImgSrc = service.qrCode(codeUrl);
-
 			bootbox.dialog({
 				className: "payTips",
+				closeButton: false,
 				title: '<div class="title"><p>订单编号：' + orderNo + '</p></div>',
 				message: '<div class="cont"><div class="wxpay01"></div><div class="money">应付金额：￥<span>' + orderAmount +
 					'</span></div><div class="clearboth"></div><div class="wx_l"><img class="ewm" src=".' + wxQrImgSrc + '"><div class="wx_l_d"></div> </div> <div class="wx_r"></div><div class="clearboth"></div></div>',
 				buttons: {
 					cancel: {
 						label: "返回订单",
-						className: "btn1 closepayalert"
+						className: "btn1 closepayalert",
+						callback: function(result) {
+							that.stopCount();
+						}
 					}
 				}
 			});
@@ -228,6 +228,7 @@ define([
 			var ifrSRC = requestUrl + "?" + temp;
 			bootbox.dialog({
 				className: "alipayAlert",
+				closeButton: false,
 				message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
 				buttons: {}
 			});
@@ -295,7 +296,7 @@ define([
 
 						} else {
 							payOrderStatuNum++;
-							setTimeout(function() { that.payOrderStatus() }, 1000);
+							timeID = setTimeout(function() { that.payOrderStatus() }, 1000);
 						}
 						return;
 					} else { //订单状态查询请求失败
@@ -307,7 +308,11 @@ define([
                 bootbox.alert("五分钟内未付款成功，订单重置!")
 				location.reload();
 			}
-        },
+		},
+		//清除轮询是否支付
+		stopCount: function () {
+			clearTimeout(timeID);
+		},
         //申请百望电子发票
 		takeOrderInvoice: function(serialNo) {
 			var subData = {
@@ -361,6 +366,7 @@ define([
 		},
 		gopay: function() {
 			that.invoiceStates();
+			that.stopCount();
 			if(invoiceState == true) {
 				that.submitStep4();
 			} else {
@@ -369,7 +375,7 @@ define([
 
 		},
 		submitStep4: function() {
-            //console.log(step4Data);
+			//console.log(step4Data);
 			service.orderRenew(step4Data).done(function(res) {
                 if (res.data.invoice) {
                     serialNo = res.data.invoice.serialNo;

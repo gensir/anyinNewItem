@@ -12,6 +12,7 @@ define([
 	var payOrderStatuNum=0;
 	var orderNo = localStorage.orderNo || "APPLY11071125189290";
 	var template = require('art-template');
+	var timeID;
 	var main = Backbone.View.extend({
 		el: '.contents',
 		initialize:function() {},
@@ -160,13 +161,17 @@ define([
 			var allAmount = step4Data.actualAmount; //orderNo
 			bootbox.dialog({
 				className: "payTips",
+				closeButton: false,
 				title: '<div class="title"><p>订单编号：' + orderNo + '</p></div>',
 				message: '<div class="cont"><div class="wxpay01"></div><div class="money">应付金额：￥<span>' + allAmount +
 					'</span></div><div class="clearboth"></div><div class="wx_l"><img class="ewm" src=".' + wxQrImgSrc + '"><div class="wx_l_d"></div> </div> <div class="wx_r"></div><div class="clearboth"></div></div>',
 				buttons: {
 					cancel: {
 						label: "返回订单",
-						className: "btn1 closepayalert"
+						className: "btn1 closepayalert",
+						callback: function(result) {
+							_this.stopCount();
+						}
 					}
 				}
 			});
@@ -203,6 +208,7 @@ define([
 			var ifrSRC = requestUrl + "?" + temp;
 			bootbox.dialog({
 				className: "alipayAlert",
+				closeButton: false,
 				message: '<iframe src="" width="1100" height="700" id="aliiframe"></iframe> ',
 				buttons: {}
 			});
@@ -269,7 +275,7 @@ define([
 							$(".modal-backdrop").hide();
 						} else {
 							payOrderStatuNum++;
-							setTimeout(function() { _this.payOrderStatus() }, 1000);
+							timeID = setTimeout(function() { _this.payOrderStatus() }, 1000);
 						}
 						return;
 					} else { //订单状态查询请求失败
@@ -281,6 +287,10 @@ define([
 				location.reload();
 				alert("五分钟内未付款成功，订单支付重置!");
 			}
+		},
+		//清除轮询是否支付
+		stopCount: function () {
+			clearTimeout(timeID);
 		},
 		takeOrderInvoice: function(serialNo) {
 			var subData = {
@@ -334,6 +344,7 @@ define([
 		gopay: function() {
 			//console.log(step4Data.actualAmount);
 			_this.invoiceStates();
+			_this.stopCount();
 			if(invoiceState == true) {
 				_this.submitStep4();
 			} else {
