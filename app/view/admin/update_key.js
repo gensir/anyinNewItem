@@ -440,8 +440,7 @@ define([
                                                         			for(var i=0;i<deleteCert.length;i++){
                                                         			    var obj = {
                                                         			        "issuer":deleteCert[i].issure,
-                                                        			        "sn":deleteCert[i].sn
-                                                        			        
+                                                        			        "sn":deleteCert[i].certSN
                                                         			    }
                                                         			    deleteCertList[i] = obj;
                                                         			}
@@ -499,10 +498,13 @@ define([
                                                                     if (correctData.certInfo[1].certContent == ukeys.getSignatureCert(selectedUkey ? selectedUkey : 0)) {
                                                                         netcaCallBack();
                                                                     }else{
-                                                                        netca.installCa(write_cert);
-                                                                        if (netca.installCa(write_cert) == "NetcaWriteSuccess") {
+                                                                        var flag = netca.installCa(write_cert);
+                                                                        if (flag== "NetcaWriteSuccess") {
                                                                             netcaCallBack()
-                                                                        } 
+                                                                        }else{
+                                                                            numInd = 1;
+                                                                            $(_this).find(".btn2").show().html("重试").attr("disabled", false);
+                                                                        }
                                                                     }
                                                         		}else{
                                                         		    $(_this).find(".btn2").hide();
