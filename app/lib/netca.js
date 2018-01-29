@@ -191,8 +191,8 @@ define([
         var query = {
             deleteCertList: deleteCertList
         };
-        //query 填null时显示所有证书
-        var isSuccess = certUtil.delCertInDevice("-1", "-1", null); //query设置为空
+        console.log(JSON.stringify(query));
+        var isSuccess = certUtil.delCertInDevice("-1", "-1", query); //query设置为空
         return isSuccess;
     }
 

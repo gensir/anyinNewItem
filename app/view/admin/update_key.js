@@ -436,6 +436,7 @@ define([
 					                                                }
                                                         			var deleteCert = ret.data.bpmsResponse.deleteCert;
                                                         			var deleteCertList = [];
+                                                        			console.log(deleteCert);
                                                         			for(var i=0;i<deleteCert.length;i++){
                                                         			    var obj = {
                                                         			        "issuer":deleteCert[i].issure,
@@ -444,6 +445,7 @@ define([
                                                         			    }
                                                         			    deleteCertList[i] = obj;
                                                         			}
+                                                        			console.log(deleteCertList);
                                                         			if (isNeedChangeCert && !(netca.delCert(deleteCertList) == "deleSuccess")) {
 				                                                        //如果删除成功，就写入证书；
 				                                                        window.bootbox.alert({

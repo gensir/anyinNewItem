@@ -200,10 +200,11 @@ define([],function() {
 			try {
 				var key = new ActiveXObject("NetcaRAClientCom.Key");
 				key.DelKeypair(operatorKeyType, operatorKeySN, query ? JSON.stringify(query) : 0);
+				//=======>>>>重新注册Key中所有的证书<<<============
+                key.RegCertificates();
 				return "deleSuccess"
 			} catch(e) {
 				console.log(e);
-				alert(e);
 				return;
 			}
 		}
