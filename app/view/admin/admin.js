@@ -677,7 +677,7 @@ define([
             var dialogsText = dialogs.find(".unlock");
 
             //可续费状态数组
-            var arr = new Array([1, 6, 14]);
+            var arr = new Array([1, 6]);
             Array.prototype.in_array = function (e) {
                 var r = new RegExp(',' + e + ',');
                 return (r.test(',' + this.join(this.S) + ','));
@@ -702,7 +702,7 @@ define([
                 })
                 return false;
             } else if (!arr.in_array(r_esealStatus)) {
-                //电子印章状态不为1, 6, 14不允许续费
+                //电子印章状态不为1, 6不允许续费
                 bootbox.dialog({
                     backdrop: true,
                     // closeButton: false,
