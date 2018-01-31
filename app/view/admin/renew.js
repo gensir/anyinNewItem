@@ -295,7 +295,7 @@ define([
 							bootbox.hideAll();
 							localStorage.removeItem("stepNum");
 							localStorage.removeItem("orderNo");
-							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
+							setTimeout( function(){ window.open('admin.html#pay_ok?num=' + orderNo, '_self') }, 600 );   //为防止意外,延迟半秒跳转页面
 						} else {
 							payOrderStatuNum++;
 							timeID = setTimeout(function () { that.payOrderStatus() }, 1000);

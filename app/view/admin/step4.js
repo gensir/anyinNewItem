@@ -277,8 +277,9 @@ define([
 							$(".modal-backdrop").hide();
 							bootbox.hideAll();
 							localStorage.removeItem("stepNum");
-							localStorage.removeItem("orderNo");
-							window.open('admin.html#pay_ok?num=' + orderNo, '_self');
+							localStorage.removeItem("orderNo");							
+							setTimeout( function(){ window.open('admin.html#pay_ok?num=' + orderNo, '_self') }, 600 );   //为防止意外,延迟半秒跳转页面
+
 						} else {
 							payOrderStatuNum++;
 							timeID = setTimeout(function() { _this.payOrderStatus() }, 1000);
