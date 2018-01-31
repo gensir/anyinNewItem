@@ -434,15 +434,17 @@ define([
 					                                                    });
 					                                                    return;
 					                                                }
-                                                        			var deleteCert = ret.data.bpmsResponse.deleteCert;
+                                                        			var deleteCert = ret.data.bpmsResponse.deleteCert||[];
                                                         			var deleteCertList = [];
                                                         			console.log(deleteCert);
-                                                        			for(var i=0;i<deleteCert.length;i++){
-                                                        			    var obj = {
-                                                        			        "issuer":deleteCert[i].issure,
-                                                        			        "sn":deleteCert[i].certSN
-                                                        			    }
-                                                        			    deleteCertList[i] = obj;
+                                                        			if(deleteCert&&deleteCert.length>0){
+                                                        			    for(var i=0;i<deleteCert.length;i++){
+                                                                            var obj = {
+                                                                                "issuer":deleteCert[i].issure,
+                                                                                "sn":deleteCert[i].certSN
+                                                                            }
+                                                                            deleteCertList[i] = obj;
+                                                                        }
                                                         			}
                                                         			console.log(deleteCertList);
                                                         			if (isNeedChangeCert && !(netca.delCert(deleteCertList) == "deleSuccess")) {
