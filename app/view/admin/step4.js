@@ -191,9 +191,9 @@ define([
 					var payDate = res.data;
 					delete payDate["requestUrl"];
 					if(resPayType == 1) {
-						_this.payAlertPageGo(payDate, requestUrl);
+						_this.aliPayAlert(payDate, requestUrl);  //去支付宝弹框
 					} else if(resPayType == 3) {
-						_this.payAlertPageYL(payDate, requestUrl);
+						_this.unionPayAlert(payDate, requestUrl);   //去银联弹框
 					}
 					return;
 				} else {
@@ -202,7 +202,7 @@ define([
 			});
 
 		},
-		payAlertPageGo: function(payDate, requestUrl) {
+		aliPayAlert: function(payDate, requestUrl) {
 			var temp = "";
 			for(var i in payDate) {
 				temp += i + "=" + payDate[i] + "&";
@@ -226,7 +226,7 @@ define([
 			$("#aliiframe").attr("src", ifrSRC);
 			setTimeout(function() { _this.payOrderStatus() }, 3000);
 		},
-		payAlertPageYL: function(payDate, requestUrl) {
+		unionPayAlert: function(payDate, requestUrl) {
 			var payDatexg = "";
 			for(var i in payDate) {
 				var payDateURI = encodeURIComponent(payDate[i]);
