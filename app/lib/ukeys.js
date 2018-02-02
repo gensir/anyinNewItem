@@ -150,7 +150,7 @@ define([
             }
         },
         CertType: function(selectukeyInd) {
-            //个人or机构==0
+            //key里边   个人or机构==0         返回出去1是机构   2是个人
             if (selectukeyInd !== undefined && this.issupport()) {
                 this.data.ukey.SetCertIndex(selectukeyInd);
                 return this.data.ukey.GetCertInfo(4)==0?"1":"2";
