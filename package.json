@@ -16,15 +16,8 @@
         "grunt-contrib-jshint": "~0.6.0",
         "grunt-contrib-sass": "^1.0.0",
         "grunt-contrib-uglify": "^3.1.0",
-        "grunt-contrib-watch": "^1.0.0",
-        "grunt-karma": "~0.6.2",
-        "grunt-karma-coveralls": "~2.0.2",
-        "grunt-processhtml": "~0.2.0",
-        "karma-coverage": "~0.1.0",
-        "karma-jasmine": "~0.1.0",
-        "karma-mocha": "~0.1.0",
-        "karma-phantomjs-launcher": "~0.1.0",
-        "karma-qunit": "~0.1.0"
+        "grunt-contrib-watch": "^1.0.0",        
+        "grunt-processhtml": "~0.2.0"
     },
     "peerDependencies": {
         "generator-bbb": "*",
