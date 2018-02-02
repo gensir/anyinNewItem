@@ -158,7 +158,7 @@ define(
                                         if(!ukeys.GetCertCount()){
                                             numInd = 1;
                                             $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
-                                            $(_this).find(".btn2").attr("disabled",true).css('cursor','no-drop').html("重试");
+                                            $(_this).find(".btn2").show().html("重试");
                                             return false;
                                         };
                                         if (ukeys.PIN($("#unlockCode").val(),selectedUkey)) {
@@ -181,7 +181,7 @@ define(
                                                 $(_this).find(".bootbox-body")
                                                     .html("<div class='msgcenter'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>"
                                                 );
-                                                $(_this).find(".btn2").show().html("重试");
+                                                $(_this).find(".btn2").attr("disabled",false).css('cursor','default').show().html("重试");
                                             } else {
                                                 var data = {
                                                     "esealCode": esealCode,
