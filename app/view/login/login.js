@@ -118,6 +118,11 @@
                     $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
                     return false;
                 };
+                if(ukeys.CertType(selectedUkey)!=0){   //个人or机构==0
+                    //暂不支持个人私章登录
+                    $.verify("ukeytip", "#seleBook", "目前私章登录未开放，请期待后续版本，谢谢");
+                    return false;
+                }
                 $("#ukeyLogin").attr("disabled",true).css('cursor','no-drop');
                 service.userlogin(data).done(function(data) {
                     $("#ukeyLogin").attr("disabled",false).css('cursor','default');
