@@ -55,7 +55,7 @@
                                                     <a href="//www.i-yin.net/index.php?c=article&a=type&tid=46" target="_blank">了解详情</a>
                                                 </p>
                                                 {{/if}}
-                                                {{if value.businessType==2}}
+                                                {{if value.businessType==2 && value.payType !=4}}
                                                 <p><span>续费后仍然提示已过期？</span>
                                                     <a id="update_key" data-type="{{value.mpEsealOrderExts[0] ? value.mpEsealOrderExts[0].keyType : ''}}" data-cert="{{value.mpEsealOrderExts[0] ? value.mpEsealOrderExts[0].certificateFirm : ''}}" data-status="{{value.commEsealInfos[0] && value.commEsealInfos[0].esealStatus != null ? value.commEsealInfos[0].esealStatus : ''}}" data-order="{{value.orderNo}}" data-code="{{value.mpEsealOrderExts[0] ? value.mpEsealOrderExts[0].esealCode : ''}}" data-oid="{{value.mpEsealOrderExts[0] ? value.mpEsealOrderExts[0].oid : ''}}" href="admin.html#update_key?orderNo={{value.orderNo}}&esealCode={{value.mpEsealOrderExts[0] && value.mpEsealOrderExts[0].esealCode}}&oid={{value.mpEsealOrderExts[0] && value.mpEsealOrderExts[0].oid}}&keytype={{value.mpEsealOrderExts[0] && value.mpEsealOrderExts[0].keyType}}">点击更新证书</a>
                                                 </p>
