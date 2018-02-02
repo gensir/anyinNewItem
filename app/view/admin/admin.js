@@ -105,6 +105,7 @@ define([
             var listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var Oid = $(event.currentTarget).data('oid');
+            var c_esealCode = $(event.currentTarget).data('code');
             var dialogsText = dialogs.find(".closeAllow");
             //判断有几个可以登录的UKEY
             service.islicenseLast({ enterpriseCode: this.enterpriseCode }).done(function (res) {
@@ -171,6 +172,7 @@ define([
                                     }
                                     var data = {
                                         "oid": Oid,
+                                        "esealCode": c_esealCode,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function (res) {
@@ -226,6 +228,7 @@ define([
             var listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
             var numInd = this.model.get("numInd");
             var Oid = $(event.currentTarget).data('oid');
+            var c_esealCode = $(event.currentTarget).data('code');
             var dialogsText = dialogs.find(".openAllow");
             bootbox.dialog({
                 backdrop: true,
@@ -290,6 +293,7 @@ define([
                                     }
                                     var data = {
                                         "oid": Oid,
+                                        "esealCode":c_esealCode,
                                         "keyStatus": Number(!(listdata.keyStatus))
                                     }
                                     service.loginLicense(data).done(function (res) {

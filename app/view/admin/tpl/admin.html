@@ -143,7 +143,7 @@
                                     <li class="nav1">{{value.esealFullName}}</li>
                                     <li class="nav2">{{value.esealCode}}</li>
                                     <li class="nav3">{{value.keyStatus==0?"关闭登录":"允许登录"}}</li>
-                                    <li data-oid="{{value.oid}}" class="nav4 shut">
+                                    <li data-oid="{{value.oid}}" data-code="{{value.esealCode}}" class="nav4 shut">
                                         <p class="opens {{value.keyStatus==0?'':'closee'}}">{{value.keyStatus==0?"开启登录权限":"关闭登录权限"}}</p>
                                     </li>
                                 </ul>
