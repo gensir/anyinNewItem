@@ -133,10 +133,10 @@ define([
             } else {
                 $(".checkPasswdErrTip").hide();
             }
-            if ($(".legalID").val() != IDNo) {
-                $(".legalIDErrTip").html("法人身份证号不正确").css({ "color": "red" });
-                return;
-            }
+//          if ($(".legalID").val() != IDNo) {
+//              $(".legalIDErrTip").html("法人身份证号不正确").css({ "color": "red" });
+//              return;
+//          }
             var mobile = $(".countPhone").val();
             var passwd = $(".passwd").val();
             var code = $(".countCode").val();

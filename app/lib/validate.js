@@ -60,7 +60,7 @@ define([], function() {
         log: {
             phone: "请输入正确的手机号码",
             passwd: "请输入8-20位字母、数字、特殊符号",
-            valId: "法人身份证号不正确",
+            valId: "法定代表人身份证号不能为空",
             space: "经办人姓名不能为空",
             idcode: "请输入18位社会信用代码",
             yzmcode: "请输入4位验证码",
@@ -87,8 +87,10 @@ define([], function() {
                 return reg.test($(ele).val());
             },
             valId: function(ele) {
-                var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                var reg = /\S/;
                 return reg.test($(ele).val());
+//              var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+//              return reg.test($(ele).val());
             },
             space: function(ele) {
                 var reg = /\S/;
