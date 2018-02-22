@@ -41,9 +41,9 @@
             },
             loginLog: function(res) {
                 var logObj = {
-                    mobile: res.data.user.mobile,
-                    esealCode: res.data.esealCode,
-                    enterpriseCode: res.data.user.enterpriseCode
+                    mobile: res.data && res.data.user && res.data.user.mobile,
+                    esealCode: res.data && res.data.esealCode,
+                    enterpriseCode: res.data && ((res.data.user && res.data.user.enterpriseCode)||res.data.enterpriseCode)
                 }
                 service.login_operate_log(logObj).done(function(ret) {
                     if (ret.code == 0) {
@@ -211,7 +211,7 @@
                             });
                             return;
                         } else if (data.data.pointCode == 102) {
-                            _this.loginLog(data);
+                            that.loginLog(data);
                             $.cookie("loginadmin", JSON.stringify(data.data));
                             var dialog = bootbox.dialog({
                                 backdrop: true,
@@ -274,7 +274,7 @@
                         } else if (data.data.pointCode == 106) {
                             localStorage.ODCoid = oid;
                         }
-                        _this.loginLog(data);
+                        that.loginLog(data);
                         $.cookie("loginadmin", JSON.stringify(data.data));
                         window.open("index.html", "_self");
                     } else if (data.code == 4) {
@@ -288,7 +288,7 @@
 
             },
             phoneLogin: function(event, itemEle) {
-                var _this=this;
+                var _this = this;
                 // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
                 this.model.set({
                     clickEle: itemEle || $(event.target).data("id")
