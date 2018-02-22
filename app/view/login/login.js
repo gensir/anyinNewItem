@@ -39,6 +39,20 @@
                 that.toggleTab();
                 placeholder();
             },
+            loginLog: function(res) {
+                var logObj = {
+                    mobile: res.data.user.mobile,
+                    esealCode: res.data.esealCode,
+                    enterpriseCode: res.data.user.enterpriseCode
+                }
+                service.login_operate_log(logObj).done(function(ret) {
+                    if (ret.code == 0) {
+                        console.log("登录日志记录成功");
+                    } else {
+                        console.log("登录日志记录失败");
+                    }
+                })
+            },
             ukeyKeyup: function(event) {
                 var event = event || window.event;
                 var keyCode = event.keyCode || event.which; // 按键的keyCode
@@ -65,7 +79,7 @@
                 window.open("register.html#step1", "_self");
             },
             ukeyLogin: function(event, itemEle) {
-                if(!ukeys.GetCertCount()){
+                if (!ukeys.GetCertCount()) {
                     $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
                     return;
                 }
@@ -94,12 +108,12 @@
                 //     $.verify("ukeytip", "#seleBook", "数字签名失败，请确定证书是否过期，请用企业用户登录续费。");
                 //     return;
                 // }else 
-                if(checkResult && !oid ){
+                if (checkResult && !oid) {
                     $.verify("ukeytip", "#seleBook", "登录失败，oid不能为空");
                     return;
-                }else if(checkResult&& !randomNum){
+                } else if (checkResult && !randomNum) {
                     $.verify("ukeytip", "#seleBook", "登录失败，randomNum不能为空");
-                    return;                    
+                    return;
                 }
                 // localStorage.publicKey = ukeys.dCertPublicKey(selectedUkey);
                 var data = {
@@ -114,18 +128,18 @@
                     signature: PKSC7,
                     signCertificateSn: ukeys.getCertSignSN(selectedUkey)
                 };
-                if(!ukeys.GetCertCount()){
+                if (!ukeys.GetCertCount()) {
                     $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
                     return false;
                 };
-                if(ukeys.CertType(selectedUkey)!=1){   //返回出去1是机构   2是个人
+                if (ukeys.CertType(selectedUkey) != 1) { //返回出去1是机构   2是个人
                     //暂不支持个人私章登录
                     $.verify("ukeytip", "#seleBook", "目前私章登录未开放，请期待后续版本，谢谢");
                     return false;
                 }
-                $("#ukeyLogin").attr("disabled",true).css('cursor','no-drop');
+                $("#ukeyLogin").attr("disabled", true).css('cursor', 'no-drop');
                 service.userlogin(data).done(function(data) {
-                    $("#ukeyLogin").attr("disabled",false).css('cursor','default');
+                    $("#ukeyLogin").attr("disabled", false).css('cursor', 'default');
                     if (!data.msg && data.code != 0) {
                         $.verify("ukeytip", "#seleBook", "您输入的用户名或密码错误");
                         return false;
@@ -189,7 +203,7 @@
                                             var l_esealcode = data.data.esealCode;
                                             var l_oid = data.data.oid;
                                             var l_keytype = keyType;
-                                            window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid +"&keyType=" + l_keytype, "_self");
+                                            window.open("admin.html#update_key?esealcode=" + l_esealcode + "&oid=" + l_oid + "&keyType=" + l_keytype, "_self");
                                             return false;
                                         }
                                     }
@@ -197,6 +211,7 @@
                             });
                             return;
                         } else if (data.data.pointCode == 102) {
+                            _this.loginLog(data);
                             $.cookie("loginadmin", JSON.stringify(data.data));
                             var dialog = bootbox.dialog({
                                 backdrop: true,
@@ -259,6 +274,7 @@
                         } else if (data.data.pointCode == 106) {
                             localStorage.ODCoid = oid;
                         }
+                        _this.loginLog(data);
                         $.cookie("loginadmin", JSON.stringify(data.data));
                         window.open("index.html", "_self");
                     } else if (data.code == 4) {
@@ -272,6 +288,7 @@
 
             },
             phoneLogin: function(event, itemEle) {
+                var _this=this;
                 // this.model.set({ 'pinwdError': this.$el.find("#pinwd").val(), validate: true });
                 this.model.set({
                     clickEle: itemEle || $(event.target).data("id")
@@ -280,7 +297,7 @@
                 if (isValid) {
                     return;
                 }
-                $("#phoneLogin").attr("disabled",true).css('cursor','no-drop');
+                $("#phoneLogin").attr("disabled", true).css('cursor', 'no-drop');
                 var data = {
                     mobile: $("#userName").val() || "13527761888,13926993742",
                     password: $("#passwd").val() || "123456",
@@ -288,12 +305,13 @@
                     loginType: 1
                 };
                 service.userlogin(data).done(function(data) {
-                    $("#phoneLogin").attr("disabled",false).css('cursor','default');
+                    $("#phoneLogin").attr("disabled", false).css('cursor', 'default');
                     if (!data.msg && data.code != 0) {
                         $.verify("phone", "#userName", "您输入的用户名或密码错误");
                         return;
                     }
                     if (data.code === 0) {
+                        _this.loginLog(data);
                         $.cookie("loginadmin", JSON.stringify(data.data));
                         window.location.href = "index.html";
                     } else if (data.code == "100") {
