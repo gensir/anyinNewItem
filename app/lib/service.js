@@ -367,7 +367,7 @@
 		        return this.ajaxCall({ url: domain + basemp + "signer/renew?esealCode=" + esealCode + "&oid=" + oid  + "&caType=" + caType + "&mediumType=" + mediumType}, "put");
             },
             login_operate_log:function(data) { //登录日志接口;
-                return this.ajaxCall({ url: domain + basemp + "common/login_operate_log", data: data }, 'get')
+                return this.ajaxCall({ url: domain + basemp + "common/login_operate_log", data: data,async:false }, 'get')
             }
         }
     return allFun;
