@@ -176,7 +176,17 @@ define(
                                             console.log("随机码：" + randomNum)
                                             // console.log("签名：\n" + PKSC7)
                                             // document.write("获取客户端数字签名：\n" + PKSC7);
-                                            if (!Boolean(PKSC7)) {
+                                            
+                                            //增加UKEY是否过期判断
+                                            var keyendDate = new Date(ukeys.endDate(selectedUkey).replace(/-/g, "/"));
+                                            var newData = new Date();
+                                            if (newData.getTime() > keyendDate.getTime()) {
+                                                numInd = 0;
+                                                $(_this).find(".bootbox-body")
+                                                    .html("<div class='msgcenter'><em></em><span>" + "当前UKEY已过期无法解密，请插入有效电子印章后重试！" + "</span></div>"
+                                                );
+                                                $(_this).find(".btn2").attr("disabled",false).css('cursor','default').show().html("重试");
+                                            } else if (!Boolean(PKSC7)) {
                                                 numInd = 0;
                                                 $(_this).find(".bootbox-body")
                                                     .html("<div class='msgcenter'><em></em><span>" + "无法获取证书签名，解密失败！" + "</span></div>"
