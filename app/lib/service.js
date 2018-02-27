@@ -365,7 +365,10 @@
 		    //前端读UKEY更新印章管理列表的UKEY类型 
 		    updata_ukeyType:function(esealCode,oid,caType,mediumType) {
 		        return this.ajaxCall({ url: domain + basemp + "signer/renew?esealCode=" + esealCode + "&oid=" + oid  + "&caType=" + caType + "&mediumType=" + mediumType}, "put");
-		    },
+            },
+            login_operate_log:function(data) { //登录日志接口;
+                return this.ajaxCall({ url: domain + basemp + "common/login_operate_log", data: data,async:false }, 'get')
+            }
         }
     return allFun;
 });
