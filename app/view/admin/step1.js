@@ -202,7 +202,8 @@ define([
 					for(var i = 0; i < sealstyle.length; i++) {
 						for(var j = 0; j < localSeal.length; j++) {
 							if(sealstyle[i] == localSeal[j].esealCode) {
-								localSeal[j].keyType = 2
+								localSeal[j].keyType = 2;
+								localSeal[j].caType=localStorage.caType;
 								sealList.push(localSeal[j]);
 							}
 						}
@@ -213,6 +214,7 @@ define([
 					for(var j = 0; j < localSeal.length; j++) {
 						if(sealstyle1[0] == localSeal[j].esealCode) {
 							localSeal[j].keyType = 1;
+							localSeal[j].caType=localStorage.caType;
 							localSeal[j].oid = localStorage.ODCoid;
 							sealList.push(localSeal[j]);
 						}

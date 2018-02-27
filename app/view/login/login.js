@@ -97,6 +97,7 @@
                 }
                 var checkResult = ukeys.PIN($("#pinwd").val(), selectedUkey);
                 var keyType = ukeys.getCertType(selectedUkey) == 1 ? 1 : 2;
+                localStorage.caType = ukeys.certificateFirms(selectedUkey);
                 var oid = ukeys.GetOid(selectedUkey);
                 var esealCode = ukeys.esealCode($("#pinwd").val(), selectedUkey);
                 var randomNumKey = keyType == 1 ? oid : esealCode;
