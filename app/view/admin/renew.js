@@ -3,9 +3,10 @@ define([
 	"text!../pub/tpl/footer.html",
 	"text!./tpl/payment.html",
 	"../../../app/lib/service",
+    "../../lib/public",
 	"../../lib/ukeys",
 	"bootbox"
-], function (tpl, primary, payment, service, ukeys, bootbox) {
+], function (tpl, primary, payment, service, public, ukeys, bootbox) {
 	var billType = 1;
 	var step4Data, that;
 	var invoiceState;
@@ -33,6 +34,7 @@ define([
 			localStorage.UesealCode = that.getUrlParam('esealcode');
 			localStorage.Uoid = that.getUrlParam('oid');
 			this.renewInfo();
+            public.placeholder();
 		},
 		paystyle: function (event) {
 			$('.pay .payway').removeClass("active")

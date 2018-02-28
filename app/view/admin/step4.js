@@ -3,8 +3,9 @@ define([
 	"text!./tpl/payment.html",
 	"../../lib/ukeys",
 	"../../../app/lib/service",
+    "../../lib/public",
 	"bootbox"
-], function(adminstep4,payment,ukeys, service, bootbox) {
+], function(adminstep4,payment,ukeys, service, public, bootbox) {
 	var billType=1;
 	var step4Data,_this;
 	var invoiceState,validStart,validEnd,esealCode;
@@ -35,6 +36,7 @@ define([
 			this.$el.append(payments.find(".paymentStyle"));
 //			document.body.scrollTop = document.documentElement.scrollTop = 0;
 			this.getOrderInfo();
+            public.placeholder();
 		},
 		//保留小数点后两位
 		toDecimal: function(x) {       var f = parseFloat(x);       if(isNaN(f)) {         return 0;       }       f = Math.round(x * 100) / 100;       return f;     },

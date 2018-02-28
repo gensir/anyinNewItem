@@ -25,12 +25,12 @@
 				<div class="company">
 					<label class="col-sm-2 control-label"></label>
 					<div class="col-sm-4">
-						<input type="text" id="invoice_company" placeholder="发票抬头填写企业名称" class="form-control countCode fl" maxlength="39"> 
-						<input type="text" id="invoice_taxpayer" placeholder="请填写纳税人识别号" class="form-control countCode fl" maxlength="20">
+						<div style="height:36px; margin-bottom: 15px;"><input type="text" id="invoice_company" placeholder="发票抬头填写企业名称" class="form-control countCode fl" maxlength="39"></div>
+						<div style="height:36px"><input type="text" id="invoice_taxpayer" placeholder="请填写纳税人识别号" class="form-control countCode fl" maxlength="20"></div>
 					</div>
 				</div>
 				<div class="taxTips" id="taxTips">
-							<!--请输入15、18或20位的纳税人识别号！-->
+					<!--请输入15、18或20位的纳税人识别号！-->
 				</div>
 				<!--<div class="col-sm-3 legalIDErrTip errTip">法人身份证号不正确</div>-->
 			</div>
@@ -125,11 +125,12 @@
 				display: none;
 			}
 			.step4 form .person input{
-				margin-bottom: 15px;
+				/* margin-bottom: 15px; */
 			}			
 			.step4 form .company input{
-				margin-bottom: 15px;
+				/* margin-bottom: 15px; */
 			}
+			.placeholder { line-height: 34px; }
 			.step4 form .taxTips{
 				color: red;
 				clear: both;
