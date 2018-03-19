@@ -127,7 +127,8 @@
                     enterpriseCode: ukeys.GetenterpriseCode(selectedUkey),
                     randomNum: randomNum,
                     signature: PKSC7,
-                    signCertificateSn: ukeys.getCertSignSN(selectedUkey)
+                    signCertificateSn: ukeys.getCertSignSN(selectedUkey),
+                    belongTo:1
                 };
                 if (!ukeys.GetCertCount()) {
                     $.verify("ukeytip", "#seleBook", "未检测到ukey,请插入ukey后重试");
@@ -303,7 +304,8 @@
                     mobile: $("#userName").val() || "13527761888,13926993742",
                     password: $("#passwd").val() || "123456",
                     captcha: "jskx",
-                    loginType: 1
+                    loginType: 1,
+                    belongTo:1
                 };
                 service.userlogin(data).done(function(data) {
                     $("#phoneLogin").attr("disabled", false).css('cursor', 'default');
