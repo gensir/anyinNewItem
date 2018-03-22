@@ -201,7 +201,7 @@ define([
         //获取证书厂商
         certificateFirms: function(selectukeyInd){
         	if (selectukeyInd !== undefined && this.issupport()) {
-//              this.data.ukey.SetCertIndex(selectukeyInd);
+                this.data.ukey.SetCertIndex(selectukeyInd);
 //              var arrKeyOEM = new Array("GDCA","NETCA","SZCA","BJCA","未知");
 //				1.GDCA、2.NETCA、3.SZCA、4.BJCA
                 return this.data.ukey.GetCertInfo(7)-0+1;
