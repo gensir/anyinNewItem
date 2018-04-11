@@ -103,7 +103,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    port: 9001,
+                    port: 9021,
                     open: false,
                     logLevel: 'silent',
                     host: 'localhost',

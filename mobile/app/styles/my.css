@@ -1,0 +1,16 @@
+/* 我的企业 */
+.complay_info { font-size: .28rem; height: 3.3rem; text-align: center; padding-top: .5rem; }
+.complay_info img { width: 1.8rem; height: 1.8rem; border-radius: 50%; vertical-align: middle; display: inline-block; }
+.complay_info .name { color: #333; line-height: .5rem; }
+.usercells .weui-cell__ft:after { height:.12rem; width: .12rem; border-width: .04rem .04rem 0 0; margin-top: -.12rem; top: .04rem; right: .04rem; }
+.usercells .weui-cell { padding: .3rem; line-height: .4rem; }
+.usercells .weui-cell__bd { font-size: .32rem; white-space:nowrap; padding-right: .3rem; }
+.usercells .weui-cell__ft { color: #666; }
+.usercells .my_icon { width: .4rem; height: .4rem; display:block; overflow:hidden; background-image: url(../images/myicon.png); background-repeat: no-repeat; background-size: .4rem 1.5rem; margin-right: .3rem; }
+.my_icon.icon1 { background-position: 0 0; }
+.my_icon.icon2 { background-position: 0 -.5rem; }
+.my_icon.icon3 { background-position: 0 -1rem; }
+
+.tabbar .userbtn { margin-top: .6rem; }
+.usercells .weui-cell:before { left: .3rem; right: .3rem; }
+.userbtn .weui-btn_default { background: #fff; color: #999;}

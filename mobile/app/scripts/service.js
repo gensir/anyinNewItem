@@ -88,14 +88,6 @@ var ajaxreq = {
     sms_code(data) {
         return this.ajaxCall({ url: domain + "/user?method=valid_sms_code", data: data }, "POST");
     },
-    //检查用户是否存在
-    check_user(data) {
-        return this.ajaxCall({ url: domain + "/user?method=check", data: data }, "POST");
-    },
-    //用户注册
-    register_member(data) {
-        return this.ajaxCall({ url: domain + basedev + "party/user/wx?method=mob_register_member", data: data }, "POST");
-    },
     //解除账号绑定
     sms_unbing_wxcode(data) {
         return this.ajaxCall({ url: domain + basedev + "party/user/wx?method=sms_unbing_wxcode", data: data }, "POST");

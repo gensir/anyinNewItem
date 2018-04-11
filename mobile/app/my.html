@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <title>我的企业-印章网</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="styles/weui.min.css">
+    <script src="scripts/plugin/basic.min.js"></script>
+    <!-- build:css styles/myvendor.css -->
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="styles/my.css" rel="stylesheet">
+    <!-- endbuild -->
+    <!-- build:js scripts/mybefore.js -->
+    <script language=javascript src='./scripts/service.js'></script>
+    <script src="scripts/custom/before.js"></script>
+    <!-- endbuild -->
+    <script src='./scripts/plugin/rem.js'></script>
+</head>
+
+<body>
+    <div class="page">
+        <div class="weui-tab tabbar">
+            
+            <div class="page__hd">
+                <div class="complay_info">
+                    <img src="./images/headimgurl.png" alt="">
+                    <div class="name">张三没有名字</div>
+                </div>
+            </div>
+            <div class="page__bd">
+                <div class="usercells weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><em class="my_icon icon1"></em></div>
+                        <div class="weui-cell__bd">
+                            <p>当前绑定账户</p>
+                        </div>
+                        <div class="weui-cell__ft">13412123535</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><em class="my_icon icon2"></em></div>
+                        <div class="weui-cell__bd">企业名称</div>
+                        <div class="weui-cell__ft">深圳市安印科技有限公司</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><em class="my_icon icon3"></em></div>
+                        <div class="weui-cell__bd">
+                            <p>用户积分</p>
+                        </div>
+                        <div class="weui-cell__ft">12分</div>
+                    </div>
+                </div>
+
+                <div class="weui-btn-area userbtn">
+                    <button class="weui-btn weui-btn_default" id="unbind" onClick="location.href='login.html'">解除账号绑定</button>
+                </div>
+            </div>
+            
+        </div>
+    
+    </div>
+    <!-- build:js scripts/myafter.js -->
+    <script src="scripts/my.js"></script>
+    <script src="scripts/custom/after.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

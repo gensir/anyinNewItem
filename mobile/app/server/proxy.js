@@ -1,7 +1,6 @@
 ﻿var proxy = {
     seal: 'http://192.168.1.135:9282',
     wx: 'https://api.weixin.qq.com',
-    qq:"https://map.qq.com",
 }
 var config = {
     dev: {
@@ -14,16 +13,11 @@ var config = {
         port: 9086,
         //contentBase:"./app/page/index",
         proxy: {
-            '/nav': {
-                target: proxy.qq, //pathRewrite: {'^/column' : '/column'},
+            '/sns': {
+                target: proxy.wx, //pathRewrite: {'^/column' : '/column'},
                 secure: false,
                 changeOrigin: true
             },
-            '/weixin': {
-                target: proxy.seal, //pathRewrite: {'^/column' : '/column'},
-                secure: false,
-                changeOrigin: true
-            }
         }
     },
     pro: {

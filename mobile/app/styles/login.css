@@ -1,0 +1,14 @@
+.logo { padding: 1rem 0; }
+.logo img { display: block; width: 1.74rem; margin: 0 auto;}
+
+.weui-btn-area.userbtn { margin: .3rem; }
+.weui-btn-area.userbtn .weui-btn { font-size: .36rem; }
+
+.errortip { padding: .3rem; color: #f00; height: .9rem; }
+.usercell .weui-vcode-btn { margin-right: -.3rem; min-width: 2.2rem; }
+
+.login_ok_show { font-size: .28rem; padding: 1rem; text-align: center; background: #fff; }
+.login_ok_show .weui-msg__icon-area { margin-bottom: 0;}
+.login_ok_show .weui-icon_msg { font-size: 1.28rem;}
+.page__title { font-size: .4rem; font-weight: 400; }
+.page__desc { color: #888; font-size: .28rem; }
