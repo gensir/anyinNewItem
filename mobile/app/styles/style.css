@@ -29,7 +29,8 @@ body .weui-dialog .weui-dialog__hd { padding: .4rem .2rem .4rem; line-height: 1;
 body .weui-dialog .weui-dialog__title { font-size: .36rem; }
 body .weui-dialog .weui-dialog__ft { font-size: .36rem; line-height: 1rem; }
 body .weui-dialog__bd { font-size: .32rem; min-height: .8rem; padding: 0 .3rem .2rem; }
-body .weui-dialog .weui-dialog__btn { color: #02adff; font-size: .36rem; }
+body .weui-dialog .weui-dialog__btn { font-size: .36rem; }
+body .weui-dialog .weui-dialog__btn.weui-dialog__btn_primary { color: #02adff; }
 @media screen and (min-width:1024px) {
     body .weui-dialog { width: 80%; }
 }
@@ -51,7 +52,7 @@ body .weui-dialog .weui-dialog__btn { color: #02adff; font-size: .36rem; }
 .backbox .topback .title { overflow: hidden; text-overflow: ellipsis; white-space:nowrap; text-align: center; }
 
 /* 输入框 溢出省略*/
-.inputoverflow {white-space: nowrap; word-wrap: normal;text-overflow: ellipsis; overflow: hidden; }
+.inputoverflow { white-space: nowrap; word-wrap: normal; text-overflow: ellipsis; overflow: hidden; }
 /*按钮蓝色 白字*/
 .btn_bg_blue { background-color: #02adff; color: #fff !important;}
 
@@ -61,7 +62,7 @@ body .weui-dialog .weui-dialog__btn { color: #02adff; font-size: .36rem; }
 .usercells .weui-cell_select.weui-cell_warn .weui-icon-warn { display: inline-block; }
 .usercells .weui-cell_select-before { padding-right: .3rem; }
 .usercells .weui-select { width: 2rem; height: .9rem; line-height: .9rem; padding-left: .3rem; }
-.usercells .weui-cell_warn .weui-cell__ft .weui-icon-warn { font-size: .44rem; line-height: .44rem; }
+.usercells .weui-cell_warn .weui-cell__ft .weui-icon-warn { font-size: .4rem; line-height: .4rem; }
 .weui-agree.user { padding: .2rem .3rem; font-size: .26rem; }
 .weui-agree.user .weui-agree__checkbox { height: .26rem; width: .26rem; }
 .weui-agree.user .weui-agree__checkbox:checked:before { font-size: .26rem;  }
