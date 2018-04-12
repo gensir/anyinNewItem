@@ -1,8 +1,20 @@
 ; $(function () {
-    var wxcode, login_type = 0;
+    var wxuserinfo, wxcode, login_type = 0;
     if (window.document.location.hostname == "localhost") {
+        wxuserinfo = {
+            "openid":"12345678901234567891",
+            "nickname":"张三没有名字",
+            "sex":1,
+            "language":"zh_CN",
+            "city":"Shenzhen",
+            "province":"Guangdong",
+            "country":"China",
+            "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
+            "privilege":[]
+        }
         wxcode = "12345678901234567891";
     } else {
+        wxuserinfo = JSON.parse($.cookie('wxuserinfo'))
         wxcode = $.cookie('openid');
     }
     if (GetQueryString("login") !== null) {

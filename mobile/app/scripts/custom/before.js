@@ -89,7 +89,8 @@ var wxthird = {
                         _this.wxthird3.access_token = res.access_token;
                         _this.wxthird3.openid = res.openid;
                         ajaxreq.wxthird3(_this.wxthird3).done(function (res) {
-                            wxthird.openid = res.openid
+                            wxthird.openid = res.openid;
+                            $.cookie('wxuserinfo', JSON.stringify(res), { path: "/" }, { expires: 30 });
                             $.cookie('openid', res.openid, { path: "/" }, { expires: 30 });
                             defer.resolve();
                             // ajaxreq.user_auth_callback({ wxcode: res.openid }).done(function (res) {
