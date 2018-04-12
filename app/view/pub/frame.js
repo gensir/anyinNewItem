@@ -81,6 +81,7 @@ define(
                                 localStorage.clear();
                                 $.removeCookie("logs_Decrypt");
                                 $.removeCookie("loginadmin");
+                                $.removeCookie("isadshow");
                                 result.cancelable = window.open("login.html", "_self");
                             }
                         }

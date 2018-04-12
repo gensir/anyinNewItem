@@ -25,6 +25,7 @@ define([
             var _this = this;
             _this.userinfo();
             _this.logslist();
+            _this.integral_ad();
         },
         events: {
             // 'click .jilulist ul li .file': 'Toggleshow',
@@ -67,6 +68,25 @@ define([
                         },
                     }
                 })
+                return false;
+            }
+        },
+        integral_ad: function () {
+            var isadshow = $.cookie("isadshow");
+            if (isadshow === undefined || isadshow == "") {
+                bootbox.dialog({
+                    backdrop: true,
+                    closeButton: false,
+                    className: "integralad",
+                    title: false,
+                    message: '<div class="dialog_adbox">' +
+                        '<button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"></button>' +
+                        '<a class="adlink" href="#" target="_blank" title="立即兑换"></a>' +
+                        '<img src="./app/asset/img/integral_ad.png" alt="">' +
+                        '</div>',
+                    buttons: false
+                })
+                $.cookie("isadshow", true);
                 return false;
             }
         },

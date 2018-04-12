@@ -9,7 +9,7 @@
 .actions .userinfo .name { font-size: 18px; line-height: 18px; font-weight: 600; height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 20px; }
 .actions .userinfo .renzheng { margin-top: 10px; }
 .actions .userinfo .renzheng .rzinfo { height: 20px; text-align: center; vertical-align: top; line-height: 20px; font-size: 12px; color: #999; background: #ccc; display: inline-block; padding-right: 6px; padding-left: 6px; border-radius: 4px; margin-right: 14px; }
-.actions .userinfo .renzheng .integral { height: 20px; text-align: center; vertical-align: top; line-height: 20px; font-size: 12px; color: #999; background: #e9eef1; display: inline-block; padding-right: 6px; padding-left: 6px; border-radius: 4px; margin-right: 14px; }
+.actions .userinfo .renzheng .integral { height: 20px; text-align: center; vertical-align: top; line-height: 20px; font-size: 12px; color: #384a5c; background: #e9eef1; display: inline-block; padding-right: 6px; padding-left: 6px; border-radius: 4px; margin-right: 14px; }
 .actions .userinfo .renzheng .rzinfo:after { content: "未认证企业" }
 .actions .userinfo .renzheng .rzinfo em { display: inline-block; vertical-align: -3px; margin-right: 4px; width: 14px; height: 14px; background: url(../img/titlePng.png) no-repeat -105px -3px; }
 .actions .userinfo .renzheng .integral em { display: inline-block; vertical-align: -3px; margin-right: 4px; width: 14px; height: 14px; background: url(../img/titlePng.png) no-repeat -122px -3px; }
@@ -84,3 +84,12 @@
 .details .computer { width: 100%; }
 .details .computer dt { font-size: 14px; line-height: 14px; padding-top: 12px; padding-bottom: 15px; }
 .details .computer dd { width: 50%; float: left; }
+
+.dialog_adbox { position: relative;}
+.integralad .modal-dialog { margin: 150px auto 30px auto; width: 361px; }
+.integralad .modal-content { box-shadow: none;  background: transparent; border: none; }
+.integralad .modal-content .modal-body { padding: 0;}
+.integralad .bootbox-close-button { width: 24px; height: 24px; position: absolute; top: 0; right: 24px; background: url(../img/close_1.png) no-repeat 50% 50%; opacity: 1; }
+.integralad .bootbox-close-button:hover { opacity: .75; }
+.integralad .adlink { width: 156px; height: 156px; position: absolute; left: 50%; margin-left: -78px; bottom: 27px; background: url(../img/adlink.png) no-repeat 50% 50%; }
+.integralad .adlink:hover { opacity: .9; }
