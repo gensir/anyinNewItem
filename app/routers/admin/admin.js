@@ -26,10 +26,12 @@ define(function(require, exports, module) {
 	        }
             var dtd = $.Deferred(), that = this;
             $(".datetimepicker").remove();
-            $("#main").unbind().html('');
-            dtd.resolve();
-            if (!clearMain) {
-                require(['../../view/pub/frame'], function(View) {
+            if (clearMain) {
+                $("#main").unbind().html('');
+                dtd.resolve();
+            } else {
+                $("#main").unbind().html('');
+                require(['../../view/pub/frame'], function (View) {
                     that.frameView = new View();
                     that.frameView.render('.nav_' + pageTag);
                     dtd.resolve();

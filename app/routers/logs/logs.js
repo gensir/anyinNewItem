@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function (require, exports, module) {
     "use strict";
 
     // External dependencies.
@@ -12,14 +12,16 @@ define(function(require, exports, module) {
             "integral": "integral"
         },
         frameView: null,
-        preRoute: function(clearMain, pageTag) {
+        preRoute: function (clearMain, pageTag) {
             var dtd = $.Deferred(),
                 that = this;
             $(".datetimepicker").remove();
-            $("#main").unbind().html('');
-            dtd.resolve();
-            if (!clearMain) {
-                require(['../../view/pub/frame'], function(View) {
+            if (clearMain) {
+                $("#main").unbind().html('');
+                dtd.resolve();
+            } else {
+                $("#main").unbind().html('');
+                require(['../../view/pub/frame'], function (View) {
                     that.frameView = new View();
                     that.frameView.render('.nav_' + pageTag);
                     dtd.resolve();
@@ -27,25 +29,25 @@ define(function(require, exports, module) {
             }
             return dtd.promise();
         },
-        logs: function() {
-            this.preRoute(false, 'logs').then(function() {
-                require(['../../view/logs/logs', '../../model/logs/logs'], function(View, Model) {
+        logs: function () {
+            this.preRoute(false, 'logs').then(function () {
+                require(['../../view/logs/logs', '../../model/logs/logs'], function (View, Model) {
                     var view = new View({ model: new Model() });
                     view.render();
                 });
             });
         },
-        operateLog: function() {
-            this.preRoute(false, 'logs').then(function() {
-                require(['../../view/logs/logs2', '../../model/logs/logs'], function(View, Model) {
+        operateLog: function () {
+            this.preRoute(false, 'logs').then(function () {
+                require(['../../view/logs/logs2', '../../model/logs/logs'], function (View, Model) {
                     var view = new View({ model: new Model() });
                     view.render();
                 });
             });
         },
-        integral: function() {
-            this.preRoute(false, 'logs').then(function() {
-                require(['../../view/logs/integral', '../../model/logs/logs'], function(View, Model) {
+        integral: function () {
+            this.preRoute(false, 'logs').then(function () {
+                require(['../../view/logs/integral', '../../model/logs/logs'], function (View, Model) {
                     var view = new View({ model: new Model() });
                     view.render();
                 });
