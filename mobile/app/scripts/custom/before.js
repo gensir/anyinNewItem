@@ -110,43 +110,55 @@ var wxthird = {
 if (new RegExp(location.host).test(wxdomain)) {
     wxthird.init();
 }
-if (/mys.html/.test(location.pathname)) {
-    var wxcode;
+if (/login.html|my.html/.test(location.pathname)) {
+    var wxuserinfo, wxcode;
     if (window.document.location.hostname == "localhost") {
-        var wxcode = "12345678901234567891"
+        wxuserinfo = {
+            "openid":"12345678901234567891",
+            "nickname":"张三没有名字",
+            "sex":1,
+            "language":"zh_CN",
+            "city":"Shenzhen",
+            "province":"Guangdong",
+            "country":"China",
+            "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
+            "privilege":[]
+        }
+        wxcode = "12345678901234567891";
     } else {
-        var wxcode = $.cookie('openid');
+        wxuserinfo = JSON.parse($.cookie('wxuserinfo'))
+        wxcode = $.cookie('openid');
     }
     var loginauto = {
         login: function (wxcode) {
             var data = {
                 "wxcode": wxcode
             }
-            ajaxreq.user_auth_callback(data).done(function (data) {
-                if (data.code == 0) {
-                    localStorage.loginName = data.data.username;
-                    localStorage.openid = wxcode;
-                    $.cookie('sealnetSession', data.data.token, { path: "/" });
-                    localStorage.loginnum = 0;
-                } else if (data.code == 1) {
-                    localStorage.loginnum = 1;
-                    localStorage.openid = wxcode;
-                    $.removeCookie('sealnetSession');
-                    if (!(/login.html|my.html/.test(location.pathname))) {
-                        weui.alert("您还未绑定账号！", function () {
-                            window.open('login.html', '_self');
-                        }, { title: '提示' });
-                    }
-                    return false;
-                } else {
-                    localStorage.loginnum = 1;
-                    $.removeCookie('sealnetSession');
-                    window.location.href = "wxlogin.html"
-                    // weui.alert("微信获取失败，请重新授权进入", function () {
-                    // }, { title: '提示' });
-                    return false;
-                }
-            })
+            // ajaxreq.user_auth_callback(data).done(function (data) {
+            //     if (data.code == 0) {
+            //         localStorage.loginName = data.data.username;
+            //         localStorage.openid = wxcode;
+            //         $.cookie('sealnetSession', data.data.token, { path: "/" });
+            //         localStorage.loginnum = 0;
+            //     } else if (data.code == 1) {
+            //         localStorage.loginnum = 1;
+            //         localStorage.openid = wxcode;
+            //         $.removeCookie('sealnetSession');
+            //         if (!(/my.html/.test(location.pathname))) {
+            //             weui.alert("您还未绑定账号！", function () {
+            //                 window.open('login.html', '_self');
+            //             }, { title: '提示' });
+            //         }
+            //         return false;
+            //     } else {
+            //         localStorage.loginnum = 1;
+            //         $.removeCookie('sealnetSession');
+            //         window.location.href = "wxlogin.html"
+            //         // weui.alert("微信获取失败，请重新授权进入", function () {
+            //         // }, { title: '提示' });
+            //         return false;
+            //     }
+            // })
         }
     };
     $(function () {

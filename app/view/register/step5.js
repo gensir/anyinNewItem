@@ -4,7 +4,6 @@ define([
     "../../../app/lib/service",
     "bootbox"
     ],function(registerstep5,primary,service,bootbox) {
-    	
     var Backbone = require('backbone');
     var template = require('art-template');
     var main = Backbone.View.extend({

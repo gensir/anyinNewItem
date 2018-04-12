@@ -9,17 +9,16 @@ define(function(require, exports, module) {
         routes: {
             "": "logs",
             "operateLog": "operateLog",
+            "integral": "integral"
         },
         frameView: null,
         preRoute: function(clearMain, pageTag) {
             var dtd = $.Deferred(),
                 that = this;
             $(".datetimepicker").remove();
-            if (clearMain) {
-                $("#main").unbind().html('');
-                dtd.resolve();
-            } else {
-                $("#main .contents").eq(0).unbind().html('');
+            $("#main").unbind().html('');
+            dtd.resolve();
+            if (!clearMain) {
                 require(['../../view/pub/frame'], function(View) {
                     that.frameView = new View();
                     that.frameView.render('.nav_' + pageTag);
@@ -39,6 +38,14 @@ define(function(require, exports, module) {
         operateLog: function() {
             this.preRoute(false, 'logs').then(function() {
                 require(['../../view/logs/logs2', '../../model/logs/logs'], function(View, Model) {
+                    var view = new View({ model: new Model() });
+                    view.render();
+                });
+            });
+        },
+        integral: function() {
+            this.preRoute(false, 'logs').then(function() {
+                require(['../../view/logs/integral', '../../model/logs/logs'], function(View, Model) {
                     var view = new View({ model: new Model() });
                     view.render();
                 });

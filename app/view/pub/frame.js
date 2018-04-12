@@ -65,19 +65,19 @@ define(
                     closeButton: true,
                     className: "common",
                     title: "确认退出？",
-                    message:'<div class="msgcenter"><em></em><span>确定现在退出账号吗？</span></div>',
+                    message: '<div class="msgcenter"><em></em><span>确定现在退出账号吗？</span></div>',
                     buttons: {
                         cancel: {
                             label: "取消",
                             className: "btn1",
-                            callback: function(result) {
+                            callback: function (result) {
                                 result.cancelable = false;
                             }
                         },
                         confirm: {
                             label: "确定",
                             className: "btn2",
-                            callback: function(result) {
+                            callback: function (result) {
                                 localStorage.clear();
                                 $.removeCookie("logs_Decrypt");
                                 $.removeCookie("loginadmin");

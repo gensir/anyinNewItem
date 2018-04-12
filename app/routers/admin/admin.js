@@ -26,14 +26,12 @@ define(function(require, exports, module) {
 	        }
             var dtd = $.Deferred(), that = this;
             $(".datetimepicker").remove();
-            if(clearMain){
-                $("#main").unbind().html('');
-                dtd.resolve();
-            } else {
-                $("#main .contents").eq(0).unbind().html('');
-                require(['../../view/pub/frame'],function(View){
+            $("#main").unbind().html('');
+            dtd.resolve();
+            if (!clearMain) {
+                require(['../../view/pub/frame'], function(View) {
                     that.frameView = new View();
-                    that.frameView.render('.nav_'+pageTag);
+                    that.frameView.render('.nav_' + pageTag);
                     dtd.resolve();
                 });
             }

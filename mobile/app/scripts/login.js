@@ -16,49 +16,28 @@
     } else {
         wxuserinfo = JSON.parse($.cookie('wxuserinfo'))
         wxcode = $.cookie('openid');
-    }
-    if (GetQueryString("login") !== null) {
-        $("#login_form").text("解除绑定");
-        login_type = 1;
-    } else {
-        $("#login_form").text("绑定账户");
-        login_type = 0;
-    }
+    };
     var login = {
         init: function () {
             var that = this;
-            // this.login_auto(wxcode);
-        },
-        login_auto: function (wxcode) {
-            var data = {
-                "wxcode": wxcode
+            if (GetQueryString("login") !== null) {
+                $("#login_form").text("解除绑定");
+                login_type = 1;
+            } else {
+                setTimeout(this.login_ok(), 100);
+                $("#login_form").text("绑定账户");
+                login_type = 0;
             }
-            ajaxreq.user_auth_callback(data).done(function (data) {
-                if (data.code == 0) {
-                    localStorage.loginName = data.data.username;
-                    $.cookie('sealnetSession', data.data.token, { path: "/" });
-                    localStorage.loginnum = 0;
-                } else if (data.code == 1) {
-                    localStorage.loginnum = 1;
-                    $.removeCookie('sealnetSession');
-                    return false;
-                } else {
-                    localStorage.loginnum = 1;
-                    $.removeCookie('sealnetSession');
-                    window.location.href = "./wxthird.html";
-                    return false;
-                }
-                setTimeout(login_ok(), 100);
-            })
         },
         login_ok: function () {
             var token = $.cookie('sealnetSession');
             var loginnum = localStorage.loginnum;
-            if ((token === undefined) || (loginnum === undefined) || (loginnum != 0)) {
-                $("#tab").show();
+            // if ((token === undefined) || (loginnum === undefined) || (loginnum != 0)) {
+            if (token === undefined) {
+                $("#login").show();
                 $("#login_ok_show").hide();
             } else {
-                $("#tab").hide();
+                $("#login").hide();
                 $("#login_ok_show").show();
                 var i = 3;
                 var intervalid = setInterval(fun, 1000);
@@ -114,10 +93,10 @@
                 }
             })
         },
-        login_form: function (username, passwd, wxcode) {
+        login_form: function (username, password, wxcode) {
             var data = {
                 "username": username,
-                "pwd": $.md5(passwd),
+                "pwd": $.md5(password),
                 "wxcode": wxcode
             }
             if (login_type == 0) {
@@ -176,15 +155,6 @@
         }
     }
     login.init();
-    $("#logout").on("click", function () {
-        $.removeCookie('sealnetSession');
-        $.removeCookie('expires');
-        $.removeCookie('userid');
-        localStorage.removeItem('loginName');
-        localStorage.removeItem('loginTime');
-        localStorage.removeItem('wxcode');
-        location.reload();
-    });
     $("#username").change(function () {
         var mobile = /^1[34578]\d{9}$/;
         var username = $("#username").val()
@@ -196,11 +166,11 @@
             $(".errortip").text("");
         }
     });
-    $("#passwd").change(function () {
-        var passwd = $("#passwd").val()
-        if (passwd.length < 6) {
+    $("#password").change(function () {
+        var password = $("#password").val()
+        if (password.length < 6) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
-            $(".errortip").text("请输入6位以上的密码");
+            $(".errortip").text("请输入6位及以上密码");
         } else {
             $("#login .weui-cell").eq(1).removeClass("weui-cell_warn");
             $(".errortip").text("");
@@ -231,19 +201,19 @@
     $("#login_form").on("click", function () {
         var mobile = /^1[34578]\d{9}$/;
         var username = $("#username").val()
-        var passwd = $("#passwd").val()
+        var password = $("#password").val()
         var codeid = $("#codeid").val()
         if (!mobile.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入你的注册账户名");
-        } else if (passwd.length < 6) {
+        } else if (password.length < 6) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
-            $(".errortip").text("请输入6位以上的密码");
+            $(".errortip").text("请输入6位及以上密码");
         } else if (codeid.length < 6) {
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
         } else {
-            login.login_form(username, passwd, wxcode);
+            login.login_form(username, password, wxcode);
         }
     });
 });

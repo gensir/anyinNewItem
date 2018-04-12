@@ -32,12 +32,11 @@
             </div>
             <h1 class="page__title">绑定成功</h1>
             <p class="page__desc"><span id="mes">3</span>秒后跳转至账户信息页面…</p>
-
         </div>
-        <div class="page__bd">
+        <div class="page__bd" id="login">
             <div class="weui-tab tabbar">
                 <div class="weui-tab__bd weui-tab__panel">
-                    <div class="usercells weui-cells weui-cells_form" id="login">
+                    <div class="usercells weui-cells weui-cells_form">
                         <div class="logo">
                             <img src="./images/logo.png"></img>
                         </div>
@@ -53,10 +52,9 @@
                         </div>
 
                         <div class="weui-cell usercell ">
-                            <!-- 出错后添加weui-cell_warn  -->
                             <div class="weui-cell__hd"><label for="" class="weui-label">密　码</label></div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" id="passwd" type="password" placeholder="请输入你的平台密码" maxlength="20">
+                                <input class="weui-input" id="password" type="password" placeholder="请输入你的平台密码" maxlength="20">
                             </div>
                             <div class="weui-cell__ft">
                                 <i class="weui-icon-warn"></i>
@@ -64,8 +62,6 @@
                         </div>
 
                         <div class="usercell weui-cell">
-                            
-                            <!-- 出错后添加weui-cell_warn  -->
                             <div class="weui-cell__hd"><label for="" class="weui-label">验证码</label></div>
                             <div class="weui-cell__bd">
                                 <input class="weui-input" id="codeid" type="text" placeholder="请输入6位验证码" maxlength="6">
