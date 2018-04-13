@@ -61,49 +61,46 @@ var wxthird = {
         this.wxthird3 = {
             access_token: "",
             openid: "",
-            lang: "en"
+            lang: "zh_CN"
         }
     },
     init: function () {
         var _this = this;
         this.data();
         if (/wxlogin.html/.test(location.pathname) && !GetQueryString('code')) {
-            if (document.referrer == "" || /wxlogin.html/.test(document.referrer) || document.referrer.indexOf("open.weixin.qq.com")!= -1 || document.referrer.indexOf(window.location.hostname) == -1) {
+            $.cookie('isthird', true, { path: "/" }, { expires: 30 })
+            if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com")!= -1 || document.referrer.indexOf(window.location.hostname) == -1) {
                 bindRegister = configFile.bindRegister
             } else {
                 bindRegister = '/' + document.referrer.split('/').slice(3).join('/');
             }
             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
         }
-        // if (decodeURIComponent(GetQueryString('type')) == "news") {
-        //     return
-        // }
-        if (!$.cookie('openid') && !!$.cookie('isthird')) {//无openid有isthird
-            $.cookie('isthird', false, { path: "/" }, { expires: 30 })
+        if (!$.cookie('isthird') || (!$.cookie('wxuserinfo') && !GetQueryString('code'))) {
+            $.cookie('isthird', true, { path: "/" }, { expires: 30 })
+            if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1) {
+                bindRegister = configFile.bindRegister
+            } else {
+                bindRegister = '/' + document.referrer.split('/').slice(3).join('/');
+            }
+            window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
         }
-        if ($.cookie('isthird') || (!!GetQueryString('code') && /login.html/.test(location.pathname))) {//无isthird无openid
-            if (!$.cookie('openid')) {
-                ajaxreq.wxthird1(this.wxthird1).done(function (res) {
-                    _this.wxthird2.refresh_token = res.refresh_token;
-                    ajaxreq.wxthird2(_this.wxthird2).done(function (res) {
-                        _this.wxthird3.access_token = res.access_token;
-                        _this.wxthird3.openid = res.openid;
-                        ajaxreq.wxthird3(_this.wxthird3).done(function (res) {
-                            wxthird.openid = res.openid;
-                            if (!res.errcode && !res.errmsg) {
-                                $.cookie('wxuserinfo', JSON.stringify(res), { path: "/" });
-                                $.cookie('openid', res.openid, { path: "/" });
-                            }
-                            defer.resolve();
-                        })
+        if (!$.cookie('wxuserinfo')) {
+            ajaxreq.wxthird1(this.wxthird1).done(function (res) {
+                _this.wxthird2.refresh_token = res.refresh_token;
+                ajaxreq.wxthird2(_this.wxthird2).done(function (res) {
+                    _this.wxthird3.access_token = res.access_token;
+                    _this.wxthird3.openid = res.openid;
+                    ajaxreq.wxthird3(_this.wxthird3).done(function (res) {
+                        wxthird.openid = res.openid;
+                        if (!res.errcode && !res.errmsg) {
+                            $.cookie('wxuserinfo', JSON.stringify(res), { path: "/" });
+                        }
+                        defer.resolve();
                     })
                 })
-            }
-
-        } else {
-            window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + location.pathname + location.search) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
+            })
         }
-        $.cookie('isthird', true, { path: "/" }, { expires: 30 })
     }
 };
 if (new RegExp(location.host).test(wxdomain)) {
@@ -111,15 +108,15 @@ if (new RegExp(location.host).test(wxdomain)) {
 }
 if (window.document.location.hostname == "localhost") {
     var wxuserinfo = {
-        "openid":"12345678901234567891",
-        "nickname":"张三没有名字",
-        "sex":1,
-        "language":"zh_CN",
-        "city":"Shenzhen",
-        "province":"Guangdong",
-        "country":"China",
-        "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
-        "privilege":[]
+        "openid": "12345678901234567891",
+        "nickname": "张三没有名字",
+        "sex": 1,
+        "language": "zh_CN",
+        "city": "Shenzhen",
+        "province": "Guangdong",
+        "country": "China",
+        "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
+        "privilege": []
     }
 } else {
     var wxuserinfo = JSON.parse($.cookie('wxuserinfo'));

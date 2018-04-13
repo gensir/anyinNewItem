@@ -96,6 +96,7 @@
             //             duration: 1500,
             //             callback: function () {
             //                 localStorage.loginName = username;
+            //                 //localStorage.wxcode = wxcode;
             //                 // var min = 7;
             //                 // var exp = new Date();
             //                 // exp.setTime(exp.getTime() + min * 24 * 60 * 60 * 1000);
