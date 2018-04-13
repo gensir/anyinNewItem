@@ -75,9 +75,9 @@ var wxthird = {
             }
             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
         }
-        if (decodeURIComponent(GetQueryString('type')) == "news") {
-            return
-        }
+        // if (decodeURIComponent(GetQueryString('type')) == "news") {
+        //     return
+        // }
         if (!$.cookie('openid') && !!$.cookie('isthird')) {//无openid有isthird
             $.cookie('isthird', false, { path: "/" }, { expires: 30 })
         }
@@ -90,12 +90,11 @@ var wxthird = {
                         _this.wxthird3.openid = res.openid;
                         ajaxreq.wxthird3(_this.wxthird3).done(function (res) {
                             wxthird.openid = res.openid;
-                            $.cookie('wxuserinfo', JSON.stringify(res), { path: "/" }, { expires: 30 });
-                            $.cookie('openid', res.openid, { path: "/" }, { expires: 30 });
+                            if (!res.errcode && !res.errmsg) {
+                                $.cookie('wxuserinfo', JSON.stringify(res), { path: "/" });
+                                $.cookie('openid', res.openid, { path: "/" });
+                            }
                             defer.resolve();
-                            // ajaxreq.user_auth_callback({ wxcode: res.openid }).done(function (res) {
-                            //     console.log(res)
-                            // })
                         })
                     })
                 })
@@ -110,39 +109,34 @@ var wxthird = {
 if (new RegExp(location.host).test(wxdomain)) {
     wxthird.init();
 }
-if (/login.html|my.html/.test(location.pathname)) {
-    var wxuserinfo, wxcode;
-    if (window.document.location.hostname == "localhost") {
-        wxuserinfo = {
-            "openid":"12345678901234567891",
-            "nickname":"张三没有名字",
-            "sex":1,
-            "language":"zh_CN",
-            "city":"Shenzhen",
-            "province":"Guangdong",
-            "country":"China",
-            "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
-            "privilege":[]
-        }
-        wxcode = "12345678901234567891";
-    } else {
-        wxuserinfo = JSON.parse($.cookie('wxuserinfo'))
-        wxcode = $.cookie('openid');
+if (window.document.location.hostname == "localhost") {
+    var wxuserinfo = {
+        "openid":"12345678901234567891",
+        "nickname":"张三没有名字",
+        "sex":1,
+        "language":"zh_CN",
+        "city":"Shenzhen",
+        "province":"Guangdong",
+        "country":"China",
+        "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
+        "privilege":[]
     }
+} else {
+    var wxuserinfo = JSON.parse($.cookie('wxuserinfo'));
+}
+if (/login.html|my.html/.test(location.pathname)) {
     var loginauto = {
-        login: function (wxcode) {
+        getlogin: function () {
             var data = {
-                "wxcode": wxcode
+                "wxcode": wxuserinfo.openid
             }
             // ajaxreq.user_auth_callback(data).done(function (data) {
             //     if (data.code == 0) {
             //         localStorage.loginName = data.data.username;
-            //         localStorage.openid = wxcode;
             //         $.cookie('sealnetSession', data.data.token, { path: "/" });
             //         localStorage.loginnum = 0;
             //     } else if (data.code == 1) {
             //         localStorage.loginnum = 1;
-            //         localStorage.openid = wxcode;
             //         $.removeCookie('sealnetSession');
             //         if (!(/my.html/.test(location.pathname))) {
             //             weui.alert("您还未绑定账号！", function () {
@@ -162,6 +156,6 @@ if (/login.html|my.html/.test(location.pathname)) {
         }
     };
     $(function () {
-        setTimeout(loginauto.login(wxcode), 200);
+        setTimeout(loginauto.getlogin(), 200);
     })
 };

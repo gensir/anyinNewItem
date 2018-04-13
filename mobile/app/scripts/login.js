@@ -1,22 +1,5 @@
 ; $(function () {
-    var wxuserinfo, wxcode, login_type = 0;
-    if (window.document.location.hostname == "localhost") {
-        wxuserinfo = {
-            "openid":"12345678901234567891",
-            "nickname":"张三没有名字",
-            "sex":1,
-            "language":"zh_CN",
-            "city":"Shenzhen",
-            "province":"Guangdong",
-            "country":"China",
-            "headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
-            "privilege":[]
-        }
-        wxcode = "12345678901234567891";
-    } else {
-        wxuserinfo = JSON.parse($.cookie('wxuserinfo'))
-        wxcode = $.cookie('openid');
-    };
+    var login_type = 0;
     var login = {
         init: function () {
             var that = this;
@@ -76,7 +59,7 @@
                 }, 1000)
             };
             settime();
-            sendvercode(phone);
+            login.sendvercode(phone);
         },
         sendvercode: function (phone) {
             var data = {
@@ -93,15 +76,18 @@
                 }
             })
         },
-        login_form: function (username, password, wxcode) {
+        login_form: function (username, password, codeid) {
             var data = {
                 "username": username,
                 "pwd": $.md5(password),
-                "wxcode": wxcode
+                "codeid": codeid,
+                "wxcode": wxuserinfo.openid
             }
             if (login_type == 0) {
+                $.cookie('sealnetSession', true, { path: "/" });
                 weui.toast('登录成功');
             } else {
+                $.removeCookie('sealnetSession');
                 weui.toast('解绑成功');
             }
             // ajaxreq.login_member(data).done(res => {
@@ -110,7 +96,6 @@
             //             duration: 1500,
             //             callback: function () {
             //                 localStorage.loginName = username;
-            //                 //localStorage.wxcode = wxcode;
             //                 // var min = 7;
             //                 // var exp = new Date();
             //                 // exp.setTime(exp.getTime() + min * 24 * 60 * 60 * 1000);
@@ -195,7 +180,7 @@
         } else {
             $("#login .weui-cell").eq(0).removeClass("weui-cell_warn");
             $(".errortip").text("");
-            get_code();
+            login.get_code();
         }
     });
     $("#login_form").on("click", function () {
@@ -213,7 +198,7 @@
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
         } else {
-            login.login_form(username, password, wxcode);
+            login.login_form(username, password, codeid);
         }
     });
 });

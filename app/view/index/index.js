@@ -71,6 +71,7 @@ define([
                 return false;
             }
         },
+        //积分广告，登录后弹出一次
         integral_ad: function () {
             if ($.cookie("loginadmin") !== undefined && ($.cookie("isadshow") === undefined || $.cookie("isadshow") == "")) {
                 bootbox.dialog({

@@ -1,20 +1,4 @@
 ; $(function () {
-    var wxuserinfo;
-    if (window.document.location.hostname == "localhost") {
-        wxuserinfo = {
-            "openid":"12345678901234567891",
-            "nickname":"张三没有名字",
-            "sex":1,
-            "language":"zh_CN",
-            "city":"Shenzhen",
-            "province":"Guangdong",
-            "country":"China",
-            "headimgurl":"http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
-            "privilege":[]
-        }
-    } else {
-        wxuserinfo = JSON.parse($.cookie('wxuserinfo'));
-    }
     var mylist = {
         init: function () {
             $("#userimg").attr('src',wxuserinfo.headimgurl)
