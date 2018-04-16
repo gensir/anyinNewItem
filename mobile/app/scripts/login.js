@@ -7,7 +7,7 @@
                 $("#login_form").text("解除绑定");
                 login_type = 1;
             } else {
-                setTimeout(this.login_ok(), 100);
+                that.login_ok();
                 $("#login_form").text("绑定账户");
                 login_type = 0;
             }
@@ -85,10 +85,16 @@
             }
             if (login_type == 0) {
                 $.cookie('sealnetSession', true, { path: "/" });
-                weui.toast('登录成功');
+                weui.toast('登录成功', { duration: 1500, });
+                setTimeout (function () {
+                    login.login_ok();
+                },1500)
             } else {
                 $.removeCookie('sealnetSession');
-                weui.toast('解绑成功');
+                weui.toast('解绑成功', { duration: 1500, });
+                setTimeout (function () {
+                    window.location.href = 'login.html';
+                },1500)
             }
             // ajaxreq.login_member(data).done(res => {
             //     if (res.code == 0) {
@@ -141,7 +147,10 @@
         }
     }
     login.init();
-    $("#username").change(function () {
+    $("#username,#password,#codeid").keyup(function () {
+        $(".errortip").text("");
+    });
+    $("#username").keyup(function () {
         var mobile = /^1[34578]\d{9}$/;
         var username = $("#username").val()
         if (!mobile.test(username)) {
@@ -152,7 +161,7 @@
             $(".errortip").text("");
         }
     });
-    $("#password").change(function () {
+    $("#password").keyup(function () {
         var password = $("#password").val()
         if (password.length < 6) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
@@ -162,7 +171,7 @@
             $(".errortip").text("");
         }
     });
-    $("#codeid").change(function () {
+    $("#codeid").keyup(function () {
         var codeid = $("#codeid").val()
         if (codeid.length != 6) {
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
