@@ -1,7 +1,6 @@
 ;
 const domain = "";
-const baseUrl = "/api/";
-const basedev = "/uiapi/";
+const basemp = "/mp/";
 var commonAjaxSetting = {
     'get': {
         dataType: "json",
@@ -41,7 +40,7 @@ var commonAjaxSetting = {
     }
 };
 
-var autoAjaxCall = function(setting, type) {
+var autoAjaxCall = function (setting, type) {
     if (type === undefined) {
         type = 'get';
     }
@@ -81,16 +80,24 @@ var ajaxreq = {
         return xhr;
     },
     //发送短信
-    sendvercode(data) {
-        return this.ajaxCall({ url: domain + "/user?method=sendvercode", data: data }, "POST");
+    SMSVerifCode(data) {
+        return this.ajaxCall({ url: domain + basemp + "common/getSMSVerifCode", data: data });
     },
-    //验证码检验
-    sms_code(data) {
-        return this.ajaxCall({ url: domain + "/user?method=valid_sms_code", data: data }, "POST");
+    //验证码验证
+    checkSmsCode(data) {
+        return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode", data: data });
+    },
+    //自动登录
+    WechatUser(data) {
+        return this.ajaxCall({ url: domain + basemp + "sysUser/getSysUserAndWechatUser", data: data, async: false });
+    },
+    //账号绑定
+    bindAccount(data) {
+        return this.ajaxCall({ url: domain + basemp + "sysUser/bindAccount", data: data }, "post");
     },
     //解除账号绑定
-    sms_unbing_wxcode(data) {
-        return this.ajaxCall({ url: domain + basedev + "party/user/wx?method=sms_unbing_wxcode", data: data }, "POST");
+    unbingAccount(data) {
+        return this.ajaxCall({ url: domain + basemp + "sysUser/removeBind", data: data }, "post");
     },
     wxthird1(data) {
         return this.ajaxCall({ url: domain + "/sns/oauth2/access_token", data: data, async: false });
@@ -100,9 +107,5 @@ var ajaxreq = {
     },
     wxthird3(data) {
         return this.ajaxCall({ url: domain + "/sns/userinfo", data: data, async: false });
-    },
-    //微信用户授权回调
-    user_auth_callback(data) {
-        return this.ajaxCall({ url: domain + basedev + "party/user/wx?method=user_auth_callback ", data: data, async: false }, 'POST');
     },
 };

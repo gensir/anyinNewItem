@@ -41,7 +41,6 @@ if (/wxtest/.test(location.host)) {//test
 
 var wxdomain = configFile.wxdomain;
 var bindRegister = configFile.bindRegister;
-document.write('<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>');
 window.defer = new $.Deferred();
 var wxthird = {
     data: function () {
@@ -67,15 +66,6 @@ var wxthird = {
     init: function () {
         var _this = this;
         this.data();
-        // if (/wxlogin.html/.test(location.pathname) && !GetQueryString('code')) {
-        //     $.cookie('isthird', true, { path: "/" }, { expires: 30 })
-        //     if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com")!= -1 || document.referrer.indexOf(window.location.hostname) == -1) {
-        //         bindRegister = configFile.bindRegister
-        //     } else {
-        //         bindRegister = '/' + document.referrer.split('/').slice(3).join('/');
-        //     }
-        //     window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect", '_self')
-        // }
         if (!$.cookie('isthird') || (!$.cookie('wxuserinfo') && !GetQueryString('code'))) {
             $.cookie('isthird', true, { path: "/" }, { expires: 30 })
             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect", '_self')
@@ -103,7 +93,8 @@ if (new RegExp(location.host).test(wxdomain)) {
 }
 if (window.document.location.hostname == "localhost") {
     var wxuserinfo = {
-        "openid": "12345678901234567891",
+        "openid": "o9dQ6wvdXHzT9Wta6kLBNMI4sA_w",
+        // "openid": "o9dQ6wrtrOVVFFbRiSKPrPdOo_VU",
         "nickname": "张三没有名字",
         "sex": 1,
         "language": "zh_CN",
@@ -115,41 +106,29 @@ if (window.document.location.hostname == "localhost") {
     }
 } else {
     var wxuserinfo = JSON.parse($.cookie('wxuserinfo'));
-}
-if (/login.html|my.html/.test(location.pathname)) {
-    var loginauto = {
-        getlogin: function () {
-            var data = {
-                "wxcode": wxuserinfo.openid
-            }
-            // ajaxreq.user_auth_callback(data).done(function (data) {
-            //     if (data.code == 0) {
-            //         localStorage.loginName = data.data.username;
-            //         $.cookie('sealnetSession', data.data.token, { path: "/" });
-            //         localStorage.loginnum = 0;
-            //     } else if (data.code == 1) {
-            //         localStorage.loginnum = 1;
-            //         $.removeCookie('sealnetSession', { path: "/" });
-            //         if (!(/my.html/.test(location.pathname))) {
-            //             weui.alert("您还未绑定账号！", function () {
-            //                 window.open('login.html', '_self');
-            //             }, { title: '提示' });
-            //         }
-            //         return false;
-            //     } else {
-            //         localStorage.loginnum = 1;
-            //         $.removeCookie('sealnetSession', { path: "/" });
-            //         window.location.href = "wxlogin.html"
-            //         // weui.alert("微信获取失败，请重新授权进入", function () {
-            //         // }, { title: '提示' });
-            //         return false;
-            //     }
-            // })
-        }
+};
+
+; function GetLoginUser() {
+    var data = {
+        "openid": wxuserinfo.openid
     };
+    ajaxreq.WechatUser(data).done(function (res) {
+        if (res.code == 0 && res.data != null) {
+            $.cookie('loginuser', JSON.stringify(res.data && res.data.sysUserEntity), { path: "/" });
+        } else {
+            $.removeCookie('loginuser', { path: "/" });
+            $.removeCookie('sealnetSession', { path: "/" });
+            if (!/login.html/.test(location.pathname)) {
+                weui.alert("您还未绑定账号！", function () {
+                    window.location.href = 'login.html';
+                }, { title: '提示' });
+            }
+        }
+    })
+};
+//不验证绑定的请增加html页面
+if (!/index.html/.test(location.pathname)) {
     $(function () {
-        setTimeout(function () {
-            loginauto.getlogin()
-        }, 200);
+        GetLoginUser();
     })
 };

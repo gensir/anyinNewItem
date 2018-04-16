@@ -1,22 +1,21 @@
 ; $(function () {
     var login_type = 0;
+    var mobile = /^1[34578]\d{9}$/;
     var login = {
         init: function () {
-            var that = this;
             if (GetQueryString("login") !== null) {
                 $("#login_form").text("解除绑定");
                 login_type = 1;
             } else {
-                that.login_ok();
+                this.login_ok();
                 $("#login_form").text("绑定账户");
                 login_type = 0;
             }
         },
         login_ok: function () {
-            var token = $.cookie('sealnetSession');
-            var loginnum = localStorage.loginnum;
-            // if ((token === undefined) || (loginnum === undefined) || (loginnum != 0)) {
-            if (token === undefined) {
+            var user = $.cookie('loginuser') && (JSON.parse($.cookie('loginuser')) || { "sysUserEntity": "", "wechatUser": "" });
+            var toke = $.cookie('sealnetSession');
+            if (toke === undefined || (user && user.sysUserEntity == "" && user.wechatUser == "")) {
                 $("#login").show();
                 $("#login_ok_show").hide();
             } else {
@@ -26,7 +25,7 @@
                 var intervalid = setInterval(fun, 1000);
                 function fun() {
                     if (i == 0) {
-                        if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {//来源为空或不是同一域名或是首页
+                        if (document.referrer == "" || /index.html/.test(document.referrer) || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {//来源为空或不是同一域名或是首页
                             window.location.href = "my.html"
                         } else {
                             window.location.href = document.referrer;
@@ -39,7 +38,7 @@
             }
         },
         get_code: function () {
-            var phone = $("#phone").val();
+            var phone = $("#username").val();
             var countdown = 60;
             var ele = $(".weui-vcode-btn");
             function settime() {
@@ -63,9 +62,9 @@
         },
         sendvercode: function (phone) {
             var data = {
-                "telephone": phone
+                "mobilePhoneNo": phone
             }
-            ajaxreq.sendvercode(data).done(res => {
+            ajaxreq.SMSVerifCode(data).done(res => {
                 if (res.code == 0) {
                     weui.toast('发送成功', {
                         duration: 1500,
@@ -76,125 +75,114 @@
                 }
             })
         },
-        login_form: function (username, password, codeid) {
+        checkSms: function () {
             var data = {
-                "username": username,
-                "pwd": $.md5(password),
-                "codeid": codeid,
-                "wxcode": wxuserinfo.openid
+                "mobilePhoneNo": $("#username").val(),
+                "smsCode": $("#codeid").val()
+            }
+            ajaxreq.checkSmsCode(data).done(res => {
+                if (res.code == 0) {
+                    $(".errortip").text('');
+                    this.login_form();
+                } else {
+                    $(".errortip").text(res.msg);
+                }
+            })
+        },
+        login_form: function () {
+            var data = {
+                "mobile": $("#username").val(),
+                "password": $("#password").val(),
+                "smsCode": $("#codeid").val(),
+                "wechatUser": {
+                    "openid": wxuserinfo.openid,
+                    "nickname": wxuserinfo.nickname
+                }
             }
             if (login_type == 0) {
-                $.cookie('sealnetSession', true, { path: "/" });
-                weui.toast('登录成功', { duration: 1500, });
-                setTimeout (function () {
-                    login.login_ok();
-                },1500)
+                this.binduser(data)
             } else {
-                $.removeCookie('sealnetSession', { path: "/" });
-                weui.toast('解绑成功', { duration: 1500, });
-                setTimeout (function () {
-                    window.location.href = 'login.html';
-                },1500)
+                this.unbinguser(data)
             }
-            // ajaxreq.login_member(data).done(res => {
-            //     if (res.code == 0) {
-            //         weui.toast('登录成功', {
-            //             duration: 1500,
-            //             callback: function () {
-            //                 localStorage.loginName = username;
-            //                 //localStorage.wxcode = wxcode;
-            //                 // var min = 7;
-            //                 // var exp = new Date();
-            //                 // exp.setTime(exp.getTime() + min * 24 * 60 * 60 * 1000);
-            //                 $.cookie('sealnetSession', res.data.token, { path: "/" });
-            //                 $.cookie('userid', res.data.userid, { path: "/" });
-            //                 //$.cookie('expires', exp, { path: "/" });
-            //                 var nowDate = new Date();
-            //                 var end_ms = parseInt(nowDate.getTime()) + parseInt(7 * 24 * 60 * 60 * 1000); //获取的过期时间7天（从登录开始计算）；
-            //                 localStorage.loginTime = end_ms;
-            //                 if (document.referrer == "" || /unbind.html/.test(document.referrer) || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {
-            //                     window.open('my.html', '_self');
-            //                     return false;
-            //                 } else {
-            //                     location.href = document.referrer;
-            //                 }
-            //             }
-            //         });
-            //     } else if (res.code == 2) {
-            //         $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
-            //         weui.alert("密码输入错误", { title: '提示' });
-            //     } else if (res.code == 3) {
-            //         weui.dialog({
-            //             title: '账户提示',
-            //             content: '手机号未注册，现在去注册？',
-            //             className: 'custom-classname',
-            //             buttons: [{
-            //                 label: '取消',
-            //                 type: 'default',
-            //                 onClick: function () { }
-            //             }, {
-            //                 label: '确定',
-            //                 type: 'primary',
-            //                 onClick: function () {
-            //                     window.open('register.html', '_self');
-            //                 }
-            //             }]
-            //         });
-            //     } else {
-            //         weui.alert(res.msg, { title: '提示' });
-            //     }
-            // })
+        },
+        binduser: function (data) {
+            ajaxreq.bindAccount(data).done(res => {
+                var that = this;
+                if (res.code == 0) {
+                    $.cookie('sealnetSession', JSON.stringify(res.data), { path: "/" });
+                    weui.toast('登录成功', { duration: 1500, });
+                    setTimeout(function () {
+                        that.login_ok();
+                    }, 1500)
+                } else {
+                    $.removeCookie('sealnetSession', { path: "/" });
+                    $(".errortip").text(res.msg);
+                }
+            })
+        },
+        unbinguser: function (data) {
+            ajaxreq.unbingAccount(data).done(res => {
+                if (res.code == 0) {
+                    $.removeCookie('sealnetSession', { path: "/" });
+                    weui.toast('解绑成功', { duration: 1500, });
+                    setTimeout(function () {
+                        window.location.href = 'login.html';
+                    }, 1500)
+                } else {
+                    $(".errortip").text(res.msg);
+                }
+            })
         }
     }
     login.init();
     $("#username,#password,#codeid").keyup(function () {
-        $(".errortip").text("");
+        $(".errortip").text('');
     });
-    $("#username").keyup(function () {
-        var mobile = /^1[34578]\d{9}$/;
-        var username = $("#username").val()
-        if (!mobile.test(username)) {
+    $("#username").change(function () {
+        var username = $("#username").val();
+        if (username.length < 11) {
+            $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
+            $(".errortip").text("请输入你的注册账户名");
+        } else if (!mobile.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入你的注册账户名");
         } else {
             $("#login .weui-cell").eq(0).removeClass("weui-cell_warn");
-            $(".errortip").text("");
+            $(".errortip").text('');
         }
     });
-    $("#password").keyup(function () {
-        var password = $("#password").val()
+    $("#password").change(function () {
+        var password = $("#password").val();
         if (password.length < 6) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位及以上密码");
         } else {
             $("#login .weui-cell").eq(1).removeClass("weui-cell_warn");
-            $(".errortip").text("");
+            $(".errortip").text('');
         }
     });
-    $("#codeid").keyup(function () {
-        var codeid = $("#codeid").val()
+    $("#codeid").change(function () {
+        var codeid = $("#codeid").val();
         if (codeid.length != 6) {
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
         } else {
             $("#login .weui-cell").eq(2).removeClass("weui-cell_warn");
-            $(".errortip").text("");
+            $(".errortip").text('');
         }
     });
     $(".weui-vcode-btn").on("click", function () {
-        var mobile = /^1[34578]\d{9}$/;
         var phone = $("#username").val()
         if (!mobile.test(phone)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("请输入你的注册账户名");
+            $(".errortip").text("你输入的账户名有误");
         } else {
             $("#login .weui-cell").eq(0).removeClass("weui-cell_warn");
-            $(".errortip").text("");
+            $(".errortip").text('');
             login.get_code();
         }
     });
     $("#login_form").on("click", function () {
-        var mobile = /^1[34578]\d{9}$/;
         var username = $("#username").val()
         var password = $("#password").val()
         var codeid = $("#codeid").val()
@@ -208,7 +196,7 @@
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
         } else {
-            login.login_form(username, password, codeid);
+            login.checkSms();
         }
     });
 });

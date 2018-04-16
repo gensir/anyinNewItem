@@ -3,14 +3,18 @@
         init: function () {
             $("#userimg").attr('src', wxuserinfo.headimgurl)
             $(".name").text(wxuserinfo.nickname)
-            var that = this;
-            // this.user_auth_check();
+            this.userinfo();
         },
-        user_auth_check: function () {
-        },
+        userinfo: function () {
+            var user = $.cookie('loginuser') && JSON.parse($.cookie('loginuser'));
+            if (user) {
+                $("#users").text(user.mobile);
+                $("#companyname").text(user.username);
+                $("#integral").text((user.totalAmount ? user.totalAmount : '0') + '分');
+            }
+        }
     }
     mylist.init();
-
     $("#unbind").on("click", function () {
         weui.confirm('解除绑定后，您的积分将会保留', {
             title: '确认解绑绑定',
