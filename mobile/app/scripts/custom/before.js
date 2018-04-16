@@ -14,16 +14,16 @@ if (/wxtest/.test(location.host)) {//test
     var configFile = {
         appid: 'wxe57d71ceca5b3aa9',//信卓企业服务平台
         secret: '7dfbb78a433398f3d599dfe54da15a64',
-        bindRegister: "/mobile/login.html",
+        bindRegister: window.location.pathname,
         debug: false,
         http: "http",
         wxdomain: "http://wxtest.yinzhangcloud.com"
     };
-} else if (/www.i-yin.net/.test(location.host)) {//pro
+} else if (/i-yin.net/.test(location.host)) {//pro
     var configFile = {
         appid: 'wx454800986353aea2',//安印科技正式号
         secret: 'f2bcb609772fc6c9a32af3969ae7555c',
-        bindRegister: "/mobile/login.html",
+        bindRegister: window.location.pathname,
         debug: false,
         http: "https",
         wxdomain: "https://www.i-yin.net"
@@ -32,7 +32,7 @@ if (/wxtest/.test(location.host)) {//test
     var configFile = {
         appid: 'wx7c73badafceb0c07',//知印公众号
         secret: 'c41e67dd951d7ec76302cacec261309a',
-        bindRegister: "/mobile/login.html",
+        bindRegister: window.location.pathname,
         debug: false,
         http: "http",
         wxdomain: "http://wxpm.yinzhangcloud.com"
@@ -40,8 +40,8 @@ if (/wxtest/.test(location.host)) {//test
 }
 
 var wxdomain = configFile.wxdomain;
-document.write('<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>');
 var bindRegister = configFile.bindRegister;
+document.write('<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>');
 window.defer = new $.Deferred();
 var wxthird = {
     data: function () {
@@ -67,22 +67,17 @@ var wxthird = {
     init: function () {
         var _this = this;
         this.data();
-        if (/wxlogin.html/.test(location.pathname) && !GetQueryString('code')) {
-            $.cookie('isthird', true, { path: "/" }, { expires: 30 })
-            if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com")!= -1 || document.referrer.indexOf(window.location.hostname) == -1) {
-                bindRegister = configFile.bindRegister
-            } else {
-                bindRegister = '/' + document.referrer.split('/').slice(3).join('/');
-            }
-            window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
-        }
+        // if (/wxlogin.html/.test(location.pathname) && !GetQueryString('code')) {
+        //     $.cookie('isthird', true, { path: "/" }, { expires: 30 })
+        //     if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com")!= -1 || document.referrer.indexOf(window.location.hostname) == -1) {
+        //         bindRegister = configFile.bindRegister
+        //     } else {
+        //         bindRegister = '/' + document.referrer.split('/').slice(3).join('/');
+        //     }
+        //     window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
+        // }
         if (!$.cookie('isthird') || (!$.cookie('wxuserinfo') && !GetQueryString('code'))) {
             $.cookie('isthird', true, { path: "/" }, { expires: 30 })
-            if (document.referrer == "" || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1) {
-                bindRegister = configFile.bindRegister
-            } else {
-                bindRegister = '/' + document.referrer.split('/').slice(3).join('/');
-            }
             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&connect_redirect=1#wechat_redirect", '_self')
         }
         if (!$.cookie('wxuserinfo')) {

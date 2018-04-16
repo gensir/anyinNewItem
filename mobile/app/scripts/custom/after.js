@@ -1,7 +1,3 @@
-// jshint devel:true
-//let afters={fun(){return "afterss"}};
-//console.log(afters.fun());
-
 // Google Analytics: change UA-XXXXX-X to be your site's ID.
 if (window.document.location.hostname == "localhost") {
     (function (b, o, i, l, e, r) {

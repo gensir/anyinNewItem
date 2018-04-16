@@ -3,6 +3,6 @@ dist
 .tmp
 bower_components
 basic.min.js
-/*/basic.min.js
+*/basic.min.js
 *basic.min.js
 build
