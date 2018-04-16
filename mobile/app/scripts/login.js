@@ -90,7 +90,7 @@
                     login.login_ok();
                 },1500)
             } else {
-                $.removeCookie('sealnetSession');
+                $.removeCookie('sealnetSession', { path: "/" });
                 weui.toast('解绑成功', { duration: 1500, });
                 setTimeout (function () {
                     window.location.href = 'login.html';
