@@ -1,5 +1,4 @@
-;
-const domain = "";
+; const domain = "";
 const basemp = "/mp/";
 var commonAjaxSetting = {
     'get': {
@@ -50,7 +49,6 @@ var autoAjaxCall = function (setting, type) {
         setting.data = JSON.stringify(setting.data);
     }
     sendData = $.extend({}, sendData, setting);
-    //console.log(JSON.stringify(sendData))
     return $.ajax(sendData);
 };
 
@@ -59,7 +57,7 @@ function getSubPath() {
     if (subpath.length > 0 && subpath.indexOf('.') === -1) {
         subpath = "/" + subpath;
     } else {
-        subpath = 'yzpm';
+        subpath = 'mobile';
     }
     return subpath;
 }

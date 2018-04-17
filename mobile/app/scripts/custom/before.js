@@ -117,7 +117,6 @@ if (window.document.location.hostname == "localhost") {
             $.cookie('loginuser', JSON.stringify(res.data && res.data.sysUserEntity), { path: "/" });
         } else {
             $.removeCookie('loginuser', { path: "/" });
-            $.removeCookie('sealnetSession', { path: "/" });
             if (!/login.html/.test(location.pathname)) {
                 weui.alert("您还未绑定账号！", function () {
                     window.location.href = 'login.html';
