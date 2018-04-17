@@ -14,8 +14,7 @@
             this.login_success();
         },
         login_success: function () {
-            var user = $.cookie('loginuser') && (JSON.parse($.cookie('loginuser')) || { "sysUserEntity": "", "wechatUser": "" });
-            if (login_type == 1 || $.cookie('loginuser') === undefined || (user && user.sysUserEntity == "" && user.wechatUser == "")) {
+            if (login_type == 1 || $.cookie('loginuser') === undefined) {
                 $("#login").show();
                 $("#login_ok").hide();
             } else {
@@ -25,7 +24,8 @@
                 var intervalid = setInterval(fun, 1000);
                 function fun() {
                     if (i == 0) {
-                        if (document.referrer == "" || /index.html/.test(document.referrer) || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {//来源为空或不是同一域名或是首页
+                        if (document.referrer == "" || /index.html/.test(document.referrer) || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {
+                            //来源为空或不是同一域名或是首页
                             window.location.href = "my.html"
                         } else {
                             window.location.href = document.referrer;
@@ -38,7 +38,6 @@
             }
         },
         get_code: function () {
-            var phone = $("#username").val();
             var countdown = 60;
             var ele = $(".weui-vcode-btn");
             function settime() {
@@ -58,11 +57,11 @@
                 }, 1000)
             };
             settime();
-            login.sendvercode(phone);
+            login.sendvercode();
         },
-        sendvercode: function (phone) {
+        sendvercode: function () {
             var data = {
-                "mobilePhoneNo": phone
+                "mobilePhoneNo": $("#username").val()
             }
             ajaxreq.SMSVerifCode(data).done(res => {
                 if (res.code == 0) {
@@ -109,7 +108,7 @@
                 var that = this;
                 if (res.code == 0) {
                     $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
-                    weui.toast('登录成功', { duration: 1500, });
+                    weui.toast('绑定成功', { duration: 1500, });
                     setTimeout(function () {
                         that.login_success();
                     }, 1000)
@@ -126,20 +125,17 @@
                     weui.toast('解绑成功', { duration: 1000, });
                     setTimeout(function () {
                         window.location.href = 'login.html';
-                    }, 1500)
+                    }, 1000)
                 } else {
                     $(".errortip").text(res.msg);
                 }
-            })
+            });
         }
     }
     login.init();
-    // $("#username,#password,#codeid").keyup(function () {
-    //     $(".errortip").text('');
-    // });
     $("#username").keyup(function () {
         var username = $("#username").val();
-        if (username.length < 4) {
+        if (username.length < 1) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入你的注册账户名");
         } else if (!mobile.test(username) && !email.test(username)) {
@@ -185,7 +181,7 @@
         var username = $("#username").val();
         var password = $("#password").val();
         var codeid = $("#codeid").val();
-        if (username.length < 4) {
+        if (username.length < 1) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入你的注册账户名");
         } else if (!mobile.test(username) && !email.test(username)) {
@@ -198,7 +194,7 @@
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
         } else {
-            login.checkSms();
+            login.login_form();
         }
     });
 });

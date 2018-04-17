@@ -15,8 +15,6 @@ if (/wxtest/.test(location.host)) {//test
         appid: 'wxe57d71ceca5b3aa9',//信卓企业服务平台
         secret: '7dfbb78a433398f3d599dfe54da15a64',
         bindRegister: window.location.pathname,
-        debug: false,
-        http: "http",
         wxdomain: "http://wxtest.yinzhangcloud.com"
     };
 } else if (/i-yin.net/.test(location.host)) {//pro
@@ -24,20 +22,16 @@ if (/wxtest/.test(location.host)) {//test
         appid: 'wx454800986353aea2',//安印科技正式号
         secret: 'f2bcb609772fc6c9a32af3969ae7555c',
         bindRegister: window.location.pathname,
-        debug: false,
-        http: "https",
-        wxdomain: "https://www.i-yin.net"
+        wxdomain: "https://yun.i-yin.net"
     };
 } else {//开发
     var configFile = {
         appid: 'wx7c73badafceb0c07',//知印公众号
         secret: 'c41e67dd951d7ec76302cacec261309a',
         bindRegister: window.location.pathname,
-        debug: false,
-        http: "http",
         wxdomain: "http://wxpm.yinzhangcloud.com"
     };
-}
+};
 
 var wxdomain = configFile.wxdomain;
 var bindRegister = configFile.bindRegister;
@@ -90,7 +84,7 @@ var wxthird = {
 };
 if (new RegExp(location.host).test(wxdomain)) {
     wxthird.init();
-}
+};
 if (window.document.location.hostname == "localhost") {
     var wxuserinfo = {
         "openid": "o9dQ6wvdXHzT9Wta6kLBNMI4sA_w",
@@ -108,13 +102,13 @@ if (window.document.location.hostname == "localhost") {
     var wxuserinfo = JSON.parse($.cookie('wxuserinfo'));
 };
 
-; function GetLoginUser() {
+function GetLoginUser() {
     var data = {
         "openid": wxuserinfo.openid
     };
-    ajaxreq.WechatUser(data).done(function (res) {
+    ajaxreq.WechatAutoLogin(data).done(function (res) {
         if (res.code == 0 && res.data != null) {
-            $.cookie('loginuser', JSON.stringify(res.data && res.data.sysUserEntity), { path: "/" });
+            $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
         } else {
             $.removeCookie('loginuser', { path: "/" });
             if (!/login.html/.test(location.pathname)) {

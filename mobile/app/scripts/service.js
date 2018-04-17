@@ -86,7 +86,7 @@ var ajaxreq = {
         return this.ajaxCall({ url: domain + basemp + "common/checkSmsCode", data: data });
     },
     //自动登录
-    WechatUser(data) {
+    WechatAutoLogin(data) {
         return this.ajaxCall({ url: domain + basemp + "sysUser/getSysUserAndWechatUser", data: data, async: false });
     },
     //账号绑定

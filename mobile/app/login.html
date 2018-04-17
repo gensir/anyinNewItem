@@ -10,6 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="styles/weui.min.css">
     <script src="scripts/plugin/basic.min.js"></script>
     <!-- build:css styles/loginvendor.css -->
@@ -18,7 +19,6 @@
     <!-- endbuild -->
     <!-- build:js scripts/loginbefore.js -->
     <script language=javascript src='./scripts/service.js'></script>
-    <script language=javascript src='./scripts/Plugin/jquery.md5.js'></script>
     <script src="scripts/custom/before.js"></script>
     <!-- endbuild -->
     <script src='./scripts/plugin/rem.js'> </script>
@@ -44,7 +44,7 @@
                             <!-- 出错后添加weui-cell_warn  -->
                             <div class="weui-cell__hd"><label for="" class="weui-label">账户名</label></div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" id="username" type="tel" placeholder="请输入你的注册账户名"  maxlength="11" >
+                                <input class="weui-input" id="username" type="text" placeholder="请输入你的注册账户名"  maxlength="11" >
                             </div>
                             <div class="weui-cell__ft">
                                 <i class="weui-icon-warn"></i>
@@ -64,7 +64,7 @@
                         <div class="usercell weui-cell">
                             <div class="weui-cell__hd"><label for="" class="weui-label">验证码</label></div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" id="codeid" type="text" placeholder="请输入6位验证码" maxlength="6">
+                                <input class="weui-input" id="codeid" type="text" placeholder="请输入6位验证码" max="6" maxlength="6">
                             </div>
                             <div class="weui-cell__ft">
                                 <div class="weui-cell__ft"><i class="weui-icon-warn"></i><button class="weui-vcode-btn">发送验证码</button></div>

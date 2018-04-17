@@ -8,8 +8,8 @@
         userinfo: function () {
             var user = $.cookie('loginuser') && JSON.parse($.cookie('loginuser'));
             if (user) {
-                $("#users").text(user.mobile);
-                $("#companyname").text(user.username);
+                $("#users").text(user.sysUserEntity.mobile);
+                $("#companyname").text(user.sysUserEntity.username);
                 $("#integral").text((user.totalAmount ? user.totalAmount : '0') + '分');
             }
         }
@@ -17,7 +17,7 @@
     mylist.init();
     $("#unbind").on("click", function () {
         weui.confirm('解除绑定后，您的积分将会保留', {
-            title: '确认解绑绑定',
+            title: '确认解除绑定',
             buttons: [{
                 label: '取消',
                 type: 'default',
