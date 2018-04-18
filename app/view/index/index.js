@@ -24,6 +24,7 @@ define([
         render: function () {
             var _this = this;
             _this.userinfo();
+            _this.userintegral();
             _this.logslist();
             _this.integral_ad();
         },
@@ -73,7 +74,7 @@ define([
         },
         //积分广告，登录后弹出一次
         integral_ad: function () {
-            if ($.cookie("loginadmin") !== undefined && ($.cookie("isadshow") === undefined || $.cookie("isadshow") == "")) {
+            if (udata.user.status == 1 && $.cookie("loginadmin") !== undefined && ($.cookie("isadshow") === undefined || $.cookie("isadshow") == "")) {
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
@@ -535,12 +536,12 @@ define([
                     _this.model.get("tpl").logdata = logsObj;
                     _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
                 }
-                _this.getEsealList();
+                _this.getEsealLists();
             });
         },
 
         //获取印章数据
-        getEsealList: function (data, pageNum, pageSize) {
+        getEsealLists: function (data, pageNum, pageSize) {
             var _this = this
             pageNum = pageNum || 1;
             pageSize = pageSize || 4;
@@ -578,6 +579,22 @@ define([
 
                 }
             });
+        },
+        //积分查询
+        userintegral: function () {
+            var _this = this;
+            var data = {
+                "mobile": udata.user.mobile
+            }
+            service.getUserScore(data).done(function (res) {
+                if (res.code == 0) {
+                    _this.model.get("tpl").integraldata = res.data;
+                    _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
+                } else {
+                    _this.model.get("tpl").integraldata = 0;
+                    _this.$el.html(template.compile(indextpl)(_this.model.get("tpl")));
+                }
+            })
         },
     });
     return main;

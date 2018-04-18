@@ -24,8 +24,8 @@
                 var intervalid = setInterval(fun, 1000);
                 function fun() {
                     if (i == 0) {
-                        if (document.referrer == "" || /index.html/.test(document.referrer) || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {
-                            //来源为空或不是同一域名或是首页
+                        if (document.referrer == "" || /index.html/.test(document.referrer) || document.referrer == location.origin + "/" || document.referrer.indexOf("open.weixin.qq.com") != -1 || document.referrer.indexOf(window.location.hostname) == -1 || document.referrer.indexOf(location.pathname) != -1) {
+                            //来源为空或是首页或不是同一域名
                             window.location.href = "my.html"
                         } else {
                             window.location.href = document.referrer;
@@ -81,7 +81,7 @@
             }
             ajaxreq.checkSmsCode(data).done(res => {
                 if (res.code == 0) {
-                    $(".errortip").html('验证码正确').css('color','#ff0');
+                    $(".errortip").html('验证码正确').css('color', '#ff0');
                 } else {
                     $(".errortip").text(res.msg);
                 }
@@ -107,11 +107,30 @@
             ajaxreq.bindAccount(data).done(res => {
                 var that = this;
                 if (res.code == 0) {
-                    $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
-                    weui.toast('绑定成功', { duration: 1500, });
-                    setTimeout(function () {
-                        that.login_success();
-                    }, 1000)
+                    var power = res.data.sysUserEntity
+                    if (power.isLocked == true && power.locked == true) {
+                        $.removeCookie('loginuser', { path: "/" });
+                        weui.alert("您的账号已被锁定！", function () {
+                        }, { title: '提示' });
+                    } else if (power.status == 0) {
+                        $.removeCookie('loginuser', { path: "/" });
+                        weui.alert("您的认证仍在审核中！", function () {
+                        }, { title: '提示' });
+                    } else if (power.status == 2) {
+                        $.removeCookie('loginuser', { path: "/" });
+                        weui.alert("您的认证未通过！", function () {
+                        }, { title: '提示' });
+                    } else if (power.status == 3) {
+                        $.removeCookie('loginuser', { path: "/" });
+                        weui.alert("您未进行实名认证！", function () {
+                        }, { title: '提示' });
+                    } else {
+                        $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
+                        weui.toast('绑定成功', { duration: 1500, });
+                        setTimeout(function () {
+                            that.login_success();
+                        }, 1000)
+                    }
                 } else {
                     $.removeCookie('loginuser', { path: "/" });
                     $(".errortip").text(res.msg);

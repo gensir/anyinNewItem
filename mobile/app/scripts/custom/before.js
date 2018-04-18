@@ -108,7 +108,46 @@ function GetLoginUser() {
     };
     ajaxreq.WechatAutoLogin(data).done(function (res) {
         if (res.code == 0 && res.data != null) {
-            $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
+            var power = res.data.sysUserEntity
+            if (power.isLocked == true && power.locked == true) {
+                $.removeCookie('loginuser', { path: "/" });
+                if (document.referrer !== "" || (document.referrer == "" && !/login.html/.test(location.pathname))) {
+                    weui.alert("您的账号已被锁定！", function () {
+                        if (!/login.html/.test(location.pathname)) {
+                            window.location.href = 'login.html';
+                        }
+                    }, { title: '提示' });
+                }
+            } else if (power.status == 0) {
+                $.removeCookie('loginuser', { path: "/" });
+                if (document.referrer !== "" || (document.referrer == "" && !/login.html/.test(location.pathname))) {
+                    weui.alert("您的认证仍在审核中！", function () {
+                        if (!/login.html/.test(location.pathname)) {
+                            window.location.href = 'login.html';
+                        }
+                    }, { title: '提示' });
+                }
+            } else if (power.status == 2) {
+                $.removeCookie('loginuser', { path: "/" });
+                if (document.referrer !== "" || (document.referrer == "" && !/login.html/.test(location.pathname))) {
+                    weui.alert("您的认证未通过！", function () {
+                        if (!/login.html/.test(location.pathname)) {
+                            window.location.href = 'login.html';
+                        }
+                    }, { title: '提示' });
+                }
+            } else if (power.status == 3) {
+                $.removeCookie('loginuser', { path: "/" });
+                if (document.referrer !== "" || (document.referrer == "" && !/login.html/.test(location.pathname))) {
+                    weui.alert("您未进行实名认证！", function () {
+                        if (!/login.html/.test(location.pathname)) {
+                            window.location.href = 'login.html';
+                        }
+                    }, { title: '提示' });
+                }
+            } else {
+                $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
+            }
         } else {
             $.removeCookie('loginuser', { path: "/" });
             if (!/login.html/.test(location.pathname)) {

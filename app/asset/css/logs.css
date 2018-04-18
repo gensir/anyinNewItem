@@ -67,7 +67,7 @@
 .details dl dd span { color: #666; }
 .details .signet.help,
 .details .computer dd.help { width: 30%; padding-right: 30px; }
-.details .signet { width: 40%; padding-bottom: 20px; padding-right: 40px; }
+.details .signet { width: 40%; min-height: 172px; padding-bottom: 20px; padding-right: 40px; }
 .details .signet .state { display: inline-block; padding-left: 12px; padding-right: 12px; height: 20px; margin-left: 100px; background: #08c34e; color: #fff; font-weight: 400; border-radius: 2px; }
 .details .signet .state.no { background: #f00; color: #fff; }
 .details .computer { width: 100%; border-top: solid 1px #dfe8ed; padding-bottom: 20px; }

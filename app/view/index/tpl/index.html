@@ -3,7 +3,7 @@
     <dl class="userinfo">
         <dt><span class="tximg"></span></dt>
         <dd class="name">欢迎您，<span id="username" title="{{userinfo.user.username}}">{{userinfo.user.username}}</span></dd>
-        <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"><em></em></span><span class="integral"><em></em>用户积分：{{12}}</span></dd>
+        <dd class="renzheng"><span class="rzinfo {{if userinfo.user.status == 1}}ok{{/if}}" id="status"><em></em></span><span class="integral"><em></em>用户积分：{{integraldata}}</span></dd>
         <dd class="logintime">上次登录：<span id="loginDate">{{if userinfo.user&&userinfo.user.status == 1}}{{userinfo.user.lastLoginTime==null?"第一次登录系统":userinfo.user.lastLoginTime}}{{/if}}</span></dd>
     </dl>
 

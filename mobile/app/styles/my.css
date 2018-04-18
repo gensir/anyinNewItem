@@ -1,7 +1,8 @@
 /* 我的企业 */
 .page__hd { padding: .3rem; }
 .complay_info { font-size: .28rem; height: 3.3rem; text-align: center; padding-top: .5rem; }
-.complay_info img { width: 1.8rem; height: 1.8rem; border-radius: 50%; vertical-align: middle; display: inline-block; }
+.complay_info .imgbox { width: 1.8rem; height: 1.8rem; border-radius: 50%; margin: 0 auto; overflow: hidden; }
+.complay_info .imgbox img { max-width: 100%; display: block; border-radius: 50%; }
 .complay_info .name { color: #333; line-height: .5rem; height: .5rem; }
 
 .usercells .weui-cell { padding: .3rem; line-height: .4rem; }
