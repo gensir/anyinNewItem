@@ -81,7 +81,7 @@
             }
             ajaxreq.checkSmsCode(data).done(res => {
                 if (res.code == 0) {
-                    this.login_form();
+                    $(".errortip").html('验证码正确').css('color','#ff0');
                 } else {
                     $(".errortip").text(res.msg);
                 }
@@ -158,12 +158,16 @@
     });
     $("#codeid").keyup(function () {
         var codeid = $("#codeid").val();
-        if (codeid.length < 6) {
+        var username = $("#username").val();
+        if (codeid.length <= 5) {
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
         } else {
             $("#login .weui-cell").eq(2).removeClass("weui-cell_warn");
             $(".errortip").text('');
+            // if (mobile.test(username) || email.test(username)) {
+            //     login.checkSms();
+            // }
         }
     });
     $(".weui-vcode-btn").on("click", function () {

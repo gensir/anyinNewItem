@@ -60,8 +60,8 @@ var wxthird = {
     init: function () {
         var _this = this;
         this.data();
-        if (!$.cookie('isthird') || (!$.cookie('wxuserinfo') && !GetQueryString('code'))) {
-            $.cookie('isthird', true, { path: "/" }, { expires: 30 })
+        if (!$.cookie('authorize') || (!$.cookie('wxuserinfo') && !GetQueryString('code'))) {
+            $.cookie('authorize', true, { path: "/" }, { expires: 30 })
             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=" + encodeURIComponent(wxdomain + bindRegister) + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect", '_self')
         }
         if (!$.cookie('wxuserinfo')) {
