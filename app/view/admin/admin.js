@@ -21,14 +21,7 @@ define([
         },
         render: function () {
             that = this;
-            // this.$el.empty().html(template.compile(tpl)({}));
             this.listPage();
-            if (!this.firmId && $.cookie('loginadmin') !== undefined) {
-                bootbox.alert("获取单位id异常，无权限访问", function () {
-                    window.open('login.html', '_self');
-                })
-                return;
-            }
         },
         events: {
             'click .eseallist .list>.nav': 'toggleList',
@@ -38,9 +31,6 @@ define([
             'click .eseallist .list>.nav .cancelloss': 'cancelloss',
             'click .eseallist .list>.nav .unfreeze': 'unfreeze',
             'click .eseallist .list>.nav .logout': 'logout',
-            'click .topseal .boxmodel span': 'toggleTab',
-            'click .license .accordion .nav .shut': 'shut',
-            'click .license .accordion .nav .open': 'open',
             'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
             'click .pagination .NextPage:not(".no")': 'NextPage',
             'click .pagination .index': 'currentPapge',
@@ -68,270 +58,10 @@ define([
                 //$(_this).parent(".list").addClass("listbl");
             }
         },
-        toggleTab: function (event, license) {
-            var _this = license || event.currentTarget;
-            $(_this).addClass("active").siblings().removeClass("active");
-            $(".mainbody").eq($(_this).index()).addClass("active").siblings(".mainbody").removeClass("active");
-            if ($(_this)[0].id == "loginset") {
-                this.active = ""
-                this.licenselist(1)
-            } else {
-                this.active = ""
-                this.listPage(1);
-                //屏蔽非ODC的电子印章申请
-                var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
-                //  isODC为1的时候是ODC登录的
-                if (!isODC) {
-                    $("#step").hide();
-                }
-            }
-        },
         getSealName: function (target) {
             var _this = target.currentTarget;
             var ind = $(_this).parents(".list").index();
             return this.model.get("tplhtml").loginlist[ind].esealFullName;
-        },
-        //关闭登录权限
-        shut: function (event) {
-            // function getName() {
-            //     var _this = e.currentTarget;
-            //     var ind = $(_this).parents(".list").index();
-            //     return this.model.get("tplhtml").loginlist[ind].esealFullName;
-            // }
-            if (!ukeys.issupport()) {
-                return false;
-            }
-            var _that = this;
-            var listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
-            var numInd = this.model.get("numInd");
-            var Oid = $(event.currentTarget).data('oid');
-            var c_esealCode = $(event.currentTarget).data('code');
-            var dialogsText = dialogs.find(".closeAllow");
-            //判断有几个可以登录的UKEY
-            service.islicenseLast({ enterpriseCode: this.enterpriseCode }).done(function (res) {
-                _that.licenseLast = res.data
-            })
-            bootbox.dialog({
-                backdrop: true,
-                //closeButton: false,
-                className: "common closeAllow",
-                title: dialogsText.find(".title")[0].outerHTML,
-                message: (_that.licenseLast <= 1) ? dialogsText.find(".msgcenter")[0].outerHTML : dialogsText.find(".msg1.closeEseal").find("span").text('"' + _that.getSealName(event) + '"').end()[0].outerHTML,
-                buttons: {
-                    cancel: {
-                        label: "返回",
-                        className: "btn1",
-                        callback: function (result) {
-                            result.cancelable = false;
-                        }
-                    },
-                    confirm: {
-                        label: "继续",
-                        className: (_that.licenseLast <= 1) ? "btn2 closeAllowbtn2" : "btn2",
-                        callback: function (event) {
-                            numInd++;
-                            var _this = this;
-                            var msg3 = dialogsText.find(".msg3")[0].outerHTML
-                            var msg4 = dialogsText.find(".msg4")[0].outerHTML
-                            var msg6 = dialogsText.find(".msg6")[0].outerHTML
-                            if (numInd == 1) {
-                                $(this).find(".bootbox-body").html(msg4);
-                                $(this).find(".btn1,.btn2").hide();
-                                setTimeout(function () {
-                                    if (ukeys.GetCertCount() == 0) {
-                                        numInd = 0;
-                                        $(_this).find(".bootbox-body").html(msg3);
-                                        $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("重试");
-                                    } else {
-                                        $(_this).find(".bootbox-body").html(msg6);
-                                        $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("继续");
-                                        $.each(ukeys.ukeyName(), function (ind, val) {
-                                            $(_this).find("#seleBook").append("<option>" + val + "</option>")
-                                        })
-                                    }
-                                }, 1000)
-                            } else if (numInd == 2) {
-                                // 验证KEY密码
-                                var getPIN = $("#closeCode").val();
-                                var selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                if (!ukeys.GetCertCount()) {
-                                    numInd = 1;
-                                    $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
-                                    $(_this).find(".btn2").show().html("重试");
-                                    return false;
-                                };
-                                if (ukeys.PIN($("#closeCode").val(), 0)) {
-                                    if (Oid != ukeys.GetOid(selectedUkey)) {
-                                        $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与选择的印章不符，请更换UKEY!");
-                                        $(_this).find(".btn2").show().html("重试");
-                                        numInd = 0;
-                                        $(_this).find(".btn1,.btn2").show();
-                                        return false;
-                                    }
-                                    var data = {
-                                        "oid": Oid,
-                                        "esealCode": c_esealCode,
-                                        "keyStatus": Number(!(listdata.keyStatus))
-                                    }
-                                    service.loginLicense(data).done(function (res) {
-                                        if (res.code == 0) {
-                                            var success = dialogsText.find(".success").html("已成功关闭“" + listdata.esealFullName + "”的登录权限").get(0).outerHTML
-                                            $(_this).find(".bootbox-body").html(success);
-                                            $(_this).find(".btn1,.btn2").hide();
-                                            //如果是已解密日志的ukey，则移除解密时保存的信息
-                                            var logs_oid = $.cookie("logs_Decrypt") && JSON.parse($.cookie('logs_Decrypt')).logs_oid;
-                                            if (Oid == logs_oid) {
-                                                $.removeCookie("logs_Decrypt");
-                                            }
-                                        } else {
-                                            var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
-                                            $(_this).find(".bootbox-body").html(success);
-                                            $(_this).find(".btn1,.btn2").hide();
-                                        }
-                                        setTimeout(function () {
-                                            window.open("admin.html?page=license", "_self")
-                                            _this.modal('hide');
-                                        }, 3000)
-
-                                    })
-                                } else {
-                                    numInd = 1;
-                                    var GetOid = ukeys.GetOid(selectedUkey);
-                                    var data = {
-                                        "oid": GetOid,
-                                        "errorCode": 1
-                                    };
-                                    service.checkPIN(data).done(function (res) {
-                                        if (res.code == 1) {
-                                            $(_this).find("#closeCode-error").html(res.msg);
-                                            $(_this).find(".btn2").show().html("重试");
-                                        }
-                                    });
-                                }
-                            }
-                            return false;
-                        }
-                    }
-                }
-            })
-            return false;
-        },
-        //打开登录权限
-        open: function (event) {
-            event.stopPropagation();
-            if (!ukeys.issupport()) {
-                return false;
-            }
-            var _that = this;
-            var listdata = _that.model.get("tplhtml").loginlist[$(event.currentTarget).parents(".list").index()]
-            var numInd = this.model.get("numInd");
-            var Oid = $(event.currentTarget).data('oid');
-            var c_esealCode = $(event.currentTarget).data('code');
-            var dialogsText = dialogs.find(".openAllow");
-            bootbox.dialog({
-                backdrop: true,
-                //closeButton: false,
-                className: "common openAllow",
-                title: dialogsText.find(".title")[0].outerHTML,
-                message: dialogsText.find(".msg1").find("span").text('"' + _that.getSealName(event) + '"').end()[0].outerHTML,
-                buttons: {
-                    cancel: {
-                        label: "返回",
-                        className: "btn1",
-                        callback: function (result) {
-                            result.cancelable = false;
-                        }
-                    },
-                    confirm: {
-                        label: "继续",
-                        className: "btn2",
-                        callback: function (event) {
-                            numInd++;
-                            var _this = this;
-                            var msg3 = dialogsText.find(".msg3")[0].outerHTML
-                            var msg4 = dialogsText.find(".msg4")[0].outerHTML
-                            var msg6 = dialogsText.find(".msg6")[0].outerHTML
-                            if (numInd == 1) {
-                                //var html='<div><input id="userName" type="text" placeholder="请输入验证码"><label>重新发送</label></div>'+
-                                $(this).find(".bootbox-body").html(msg4);
-                                $(this).find(".btn1,.btn2").hide();
-                                setTimeout(function () {
-                                    if (ukeys.GetCertCount() == 0) {
-                                        numInd = 0;
-                                        $(_this).find(".bootbox-body").html(msg3);
-                                        $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("重试");
-                                    } else {
-                                        $(_this).find(".bootbox-body").html(msg6);
-                                        $(_this).find(".btn1,.btn2").show();
-                                        $(_this).find(".btn2").show().html("继续");
-                                        $.each(ukeys.ukeyName(), function (ind, val) {
-                                            $(_this).find("#seleBook").append("<option>" + val + "</option>")
-                                        })
-
-                                    }
-                                }, 1000)
-                            } else if (numInd == 2) {
-                                // 验证KEY密码
-                                var getPIN = $("#openCode").val(),
-                                    selectedUkey = Math.max($("#seleBook option:selected").index() - 1, 0);
-                                if (!ukeys.GetCertCount()) {
-                                    numInd = 1;
-                                    $(_this).find("#unlock-error").html("未检测到ukey，请插入ukey后重试");
-                                    $(_this).find(".btn2").show().html("重试");
-                                    return false;
-                                };
-                                if (ukeys.PIN($("#openCode").val(), 0)) {
-                                    if (Oid != ukeys.GetOid(selectedUkey)) {
-                                        $(_this).find(".bootbox-body").html(msg4).end().find(".msg4").text("您插入的UKEY与选择的印章不符，请更换UKEY!");
-                                        $(_this).find(".btn2").show().html("重试");
-                                        numInd = 0;
-                                        $(_this).find(".btn1,.btn2").show();
-                                        return false;
-                                    }
-                                    var data = {
-                                        "oid": Oid,
-                                        "esealCode":c_esealCode,
-                                        "keyStatus": Number(!(listdata.keyStatus))
-                                    }
-                                    service.loginLicense(data).done(function (res) {
-                                        if (res.code == 0) {
-                                            var success = dialogsText.find(".success").html("已成功开启“" + listdata.esealFullName + "”的登录权限").get(0).outerHTML
-                                            $(_this).find(".bootbox-body").html(success);
-                                            $(_this).find(".btn1,.btn2").hide();
-                                        } else {
-                                            var success = dialogsText.find(".success").css("color", "red").html(res.msg).get(0).outerHTML
-                                            $(_this).find(".bootbox-body").html(success);
-                                            $(_this).find(".btn1,.btn2").hide();
-                                        }
-                                        setTimeout(function () {
-                                            window.open("admin.html?page=license", "_self")
-                                            _this.modal('hide');
-                                        }, 3000)
-                                    })
-                                } else {
-                                    numInd = 1;
-                                    var GetOid = ukeys.GetOid(selectedUkey);
-                                    var data = {
-                                        "oid": GetOid,
-                                        "errorCode": 1
-                                    };
-                                    service.checkPIN(data).done(function (res) {
-                                        if (res.code == 1) {
-                                            $(_this).find("#openCode-error").html(res.msg);
-                                            $(_this).find(".btn2").show().html("重试");
-                                        }
-                                    });
-                                }
-                            }
-                            return false;
-                        }
-                    }
-                }
-            })
-            return false;
         },
         //预挂失
         loss: function (event) {
@@ -1018,19 +748,20 @@ define([
             service.getEsealList(pageNum, pageSize, querydata).done(function (res) {
                 if (res.code != 0) {
                     var tempObj = {}
+                    that.model.get("tplhtml").data = tempObj;
+                    that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
+					$("#esealNav").remove();
+					$(".eseallist").append("<div class='listResult'>" + res.msg + "</div>").css("margin-bottom", "20px")
                 } else {
                     var tempObj = res.data;
                     that.model.set("totalPages", res.data.totalPages)
                     that.model.get("tplhtml").data = tempObj;
-                    //this.$el.html(tpl(this.model.get("tplhtml")));
                     that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
-                    if (GetQueryString("page") == "license" && GetQueryStringBool) {
-                        that.toggleTab(event, $("#loginset"));
-                    }
-                    that.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"))
+                    that.pagination(res.data.pageNum, res.data.totalPages, $("#esealNav"));
                     GetQueryStringBool = false;
                     if (res.data && (!res.data.list || res.data.list.length == 0)) {
-                        $("#esealNav").hide();
+                        $(".eseallist").append("<div class='listResult'>无电子印章信息</div>").css("margin-bottom", "20px");
+                        $("#esealNav").remove();
                     }
                     //屏蔽非ODC的电子印章申请
                     var isODC = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).keyType == 1;
@@ -1042,44 +773,6 @@ define([
                 if (pageNum == 1) {
                     $("li.PreviousPage").addClass("no");
                 } else if (pageNum == res.data.totalPages) {
-                    $("li.NextPage").addClass("no");
-                } else {
-                    $("li.PreviousPage,li.NextPage").removeClass("no");
-                }
-            })
-        },
-        //权限管理列表
-        licenselist: function (pageNum, pageSize) {
-            var data = {
-                pageNum: pageNum || 1,
-                pageSize: pageSize || 10,
-                enterpriseCode: this.enterpriseCode
-            }
-            service.licenselist(data.pageNum, data.pageSize, data).done(function (res) {
-                if (res.code != 0) {
-                    var tempObjs = {}
-                } else {
-                    var tempObjs = res.data.list;
-                    that.model.set("totalPages", res.data.totalPages)
-                    that.model.get("tplhtml").loginlist = tempObjs;
-                    that.model.get("tplhtml").license_pageNum = res.data.pageNum;
-                    that.model.get("tplhtml").license_totalPages = res.data.totalPages;
-                    that.model.get("tplhtml").license_totalRows = res.data.totalRows;
-
-                    //this.$el.html(tpl(this.model.get("tplhtml")));
-                    console.log(that.$el, 'that')
-                    that.$el.empty().html(template.compile(tpl)(that.model.get("tplhtml")));
-                    $("#loginset").addClass("active").siblings().removeClass("active");
-                    $(".mainbody").eq(1).addClass("active").siblings(".mainbody").removeClass("active");
-                    that.pagination(res.data.pageNum, res.data.totalPages, $("#licenseNav"));
-                    $(".license li.nav4:contains('开启登录权限')").attr("class", "nav4 open")
-                    if (res.data && (!res.data.list || res.data.list.length == 0)) {
-                        $("#licenseNav").hide();
-                    }
-                }
-                if (data.pageNum == 1) {
-                    $("li.PreviousPage").addClass("no");
-                } else if (data.pageNum == res.data.totalPages) {
                     $("li.NextPage").addClass("no");
                 } else {
                     $("li.PreviousPage,li.NextPage").removeClass("no");
@@ -1099,16 +792,11 @@ define([
             if (val === this.current) {
                 return;
             }
-            var _that = this;
-            if ($("h3.boxmodel .active")[0].id == "loginset") {
-                _that.licenselist(val)
-            } else {
-                _that.listPage(val)
-            }
+            this.listPage(val);
         },
         //pagination
         pagination: function (pageNumber, totalPages) {
-            $(".mainbody.active #pageLimit li.index").remove();
+            $("#pageLimit li.index").remove();
             var firstShowPage, maxShowPage = 5
             if (pageNumber <= 3) {
                 firstShowPage = 1
@@ -1122,21 +810,21 @@ define([
             this.model.get("tplhtml").count = [];
             for (var i = firstShowPage; i <= lastShowPage; i++) {
                 var pageIndex = '<li class="index"><a>' + i + '</a></li>';
-                $(".mainbody.active #pageLimit .appendPage").before(pageIndex)
+                $("#pageLimit .appendPage").before(pageIndex)
             };
             if (!this.active) {
-                this.active = $(".mainbody.active #pageLimit .index").eq(0);
+                this.active = $(" #pageLimit .index").eq(0);
             } else {
                 if (this.active.hasClass("NextPage")) {
-                    this.active = $(".mainbody.active #pageLimit .NextPage");
+                    this.active = $("#pageLimit .NextPage");
                 }
                 if (isNaN(this.active.find('a').text()) && this.active.prev().text() != this.model.get("totalPages")) {
-                    this.active = $(".mainbody.active #pageLimit .index").eq(0)
+                    this.active = $("#pageLimit .index").eq(0)
                 }
                 if (this.active.prev().text() == this.model.get("totalPages")) {
                     this.active = this.active.prev()
                 }
-                this.active = $(".mainbody.active #pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
+                this.active = $("#pageLimit a:contains(" + this.active.find('a').text() + ")").parents("li");
             }
             this.active.addClass("active").siblings().removeClass("active")
         },
@@ -1150,7 +838,7 @@ define([
             this.pagediv(1, this.model.get("totalPages"))
         },
         NextPage: function (e) {
-            this.active = $(".mainbody.active #pageLimit .NextPage");
+            this.active = $("#pageLimit .NextPage");
             console.log(this.model.get("totalPages"))
             this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
         },

@@ -16,11 +16,14 @@
         <div class="regok">
         	<div class="pass_ok"></div>
             <div class="pass_tit">恭喜您注册成功！</div>
-            <!-- <div class="text">感谢您的注册！请重新登录，谢谢！</div> -->
+            {{if data == null }}
+            <div class="text">感谢您的注册！请重新登录，谢谢！</div>
+            {{else}}
             <div class="cash_text">
-                <p>注册成功，您的红包兑奖码是：<span class="cash">KDJKLASF</span>，已将该兑奖码发送至您的手机请注意查收，请扫描下方二维码关注微信公众号：“<b>安印电子印章</b>” 后输入红包兑奖码即可领取！</p>
+                <p>注册成功，您的红包兑奖码是：<span class="cash">{{data}}</span>，已将该兑奖码发送至您的手机请注意查收，请扫描下方二维码关注微信公众号：“<b>安印电子印章</b>” 后输入红包兑奖码即可领取！</p>
                 <img class="qrcode" src="./app/asset/img/qrcode.jpg" alt="">
             </div>
+            {{/if}}
             <a href="login.html" class="btn btn-ay">去登录</a>
         </div>
     </div>

@@ -375,7 +375,7 @@
 			return this.ajaxCall({ url: domain + basemp + "sysUser/getUserScore", data: data })
 		},
 		//积分日志
-		licenselist: function (pageNum, pageSize, data) {
+		ScoreInfoList: function (pageNum, pageSize, data) {
 			return this.ajaxCall({ url: domain + basemp + "sysUser/queryScoreInfoList/" + pageNum + "/" + pageSize, data: data });
 		},
 	}

@@ -12,7 +12,8 @@ define(function (require, exports, module) {
             "step2": "registerPage_step2",
             "step3": "registerPage_step3",
             "step4": "registerPage_step4",
-            "step5": "registerPage_step5"
+            "step5": "registerPage_step5",
+            "step5?:query": "registerPage_step5"
         },
         frameView: null,
         preRoute: function (clearMain, pageTag) {

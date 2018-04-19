@@ -202,6 +202,9 @@ define([
                                     if (res.data == 100) {
                                         localStorage.clear();
                                         window.open('register.html#step5', '_self')
+                                    } else if (res.data == 200) {
+                                        localStorage.clear();
+                                        window.open('register.html#step5?code=' + res.msg , '_self')
                                     } else {
                                         localStorage.regStep = "#step3";
                                         localStorage.removeItem("firmId");

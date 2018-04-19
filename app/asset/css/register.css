@@ -54,7 +54,7 @@ html,body {  background: #eaeef1; }
 .reg-content .regok .title { height: 48px; font-size: 20px; color: #0073bd; text-align: center; line-height: 48px; margin-top: 50px; }
 .reg-content .regok .title em { background: url(../img/bg-all.png) no-repeat -520px -200px; display: inline-block; height: 48px; width: 48px; vertical-align: -14px; margin-right: 10px; }
 .reg-content .regok .text { width: 650px; border-top: dashed 1px #dedede; margin: 20px auto; padding: 50px 50px 0; text-align: center; color: #666; font-size: 14px; height: 120px; }
-.reg-content .regok .cash_text { width: 650px; border-top: dashed 1px #dedede; margin: 20px auto; padding: 30px 50px 0; text-align: center; color: #666; font-size: 14px; }
+.reg-content .regok .cash_text { width: 650px; border-top: dashed 1px #dedede; margin: 20px auto; padding: 30px 30px 0; text-align: center; color: #666; font-size: 14px; }
 .reg-content .regok .cash_text p { line-height: 24px; }
 .cash { font-weight: 600; color: #00acff; }
 

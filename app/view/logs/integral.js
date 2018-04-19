@@ -29,11 +29,14 @@ define([
             "mobile": mobile,
             "enterpriseCode": enterpriseCode
         }
-        service.licenselist(pageNum, pageSize, data).done(function(data) {
+        service.ScoreInfoList(pageNum, pageSize, data).done(function(data) {
             var logsObj;
             if (data.code != 0) {
                 logsObj = {}
-                $(".listtext").append("<li><div class='file no'>服务器异常</div></li>").css("margin-bottom", "20px")
+                _this.model.get("tplhtml").data = logsObj;
+                _this.$el.empty().html(template.compile(tpl)(_this.model.get("tplhtml")));
+                $(".pagelist").remove();
+                $(".listtext").append("<li><div class='file no'>"+ data.msg +"</div></li>").css("margin-bottom", "20px")
             } else {
                 logsObj = data.data;
                 _this.model.set("totalPages", data.data.totalPages);

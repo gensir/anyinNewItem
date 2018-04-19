@@ -17,11 +17,12 @@ define(function(require, exports, module) {
             "step4": "step4",
             "renew?:query": "renew",
             "pay_ok?:query": "pay_ok",
-            "update_key?:query": "update_key"
+            "update_key?:query": "update_key",
+            "license": "license"
         },
         frameView:null,
         preRoute: function(clearMain, pageTag){
-        	if(!/#license|#renew|#update_key|#pay_ok/.test(location.hash)){
+        	if(!/#license|#renew|#update_key|#pay_ok|#license/.test(location.hash)){
 	            this.hashChange();
 	        }
             var dtd = $.Deferred(), that = this;
@@ -99,6 +100,14 @@ define(function(require, exports, module) {
         update_key:function(){
             this.preRoute(false, 'admin').then(function(){
                 require(['../../view/admin/update_key', '../../model/admin/admin'],function(View, Model){
+                    var view = new View({model: new Model()});
+                    view.render();
+                });
+            });
+        },
+        license:function(){
+            this.preRoute(false, 'admin').then(function(){
+                require(['../../view/admin/license', '../../model/admin/admin'],function(View, Model){
                     var view = new View({model: new Model()});
                     view.render();
                 });

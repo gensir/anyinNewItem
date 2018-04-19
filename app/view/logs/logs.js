@@ -5,7 +5,7 @@ define([
 	"../../lib/public",
 	"datetimepickercn",
 	"bootbox"
-], function (logsTpl, search, service, publicUtil, datetimepicker, bootbox) {
+], function (tpl, search, service, publicUtil, datetimepicker, bootbox) {
 	var Backbone = require('backbone');
 	var template = require('art-template');
 	// var placeholder = publicUtil.placeholder;
@@ -244,12 +244,15 @@ define([
 				var logsObj;
 				if (data.code != 0) {
 					logsObj = {}
-					$(".contents").append("<div class='nolist boxshow'>数据请求失败！</div>").css("margin-bottom", "20px")
+					_this.model.get("tplhtml").data = logsObj;
+					_this.$el.append(template.compile(tpl)(_this.model.get("tplhtml")));
+					$(".pagelist").remove();
+					$(".listtext").append("<li><div class='file no'>" + data.msg + "</div></li>").css("margin-bottom", "20px")
 				} else {
 					logsObj = data.data;
 					_this.model.set("totalPages", data.data.totalPages);
 					_this.model.get("tplhtml").data = logsObj;
-					_this.$el.append(template.compile(logsTpl)(_this.model.get("tplhtml")));
+					_this.$el.append(template.compile(tpl)(_this.model.get("tplhtml")));
 					$(".contents>.logcon:not(:last)").remove();
 					_this.pagination(data.data.pageNum, data.data.totalPages);
 					if (logsObj.list == "" && logsObj.list.length == 0) {

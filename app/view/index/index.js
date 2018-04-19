@@ -14,9 +14,7 @@ define([
     var firmId = udata && udata.user && udata.user.firmId;
     var statusRemark = udata && udata.user && udata.user.statusRemark || "无";
     var Decrypt = $.cookie("logs_Decrypt") && JSON.parse($.cookie('logs_Decrypt'));
-    var d_esealCode = Decrypt && Decrypt.logs_esealCode;
-    var d_oid = Decrypt && Decrypt.logs_oid;
-    var d_PKSC7 = Decrypt && Decrypt.logs_dSignature;
+    var d_esealCode = Decrypt && Decrypt.logs_esealCode, d_oid = Decrypt && Decrypt.logs_oid, d_PKSC7 = Decrypt && Decrypt.logs_dSignature;
     var r_Oid, r_esealCode, r_keyType, r_certificateFirm, r_esealStatus;
     var main = Backbone.View.extend({
         el: '.contents',
@@ -522,7 +520,7 @@ define([
             var data = {
                 "esealCode": d_esealCode,
                 "oid": d_oid,
-                "enterpriseCode": enterpriseCode,
+                "enterpriseCode": udata.user.enterpriseCode,
                 "PKSC7": d_PKSC7,
             };
             service.commSignetLog(pageNum, pageSize, data).done(function (data) {
@@ -546,7 +544,7 @@ define([
             pageNum = pageNum || 1;
             pageSize = pageSize || 4;
             var data = {
-                "enterpriseCode": enterpriseCode
+                "enterpriseCode": udata.user.enterpriseCode
             };
             service.getEsealList(pageNum, pageSize, data).done(function (data) {
                 var Esealobj;
