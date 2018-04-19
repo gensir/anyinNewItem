@@ -7,6 +7,7 @@ define([
     var esealCode = localStorage.esealCode;
     var PKSC7 = localStorage.dSignature;
     var enterpriseCode = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.enterpriseCode;
+    var mobile = $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.mobile;
 
     var main = Backbone.View.extend({
         el: '.contents',
@@ -25,9 +26,10 @@ define([
         pageNum = pageNum || 1;
         pageSize = pageSize || 10;
         var data = {
-            "enterpriseCode": enterpriseCode || "11"
+            "mobile": mobile,
+            "enterpriseCode": enterpriseCode
         }
-        service.Operationlog(pageNum, pageSize, data).done(function(data) {
+        service.licenselist(pageNum, pageSize, data).done(function(data) {
             var logsObj;
             if (data.code != 0) {
                 logsObj = {}
@@ -38,8 +40,8 @@ define([
                 _this.model.get("tplhtml").data = logsObj;
                 _this.$el.empty().html(template.compile(tpl)(_this.model.get("tplhtml")));
                 _this.pagination(data.data.pageNum, data.data.totalPages);
-                if (logsObj.list == "" && logsObj.list.length == 0) {
-                    $(".listtext").append("<li><div class='file no'>无操作日志记录！</div></li>").css("margin-bottom", "20px")
+                if (logsObj.list == "" || logsObj.list.length == 0) {
+                    $(".listtext").append("<li><div class='file no'>无积分日志记录！</div></li>").css("margin-bottom", "20px")
                     $(".pagelist").remove();
                 }
                 if (pageNum == 1) {

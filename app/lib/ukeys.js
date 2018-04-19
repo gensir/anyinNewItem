@@ -17,7 +17,7 @@ define([
                 if (ActiveXObject === undefined) {
                     this.data.isAvailableUkey = false;
                 } else {
-                    console.log("uninstall KeyManage");
+                    // console.log("uninstall KeyManage");
                 }
             }
         },
