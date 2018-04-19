@@ -22,7 +22,7 @@
    .wrapper {
        position: relative;
        width: 100%;
-       min-height: 810px;
+       min-height: 790px;
        height: 100%;
        background: #24497e url('../../asset/img/login2.jpg') no-repeat center center;
    }
@@ -111,6 +111,7 @@
        width: 370px;
        padding: 12px 0 12px 38px;
        margin-bottom: 18px;
+       height: 45px;
    }
    
    .phoneTab select {
@@ -119,6 +120,7 @@
        width: 370px;
        padding: 12px 0 12px 38px;
        margin-bottom: 18px;
+       height: 45px;
    }
    
    .ukeyKeyup .phoneTab {

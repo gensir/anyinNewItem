@@ -38,6 +38,7 @@ define(
             },
             logintip: function() {
                 var _this = this;
+                bootbox.hideAll();
                 bootbox.dialog({
                     backdrop: true,
                     closeButton: false,
