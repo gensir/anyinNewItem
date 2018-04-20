@@ -204,7 +204,9 @@ define([
                                         window.open('register.html#step5', '_self')
                                     } else if (res.data == 200) {
                                         localStorage.clear();
-                                        window.open('register.html#step5?code=' + res.msg , '_self')
+                                        var url = 'code=' + res.msg;
+                                        var datas = window.btoa(url);
+                                        window.open('register.html#step5?' + datas , '_self')
                                     } else {
                                         localStorage.regStep = "#step3";
                                         localStorage.removeItem("firmId");
