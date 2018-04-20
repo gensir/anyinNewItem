@@ -43,6 +43,11 @@ body .weui-dialog .weui-dialog__btn.weui-dialog__btn_primary { color: #02adff; }
 .weui-msg__extra-area .weui-footer a { font-size: .28rem; color: #02adff; }
 .weui-msg__extra-area .weui-footer__text { font-size: .24rem; }
 
+.custom-none-icon .weui-toast .weui-icon-success-no-circle:before { content: "\EA0C";color: #999; font-size: 55px; }
+.custom-none-icon .weui-toast { min-height: auto; top: 4rem;  width: auto; margin-left: 0; transform:translateX(-50%); }
+.custom-none-icon .weui-toast .weui-icon_toast { display: none; }
+.custom-none-icon .weui-toast .weui-toast__content { margin: .2rem; }
+
 .usercells { margin-top: .2rem; }
 .usercell { padding: .2rem .3rem; }
 /* 返回上一页 */

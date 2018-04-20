@@ -85,21 +85,20 @@ var wxthird = {
 if (new RegExp(location.host).test(wxdomain)) {
     wxthird.init();
 };
-if (window.document.location.hostname == "localhost") {
+if (location.hostname == "localhost" || /10.9.2/.test(location.hostname)) {
     var wxuserinfo = {
-        "openid": "o9dQ6wvdXHzT9Wta6kLBNMI4sA_w",
-        // "openid": "o9dQ6wrtrOVVFFbRiSKPrPdOo_VU",
+        "openid": "o9dQ6wvdXHzT9Wta6kLBNMI4sA_1",
         "nickname": "张三没有名字",
         "sex": 1,
         "language": "zh_CN",
         "city": "Shenzhen",
         "province": "Guangdong",
         "country": "China",
-        "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/Qic5GhQ3lBGcAIMBibxefz5obtibIqmVDiaFbsnH0r9ua09rpK0wdrKGqYiaCNqOSk5eCyB0ibTzD4o7abfpomBWS5rg/132",
+        "headimgurl": "http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
         "privilege": []
     }
 } else {
-    var wxuserinfo = JSON.parse($.cookie('wxuserinfo'));
+    var wxuserinfo = $.cookie('wxuserinfo') && JSON.parse($.cookie('wxuserinfo'));
 };
 
 function GetLoginUser() {
@@ -151,9 +150,16 @@ function GetLoginUser() {
         } else {
             $.removeCookie('loginuser', { path: "/" });
             if (!/login.html/.test(location.pathname)) {
-                weui.alert("您还未绑定账号！", function () {
-                    window.location.href = 'login.html';
-                }, { title: '提示' });
+                weui.toast('您还未绑定账号', {
+                    duration: 500,
+                    className: 'custom-none-icon',
+                    callback: function(){
+                        window.location.href = 'login.html';
+                    }
+                });
+                // weui.alert("您还未绑定账号！", function () {
+                //     window.location.href = 'login.html';
+                // }, { title: '提示' });
             }
         }
     })

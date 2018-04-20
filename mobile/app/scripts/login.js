@@ -6,9 +6,11 @@
         init: function () {
             if (GetQueryString("login") !== null) {
                 $("#login_form").text("解除绑定");
+                document.title = "账户解绑";
                 login_type = 1;
             } else {
                 $("#login_form").text("绑定账户");
+                document.title = "账户绑定";
                 login_type = 0;
             }
             this.login_success();
@@ -20,7 +22,7 @@
             } else {
                 $("#login").hide();
                 $("#login_ok").show();
-                var i = 3;
+                var i = 2;
                 var intervalid = setInterval(fun, 1000);
                 function fun() {
                     if (i == 0) {
@@ -159,7 +161,7 @@
             $(".errortip").text("请输入你的注册账户名");
         } else if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("账户名为手机号或邮箱");
+            $(".errortip").text("请输入正确的账户名");
         } else {
             $("#login .weui-cell").eq(0).removeClass("weui-cell_warn");
             $(".errortip").text('');
@@ -209,7 +211,7 @@
             $(".errortip").text("请输入你的注册账户名");
         } else if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("账户名为手机号或邮箱");
+            $(".errortip").text("请输入正确的账户名");
         } else if (password.length < 6) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位及以上密码");
