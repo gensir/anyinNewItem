@@ -31,8 +31,8 @@
         "build": "grunt build",
         "postbuild": "grunt uglify:drop"
     },
-    "name": "anyin2",
-    "version": "0.1.0",
+    "name": "ayadmin",
+    "version": "1.2.7",
     "dependencies": {
         "node-sass": "^4.5.3"
     }
