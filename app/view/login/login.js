@@ -148,6 +148,7 @@
                     }
                     if (data.code === 0) {
                         //$.verify("passwd", "#passwd");
+                        localStorage.clear();
                         if (data.data.pointCode == 100) {
                             var numInd = 0;
                             var dialog = bootbox.dialog({
@@ -314,6 +315,7 @@
                         return;
                     }
                     if (data.code === 0) {
+                        localStorage.clear();
                         _this.loginLog(data);
                         $.cookie("loginadmin", JSON.stringify(data.data));
                         window.location.href = "index.html";
