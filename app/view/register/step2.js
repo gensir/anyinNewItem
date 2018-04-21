@@ -34,14 +34,12 @@ define([
             firmId = localStorage.firmId || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).user.firmId;
             pointCode = localStorage.pointCode || $.cookie('loginadmin') && JSON.parse($.cookie('loginadmin')).pointCode;
             //      firmId = "440311062534"
-            if (!firmId) {
+            if ((!firmId||firmId=="null") && ukeys.GetCertCount() != 0 && localStorage.loginODC) {//localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0
+                that.getcompanyODC()
+            } else if (!firmId) {
                 window.open("register.html#step1", "_self");
-                return;
-            }
-            if ((!firmId||firmId=="null")&&ukeys.GetCertCount() != 0) {//localStorage.loginODC && JSON.parse(localStorage.loginODC).keyType == 1 && ukeys.GetCertCount() != 0
-                this.getcompanyODC()
             } else {
-                this.getcompany(firmId);
+                that.getcompany(firmId);
             }
             document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -337,9 +335,9 @@ define([
         },
         getcompanyODC: function () {
             var data = {
-                "enterpriseCode": JSON.parse(localStorage.loginODC).enterpriseCode,
-                "enterpriseName": JSON.parse(localStorage.loginODC).enterpriseName,
-                "pointCode": JSON.parse(localStorage.loginODC).pointCode
+                "enterpriseCode": localStorage.loginODC && JSON.parse(localStorage.loginODC).enterpriseCode,
+                "enterpriseName": localStorage.loginODC && JSON.parse(localStorage.loginODC).enterpriseName,
+                "pointCode": localStorage.loginODC && JSON.parse(localStorage.loginODC).pointCode
             }
             service.toRegisterOdc(data).done(function (data) {
                 console.log(data)

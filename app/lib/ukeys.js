@@ -33,6 +33,7 @@ define([
                 size: "small",
                 title: "提示",
                 message: text,
+                buttons: { ok: { label: '确定', } },
                 callback: function() {
                     /* your callback code */
                 }
