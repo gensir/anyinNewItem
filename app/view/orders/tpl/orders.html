@@ -71,13 +71,13 @@
                                                 <p class="f14">支付信息</p>
                                                 <p>支付方式：<span>{{value.payType==1?"支付宝支付":value.payType==2?"微信支付":value.payType==3?"银联支付":value.payType==4?"ERP支付":value.payType}}</span></p>
                                                 {{if value.businessType==1}}
-                                                <p>受理门店：<span title="{{value.shopName && value.shopName.length>18?value.shopName:" "}}">{{value.shopName && value.shopName.length>16?value.shopName.substr(0,18)+"...":value.shopName}}</span></p>
+                                                <p>受理门店：<span title="{{value.shopName}}">{{value.shopName && value.shopName.length > 16 ? value.shopName.substr(0,18) + "...":value.shopName}}</span></p>
                                                 {{/if}}
                                                 <p>支付单号：<span>{{value.transactionId}}</span></p>
                                                 <p>支付时间：<span>{{value.payTime}}</span></p>
                                                 <p></p>
                                             </div>
-                                            {{if value.payType !=4 }}
+                                            {{if value.payType !=4 && value.orderNo.length > 10 }}
                                             <!-- ERP支付不显示发票信息 -->
                                             <div class="item order">
                                                 <!-- "dfsPdfUrl"为公司发票下载地址,"originalPdfUrl"为百望下载地址 -->
