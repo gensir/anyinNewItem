@@ -118,7 +118,7 @@
 		serverTest: function () {
 			return this.ajaxCall({ url: domain + baseUrl + "sealnet/visitorsList" });
 		},
-		//手机验证码
+		//发送手机验证码
 		getSMSVerifCode: function (data) {
 			return this.ajaxCall({ url: domain + basemp + "common/getSMSVerifCode?mobilePhoneNo=" + data });
 		},

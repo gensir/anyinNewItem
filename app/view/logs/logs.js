@@ -151,14 +151,8 @@ define([
 					size: "small",
 					title: "提示",
 					message: "请输入文档名/印章名",
-					buttons: {
-						ok: {
-							label: '确定',
-						}
-					},
-					callback: function () {
-						that.logSearchs();
-					}
+					buttons: { ok: { label: '确定', } },
+					callback: function () { that.logSearchs(); }
 				});
 				return false;
 			} else {

@@ -213,7 +213,13 @@ define([
                                         window.open('register.html#step3', '_self')
                                     }
                                 } else {
-                                    bootbox.alert(res.msg);
+                                    bootbox.alert({
+                                        closeButton: false,
+                                        size: "small",
+                                        title: "提示",
+                                        message: res.msg,
+                                        buttons: { ok: { label: '确定', } }
+                                    });
                                 }
                             })
                         }
@@ -297,25 +303,19 @@ define([
                 "pointCode": pointCode
             }
             service.toRegister(data).done(function (data) {
-                if (data.data == null) {
-                    bootbox.alert("单位id异常，无法获取到注册用户的信息", function () { window.open('login.html', '_self'); })
-                    return;
-                }
                 if (data.code == 0) {
-                    //				data={
-                    //				    "code": 0,
-                    //				    "msg": "请求成功",
-                    //				    "data": {
-                    //				        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
-                    //				        "businessLicenseNumber": "",
-                    //				        "legalName": "张三疯",
-                    //				        "name": "深圳菱正环保设备有限公司",
-                    //				        "uniformSocialCreditCode": "914403005538853123",
-                    //				        "idcardNumber":"4408231999155656",
-                    //				        "id":"123456789"
-                    //				    }
-                    //				}
                     result = data.data;
+                    if (result == null) {
+                        bootbox.alert({
+                            closeButton: false,
+                            size: "small",
+                            title: "提示",
+                            message: "单位id异常，无法获取到注册用户的信息",
+                            buttons: { ok: { label: '确定', } },
+                            callback: function () { window.open('login.html', '_self'); }
+                        });
+                        return false;
+                    }
                     id = result.id;
                     IDNo = result.idcardNumber;
                     username = data.data.name
@@ -323,7 +323,14 @@ define([
                     that.$el.html(template.compile(registerstep2)({ data: result }));
                     that.$el.append(template.compile(primary, {})());
                 } else {
-                    bootbox.alert(data.msg);
+                    bootbox.alert({
+                        closeButton: false,
+                        size: "small",
+                        title: "提示",
+                        message: data.msg,
+                        buttons: { ok: { label: '确定', } },
+                        callback: function () { window.open('login.html', '_self'); }
+                    });
                 }
                 placeholder();
             })
@@ -336,25 +343,19 @@ define([
             }
             service.toRegisterOdc(data).done(function (data) {
                 console.log(data)
-                if (data.data == null) {
-                    bootbox.alert(data.msg, function () { window.open('login.html', '_self'); })
-                    return;
-                }
                 if (data.code == 0) {
-                    //				data={
-                    //				    "code": 0,
-                    //				    "msg": "请求成功",
-                    //				    "data": {
-                    //				        "address": "宝安区松岗街道罗田第三工业区象山大道15号一楼西面",
-                    //				        "businessLicenseNumber": "",
-                    //				        "legalName": "张三疯",
-                    //				        "name": "深圳菱正环保设备有限公司",
-                    //				        "uniformSocialCreditCode": "914403005538853123",
-                    //				        "idcardNumber":"4408231999155656",
-                    //				        "id":"123456789"
-                    //				    }
-                    //				}
                     result = data.data;
+                    if (result == null) {
+                        bootbox.alert({
+                            closeButton: false,
+                            size: "small",
+                            title: "提示",
+                            message: data.msg,
+                            buttons: { ok: { label: '确定', } },
+                            callback: function () { window.open('login.html', '_self'); }
+                        });
+                        return false;
+                    }
                     id = result.id;
                     IDNo = result.idcardNumber;
                     username = data.data.name
@@ -368,7 +369,14 @@ define([
                     //     return;
                     // }
                 } else {
-                    bootbox.alert(data.msg);
+                    bootbox.alert({
+                        closeButton: false,
+                        size: "small",
+                        title: "提示",
+                        message: data.msg,
+                        buttons: { ok: { label: '确定', } },
+                        callback: function () { window.open('login.html', '_self'); }
+                    });
                 }
             })
         },
