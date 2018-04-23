@@ -12,6 +12,29 @@
                 $("#companyname").text(user.sysUserEntity.username);
                 $("#integral").text((user.totalAmount ? user.totalAmount : '0') + '分');
             }
+        },
+        unbind: function () {
+            var user = $.cookie('loginuser') && JSON.parse($.cookie('loginuser'));
+            var data = {
+                "mobile": user.sysUserEntity.mobile,
+                "wechatUser": {
+                    "openid": wxuserinfo.openid,
+                }
+            }
+            ajaxreq.unbingAccount(data).done(res => {
+                if (res.code == 0) {
+                    $.removeCookie('loginuser', { path: "/" });
+                    weui.toast('解绑成功', { duration: 1000, });
+                    setTimeout(function () {
+                        window.location.href = 'login.html';
+                    }, 1000)
+                } else {
+                    weui.toast(res.msg, {
+                        duration: 1500,
+                        className: 'custom-none-icon',
+                    });
+                }
+            });
         }
     }
     mylist.init();
@@ -25,7 +48,8 @@
                 label: '确定',
                 type: 'primary',
                 onClick: function () {
-                    window.location.href = 'login.html?login=unbind'
+                    mylist.unbind(); //直接解绑，不验证信息
+                    // window.location.href = 'login.html?login=unbind'
                 }
             }]
         });

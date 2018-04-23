@@ -10,5 +10,3 @@ mobile/bower_components
 mobile/.tmp/
 mobile/.vscode
 mobile/.idea
-
-mobile/app/scripts/Plugin/basic.min.js

@@ -107,7 +107,8 @@ function GetLoginUser() {
     };
     ajaxreq.WechatAutoLogin(data).done(function (res) {
         if (res.code == 0 && res.data != null) {
-            var power = res.data.sysUserEntity
+            var power = res.data.sysUserEntity;
+            $.removeCookie('loignnum', { path: "/" });
             if (power.isLocked == true && power.locked == true) {
                 $.removeCookie('loginuser', { path: "/" });
                 if (document.referrer !== "" || (document.referrer == "" && !/login.html/.test(location.pathname))) {

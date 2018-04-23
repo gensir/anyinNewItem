@@ -20,6 +20,10 @@
                 $("#login").show();
                 $("#login_ok").hide();
             } else {
+                if ($.cookie('loignnum') != 1) {
+                    window.location.href = "my.html"
+                    return false;
+                } 
                 $("#login").hide();
                 $("#login_ok").show();
                 var i = 2;
@@ -128,6 +132,7 @@
                         }, { title: '提示' });
                     } else {
                         $.cookie('loginuser', JSON.stringify(res.data), { path: "/" });
+                        $.cookie('loignnum', 1, { path: "/" });
                         weui.toast('绑定成功', { duration: 1500, });
                         setTimeout(function () {
                             that.login_success();
@@ -166,9 +171,9 @@
     });
     $("#password").keyup(function () {
         var password = $("#password").val();
-        if (password.length < 6) {
+        if (password.length < 8) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
-            $(".errortip").text("请输入6位及以上密码");
+            $(".errortip").text("请输入8~20位密码");
         } else {
             $("#login .weui-cell").eq(1).removeClass("weui-cell_warn");
             $(".errortip").text('');
@@ -214,9 +219,9 @@
         } else if (password.length < 1) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
             $(".errortip").text("请输入平台密码");
-        } else if (password.length < 6) {
+        } else if (password.length < 8) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
-            $(".errortip").text("请输入6位及以上密码");
+            $(".errortip").text("请输入8~20位密码");
         } else if (codeid.length < 6) {
             $("#login .weui-cell").eq(2).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位验证码");
