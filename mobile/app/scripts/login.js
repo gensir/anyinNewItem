@@ -51,7 +51,7 @@
                     return false;
                 } else {
                     ele.attr("disabled", true);
-                    ele.text("重新发送(" + countdown + ")");
+                    ele.text(countdown + "秒后重发");
                     countdown--;
                 }
                 ele[0].settimes = setTimeout(function () {
@@ -156,10 +156,7 @@
     login.init();
     $("#username").keyup(function () {
         var username = $("#username").val();
-        if (username.length < 1) {
-            $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("请输入注册账户名");
-        } else if (!mobile.test(username) && !email.test(username)) {
+        if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入正确的账户名");
         } else {
@@ -192,10 +189,12 @@
         }
     });
     $(".weui-vcode-btn").on("click", function () {
-        var username = $("#username").val();
-        if (!mobile.test(username) && !email.test(username)) {
+        var username = $("#username").val();if (username.length < 1) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("你输入的账户名有误");
+            $(".errortip").text("请输入企业账户");
+        } else if (!mobile.test(username) && !email.test(username)) {
+            $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
+            $(".errortip").text("请输入正确的账户名");
         } else {
             $("#login .weui-cell").eq(0).removeClass("weui-cell_warn");
             $(".errortip").text('');
@@ -208,10 +207,13 @@
         var codeid = $("#codeid").val();
         if (username.length < 1) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("请输入注册账户名");
+            $(".errortip").text("请输入企业账户");
         } else if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入正确的账户名");
+        } else if (password.length < 1) {
+            $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
+            $(".errortip").text("请输入平台密码");
         } else if (password.length < 6) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
             $(".errortip").text("请输入6位及以上密码");
