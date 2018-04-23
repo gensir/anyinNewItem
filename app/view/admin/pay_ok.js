@@ -104,11 +104,7 @@ define([
 							windowLocation = "orders.html";
 						}
 					} else if(businessType == 2) {
-						if(localStorage.u_keyType ==1){  //1为ODC
-							$(".text_tip").hide();
-							$(".lcocation_page").text("订单中心页面");
-							windowLocation = "orders.html";
-						}else{
+						if(localStorage.u_keyType ==2){  //2IYIN
 							if(localStorage.u_certificateFirm==1||localStorage.u_certificateFirm==2){  //1为GDCA  2为NETCA
 								$(".text_tip").hide();
 								$(".lcocation_page").text("证书更新页面");
@@ -118,7 +114,11 @@ define([
 								$(".lcocation_page").text("订单中心页面");
 								windowLocation = "orders.html";
 							}
-						}
+						}else{
+                            $(".text_tip").hide();
+							$(".lcocation_page").text("订单中心页面");
+							windowLocation = "orders.html";
+                        }
 					}
 				} else { //订单状态查询请求失败
 					console.log(res.msg)
