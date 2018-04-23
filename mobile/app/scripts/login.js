@@ -158,7 +158,7 @@
         var username = $("#username").val();
         if (username.length < 1) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("请输入你的注册账户名");
+            $(".errortip").text("请输入注册账户名");
         } else if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入正确的账户名");
@@ -208,7 +208,7 @@
         var codeid = $("#codeid").val();
         if (username.length < 1) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
-            $(".errortip").text("请输入你的注册账户名");
+            $(".errortip").text("请输入注册账户名");
         } else if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
             $(".errortip").text("请输入正确的账户名");
