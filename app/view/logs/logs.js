@@ -198,7 +198,7 @@ define([
 						logsObj = data.data;
 						_this.model.set("totalPages", data.data.totalPages);
 						_this.model.get("tplhtml").data = logsObj;
-						_this.$el.append(template.compile(logsTpl)(_this.model.get("tplhtml")));
+						_this.$el.append(template.compile(tpl)(_this.model.get("tplhtml")));
 						$(".contents>.logcon:not(:last)").remove();
 						_this.pagination(data.data.pageNum, data.data.totalPages);
 						//$(".datetimepicker").remove();
