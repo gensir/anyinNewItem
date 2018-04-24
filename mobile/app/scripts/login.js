@@ -49,7 +49,7 @@
             function settime() {
                 if (countdown == 0) {
                     ele.removeAttr("disabled");
-                    ele.text("获取验证码");
+                    ele.text("发送验证码");
                     countdown = 60;
                     clearTimeout(ele[0].settimes);
                     return false;
