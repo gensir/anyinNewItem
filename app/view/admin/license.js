@@ -131,8 +131,9 @@ define([
                                             $(_this).find(".btn1,.btn2").hide();
                                         }
                                         setTimeout(function () {
-                                            window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
+                                            location.reload();
+                                            // window.open("admin.html#license", "_self")
                                         }, 3000)
 
                                     })
@@ -247,8 +248,9 @@ define([
                                             $(_this).find(".btn1,.btn2").hide();
                                         }
                                         setTimeout(function () {
-                                            window.open("admin.html?page=license", "_self")
                                             _this.modal('hide');
+                                            location.reload();
+                                            // window.open("admin.html#license", "_self")
                                         }, 3000)
                                     })
                                 } else {
