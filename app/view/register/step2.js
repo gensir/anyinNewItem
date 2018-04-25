@@ -181,7 +181,7 @@ define([
                 service.checkSmsCode(code, phone).done(function (data) {
                     if (data.code == 0) {
                         if (!validflag) {
-                            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || null;
+                            enterpriseCode = result.uniformSocialCreditCode || result.organizationCode || result.businessLicenseNumber || null;
                             var data = {
                                 "mobile": mobile,
                                 "password": passwd,
