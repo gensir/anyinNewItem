@@ -80,7 +80,7 @@ define([
                     title: false,
                     message: '<div class="dialog_adbox">' +
                         '<button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"></button>' +
-                        '<a class="adlink" href="#" target="_blank" title="立即兑换"></a>' +
+                        '<a class="adlink" href="https://www.i-yin.net/index.php?c=article&id=312" target="_blank" title="立即兑换"></a>' +
                         '<img src="./app/asset/img/integral_ad.png" alt="">' +
                         '</div>',
                     buttons: false

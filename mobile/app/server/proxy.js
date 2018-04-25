@@ -1,5 +1,4 @@
 ﻿var proxy = {
-    seal: 'http://192.168.1.135:9282',
     wx: 'https://api.weixin.qq.com',
     anyinUrl:'http://192.168.1.159:9500',//开发环境
     //anyinUrl: 'http://183.62.140.54',//开发环境
