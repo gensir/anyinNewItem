@@ -19,7 +19,8 @@
                             <span class="text col3 hide-text">{{value.esealFullName}}</span>
                             <span class="text col4">{{value.signType==1?"单页签章":value.signType==2?"骑缝签章":value.signType==3?"手写签章":value.signType==4?"多页签章": "单页签章"}}</span>
                             <span class="text col5">
-                                {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}} {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
+                                {{if value.operateStatus == 0}}<span style="color:#08c34e">成功</span>{{/if}}
+                                {{if value.operateStatus == 1}}<span style="color:#f00">失败</span>{{/if}}
                             </span>
                         </div>
                         <div class="details">
@@ -41,7 +42,7 @@
                             </dl>
                             <dl class="signet help">
                                 <dt>设备信息</dt>
-                                <dd class="hide-text">IP地址：<span></span>{{value.ip}}　{{value.ipLocation}}</span></dd>
+                                <dd class="hide-text">IP地址：<span></span>{{value.ip}}　{{value.ipLocation?"":value.ipLocation}}</span></dd>
                                 <dd>MAC地址：<span>{{value.mac}}</span></dd>
                                 <dd>设备名称：<span>{{value.clientOsName}}</span></dd>
                                 <dd>操作系统：<span>{{value.clientOsEnv}}</span></dd>
