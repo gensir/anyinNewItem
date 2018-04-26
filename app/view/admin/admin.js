@@ -198,7 +198,7 @@ define([
             var dialogsText = dialogs.find(".unfreezeEseal");
             bootbox.dialog({
                 backdrop: true,
-                closeButton: false,
+                // closeButton: false,
                 className: "common unfreezeEseal",
                 title: dialogsText.find(".title")[0].outerHTML,
                 message: dialogsText.find(".msg1").find("span").text('“' + esealFullName + '”').end()[0].outerHTML,

@@ -29,7 +29,6 @@ define([
             'click .pagination .PreviousPage:not(".no")': 'PreviousPage',
             'click .pagination .NextPage:not(".no")': 'NextPage',
             'click .pagination .index': 'currentPapge',
-            'click #step': 'step'
         },
         getSealName: function (target) {
             var _this = target.currentTarget;
@@ -372,9 +371,6 @@ define([
             this.active = $("#pageLimit .NextPage");
             console.log(this.model.get("totalPages"))
             this.pagediv(this.model.get("totalPages"), this.model.get("totalPages"))
-        },
-        step: function () {
-            localStorage.stepNum = "#step1"
         }
     });
     return main;
