@@ -159,7 +159,10 @@
         }
     }
     login.init();
-    $("#username").keyup(function () {
+    $("#username,#password,#codeid").keyup(function () {
+        $(".errortip").text('');
+    });
+    $("#username").change(function () {
         var username = $("#username").val();
         if (!mobile.test(username) && !email.test(username)) {
             $("#login .weui-cell").eq(0).addClass("weui-cell_warn");
@@ -169,7 +172,7 @@
             $(".errortip").text('');
         }
     });
-    $("#password").keyup(function () {
+    $("#password").change(function () {
         var password = $("#password").val();
         if (password.length < 8) {
             $("#login .weui-cell").eq(1).addClass("weui-cell_warn");
@@ -179,7 +182,7 @@
             $(".errortip").text('');
         }
     });
-    $("#codeid").keyup(function () {
+    $("#codeid").change(function () {
         var codeid = $("#codeid").val();
         var username = $("#username").val();
         if (codeid.length <= 5) {
